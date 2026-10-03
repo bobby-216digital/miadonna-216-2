@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "f1d965db-f5b9-41c6-8853-93db33054d43": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "faqs-care-repair"
+          }
+        },
+        "custom_html_f93jyf": {
+          "type": "custom_html",
+          "settings": {
+            "html": "<script type=\"application\/ld+json\">\n{\n  \"@context\": \"https:\/\/schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [{\n    \"@type\": \"Question\",\n    \"name\": \"How do I clean my jewelry?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"The best way to clean your MiaDonna jewelry is with the jewelry cleaner included with your purchase. Allow your jewelry to soak in the solution for a few minutes to dissolve the grease from body oils, which play a large part in trapping dirt onto your jewelry, especially rings. Use the enclosed brush to gently clean the jewelry to break-up trapped dirt. Be sure to get the underside of your stone with the brush if possible - build up on the underside of gems makes them appear dull and gray. Rinse in clean water and pat dry. If you run out of solution, you can order more jewelry cleaner , or use mild hand soap with warm water. You can also stop by our store and we can do it for you! We offer complimentary professional ring cleaning at any point post-purchase (polish is an additional cost, plus shipping).\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How can I take care of my diamond jewelry?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"To care for diamond jewelry, avoid exposing it to harsh chemicals, such as household cleaners, and store it separately to prevent scratches. Regularly clean your diamond jewelry using a mild solution of warm water and mild soap, gently brushing it with a soft toothbrush.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How can I care for lab-created gemstones?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Lab-created gemstones can be cared for similarly to natural gemstones. Clean them with mild soap and warm water, and avoid exposing them to harsh chemicals or high temperatures. It's also advisable to store them separately to prevent scratches.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Do you offer a warranty on your settings?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"We do not offer a warranty on your Diamond Hybrid®, Lab Created Gemstone and\/or Lab Grown Diamond. However, we do offer a warranty on the setting itself in the case there is a manufacturing defect. If there is any wear and tear then the setting will not be covered under warranty. If there is any kind of manufacturing defect on one of our settings we will cover all the costs associated with the repair or remake and we will reimburse you for any shipping fees you incur. We are also happy to offer free cleaning services, as well as free center\/side stone tightening, with the only cost to you being shipping to and from our location. Other repairs, such as accenting stone replacement, resizing, polishing, prong repair, etc. usually have costs associated with them.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Are precious metals scratch resistant?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Unfortunately, all precious metals aren't completely scratch resistant. Rings are especially susceptible to damage as they endure all of the wear and tear our hands do. The everyday abrasions of clothing, sheets, towels, seatbelts, etc., can all contribute to wearing away the metal in our jewelry. Handling materials such as hard leather, wood, and plastic can also contribute to superficial scuff marks on the surface of a ring.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How can you check if a stone is loose in the setting?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"The safest way to check if a stone is loose in the setting is to hold the ring by the base of the band close to your ear and gently tap it. If you hear a rattling noise then your stone is loose and needs to be sent in for tightening. Please note: Some fancy shapes like a square princess cut should be set a little loose so not to put too much pressure on the stone's corners.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What services do you offer?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"We offer a variety of services such as ring resizing, side stone replacement, center stone tightening, and much more. Learn more about all of MiaDonna's services.\"\n    }\n  }]\n}\n<\/script>"
+          }
+        }
+      },
+      "block_order": [
+        "f1d965db-f5b9-41c6-8853-93db33054d43",
+        "custom_html_f93jyf"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

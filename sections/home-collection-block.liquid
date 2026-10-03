@@ -1,0 +1,402 @@
+<style>
+    #shopify-section-{{ section.id }} .home-collection-block--slider{
+      width: 95%;
+      margin-bottom:30px
+    }
+    {% comment %} #shopify-section-{{ section.id }} .flickity-viewport{
+      margin-left: -5px;
+    } {% endcomment %}
+    #shopify-section-{{ section.id }} .flickity-button{
+      top: 45%;
+      padding: 0;
+      outline: none;
+      box-shadow: none;
+      background-color: transparent;
+    }
+    .flickity-prev-next-button .flickity-button-icon{
+      margin: 0;
+    }
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.previous{
+      left: -20px;
+    }
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.next{
+      right: -30px;
+    }
+    #shopify-section-{{ section.id }} .column{
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .collection-block-wrapper h2 {
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: 500;
+  }
+    .home-collection-block .collection-block-wrapper h3 {
+      font-size: 16px;
+      text-align: left !important;
+      font-weight: 300 !important;
+      text-transform: initial !important;
+      line-height: 26px;
+      margin-bottom:10px;
+    }
+    {% comment %} .home-collection-block .collection-block .hover-image{
+      display:none;
+    }
+    .home-collection-block .collection-block:hover .before-image{
+      display:none;
+    }
+    .home-collection-block .collection-block:hover .hover-image{
+      display:block;
+    } {% endcomment %}
+     .home-collection-block .collection-link{
+       position:relative;
+     }
+    .home-collection-block .collection-link:after{
+      background-color: #dea595;
+      bottom: -2px;
+      content: "";
+      height: 2px;
+      left: 0;
+      position: absolute;
+      transition: width .8s;
+      width: 80px;
+      z-index: 0;
+    }
+    .home-collection-block .collection-link:hover::after{
+      width:0;
+    }
+
+    #shopify-section-{{ section.id }} .home-collection-block--slider.no-slider .image-element__wrap{
+      margin: 0;
+    }
+     #shopify-section-{{ section.id }} .collection-block .image-element__wrap {
+      height: auto;
+      /* max-width: 100% !important; */
+      border-radius:0;
+    }
+    .collection-block img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 0;
+    }
+    .collection-block h6{
+      text-align: center;
+      margin-top: 15px;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+    @media screen and (min-width: 768px){
+      #shopify-section-{{ section.id }} .flickity-prev-next-button.previous{
+        left: -5px;
+      }
+      #shopify-section-{{ section.id }} .flickity-prev-next-button.next{
+        right: -5px;
+      }
+    }
+    @media screen and (max-width: 798px){
+      #shopify-section-{{ section.id }} .is-tablet-hidden {
+        display:none;
+      }
+    }
+    @media screen and (max-width: 767px){
+      #shopify-section-{{ section.id }} .is-mobile-hidden {
+        display:none;
+      }
+      .home-collection-block .small-down--one-half {
+          width: 60% !important;
+        }
+      .home-collection-block .collection-block-wrapper h2 {
+      font-size: 18px;
+      }
+      .home-collection-block .collection-block-wrapper h3{
+        font-size: 14px;
+      }
+      .collection-block h6{
+        font-size: 15px;
+      }
+      .flickity-prev-next-button .flickity-button-icon {
+        width: 20px;
+        height: 20px;
+      }
+       #shopify-section-{{ section.id }} .flickity-prev-next-button.previous{
+      left: 0px;
+    }
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.next{
+      right: 0px;
+    }
+    }
+</style>
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if section.settings.hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .home-collection-block--slider.no-slider:after {
+    content: "flickity";
+    display: none; /* hide :after */
+  }
+  @media screen and (min-width: 1025px) {
+    /* disable Flickity for large devices */
+    #shopify-section-{{ section.id }} .home-collection-block--slider.no-slider:after {
+      content: "";
+    }
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-collection-blocks
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div class="collection-block-wrapper">
+    {% if section.settings.main_title != blank %}
+      <div style="color: {{ section.settings.text_color }};">{{ section.settings.main_title }}</div>
+    {% endif %}
+    <div
+      class="container home-collection-block--slider{% if section.blocks.size <= 5 %} no-slider{% endif %}"
+      style="flex-wrap: nowrap;"
+      data-products-per-slide="5"
+      data-products-limit="{% if section.blocks.size > 5 %}15{% else %}5{% endif %}"
+      data-products-available="{% if section.blocks.size > 5 %}15{% else %}5{% endif %}"
+    >
+      {% for block in section.blocks %}
+        <div class="collection-block one-fifth column large-down--one-fourth medium-down--one-third small-down--one-half{% if forloop.index > 2 %} is-mobile-hidden{% endif %}{% if forloop.index > 3 %} is-tablet-hidden{% endif %}{% if forloop.index > 5 %} is-hidden{% endif %}">
+          {% if block.settings.url != blank %}
+            <a
+              href="{{ block.settings.url }}"
+              class="collection-link"
+              style="color: {{ section.settings.text_color }};"
+            >
+          {% endif %}
+          {% if block.settings.image != blank %}
+            {% render 'image-element',
+              image: block.settings.image,
+              alt: block.settings.image_alt,
+              additional_classes: 'before-image'
+            %}
+          {% else %}
+            <div class="image-element__wrap" style="height: auto;">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+          {% comment %}
+            {% if block.settings.image-2 != blank %}
+                {%
+                  render 'image-element',
+                  image: block.settings.image-2,
+                  alt: block.settings.image_alt,
+                  additional_classes:'hover-image',
+                %}
+            {% endif %}
+          {% endcomment %}
+          {% if block.settings.title != blank %}
+            <h6 style="color: {{ section.settings.text_color }};">{{ block.settings.title }}</h6>
+          {% endif %}
+          {% if block.settings.url != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsHomeCollectionBlock.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Home Collection Block",
+  "class": "collection-block home-collection-block jsHomeCollectionBlocks",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "label": "Main Title",
+      "id": "main_title",
+      "default": "Find your perfect Wedding Ring"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_block",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "image_picker",
+          "label": "Hover Image",
+          "id": "image-2"
+        },
+        {
+          "type": "text",
+          "label": "Image Alt Text",
+          "id": "image_alt"
+        },
+        {
+          "type": "html",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "url",
+          "label": "Collection Link",
+          "id": "url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home collection block"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,749 @@
+{% comment %}
+  Optional values
+  display_thumbnails: <boolean>
+  thumbnail_position: <string>
+  enable_thumbnail_slider: <boolean>
+  gallery_arrows: <boolean>
+  slideshow_transition: <string>
+  enable_product_lightbox: <boolean>
+{% endcomment %}
+
+{% comment %}Assign object as block or section{% endcomment %}
+{% if type == 'block' %}
+  {% assign object = block %}
+{% else %}
+  {% assign object = section %}
+{% endif %}
+
+{%- assign display_thumbnails = display_thumbnails | default: object.settings.display_thumbnails -%}
+{%- assign thumbnail_position = thumbnail_position | default: object.settings.thumbnail_position -%}
+{%- assign enable_thumbnail_slider = enable_thumbnail_slider | default: object.settings.enable_thumbnail_slider -%}
+{%- assign gallery_arrows = gallery_arrows | default: object.settings.gallery_arrows -%}
+{%- assign slideshow_transition = slideshow_transition | default: object.settings.slideshow_transition -%}
+{%- assign enable_product_lightbox = enable_product_lightbox | default: object.settings.enable_product_lightbox -%}
+
+{% style %}
+  #custom-product-image--section .flickity-page-dots .dot:last-child {display: none;}
+  .after-check-el#custom-product-image--section .flickity-page-dots .dot:last-child {display: inline-block;}
+  .shopify-model-viewer-ui model-viewer {
+    --progress-bar-height: 2px;
+    --progress-bar-color: {{ settings.regular_color }};
+  }
+
+  {% if set_product_height == true %}
+    .product-{{ product.id }} .product-gallery__model model-viewer {
+      min-height: {{ product_height }}px;
+    }
+
+    .product-{{ product.id }} .product-gallery__main img,
+    .product-{{ product.id }} .product-gallery__main .plyr--html5 video,
+    .product-{{ product.id }} .product-gallery__main .plyr--youtube {
+      max-height: {{ product_height }}px;
+    }
+  {% endif %}
+{% endstyle %}
+
+{% assign featured_image = product.selected_or_first_available_variant.featured_image
+  | default: product.featured_image
+%}
+
+<style>
+  #product-image--section:not(.flickity-enabled){
+    opacity: 1;
+    min-height:500px;
+  }
+  #product-image--section:not(.flickity-enabled) .product-gallery__image.first-image{
+    visibility: visible;
+  }
+  #product-image--section:not(.flickity-enabled) .product-gallery__image:not(.first-image){
+    display: none;
+  }
+  /* #custom-product-image--section .flickity-viewport{ height: 550px; }
+  @media screen and (max-width: 575px) {
+    #custom-product-image--section .flickity-viewport{ height: 350px; }
+  } */
+  #custom-product-image--section .image__video-container::before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+  #custom-product-image--section .image__video-container video {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    object-fit: contain;
+  }
+</style>
+{%- comment -%}
+{% assign allow_image_convention = product.metafields.attributes.allow_image_convention | plus: 0 %}
+{% assign allow_video_convention = product.metafields.attributes.allow_video_convention | plus: 0 %}
+{%- endcomment -%}
+{%- liquid
+  ##speedsizeIgnore##
+  assign allow_image_convention = product.metafields.attributes.allow_image_convention | plus: 0
+  assign allow_video_convention = product.metafields.attributes.allow_video_convention | plus: 0
+  ##endSpeedsizeIgnore##
+-%}
+<div class="product-gallery--background{% if product.metafields.attributes.allow_image_convention != blank and product.metafields.attributes.allow_image_convention != '0' %} has-image-conversion{% endif %}">
+  <mage-wishlist-heart product-id="{{ product.id }}"></mage-wishlist-heart>
+  {%- comment -%}
+  <!-- Swym Wishlist Plus EPI Button -->
+  <button
+    data-with-epi="true"
+    class="swym-button swym-add-to-wishlist-view-product product_{{product.id}}"
+    data-swaction="addToWishlist"
+    data-product-id="{{product.id | json}}"
+    data-variant-id="{{product.variants[0].id}}"
+    data-product-url="{{ shop.url }}{{ product.url }}"
+  ></button>
+  <!-- Swym Wishlist Plus EPI Button -->
+  {%- endcomment -%}
+  {%- comment -%}PDP badge condition same as PLP{%- endcomment -%}
+  {%- capture image_badge -%}
+    {% if product.metafields.custom.badge == 'Best Seller' and collection.handle != 'best-seller' %}
+      <span class="collection-badge best-seller">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'New Arrival' and collection.handle != 'new-arrivals' %}
+      <span class="collection-badge new-arrival">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Ready to Ship' and collection.handle != 'ready-to-ship' %}
+      <span class="collection-badge ready-to-ship">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Mother&apos;s Day Special'
+      and collection.handle != 'mother&apos;s-day-special'
+    %}
+      <span class="collection-badge mother&apos;s-day-special">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'More Shapes' and collection.handle != 'more-shapes' %}
+      <span class="collection-badge more-shapes">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Staff Favorite' and collection.handle != 'staff-favorite' %}
+      <span class="collection-badge staff-favorite">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Hidden Halo' and collection.handle != 'hidden-halo' %}
+      <span class="collection-badge hidden-halo">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Special Price' and collection.handle != 'special-price' %}
+      <span class="collection-badge special-price">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Only a Few Left' and collection.handle != 'only-a-few-left' %}
+      <span class="collection-badge only-a-few-left">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Mixed Shape' and collection.handle != 'mixed-shape' %}
+      <span class="collection-badge mixed-shape">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Ready to Wear' and collection.handle != 'ready-to-wear' %}
+      <span class="collection-badge ready-to-wear">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Statement Style' and collection.handle != 'statement-style' %}
+      <span class="collection-badge statement-style">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Online Exclusive' and collection.handle != 'online-exclusive' %}
+      <span class="collection-badge online-exclusive">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'New Design' and collection.handle != 'new-design' %}
+      <span class="collection-badge new-design">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Trending Style' and collection.handle != 'trending-style' %}
+      <span class="collection-badge trending-style">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'MiaDonna Exclusive' and collection.handle != 'miadonna-exclusive' %}
+      <span class="collection-badge miadonna-exclusive">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Matching Band' and collection.handle != 'matching-band' %}
+      <span class="collection-badge matching-band">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Bundle and Save' and collection.handle != 'bundle-and-save' %}
+      <span class="collection-badge bundle-and-save">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Customizable' and collection.handle != 'customizable' %}
+      <span class="collection-badge customizable">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Gift Set' and collection.handle != 'gift-set' %}
+      <span class="collection-badge gift-set">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Bundle and Save' and collection.handle != 'bundle-and-save' %}
+      <span class="collection-badge bundle-and-save">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Statement Style' and collection.handle != 'statement-style' %}
+      <span class="collection-badge statement-style">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Exceptional Value' and collection.handle != 'exceptional-value' %}
+      <span class="collection-badge exceptional-value">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Signature Collection' and collection.handle != 'signature-collection' %}
+      <span class="collection-badge signature-collection">{{ product.metafields.custom.badge }}</span>
+    {% else %}
+      {% comment %}
+        {% if product.compare_at_price_max > product.price %}
+          {% assign price = product.price %}
+          {% assign compare_at_price = product.compare_at_price_max %}
+          {% assign discount_percentage = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price %}
+          <span class="collection-badge percent-count"> REDUCED BY {{ discount_percentage | round: 0 }}% </span>
+        {% endif %}
+      {% endcomment %}
+    {% endif %}
+  {%- endcapture -%}
+  {%- unless image_badge == blank -%}
+    <div class="product-image-badge">
+      {{ image_badge | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+    </div>
+  {%- endunless -%}
+  <div
+    class="product-gallery product-gallery__thumbnails--{{ display_thumbnails }} product-gallery--media-amount-{{ product.media.size }} slideshow-transition--{{ slideshow_transition }} {% if thumbnail_position %} product-gallery--{{ thumbnail_position }}{% endif %} display-arrows--{{ gallery_arrows }} {% if set_product_height == true %} has-height-set{%endif %}"
+    data-enable-zoom="{{ enable_zoom }}"
+    data-video-loop="{{ video_looping  }}"
+  >
+    {% if settings.product_image_skeleton and allow_image_convention > 0 %}
+      <style>
+        .allow-image-convention-loading {
+          height: auto;
+          display: flex;
+          align-items: center;
+        }
+        .allow-image-convention-loading svg {
+          width: 100%;
+          height: 100%;
+        }
+        @media screen and (max-width: 575px) {
+          .allow-image-convention-loading {
+            min-height: 350px;
+          }
+        }
+        .allow-image-convention-loading.lazyloaded {
+          /* display: none !important; */
+          height: 0;
+          transition: all 0.5s ease-in-out;
+        }
+      </style>
+      <div class="allow-image-convention-loading is-not-hidden">
+        <svg
+          role="img"
+          width="822"
+          height="575"
+          aria-labelledby="loading-aria"
+          viewBox="0 0 250 90"
+          preserveAspectRatio="none"
+        >
+          <title id="loading-aria">Loading...</title>
+          <rect x="0" y="0" width="100%" height="100%" clip-path="url(#clip-path)" style='fill: url("#fill");'></rect>
+          <defs>
+            <clipPath id="clip-path">
+              <rect x="10" y="40" rx="0" ry="0" width="20" height="10"></rect>
+              <rect x="50" y="10" rx="0" ry="0" width="150" height="70"></rect>
+              <rect x="220" y="40" rx="6" ry="0" width="20" height="10"></rect>
+            </clipPath>
+            <linearGradient id="fill">
+              <stop offset="0.599964" stop-color="#f3f3f3" stop-opacity="1">
+                <animate attributeName="offset" values="-2; -2; 1" keyTimes="0; 0.25; 1" dur="2s"
+                  repeatCount="indefinite"></animate>
+              </stop>
+              <stop offset="1.59996" stop-color="#ecebeb" stop-opacity="1">
+                <animate attributeName="offset" values="-1; -1; 2" keyTimes="0; 0.25; 1" dur="2s"
+                  repeatCount="indefinite"></animate>
+              </stop>
+              <stop offset="2.59996" stop-color="#f3f3f3" stop-opacity="1">
+                <animate attributeName="offset" values="0; 0; 3" keyTimes="0; 0.25; 1" dur="2s"
+                  repeatCount="indefinite"></animate>
+              </stop>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    {% endif %}
+
+    {%- if allow_image_convention == 0 -%}
+      <div
+        id="product-image--section"
+        class="product-gallery__main slideshow-transition--{{ slideshow_transition }} block-active {% if product.metafields.vdb_product.vdb_video_url == blank and product.metafields.attributes.vimeo_id == blank %} relative{% endif %}"
+        data-product-id="{{ product.id }}"
+        data-media-count="{{ product.media.size }}"
+      >
+        {% for media in product.media limit: 6 %}
+          {% if media.src contains 'webwhite'
+            or media.src contains 'WebWhite'
+            or media.src contains 'white'
+            or media.src contains 'White'
+            or media.src contains 'home_try-on'
+            or media.src contains 'hero'
+            or media.src contains 'Hero'
+          %}
+            {% comment %} Check alt text for video iframe {% endcomment %}
+            {% if forloop.index == 1 %}
+              <div
+                class="product-gallery__image first-image"
+                data-product-id="{{ product.id }}"
+              >
+                <h6 class="product-alt text-center">{{ image_alt | split: '|' | first | escape | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</h6>
+                {% if enable_product_lightbox and product.media.size > 0 %}
+                  <a
+                    href="{{ media | img_url: '2048x' }}"
+                    class="product-gallery__link"
+                    data-fancybox="product-gallery"
+                    title="{{ image_alt | split: '|' | first | escape }}"
+                  >
+                {% endif %}
+                <div class="image__container" style="max-width: {{ media.width }}px">
+                  {{
+                    media
+                    | image_url: width: 1200
+                    | image_tag: alt: media.alt, preload: true, fetchpriority: 'high' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                  }}
+                </div>
+                {% if enable_product_lightbox and product.media.size > 0 %}
+                  </a>
+                {% endif %}
+              </div>
+            {% else %}
+              {% render 'images-loop', media: media, template_name: template_name, enable_product_lightbox: enable_product_lightbox %}
+            {% endif %}
+          {% else %}
+            {% if forloop.index == 1 %}
+              <div
+                class="product-gallery__image "
+                data-product-id="{{ product.id }}"
+              >
+                <h6 class="product-alt text-center">{{ image_alt | split: '|' | first | escape | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</h6>
+                {% if enable_product_lightbox and product.media.size > 0 %}
+                  <a
+                    href="{{ media | img_url: '2048x' }}"
+                    class="product-gallery__link"
+                    data-fancybox="product-gallery"
+                    title="{{ image_alt | split: '|' | first | escape }}"
+                  >
+                {% endif %}
+                <div class="image__container" style="max-width: {{ media.width }}px">
+                  {{
+                    media
+                    | image_url: width: 1200
+                    | image_tag: alt: media.alt, preload: true, fetchpriority: 'high' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                  }}
+                </div>
+                {% if enable_product_lightbox and product.media.size > 0 %}
+                  </a>
+                {% endif %}
+              </div>
+            {% else %}
+              {% render 'images-loop', media: media, template_name: template_name, enable_product_lightbox: enable_product_lightbox %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {% for media in product.media limit: 3 offset: continue %}
+          {% if media.src contains 'lifestyle' or media.src contains 'Lifestyle' %}
+            {% comment %} Check alt text for video iframe {% endcomment %}
+            {% render 'images-loop', media: media, template_name: template_name, enable_product_lightbox: enable_product_lightbox %}
+          {% endif %}
+        {% endfor %}
+        {% comment %}
+          {% for media in product.media %}
+             Check alt text for video iframe
+            <div
+              class="product-gallery__image is-hidden"
+              data-product-id="{{ product.id }}"
+              data-title="{% if image_alt contains 'youtube' or image_alt contains 'vimeo' %}{{ product.title }}{% else %}{{ image_alt | escape  }}{% endif %}"
+              data-media-type="{% if media.alt contains 'youtube' or media.alt contains 'vimeo' %}external_video{% else %}{{ media.media_type }}{% endif %}"
+            >
+              {% case media.media_type %}
+                {% when 'image' %}
+                  {% capture image_id %}{{ media.id }}{% endcapture %}
+                  {% capture image_alt %}{{ media.alt | escape }}{% endcapture %}
+                  {% capture image_100x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '100x' }}{% endcapture %}
+                  {% capture image_200x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '200x' }}{% endcapture %}
+                  {% capture image_400x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '400x' }}{% endcapture %}
+                  {% capture image_600x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '600x' }}{% endcapture %}
+                  {% capture image_800x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '800x' }}{% endcapture %}
+                  {% capture image_1200x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '1200x' }}{% endcapture %}
+                  {% capture image_2000x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '2000x' }}{% endcapture %}
+                  {% capture image_5000x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '5000x' }}{% endcapture %}
+
+                  {% if image_alt contains 'youtube' or image_alt contains 'vimeo' %}
+                    {% assign alt_text = image_alt | split: ' ' %}
+                    {% for property in alt_text %}
+                      {% if property contains 'src' %}
+                        {% assign cleanURL = property | remove: 'src=' | remove: '&quot;' | remove: '"' %}
+                        <div class="product-gallery__video" data-youtube-video>
+                          <iframe src="{{ cleanURL  }}" frameborder="0"></iframe>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+
+                  {% else %}
+                    {% if enable_product_lightbox and product.media.size > 0 %}
+                      <a
+                        href="{{ media | img_url: '2048x' }}"
+                        class="product-gallery__link"
+                        data-fancybox="{{ product.id }}"
+                        title="{{ image_alt | split: '|' | last }}"
+                      >
+                    {% endif %}
+
+                    <div class="image__container" style="max-width: {{ media.width }}px">
+                      <img
+                        id="{{ media.id }}"
+                        class="lazyload lazyload--fade-in"
+                        alt="{{ image_alt | split: '|' | last  }}"
+                        data-zoom-src="{{ image_5000x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"
+                        data-image-id="{{ product.media[forloop.index0].id }}"
+                        data-index="{{ forloop.index0 }}"
+                        data-sizes="auto"
+                        data-src="{{ image_1200x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"
+                        data-srcset="
+                          {{ image_200x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }} 200w,
+                          {{ image_400x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }} 400w,
+                          {{ image_600x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }} 600w,
+                          {{ image_800x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }} 800w,
+                          {{ image_1200x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }} 1200w,
+                          {{ image_2000x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }} 2000w
+                        "
+                        data-aspectratio="{{ media.width }}/{{ media.height }}"
+                        height="{{ media.height }}"
+                        width="{{ media.width }}"
+                        srcset="data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='{{ media.width }}'%20height='{{ media.height }}'></svg>"
+                      >
+                    </div>
+
+                    <noscript>
+                      <img
+                        src="{{ image_1200x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"
+                        alt="{{ image_alt | escape  }}"
+                        class="lazyloaded lazyload fallbackImage"
+                      >
+                    </noscript>
+
+                    {% if enable_product_lightbox and product.media.size > 0 %}
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                {% when 'external_video' %}
+                  <div class="product-gallery__video" data-youtube-video>
+                    {{ media | external_video_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                  </div>
+                {% when 'video' %}
+                  <div class="product-gallery__video" data-html5-video>
+                    {{ media | video_tag: image_size: '300x300', controls: true | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                  </div>
+                {% when 'model' %}
+                  <div class="product-gallery__model is-relative">
+                    {{ media | model_viewer_tag: reveal: 'interaction', toggleable: true, image_size: '800x800' }}
+
+                    <button
+                      class="action_button view-in-your-space"
+                      data-shopify-xr
+                      data-shopify-model3d-id="{% if media.media_type == 'model' %}{{ media.id }}{% else %}{{ has_model.id }}{% endif %}"
+                      data-shopify-title="{{ product.title }}"
+                      style="display: none;"
+                    >
+                      <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16 9L22.0622 12.5V19.5L16 23L9.93782 19.5V12.5L16 9Z" stroke="#3A3A3A" stroke-width="1.5"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16 23V15.6024C16.6225 15.2002 16.6225 15.2002 16.6225 15.2002L22 12V19.4082L16 23Z" fill="#3A3A3A"/>
+                      </svg>
+                      {{ 'products.product.view_in_your_space' | t | capitalize }}
+                    </button>
+                  </div>
+                {% else %}
+                  {{ media | media_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              {% endcase %}
+            </div>
+          {% endfor %}
+        {% endcomment %}
+      </div>
+    {%- endif -%}
+
+    {%- if allow_image_convention != blank and allow_image_convention > 0 -%}
+      <div
+        id="custom-product-image--section"
+        class="product-gallery__main slideshow-transition--{{ slideshow_transition }} block-active {% if product.metafields.vdb_product.vdb_video_url == blank and product.metafields.attributes.vimeo_id == blank %} relative{% endif %}"
+        data-product-id="{{ product.id }}"
+        data-media-count="{{allow_image_convention  }}"
+        style="display: none"
+      >
+        {% if allow_video_convention > 0 %}
+          <div class="product-gallery__image first-video" data-product-id="{{ product.id }}">
+            <div class="image__container image__video-container" style="max-width: 1000px;position:relative;">
+              <div class="product-settings-loader product-settings-loader-video" style="display: none;">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <video id="customVideoConvention" src="" width="1200" height="1200" loop playsinline muted autoplay></video>
+            </div>
+          </div>
+        {% endif %}
+        
+        {%- for i in (1..allow_image_convention) -%}
+          <div
+            class="product-gallery__image {% if i == 1 %}first-image{% endif %}{% if i > 1 %} is-hidden{% endif %}"
+            data-product-id="{{ product.id }}"
+          >
+            {% if enable_product_lightbox %}
+              <a
+                href="https://www.miadonna.com/apps/vdb-maidonna-inventory-app/images/no-image.png"
+                class="product-gallery__link"
+                data-fancybox="product-gallery"
+                title=""
+              >
+            {% endif %}
+            <div class="image__container" style="max-width: 1000px">
+              <img
+                src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/apps/vdb-maidonna-inventory-app/images/no-image.png"
+                width="1200"
+                height="1200"
+                loading="eager"
+                fetchpriority="high"
+                alt="{{ product.title }}"
+              >
+            </div>
+            {% if enable_product_lightbox %}</a>{% endif %}
+          </div>
+        {%- endfor -%}
+
+        {%- if allow_video_convention > 0 -%}
+          <div class="product-gallery__image last-video" data-product-id="{{ product.id }}">
+            <div class="image__container image__video-container" style="max-width: 1000px;position:relative;">
+              <div class="product-settings-loader product-settings-loader-video second-video-loader" style="display: none;">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <video id="customVideoLast" width="1200" height="1200" loop playsinline muted autoplay></video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {% if allow_video_convention > 0 %}
+        <div class="video-button-wrapper" style="display: none;">
+          <div class="video-buttons">
+            {%- render 'icon-play' -%}
+            {%- render 'icon-pause' -%}
+          </div>
+        </div>
+      {% endif %}
+    {%- endif -%}
+
+    {%- unless template_name == 'loose-lab' -%}
+      {%- if product.metafields.attributes.vimeo_id
+        and product.metafields.attributes.vimeo_id != '-'
+        and product.metafields.attributes.vimeo_id != '_'
+      -%}
+        {%- assign vimeo_video = product.metafields.attributes.vimeo_id -%}
+      {%- endif -%}
+
+      {% assign shopify_video = false %}
+      {% for media in product.media %}
+        {% if media.media_type == 'video' %}
+          {% assign shopify_video = true %}
+        {% endif %}
+      {% endfor %}
+
+      {% if shopify_video == true %}
+        {% for media in product.media %}
+          {% if media.media_type == 'video' %}
+            <script type="application/ld+json">
+              {
+                "@context": "https://schema.org",
+                "@type": "VideoObject",
+                "name": "{{ product.title }}",
+                "description": {{ product.description | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+                "thumbnailUrl": [{{ media.preview_image.src | img_url: '1024x1024' | prepend: 'https:' | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }}],
+                "uploadDate": "{{ product.created_at | iso8601 }}",
+                "duration": "PT1M54S",
+                "contentUrl": "{{ media.sources[1].url }}",
+                "embedUrl": "{{ media.sources[1].url }}"
+              }
+            </script>
+            <div id="product-video--section" class="">
+              <div
+                id="product-shopify_cdn_video"
+              >
+                <div class="lazyframe" data-ratio="9:16">
+                  {{
+                    media
+                    | video_tag: loop: true, autoplay: true, muted: true, controls: false, image_size: '1024x' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                  }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% elsif vimeo_video %}
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": "{{ product.title }}",
+            "description": "{{ product.description  | strip_html | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}",
+            "thumbnailUrl": [
+              "{{ product.featured_image.src | img_url: '1x1' }}"
+            ],
+            "uploadDate": "{{ product.created_at | iso8601 }}",
+            "duration": "PT1M54S",
+            "embedUrl": "https://player.vimeo.com/video/{{ vimeo_video | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"
+          }
+        </script>
+        <div id="product-video--section" class="">
+          <div
+            id="product-vimeo_video"
+          >
+            <div class="lazyframe" data-ratio="9:16">
+              <iframe
+                frameborder="0"
+                scrolling="no"
+                data-src="https://player.vimeo.com/video/{{ vimeo_video  }}?loop=1&amp;autoplay=1&amp;muted=1&amp;quality=720p&amp;title=0&amp;byline=0&amp;portrait=0"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {%- endunless -%}
+
+    {%- if product.metafields.vdb_product.vdb_video_url
+      and product.metafields.vdb_product.vdb_video_url != '-'
+      and product.metafields.vdb_product.vdb_video_url != '_'
+      and product.metafields.vdb_product.vdb_video_url != blank
+    -%}
+      {%- assign d360 = product.metafields.vdb_product.vdb_video_url -%}
+    {%- endif -%}
+    {% if d360 %}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          "name": "{{ product.title }}",
+          "description": "{{ product.description  | strip_html | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}",
+          "thumbnailUrl": [
+            "{{ product.featured_image.src | img_url: '1x1' }}"
+          ],
+          "uploadDate": "{{ product.created_at | iso8601 }}",
+          "duration": "PT1M54S",  "embedUrl": "{{ d360  }}"  }
+      </script>
+      <div id="product-video--section" class="">
+        <div
+          id="product-vimeo_video"
+        >
+          <div class="lazyframe canvas-video" data-ratio="9:16">
+            <iframe
+              frameborder="0"
+              scrolling="no"
+              data-src="{{ d360  }}"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% if display_thumbnails == true %}
+      {% if thumbnail_position != 'no-thumbnails' and product.media.size > 1 %}
+        <div
+          class="
+            product-gallery__thumbnails
+            product-gallery__thumbnails--{{ thumbnail_position }}
+            js-gallery-carousel
+            is-slide-nav--{{ enable_thumbnail_slider }}
+            {% if enable_thumbnail_slider == false %}
+              container equal-columns--outside-trim
+              is-justify-center
+            {% endif %}
+          "
+        >
+          {% for media in product.media %}
+            {% if media.media_type contains 'video' %}
+              {% assign thumbnail_badge = 'video-thumbnail' %}
+            {% elsif media.media_type contains 'model' %}
+              {% assign thumbnail_badge = '3d-thumbnail' %}
+            {% else %}
+              {% assign thumbnail_badge = '' %}
+            {% endif %}
+
+            <div
+              class="product-gallery__thumbnail one-fifth column is-relative"
+              data-title="{{ media.alt | split: '|' | last | escape }}"
+              tabindex="0"
+            >
+              <img
+                src="{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '300x' }}"
+                alt="{{ media.alt | split: '|' | last | escape }}"
+              >
+              {% if thumbnail_badge != blank %}
+                {% render 'icon', name: thumbnail_badge, icon_class: 'media-badge' %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  //IGS-18-05-26
+    {% comment %} function cleanVideoUrl(video) {
+      if (!video) return;
+
+      let src = video.getAttribute('src');
+
+      if (src && src.includes('-sterlingsilver')) {
+        let newSrc = src.replace('-sterlingsilver', '');
+
+        if (video.getAttribute('src') !== newSrc) {
+          video.setAttribute('src', newSrc);
+          video.load(); 
+        }
+      }
+    }
+    //IGS-18-05-26 {% endcomment %}
+    // Callback function to execute when mutations are observed
+    let checkSliderElemExist = function(mutationsList, observer) {
+        for(let mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                var content = null;
+                if(document.getElementById('custom-product-image--section') && document.getElementById('custom-product-image--section').querySelectorAll(".flickity-viewport") && document.getElementById('custom-product-image--section').querySelectorAll(".flickity-viewport")[0]){
+                  content = document.getElementById('custom-product-image--section').querySelectorAll(".flickity-viewport")[0];
+                }else if(document.getElementById('product-image--section') && document.getElementById('product-image--section').querySelectorAll(".flickity-viewport") && document.getElementById('product-image--section').querySelectorAll(".flickity-viewport")[0]){
+                  content = document.getElementById('product-image--section').querySelectorAll(".flickity-viewport")[0];
+                }
+                if (content) {
+                  //if (content.offsetHeight > 0 ) {
+                  if (content.innerHTML != "" ) {
+                    // setTimeout(function(){
+                    let imageHeight = document.getElementById('custom-product-image--section').querySelector('.product-gallery__image.first-image img').offsetHeight;
+                    let videoElem = document.getElementById('custom-product-image--section').querySelector('.product-gallery__image.first-video video');
+                    // alert(imageHeight);
+                    //IGS-18-05-26
+                    //cleanVideoUrl(videoElem);
+                    //IGS-18-05-26
+                    if (videoElem) {
+                      videoElem.setAttribute('height', imageHeight);
+                    }
+                    document.querySelector('.allow-image-convention-loading') && (document.querySelector('.allow-image-convention-loading').style.display = 'none');
+                    // }, 1000);
+                    document.querySelector('.video-button-wrapper') && (document.querySelector('.video-button-wrapper').style.display = '');
+                      
+                      //if(typeof flktyImage != "undefined"){ flktyImage.select(1); flktyImage.select(0); }
+                      //document.querySelector('#icon-play-btn') && (document.querySelector('#icon-play-btn').click());
+                      /*var video = document.querySelector('customVideoConvention');
+                      video.addEventListener('loadedmetadata', function() {
+                          // Trigger Flickity's resize method
+                        if(typeof flktyImage != "undefined"){ flktyImage.resize(); }
+                      });*/
+                    
+                    
+                      observer.disconnect(); // Stop observing once the content is loaded
+                    // setTimeout(function(){
+                    //   content.style.height = '550px';      
+                    // },500);
+                  }
+                }
+            }
+        }
+    };
+    if(document.getElementById('custom-product-image--section')){
+      let observer = new MutationObserver(checkSliderElemExist);
+      observer.observe(document.getElementById('custom-product-image--section'), { childList: true, subtree: true });
+    }else if(document.getElementById('product-image--section')){
+      let observer = new MutationObserver(checkSliderElemExist);
+      observer.observe(document.getElementById('product-image--section'), { childList: true, subtree: true });
+    }
+
+    //IGS-18-05-26
+    //let mainVideo = document.getElementById('customVideoConvention');
+    //cleanVideoUrl(mainVideo);
+    //IGS-18-05-26
+  });
+  /*let intervalForCheckSliderSetup = setInterval(function(){
+      if(document.getElementById('custom-product-image--section') && document.getElementById('custom-product-image--section').querySelectorAll(".flickity-viewport") && document.getElementById('custom-product-image--section').querySelectorAll(".flickity-viewport")[0] && document.getElementById('custom-product-image--section').querySelectorAll(".flickity-viewport")[0].offsetHeight > 0){
+          clearInterval(intervalForCheckSliderSetup);
+          document.querySelector('.allow-image-convention-loading') && (document.querySelector('.allow-image-convention-loading').style.display = 'none');
+          document.querySelector('.video-button-wrapper') && (document.querySelector('.video-button-wrapper').style.display = '');
+      } else {
+          if(document.getElementById('product-image--section') && document.getElementById('product-image--section').querySelectorAll(".flickity-viewport") && document.getElementById('product-image--section').querySelectorAll(".flickity-viewport")[0] && document.getElementById('product-image--section').querySelectorAll(".flickity-viewport")[0].offsetHeight > 0){
+              clearInterval(intervalForCheckSliderSetup);
+              document.querySelector('.allow-image-convention-loading') && (document.querySelector('.allow-image-convention-loading').style.display = 'none');
+              document.querySelector('.video-button-wrapper') && (document.querySelector('.video-button-wrapper').style.display = '');
+          }
+      }
+  },500);*/
+</script>

@@ -1,0 +1,2304 @@
+{% comment %}
+  ** Page content **
+{% endcomment %}
+
+<style>
+  #map {
+    height: 400px;
+    width: 100%;
+  }
+</style>
+{{ 'page-content-main.css' | asset_url | stylesheet_tag }}
+
+<noscript>{{ 'page-content-main.css' | asset_url | stylesheet_tag }}</noscript>
+
+<script src="https://connect.breadpayments.com/sdk.js"></script>
+
+<script src="{{ 'select-menu.js' | asset_url }}" defer="defer"></script>
+
+{% assign id = section.id %}
+{% comment %}Layout{% endcomment %}
+{% assign width = section.settings.width %}
+{% assign padding_top = section.settings.padding_top %}
+{% assign padding_bottom = section.settings.padding_bottom %}
+{% assign animation = section.settings.animation | default: 'none' %}
+{% comment %}Advanced{% endcomment %}
+{% assign css_class = section.settings.css_class %}
+{% assign custom_css = section.settings.custom_css %}
+
+{% style %}
+  #shopify-section-{{ id }} {
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+    {% if width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+
+  {% if section.settings.image == blank %}
+  .page__main-content .heading-wrapper{
+    margin-top: 15px;
+  }
+  {% endif %}
+
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+{% endstyle %}
+
+<section
+  class="
+    section
+    {% if section.settings.menu != blank %}
+    static_page-section
+    {% endif %}
+    section-page-{{ page.handle | escape }}
+    {{ css_class }}
+    is-width-{{ width }}
+  "
+  {% if animation != 'none' %}
+    data-scroll-class="{{ animation }}"
+  {% endif %}
+>
+  {%- if section.settings.show_breadcrumb -%}
+    <div class="container breadcrumb-wrapper is-hidden-mobile-only">
+      {% render 'breadcrumb' %}
+    </div>
+  {%- endif -%}
+  {% if page.handle == 'all-snippets' %}
+    <div class="h2">
+      Font Sizes Desktop ---- H1 - {{ settings.heading_size | append: 'px' }} ---- H2 -
+      {{ settings.heading_size | times: 0.625 | floor | append: 'px' }} ---- H3 -
+      {{ settings.heading_size | times: 0.5 | floor | append: 'px' }} ---- H4 -
+      {{ settings.heading_size | times: 0.5 | floor | append: 'px' }}
+    </div>
+    <div class="h2">
+      Font Sizes Mobile ---- H1 - {{ settings.heading_size | times: 0.73 | floor | append: 'px' }} ---- H2 -
+      {{ settings.heading_size | times: 0.54 | floor | append: 'px' }} ---- H3 -
+      {{ settings.heading_size | times: 0.42 | floor | append: 'px' }} ---- H4 -
+      {{ settings.heading_size | times: 0.42 | floor | append: 'px' }}
+    </div>
+  {% endif %}
+  <div class="container">
+    {%- if section.settings.show_sidebar -%}
+      {% comment %} Pages Sidebar {% endcomment %}
+      {% render 'dynamic_pages-sidebar', menu: section.settings.menu %}
+    {%- endif -%}
+    {%- if section.settings.show_sidebar -%}
+      <div
+        class="
+          page__main-content{% if section.settings.menu != blank %} four-fifths large-down--three-fourths{% else %} one-whole{% endif %} medium-down--one-whole
+          column
+          has-margin-bottom
+        "
+      >
+    {%- endif -%}
+    {% if section.settings.image != blank %}
+      <div class="image__wrapper medium-up--hide">
+        {% render 'image-element',
+          image: section.settings.image,
+          alt: section.settings.image.alt,
+          stretch_width: true,
+          focal_point: section.settings.image.presentation.focal_point
+        %}
+      </div>
+    {% endif %}
+    {%- if section.settings.show_heading != blank -%}
+      {% render 'heading',
+        title: page.title,
+        heading_tag: 'h1',
+        context: 'page',
+        text_alignment: section.settings.heading_alignment
+      %}
+    {%- endif -%}
+    {% if section.settings.image != blank %}
+      <div class="image__wrapper one-whole medium-down--hide column has-padding-bottom">
+        {% render 'image-element',
+          image: section.settings.image,
+          alt: section.settings.image.alt,
+          stretch_width: true,
+          focal_point: section.settings.image.presentation.focal_point
+        %}
+      </div>
+    {% endif %}
+    <div class="page__content content container {% if settings.table_styles_enabled %} table is-striped is-bordered {% endif %}">
+      {% if section.blocks.size > 0 %}
+        <div class="page__content-inner one-whole medium-down--one-whole column">
+          {% for block in section.blocks %}
+            {% if block.type == 'content' %}
+              <dl
+                class="
+                  {{ section.settings.css_class }}
+                  faq-accordion block--{{ forloop.index }}
+                  accordion-icon--{{ settings.toggle_icon_style }} {% if block.settings.column == 'whole' %}has-no-side-gutter{% endif %} has-margin-bottom
+                "
+              >
+            {% endif %}
+            {% if block.type == 'image' %}
+              <div class="block--{{ forloop.index }} image__wrapper">
+                {% if block.settings.image != blank %}
+                  {% render 'image-element',
+                    image: block.settings.image,
+                    alt: block.settings.image.alt,
+                    stretch_width: true,
+                    focal_point: block.settings.image.presentation.focal_point
+                  %}
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+            {% elsif block.type == 'content' %}
+              {% if block.settings.column == 'whole' %}
+                <div
+                  class="faq-accordion-items one-{{ block.settings.column }} medium-down--one-whole"
+                >
+                  {% for link in block.settings.faqs_menu.links %}
+                    {% if link.links != blank %}
+                      <div class="faq-accordion-item" data-index="{{ forloop.index }}">
+                        <dt>
+                          <button
+                            class="accordion-style--{{ settings.toggle_icon_style }} accordion__button"
+                            type="button"
+                            aria-controls="panel-{{ block.id }}"
+                            aria-expanded="true"
+                          >
+                            <span
+                              {% unless page.handle contains 'faq' %}
+                                class="" style="font-weight:400;"
+                              {% else %}
+                                style="font-weight:400;"
+                              {% endunless %}
+                            >
+                              {{- link.title | escape -}}
+                            </span>
+                            {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+                          </button>
+                        </dt>
+                        <dd
+                          id="panel-{{ block.id }}"
+                          aria-hidden="false"
+                          class="panel"
+                        >
+                          <div class="content">
+                            {% for childLink in link.links %}
+                              {% if childLink.links == blank %}
+                                {% if childLink.url != routes.root_url %}
+                                  <a href="{{ childLink.url }}" style="text-decoration:underline;">
+                                {% endif %}
+                                {{ childLink.title | remove: '<br>' | escape -}}
+                                {%- if childLink.title == '<br>' -%}
+                                  <br>
+                                {% elsif childLink.title == '<br><br>' -%}
+                                  <br>
+                                  <br>
+                                {% endif %}
+                                {% if childLink.url != routes.root_url %}
+                                  </a>
+                                {% endif %}
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </dd>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% else %}
+                {% capture lastFAQ %}
+                  {% for link in block.settings.faqs_menu.links %}
+                    {% if forloop.last %}
+                      <div class="faq-accordion-item" data-index="{{ forloop.index }}">
+                        <dt>
+                          <button
+                            class="accordion-style--{{ settings.toggle_icon_style }} accordion__button"
+                            type="button"
+                            aria-controls="panel-{{ block.id }}"
+                            aria-expanded="true"
+                          >
+                            <span
+                              {% unless page.handle contains 'faq' %}
+                                class="" style="font-weight:400;"
+                              {% else %}
+                                style="font-weight:400;"
+                              {% endunless %}
+                            >
+                              {{- link.title | escape -}}
+                            </span>
+                            {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+                          </button>
+                        </dt>
+                        <dd
+                          id="panel-{{ block.id }}"
+                          aria-hidden="false"
+                          class="panel"
+                        >
+                          <div class="content">
+                            {% for childLink in link.links %}
+                              {% if childLink.links == blank %}
+                                {% if childLink.url != routes.root_url %}
+                                  <a href="{{ childLink.url }}" style="text-decoration:underline;">
+                                {% endif %}
+                                {{ childLink.title | remove: '<br>' | escape -}}
+                                {%- if childLink.title == '<br>' -%}
+                                  <br>
+                                {% elsif childLink.title == '<br><br>' -%}
+                                  <br>
+                                  <br>
+                                {% endif %}
+                                {% if childLink.url != routes.root_url %}
+                                  </a>
+                                {% endif %}
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </dd>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                {% endcapture %}
+                <div
+                  class="faq-accordion-items one-{{ block.settings.column }} medium-down--one-whole"
+                >
+                  {% assign blockSizeLast = block.settings.faqs_menu.links.size | modulo: 2 %}
+                  {% assign blockSize = block.settings.faqs_menu.links.size | divided_by: 2 %}
+                  {% for link in block.settings.faqs_menu.links limit: blockSize %}
+                    {% if link.links != blank %}
+                      <div class="faq-accordion-item" data-index="{{ forloop.index }}">
+                        <dt>
+                          <button
+                            class="accordion-style--{{ settings.toggle_icon_style }} accordion__button"
+                            type="button"
+                            aria-controls="panel-{{ block.id }}"
+                            aria-expanded="true"
+                          >
+                            <span
+                              {% unless page.handle contains 'faq' %}
+                                class="" style="font-weight:400;"
+                              {% else %}
+                                style="font-weight:400;"
+                              {% endunless %}
+                            >
+                              {{- link.title | escape -}}
+                            </span>
+                            {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+                          </button>
+                        </dt>
+                        <dd
+                          id="panel-{{ block.id }}"
+                          aria-hidden="false"
+                          class="panel"
+                        >
+                          <div class="content">
+                            {% for childLink in link.links %}
+                              {% if childLink.links == blank %}
+                                {% if childLink.url != routes.root_url %}
+                                  <a href="{{ childLink.url }}" style="text-decoration:underline;">
+                                {% endif %}
+                                {{ childLink.title | remove: '<br>' | escape -}}
+                                {%- if childLink.title == '<br>' -%}
+                                  <br>
+                                {% elsif childLink.title == '<br><br>' -%}
+                                  <br>
+                                  <br>
+                                {% endif %}
+                                {% if childLink.url != routes.root_url %}
+                                  </a>
+                                {% endif %}
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </dd>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                  {% if blockSizeLast != 0 %}
+                    {{ lastFAQ }}
+                  {% endif %}
+                </div>
+
+                <div
+                  class="faq-accordion-items one-{{ block.settings.column }} medium-down--one-whole"
+                >
+                  {% for link in block.settings.faqs_menu.links limit: blockSize offset: continue %}
+                    {% if link.links != blank %}
+                      <div class="faq-accordion-item" data-index="{{ forloop.index }}">
+                        <dt>
+                          <button
+                            class="accordion-style--{{ settings.toggle_icon_style }} accordion__button"
+                            type="button"
+                            aria-controls="panel-{{ block.id }}"
+                            aria-expanded="true"
+                          >
+                            <span
+                              {% unless page.handle contains 'faq' %}
+                                class="" style="font-weight:400;"
+                              {% else %}
+                                style="font-weight:400;"
+                              {% endunless %}
+                            >
+                              {{- link.title | escape -}}
+                            </span>
+                            {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+                          </button>
+                        </dt>
+                        <dd
+                          id="panel-{{ block.id }}"
+                          aria-hidden="false"
+                          class="panel"
+                        >
+                          <div class="content">
+                            {% for childLink in link.links %}
+                              {% if childLink.links == blank %}
+                                {% if childLink.url != routes.root_url %}
+                                  <a href="{{ childLink.url }}" style="text-decoration:underline;">
+                                {% endif %}
+                                {{ childLink.title | remove: '<br>' | escape -}}
+                                {%- if childLink.title == '<br>' -%}
+                                  <br>
+                                {% elsif childLink.title == '<br><br>' -%}
+                                  <br>
+                                  <br>
+                                {% endif %}
+                                {% if childLink.url != routes.root_url %}
+                                  </a>
+                                {% endif %}
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </dd>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+            {% elsif block.type == 'heading' %}
+              {% if block.settings.title != blank %}
+                <style>
+                  .title-{{ block.id }}{
+                    font-weight: 500;
+                    margin-bottom: 0 !important;
+                    text-transform: uppercase;
+                    font-family: {{ block.settings.richtext_font }} !important;
+                  }
+                </style>
+                <h2 class="block--{{ forloop.index }} title-{{ block.id }} faq-title">{{ block.settings.title }}</h2>
+              {% endif %}
+            {% elsif block.type == 'richtext' %}
+              <style>
+                .page-contact .richtext-content-{{ block.id }} > *{
+                  font-style: italic;
+                  font-weight: 500;
+                }
+                .richtext-content-{{ block.id }} > *{
+                  line-height: normal;
+                  margin-bottom: 20px !important;
+                  font-family: {{ block.settings.richtext_font }} !important;
+                }
+              </style>
+              <div
+                class="block--{{ forloop.index }} richtext-content-{{ block.id }} text-align-{{ block.settings.richtext_alignment }} has-padding-bottom"
+              >
+                {{ block.settings.richtext }}
+              </div>
+            {% elsif block.type == 'richtext_2' %}
+              <style>
+                .richtext-content-{{ block.id }} > *{
+                  font-family: {{ block.settings.richtext_2_font }} !important;
+                }
+                .richtext-content-{{ block.id }} > h4,
+                .richtext-content-{{ block.id }} > p:first-of-type{
+                  color: #777777;
+                  font-style: normal;
+                }
+                .richtext-content-{{ block.id }} a{
+                  text-decoration: underline;
+                }
+                .richtext-content-{{ block.id }} strong{
+                  font-weight: 500;
+                }
+              </style>
+              <div class="block--{{ forloop.index }} is-flex is-justify-center has-margin-bottom has-padding-bottom">
+                <div
+                  class="richtext-content-{{ block.id }} one-half medium-down--one-whole text-align-{{ block.settings.richtext_2_alignment }}"
+                >
+                  {{
+                    block.settings.richtext_column_1
+                    | replace: 'href="/"', "href=javascript:void(0); onclick=Chatra('openChat',true)"
+                  }}
+                  {{ block.settings.content_html | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+                <div
+                  class="richtext-content-{{ block.id }} one-half medium-down--one-whole text-align-{{ block.settings.richtext_2_alignment }}"
+                >
+                  {{ block.settings.richtext_column_2 -}}
+                  {{ block.settings.content_html_2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+              </div>
+            {% elsif block.type == 'image_with_text' %}
+              <style>
+                .image-text-{{ block.id }} .image-text-item:first-child{
+                  padding: 1.5rem;
+                  background-color: #f6f6f6;
+                }
+                .image-text-{{ block.id }} .image-text-item > *:first-child{
+                  font-size: 1.4em;
+                  font-family: Playfair Display,serif !important;
+                }
+                .image-text-{{ block.id }} .image-text-item > *:last-child{
+                  font-family: Montserrat,sans-serif !important;
+                }
+              </style>
+              <div class="block--{{ forloop.index }} image-text-{{ block.id }} is-flex is-justify-center has-no-side-gutter has-padding-bottom has-margin-bottom text-align-{{ block.settings.alignment }}">
+                <div
+                  class="image-text-item one-half column is-flex medium-down--one-whole is-justify-center is-flex-column"
+                  {% if block.settings.position == 'left' %}
+                    style="order: 2;"
+                  {% endif %}
+                >
+                  {{ block.settings.title }}
+                  {{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+                <div class="image-text-item one-half medium-down--one-whole column">
+                  {%- assign iframe_video = block.settings.iframe_video -%}
+                  {% liquid
+                    if iframe_video.type == 'youtube'
+                      if block.settings.autoplay
+                        assign autoplay = 'autoplay=1'
+                      endif
+                      if block.settings.autoloop
+                        assign autoloop = 'loop=1'
+                      endif
+                      if block.settings.mute
+                        assign mute = 'mute=1'
+                      endif
+                      if block.settings.controls
+                        assign controls = 'controls=1'
+                      endif
+                    else
+                      if block.settings.autoplay
+                        assign autoplay = 'autoplay=1'
+                      endif
+                      if block.settings.autoloop
+                        assign autoloop = 'loop=1'
+                      endif
+                      if block.settings.mute
+                        assign mute = 'muted=1'
+                      endif
+                      if block.settings.controls
+                        assign controls = 'controls=1'
+                      endif
+                    endif
+                  %}
+                  {% if iframe_video != blank %}
+                    <div class="plyr__video-embed video-{{ id }}">
+                      <div class="lazyframe" data-ratio="{{ block.settings.aspect_ratio }}">
+                        {% if iframe_video.type == 'youtube' %}
+                          <iframe
+                            src="https://www.youtube.com/embed/{{ iframe_video.id  }}?playlist={{ iframe_video.id  }}&rel=0&{{ autoloop  }}&{{ autoplay  }}&{{ mute  }}&{{ controls  }};showsearch=0&version=3&showinfo=0&modestbranding=1&fs=1"
+                            allowfullscreen
+                            allowtransparency
+                            allow="autoplay"
+                            width="100%"
+                            height="100%"
+                          ></iframe>
+                        {% elsif iframe_video.type == 'vimeo' %}
+                          <iframe
+                            src="https://player.vimeo.com/video/{{ iframe_video.id  }}?{{ autoloop  }}&amp;pip=0&amp;{{ autoplay  }}&amp;{{ mute  }}&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media"
+                            allowfullscreen
+                            allowtransparency
+                            allow="autoplay"
+                            width="100%"
+                            height="100%"
+                          ></iframe>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% else %}
+                    {% if block.settings.image != blank %}
+                      {% render 'image-element',
+                        image: block.settings.image,
+                        alt: block.settings.image.alt,
+                        stretch_width: true,
+                        focal_point: block.settings.image.presentation.focal_point
+                      %}
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  {% endif %}
+                  <div
+                    class="text-align-{% if block.settings.position == 'left' %}left{% else %}right{% endif %}"
+                    style="font-size: 11px;margin-top: 3px;"
+                  >
+                    {{ block.settings.image_title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                  </div>
+                </div>
+              </div>
+            {% elsif block.type == 'map_with_text' %}
+              <style>
+                .map-text-{{ block.id }}{
+                  background-color: #f6f6f6;
+                }
+                .map-text-{{ block.id }} .map-text-item:first-child{
+                  padding: 1.5rem;
+                }
+                .map-text-{{ block.id }} .map-text-item:first-child h3{
+                  font-weight: 500;
+                }
+                .map-text-{{ block.id }} .map-text-item > *{
+                  font-family: {{ block.settings.richtext_font }};
+                }
+                .map-text-{{ block.id }} .map-text-item > *:first-child{
+                  font-size: 1.4em;
+                }
+              </style>
+              <div class="block--{{ forloop.index }} map-text-{{ block.id }} is-flex is-justify-center has-no-side-gutter has-margin-bottom text-align-{{ block.settings.alignment }}">
+                <div
+                  class="map-text-item two-fifths column is-flex medium-down--one-whole is-justify-center is-flex-column"
+                  {% if block.settings.position == 'left' %}
+                    style="order: 2;"
+                  {% endif %}
+                >
+                  {{ block.settings.title }}
+                  {{ block.settings.content_html | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                  {{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+                <div class="map-text-item three-fifths medium-down--one-whole column">
+                  {{ block.settings.html }}
+                </div>
+              </div>
+            {% elsif block.type == 'contact_form' %}
+              <div id="contact-form-container"></div>
+              <div class="block--{{ forloop.index }} contact-form-wrapper has-margin-top has-padding-top has-margin-bottom text-align-center">
+                <div class="contact-form-container">
+                  <header class="form-title">{{ block.settings.title }}</header>
+                  <br>
+                  {{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                  {% form 'contact' %}
+                    {% if form.posted_successfully? %}
+                      <script>
+                        $(document).ready(function () {
+                          $(".successForm").dialog({
+                            modal: true,
+                            dialogClass: "successFormDiolog",
+                            draggable: false,
+                          });
+                        });
+                      </script>
+
+                      <div class="successForm feedback">
+                        <h2 class="pink-text">Success!</h2>
+                        <p>We have received your message and we will be getting back to you soon.</p>
+                      </div>
+                    {% endif %}
+                    {% if form.errors %}
+                      <div class="errorForm feedback">
+                        <!-- {{ form.errors.size }} or {{ form.errors | size }} -->
+                        <p>
+                          Your contact form has {{ form.errors | size | pluralize: 'an error', 'a few errors' }}. To
+                          submit your form, make the following changes and try again:
+                        </p>
+                        {% for field in form.errors %}
+                          <p>
+                            The {{ field | capitalize | replace: 'Body', 'Message' }} field
+                            {{ form.errors.messages[field] }}.
+                          </p>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                    <fieldset>
+                      <div class="field">
+                        <select name="contact[subject]" id="subject" class="field-subject" required>
+                          <option selected="selected">{{ block.settings.option1 }}</option>
+                          <option>{{ block.settings.option2 }}</option>
+                          <option>{{ block.settings.option3 }}</option>
+                          <option>{{ block.settings.option4 }}</option>
+                          <option>{{ block.settings.option5 }}</option>
+                        </select>
+                        <div class="select-button">
+                          <i class="icon-solid-caret"></i>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <input
+                          id="name"
+                          name="contact[name]"
+                          placeholder="{{ block.settings.name }}"
+                          class="field-name"
+                          type="text"
+                          required=""
+                        >
+                      </div>
+                      <div class="field">
+                        <input
+                          id="email"
+                          name="contact[email]"
+                          class="field-email"
+                          placeholder="{{ block.settings.email }}"
+                          type="email"
+                          required=""
+                        >
+                      </div>
+                      <div class="field">
+                        <textarea
+                          name="contact[body]"
+                          id="message"
+                          placeholder="{{ block.settings.message }}"
+                          class="field-message"
+                          rows="5"
+                        ></textarea>
+                        <input
+                          type="image"
+                          id="contactFormSubmit"
+                          class="submit-button"
+                          name="submit"
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/submit-button.png?v=11069712008357948348"
+                          border="0"
+                          alt="Submit"
+                        >
+                      </div>
+                    </fieldset>
+                  {% endform %}
+                  <p class="required-text">{{ block.settings.required_text }}</p>
+                </div>
+              </div>
+            {% elsif block.type == 'three_column_block' %}
+              <style>
+                .columns-block{
+                  gap: 2rem;
+                  width: 100%;
+                  flex-wrap: wrap;
+                  margin-top: 2rem;
+                  margin-bottom: 2rem;
+                  justify-content: center;
+                }
+                .columns-block .column-block h4{
+                  color: #777777;
+                  font-size: 17px;
+                  text-transform: uppercase;
+                }
+                .columns-block .column-block p{
+                  font-size: 13px;
+                  margin-bottom: 0;
+                }
+                .block-button{
+                  width: 100%;
+                  margin-bottom: 3rem;
+                }
+                .breadpay-button{
+                  display: block;
+                }
+                .block-button-link,
+                .breadpay-button{
+                  background-color: #4a4a4a;
+                  color: #fff;
+                  display: block;
+                  font-family: Montserrat,sans-serif;
+                  font-size: 12px;
+                  font-weight: 400;
+                  margin-left: auto;
+                  margin-right: auto;
+                  max-width: 250px;
+                  padding: 15px 0;
+                  text-transform: uppercase;
+                  transition: background .3s ease-in-out;
+                  line-height: normal;
+                }
+                .breadpay-button {
+                  position: relative;
+                  min-height: 46px;
+                }
+                .breadpay-button a{
+                  color: #fff;
+                  display: flex;
+                  position: absolute;
+                  left: 0;
+                  right: 0;
+                  width: 100%;
+                  top: 0;
+                  bottom: 0;
+                  height: 100%;
+                  align-items: center;
+                  justify-content: center;
+                }
+                .block-button-link:hover,
+                .breadpay-button:hover{
+                  background: #000;
+                  color: #fff;
+                  text-decoration: none;
+                }
+              </style>
+              <div class="block--{{ forloop.index }} columns-block is-flex text-align-{{ block.settings.alignment }}">
+                <div class="column-block column-block-1 one-third medium-down--one-whole">
+                  <h4>{{ block.settings.title }}</h4>
+                  <p>
+                    {{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                  </p>
+                </div>
+                <div class="column-block column-block-2 one-third medium-down--one-whole">
+                  <h4>{{ block.settings.title_2 }}</h4>
+                  <p>
+                    {{ block.settings.description_2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                  </p>
+                </div>
+                <div class="column-block column-block-3 one-third medium-down--one-whole">
+                  <h4>{{ block.settings.title_3 }}</h4>
+                  <p>
+                    {{ block.settings.description_3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                  </p>
+                </div>
+              </div>
+              {% if block.settings.button_text != blank %}
+                <div class="block--{{ forloop.index }} block-button text-align-center">
+                  {% if block.settings.button_link != '#breadpay' %}
+                    <a
+                      class="block-button-link"
+                      href="{% if block.settings.button_link != blank %}{{ block.settings.button_link }}{% else %}javascript:void(0);{% endif %}"
+                    >
+                      {{- block.settings.button_text -}}
+                    </a>
+                  {% else %}
+                    <div
+                      class="breadpay-button price-ui only-installments"
+                      id="bread-checkout-btn-1"
+                      style="display:none;"
+                      data-price-ui=""
+                    >
+                      Get my rate
+                    </div>
+                    <div
+                      class="breadpay-button price-ui product-price__financing pure-hidden-lg pure-hidden-xl"
+                      style="font-size:13px;"
+                    >
+                      <div
+                        role="button"
+                        class="btn-finance-info-placeholder"
+                        data-id="{{ product.handle }}-mobile"
+                        data-name="{{ product.title }}"
+                        data-sku="{{ product.selected_or_first_available_variant.sku }}"
+                        {% if product.tags contains 'Home Try-On' %}
+                          data-price="{{ product.price_max }}"
+                        {% else %}
+                          data-price="{{ product.price }}"
+                        {% endif -%}
+                        data-image-url="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_image | product_img_url: 'grande'  }}"
+                        data-detail-url="{{ shop.url }}{{ product.url }}"
+                        data-css-key="product.jewelryMobile"
+                      >
+                        <div id="bread-checkout-btn-2" class="">Get my rate</div>
+                      </div>
+                    </div>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", ()=> {
+                        BreadPayments.on("INSTALLMENT:INITIALIZED", () => {
+                          // get Bread text
+                          const breadText1 = document.querySelector("#bread-checkout-btn-1 > div > a");
+                          breadText1.textContent = 'Get my rate'
+
+                          const breadText2 = document.querySelector("#bread-checkout-btn-2 > div > a");
+                          breadText2.textContent = 'Get my rate'
+                        });
+                      });
+
+                      BreadPayments.setup({ integrationKey: "19b74d64-8098-40a3-9e8d-a8384b9a05c3" });
+                      const placement = [
+                        { domID: "bread-checkout-btn-1", allowCheckout: false },
+                        { domID: "bread-checkout-btn-2", allowCheckout: false }
+                      ];
+                      BreadPayments.registerPlacements(placement);
+                      BreadPayments.on("INSTALLMENT:APPLICATION_DECISIONED", (installmentResult) => {
+                          // console.log(installmentResult);
+                      });
+                      BreadPayments.on("INSTALLMENT:APPLICATION_CHECKOUT", (installmentResult) => {
+                          // console.log(installmentResult);
+                      });
+                    </script>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% elsif block.type == 'promos_grid' %}
+              <div class="promo-page-wrapper">
+                <div class="promos-grid">
+                  <div class="promos-grid__one">
+                    <div class="promos-grid__one__content">
+                      {%- if block.settings.column_one != blank -%}
+                        {{ block.settings.column_one }}
+                      {%- endif -%}
+                      {% if block.settings.enable_btn_one %}
+                        <a class="textimg__button" href="{{ block.settings.btn_link_one }}">
+                          {{- block.settings.btn_text_one -}}
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="promos-grid__two">
+                    <div class="promos-grid__two__content">
+                      {%- if block.settings.column_two != blank -%}
+                        {{ block.settings.column_two }}
+                      {%- endif -%}
+                      {% if block.settings.enable_btn_two %}
+                        <a class="textimg__button" href="{{ block.settings.btn_link_two }}">
+                          {{- block.settings.btn_text_two -}}
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="promos-grid__three">
+                    <div class="promos-grid__three__content">
+                      {%- if block.settings.grid_three_image != blank -%}
+                        <img
+                          src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.grid_three_image | img_url: '1300x' }}"
+                          alt="{{ block.settings.grid_three_image.alt }}"
+                        >
+                      {%- endif -%}
+                      <div class="promos-grid__three__content__absolute">
+                        {%- if block.settings.column_three != blank -%}
+                          {{ block.settings.column_three }}
+                        {%- endif -%}
+                        {% if block.settings.enable_btn_three %}
+                          <a class="textimg__button" href="{{ block.settings.btn_link_three }}">
+                            {{- block.settings.btn_text_three -}}
+                          </a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="promos-grid__four">
+                    <div class="promos-grid__four__content">
+                      {%- if block.settings.column_four != blank -%}
+                        {{ block.settings.column_four }}
+                      {%- endif -%}
+                      {% if block.settings.enable_btn_four %}
+                        <a class="textimg__button" href="{{ block.settings.btn_link_four }}">
+                          {{- block.settings.btn_text_four -}}
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="promos-grid__five">
+                    <div class="promos-grid__five__content">
+                      {%- if block.settings.column_five != blank -%}
+                        {{ block.settings.column_five }}
+                      {%- endif -%}
+                      {% if block.settings.enable_btn_five %}
+                        <a class="textimg__button" href="{{ block.settings.btn_link_five }}">
+                          {{- block.settings.btn_text_five -}}
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% elsif block.type == 'promos_grid_2' %}
+              <div class="promo-page-wrapper">
+                <div class="promos-grid-two">
+                  <div class="promos-grid-two__one">
+                    <div class="promos-grid__one__content">
+                      {%- if block.settings.signatura != blank -%}
+                        <img
+                          src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.signatura | img_url: '500x' }}"
+                          alt="{{ block.settings.signatura.alt }}"
+                        >
+                      {% endif %}
+                      {%- if block.settings.Two_column_one != blank -%}
+                        {{ block.settings.Two_column_one }}
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  <div class="promos-grid-two__two">
+                    <div class="promos-grid-two__two__content">
+                      <a href="{{ block.settings.Two_btn_link_two }}">
+                        {%- if block.settings.Two_column_two != blank -%}
+                          {{ block.settings.Two_column_two }}
+                        {%- endif -%}
+                      </a>
+                    </div>
+                  </div>
+                  <div class="promos-grid-two__three">
+                    <div class="promos-grid-two__three__content">
+                      {%- if block.settings.Two_grid_three_image != blank -%}
+                        <a href="{{ block.settings.Two_btn_link_three }}">
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.Two_grid_three_image | img_url: '500x' }}"
+                            alt="{{ block.settings.Two_grid_three_image.alt }}"
+                          >
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  <div class="promos-grid-two__four">
+                    <div class="promos-grid-two__four__content">
+                      {%- if block.settings.Two_column_four != blank -%}
+                        {{ block.settings.Two_column_four }}
+                      {%- endif -%}
+                      {% if block.settings.Two_enable_btn_four %}
+                        <a class="text-img__button" href="{{ block.settings.Two_btn_link_four }}">
+                          {{- block.settings.Two_btn_text_four -}}
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% elsif block.type == 'promos_grid_3' %}
+              <div class="promo-page-wrapper">
+                <div class="promos-grid-three">
+                  <div class="promos-grid-three__one">
+                    <div class="promos-grid-three__one__content">
+                      {%- if block.settings.three_column_one != blank -%}
+                        {{ block.settings.three_column_one }}
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  <div class="promos-grid-three__two">
+                    <div class="promos-grid-three__two__content">
+                      {% if block.settings.three_enable_btn_one %}
+                        <a class="textimg__button" href="{{ block.settings.three_btn_link_one }}">
+                          {{- block.settings.three_btn_text_one -}}
+                        </a>
+                      {% endif %}
+                      {% if block.settings.three_enable_btn_two %}
+                        <a class="textimg__button" href="{{ block.settings.three_btn_link_two }}">
+                          {{- block.settings.three_btn_text_two -}}
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% elsif block.type == 'promos_grid_4' %}
+              <div class="promo-page-wrapper">
+                <div class="promos-grid-four">
+                  <div class="promos-grid-four__one">
+                    <div class="promos-grid-four__one__content">
+                      {%- if block.settings.four_grid_one_image != blank -%}
+                        <a href="{{ block.settings.four_btn_link_one }}">
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.four_grid_one_image | img_url: '500x' }}"
+                            alt="{{ block.settings.four_grid_one_image.alt }}"
+                          >
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.four_column_title != blank -%}
+                        <a href="{{ block.settings.four_btn_link_one }}">
+                          {{ block.settings.four_column_title }}
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.four_column_description != blank -%}
+                        {{ block.settings.four_column_description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                      {%- endif -%}
+                      <div class="hr"></div>
+                    </div>
+                  </div>
+
+                  <div class="promos-grid-four__two">
+                    <div class="promos-grid-four__two__content">
+                      {%- if block.settings.four_grid_two_image != blank -%}
+                        <a href="{{ block.settings.four_btn_link_two }}">
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.four_grid_two_image | img_url: '500x' }}"
+                            alt="{{ block.settings.four_grid_two_image.alt }}"
+                          >
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.four_column_title2 != blank -%}
+                        <a href="{{ block.settings.four_btn_link_two }}">
+                          {{ block.settings.four_column_title2 }}
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.four_column_title2 != blank -%}
+                        {{ block.settings.four_column_description2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                      {%- endif -%}
+                      <div class="hr"></div>
+                    </div>
+                  </div>
+
+                  <div class="promos-grid-four__three">
+                    <div class="promos-grid-four__three__content">
+                      {%- if block.settings.four_grid_three_image != blank -%}
+                        <a href="{{ block.settings.four_btn_link_three }}">
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.four_grid_three_image | img_url: '500x' }}"
+                            alt="{{ block.settings.four_grid_three_image.alt }}"
+                          >
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.four_column_title3 != blank -%}
+                        <a href="{{ block.settings.four_btn_link_three }}">
+                          {{ block.settings.four_column_title3 }}
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.four_column_title3 != blank -%}
+                        {{ block.settings.four_column_description3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                      {%- endif -%}
+                      <div class="hr"></div>
+                    </div>
+                  </div>
+
+                  <div class="promos-grid-four__four">
+                    <div class="promos-grid-four__four__content">
+                      {%- if block.settings.four_grid_four_image != blank -%}
+                        <a href="{{ block.settings.four_btn_link_four }}">
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.four_grid_four_image | img_url: '500x' }}"
+                            alt="{{ block.settings.four_grid_four_image.alt }}"
+                          >
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.four_column_title4 != blank -%}
+                        <a href="{{ block.settings.four_btn_link_four }}">
+                          {{ block.settings.four_column_title4 }}
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.four_column_title4 != blank -%}
+                        {{ block.settings.four_column_description4 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                      {%- endif -%}
+                      <div class="hr"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% elsif block.type == 'promos_single_column' %}
+              <div class="promo-page-wrapper">
+                <div class="promos-single-column">
+                  <div class="promos-single-column__content">
+                    {%- if block.settings.promos_single_column_image != blank -%}
+                      <img
+                        src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.promos_single_column_image | img_url: '500x' }}"
+                        alt="{{ block.settings.promos_single_column_image.alt }}"
+                      >
+                    {%- endif -%}
+                    {%- if block.settings.promos_single_column_description != blank -%}
+                      {{ block.settings.promos_single_column_description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {% elsif block.type == 'custom_html' %}
+              <div class="block--{{ forloop.index }}">{{ block.settings.html }}</div>
+            {% elsif block.type == 'default_content' %}
+              {% if block.settings.content %}
+                <div class="default_content">
+                  {% render 'page-multi-column', content: page.content %}
+                </div>
+              {% endif %}
+            {% endif %}
+            {% if block.type == 'content' %}
+              </dl>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    {%- if section.settings.show_sidebar -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% for block in section.blocks %}
+  {% if block.type == 'content' %}
+    <script data-theme-editor-load-script src="{{ 'z__jsFAQ.js' | asset_url }}"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {% for link in block.settings.faqs_menu.links %}
+          {
+            "@type": "Question",
+            "name": "{{- link.title | escape -}}",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "{%- for childLink in link.links -%}{%- if childLink.links == blank -%}{{ childLink.title | remove: '<br>' | escape -}}{%- endif -%}{%- endfor -%}"
+            }
+          }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]
+      }
+    </script>
+  {% endif %}
+{% endfor %}
+<script>
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 45.44609267107371, lng: -122.77756132389618 },
+      zoom: 15
+    });
+
+    var service = new google.maps.places.PlacesService(map);
+
+    var request = {
+      placeId: 'ChIJwQXkP_sMlVQRITAxQL2pP1I'
+    };
+
+    service.getDetails(request, function (place, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        var openingHours = place.opening_hours;
+        var storeAddress = place.adr_address;
+        var mapUrl = place.url;
+        console.log(place);
+
+        var marker = new google.maps.Marker({
+          position: place.geometry.location,
+          map: map,
+          title: place.name
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+          content: place.name
+        });
+
+        marker.addListener('click', function () {
+          infoWindow.open(map, marker);
+        });
+
+        // Format the opening hours
+        var formattedOpeningHours = formatOpeningHours(openingHours);
+
+        // Display opening hours in a separate div
+        var openingHoursDivs = document.querySelectorAll('.openingHours');
+        console.log(openingHoursDivs);
+        openingHoursDivs.forEach((openingHoursDiv) => {
+          openingHoursDiv.innerHTML =  formattedOpeningHours;
+        });
+        var storeAddressDiv = document.getElementById('storeAddress');
+        storeAddressDiv.innerHTML =  storeAddress;
+        storeAddressDiv.setAttribute('href', mapUrl);
+        storeAddressDiv.setAttribute('target', '_blank');
+        storeAddressDiv.setAttribute('title', 'Address');
+        var storeDirectionLink = document.querySelector('[title="Directions"]');
+        storeDirectionLink.setAttribute('href', mapUrl);
+      }
+    });
+  }
+
+  function formatOpeningHours(openingHours) {
+    var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    var combinedDays = [];
+    var formattedOpeningHours = '';
+
+    weekdays.forEach(function (weekday, index) {
+      var dayOpeningHours = openingHours.weekday_text[index];
+      var hours = dayOpeningHours.split(': ')[1];
+
+      if (weekday === 'Friday' || weekday === 'Saturday') {
+        return; // Skip Friday and Saturday for now
+      }
+
+      var previousHours = combinedDays.length > 0 ? combinedDays[combinedDays.length - 1].hours : null;
+
+      if (previousHours === hours) {
+        combinedDays[combinedDays.length - 1].days.push(weekday);
+      } else {
+        combinedDays.push({ hours: hours, days: [weekday] });
+      }
+    });
+
+    var fridayHours = openingHours.weekday_text[4].split(': ')[1];
+    var saturdayHours = openingHours.weekday_text[5].split(': ')[1];
+
+    // Combine Friday with Monday and Tuesday
+    var combinedFriday = combinedDays.find(function (combinedDay) {
+      return combinedDay.hours === fridayHours;
+    });
+
+    if (combinedFriday) {
+      combinedFriday.days.push('Friday');
+    } else {
+      combinedDays.push({ hours: fridayHours, days: ['Friday', 'Monday', 'Tuesday'] });
+    }
+
+    // Combine Saturday with Wednesday and Thursday
+    var combinedSaturday = combinedDays.find(function (combinedDay) {
+      return combinedDay.hours === saturdayHours;
+    });
+
+    if (combinedSaturday) {
+      combinedSaturday.days.push('Saturday');
+    } else {
+      combinedDays.push({ hours: saturdayHours, days: ['Saturday', 'Wednesday', 'Thursday'] });
+    }
+
+    combinedDays.forEach(function (combinedDay, index) {
+      var formattedDays = combinedDay.days.join(', ');
+      var formattedHours = combinedDay.hours.replace(/ AM – /g, 'AM ~ ').replace(/ PM – /g, 'PM ~ ');
+
+      formattedOpeningHours += formattedDays + ':<br>' + formattedHours + '<br>';
+
+      if (index === 0) {
+        formattedOpeningHours += '<br>'; // Add a line break after the first group of days
+      }
+    });
+
+    return formattedOpeningHours;
+  }
+</script>
+
+<script>
+  function openPopup(popupId) {
+    const popupWrapper = document.getElementById(popupId);
+    popupWrapper.style.display = "block";
+    popupWrapper.style.opacity = "1";
+    popupWrapper.style.visibility = "visible";
+    popupWrapper.style.zIndex = "99992";
+  }
+
+  function closePopup(popupId) {
+    const popupWrapper = document.getElementById(popupId);
+    popupWrapper.style.display = "none";
+    popupWrapper.style.opacity = "0";
+    popupWrapper.style.visibility = "hidden";
+    popupWrapper.style.zIndex = "-99999999999";
+  }
+
+  function requestQuotePopup() {
+    openPopup("request-qoute-popup");
+  }
+
+  function requestQuoteClosePopup() {
+    closePopup("request-qoute-popup");
+  }
+</script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMsx0BAwpka4A7JHIToG-Kpe8AegWUxdA&libraries=places&callback=initMap"
+  async
+  defer
+></script>
+
+<script>
+  document.querySelectorAll('.page-main p').forEach((tag) => {
+    if (tag.innerHTML == '&nbsp;') {
+      tag.innerHTML = '';
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Page content",
+  "class": "page-main jsFAQ",
+  "templates": ["page"],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Breadcrumb Enable/Disable"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show Breadcrumb",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sidebar Enable/Disable"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sidebar",
+      "label": "Show sidebar",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Select menu for sidebar."
+    },
+    {
+      "type": "header",
+      "content": "Page title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show page title",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Page Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "1000 x 1000px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "FAQs",
+      "type": "content",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Column",
+          "default": "whole",
+          "options": [
+            {
+              "value": "whole",
+              "label": "One"
+            },
+            {
+              "value": "half",
+              "label": "Two"
+            }
+          ]
+        },
+        {
+          "type": "link_list",
+          "id": "faqs_menu",
+          "label": "FAQs menu",
+          "info": "Select faqs navigation."
+        }
+      ]
+    },
+    {
+      "name": "Richtext",
+      "type": "richtext",
+      "settings": [
+        {
+          "type": "select",
+          "id": "richtext_alignment",
+          "label": "Richtext alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "richtext_font",
+          "label": "Richtext Font Family",
+          "default": "Montserrat,sans-serif",
+          "options": [
+            {
+              "value": "Montserrat,sans-serif",
+              "label": "Montserrat"
+            },
+            {
+              "value": "Playfair Display,serif",
+              "label": "Playfair Display"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Richtext"
+        }
+      ]
+    },
+    {
+      "name": "Two Column Richtext",
+      "type": "richtext_2",
+      "settings": [
+        {
+          "type": "select",
+          "id": "richtext_2_alignment",
+          "label": "Richtext alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "richtext_2_font",
+          "label": "Richtext Font Family",
+          "default": "Montserrat,sans-serif",
+          "options": [
+            {
+              "value": "Montserrat,sans-serif",
+              "label": "Montserrat"
+            },
+            {
+              "value": "Playfair Display,serif",
+              "label": "Playfair Display"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Column 1"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext_column_1",
+          "label": "Richtext"
+        },
+        {
+          "type": "html",
+          "id": "content_html",
+          "label": "HTML 1"
+        },
+        {
+          "type": "header",
+          "content": "Column 2"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext_column_2",
+          "label": "Richtext"
+        },
+        {
+          "type": "html",
+          "id": "content_html_2",
+          "label": "HTML 2"
+        }
+      ]
+    },
+    {
+      "name": "Image with text",
+      "type": "image_with_text",
+      "settings": [
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Richtext alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "richtext_font",
+          "label": "Richtext Font Family",
+          "default": "Montserrat,sans-serif",
+          "options": [
+            {
+              "value": "Montserrat,sans-serif",
+              "label": "Montserrat"
+            },
+            {
+              "value": "Playfair Display,serif",
+              "label": "Playfair Display"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Image/Video position",
+          "default": "right",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "right"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1000 x 1000px recommended"
+        },
+        {
+          "type": "richtext",
+          "id": "image_title",
+          "label": "Image Title",
+          "info": "Title showing after image"
+        },
+        {
+          "type": "header",
+          "content": "Video"
+        },
+        {
+          "type": "select",
+          "id": "aspect_ratio",
+          "label": "Aspect ratio",
+          "options": [
+            {
+              "value": "16:9",
+              "label": "16:9"
+            },
+            {
+              "value": "4:3",
+              "label": "4:3"
+            },
+            {
+              "value": "1:1",
+              "label": "1:1"
+            }
+          ],
+          "default": "16:9"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Autoplay video",
+          "info": "Limited browser support for autoplaying video. [Learn more](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/360000661568)",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "autoloop",
+          "label": "Autoloop video",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "mute_video",
+          "label": "Mute video",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "controls",
+          "label": "Show video controls",
+          "default": true
+        },
+        {
+          "type": "video_url",
+          "id": "iframe_video",
+          "label": "YouTube or Vimeo video URL",
+          "accept": ["youtube", "vimeo"],
+          "default": "https://www.youtube.com/watch?v=8NxS0vrPcsA"
+        }
+      ]
+    },
+    {
+      "name": "Map with text",
+      "type": "map_with_text",
+      "settings": [
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Richtext alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "richtext_font",
+          "label": "Richtext Font Family",
+          "default": "Montserrat,sans-serif",
+          "options": [
+            {
+              "value": "Montserrat,sans-serif",
+              "label": "Montserrat"
+            },
+            {
+              "value": "Playfair Display,serif",
+              "label": "Playfair Display"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "html",
+          "id": "content_html",
+          "label": "Content HTML"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "header",
+          "content": "Map"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Map position",
+          "default": "right",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "right"
+            }
+          ]
+        },
+        {
+          "type": "html",
+          "id": "html",
+          "label": "HTML"
+        }
+      ]
+    },
+    {
+      "name": "Heading",
+      "type": "heading",
+      "settings": [
+        {
+          "type": "select",
+          "id": "richtext_font",
+          "label": "Richtext Font Family",
+          "default": "Montserrat,sans-serif",
+          "options": [
+            {
+              "value": "Montserrat,sans-serif",
+              "label": "Montserrat"
+            },
+            {
+              "value": "Playfair Display,serif",
+              "label": "Playfair Display"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Section heading"
+        }
+      ]
+    },
+    {
+      "name": "Default content",
+      "type": "default_content",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "content",
+          "label": "Show/Hide default content",
+          "default": true
+        }
+      ]
+    },
+    {
+      "name": "Custom HTML",
+      "type": "custom_html",
+      "settings": [
+        {
+          "type": "html",
+          "id": "html",
+          "label": "Custom html"
+        }
+      ]
+    },
+    {
+      "name": "Image",
+      "type": "image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1000 x 1000px recommended"
+        }
+      ]
+    },
+    {
+      "name": "Three columns",
+      "type": "three_column_block",
+      "settings": [
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Content alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Column 1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "header",
+          "content": "Column 2"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "description_2",
+          "label": "Description"
+        },
+        {
+          "type": "header",
+          "content": "Column 3"
+        },
+        {
+          "type": "text",
+          "id": "title_3",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "description_3",
+          "label": "Description"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    },
+    {
+      "name": "Promos Multi Grid",
+      "type": "promos_grid",
+      "settings": [
+        {
+          "type":"textarea",
+          "id": "column_one",
+          "label": "Column One"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_btn_one",
+          "label": "Enable Button",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "btn_link_one",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "btn_text_one",
+          "label": "Button Text"
+        },
+        {
+          "type":"textarea",
+          "id": "column_two",
+          "label": "Column Two"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_btn_two",
+          "label": "Enable Button",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "btn_link_two",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "btn_text_two",
+          "label": "Button Text"
+        },
+        {
+          "type":"textarea",
+          "id": "column_three",
+          "label": "Column Three"
+        },
+         {
+          "type": "image_picker",
+          "id": "grid_three_image",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_btn_three",
+          "label": "Enable Button",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "btn_link_three",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "btn_text_three",
+          "label": "Button Text"
+        },
+        {
+          "type":"textarea",
+          "id": "column_four",
+          "label": "Column Four"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_btn_four",
+          "label": "Enable Button",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "btn_link_four",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "btn_text_four",
+          "label": "Button Text"
+        },
+        {
+          "type":"textarea",
+          "id": "column_five",
+          "label": "Column Five"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_btn_five",
+          "label": "Enable Button",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "btn_link_five",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "btn_text_five",
+          "label": "Button Text"
+        }
+      ]
+    },
+    {
+      "name": "Promos Multi Grid 2",
+      "type": "promos_grid_2",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "signatura",
+          "label": "Image"
+        },
+        {
+          "type":"textarea",
+          "id": "Two_column_one",
+          "label": "Column One"
+        },
+        {
+          "type":"textarea",
+          "id": "Two_column_two",
+          "label": "Column Two"
+        },
+        {
+          "type": "url",
+          "id": "Two_btn_link_two",
+          "label": "Link"
+        },
+        {
+          "type":"textarea",
+          "id": "Two_column_three",
+          "label": "Column Three"
+        },
+         {
+          "type": "image_picker",
+          "id": "Two_grid_three_image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "Two_btn_link_three",
+          "label": "Link"
+        },
+        {
+          "type":"textarea",
+          "id": "Two_column_four",
+          "label": "Column Four"
+        },
+        {
+          "type": "checkbox",
+          "id": "Two_enable_btn_four",
+          "label": "Enable Button",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "Two_btn_link_four",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "Two_btn_text_four",
+          "label": "Button Text"
+        }
+      ]
+    },
+    {
+      "name": "Promos Grid",
+      "type": "promos_grid_3",
+      "settings": [
+        {
+          "type":"textarea",
+          "id": "three_column_one",
+          "label": "Column One"
+        },
+        {
+          "type": "checkbox",
+          "id": "three_enable_btn_one",
+          "label": "Enable Button",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "three_btn_link_one",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "three_btn_text_one",
+          "label": "Button Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "three_enable_btn_two",
+          "label": "Enable Button",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "three_btn_link_two",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "three_btn_text_two",
+          "label": "Button Text"
+        }
+      ]
+    },
+    {
+      "name": "Promos Grid 2",
+      "type": "promos_grid_4",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "four_grid_one_image",
+          "label": "Image"
+        },
+        {
+          "type":"text",
+          "id": "four_column_title",
+          "label": "Title"
+        },
+        {
+          "type":"textarea",
+          "id": "four_column_description",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "four_btn_link_one",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "four_grid_two_image",
+          "label": "Image"
+        },
+        {
+          "type":"text",
+          "id": "four_column_title2",
+          "label": "Title"
+        },
+        {
+          "type":"textarea",
+          "id": "four_column_description2",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "four_btn_link_two",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "four_grid_three_image",
+          "label": "Image"
+        },
+        {
+          "type":"text",
+          "id": "four_column_title3",
+          "label": "Title"
+        },
+        {
+          "type":"textarea",
+          "id": "four_column_description3",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "four_btn_link_three",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "four_grid_four_image",
+          "label": "Image"
+        },
+        {
+          "type":"text",
+          "id": "four_column_title4",
+          "label": "Title"
+        },
+        {
+          "type":"textarea",
+          "id": "four_column_description4",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "four_btn_link_four",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Promos Single Column",
+      "type": "promos_single_column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "promos_single_column_image",
+          "label": "Image"
+        },
+        {
+          "type":"textarea",
+          "id": "promos_single_column_description",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "name": "Contact Form",
+      "type": "contact_form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Submit An Email"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "header",
+          "content": "Select options"
+        },
+        {
+          "type": "text",
+          "id": "option1",
+          "label": "option 1"
+        },
+        {
+          "type": "text",
+          "id": "option2",
+          "label": "option 2"
+        },
+        {
+          "type": "text",
+          "id": "option3",
+          "label": "option 3"
+        },
+        {
+          "type": "text",
+          "id": "option4",
+          "label": "option 4"
+        },
+        {
+          "type": "text",
+          "id": "option5",
+          "label": "option 5"
+        },
+        {
+          "type": "header",
+          "content": "Input placeholders"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name placeholder"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email placeholder"
+        },
+        {
+          "type": "text",
+          "id": "message",
+          "label": "Message placeholder"
+        },
+        {
+          "type": "text",
+          "id": "required_text",
+          "label": "Required text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

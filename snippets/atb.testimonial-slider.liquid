@@ -1,0 +1,390 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Testimonials",
+  "class": "quotes-slider jsQuotesSlider",
+  "id": "testimonial-slider",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_gutter",
+      "label": "Show gutter",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_hide_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background_color",
+      "label": "Background",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_text_color",
+      "label": "Text Color",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Testimonial"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "block_image",
+      "repeatable": "Testimonial",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "title",
+      "id": "block_title",
+      "repeatable": "Testimonial",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Quote",
+      "id": "block_quote",
+      "repeatable": "Testimonial",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Author",
+      "id": "block_author",
+      "repeatable": "Testimonial",
+      "info": ""
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_show_gutter' -%}
+{%- assign atb_show_gutter = val -%}
+{%- include 'atb-render' field:'atb_hide_mobile' -%}
+{%- assign atb_hide_mobile = val -%}
+{%- include 'atb-render' field:'atb_background_color' -%}
+{%- assign atb_background_color = val -%}
+{%- include 'atb-render' field:'atb_text_color' -%}
+{%- assign atb_text_color = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_quote' -%}
+{%- assign block_quote = val -%}
+{%- include 'atb-render' field:'block_author' -%}
+{%- assign block_author = val -%}
+{%- if atb_show_gutter == blank -%}
+{%- assign atb_show_gutter = false -%}
+{%- else -%}
+{%- assign atb_show_gutter = true -%}
+{%- endif -%}
+{%- if atb_hide_mobile == blank -%}
+{%- assign atb_hide_mobile = false -%}
+{%- else -%}
+{%- assign atb_hide_mobile = true -%}
+{%- endif -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section quotes-slider jsQuotesSlider">
+{% style %}
+    #shopify-section-{{ section_id }} {
+      background-color: {{ atb_background_color }};
+      padding-top: {{ atb_padding_top }}px;
+      padding-bottom: {{ atb_padding_bottom }}px;
+      {% if atb_width == 'wide' %}
+        width: 100%;
+      {% endif %}
+      {% if atb_hide_mobile %}
+        @media screen and (max-width: 798px){
+          display: none;
+        }
+      {% endif %}
+    }
+    p.offset-cell.text-style-title {
+      color: #fff;
+      font-weight: 500;
+      font-size: 30px;
+      padding-top: 60px;
+      line-height: 1.3;
+      margin-bottom: 20px;
+  }
+  .quotes-slider .one-whole{
+    display: flex;
+    align-items: center;
+    /* flex-wrap: wrap; */
+  }
+
+  .one-thirds.column img {
+      padding: 60px 40px;
+      width: 360px;
+
+  }
+
+  .readability-insets span {
+      color: #e6c799;
+      font-family: Montserrat,sans-serif;
+      font-size: 19px;
+      font-weight: 500;
+  }
+  .quotes-slider .two-thirds.column {
+      padding: 40px 20px 40px 20px;
+  }
+  p.offset-cell.text-style-title:before {
+      content: open-quote;
+      display: block;
+      font-size: 70px;
+      font-style: italic;
+      left: -6px;
+      line-height: 1;
+      position: absolute;
+      top: 0;
+  }
+
+  p.offset-cell.text-style-title{
+
+      quotes: "\201c" "\201d" "\201c" "\201d";
+  }
+    p.offset-cell.text-style-title:before {
+      font-size: 108px;
+      left: 10px;
+      font-weight: 600;
+      top: 40px;
+  }
+  .quotes-slider .flickity-page-dots .dot {
+      display: inline-block;
+      width: 60px;
+      height: 4px;
+      margin: 0px 4px;
+      background: #333;
+      border-radius: 0;
+      cursor: pointer;
+    opacity:1;
+  }
+  .quotes-slider  li.dot.is-selected {
+      background: #fff;
+  }
+  .quotes-slider    ol.flickity-page-dots {
+      bottom: 0;
+  }
+
+  .container.quotes-slider {
+      margin-bottom: 40px;
+  }
+
+  element.style {
+      flex-wrap: nowrap;
+  }
+  .container.quotes-slider.flickity-enabled.is-draggable.flickity-resize {
+      padding-top: 70px;
+      padding-bottom: 40px;
+      margin-bottom: 50px;
+  }
+      @media screen and (max-width:992px){
+      #shopify-section-{{ section_id }} .container .column{
+          width: 100% !important;
+          display: inline-block;        
+      }
+      #shopify-section-{{ section_id }} .one-thirds{
+        text-align: center;
+      }
+      #shopify-section-{{ section_id }} .one-thirds img{
+        max-width: 150px;
+        padding: 20px;
+      }
+    }
+{% endstyle %}
+<section
+  class="
+    section
+    section-collection-blocks
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    {% if atb_show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if atb_width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  <div
+    class="container quotes-slider {% if blocks.size <= 1 %}no-slider{% endif %}"
+    style="flex-wrap: nowrap;"
+    data-products-per-slide="1"
+    data-products-limit="{% if blocks.size > 1 %}15{% else %}1{% endif %}"
+    data-products-available="{% if blocks.size > 1 %}15{% else %}1{% endif %}"
+  >
+    {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+      <div class="body-cell layout-table one-whole column">
+        <div class="two-thirds column">
+          <div class="readability-insets">
+            <h2 class="text-style-subtitle">{{ block_title[forloop.index0] }}</h2>
+            <p class="offset-cell text-style-title">{{ block_quote[forloop.index0] }}</p>
+            <span>{{ block_author[forloop.index0] }}</span>
+          </div>
+        </div>
+        <div class="one-thirds column">
+          <img src="{{ settings.speedsize_url_pfx_https -}}{{ my_image0 | img_url:'original' }}" width="" height="" loading="lazy" alt="slide">
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsQuotesSlider.js' | asset_url }}"></script>
+
+
+</section>

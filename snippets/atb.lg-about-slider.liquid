@@ -1,0 +1,533 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "About Slider",
+  "class": "collection-block about-slider",
+  "id": "lg-about-slider",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Main Title",
+      "id": "atb_main_title",
+      "default": "Find your perfect Wedding Ring",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "label": "Description",
+      "id": "atb_description",
+      "default": "Description text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "About Button URL",
+      "id": "atb_main-btn",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_gutter",
+      "label": "Show gutter",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_hide_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background_color",
+      "label": "Background",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_text_color",
+      "label": "Text Color",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_id_sec",
+      "label": "Section Id",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "block_image",
+      "repeatable": "Collection",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "label": "Hover Image",
+      "id": "block_image-2",
+      "repeatable": "Collection",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Image Alt Text",
+      "id": "block_image_alt",
+      "repeatable": "Collection",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "block_title",
+      "repeatable": "Collection",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "label": "Content",
+      "id": "block_content",
+      "repeatable": "Collection",
+      "info": ""
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_main_title' -%}
+{%- assign atb_main_title = val -%}
+{%- include 'atb-render' field:'atb_description' -%}
+{%- assign atb_description = val -%}
+{%- include 'atb-render' field:'atb_main-btn' -%}
+{%- assign atb_main-btn = val -%}
+{%- include 'atb-render' field:'atb_show_gutter' -%}
+{%- assign atb_show_gutter = val -%}
+{%- include 'atb-render' field:'atb_hide_mobile' -%}
+{%- assign atb_hide_mobile = val -%}
+{%- include 'atb-render' field:'atb_background_color' -%}
+{%- assign atb_background_color = val -%}
+{%- include 'atb-render' field:'atb_text_color' -%}
+{%- assign atb_text_color = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_id_sec' -%}
+{%- assign atb_id_sec = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_image-2' -%}
+{%- assign block_image-2 = val -%}
+{%- include 'atb-render' field:'block_image_alt' -%}
+{%- assign block_image_alt = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_content' -%}
+{%- assign block_content = val -%}
+{%- if atb_show_gutter == blank -%}
+{%- assign atb_show_gutter = false -%}
+{%- else -%}
+{%- assign atb_show_gutter = true -%}
+{%- endif -%}
+{%- if atb_hide_mobile == blank -%}
+{%- assign atb_hide_mobile = false -%}
+{%- else -%}
+{%- assign atb_hide_mobile = true -%}
+{%- endif -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section collection-block about-slider">
+<style>
+  #shopify-section-{{ section_id }} .home-collection-block--slider{
+    width: 95%;
+  }
+  {% comment %} #shopify-section-{{ section_id }} .flickity-viewport{
+    margin-left: -5px;
+  } {% endcomment %}
+  #shopify-section-{{ section_id }} .flickity-button{
+    top: 50%;
+    padding: 0;
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+  .about-block img{
+    width:100%;
+  }
+  
+  #shopify-section-{{ section_id }} .flickity-button-icon {
+    fill: #ffffff;
+    background: #000;
+    padding: 7px;
+    border-radius: 100%;
+  }
+  .flickity-prev-next-button .flickity-button-icon{
+    margin: 0;
+  }
+  #shopify-section-{{ section_id }} .flickity-prev-next-button.previous{
+    left: -10px;
+  }
+  #shopify-section-{{ section_id }} .flickity-prev-next-button.next{
+    right: -10px;
+  }
+  #shopify-section-{{ section_id }} .column{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .collection-block-wrapper h2 {
+    font-size: 19px;
+    line-height: 24px;
+    font-weight: 500;
+}
+  .home-collection-block .collection-block-wrapper h3 {
+    font-size: 14px;
+    text-align: left !important;
+    font-weight: 300 !important;
+    font-family: 'Montserrat';
+    text-transform: initial !important;
+    line-height: 26px;
+  }
+  .home-collection-block .collection-block .hover-image{
+    display:none;
+  }
+  .home-collection-block .collection-block:hover .before-image{
+    display:none;
+  }
+  .home-collection-block .collection-block:hover .hover-image{
+    display:block;
+  }
+   .home-collection-block .collection-block{
+     position:relative;
+   }
+  .home-collection-block .collection-block:after{
+    background-color: #dea595;
+    bottom: 10px;
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    transition: width .8s;
+    width: 80px;
+    z-index: 0;
+  }
+  
+  #shopify-section-{{ section_id }} .home-collection-block--slider.no-slider .image-element__wrap{
+    margin: 0;
+  }
+   #shopify-section-{{ section_id }} .about-block .image-element__wrap {
+    height: auto;
+    max-width: 100% !important;
+    border-radius:0;
+  }
+  .about-img-slider img{
+    
+    object-fit:cover;
+  }
+  .abt-content{
+    max-height: 250px;
+    padding: 40px 15px 40px 15px;
+    position: relative;
+    background: #fbf0e8;
+    text-align: center;
+  }
+  .abt-content h2{
+    margin: 0 auto;  
+    font-size: 1.875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    line-height: 40px;   
+    text-transform: uppercase;
+  }
+  .abt-content p{
+    margin: 8px auto 0;
+    line-height: 24px;
+    font-size:14px;
+  }
+  .collection-block img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0;
+  }
+  .collection-block h6{
+    text-align: center;
+    margin-top: 15px;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+  @media screen and (min-width: 768px){
+    #shopify-section-{{ section_id }} .flickity-prev-next-button.previous{
+      left: -10px;
+    }
+    #shopify-section-{{ section_id }} .flickity-prev-next-button.next{
+      right: -10px;
+    }
+  }
+  @media screen and (max-width: 767px){
+    .collection-block-wrapper h3{
+      font-size: 18px;
+    }
+    .collection-block h6{
+      font-size: 15px;
+    }
+    .flickity-prev-next-button .flickity-button-icon {
+      width: 20px;
+      height: 20px;
+    }
+    .abt-content{
+      max-height:100%;
+    }
+  }
+</style>
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section_id }} {
+    background-color: {{ atb_background_color }};
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if atb_hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section_id }} .home-collection-block--slider.no-slider:after {
+    content: "flickity";
+    display: none; /* hide :after */
+  }
+  @media screen and (min-width: 1025px) {
+    /* disable Flickity for large devices */
+    #shopify-section-{{ section_id }} .home-collection-block--slider.no-slider:after {
+      content: "";
+    }
+  }
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section id="{{ atb_id_sec }}"
+  class="
+    section
+    section-collection-blocks
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    {% if atb_show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if atb_width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  <div class="collection-block-wrapper">
+    {% if atb_main_title != blank %}
+      <h2 style="color: {{ atb_text_color }};">{{ atb_main_title }}</h2>
+    {% endif %}
+    <div class="top-description">
+      {{ atb_description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+    </div>
+    <div
+      class="container {% if blocks.size <= 5 %}no-slider{% endif %}"
+    >
+      {% for block0 in blocks %}
+{%- assign my_image_key1 = block_image-2[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image1 = images[my_image_key1] -%}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+        <div class=" about-block one-third column large-down--one-fourth medium-down--one-third small-down--one-whole">
+           {% if my_image1 != blank %}
+             <div class="about-img-slider"  data-products-per-slide="1"
+            data-products-limit="20"
+            data-products-available="20">
+            {% endif %}
+          {% if my_image0 != blank %}
+            <div class="one-whole-div">
+            {%
+              render 'image-element',
+              image: my_image0,
+              alt: block_image_alt[forloop.index0],
+               additional_classes:'before-image',
+            %}
+            </div>
+          {% else %}
+            <div class="image-element__wrap" style="height: auto;">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        {% if my_image1 != blank %}
+           <div class="one-whole-div">
+            {%
+              render 'image-element',
+              image: my_image1,
+              alt: block_image_alt[forloop.index0],
+              additional_classes:'hover-image',
+            %}
+          </div>
+        {% endif %}
+        {% if my_image1 != blank %}
+             </div>
+            {% endif %}
+          {% if block_title[forloop.index0] != blank %}
+          <div class="abt-content">
+            <h2 style="color: {{ atb_text_color }};">{{ block_title[forloop.index0] }}</h2>
+            <p>{{ block_content[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+          </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+</section>

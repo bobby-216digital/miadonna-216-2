@@ -1,0 +1,616 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Page Shapes slider",
+  "class": "shapes-slider jsShapesSlider",
+  "id": "page-shape-slider",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Content",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Sub Heading",
+      "id": "atb_subheading",
+      "default": "Find Your",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "atb_main_title",
+      "default": "Shape",
+      "info": ""
+    },
+    {
+      "type": "font_picker",
+      "id": "atb_heading_font",
+      "label": "Heading font",
+      "default": "montserrat_n4",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "label": "Description",
+      "id": "atb_description",
+      "info": ""
+    },
+    {
+      "type": "font_picker",
+      "id": "atb_description_font",
+      "label": "Description font",
+      "default": "montserrat_n4",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Button",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_label",
+      "label": "Button label",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_link",
+      "label": "Button link",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_button_background",
+      "label": "Button background",
+      "default": "#EEEEEE",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_button_text",
+      "label": "Button text",
+      "default": "#000000",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "button--primary",
+          "label": "Primary"
+        },
+        {
+          "value": "button--secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "button--link-style",
+          "label": "Link style"
+        }
+      ],
+      "default": "button--primary",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_gutter",
+      "label": "Show gutter",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_hide_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background_color",
+      "label": "Background",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "block_type",
+      "label": "Block Type",
+      "info": "",
+      "default": "",
+      "options": [
+        {
+          "value": "round",
+          "label": "round"
+        },
+        {
+          "value": "princess",
+          "label": "princess"
+        },
+        {
+          "value": "cushion",
+          "label": "cushion"
+        },
+        {
+          "value": "oval",
+          "label": "oval"
+        },
+        {
+          "value": "emerald",
+          "label": "emerald"
+        },
+        {
+          "value": "asscher",
+          "label": "asscher"
+        },
+        {
+          "value": "radiant",
+          "label": "radiant"
+        },
+        {
+          "value": "pear",
+          "label": "pear"
+        },
+        {
+          "value": "heart",
+          "label": "heart"
+        },
+        {
+          "value": "marquise",
+          "label": "marquise"
+        },
+        {
+          "value": "oval-rose",
+          "label": "oval-rose"
+        },
+        {
+          "value": "trillion",
+          "label": "trillion"
+        },
+        {
+          "value": "half-moon",
+          "label": "half-moon"
+        },
+        {
+          "value": "baguette",
+          "label": "baguette"
+        }
+      ],
+      "repeatable": "block"
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "block"
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_subheading' -%}
+{%- assign atb_subheading = val -%}
+{%- include 'atb-render' field:'atb_main_title' -%}
+{%- assign atb_main_title = val -%}
+{%- include 'atb-render' field:'atb_heading_font' -%}
+{%- assign atb_heading_font = val -%}
+{%- include 'atb-render' field:'atb_description' -%}
+{%- assign atb_description = val -%}
+{%- include 'atb-render' field:'atb_description_font' -%}
+{%- assign atb_description_font = val -%}
+{%- include 'atb-render' field:'atb_button_label' -%}
+{%- assign atb_button_label = val -%}
+{%- include 'atb-render' field:'atb_button_link' -%}
+{%- assign atb_button_link = val -%}
+{%- include 'atb-render' field:'atb_button_alignment' -%}
+{%- assign atb_button_alignment = val -%}
+{%- include 'atb-render' field:'atb_button_background' -%}
+{%- assign atb_button_background = val -%}
+{%- include 'atb-render' field:'atb_button_text' -%}
+{%- assign atb_button_text = val -%}
+{%- include 'atb-render' field:'atb_button_style' -%}
+{%- assign atb_button_style = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_show_gutter' -%}
+{%- assign atb_show_gutter = val -%}
+{%- include 'atb-render' field:'atb_hide_mobile' -%}
+{%- assign atb_hide_mobile = val -%}
+{%- include 'atb-render' field:'atb_background_color' -%}
+{%- assign atb_background_color = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'block_type' -%}
+{%- assign block_type = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- if atb_show_gutter == blank -%}
+{%- assign atb_show_gutter = false -%}
+{%- else -%}
+{%- assign atb_show_gutter = true -%}
+{%- endif -%}
+{%- if atb_hide_mobile == blank -%}
+{%- assign atb_hide_mobile = false -%}
+{%- else -%}
+{%- assign atb_hide_mobile = true -%}
+{%- endif -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section shapes-slider jsShapesSlider">
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section_id }} {
+    background-color: {{ atb_background_color }};
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if atb_hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section_id }} .section-header{
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 3.5rem;
+    letter-spacing: 0.35px;
+    font-family: {{- atb_description_font.family -}}, {{- atb_description_font.fallback_families -}};
+  }
+  #shopify-section-{{ section_id }} .heading{
+    font-size: 40px;
+    font-style: italic;
+    line-height: 65.03px;
+    letter-spacing: 0.35px;
+    margin-bottom: 1.5rem;
+    font-family: {{ atb_heading_font.family }}, {{ atb_heading_font.fallback_families }};
+  }
+  #shopify-section-{{ section_id }} .shapes--slider{
+    max-width: 1000px;
+    margin: auto;
+  }
+  #shopify-section-{{ section_id }} .shape{
+    text-align: center;
+  }
+  #shopify-section-{{ section_id }} .shape svg{
+    width: 70px;
+    height: 70px;
+  }
+  #shopify-section-{{ section_id }} .shapes--slider .flickity-prev-next-button.previous {
+    left: -70px;
+  }
+  #shopify-section-{{ section_id }} .shapes--slider .flickity-prev-next-button.next {
+    right: -60px;
+  }
+  #shopify-section-{{ section_id }} .shapes--slider .flickity-button {
+    box-shadow: none;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+  }
+  #shopify-section-{{ section_id }} .section-footer {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+  #shopify-section-{{ section_id }} .section-footer .button.button--secondary {
+    width: 300px;
+    margin: auto;
+    min-height: 54px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-width: 3px;
+  }
+  #shopify-section-{{ section_id }} .section-footer .button.button--secondary:hover {
+    color: {{ atb_button_background }} !important;
+    background-color: {{ atb_button_text }} !important;
+  }
+  #shopify-section-{{ section_id }} .shapes--slider.no-slider:after {
+    content: "flickity";
+    display: none; /* hide :after */
+  }
+  @media screen and (min-width: 1025px) {
+    /* disable Flickity for large devices */
+    #shopify-section-{{ section_id }} .shapes--slider.no-slider:after {
+      content: "";
+    }
+  }
+  @media screen and (max-width: 1024px){
+    #shopify-section-{{ section_id }} .section-header br{
+      display: none;
+    }
+    #shopify-section-{{ section_id }} .shapes--slider{
+      max-width: 650px;
+      margin: auto;
+    }
+    #shopify-section-{{ section_id }} .shapes--slider .flickity-prev-next-button.previous {
+      left: -50px;
+    }
+    #shopify-section-{{ section_id }} .shapes--slider .flickity-prev-next-button.next {
+      right: -40px;
+    }
+  }
+  @media screen and (max-width: 575px){
+    #shopify-section-{{ section_id }} .heading{
+      font-size: 32px;
+      line-height: 45px;
+    }
+    #shopify-section-{{ section_id }} .shapes--slider{
+      max-width: 300px;
+      margin: auto;
+    }
+    #shopify-section-{{ section_id }} .shapes--slider .flickity-prev-next-button.previous {
+      left: -40px;
+    }
+    #shopify-section-{{ section_id }} .shapes--slider .flickity-prev-next-button.next {
+      right: -30px;
+    }
+  }
+  #shopify-section-{{ section_id }}  h2.heading {
+    font-family: Playfair Display,serif !important;
+    border-bottom: 3px solid #000;
+    width: 100px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+  #shopify-section-{{ section_id }}   .buttons.is-center a {
+    background-color: #eae0d4 !important;
+    color: #212121:!important;
+    margin: 30px auto 0: !important;
+    padding: 20px 30px;
+    letter-spacing: 1px;
+}
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-shapes-slider
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    {% if atb_show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if atb_width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  <div class="section-header text-align-center">
+    <div class="subheading">{{ atb_subheading }}</div>
+    <h2
+      class="heading"
+    >
+      {{ atb_main_title }}
+    </h2>
+    <div
+      class="description"
+    >
+      {{ atb_description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+    </div>
+  </div>
+  <div
+    class="container shapes--slider {% if blocks.size <= 8 %}no-slider{% endif %}"
+    style="flex-wrap: nowrap;"
+    data-products-per-slide="8"
+    data-products-limit="{% if blocks.size > 8 %}15{% else %}8{% endif %}"
+    data-products-available="{% if blocks.size > 8 %}15{% else %}8{% endif %}"
+  >
+    {% for block0 in blocks %}
+      <div class="shape shape-{{ block_type[forloop.index0] }} one-eighth column large-down--one-seventh medium-down--one-seventh small-down--one-third">
+        {% case block_type[forloop.index0] %}
+          {% when 'round' %}
+            {% render 'icon-shape-round-cut' %}
+          {% when 'princess' %}
+            {% render 'icon-shape-princess-cut' %}
+          {% when 'cushion' %}
+            {% render 'icon-shape-cushion-cut' %}
+          {% when 'oval' %}
+            {% render 'icon-shape-oval-cut' %}
+          {% when 'emerald' %}
+            {% render 'icon-shape-emerald-cut' %}
+          {% when 'asscher' %}
+            {% render 'icon-shape-asscher-cut' %}
+          {% when 'radiant' %}
+            {% render 'icon-shape-radiant-cut' %}
+          {% when 'pear' %}
+            {% render 'icon-shape-pear-cut' %}
+          {% when 'heart' %}
+            {% render 'icon-shape-heart-cut' %}
+          {% when 'marquise' %}
+            {% render 'icon-shape-marquise-cut' %}
+          {% when 'oval-rose' %}
+            {% render 'icon-shape-oval-rose-cut' %}
+          {% when 'trillion' %}
+            {% render 'icon-shape-round-cut' %}
+          {% when 'half-moon' %}
+            {% render 'icon-shape-half-moon-cut' %}
+          {% when 'baguette' %}
+            {% render 'icon-shape-baguette-cut' %}
+        {% endcase %}
+      </div>
+    {% endfor %}
+  </div>
+  <div class="section-footer">
+    {% if atb_button_label != blank %}
+      <div class="buttons is-{{ atb_button_alignment }}">
+        {% render 'button',
+          label: atb_button_label,
+          href: atb_button_link,
+          style: atb_button_style,
+          text_color: atb_button_text,
+          background_color: atb_button_background,
+          type: 'link'
+        %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsShapesSlider.js' | asset_url }}"></script>
+
+
+</section>

@@ -1,0 +1,115 @@
+.product__image .product-thumbnail {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  letter-spacing: 0.03em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Cart promo message */
+.promo-messaging {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.25rem;
+  color: #212121;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.promo-messaging.alert {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #856404;
+}
+
+.promo-messaging.success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155725;
+}
+
+/* Style JS-created order summary to match Shopify's */
+.shopping-cart-item {
+  display: table;
+  width: 100%;
+}
+.shopping-cart-item ._image {
+  display: table-cell;
+  vertical-align: middle;
+  width: 70px;
+}
+.shopping-cart-item ._detail {
+  display: table-cell;
+  padding: 0.5em;
+  vertical-align: middle;
+}
+.shopping-cart-item ._subtotal {
+  display: table-cell;
+  vertical-align: middle;
+  width: 6em;
+  text-align: right;
+  font-weight: 500;
+  /*color: #fff;*/
+}
+.shopping-cart-item ._subtotal input {
+  font-size: 11px;
+  font-weight: 500;
+  width: 2em;
+  padding: 0;
+  text-align: right;
+  color: #555;
+  opacity: 0.5;
+}
+.shopping-cart-item ._discount {
+  color: #909090;
+  display: inline-block;
+  padding-bottom: 4px;
+  text-decoration: line-through;
+}
+.shopping-cart-item ._price {
+  border-bottom: 1px solid #cacaca;
+  display: inline-block;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+}
+.shopping-cart-item ._name {
+  line-height: 1.5;
+  margin: 0;
+}
+.shopping-cart-item ._info,
+.shopping-cart-item ._message {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #555;
+}
+.payment-due__price {
+}
+.total-line__name {
+  font-weight: 300;
+}
+
+/* Hide Shopify's summary */
+.order-summary__section--product-list {
+  height: 0;
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+.order-summary__section--product-list + .order-summary__section {
+  border-top: 1px solid rgba(111, 111, 111, 0.34);
+  margin-top: 1.5em;
+}
+
+.banner {
+  text-align: center;
+}
+@media (max-width: 1023px) {
+  .sidebar {
+    padding-top: 2em;
+    padding-bottom: 2em;
+  }
+  .main__header .checkout-logo {
+    display: none;
+  }
+}

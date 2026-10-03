@@ -1,0 +1,27 @@
+{% comment %}
+  Required values
+  menu_link: linklist
+  ______________
+  Optional values
+  linklist_class: <string>
+  link_setting: <string>
+{% endcomment %}
+
+{% if menu_link != blank %}
+  {% assign menu = linklists[menu_link] %}
+  <button class="footer__accordion-title">
+    {{ menu.title -}}
+    {% render 'icon-down-arrow' %}
+  </button>
+  <div class="footer__accordion-content">
+    <ul>
+      {% for link in menu.links %}
+        <li class="footer__menu-link">
+          <a {% if link.url contains '#live-chat' %}href="#" onclick="Chatra('openChat',true)"{% else %}href="{{ link.url }}"{% endif %} class="{% if link.active %}is-active{% endif %}" {% if link.url contains 'accessibility' %} data-acsb-custom-trigger="true" {% endif %}>
+            {{ link.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

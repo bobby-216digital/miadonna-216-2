@@ -1,0 +1,59 @@
+{% comment %}
+  Required values
+  label: <string>
+  ______________
+  Optional values
+  href: <string>
+  type: <string>
+  style: <string>
+  class: <string>
+  attribute: <string>
+{% endcomment %}
+
+{% if label != blank %}
+  {% if type == 'link' %}
+    <a
+      style="color:{{ text_color }};background-color:{{ background_color }};"
+      {% if href != blank and href != '#requestQuotePopup' %}
+        href="{{ href }}"
+      {% elsif href == '#requestQuotePopup' %}
+        onClick="requestQuotePopup()"
+      {% else %}
+        href="#"
+      {% endif %}
+      class="button {{ style }} {{ class }}"
+        {% if dataClass !=blnak %}
+         data-class="{{ dataClass }}"
+      {% endif %}
+      {% if dataPopup !=blnak %}
+         data-popup="{{ dataPopup }}"
+      {% endif %}
+      {% if title!=blank %}
+      title="{{title}}"
+      {% endif %}
+      {% if aria_label %}
+        aria-label="{{ aria_label }}"
+      {% endif %}
+      {{ attribute }}
+    {% if open_new_tab %}
+      target="_blank"
+    {% endif %}
+    >
+      {{- label -}}
+    </a>
+  {% else %}
+    <button
+      style="color:{{ text_color }};background-color:{{ background_color }};"
+      type="{{ type }}"
+      class="button {{ style }} {{ class }}"
+      {% if aria_label %}
+        aria-label="{{ aria_label }}"
+      {% endif %}
+      {{ attribute }}
+    >
+      {% if flag-icon-label %}
+      {% render 'icon-rightarrow' %}
+      {% else %} {{ label }} {% endif %}
+    </button>
+  {% endif %}
+{% endif %}

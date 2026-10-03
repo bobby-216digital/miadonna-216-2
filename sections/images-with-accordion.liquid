@@ -1,0 +1,745 @@
+{% comment %}
+  ** Image with accordion **
+{% endcomment %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign blocks = section.blocks -%}
+{% comment %} End content settings {% endcomment %}
+{%- assign collection_handles = section.settings.handles | split: ',' -%}
+{%- if collection.metafields.custom.bottom_images.value != blank or collection.metafields.custom.bottom_faqs.value != blank -%}
+  {{ 'image-with-accordion.css' | asset_url | stylesheet_tag }}
+
+  {% comment %} Section specific CSS {% endcomment %}
+  {% style %}
+    #shopify-section-{{ section.id }} {
+      padding-top: 141px !important;
+      padding-bottom: 141px !important;
+      background-color: {{ section.settings.background_color }};
+      {% if section.settings.width == 'wide' %}
+        width: 100%;
+      {% endif %}
+    }
+    @media screen and (max-width: 767px) {
+      #shopify-section-{{ section.id }} {
+        padding-top: 90px !important;
+        padding-bottom: 90px !important;
+      }
+    }
+    {% render 'css-loop',
+      css: section.settings.custom_css,
+      id: section.id
+    %}
+  {% endstyle %}
+
+  {% assign has_image_block = false %}
+  {% assign has_accordion_block = false %}
+  {% if collection.metafields.custom.bottom_images.value != blank %}
+    {% assign has_image_block = true %}
+  {%- endif -%}
+  {% if collection.metafields.custom.bottom_faqs.value != blank %}
+    {% assign has_accordion_block = true %}
+  {%- endif -%}
+
+  {% assign block_index = 0 %}
+  {% if has_image_block %}
+    {% assign block_index = 1 %}
+  {%- endif -%}
+  {% if has_accordion_block %}
+    {% assign block_index = 2 %}
+  {%- endif -%}
+
+  <section
+    class="
+      section
+      {{ section.settings.css_class }}
+      is-width-{{ section.settings.width }}
+      {% if section.settings.show_gutter == false %}
+        has-no-side-gutter
+        has-background
+      {% else %}
+        has-gutter-enabled
+      {% endif %}
+      {% if section.settings.width == 'wide' %}
+        equal-columns--outside-trim
+      {% endif %}
+    "
+    {% if section.settings.animation != 'none' %}
+      data-scroll-class="{{ section.settings.animation }}"
+    {% endif %}
+  >
+    <div class="container has-blocks-{{ block_index }}">
+      {% if has_image_block %}
+      <div class="images-content--wrapper">
+        {%- for value in collection.metafields.custom.bottom_images.value -%}
+          <div class="images-content--item">
+            <div class="image-content--image">
+              {% render 'image-element',
+                stretch_width: true,
+                image: value.image,
+                alt: value.image.alt,
+                inline_style: 'width: 100%;object-fit:cover;object-position:50.0% 50.0%',
+                focal_point: value.image.presentation.focal_point
+              %}
+            </div>
+            <div class="image-content--text">
+              <h2 class="image-content--title">{{ value.title }}</h2>
+              <div class="image-content--content">
+                {%- for description in value.description.value.children -%}
+                  {%- if description.type == 'paragraph' -%}
+                    <p>
+                    {%- for value in description.children -%}
+                      {%- if value.type == 'text' and value.value != blank -%}
+                        {%- if value.bold == true -%}
+                          <strong>{{ value.value | newline_to_br }}</strong>
+                        {%- else -%}
+                          {{ value.value | newline_to_br }}
+                        {%- endif -%}
+                      {%- elsif value.type == 'link' -%}
+                        <a title="{{ value.title }}" href="{{ value.url }}">
+                          {%- if value.bold == true -%}
+                            <strong>{{ value.children[0].value | newline_to_br }}</strong>
+                          {%- else -%}
+                            {{ value.children[0].value | newline_to_br }}
+                          {%- endif -%}
+                        </a>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    </p>
+                  {%- elsif description.type == 'heading' -%}
+                    {% assign heading_tag = 'h' | append: description.level %}
+                    <{{ heading_tag }}>
+                    {%- for value in description.children -%}
+                      {%- if value.type == 'text' and value.value != blank -%}
+                        {%- if value.bold == true -%}
+                          <strong>{{ description.children[0].value | newline_to_br }}</strong>
+                        {%- else -%}
+                          {{ description.children[0].value | newline_to_br }}
+                        {%- endif -%}
+                      {%- elsif value.type == 'link' -%}
+                        <a title="{{ value.title }}" href="{{ value.url }}">
+                          {%- if value.bold == true -%}
+                            <strong>{{ value.children[0].value | newline_to_br }}</strong>
+                          {%- else -%}
+                            {{ value.children[0].value | newline_to_br }}
+                          {%- endif -%}
+                        </a>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    </{{ heading_tag }}>
+                  {%- elsif description.type == 'list' -%}
+                    <ul class="collection-accordion-content">
+                      {% comment %} {%- for value in description.children -%}
+                        <li>{{ value.children[0].value }}</li>
+                      {%- endfor -%} {% endcomment %}
+                    {%- for value in description.children -%}
+                        {% comment %} <li>{{ value.children[0].value }}</li> {% endcomment %}
+                         <li>
+                         {%- for livalues in value.children -%}
+                           {%- if  livalues.type =='text' -%}
+                               {%- if livalues.bold == true -%}
+                                <strong>{{ livalues.value }}</strong>
+                               {%  else %} 
+                                {{livalues.value  }}
+                              {%  endif %} 
+                           {%- else if  livalues.type =='link' -%} 
+                              {%- for livalueschirldren in livalues.children -%}
+                                 <a title="{{ livalueschirldren.title }}" href="{{ livalues.url }}">
+                                  {%- if livalueschirldren.bold == true -%}
+                            <strong>{{ livalueschirldren.value  }}</strong>
+                          {%- else -%}
+                            {{ livalueschirldren.value  }}
+                          {%- endif -%}
+                                   </a>
+                              {%- endfor -%}
+                           {%  endif %}  
+                         
+
+                       
+  {%- endfor -%}
+    </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      {% endif %}
+
+      {% if has_accordion_block %}
+     
+        {% if  section.settings.accordionnew == false %}
+     <div class="accordion-content--accordion faq-accordion">
+        <div class="accordion-content--wrapper faq-accordion-items">
+          {%- for value in collection.metafields.custom.bottom_faqs.value -%}
+            <div class="accordion-content--item faq-accordion-item">
+              {% if value.faq_title != blank %}
+                <dt>
+                  <button
+                    class="accordion-style--{{ settings.toggle_icon_style }} accordion-content--button"
+                    type="button"
+                    aria-controls="panel-{{ forloop.index }}"
+                    aria-expanded="true"
+                  >
+                    <span>{{ value.faq_title }}</span>
+                    {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+                    {% render 'icon', name: 'minus', icon_class: 'icon-minus' %}
+                  </button>
+                </dt>
+              {% endif %}
+              {% if value.faq_description != blank %}
+                <dd
+                  id="panel-{{ forloop.index }}"
+                  aria-hidden="false"
+                  class="panel"
+                >
+                  <div class="content">
+                    {%- for description in value.faq_description.value.children -%}
+                      {%- if description.type == 'paragraph' -%}
+                        <p>
+                        {%- for value in description.children -%}
+                          {%- if value.type == 'text' and value.value != blank -%}
+                            {%- if value.bold == true -%}
+                              <strong>{{ value.value | strip | newline_to_br }}</strong>
+                            {%- else -%}
+                              {{ value.value | strip | replace: '|', '&nbsp;|&nbsp;' | newline_to_br }}
+                            {%- endif -%}
+                          {%- elsif value.type == 'link' -%}
+                            <a title="{{ value.title }}" href="{{ value.url }}">
+                              {%- if value.bold == true -%}
+                                <strong>{{ value.children[0].value | strip | newline_to_br }}</strong>
+                              {%- else -%}
+                                {{ value.children[0].value | newline_to_br | strip }}
+                              {%- endif -%}
+                            </a>
+                          {%- endif -%}
+                          {%- if value.type == 'text' and value.value == blank or value.type == 'link' and value.value == blank -%}
+                            &nbsp;
+                          {%- endif -%}
+                        {%- endfor -%}
+                        </p>
+                      {%- elsif description.type == 'heading' -%}
+                        {% assign heading_tag = 'h' | append: description.level %}
+                        <{{ heading_tag }}>
+                        {%- for value in description.children -%}
+                          {%- if value.type == 'text' and value.value != blank -%}
+                            {%- if value.bold == true -%}
+                              <strong>{{ description.children[0].value | strip | newline_to_br }}</strong>
+                            {%- else -%}
+                              {{ description.children[0].value | strip | replace: '|', '&nbsp;|&nbsp;' | newline_to_br }}
+                            {%- endif -%}
+                          {%- elsif value.type == 'link' -%}
+                            <a title="{{ value.title }}" href="{{ value.url }}">
+                              {%- if value.bold == true -%}
+                                <strong>{{ value.children[0].value | strip | newline_to_br }}</strong>
+                              {%- else -%}
+                                {{ value.children[0].value | strip | newline_to_br }}
+                              {%- endif -%}
+                            </a>
+                          {%- endif -%}
+                          {%- if value.type == 'text' and value.value == blank or value.type == 'link' and value.value == blank -%}
+                            &nbsp;
+                          {%- endif -%}
+                        {%- endfor -%}
+                        </{{ heading_tag }}>
+                      {%- elsif description.type == 'list' -%}
+                        {% if description.listType == 'unordered' %}
+                          {% assign list_tag = 'ul' %}
+                        {% elsif description.listType == 'ordered' %}
+                          {% assign list_tag = 'ol' %}
+                        {% endif %}
+                        <{{ list_tag }}>
+                          {%- for description in description.children -%}
+                            <li>
+                              {%- for value in description.children -%}
+                                {%- if value.type == 'text' and value.value != blank -%}
+                                  {%- if value.bold == true -%}
+                                    <strong>{{ value.value | strip | newline_to_br }}</strong>
+                                  {%- else -%}
+                                    {{ value.value | strip | replace: '|', '&nbsp;|&nbsp;' | newline_to_br }}
+                                  {%- endif -%}
+                                {%- elsif value.type == 'link' -%}
+                                  <a title="{{ value.title }}" href="{{ value.url }}">
+                                    {%- if value.bold == true -%}
+                                      <strong>{{ value.children[0].value | strip | newline_to_br }}</strong>
+                                    {%- else -%}
+                                      {{ value.children[0].value | newline_to_br | strip }}
+                                    {%- endif -%}
+                                  </a>
+                                {%- endif -%}
+                              {%- endfor -%}
+                            </li>
+                          {%- endfor -%}
+                        </{{ list_tag }}>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </dd>
+              {% endif %}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {% else %}
+       <div class="accordion-inner">
+     
+      <div class="accordion-grid row-col columns-2">
+        {% assign left_column_items = "" %}
+        {% assign right_column_items = "" %}
+      
+      {%- for value in collection.metafields.custom.bottom_faqs.value -%}
+          {% assign is_even = forloop.index0 | modulo: 2 %}
+      
+          {% capture item_markup %}
+             {% if value.faq_title != blank  %}
+            <div class="accordion-item">
+              <div class="accordion-box">
+                <h2 class="accordion-title">
+                  <button aria-expanded="false"
+                    aria-controls="accordion-content-{{ forloop.index }}"
+                    id="accordion-title-{{ forloop.index }}">
+                    {{ value.faq_title }}
+                  </button>
+                </h2>
+                <div class="accordion-content"
+                  id="accordion-content-{{ forloop.index }}"
+                  role="region"
+                  aria-labelledby="accordion-title-{{ forloop.index }}"
+                  hidden>
+                  <div class="accordion-content-inner">
+                    {% comment %} <p>{{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p> {% endcomment %}
+                      {%- for description in value.faq_description.value.children -%}
+                      {%- if description.type == 'paragraph' -%}
+                        <p>
+                        {%- for value in description.children -%}
+                          {%- if value.type == 'text' and value.value != blank -%}
+                            {%- if value.bold == true -%}
+                              <strong>{{ value.value | strip | newline_to_br }}</strong>
+                            {%- else -%}
+                              {{ value.value | replace: '|', '&nbsp;|&nbsp;' | newline_to_br }}
+                            {%- endif -%}
+                          {%- elsif value.type == 'link' -%}
+                            <a title="{{ value.title }}" href="{{ value.url }}">
+                              {%- if value.bold == true -%}
+                                <strong>{{ value.children[0].value | strip | newline_to_br }}</strong>
+                              {%- else -%}
+                                {{- value.children[0].value | newline_to_br | strip -}}
+                              {%- endif -%}
+                            </a>
+                          {%- endif -%}
+                          {%- if value.type == 'text' and value.value == blank or value.type == 'link' and value.value == blank -%}
+                            &nbsp;
+                          {%- endif -%}
+                        {%- endfor -%}
+                        </p>
+                      {%- elsif description.type == 'heading' -%}
+                        {% assign heading_tag = 'h' | append: description.level %}
+                        <{{ heading_tag }}>
+                        {%- for value in description.children -%}
+                          {%- if value.type == 'text' and value.value != blank -%}
+                            {%- if value.bold == true -%}
+                              <strong>{{ description.children[0].value | strip | newline_to_br }}</strong>
+                            {%- else -%}
+                              {{ description.children[0].value | strip | replace: '|', '&nbsp;|&nbsp;' | newline_to_br }}
+                            {%- endif -%}
+                          {%- elsif value.type == 'link' -%}
+                            <a title="{{ value.title }}" href="{{ value.url }}">
+                              {%- if value.bold == true -%}
+                                <strong>{{ value.children[0].value | strip | newline_to_br }}</strong>
+                              {%- else -%}
+                                {{ value.children[0].value | strip | newline_to_br }}
+                              {%- endif -%}
+                            </a>
+                          {%- endif -%}
+                          {%- if value.type == 'text' and value.value == blank or value.type == 'link' and value.value == blank -%}
+                            &nbsp;
+                          {%- endif -%}
+                        {%- endfor -%}
+                        </{{ heading_tag }}>
+                      {%- elsif description.type == 'list' -%}
+                        {% if description.listType == 'unordered' %}
+                          {% assign list_tag = 'ul' %}
+                        {% elsif description.listType == 'ordered' %}
+                          {% assign list_tag = 'ol' %}
+                        {% endif %}
+                        <{{ list_tag }}>
+                          {%- for description in description.children -%}
+                            <li>
+                              {%- for value in description.children -%}
+                                {%- if value.type == 'text' and value.value != blank -%}
+                                  {%- if value.bold == true -%}
+                                    <strong>{{ value.value | strip | newline_to_br }}</strong>
+                                  {%- else -%}
+                                    {{ value.value | strip | replace: '|', '&nbsp;|&nbsp;' | newline_to_br }}
+                                  {%- endif -%}
+                                {%- elsif value.type == 'link' -%}
+                                  <a title="{{ value.title }}" href="{{ value.url }}">
+                                    {%- if value.bold == true -%}
+                                      <strong>{{ value.children[0].value | strip | newline_to_br }}</strong>
+                                    {%- else -%}
+                                      {{ value.children[0].value | newline_to_br | strip }}
+                                    {%- endif -%}
+                                  </a>
+                                {%- endif -%}
+                                {%- if value.type == 'text' and value.value == blank or value.type == 'link' and value.value == blank -%}
+                                  &nbsp;
+                                {%- endif -%}
+                              {%- endfor -%}
+                            </li>
+                          {%- endfor -%}
+                        </{{ list_tag }}>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+              </div>
+            </div>
+              {%- endif -%}
+          {% endcapture %}
+      
+          {% if is_even == 0 %}
+            {% assign left_column_items = left_column_items | append: item_markup %}
+          {% else %}
+            {% assign right_column_items = right_column_items | append: item_markup %}
+          {% endif %}
+        {% endfor %}
+      
+        <!-- Left column -->
+        <div class="col-2">
+          {{ left_column_items }}
+        </div>
+      
+        <!-- Right column -->
+        <div class="col-2">
+          {{ right_column_items }}
+        </div>
+      </div>
+    </div>
+      
+    {% endif %}
+    
+    
+    
+    {% endif %}
+    </div>
+  </section>
+{%- endif -%}
+
+{% if has_accordion_block %}
+  <script data-theme-editor-load-script src="{{ 'z__jsFAQ.js' | asset_url }}"></script>
+{% endif %}
+{%- comment -%}
+{% if collection.metafields.custom.bottom_faqs.value != blank or collection.metafields.custom.bottom_images.value!= blank %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+     {% for faq in collection.metafields.custom.bottom_images.value %}
+      {
+        "@type": "Question",
+        "name": "{{ faq.title | strip_html | escape }}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{% capture answer_text %}{% for block in faq.description.value.children %}{% if block.children != blank %}{% for node in block.children %}{% if node.type == 'text' and node.value != blank %}{{ node.value | strip }} {% elsif node.type == 'link' %}{{ node.children[0].value | strip }} {% endif %}{% endfor %}{% endif %}{% endfor %}{% endcapture %}{{ answer_text | strip | escape }}"
+        }
+      }{% unless forloop.last and collection.metafields.custom.bottom_faqs.value == blank  %},{% endunless %}
+    {% endfor %}
+    {% assign first_question = true %}
+    
+    {% for faq in collection.metafields.custom.bottom_faqs.value %}
+      {% assign faq_title_upper = faq.faq_title | upcase %}
+      {% if faq_title_upper contains 'FREQUENTLY ASKED QUESTIONS' %}
+        
+        {% assign current_question = '' %}
+        {% assign answer_text = '' %}
+        {% assign collecting_answer = false %}
+
+        {% for block in faq.faq_description.value.children %}
+          {% if block.children != blank %}
+            {% for node in block.children %}
+              {% assign nodevalue = node.value | strip %}
+
+              {%- comment -%} If bold text → new question {%- endcomment -%}
+              {% if node.type == 'text' and node.bold and nodevalue != blank %}
+                {%- comment -%} Output previous Q&A if exists {%- endcomment -%}
+                {% if collecting_answer and answer_text != blank %}
+                  {% unless first_question %},{% endunless %}
+                  {% assign first_question = false %}
+
+                  {
+                    "@type": "Question",
+                    "name": {{ current_question | json }},
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": {{ answer_text | json }}
+                    }
+                  }
+                  {% assign answer_text = '' %}
+                {% endif %}
+
+                {% assign current_question = nodevalue %}
+                {% assign collecting_answer = true %}
+
+              {% elsif collecting_answer %}
+                {%- comment -%} Append text or link to answer {%- endcomment -%}
+                {% if node.type == 'text' and nodevalue != blank %}
+                  {% assign answer_text = answer_text | append: nodevalue | append: " " %}
+                {% elsif node.type == 'link' and node.children[0].value != blank %}
+                  {% assign answer_text = answer_text | append: node.children[0].value | append: " " %}
+                {% endif %}
+              {% endif %}
+
+              {%- comment -%} Output last Q&A if at the last node {%- endcomment -%}
+              {% if collecting_answer and forloop.last and answer_text != blank %}
+                {% unless first_question %},{% endunless %}
+                {% assign first_question = false %}
+
+                {
+                  "@type": "Question",
+                  "name": {{ current_question | json }},
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": {{ answer_text | json }}
+                  }
+                }
+                {% assign answer_text = '' %}
+              {% endif %}
+
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+
+      {% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
+{%- endcomment -%}
+
+{%- if collection.metafields.custom.bottom_faqs.value != blank -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- assign first_question = true -%}
+        {%- for faq in collection.metafields.custom.bottom_faqs.value -%}
+          {%- assign faq_title_upper = faq.faq_title | upcase -%}
+          {%- if faq_title_upper contains 'FREQUENTLY ASKED QUESTIONS' -%}
+            {%- assign current_question = '' -%}
+            {%- assign answer_text = '' -%}
+            {%- assign collecting_answer = false -%}
+            {%- for block in faq.faq_description.value.children -%}
+              {%- if block.children != blank -%}
+                {%- for node in block.children -%}
+                  {%- assign nodevalue = node.value | strip -%}
+
+                  {%- comment -%} If bold text → new question {%- endcomment -%}
+                  {%- if node.type == 'text' and node.bold and nodevalue != blank -%}
+                    {%- comment -%} Output previous Q&A if exists {%- endcomment -%}
+                    {%- if collecting_answer and answer_text != blank -%}
+                      {%- unless first_question %},{% endunless -%}
+                      {%- assign first_question = false -%}
+                      {
+                        "@type": "Question",
+                        "name": {{ current_question | strip | json }},
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": {{ answer_text | replace:' free', ' complimentary' | strip | json }}
+                        }
+                      }
+                      {%- assign answer_text = '' -%}
+                    {%- endif -%}
+                    {%- assign current_question = nodevalue | strip -%}
+                    {%- assign collecting_answer = true -%}
+                  {%- elsif collecting_answer -%}
+                    {%- comment -%} Append text or link to answer {%- endcomment -%}
+                    {%- if node.type == 'text' and nodevalue != blank -%}
+                      {%- assign answer_text = answer_text | append: nodevalue | append: " " -%}
+                    {%- elsif node.type == 'link' and node.children[0].value != blank -%}
+                      {%- assign answer_text = answer_text | append: node.children[0].value | append: " " -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                  {%- comment -%} Output last Q&A if at the last node {%- endcomment -%}
+                  {%- if collecting_answer and forloop.last and answer_text != blank -%}
+                    {%- unless first_question %},{% endunless -%}
+                    {%- assign first_question = false -%}
+                    {
+                      "@type": "Question",
+                      "name": {{ current_question | json }},
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": {{ answer_text | replace:' free', ' complimentary' | strip | json }}
+                      }
+                    }
+                    {%- assign answer_text = '' -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Image with accordion",
+  "class": "image-with-accordion-section jsFAQ",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collection handles"
+    },
+    {
+      "type": "text",
+      "id": "handles",
+      "label": "Handles"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+       "type": "checkbox",
+      "id": "accordionnew",
+      "label": "Accordion FAQ New",
+       "default": true
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Accordion title"
+        },
+        {
+          "type": "richtext",
+          "id": "accordion_content",
+          "label": "Accordion content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with accordion",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

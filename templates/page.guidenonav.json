@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

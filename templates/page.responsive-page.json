@@ -1,0 +1,48 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom-css": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>.page-width{width:100%;max-width:100%;padding:0;box-sizing:border-box;}.footer{margin-top:0px !important;padding:10px !important;}main .shopify-section h1, .main-page-title{display:none !important;}</style>"
+      }
+    },
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "settings": {
+        "show_breadcrumb": false,
+        "show_sidebar": false,
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "full",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "css_class": "page-width",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "custom-css",
+    "main"
+  ]
+}

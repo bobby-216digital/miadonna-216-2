@@ -1,0 +1,809 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Video",
+  "class": "video-section jsVideo overlaid-header-option",
+  "id": "index__video",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Video",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_aspect_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        {
+          "value": "16:9",
+          "label": "16:9"
+        },
+        {
+          "value": "4:3",
+          "label": "4:3"
+        }
+      ],
+      "default": "16:9",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_autoplay",
+      "label": "Autoplay video",
+      "info": "Limited browser support for autoplaying video. [Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360000661568)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_autoloop",
+      "label": "Autoloop video",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_mute_video",
+      "label": "Mute video",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_controls",
+      "label": "Show video controls",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_iframe_video_type",
+      "label": "YouTube or Vimeo video URL Type",
+      "default": "youtube",
+      "options": [
+        {
+          "value": "youtube",
+          "label": "Youtube"
+        },
+        {
+          "value": "vimeo",
+          "label": "Vimeo"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "atb_iframe_video_id",
+      "label": "YouTube or Vimeo ID",
+      "default": "_9VUPq3SxOc"
+    },
+    {
+      "type": "text",
+      "id": "atb_html5_video",
+      "label": "HTML5 MP4/OGV File URL",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Content",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_image",
+      "label": "Image",
+      "info": "1600 x 900px recommended"
+    },
+    {
+      "type": "text",
+      "id": "atb_pretext",
+      "label": "Preheading",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Heading",
+      "default": "Featured video",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_subtitle",
+      "label": "Subheading",
+      "default": "Embed a Youtube or Vimeo video.",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_pretext_color",
+      "label": "Preheading",
+      "default": "#000000",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_heading_color",
+      "label": "Heading",
+      "default": "#000000",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_subheading_color",
+      "label": "Subheading",
+      "default": "#000000",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_horizontal_text_position",
+      "label": "Horizontal position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_vertical_text_position",
+      "label": "Vertical position",
+      "options": [
+        {
+          "value": "start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Middle"
+        },
+        {
+          "value": "end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_label",
+      "label": "Button label",
+      "default": "Play video",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_style",
+      "label": "Button style",
+      "default": "button--secondary",
+      "options": [
+        {
+          "value": "button--primary",
+          "label": "Primary"
+        },
+        {
+          "value": "button--secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "button--link-style",
+          "label": "Link style"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Overlay",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_overlay_style",
+      "label": "Overlay style",
+      "default": "text_only",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full"
+        },
+        {
+          "value": "text_only",
+          "label": "Text only"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_video_overlay_color",
+      "label": "Overlay",
+      "default": "#ffffff",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_gradient",
+      "label": "Gradient",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_gradient_rotation",
+      "label": "Gradient rotation",
+      "min": 0,
+      "max": 180,
+      "default": 180,
+      "unit": "deg",
+      "step": 10,
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_background_opacity",
+      "label": "Background opacity",
+      "default": 77,
+      "min": 0,
+      "max": 100,
+      "unit": "%",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_text_width",
+      "label": "Text width",
+      "min": 40,
+      "max": 100,
+      "default": 70,
+      "unit": "%",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Mobile",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_mobile_text_below_video",
+      "label": "Show text below image",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_pretext_color_mobile",
+      "label": "Preheading",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_heading_color_mobile",
+      "label": "Heading",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_subheading_color_mobile",
+      "label": "Subheading",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "wide",
+      "options": [
+        {
+          "value": "half",
+          "label": "Half"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_left",
+      "label": "Left spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_right",
+      "label": "Right spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_aspect_ratio' -%}
+{%- assign atb_aspect_ratio = val -%}
+{%- include 'atb-render' field:'atb_autoplay' -%}
+{%- assign atb_autoplay = val -%}
+{%- include 'atb-render' field:'atb_autoloop' -%}
+{%- assign atb_autoloop = val -%}
+{%- include 'atb-render' field:'atb_mute_video' -%}
+{%- assign atb_mute_video = val -%}
+{%- include 'atb-render' field:'atb_controls' -%}
+{%- assign atb_controls = val -%}
+{%- include 'atb-render' field:'atb_html5_video' -%}
+{%- assign atb_html5_video = val -%}
+{%- include 'atb-render' field:'atb_image' -%}
+{%- assign atb_image = val -%}
+{%- include 'atb-render' field:'atb_pretext' -%}
+{%- assign atb_pretext = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_subtitle' -%}
+{%- assign atb_subtitle = val -%}
+{%- include 'atb-render' field:'atb_pretext_color' -%}
+{%- assign atb_pretext_color = val -%}
+{%- include 'atb-render' field:'atb_heading_color' -%}
+{%- assign atb_heading_color = val -%}
+{%- include 'atb-render' field:'atb_subheading_color' -%}
+{%- assign atb_subheading_color = val -%}
+{%- include 'atb-render' field:'atb_horizontal_text_position' -%}
+{%- assign atb_horizontal_text_position = val -%}
+{%- include 'atb-render' field:'atb_vertical_text_position' -%}
+{%- assign atb_vertical_text_position = val -%}
+{%- include 'atb-render' field:'atb_text_align' -%}
+{%- assign atb_text_align = val -%}
+{%- include 'atb-render' field:'atb_button_label' -%}
+{%- assign atb_button_label = val -%}
+{%- include 'atb-render' field:'atb_button_style' -%}
+{%- assign atb_button_style = val -%}
+{%- include 'atb-render' field:'atb_overlay_style' -%}
+{%- assign atb_overlay_style = val -%}
+{%- include 'atb-render' field:'atb_video_overlay_color' -%}
+{%- assign atb_video_overlay_color = val -%}
+{%- include 'atb-render' field:'atb_gradient' -%}
+{%- assign atb_gradient = val -%}
+{%- include 'atb-render' field:'atb_gradient_rotation' -%}
+{%- assign atb_gradient_rotation = val -%}
+{%- include 'atb-render' field:'atb_background_opacity' -%}
+{%- assign atb_background_opacity = val -%}
+{%- include 'atb-render' field:'atb_text_width' -%}
+{%- assign atb_text_width = val -%}
+{%- include 'atb-render' field:'atb_mobile_text_below_video' -%}
+{%- assign atb_mobile_text_below_video = val -%}
+{%- include 'atb-render' field:'atb_pretext_color_mobile' -%}
+{%- assign atb_pretext_color_mobile = val -%}
+{%- include 'atb-render' field:'atb_heading_color_mobile' -%}
+{%- assign atb_heading_color_mobile = val -%}
+{%- include 'atb-render' field:'atb_subheading_color_mobile' -%}
+{%- assign atb_subheading_color_mobile = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_padding_left' -%}
+{%- assign atb_padding_left = val -%}
+{%- include 'atb-render' field:'atb_padding_right' -%}
+{%- assign atb_padding_right = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- if atb_autoplay == blank -%}
+{%- assign atb_autoplay = false -%}
+{%- else -%}
+{%- assign atb_autoplay = true -%}
+{%- endif -%}
+{%- if atb_autoloop == blank -%}
+{%- assign atb_autoloop = false -%}
+{%- else -%}
+{%- assign atb_autoloop = true -%}
+{%- endif -%}
+{%- if atb_mute_video == blank -%}
+{%- assign atb_mute_video = false -%}
+{%- else -%}
+{%- assign atb_mute_video = true -%}
+{%- endif -%}
+{%- if atb_controls == blank -%}
+{%- assign atb_controls = false -%}
+{%- else -%}
+{%- assign atb_controls = true -%}
+{%- endif -%}
+{%- if atb_mobile_text_below_video == blank -%}
+{%- assign atb_mobile_text_below_video = false -%}
+{%- else -%}
+{%- assign atb_mobile_text_below_video = true -%}
+{%- endif -%}
+{%- include 'atb-render' field:'atb_iframe_video_id' -%}
+{%- assign atb_iframe_video_id = val -%}
+{%- include 'atb-render' field:'atb_iframe_video_type' -%}
+{%- assign atb_iframe_video_type = val -%}
+{%- assign atb_gradient_rotation = atb_gradient_rotation | plus: 0 -%}
+{%- assign atb_background_opacity = atb_background_opacity | plus: 0 -%}
+{%- assign atb_text_width = atb_text_width | plus: 0 -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign atb_padding_left = atb_padding_left | plus: 0 -%}
+{%- assign atb_padding_right = atb_padding_right | plus: 0 -%}
+{%- assign atb_image_key = atb_image| split: '/files/' | last -%}{%- assign atb_image = images[atb_image_key] -%}{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section video-section jsVideo overlaid-header-option">
+{% comment %}
+** Video **
+{% endcomment %}
+
+{%- assign id = section_id -%}
+
+{%- assign iframe_video = atb_iframe_video_id -%}
+{%- assign image = atb_image -%}
+{%- assign autoplay = atb_autoplay -%}
+{%- assign pretext = atb_pretext -%}
+{%- assign title = atb_title -%}
+{%- assign subtitle = atb_subtitle -%}
+{%- assign pretext_color = atb_pretext_color -%}
+{%- assign pretext_color_mobile = atb_pretext_color_mobile -%}
+{%- assign title_color = atb_heading_color -%}
+{%- assign title_color_mobile = atb_heading_color_mobile -%}
+{%- assign subtitle_color = atb_subheading_color -%}
+{%- assign subtitle_color_mobile = atb_subheading_color_mobile -%}
+{%- assign button_label = atb_button_label -%}
+{%- assign button_style = atb_button_style -%}
+{%- assign html5_video = atb_html5_video -%}
+{%- assign mute = atb_mute_video -%}
+
+{% if iframe_video != blank or html5_video != blank %}
+  {%- assign video_exists = true -%}
+{% else %}
+  {%- assign video_exists = false -%}
+{% endif %}
+
+{% comment %}Is the color set to transparent?{% endcomment %}
+{%- assign heading_alpha = title_color | color_extract: 'alpha' -%}
+{%- assign preheading_alpha = pretext_color | color_extract: 'alpha' -%}
+{%- assign subheading_alpha = subtitle_color | color_extract: 'alpha' -%}
+{%- assign mobile_headline_alpha = atb_heading_color_mobile | color_extract: 'alpha' -%}
+{%- assign mobile_preheading_alpha = atb_pretext_color_mobile | color_extract: 'alpha' -%}
+{%- assign mobile_subtitle_alpha = atb_subheading_color_mobile | color_extract: 'alpha' -%}
+{%- assign caption_border_alpha = atb_border_color | color_extract: 'alpha' -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{%- capture section_css -%}
+  {% if atb_overlay_style != 'none' %}
+  .overlay {
+      background-image: linear-gradient({{ atb_gradient_rotation }}deg, rgba(255,255,255,0), {{ atb_gradient }});
+      background-color: {{ atb_video_overlay_color | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }};
+      opacity: {{ atb_background_opacity | divided_by: 100.00 }};
+    }
+  {% endif %}
+
+  .video__title {
+    color: {% if heading_alpha != 0 %}{{ title_color }}{% else %}{{ settings.heading_color }}{% endif %};
+  }
+
+  .video__subtitle {
+    color: {% if subheading_alpha != 0 %}{{ subtitle_color }}{% else %}{{ settings.heading_color }}{% endif %};
+  }
+
+  .pretext {
+    color: {% if preheading_alpha != 0 %}{{ pretext_color }}{% else %}{{ settings.heading_color }}{% endif %};
+  }
+
+  .video__text-container .hidden {
+    display: none;
+  }
+{%- endcapture -%}
+
+{% style %}
+  #shopify-section-{{ id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    padding-left: {{ atb_padding_left }}px;
+    padding-right: {{ atb_padding_right }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% elsif atb_width == 'half' %}
+      width: 50%;
+    {% endif %}
+  }
+
+  {%
+    render 'css-loop',
+    css: section_css,
+    id: id
+  %}
+
+  {%
+    render 'css-loop',
+    css: atb_custom_css,
+    id: id
+  %}
+
+  @media only screen and (min-width: 480px) {
+    #shopify-section-{{ id }} .video__text-wrapper {
+      width: {{ atb_text_width }}%;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    #shopify-section-{{ id }} .video__title {
+      color: {% if mobile_headline_alpha != 0 %}{{ title_color_mobile }}{% endif %};
+    }
+
+    #shopify-section-{{ id }} .video__subtitle {
+      color: {% if mobile_subtitle_alpha != 0 %}{{ subtitle_color_mobile }}{% endif %};
+    }
+
+    #shopify-section-{{ id }} .pretext {
+      color: {% if mobile_preheading_alpha != 0 %}{{ pretext_color_mobile }}{% endif %};
+    }
+  }
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section class="featured-video
+                section
+                {{ atb_css_class }}
+                is-width-{{ atb_width }}
+                {% if atb_mobile_text_below_video == true %}
+                  mobile-text--below-media
+                  {% else %}
+                  mobile-text--over-media
+                {% endif %}
+                {% if video_exists %} has-video-added {% endif %}
+                video-controls-enabled--{{ atb_controls }}"
+        {% if atb_animation != "none" %}
+          data-scroll-class="{{ atb_animation }}"
+        {% endif %}>
+  <div class="container
+              video__container
+              {% if atb_width == 'wide' or atb_width == 'half' %}
+                equal-columns--outside-trim
+              {% endif %}">
+    <div class="one-whole column">
+      <div class="video-wrapper overlay--{{ atb_overlay_style }} video-present--{{ video_exists  }} video-controls--{{ atb_controls }}">
+        {% if image != blank %}
+          <div class="image-wrapper" data-image-element>
+            {%
+              render 'image-element',
+              image: image,
+              alt: image.alt,
+              additional_classes: 'placeholder-img',
+              stretch_width: true,
+              focal_point: image.presentation.focal_point,
+            %}
+          </div>
+        {% else %}
+          {% if video_exists == false %}
+            <div class="image-wrapper" data-image-element>
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg placeholder-svg--video' }}
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% comment %} Checks there is an iframe video (YouTube or Vimeo) {% endcomment %}
+        {% if video_exists %}
+          {% if iframe_video != blank %}
+            <div class="plyr__video-embed video-{{ id }}" data-video-element>
+            {% if iframe_video.type == 'youtube' %}
+              <iframe src="https://www.youtube.com/embed/{{ iframe_video.id  }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" allowfullscreen allowtransparency allow="autoplay"></iframe>
+            {% elsif iframe_video.type == 'vimeo' %}
+              <iframe src="https://player.vimeo.com/video/{{ iframe_video.id  }}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media" allowfullscreen allowtransparency allow="autoplay"></iframe>
+            {% endif %}
+            </div>
+          {% elsif html5_video != blank %}
+            <div class="video-element" data-video-element>
+              <video class="video-{{ id }}">
+                <source src="{{ html5_video | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+              </video>
+            </div>
+          {% endif %}
+        {% endif %}
+
+        <div class="video__text-container" data-video-text-container>
+          <div class="video__text is-justify-{{ atb_vertical_text_position }} {% if pretext == blank and title == blank and subtitle == blank and button_label == blank %} hidden{% endif %}">
+            <div class="text-outer-wrapper is-flex is-justify-{{ atb_horizontal_text_position }}">
+              <div class="video__text-wrapper text-align-{{ atb_text_align }}">
+                <div class="overlay"></div>
+                {% if pretext != blank %}
+                  <p class="pretext subtitle banner__subheading video__subtitle">{{ pretext }}</p>
+                {% endif %}
+                {% if title != blank %}
+                  <h2 class="title video__title banner__heading has-small-padding-top">
+                    <span>{{ title }}</span>
+                  </h2>
+                {% endif %}
+                {% if subtitle != blank %}
+                  <p class="subtitle video__subtitle banner__subheading has-small-padding-top">{{ subtitle }}</p>
+                {% endif %}
+                {% if button_label != blank %}
+                  <button class="button {{ button_style }}" data-play-button>{{ button_label }}</button>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} JavaScript {% endcomment %}
+  <script
+    type="application/json"
+    data-section-id="{{ id }}"
+    data-section-data
+  >
+    {
+      "autoplay": {{ autoplay | json }},
+      "autoloop": {{ atb_autoloop | json }},
+      "video_id": {{ iframe_video.id | json }},
+      "video_type": {{ iframe_video.type | json }},
+      "iframe_video": {{ iframe_video | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+      "html5_video": {{ html5_video | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+      "aspect_ratio": {{ atb_aspect_ratio | json }},
+      "poster": {{ image | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+      "button": {{ button_label | json }},
+      "id": {{ id | json }},
+      "mute": {{ mute | json }}
+    }
+  </script>
+  <script data-theme-editor-load-script src="{{ 'z__jsVideo.js' | asset_url }}"></script>
+</section>
+
+
+
+</section>

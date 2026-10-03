@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "860140e6-28cc-429c-a37a-a918c012c6e3": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "ordering-financing"
+          }
+        },
+        "custom_html_hnqAcC": {
+          "type": "custom_html",
+          "settings": {
+            "html": ""
+          }
+        }
+      },
+      "block_order": [
+        "860140e6-28cc-429c-a37a-a918c012c6e3",
+        "custom_html_hnqAcC"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

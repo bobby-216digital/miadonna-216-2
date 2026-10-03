@@ -1,0 +1,56 @@
+<div
+  class="fancybox-container popup-modal certificate-popup product-images-popup shipping-popup fancybox-is-open"
+  role="dialog"
+  tabindex="-1"
+  id="product-payment-popup"
+  style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;"
+>
+  <style>
+    .popup__content ol{
+      padding-left:40px;
+    }
+    #product-payment-popup .popup__wrapper .subtitle{
+      margin-bottom:20px;
+    }
+  </style>
+  <div class="fancybox-bg" onClick="productPaymentClosePopup()"></div>
+  <div class="fancybox-inner">
+    <div class="fancybox-stage">
+      <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+        <div
+          class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+          style="display: inline-block;"
+        >
+          <button onClick="productPaymentClosePopup()" class="close popup__close" aria-label="close">
+            <span class="icon icon--vertical-align" data-icon="x">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>close</title>
+                <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="popup__inner is-flex has-no-side-gutter">
+            <div class="popup__content one-half text-center">
+              <h3>Financing</h3>
+              <p class="subtitle text-left">
+               We offer a variety of excellent online financing services through our partners:
+              </p>
+              <p class="subtitle text-left">
+                <b>BreadPay</b> allows you to finance your purchase over 3, 6, 12, 24, or 36 months. Bread does not require a hard credit check for approval and will not impact your credit score.
+              </p>
+              <p class="subtitle text-left">
+                <b>ShopPay</b> Installments lets you split your purchase into four equal installments for purchases between $50 - $3,000 USD. 
+              </p>
+              <p class="subtitle text-left">
+              If your credit history has a few blemishes, <b>Acima Leasing</b> offers financing options worth looking into.
+              </p>
+              <p class="subtitle text-left">
+              <i>*All financing is available at checkout and not available with any other offers.</i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

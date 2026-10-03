@@ -1,0 +1,117 @@
+{% if linklists[menu].links != blank %}
+  <aside
+    class="
+      sidebar-section
+      one-sixth
+      large-down--one-fourth
+      medium-down--one-whole
+      column
+      has-margin-bottom
+    "
+  >
+    <div
+      class="
+        sidebar__content block__menu
+        has-padding-top has-padding-bottom card-content
+      "
+      {{ block.shopify_attributes }}
+    >
+      <select-menu>
+        {% if page.metafields.custom.page_breadcrumb != blank %}
+          <h4 class="is-hidden-desktop-only">
+            {% assign splitWord = page.metafields.custom.page_breadcrumb | split: ' ' %}
+            {% assign firstWord = splitWord[0] %}
+            {% assign secondWord = splitWord[1] %}
+            <span>{{ firstWord }}</span>
+            <span>{{ secondWord }}</span>
+          </h4>
+        {% endif %}
+        {% if page.handle contains 'faq' %}
+          <h4 class="is-hidden-desktop-only">
+            <span>FAQs</span>
+          </h4>
+        {% endif %}
+        <div class="sidebar-block__select-wrapper">
+          <div id="selectBtn" class="sidebar-block__select">
+            <span class="sidebar-block__links">
+              {% assign childActive = false %}
+              {% for link in linklists[menu].links %}
+                {% if link.active %}
+                  {{ link.title | escape }}
+                {% elsif request.path contains 'search-results' %}
+                  Search Results
+                  {% break %}
+                {% endif %}
+                {% for childLink in link.links %}
+                  {% if childLink.active %}
+                    {{ childLink.title | escape }}
+                    {% assign childActive = true %}
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+            </span>
+            <span class="icon-caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+          </div>
+          <ul
+            class="sidebar-block__content medium-down--hide"
+          >
+            {% for link in linklists[menu].links %}
+              <li class="sidebar-block__item{% if link.links != blank %} sidebar-block__has-menus{% endif %}{% if link.active %} is-active{% endif %}">
+                {% if link.links != blank %}
+                  <div class="sidebar-block__item-wrapper">
+                    <a
+                      class="toggle-link {% if link.active %} active{% endif %}"
+                      href="javascript:void(0);"
+                      title="{{ link.title | escape }}"
+                    >
+                      {{ link.title }}
+                    </a>
+                    {% render 'icon', name: 'plus', icon_class: 'icon-plus toggle-link' %}
+                    {% render 'icon', name: 'minus', icon_class: 'icon-minus toggle-link' %}
+                  </div>
+                  <ul class="submenus" style="display: none;">
+                    {% for childLink in link.links %}
+                      <li class="sidebar-block__submenu">
+                        {%- if childlink.links == blank -%}
+                          <a
+                            {% if childLink.active %}
+                              class="active"
+                            {% endif %}
+                            href="{{ childLink.url }}"
+                            title="{{ childLink.title | escape }}"
+                          >
+                            {{ childLink.title }}
+                          </a>
+                        {%- endif -%}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <a
+                    {% if link.active %}
+                      class="active"
+                    {% endif %}
+                    href="{{ link.url }}"
+                    title="{{ link.title | escape }}"
+                  >
+                    {{ link.title }}
+                  </a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </select-menu>
+    </div>
+    <ul class="additional__links medium-down--hide">
+      <li class="additional__link">
+        <a href="https://www.miadonna.com/pages/contact-us#contact-form-container">Email us</a>
+      </li>
+      <li class="additional__link">
+        <a href="javascript:void(0);" onclick="Chatra('openChat', true)">Live chat</a>
+      </li>
+    </ul>
+  </aside>
+{% endif %}

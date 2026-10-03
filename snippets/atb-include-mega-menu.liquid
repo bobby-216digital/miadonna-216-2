@@ -1,0 +1,640 @@
+{% comment %} Advanced {% endcomment %}
+{% assign css_class = atb_css_class %}
+{% assign custom_css = atb_custom_css %}
+
+{% comment %}
+  This section gets dynamically removed from parent
+  section so we manually assign the section id in the CSS selector
+{% endcomment %}
+{% style %}
+  .mega-menu__{{ section_id }} .mega-menu {
+    background-color: {{ atb_mega_menu_background_color }} !important;
+    color: {{ atb_mega_menu_text_color }};
+  }
+
+  .mega-menu__{{ section_id }} .mega-menu__banner {
+    background-color: {{ atb_bottom_banner_bg }};
+    color: {{ atb_bottom_banner_text }};
+  }
+
+  .mega-menu__{{ section_id }} .mega-menu__banner a {
+    color: {{ atb_bottom_banner_text }};
+  }
+
+  .mega-menu__{{ section_id }} .mega-menu__banner.has-link:hover {
+    background-color: {{ atb_bottom_banner_bg | color_darken: 05 }};
+  }
+
+  {% if atb_enable_mega_menu_border %}
+    .mega-menu__{{ section_id }} .mega-menu__block {
+      border-left: 1px solid {{ settings.border_color }};
+    }
+
+    .mega-menu__{{ section_id }} .mega-menu__block:first-child {
+      border-left: 0;
+    }
+  {% endif %}
+
+  {%- if custom_css != blank -%}
+    {%- assign declarations = custom_css | split: '}' -%}
+    {%- for declaration in declarations -%}
+      .mega-menu__{{ id }} {{ declaration }} }
+    {%- endfor -%}
+  {%- endif -%}
+{% endstyle %}
+
+{% comment %} <input
+  class="no-js-main-navigation"
+  type="radio"
+  id="mega-{{ atb_parent_link | downcase | replace: ' ', '-' }}"
+  name="no-js-main-navigation"
+> {% endcomment %}
+<div
+  class="mega-menu mega-menu--{{ atb_parent_link | downcase | replace: ' ', '-' }} {{ css_class }} mega-menu--header-{{ settings.header_layout }}"
+  data-parent-link="{{ atb_parent_link | downcase | replace: ' ', '-' }}"
+>
+  {% assign hasNoImage = true %}
+  {% for block0 in blocks %}
+    {% if block_type[forloop.index0] == 'image' %}
+      {% if block_image[forloop.index0] != null %}
+        {% assign hasNoImage = false %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  <div class="container has-no-side-gutter">
+    <div class="flex-left has-no-side-gutter {% if hasNoImage == false %}one-whole{% endif %}">
+      <div class="blocks-wrapper is-flex one-whole">
+        {% for block0 in blocks %}
+          {% if block_type[forloop.index0] == 'featured_promo' %}
+            {% assign block_text_alpha = block_text_color[forloop.index0] | color_extract: 'alpha' %}
+            {% style %}
+              .block__{{ blocks[forloop.index0] }} {
+                background-color: {{ block_bgr_color[forloop.index0] }};
+                color: {{ block_text_color[forloop.index0] }};
+              }
+
+              .block__{{ blocks[forloop.index0] }} .mega-menu__content p {
+                color: {% if block_text_alpha != 0 %}{{ block_text_color[forloop.index0] }}{% else %}{{ settings.regular_color }}{% endif %};
+              }
+            {% endstyle %}
+          {% endif %}
+
+          {% if block_type[forloop.index0] == 'menu' %}
+            <div
+              class="
+                column
+                mega-menu__block
+                block__{{ blocks[forloop.index0] }}
+                block__{{ block_type[forloop.index0] | replace: '_', '-' }}
+                one-whole
+                medium-down--one-half
+                {% if block_type[forloop.index0] == 'image' %}
+                  hidden
+                {% endif %}
+              "
+              {{ block.shopify_attributes }}
+            >
+              {% comment %} Menu {% endcomment %}
+              <div class="mega-menu__content">
+                {% if block_menu_image[forloop.index0] != blank %}
+                  <div class="mega-menu__image-wrapper">
+                    <a href="{% if block_menu_1_link[forloop.index0] != blank %}{{ block_menu_1_link[forloop.index0] }}{% else %}#{% endif %}" class="mega-menu__image-link">
+                      <img
+                        class="mega-menu__image"
+                        src="{{ settings.speedsize_url_pfx_https -}}{{ block_menu_image[forloop.index0] | img_url: '350x' }}"
+                        width="350"
+                        height="350"
+                        loading="lazy"
+                        alt="{{- linklists[block_menu_1[forloop.index0]].title | capitalize -}}"
+                      >
+                    </a>
+                  </div>
+                {% endif %}
+                {% if block_menu_1[forloop.index0] != blank %}
+                  {% render 'mega-menu__linklist',
+                    menu_link: block_menu_1[forloop.index0],
+                    link_setting: block_menu_1_link[forloop.index0]
+                  %}
+                {% else %}
+                  <p class="menu__heading">{{ 'homepage.onboarding.menu_title' | t }}</p>
+                  <p>{{ 'homepage.onboarding.no_content' | t }}</p>
+                {% endif %}
+              </div>
+            </div>
+
+          {% elsif block_type[forloop.index0] == 'html' %}
+            {% comment %} Custom HTML {% endcomment %}
+            <div class="mega-menu__content">
+              {{ block_html_content[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+            </div>
+
+          {% elsif block_type[forloop.index0] == 'featured_promo' %}
+            {% comment %} Featured promotion {% endcomment %}
+            <div class="mega-menu__content">
+              {% if block_promo_link[forloop.index0] != blank %}
+                <a href="{{ block_promo_link[forloop.index0] }}">
+              {% endif %}
+              {% if block_image[forloop.index0] != null %}
+                {%
+                  render 'image-element',
+                  image: block_image[forloop.index0],
+                  alt: block_image[forloop.index0].alt,
+                  additional_classes: 'mega-menu__image',
+                  focal_point: block_image[forloop.index0].presentation.focal_point,
+                %}
+              {% else %}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+              {% if block_promo_link[forloop.index0] != blank %}
+                </a>
+              {% endif %}
+            </div>
+
+            {% if block_richtext[forloop.index0] != blank %}
+              <div class="mega-menu__content">
+                {{ block_richtext[forloop.index0] }}
+              </div>
+            {% endif %}
+
+            {% if block_button_label[forloop.index0] != blank %}
+              <div class="mega-menu__content">
+                {% render 'button',
+                  label: block_button_label[forloop.index0],
+                  href: block_promo_link[forloop.index0],
+                  type: 'link',
+                  style: block_button_style[forloop.index0]
+                %}
+              </div>
+            {% endif %}
+
+          {% elsif block_type[forloop.index0] == 'featured_product' %}
+            {% comment %} Featured product {% endcomment %}
+            <div class="mega-menu__content">
+              {%- assign product = all_products[block_featured_product[forloop.index0]] -%}
+              {%- assign collection_handles = product.collections | map: 'handle' -%}
+
+              {% if product != blank %}
+                {% comment %} Product image {% endcomment %}
+                <a
+                  href="{{ product.url }}"
+                  class="mega-menu__image {% if settings.stickers_enabled %}has-thumbnail-sticker{% endif %}"
+                >
+                  {% if settings.stickers_enabled %}
+                    {% render 'product-thumbnail__sticker', product: product, collection_handles: collection_handles %}
+                  {% endif %}
+
+                  {%
+                    render 'image-element',
+                    image: product.featured_image,
+                    alt: product.featured_image.alt,
+                    additional_classes: 'mega-menu__image',
+                  %}
+                </a>
+
+                {% comment %} Product title {% endcomment %}
+                <p class="menu__heading mega-menu__content">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </p>
+
+                {% comment %} Price / availability {% endcomment %}
+                {% if collection_handles contains 'coming-soon' %}
+                  <span>{{ 'collections.general.coming_soon' | t }}</span>
+                {% else %}
+                  <span class="price {% if product.compare_at_price > product.price %}sale{% endif %}">
+                    {% if product.available %}
+                      {% if product.price_varies and product.price_min > 0 %}
+                        <small
+                          ><em>{{ 'products.general.from' | t }}</em></small
+                        >
+                      {% endif %}
+                      {% if product.price_min > 0 %}
+                        <span class="money">
+                          {% render 'price-element', price: product.price_min %}
+                        </span>
+                      {% else %}
+                        {{ settings.free_price_text }}
+                      {% endif %}
+                      {% if product.compare_at_price > product.price %}
+                        <span class="compare-at-price">
+                          <span class="money">
+                            {%
+                              render 'price-element',
+                              price: product.compare_at_price,
+                            %}
+                          </span>
+                        </span>
+                      {% endif %}
+                    {% else %}
+                      <span class="sold-out">{{ 'products.product.sold_out' | t }}</span>
+                    {% endif %}
+                  </span>
+                {% endif %}
+
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg placeholder-svg--product' }}
+
+                <p class="menu__heading mega-menu__content">
+                  <a href="{{ product.url }}">{{ 'homepage.onboarding.product_title' | t }}</a>
+                </p>
+                <p>
+                  <span class="price">
+                    <span class="money">$49.00</span>
+                  </span>
+                </p>
+              {% endif %}
+
+              {% if block_richtext_bottom[forloop.index0] != blank %}
+                <div class="mega-menu__content content">
+                  {{ block_richtext_bottom[forloop.index0] }}
+                </div>
+              {% endif %}
+            </div>
+
+          {% elsif block_type[forloop.index0] == 'mixed' %}
+            {% comment %} Mixed {% endcomment %}
+            {% if block_richtext_top[forloop.index0] != blank %}
+              <div class="mega-menu__content">
+                <p class="menu__heading">{{ block_richtext_top[forloop.index0] }}</p>
+              </div>
+            {% endif %}
+
+            {% if block_image_top[forloop.index0] != null %}
+              <div class="mega-menu__content">
+                {% if block_image_link_top[forloop.index0] != blank %}
+                  <a href="{{ block_image_link_top[forloop.index0] }}">
+                {% endif %}
+                {%
+                  render 'image-element',
+                  image: block_image_top[forloop.index0],
+                  alt: block_image_top[forloop.index0].alt,
+                  additional_classes: 'mega-menu__image',
+                  focal_point: block_image_top[forloop.index0].presentation.focal_point,
+                %}
+                {% if block_image_link_top[forloop.index0] != blank %}
+                  </a>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if block_image_caption_top[forloop.index0] != blank %}
+              <div class="mega-menu__content">
+                {{ block_image_caption_top[forloop.index0] }}
+              </div>
+            {% endif %}
+
+            {% if block_menu_1[forloop.index0] != blank %}
+              <div class="mega-menu__content">
+                {% render 'mega-menu__linklist',
+                  menu_link: block_menu_1[forloop.index0],
+                  link_setting: block_menu_1_link[forloop.index0]
+                %}
+              </div>
+            {% endif %}
+
+            {% if block_menu_2[forloop.index0] != blank %}
+              <div class="mega-menu__content">
+                {% render 'mega-menu__linklist',
+                  menu_link: block_menu_2[forloop.index0],
+                  link_setting: block_menu_2_link[forloop.index0]
+                %}
+              </div>
+            {% endif %}
+
+            {% if block_menu_3[forloop.index0] != blank %}
+              <div class="mega-menu__content">
+                {% render 'mega-menu__linklist',
+                  menu_link: block_menu_3[forloop.index0],
+                  link_setting: block_menu_3_link[forloop.index0]
+                %}
+              </div>
+            {% endif %}
+
+            {% if block_menu_4[forloop.index0] != blank %}
+              <div class="mega-menu__content">
+                {% render 'mega-menu__linklist',
+                  menu_link: block_menu_4[forloop.index0],
+                  link_setting: block_menu_4_link[forloop.index0]
+                %}
+              </div>
+            {% endif %}
+
+            {% if block_image_bottom[forloop.index0] != null %}
+              <div class="mega-menu__content">
+                {% if block_image_link_bottom[forloop.index0] != blank %}
+                  <a href="{{ block_image_link_bottom[forloop.index0] }}">
+                {% endif %}
+                {%
+                  render 'image-element',
+                  image: block_image_bottom[forloop.index0],
+                  alt: block_image_bottom[forloop.index0].alt,
+                  additional_classes: 'mega-menu__image',
+                  focal_point: block_image_bottom[forloop.index0].presentation.focal_point,
+                %}
+                {% if block_image_link_bottom[forloop.index0] != blank %}
+                  </a>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if block_richtext_bottom[forloop.index0] != blank %}
+              <div class="mega-menu__content">
+                {{ block_richtext_bottom[forloop.index0] }}
+              </div>
+            {% endif %}
+
+          {% elsif block_type[forloop.index0] == 'empty_column' %}
+            {% comment %} Empty column - nothing to see here {% endcomment %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% for block0 in blocks %}
+        {% if block_type[forloop.index0] == 'collection_links' %}
+          {% if block_show_mega_collection_links[forloop.index0] %}
+            <div class="container mega-menu__callouts--wrapper">
+              <div class="mega-menu__callouts">
+                {% if block_main_title[forloop.index0] != blank %}
+                  <p class="callout-title">{{ block_main_title[forloop.index0] }}</p>
+                {% endif %}
+                <ul class="mega-menu__callouts__item--wrapper">
+                  {% if block_collection_image_1[forloop.index0] != blank or block_collection_title_1[forloop.index0] != blank %}
+                    <li class="mega-menu__callouts__item">
+                      {% if block_collection_link_1[forloop.index0] != blank %}
+                        <a class="mega-menu__callouts__item-link" href="{{ block_collection_link_1[forloop.index0] }}">
+                      {% else %}
+                        <div class="mega-menu__callouts__item-link">
+                      {% endif %}
+                      <div class="mega-menu__callouts__item-img">
+                        {% if block_collection_image_1[forloop.index0] != blank %}
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_1[forloop.index0] | img_url: '100' }}"
+                            alt="{{ block_collection_image_1[forloop.index0].alt }}"
+                            srcset="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_1[forloop.index0] | img_url: '100' }} 100w"
+                            width="100"
+                            height="120"
+                            loading="lazy"
+                          >
+                        {% else %}
+                          {{ 'image' | placeholder_svg_tag }}
+                        {% endif %}
+                      </div>
+                      <div class="mega-menu__callouts__item-text">
+                        {% if block_collection_title_1[forloop.index0] != blank %}
+                          <p>{{ block_collection_title_1[forloop.index0] }}</p>
+                        {% endif %}
+                      </div>
+                      {% if block_collection_link_1[forloop.index0] != blank %}
+                        </a>
+                      {% else %}
+                        </div>
+                      {% endif %}
+                    </li>
+                  {% endif %}
+                  {% if block_collection_image_2[forloop.index0] != blank or block_collection_title_2[forloop.index0] != blank %}
+                    <li class="mega-menu__callouts__item">
+                      {% if block_collection_link_2[forloop.index0] != blank %}
+                        <a class="mega-menu__callouts__item-link" href="{{ block_collection_link_2[forloop.index0] }}">
+                      {% else %}
+                        <div class="mega-menu__callouts__item-link">
+                      {% endif %}
+                      <div class="mega-menu__callouts__item-img">
+                        {% if block_collection_image_2[forloop.index0] != blank %}
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_2[forloop.index0] | img_url: '100' }}"
+                            alt="{{ block_collection_image_2[forloop.index0].alt }}"
+                            srcset="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_2[forloop.index0] | img_url: '100' }} 100w"
+                            width="100"
+                            height="120"
+                            loading="lazy"
+                          >
+                        {% else %}
+                          {{ 'image' | placeholder_svg_tag }}
+                        {% endif %}
+                      </div>
+                      <div class="mega-menu__callouts__item-text">
+                        {% if block_collection_title_2[forloop.index0] != blank %}
+                          <p>{{ block_collection_title_2[forloop.index0] }}</p>
+                        {% endif %}
+                      </div>
+                      {% if block_collection_link_2[forloop.index0] != blank %}
+                        </a>
+                      {% else %}
+                        </div>
+                      {% endif %}
+                    </li>
+                  {% endif %}
+                  {% if block_collection_image_3[forloop.index0] != blank or block_collection_title_3[forloop.index0] != blank %}
+                    <li class="mega-menu__callouts__item">
+                      {% if block_collection_link_3[forloop.index0] != blank %}
+                        <a class="mega-menu__callouts__item-link" href="{{ block_collection_link_3[forloop.index0] }}">
+                      {% else %}
+                        <div class="mega-menu__callouts__item-link">
+                      {% endif %}
+                      <div class="mega-menu__callouts__item-img">
+                        {% if block_collection_image_3[forloop.index0] != blank %}
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_3[forloop.index0] | img_url: '100' }}"
+                            alt="{{ block_collection_image_3[forloop.index0].alt }}"
+                            srcset="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_3[forloop.index0] | img_url: '100' }} 100w"
+                            width="100"
+                            height="120"
+                            loading="lazy"
+                          >
+                        {% else %}
+                          {{ 'image' | placeholder_svg_tag }}
+                        {% endif %}
+                      </div>
+                      <div class="mega-menu__callouts__item-text">
+                        {% if block_collection_title_3[forloop.index0] != blank %}
+                          <p>{{ block_collection_title_3[forloop.index0] }}</p>
+                        {% endif %}
+                      </div>
+                      {% if block_collection_link_3[forloop.index0] != blank %}
+                        </a>
+                      {% else %}
+                        </div>
+                      {% endif %}
+                    </li>
+                  {% endif %}
+                  {% if block_collection_image_4[forloop.index0] != blank or block_collection_title_4[forloop.index0] != blank %}
+                    <li class="mega-menu__callouts__item">
+                      {% if block_collection_link_4[forloop.index0] != blank %}
+                        <a class="mega-menu__callouts__item-link" href="{{ block_collection_link_4[forloop.index0] }}">
+                      {% else %}
+                        <div class="mega-menu__callouts__item-link">
+                      {% endif %}
+                      <div class="mega-menu__callouts__item-img">
+                        {% if block_collection_image_4[forloop.index0] != blank %}
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_4[forloop.index0] | img_url: '100' }}"
+                            alt="{{ block_collection_image_4[forloop.index0].alt }}"
+                            srcset="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_4[forloop.index0] | img_url: '100' }} 100w"
+                            width="100"
+                            height="120"
+                            loading="lazy"
+                          >
+                        {% else %}
+                          {{ 'image' | placeholder_svg_tag }}
+                        {% endif %}
+                      </div>
+                      <div class="mega-menu__callouts__item-text">
+                        {% if block_collection_title_4[forloop.index0] != blank %}
+                          <p>{{ block_collection_title_4[forloop.index0] }}</p>
+                        {% endif %}
+                      </div>
+                      {% if block_collection_link_4[forloop.index0] != blank %}
+                        </a>
+                      {% else %}
+                        </div>
+                      {% endif %}
+                    </li>
+                  {% endif %}
+                  {% if block_collection_image_5[forloop.index0] != blank or block_collection_title_5[forloop.index0] != blank %}
+                    <li class="mega-menu__callouts__item">
+                      {% if block_collection_link_5[forloop.index0] != blank %}
+                        <a class="mega-menu__callouts__item-link" href="{{ block_collection_link_5[forloop.index0] }}">
+                      {% else %}
+                        <div class="mega-menu__callouts__item-link">
+                      {% endif %}
+                      <div class="mega-menu__callouts__item-img">
+                        {% if block_collection_image_5[forloop.index0] != blank %}
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_5[forloop.index0] | img_url: '100' }}"
+                            alt="{{ block_collection_image_5[forloop.index0].alt }}"
+                            srcset="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_5[forloop.index0] | img_url: '100' }} 100w"
+                            width="100"
+                            height="120"
+                            loading="lazy"
+                          >
+                        {% else %}
+                          {{ 'image' | placeholder_svg_tag }}
+                        {% endif %}
+                      </div>
+                      <div class="mega-menu__callouts__item-text">
+                        {% if block_collection_title_5[forloop.index0] != blank %}
+                          <p>{{ block_collection_title_5[forloop.index0] }}</p>
+                        {% endif %}
+                      </div>
+                      {% if block_collection_link_5[forloop.index0] != blank %}
+                        </a>
+                      {% else %}
+                        </div>
+                      {% endif %}
+                    </li>
+                  {% endif %}
+                  {% if block_collection_image_6[forloop.index0] != blank or block_collection_title_6[forloop.index0] != blank %}
+                    <li class="mega-menu__callouts__item">
+                      {% if block_collection_link_6[forloop.index0] != blank %}
+                        <a class="mega-menu__callouts__item-link" href="{{ block_collection_link_6[forloop.index0] }}">
+                      {% else %}
+                        <div class="mega-menu__callouts__item-link">
+                      {% endif %}
+                      <div class="mega-menu__callouts__item-img">
+                        {% if block_collection_image_6[forloop.index0] != blank %}
+                          <img
+                            src="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_6[forloop.index0] | img_url: '100' }}"
+                            alt="{{ block_collection_image_6[forloop.index0].alt }}"
+                            srcset="{{ settings.speedsize_url_pfx_https -}}{{ block_collection_image_6[forloop.index0] | img_url: '100' }} 100w"
+                            width="100"
+                            height="120"
+                            loading="lazy"
+                          >
+                        {% else %}
+                          {{ 'image' | placeholder_svg_tag }}
+                        {% endif %}
+                      </div>
+                      <div class="mega-menu__callouts__item-text">
+                        {% if block_collection_title_6[forloop.index0] != blank %}
+                          <p>{{ block_collection_title_6[forloop.index0] }}</p>
+                        {% endif %}
+                      </div>
+                      {% if block_collection_link_6[forloop.index0] != blank %}
+                        </a>
+                      {% else %}
+                        </div>
+                      {% endif %}
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="img-right one-fifth">
+      {% for block0 in blocks %}
+        {% if block_type[forloop.index0] == 'image' %}
+          <div
+            class="
+              column
+              mega-menu__block
+              block__{{ blocks[forloop.index0] }}
+              block__{{ block_type[forloop.index0] | replace: '_', '-' }}
+              one-Whole
+              medium-down--one-half
+            "
+            {{ block.shopify_attributes }}
+          >
+            {% comment %} Image and menu {% endcomment %}
+            <div class="mega-menu__content">
+              {% if block_image_link[forloop.index0] != blank %}
+                <a href="{{ block_image_link[forloop.index0] }}">
+              {% endif %}
+
+              {% if block_image[forloop.index0] != null %}
+                {%
+                  render 'image-element',
+                  image: block_image[forloop.index0],
+                  alt: block_image[forloop.index0].alt,
+                  additional_classes: 'mega-menu__image',
+                  focal_point: block_image[forloop.index0].presentation.focal_point,
+                %}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+
+              <div class="image-element__content content">
+                <div class="mega-menu__callout__text">
+                  {% if block_image_title[forloop.index0] or block_image_caption[forloop.index0] %}
+                    <p class="banner-title"><strong>{{ block_image_title[forloop.index0] }}</strong></p>
+                    <p>{{ block_image_caption[forloop.index0] }}</p>
+                  {% endif %}
+                </div>
+                <div class="mega-menu__callout__btn-text">
+                  {% if block_btn_text[forloop.index0] %}
+                    <p class="mega-menu__callout__btn">{{ block_btn_text[forloop.index0] }}</p>
+                  {% endif %}
+                </div>
+              </div>
+
+              {% if block_image_link[forloop.index0] != blank %}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if atb_show_mega_bottom_bar %}
+    <div class="mega-menu__banner {% if atb_mega_bottom_bar_link != blank %}has-link{% endif %} is-{{ atb_size }}">
+      {% if atb_mega_bottom_bar_link != blank %}
+        <a class="mega-menu__banner-link" href="{{ atb_mega_bottom_bar_link }}">
+      {% endif %}
+      <div class="container">
+        <div class="one-whole column is-flex is-justify-center is-align-center">
+          {% if atb_mega_bottom_bar_icon != blank %}
+            {% render 'icon', name: atb_mega_bottom_bar_icon %}
+          {% endif %}
+          <p class="mega-menu__sticker-text">
+            {{ atb_mega_bottom_bar_text }}
+          </p>
+        </div>
+      </div>
+      {% if atb_mega_bottom_bar_link != blank %}
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

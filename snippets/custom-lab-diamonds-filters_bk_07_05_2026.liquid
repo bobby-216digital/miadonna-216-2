@@ -1,0 +1,2125 @@
+{% liquid
+  assign defaultShape = ''
+  assign defaultColor = ''
+  assign defaultClarity = ''
+  assign defaultCut = ''
+  assign defaultPolish = ''
+  assign defaultSymmetry = ''
+  assign defaultFluorescence = ''
+  assign defaultCertifiedBy = ''
+  assign defaultCaratMin = ''
+  assign defaultCaratMax = ''
+  assign defaultPriceMin = ''
+  assign defaultPriceMax = ''
+  assign defaultTableMin = ''
+  assign defaultTableMax = ''
+  assign defaultRatioMin = ''
+  assign defaultRatioMax = ''
+  assign defaultDepthMin = ''
+  assign defaultDepthMax = ''
+  assign defaultFancy = ''
+  assign defaultSustainability = ''
+  assign defaultQuality = ''
+  assign is_advanced_class = ' vdb-main-advance-filter-web hide'
+  assign shapeData = ''
+  assign clarityData = ''
+  assign cutData = ''
+  assign sustainabilityData = ''
+  assign qualityData = ''
+  assign fluorescenceData = ''
+  assign polishData = ''
+  assign symmetryData = ''
+  assign certifiedByData = ''
+  assign colorData = ''
+%}
+
+<div class="custom-filters-group one-whole">
+    <div class="loading-block text-align-center" style="background-color: transparent;display: none;">
+      <div class="inner">
+        <svg width="90" height="90" viewBox="0 0 150 150">
+          <g fill="none" stroke="#fca999" stroke-width="3" stroke-miterlimit="10">
+            <path class="logo-1" d="M75.1880276 38.9158992l34.679749 35.443358-35.4419284 34.6783502-34.679749-35.443358z" stroke-width="3.00015"></path>
+            <path class="logo-2" d="M75.79 145.261l-50.697-20.185-21.575-50.12 20.184-50.697L73.823 2.684l50.699 20.184 21.573 50.12-20.186 50.697zM73.823 2.684l1.365 36.229m-.764 70.117l1.366 36.231m34.075-70.907l36.23-1.366M3.518 74.956l36.23-1.366m70.117.764l16.044 49.331M74.424 109.03l51.485 14.655M39.748 73.59l-14.655 51.486m49.331-16.046l-49.331 16.046M23.702 24.259L39.748 73.59M23.702 24.259l51.486 14.654m0 0l49.334-16.045m0 0l-14.657 51.486"></path>
+          </g>
+        </svg>
+        <header class="text-style-footnote" style="color: #3c3737;">Loading filters</header>
+      </div>
+    </div>
+    <div class="filter-sets">
+        {% comment %} <div class="filter-sets-group filter-sets-group-custom">
+          <div class="filter-desktop-whole filter-set filter-set--important one-half large-down--one-whole">
+            <div class="filter-set-title-wrapper">
+              <div class="filter-set-title">
+                <span>What is the most important to you?</span>
+            </div>
+            </div>
+            <div class="filter-set-content">
+              <div class="select-wrapper">
+                <select class="sustainability-select" id="important-select">
+                  <option value="">Select Option</option>
+                  <option value="Superior Quality" data-color-value1="F" data-color-value2="D" data-clarity-value1="VVS2" data-clarity-value2="IF" data-cut-value1="Ideal" data-cut-value2="Ideal">Superior Quality</option>
+                  <option value="Biggest Diamond" data-color-value1="H" data-color-value2="G" data-clarity-value1="VS2" data-clarity-value2="VS1" data-cut-value1="Ideal" data-cut-value2="Ideal">Biggest Diamond</option>
+                </select>
+                {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+              </div>
+            </div>
+          </div>
+        </div> {% endcomment %}
+          <div class="filter-sets-group filter-sets-group-custom">
+            {% for block in section.blocks %}
+                {% case block.type %}
+                    {% when 'Shape' %}
+                        <div class="filter-desktop-whole filter-set filter-set--shapes one-whole large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_shape'] == true %}{{- is_advanced_class -}}{% endif %}">
+                            <div class="filter-set-title-wrapper">
+                                <div class="filter-set-title">
+                                    <span>Shape</span>
+                                    <div class="filter-info">
+                                        <div class="tooltip">
+                                            <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                            <span class="tooltiptext">
+                                                <p class="tooltip-title">Shape</p>
+                                                {% if block.settings.description_textarea_shape != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_shape | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter-set-content">
+                                <div class="options vdb-lb-slider-shape" style="max-width: 100% !important;">
+                                    {% comment %} <div class="swiper-wrapper"> {% endcomment %}
+                                      {% assign shapeString = '' %}
+                                      {% for i in (1..14) %}
+                                          {% assign shape_label_id = 'main_title_shape_' | append: i %}
+                                          {% assign shape_display_id = 'main_title_shape_checkbox_' | append: i %}
+                                        {% if block.settings[shape_label_id] != blank and block.settings[shape_display_id] == true %}
+                                          {% assign shapeString = shapeString | append: ',' | append: i %}
+                                          {% assign shapeData = shapeData | append: ',' | append: block.settings[shape_label_id] %}
+                                        {% endif %}
+                                      {% endfor %}
+                                          
+                                      {% assign shapeData = shapeData | remove_first: ',' %}
+                                      {% assign shapeArray = shapeString | remove_first: ',' | split: ',' %}
+                                        {% assign shapeIndex = 0 %}
+                                        {% assign shapeParams = '' %}
+                                        {% if labGrownPageQueryArray != blank %}
+                                        {% for param in labGrownPageQueryArray %}
+                                          {%- if param contains "shape" -%}
+                                            {% assign shapeKey = param | split: '=' | first | strip %}
+                                            {% if shapeKey != "supported_shapes" %}
+                                              {% assign shapeParams = param | split: '=' | last | strip %}
+                                              {% assign shapeParams = shapeParams | replace: "Cut", "" | replace: "+", " " | strip %}
+                                            {% endif %}
+                                          {%- endif -%}
+                                        {% endfor %}
+                                      {% else %}
+                                        {% comment %} {% assign shapeIndex = shapeArray | first %} {% endcomment %}
+                                      {% endif %}
+
+                                      {% comment %} {% assign defaultShapeIndex = shapeArray | first %} {% endcomment %}
+                                      {% assign defaultShapeIndex = -1 %}
+                                      {% for i in shapeArray %}
+                                        {% assign shape_label_id = 'main_title_shape_' | append: i %}
+                                        {% assign shape_display_id = 'main_title_shape_checkbox_' | append: i %}
+                                        {% assign shape_icon_id = 'main_title_shape_icon_' | append: i %}
+                                        {% if block.settings[shape_label_id] != blank and block.settings[shape_display_id] == true %}
+                                          {% comment %} {% assign shape_default_icon_file = 'icon-shape-' | append: block.settings[shape_label_id] | handle | append: '-cut'  | downcase  %}
+                                          {% assign shape_default_icon_file_string = shape_default_icon_file_string | append: "" %} {% endcomment %}
+                                          {% assign shape_handle = block.settings[shape_label_id] | handle | downcase  %}
+                                          {% assign class_name_shape = 'vdb-list-item-shape-style-' | append: shape_handle  %}
+
+                                            {% if shapeParams == block.settings[shape_label_id] %} {% assign shapeIndex = i %} {% endif %}
+                                              {% unless i != defaultShapeIndex %} {% assign defaultShape = block.settings[shape_label_id] %}{% endunless %}
+                                              <div class="option {{ class_name_shape }} {% unless i != shapeIndex %}active-state{% endunless %}">
+                                                  <button class="vdb-list-item-a-shape-style" data-module="{{ class_name_shape }}" data-shape-value="{{ block.settings[shape_label_id] }}">
+                                                      {% if block.settings[shape_icon_id] != blank %}
+                                                        {{ block.settings[shape_icon_id] | image_url: width: 300 | image_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                      {% else %}
+                                                        {% if shape_handle == 'round' %}
+                                                          {% render 'icon-shape-round-cut' %}
+                                                        {% elsif shape_handle == 'princess' %}
+                                                          {% render 'icon-shape-princess-cut' %}
+                                                        {% elsif shape_handle == 'cushion' %}
+                                                          {% render 'icon-shape-cushion-cut' %}
+                                                        {% elsif shape_handle == 'elongated-cushion' %}
+                                                          {% render 'icon-shape-elongated-cushion' %}
+                                                        {% elsif shape_handle == 'oval' %}
+                                                          {% render 'icon-shape-oval-cut' %}
+                                                        {% elsif shape_handle == 'emerald' %}
+                                                          {% render 'icon-shape-emerald-cut' %}
+                                                        {% elsif shape_handle == 'asscher' %}
+                                                          {% render 'icon-shape-asscher-cut' %}
+                                                        {% elsif shape_handle == 'radiant' %}
+                                                          {% render 'icon-shape-radiant-cut' %}
+                                                        {% elsif shape_handle == 'pear' %}
+                                                          {% render 'icon-shape-pear-cut' %}
+                                                        {% elsif shape_handle == 'heart' %}
+                                                          {% render 'icon-shape-heart-cut' %}
+                                                        {% elsif shape_handle == 'marquise' %}
+                                                          {% render 'icon-shape-marquise-cut' %}
+                                                        {% elsif shape_handle == 'oval-rose' %}
+                                                          {% render 'icon-shape-oval-rose-cut' %}
+                                                        {% elsif shape_handle == 'trillion' or shape_handle == 'trilliant' %}
+                                                          {% render 'icon-shape-trillion-cut' %}
+                                                        {% elsif shape_handle == 'half-moon' %}
+                                                          {% render 'icon-shape-half-moon-cut' %}
+                                                        {% elsif shape_handle == 'baguette' %}
+                                                          {% render 'icon-shape-baguette-cut' %}
+                                                        {% elsif shape_handle == 'rose-brilliant' %}
+                                                          {% render 'icon-shape-rose-brilliant-cut' %}
+                                                        {% elsif shape_handle == 'rose' %}
+                                                          {% render 'icon-shape-rose-cut' %}
+                                                        {% endif %}
+                                                      {% endif %}
+                                                      <div>{{ block.settings[shape_label_id] }}</div>
+                                                  </button>
+                                              </div>
+                                          {% endif %}
+                                      {% endfor %}
+                                    {% comment %} </div> {% endcomment %}
+                                    {% comment %}<div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>{% endcomment %}
+                                    {% comment %} <div class="swiper-scrollbar swiper-scrollbar-shape"></div> {% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                    {% when 'Color' %}
+                        <div class="filter-desktop-whole filter-set filter-set--color one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_color'] == true %}{{- is_advanced_class -}}{% endif %}">
+                            <div class="filter-set-title-wrapper">
+                                <div class="filter-set-title">
+                                    <span>Color</span>
+                                    <div class="filter-info">
+                                        <div class="tooltip">
+                                            <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                            <span class="tooltiptext">
+                                              <p class="tooltip-title">Color</p>
+                                              {% if block.settings.description_textarea_color != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_color | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter-set-content">
+                              <div class="range-slider range-target">
+                                <div class="range-base">
+                                  {% assign color_values = block.settings['main_value_color_1'] %}
+
+                                  {% comment %} As per the conditions outlined below, this update is related to ticket: SHOP-2843 & 03-03-2026 {% endcomment %}
+                                  {% assign colorParams = 'F,D' %} 
+                                  {% if labGrownPageQueryArray != blank %}
+                                    {% for param in labGrownPageQueryArray %}
+                                      {%- if param contains "color" -%}
+                                        {% assign colorFirstParams = param | split: '=' | first | url_decode | strip %}
+                                        {%- if colorFirstParams == "color" -%}
+                                          {% assign colorParams = param | split: '=' | last | url_decode | strip %}
+                                        {%- endif -%}
+                                      {%- endif -%}
+                                    {% endfor %}
+                                  {% endif %}
+                                  {% assign color_value_array = color_values | split: ',' %}
+
+                                  {% assign colorParamsArray = '' %}
+                                  {% if colorParams != blank %}
+                                    {% assign colorParamsArray = colorParams | split: ',' %}
+                                  {% else %}
+                                    {% assign colorParamsArray = color_values | split: ',' %}  
+                                    {% assign colorParamsArray = colorParamsArray %}
+                                  {% endif %}
+                                  {% assign colorValues = color_values |  split: ',' %}
+                                  {% assign defaultColor = color_values %}
+                                  {% assign colorData = color_values %}
+
+                                  <tc-range-slider id="slider_color_mia"
+                                    min="{{ color_value_array | first }}"
+                                    max="{{ color_value_array | last }}"
+                                    value1="{{ colorParamsArray | first }}"
+                                    value2="{{ colorParamsArray | last }}"
+                                    data="{{ color_values }}" 
+                                    marks="true"
+                                    marks-count="{{ color_value_array | size }}"
+                                    marks-values-count="{{ color_value_array | size }}"
+                                    marks="true"
+                                    marks-count="8"
+                                    marks-values-count="8"
+                                    mousewheel-disabled="true"
+                                    pointer-bg="#fca999"
+                                    pointer-bg-hover="#fca999"
+                                    pointer-bg-focus="#fca999"
+                                    pointer-border="1px solid #fca999"
+                                    pointer-border-hover="1px solid #fca999"
+                                    pointer-border-focus="1px solid #fca999"
+                                    slider-bg="#ebebeb"
+                                    slider-bg-fill="#fca999"
+                                    slider-width="100%"
+                                    slider-height="5px"
+                                    generate-labels="false"
+                                    css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    {% when 'Carat' %}
+                      {% assign caratMinParams = '2' %}
+                      {% assign caratMaxParams = '' %}
+                      {% assign ringHandle = 'No' %}
+                      {% if labGrownPageQueryArray != blank %}
+                        {% for param in labGrownPageQueryArray %}
+                          {%- if param contains "ring-handle" -%}
+                            {% assign ringHandle = 'Yes' %}
+                          {%- endif -%}
+                        {% endfor %}
+
+                        {% for param in labGrownPageQueryArray %}
+                          {%- if param contains "min_carat" -%}
+                            {% assign caratMinParams = param | split: '=' | last | strip | to_i %}
+                          {% comment %} {% else %}
+                            {%- assign caratMinParams = block.settings.main_title_carat_min -%} {% endcomment %}
+                          {%- endif -%}
+                        {% endfor %}
+
+                        {% for param in labGrownPageQueryArray %}
+                          {%- if param contains "max_carat" -%}
+                            {% assign caratMaxParams = param | split: '=' | last | strip | to_i %}
+                          {% comment %} {% else %}
+                            {%- assign caratMaxParams = block.settings.main_title_carat_max -%} {% endcomment %}
+                          {%- endif -%}
+                        {% endfor %}
+                      {% else %}
+                        {% comment %} {%- assign caratMinParams = block.settings.main_title_carat_min -%} {% endcomment %}
+                        {% comment %} {%- assign caratMaxParams = block.settings.main_title_carat_max -%} {% endcomment %}
+                      {% endif %}
+                      {%- assign defaultCaratMin = caratMinParams -%}
+                      {%- assign defaultCaratMax = caratMaxParams -%}
+                      
+                      {% if carat_metafields != blank %}
+                        {% assign caratMetafields = carat_metafields |  split: '-' %}
+                        {% assign minCaratValue = caratMetafields | first %}
+                        {% assign maxCaratValue = caratMetafields | last %}
+                      {% else %}
+                        {% assign minCaratValue = block.settings.main_title_carat_min %}
+                        {% assign maxCaratValue = block.settings.main_title_carat_max %}
+                      {% endif %}
+                      {%- assign defaultCaratMin = minCaratValue -%}
+                      {%- assign defaultCaratMax = maxCaratValue -%}
+
+                      {% if ringHandle == 'Yes' %}
+                        {% assign minCaratValue = caratMinParams %}
+                        {% assign caratMinParams = '0' %}
+                        {% assign maxCaratValue = caratMaxParams %}
+                      {% endif %}
+                      {% if caratMaxParams == blank %}{% assign caratMaxParams = maxCaratValue %}{% endif %}
+
+                      <div class="filter-desktop-whole filter-set filter-set--carat one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_carat'] == true %}{{- is_advanced_class -}}{% endif %}">
+                          <div class="filter-set-title-wrapper">
+                              <div class="filter-set-title">
+                                  <span>Carat</span>
+                                  <div class="filter-info">
+                                      <div class="tooltip">
+                                          <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                          <span class="tooltiptext">
+                                            <p class="tooltip-title">Carat Size</p>
+                                            {% if block.settings.description_textarea_carat != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_carat | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="filter-set-content">
+                              <div class="range-slider range-target">
+                                  <div class="range-base">
+                                      <tc-range-slider id="slider_carat_mia"
+                                        min="{{ minCaratValue }}"
+                                        max="{{ maxCaratValue }}"
+                                        value1="{{ caratMinParams }}"
+                                        value2="{{ caratMaxParams }}"
+                                        moving-tooltip="true"
+                                        moving-tooltip-distance-to-pointer="-30"
+                                        moving-tooltip-bg="transparent"
+                                        moving-tooltip-text-color="#3c3737"
+                                        moving-tooltip-width="70"
+                                        moving-tooltip-height="20"
+                                        mousewheel-disabled="true"
+                                        pointer-bg="#fca999"
+                                        pointer-bg-hover="#fca999"
+                                        pointer-bg-focus="#fca999"
+                                        pointer-border="1px solid #fca999"
+                                        pointer-border-hover="1px solid #fca999"
+                                        pointer-border-focus="1px solid #fca999"
+                                        slider-bg="#ebebeb"
+                                        slider-bg-fill="#fca999"
+                                        moving-tooltip-units=" CT"
+                                        slider-width="100%"
+                                        slider-height="5px"
+                                        generate-labels="false"
+                                        css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                                      />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    {% when 'Price' %}
+                      {% assign priceMinParams = '' %}
+                      {% assign priceMaxParams = '' %}
+                      {% if labGrownPageQueryArray != blank %}
+                        {% for param in labGrownPageQueryArray %}
+                          {%- if param contains "min_price" -%}
+                            {% assign priceMinParams = param | split: '=' | last | strip | to_i %}
+                          {% comment %} {% else %}
+                            {%- assign priceMinParams = block.settings.main_title_price_min -%} {% endcomment %}
+                          {%- endif -%}
+                        {% endfor %}
+
+                        {% for param in labGrownPageQueryArray %}
+                          {%- if param contains "max_price" -%}
+                            {% assign priceMaxParams = param | split: '=' | last | strip | to_i %}
+                          {% comment %} {% else %}
+                            {%- assign priceMaxParams = block.settings.main_title_price_max -%} {% endcomment %}
+                          {%- endif -%}
+                        {% endfor %}
+                      {% else %}
+                        {% comment %} {%- assign priceMinParams = block.settings.main_title_price_min -%}
+                        {%- assign priceMaxParams = block.settings.main_title_price_max -%} {% endcomment %}
+                      {% endif %}
+                      {%- assign defaultPriceMin = priceMinParams -%}
+                      {%- assign defaultPriceMax = priceMaxParams -%}
+                      <div class="filter-desktop-whole filter-set filter-set--price one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_price'] == true %}{{- is_advanced_class -}}{% endif %}">
+                        <div class="filter-set-title-wrapper">
+                          <div class="filter-set-title">
+                            <span>Price</span>
+                            <div class="filter-info">
+                              <div class="tooltip">
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                <span class="tooltiptext">
+                                  <p class="tooltip-title">Price</p>
+                                  {% if block.settings.description_textarea_price != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_price | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {% if price_metafields != blank %}
+                          {% assign priceMetafields = price_metafields |  split: '-' %}
+                          {% assign minPriceValue = priceMetafields | first %}
+                          {% assign maxPriceValue = priceMetafields | last %}
+                        {% else %}
+                          {% assign minPriceValue = block.settings.main_title_carat_min %}
+                          {% assign maxPriceValue = block.settings.main_title_carat_max %}
+                        {% endif %}
+                        
+                        {%- assign defaultPriceMin = minPriceValue -%}
+                        {%- assign defaultPriceMax = maxPriceValue -%}
+                        {% if priceMinParams == blank %}{% assign priceMinParams = minPriceValue %}{% endif %}
+                        {% if priceMaxParams == blank %}{% assign priceMaxParams = maxPriceValue %}{% endif %}
+
+                        <div class="filter-set-content">
+                          <div class="range-slider range-target">
+                            <div class="range-base">
+                              <tc-range-slider id="slider_price_mia"
+                                min="{{ minPriceValue }}"
+                                max="{{ maxPriceValue }}"
+                                value1="{{ priceMinParams }}"
+                                value2="{{ priceMaxParams }}"
+                                step="0.01"
+                                moving-tooltip="true"
+                                moving-tooltip-distance-to-pointer="-30"
+                                moving-tooltip-bg="transparent"
+                                moving-tooltip-text-color="#3c3737"
+                                moving-tooltip-width="70"
+                                moving-tooltip-height="20"
+                                mousewheel-disabled="true"
+                                pointer-bg="#fca999"
+                                pointer-bg-hover="#fca999"
+                                pointer-bg-focus="#fca999"
+                                pointer-border="1px solid #fca999"
+                                pointer-border-hover="1px solid #fca999"
+                                pointer-border-focus="1px solid #fca999"
+                                slider-bg="#ebebeb"
+                                slider-bg-fill="#fca999"
+                                moving-tooltip-units="$"
+                                moving-tooltip-units-type="prefix"
+                                slider-width="100%"
+                                slider-height="5px"
+                                generate-labels="false"
+                                css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% when 'Clarity' %}
+                      <div class="filter-desktop-whole filter-set filter-set--clarity one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_clarity'] == true %}{{- is_advanced_class -}}{% endif %}">
+                        <div class="filter-set-title-wrapper">
+                          <div class="filter-set-title">
+                            <span>Clarity</span>
+                            <div class="filter-info">
+                              <div class="tooltip">
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                <span class="tooltiptext">
+                                  <p class="tooltip-title">Clarity</p>
+                                  {% if block.settings.description_textarea_clarity != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_clarity | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="filter-set-content">
+                          <div class="range-slider range-target">
+                            <div class="range-base">
+                              {% assign clarity_values = '' %}
+                              {% for i in (1..9) %}
+                                {% assign clarity_label_id = 'main_title_clarity_' | append: i %}
+                                {% assign clarity_display_id = 'main_title_clarity_checkbox_' | append: i %}
+                                {% if block.settings[clarity_label_id] != blank and block.settings[clarity_display_id] == true %}
+                                  {% assign clarity_values = clarity_values | append: block.settings[clarity_label_id] | append: ',' %}
+                                {% endif %}
+                              {% endfor %}
+                              {% assign clarity_value_array = clarity_values | replace_last: ',', '' | split: ',' %}
+                              {% assign clarity_value_array = clarity_value_array %} {% comment %} | reverse {% endcomment %}
+                              
+                              {% comment %} As per the conditions outlined below, this update is related to ticket: SHOP-2843 & 03-03-2026 {% endcomment %}
+                              {% assign clarityParams = 'VS1,IF' %}
+                              {% if labGrownPageQueryArray != blank %}
+                                {% for param in labGrownPageQueryArray %}
+                                  {%- if param contains "clarity" -%}
+                                    {% assign clarityParams = param | split: '=' | last | url_decode | strip %}
+                                  {%- endif -%}
+                                {% endfor %}
+                              {% endif %}
+                            
+                              {% assign clarityParamsArray = '' %}
+                              {% if clarityParams != blank %}
+                                {% assign clarityParamsArray = clarityParams | split: ',' %}
+                              {% else %}
+                                {% assign clarityParamsArray = clarity_values | replace_last: ',', '' | split: ',' %}  
+                                {% assign clarityParamsArray = clarityParamsArray %} {% comment %} | reverse {% endcomment %}
+                              {% endif %}
+                              {% assign clarityValues = clarity_values | replace_last: ', ', '' |  split: ',' %}
+                              {% assign defaultClarity = clarityValues | join: ',' %} {% comment %} | reverse | join: ',' {% endcomment %}
+                              {% assign clarityData = clarityValues | join: ',' %} {% comment %} | reverse | join: ',' {% endcomment %}
+
+                              {% comment %} FOR data -> | reverse | join: ',' {% endcomment %}
+                              <tc-range-slider id="slider_clarity_mia"
+                                min="{{ clarity_value_array | first }}"
+                                max="{{ clarity_value_array | last }}"
+                                value1="{{ clarityParamsArray | first }}"
+                                value2="{{ clarityParamsArray | last }}"
+                                data="{{ clarityValues | join: ',' }}" 
+                                marks="true"
+                                marks-count="{{ clarity_value_array | size }}"
+                                marks-values-count="{{ clarity_value_array | size }}"
+                                mousewheel-disabled="true"
+                                pointer-bg="#fca999"
+                                pointer-bg-hover="#fca999"
+                                pointer-bg-focus="#fca999"
+                                pointer-border="1px solid #fca999"
+                                pointer-border-hover="1px solid #fca999"
+                                pointer-border-focus="1px solid #fca999"
+                                slider-bg="#ebebeb"
+                                slider-bg-fill="#fca999"
+                                slider-width="100%"
+                                slider-height="5px"
+                                generate-labels="false"
+                                css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% when 'Cut' %}
+                      <div class="filter-desktop-whole filter-set filter-set--cut one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_cut'] == true %}{{- is_advanced_class -}}{% endif %}">
+                        <div class="filter-set-title-wrapper">
+                          <div class="filter-set-title">
+                            <span>Cut</span>
+                            <div class="filter-info">
+                              <div class="tooltip">
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                <span class="tooltiptext">
+                                  <p class="tooltip-title">Cut</p>
+                                  {% if block.settings.description_textarea_cut != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_cut | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="filter-set-content">
+                          <div class="range-slider range-target">
+                            <div class="range-base">
+                              {% assign cut_values = '' %}
+                              {% for i in (1..6) %}
+                                {% assign cut_label_id = 'main_title_cut_' | append: i %}
+                                {% assign cut_display_id = 'main_title_cut_checkbox_' | append: i %}
+                                {% if block.settings[cut_label_id] != blank and block.settings[cut_display_id] == true %}
+                                  {% assign cut_values = cut_values | append: block.settings[cut_label_id] | append: ',' %}
+                                {% endif %}
+                              {% endfor %}
+                              {% assign cut_value_array = cut_values | replace_last: ',', '' | split: ',' %}
+                              {% assign defaultCut = cut_values | replace_last: ',', '' %}
+                              {% assign cutData = cut_values | replace_last: ',', '' %}
+
+                              {% comment %} As per the conditions outlined below, this update is related to ticket: SHOP-2843 & 03-03-2026 {% endcomment %}
+                              {% assign cutParams = 'Excellent,Ideal' %}
+                              {% if labGrownPageQueryArray != blank %}
+                                {% for param in labGrownPageQueryArray %}
+                                  {%- if param contains "cut" -%}
+                                    {% assign cutParams = param | split: '=' | last | url_decode | strip %}
+                                  {%- endif -%}
+                                {% endfor %}
+                              {% endif %}
+                            
+                              {% assign cutParamsArray = '' %}
+                              {% if cutParams != blank %}
+                                {% assign cutParamsArray = cutParams | split: ',' %}
+                              {% else %}
+                                {% assign cutParamsArray = cut_values | replace_last: ',', '' | split: ',' %}  
+                              {% endif %}
+                              <tc-range-slider id="slider_cut_mia"
+                                min="{{ cut_value_array | first }}"
+                                max="{{ cut_value_array | last }}"
+                                value1="{{ cutParamsArray | first }}"
+                                value2="{{ cutParamsArray | last }}"
+                                data="{{ cut_values | replace_last: ',', '' }}"
+                                marks="true"
+                                marks-count="{{ cut_value_array | size }}"
+                                marks-values-count="{{ cut_value_array | size }}"
+                                mousewheel-disabled="true"
+                                pointer-bg="#fca999"
+                                pointer-bg-hover="#fca999"
+                                pointer-bg-focus="#fca999"
+                                pointer-border="1px solid #fca999"
+                                pointer-border-hover="1px solid #fca999"
+                                pointer-border-focus="1px solid #fca999"
+                                slider-bg="#ebebeb"
+                                slider-bg-fill="#fca999"
+                                slider-width="100%"
+                                slider-height="5px"
+                                generate-labels="false"
+                                css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% when 'Sustainable' %}
+                      <div class="filter-desktop-whole filter-set filter-set--sustainability one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_sustainability'] == true %}{{- is_advanced_class -}}{% endif %}">
+                          <div class="filter-set-title-wrapper">
+                              <div class="filter-set-title">
+                                  <span>Sustainable</span>
+                                  <div class="filter-info">
+                                      <div class="tooltip">
+                                          <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                          <span class="tooltiptext">
+                                            <p class="tooltip-title">Sustainable</p>
+                                            {% if block.settings.description_textarea_sustainability != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_sustainability | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="filter-set-content">
+                              <div class="select-wrapper">
+                                  {% assign sustainability_values = '' %}
+                                  {% for i in (1..6) %}
+                                      {% assign sustainability_label_id = 'main_title_sustainability_' | append: i %}
+                                      {% assign sustainability_display_id = 'main_title_sustainability_checkbox_' | append: i %}
+                                      {% if block.settings[sustainability_label_id] != blank and block.settings[sustainability_display_id] == true %}
+                                          {% assign sustainability_values = sustainability_values | append: block.settings[sustainability_label_id] | append: ', ' %}
+                                      {% endif %}
+                                  {% endfor %}
+                                {% assign sustainabilityValues = sustainability_values | prepend: 'All MiaDonna Lab Diamonds, ' %}
+                                {% assign sustainability_value_array = sustainabilityValues | replace_last: ', ', '' | split: ', ' %}
+                                {% assign sustainabilityData = sustainability_values | replace_last: ', ', '' %}
+
+                                {% assign sustainabilityParams = '' %}
+                                {% if labGrownPageQueryArray != blank %}
+                                  {% for param in labGrownPageQueryArray %}
+                                    {%- if param contains "sustainability" -%}
+                                      {% assign sustainabilityParams = param | split: '=' | last | url_decode | strip %}
+                                    {%- endif -%}
+                                  {% endfor %}
+                                {% endif %}
+                                  <select class="sustainability-select" id="sustainability-select">
+                                    {% assign defaultSustainability = sustainability_value_array.first %}
+                                  {% assign sustainabilityIndex = 0 %}
+                                    {% for item in sustainability_value_array %}
+                                      {% if item == sustainabilityParams %}
+                                        {% assign sustainabilityIndex = forloop.index0 %}
+                                      {% endif %}
+                                      <option value="{{ item }}" {% if forloop.index0 == sustainabilityIndex %}selected{% endif %}>{{ item }}</option>    
+                                    {% endfor %}
+                                  </select>
+                                  {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                              </div>
+                          </div>
+                      </div>
+                    {% when 'Ratio' %}
+                      {% assign ratioMinParams = '' %}
+                      {% assign ratioMaxParams = '' %}
+                      {% if labGrownPageQueryArray != blank %}
+                        {% for param in labGrownPageQueryArray %}
+                          {%- if param contains "min_l_w_ratio" -%}
+                            {% assign ratioMinParams = param | split: '=' | last | strip | to_i %}
+                          {% else %}
+                            {%- assign ratioMinParams = block.settings.main_title_ratio_min -%}      
+                          {%- endif -%}
+
+                          {%- if param contains "max_l_w_ratio" -%}
+                            {% assign ratioMaxParams = param | split: '=' | last | strip | to_i %}
+                          {% else %}
+                          {%- assign ratioMaxParams = block.settings.main_title_ratio_max -%}  
+                          {%- endif -%}
+                        {% endfor %}
+                      {% else %}
+                        {%- assign ratioMinParams = block.settings.main_title_ratio_min -%}
+                        {%- assign ratioMaxParams = block.settings.main_title_ratio_max -%}
+                      {% endif %}
+                      {%- assign defaultRatioMin = block.settings.main_title_ratio_min -%}
+                      {%- assign defaultRatioMax = block.settings.main_title_ratio_max -%}
+                      <div class="filter-desktop-whole filter-set filter-set--ratio one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_ratio'] == true %}{{- is_advanced_class -}}{% endif %}">
+                          <div class="filter-set-title-wrapper">
+                              <div class="filter-set-title">
+                                  <span>L:W RATIO</span>
+                                  <div class="filter-info">
+                                      <div class="tooltip">
+                                          <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                          <span class="tooltiptext">
+                                            <p class="tooltip-title">L:W RATIO</p>
+                                            {% if block.settings.description_textarea_ratio != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_ratio | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="filter-set-content">
+                              <div class="range-slider range-target">
+                                  <div class="range-base">
+                                      <tc-range-slider id="slider_ratio_mia"
+                                          min="{{ block.settings.main_title_ratio_min }}"
+                                          max="{{ block.settings.main_title_ratio_max }}"
+                                          value1="{{ ratioMinParams }}"
+                                          value2="{{ ratioMaxParams }}"
+                                          step="0.01"
+                                          moving-tooltip="true"
+                                          moving-tooltip-distance-to-pointer="-30"
+                                          moving-tooltip-bg="transparent"
+                                          moving-tooltip-text-color="#3c3737"
+                                          moving-tooltip-width="70"
+                                          moving-tooltip-height="20"
+                                          mousewheel-disabled="true"
+                                          pointer-bg="#fca999"
+                                          pointer-bg-hover="#fca999"
+                                          pointer-bg-focus="#fca999"
+                                          pointer-border="1px solid #fca999"
+                                          pointer-border-hover="1px solid #fca999"
+                                          pointer-border-focus="1px solid #fca999"
+                                          slider-bg="#ebebeb"
+                                          slider-bg-fill="#fca999"
+                                          slider-width="100%"
+                                          slider-height="5px"
+                                          generate-labels="false"
+                                          css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                                        />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    {% when 'Table' %}
+                      {% assign tableMinParams = '' %}
+                      {% assign tableMaxParams = '' %}
+                      {% if labGrownPageQueryArray != blank %}
+                        {% for param in labGrownPageQueryArray %}
+                          {%- if param contains "min_table" -%}
+                            {% assign tableMinParams = param | split: '=' | last | strip | to_i %}
+                          {% else %}
+                            {%- assign tableMinParams = block.settings.main_title_table_min -%}
+                          {%- endif -%}
+
+                          {%- if param contains "max_table" -%}
+                            {% assign tableMaxParams = param | split: '=' | last | strip | to_i %}
+                          {% else %}
+                            {%- assign tableMaxParams = block.settings.main_title_table_max -%}
+                          {%- endif -%}
+                        {% endfor %}
+                      {% else %}
+                        {%- assign tableMinParams = block.settings.main_title_table_min -%}
+                        {%- assign tableMaxParams = block.settings.main_title_table_max -%}
+                      {% endif %}
+                      {%- assign defaultTableMin = block.settings.main_title_table_min -%}
+                      {%- assign defaultTableMax = block.settings.main_title_table_max -%}
+                      <div class="filter-desktop-whole filter-set filter-set--table one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_table'] == true %}{{- is_advanced_class -}}{% endif %}">
+                          <div class="filter-set-title-wrapper">
+                              <div class="filter-set-title">
+                                  <span>Table %</span>
+                                  <div class="filter-info">
+                                      <div class="tooltip">
+                                          <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                          <span class="tooltiptext">
+                                            <p class="tooltip-title">Table %</p>
+                                            {% if block.settings.description_textarea_table != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_table | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="filter-set-content">
+                              <div class="range-slider range-target">
+                                  <div class="range-base">
+                                      <tc-range-slider id="slider_table_mia"
+                                        min="{{ block.settings.main_title_table_min }}"
+                                        max="{{ block.settings.main_title_table_max }}"
+                                        value1="{{ tableMinParams }}"
+                                        value2="{{ tableMaxParams }}"
+                                        step="0.01"
+                                        moving-tooltip="true"
+                                        moving-tooltip-distance-to-pointer="-30"
+                                        moving-tooltip-bg="transparent"
+                                        moving-tooltip-text-color="#3c3737"
+                                        moving-tooltip-width="70"
+                                        moving-tooltip-height="20"
+                                        mousewheel-disabled="true"
+                                        pointer-bg="#fca999"
+                                        pointer-bg-hover="#fca999"
+                                        pointer-bg-focus="#fca999"
+                                        pointer-border="1px solid #fca999"
+                                        pointer-border-hover="1px solid #fca999"
+                                        pointer-border-focus="1px solid #fca999"
+                                        slider-bg="#ebebeb"
+                                        slider-bg-fill="#fca999"
+                                        slider-width="100%"
+                                        slider-height="5px"
+                                        moving-tooltip-units="%"
+                                        generate-labels="false"
+                                        css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                                      />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    {% when 'Depth' %}
+                      {% assign depthMinParams = '' %}
+                      {% assign depthMaxParams = '' %}
+                      {% if labGrownPageQueryArray != blank %}
+                        {% for param in labGrownPageQueryArray %}
+                          {%- if param contains "min_depth" -%}
+                            {% assign depthMinParams = param | split: '=' | last | strip | to_i %}
+                          {% else %}
+                            {%- assign depthMinParams = block.settings.main_title_depth_min -%}
+                          {%- endif -%}
+
+                          {%- if param contains "max_depth" -%}
+                            {% assign depthMaxParams = param | split: '=' | last | strip | to_i %}
+                          {% else %}
+                            {%- assign depthMaxParams = block.settings.main_title_depth_max -%}
+                          {%- endif -%}
+                        {% endfor %}
+                      {% else %}
+                        {%- assign depthMinParams = block.settings.main_title_depth_min -%}
+                        {%- assign depthMaxParams = block.settings.main_title_depth_max -%}
+                      {% endif %}
+                      {%- assign defaultDepthMin = block.settings.main_title_depth_min -%}
+                      {%- assign defaultDepthMax = block.settings.main_title_depth_max -%}
+                      <div class="filter-desktop-whole filter-set filter-set--depth one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_depth'] == true %}{{- is_advanced_class -}}{% endif %}">
+                          <div class="filter-set-title-wrapper">
+                              <div class="filter-set-title">
+                                  <span>Depth %</span>
+                                  <div class="filter-info">
+                                      <div class="tooltip">
+                                          <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                          <span class="tooltiptext">
+                                            <p class="tooltip-title">Depth %</p>
+                                            {% if block.settings.description_textarea_depth != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_depth | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="filter-set-content">
+                              <div class="range-slider range-target">
+                                  <div class="range-base">
+                                      <tc-range-slider id="slider_depth_mia"
+                                        min="{{ block.settings.main_title_depth_min }}"
+                                        max="{{ block.settings.main_title_depth_max }}"
+                                        value1="{{ depthMinParams }}"
+                                        value2="{{ depthMaxParams }}"
+                                        step="0.01"
+                                        moving-tooltip="true"
+                                        moving-tooltip-distance-to-pointer="-30"
+                                        moving-tooltip-bg="transparent"
+                                        moving-tooltip-text-color="#3c3737"
+                                        moving-tooltip-width="70"
+                                        moving-tooltip-height="20"
+                                        mousewheel-disabled="true"
+                                        pointer-bg="#fca999"
+                                        pointer-bg-hover="#fca999"
+                                        pointer-bg-focus="#fca999"
+                                        pointer-border="1px solid #fca999"
+                                        pointer-border-hover="1px solid #fca999"
+                                        pointer-border-focus="1px solid #fca999"
+                                        slider-bg="#ebebeb"
+                                        slider-bg-fill="#fca999"
+                                        slider-width="100%"
+                                        slider-height="5px"
+                                        moving-tooltip-units="%"
+                                        generate-labels="false"
+                                        css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                                      />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    {% when 'Polish' %}
+                      <div class="filter-desktop-whole filter-set filter-set--polish one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_polish'] == true %}{{- is_advanced_class -}}{% endif %}">
+                        <div class="filter-set-title-wrapper">
+                          <div class="filter-set-title">
+                            <span>Polish</span>
+                            <div class="filter-info">
+                              <div class="tooltip">
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                <span class="tooltiptext">
+                                  <p class="tooltip-title">Polish</p>
+                                  {% if block.settings.description_textarea_polish != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_polish | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="filter-set-content">
+                          <div class="select-wrapper">
+                            {% assign polish_values = '' %}
+                            {% for i in (1..6) %}
+                                {% assign polish_label_id = 'main_title_polish_' | append: i %}
+                                {% assign polish_display_id = 'main_title_polish_checkbox_' | append: i %}
+                                {% if block.settings[polish_label_id] != blank and block.settings[polish_display_id] == true %}
+                                    {% assign polish_values = polish_values | append: block.settings[polish_label_id] | append: ', ' %}
+                                {% endif %}
+                            {% endfor %}
+                            {% assign polishValues = polish_values | prepend: 'All, ' %}
+                            {% assign polish_value_array = polishValues | replace_last: ', ', '' | split: ', ' %}
+                            {% assign polishData = polish_values | replace_last: ', ', '' %}
+
+                            {% assign polishParams = '' %}
+                            {% if labGrownPageQueryArray != blank %}
+                              {% for param in labGrownPageQueryArray %}
+                                {%- if param contains "polish" -%}
+                                  {% assign polishParams = param | split: '=' | last | url_decode | strip %}
+                                {%- endif -%}
+                              {% endfor %}
+                            {% endif %}
+                            <select class="sustainability-select" id="polish-select">
+                                {% assign defaultPolish = polish_value_array.first %}
+                                {% assign polishIndex = 0 %}
+                                {% for item in polish_value_array %}
+                                  {% if item == polishParams %}
+                                    {% assign polishIndex = forloop.index0 %}
+                                  {% endif %}
+                                  <option value="{{ item }}" {% if forloop.index0 == polishIndex %}selected{% endif %}>{{ item }}</option>    
+                                {% endfor %}
+                            </select>
+                            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                          </div>
+                        </div>
+                      </div>
+                    {% when 'Symmetry' %}
+                      <div class="filter-desktop-whole filter-set filter-set--symmetry one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_symmetry'] == true %}{{- is_advanced_class -}}{% endif %}">
+                        <div class="filter-set-title-wrapper">
+                          <div class="filter-set-title">
+                            <span>Symmetry</span>
+                            <div class="filter-info">
+                              <div class="tooltip">
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                <span class="tooltiptext">
+                                  <p class="tooltip-title">Symmetry</p>
+                                  {% if block.settings.description_textarea_symmetry != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_symmetry | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="filter-set-content">
+                          <div class="select-wrapper">
+                            {% assign symmetry_values = '' %}
+                            {% for i in (1..6) %}
+                                {% assign symmetry_label_id = 'main_title_symmetry_' | append: i %}
+                                {% assign symmetry_display_id = 'main_title_symmetry_checkbox_' | append: i %}
+                                {% if block.settings[symmetry_label_id] != blank and block.settings[symmetry_display_id] == true %}
+                                    {% assign symmetry_values = symmetry_values | append: block.settings[symmetry_label_id] | append: ', ' %}
+                                {% endif %}
+                            {% endfor %}
+                            {% assign symmetryValues = symmetry_values | prepend: 'All, ' %}
+                            {% assign symmetry_value_array = symmetryValues | replace_last: ', ', '' | split: ', ' %}
+                            {% assign symmetryData = symmetry_values | replace_last: ', ', '' %}
+
+                            {% assign symmetryParams = '' %}
+                            {% if labGrownPageQueryArray != blank %}
+                              {% for param in labGrownPageQueryArray %}
+                                {%- if param contains "symmetry" -%}
+                                  {% assign symmetryParams = param | split: '=' | last | url_decode | strip %}
+                                {%- endif -%}
+                              {% endfor %}
+                            {% endif %}
+                            <select class="sustainability-select" id="symmetry-select">
+                                {% assign defaultSymmetry = symmetry_value_array.first %}
+                              {% assign symmetryIndex = 0 %}
+                                {% for item in symmetry_value_array %}
+                                {% if item == symmetryParams %}
+                                  {% assign symmetryIndex = forloop.index0 %}
+                                {% endif %}
+                                <option value="{{ item }}" {% if forloop.index0 == symmetryIndex %}selected{% endif %}>{{ item }}</option>    
+                                {% endfor %}
+                            </select>
+                            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                          </div>
+                        </div>
+                      </div>
+                    {% when 'Fluorescence' %}
+                      <div class="filter-desktop-whole filter-set filter-set--fluorescence one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_fluorescence'] == true %}{{- is_advanced_class -}}{% endif %}">
+                        <div class="filter-set-title-wrapper">
+                          <div class="filter-set-title">
+                            <span>Fluorescence</span>
+                            <div class="filter-info">
+                              <div class="tooltip">
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                <span class="tooltiptext">
+                                  <p class="tooltip-title">Fluorescence</p>
+                                  {% if block.settings.description_textarea_fluorescence != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_fluorescence | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="filter-set-content">
+                          <div class="select-wrapper">
+                            {% assign fluorescence_values = '' %}
+                            {% for i in (1..5) %}
+                                {% assign fluorescence_label_id = 'main_title_fluorescence_' | append: i %}
+                                {% assign fluorescence_display_id = 'main_title_fluorescence_checkbox_' | append: i %}
+                                {% if block.settings[fluorescence_label_id] != blank and block.settings[fluorescence_display_id] == true %}
+                                    {% assign fluorescence_values = fluorescence_values | append: block.settings[fluorescence_label_id] | append: ', ' %}
+                                {% endif %}
+                            {% endfor %}
+                            {% assign fluorescenceValues = fluorescence_values | prepend: 'All, ' %}
+                            {% assign fluorescence_value_array = fluorescenceValues | replace_last: ', ', '' | split: ', ' %}
+                            {% assign fluorescenceData = fluorescence_values | replace_last: ', ', '' %}
+
+                            {% assign fluorParams = '' %}
+                            {% if labGrownPageQueryArray != blank %}
+                              {% for param in labGrownPageQueryArray %}
+                                {%- if param contains "fluor" -%}
+                                  {% assign fluorParams = param | split: '=' | last | url_decode | strip %}
+                                {%- endif -%}
+                              {% endfor %}
+                            {% endif %}
+                            <select class="sustainability-select" id="fluorescence-select">
+                                {% assign defaultFluorescence = fluorescence_value_array.first %}
+                              {% assign fluorIndex = 0 %}
+                                {% for item in fluorescence_value_array %}
+                                {% if item == fluorParams %}
+                                  {% assign fluorIndex = forloop.index0 %}
+                                {% endif %}
+                                <option value="{{ item }}" {% if forloop.index0 == fluorIndex %}selected{% endif %}>{{ item }}</option>    
+                                {% endfor %}
+                            </select>
+                            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                          </div>
+                        </div>
+                      </div>
+                    {% when 'CertifiedBy' %}
+                      <div class="filter-desktop-whole filter-set filter-set--certified one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_certified_by'] == true %}{{- is_advanced_class -}}{% endif %}">
+                        <div class="filter-set-title-wrapper">
+                          <div class="filter-set-title">
+                            <span>Certified by</span>
+                            <div class="filter-info">
+                              <div class="tooltip">
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                <span class="tooltiptext">
+                                  <p class="tooltip-title">Certified</p>
+                                  {% if block.settings.description_textarea_certified_by != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_certified_by | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="filter-set-content">
+                          <div class="select-wrapper">
+                            {% assign certified_by_values = '' %}
+                            {% for i in (1..4) %}
+                                {% assign certified_by_label_id = 'main_title_certified_by_' | append: i %}
+                                {% assign certified_by_display_id = 'main_title_certified_by_checkbox_' | append: i %}
+                                {% if block.settings[certified_by_label_id] != blank and block.settings[certified_by_display_id] == true %}
+                                    {% assign certified_by_values = certified_by_values | append: block.settings[certified_by_label_id] | append: ', ' %}
+                                {% endif %}
+                            {% endfor %}
+                            {% assign certified_byValues = certified_by_values | prepend: 'All, ' %}
+                            {% assign certified_by_value_array = certified_byValues | replace_last: ', ', '' | split: ', ' %}
+                            {% assign certifiedByData = certified_by_values | replace_last: ', ', '' %}
+
+                            {% assign labParams = '' %}
+                            {% if labGrownPageQueryArray != blank %}
+                              {% for param in labGrownPageQueryArray %}
+                                {%- if param contains "lab" -%}
+                                  {% assign labParams = param | split: '=' | last | url_decode | strip %}
+                                {%- endif -%}
+                              {% endfor %}
+                            {% endif %}
+                            <select class="sustainability-select" id="certified-by-select">
+                                {% assign defaultCertifiedBy = certified_by_value_array.first %}
+                              {% assign labIndex = 0 %}
+                                {% for item in certified_by_value_array %}
+                                {% if item == labParams %}
+                                    {% assign labIndex = forloop.index0 %}
+                                {% endif %}
+                                <option value="{{ item }}" {% if forloop.index0 == labIndex %}selected{% endif %}>{{ item }}</option>    
+                                {% endfor %}
+                            </select>
+                            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                          </div>
+                        </div>
+                      </div>
+                    {% when 'Fancy' %}
+                      <div class="filter-desktop-whole filter-set filter-set--fancy one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_fancy'] == true %}{{- is_advanced_class -}}{% endif %}">
+                        <div class="filter-set-title-wrapper">
+                          <div class="filter-set-title">
+                            <span>Fancy</span>
+                            <div class="filter-info">
+                              <div class="tooltip">
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                <span class="tooltiptext">
+                                  <p class="tooltip-title">Fancy</p>
+                                  {% if block.settings.description_textarea_fancy != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_fancy | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="filter-set-content">
+                          <div class="options swiper vdb-lb-slider-fancy">
+                            <div class="swiper-wrapper">
+                              {% assign fancyString = '' %}
+                              {% for i in (1..6) %}
+                                  {% assign fancy_label_id = 'main_title_fancy_' | append: i %}
+                                  {% assign fancy_display_id = 'main_title_fancy_checkbox_' | append: i %}
+                                {% if block.settings[fancy_label_id] != blank and block.settings[fancy_display_id] == true %}
+                                  {% assign fancyString = fancyString | append: ',' | append: i %}
+                                {% endif %}
+                              {% endfor %}
+                                  
+                              {% assign fancyArray = fancyString | remove_first: ',' | split: ',' %}
+                                      {% assign fancyIndex = 0 %}
+                                      {% assign fancyParams = '' %}
+                                      {% if labGrownPageQueryArray != blank %}
+                                        {% for param in labGrownPageQueryArray %}
+                                          {% assign fancy_first = param | split: '=' | first | strip %}
+                                          {%- if fancy_first == "fancy_color" -%}
+                                            {% assign fancyParams = param | split: '=' | last | url_decode | strip %}
+                                          {%- endif -%}
+                                        {% endfor %}
+                                      {% else %}
+                                {% comment %} {% if defaultColor == blank %}
+                                  {% assign fancyIndex = fancyArray | first %}
+                                {% else %}
+                                  {% assign fancyIndex = 0 %}
+                                {% endif %} {% endcomment %}
+                                      {% endif %}
+                                      
+                              {% comment %} {% assign defaultFancyIndex = fancyArray | first %} {% endcomment %}
+                              {% assign defaultFancyIndex = 0 %}
+                              {% for i in fancyArray %}
+                                {% assign fancy_label_id = 'main_title_fancy_' | append: i %}
+                                {% assign color_value_id = 'main_value_fancy_' | append: i %}
+                                {% assign fancy_display_id = 'main_title_fancy_checkbox_' | append: i %}
+                                {% assign fancy_icon_id = 'main_title_fancy_icon_' | append: i %}
+                                
+                                {% if block.settings[fancy_label_id] != blank and block.settings[fancy_display_id] == true %}
+                                  {% assign fancy_handle = block.settings[fancy_label_id] | handle | downcase  %}
+                                  {% assign class_name_fancy = 'vdb-list-item-fancy-style-' | append: fancy_handle  %}
+                                  
+                                      {% if fancyParams == block.settings[color_value_id] %} {% assign fancyIndex = i %} {% endif %}
+                                  {% unless i != defaultFancyIndex %} {% assign defaultFancy = block.settings[color_value_id] %}{% endunless %}
+                                      <div class="option {{ fancy_handle }} swiper-slide {{ class_name_fancy }} {% unless i != fancyIndex %}active-state{% endunless %}">
+                                          <button class="vdb-list-item-a-fancy-style" data-module="{{ class_name_fancy }}" data-fancy-value="{{ block.settings[color_value_id] }}">
+                                            {% if block.settings[fancy_icon_id] != blank %}
+                                              {{ block.settings[fancy_icon_id] | image_url: width: 300 | image_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                            {% else %}
+                                              {% if block.settings[color_value_id]=="Other" %}
+                                                {% comment %}
+                                                {% render 'icon-fancy-color-cut-gray-other', fancy_color_title: block.settings[fancy_label_id] %}
+                                                {% endcomment %}
+                                                {% render 'icon-fancy-color-cut', fancy_color_title: block.settings[fancy_label_id] %}
+                                              {% elsif block.settings[color_value_id]=="White" %}
+                                                {% render 'icon-color-white-cut' %}
+                                              {% else %}
+                                                {% render 'icon-fancy-color-cut', fancy_color_title: block.settings[fancy_label_id] %}
+                                              {% endif %}
+                                      {% endif %}
+                                              <div>{{ block.settings[fancy_label_id] }}</div>
+                                          </button>
+                                      </div>
+                                  {% endif %}
+                              {% endfor %}
+                            </div>
+                            {% comment %}<div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>{% endcomment %}
+                            <div class="swiper-scrollbar swiper-scrollbar-fancy"></div>
+                          </div>
+                        </div>
+                      </div>
+                    {% when 'Quality' %}
+                      <div class="filter-desktop-whole filter-set filter-set--quality one-half large-down--one-whole{% if block.settings['include_in_advanced_filter_checkbox_quality'] == true %}{{- is_advanced_class -}}{% endif %}">
+                        <div class="filter-set-title-wrapper">
+                          <div class="filter-set-title">
+                            <span>Quality</span>
+                            <div class="filter-info">
+                              <div class="tooltip">
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                                <span class="tooltiptext">
+                                  <p class="tooltip-title">Quality</p>
+                                {% if block.settings.description_textarea_quality != blank %}<p class="tooltip-content">{{ block.settings.description_textarea_quality | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>{% endif %}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="filter-set-content">
+                          <div class="select-wrapper">
+                            {% assign quality_values = '' %}
+                            {% for i in (1..2) %}
+                              {% assign quality_label_id = 'main_title_quality_' | append: i %}
+                              {% assign quality_display_id = 'main_title_quality_checkbox_' | append: i %}
+                              {% if block.settings[quality_label_id] != blank and block.settings[quality_display_id] == true %}
+                                  {% assign quality_values = quality_values | append: block.settings[quality_label_id] | append: ', ' %}
+                              {% endif %}
+                            {% endfor %}
+                            {% assign qualityValues = quality_values | prepend: 'All, ' %}
+                            {% assign quality_value_array = qualityValues | replace_last: ', ', '' | split: ', ' %}
+                            {% assign qualityData = quality_values | replace_last: ', ', '' %}
+
+                            {% assign qualityParams = '' %}
+                            {% if labGrownPageQueryArray != blank %}
+                              {% for param in labGrownPageQueryArray %}
+                                {%- if param contains "quality" -%}
+                                  {% assign qualityParams = param | split: '=' | last | url_decode | strip %}
+                                {%- endif -%}
+                              {% endfor %}
+                            {% endif %}
+                            <select class="sustainability-select" id="quality-select">
+                              {% assign defaultQuality = quality_value_array.first %}
+                              {% assign qualityIndex = 0 %}
+                              {% for item in quality_value_array %}
+                                {% if item == qualityParams %}
+                                  {% assign qualityIndex = forloop.index0 %}
+                                {% endif %}
+                                <option value="{{ item }}" {% if forloop.index0 == qualityIndex %}selected{% endif %}>{{ item }}</option>    
+                              {% endfor %}
+                            </select>
+                            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                          </div>
+                        </div>
+                      </div>
+                {% endcase %}
+            {% endfor %}
+
+          <div class="filter-desktop-whole filter-set filter-set--important one-half large-down--one-whole">
+            <div class="filter-set-title-wrapper">
+              <div class="filter-set-title">
+                <span>Quality</span>
+                <div class="filter-info">
+                  <div class="tooltip">
+                    <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801" width="22px" height="22px" class="icon-info" alt="" >
+                      <span class="tooltiptext">
+                        <p class="tooltip-title">Quality</p>
+                        {% comment %} <p class="tooltip-content">You are shopping the best at MiaDonna. In today's diamond market, there are cheap, quick ways to produce diamonds in a lab, but they are dull and fragile. And then there is the MiaDonna way, which is  slow and controlled, and produces diamonds that are far superior to Earth-mined diamonds or other diamonds grown in a lab. <br>As Grown: This means the diamond has been grown without any post-treatments that jeopardize the quality and interior structure of a diamond. <br>Type lla: This means the diamond has been grown using CVD technology, which produces diamonds that are harder and brighter than 99% of diamonds on the market.</p> {% endcomment %}
+                        <p class="tooltip-content">Do you prioritize the diamond's quality or size first? Let us help you find the perfect diamond by selecting what is most important to you. <br><u>Superior Quality</u>: D-F Color, IF-VVS2 Clarity, and Ideal Cut lab grown diamonds are considered superior quality. <br><u>Bigger Diamond</u>: If you prefer a larger carat weight, this selection will filter larger diamond sizes within your carat weight range with the best price points.</p>
+                      </span>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="filter-set-content">
+              <div class="select-wrapper">
+                <select class="sustainability-select" id="important-select">
+                  <option value="" disabled selected>What is most important to you?</option>
+                  {% comment %} <option value="Carbon Capture Diamonds">Carbon Capture Diamonds</option> {% endcomment %}
+                  <option value="Superior Quality" data-color-value1="F" data-color-value2="D" data-clarity-value1="VVS2" data-clarity-value2="IF" data-cut-value1="Ideal" data-cut-value2="Ideal">Superior Quality</option>
+                  <option value="Biggest Diamond" data-color-value1="H" data-color-value2="G" data-clarity-value1="VS2" data-clarity-value2="VS1" data-cut-value1="Ideal" data-cut-value2="Ideal">Biggest Diamond</option>
+                </select>
+                {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} <br/><br/><br/>
+********************************************************************************************************************************************************** {% endcomment %}
+{% comment %}
+<div class="custom-filters-group one-whole" style="display: none; margin-top: 50px;">
+  <div class="filter-sets">
+    <div class="filter-sets-group">
+      <div class="filter-set filter-set--shapes one-half large-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Shape</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Shape</p>
+                  <p class="tooltip-content">
+                    Shape refers to the appearance of the center stone. Most diamond shapes are Round, Square (Princess,
+                    Asscher, Cushion, Radiant), Rectangular ( Emerald, Elongated Radiant, Elongated Cushion),
+                    Heart-shaped, Pear-shaped (also known as tear-drop), Oval, or Marquise (like an Oval but pointed on
+                    both ends).
+                  </p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="options">
+            <div class="option active-state">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Round</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-princess-cut' %}
+                <div>Princess</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-cushion-cut' %}
+                <div>Cushion</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-oval-cut' %}
+                <div>Oval</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-emerald-cut' %}
+                <div>Emerald</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-asscher-cut' %}
+                <div>Asscher</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-radiant-cut' %}
+                <div>Radiant</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-pear-cut' %}
+                <div>Pear</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-heart-cut' %}
+                <div>Heart</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-marquise-cut' %}
+                <div>Marquise</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-oval-rose-cut' %}
+                <div>Oval Rose</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Trillion</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-half-moon-cut' %}
+                <div>Half Moon</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                {% render 'icon-shape-baguette-cut' %}
+                <div>Baguette</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-set filter-set--carat one-half large-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Carat</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Carat Size</p>
+                  <p class="tooltip-content">
+                    Carat weight refers not to the size of the stone, but the weight of it; two stones may have
+                    identical carat weights but have different length x width measurements depending on the cut. If you
+                    want to choose a smaller carat weight stone, opt for a higher cut grade, as this will make the stone
+                    appear larger. When selecting a stone for a specific budget, try to go slightly under a full or half
+                    carat weight, because prices jump at those sizes. For example, a 1.9ct stone will cost less than a
+                    2.0ct, and because carat weight is distributed across the entirety of the diamond, that size
+                    difference would be nearly impossible to detect.
+                  </p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="range-slider range-target">
+            <div class="range-base">
+              <div class="range-connects">
+                <div class="range-connect"></div>
+              </div>
+              <div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+                <div class="range-handle range-handle-lower">
+                  <div class="range-tooltip">0.23 CT</div>
+                </div>
+              </div>
+              <div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+                <div class="range-handle range-handle-upper">
+                  <div class="range-tooltip">7.72 CT</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-sets-group large-down--hide">
+      <div class="filter-set filter-set--color one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Color</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Color</p>
+                  <p class="tooltip-content">
+                    White diamonds range from D-F (colorless), G-H (near colorless & very difficult to detect), I-J
+                    (near colorless with slightly detectable warmth), K-Z (noticeable color). Color presents itself as a
+                    pale yellow. With Fancy Color diamonds, the intense grades will be the most color saturated.
+                  </p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="options">
+            <div class="option active-state">
+              <button>
+                <div>D E F</div>
+                <div>Colorless</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                <div>G H I</div>
+                <div>Near Colorless</div>
+              </button>
+            </div>
+            <div class="option">
+              <button>
+                <div>J K L</div>
+                <div>Slight Color</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-set filter-set--price one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Price</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Price</p>
+                  <p class="tooltip-content">
+                    Price range for ring and accessory items are without stones set. Price range for loose stones
+                    reflect just the stone, not the ring or accessory added.
+                  </p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="range-slider range-target">
+            <div class="range-base">
+              <div class="range-connects">
+                <div class="range-connect"></div>
+              </div>
+              <div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+                <div class="range-handle range-handle-lower">
+                  <div class="range-tooltip">$185.00</div>
+                </div>
+              </div>
+              <div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+                <div class="range-handle range-handle-upper">
+                  <div class="range-tooltip">$88,180.00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-sets-group large-down--hide">
+      <div class="filter-set filter-set--clarity one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Clarity</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Clarity</p>
+                  <p class="tooltip-content">
+                    Clarity refers to the tiny inclusions (blemishes) in a stone, and whether or not they are visible to
+                    the naked eye. Eye-clean diamonds, which are those without visible inclusions, will fall into the
+                    range of VVS1-SI1. As long as you choose a stone within that range, you will not need to worry about
+                    seeing inclusions, especially if you are selecting a stone with a higher cut grade.
+                  </p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="range-slider range-target">
+            <div class="range-base">
+              <div class="range-connects">
+                <div class="range-connect" style="transform: translate(34%, 0px) scale(0.821488, 1);"></div>
+              </div>
+              <div class="range-origin" style="transform: translate(-66%, 0px);z-index: 5;">
+                <div class="range-handle range-handle-lower"></div>
+              </div>
+              <div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+                <div class="range-handle range-handle-upper"></div>
+              </div>
+            </div>
+            <div class="range-pips">
+              <div class="range-pipe--marker" style="left: 0%;"></div>
+              <div class="range-pipe--value" style="left: 0%;">SI2</div>
+              <div class="range-pipe--marker" style="left: 16.7%;"></div>
+              <div class="range-pipe--value" style="left: 16.7%;">SI1</div>
+              <div class="range-pipe--marker" style="left: 33.4%;"></div>
+              <div class="range-pipe--value" style="left: 33.4%;">VS2</div>
+              <div class="range-pipe--marker" style="left: 50.1%;"></div>
+              <div class="range-pipe--value" style="left: 50.1%;">VS1</div>
+              <div class="range-pipe--marker" style="left: 66.8%;"></div>
+              <div class="range-pipe--value" style="left: 66.8%;">VVS2</div>
+              <div class="range-pipe--marker" style="left: 83.5%;"></div>
+              <div class="range-pipe--value" style="left: 83.5%;">VVS1</div>
+              <div class="range-pipe--marker" style="left: 100%;"></div>
+              <div class="range-pipe--value" style="left: 100%;">IF</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-set filter-set--cut one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Cut</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Cut</p>
+                  <p class="tooltip-content">
+                    The Cut of a diamond is the greatest influencer on the sparkle and brilliance of the stone, which is
+                    the first thing we see when looking at a diamond. A poorly cut diamond will appear dull and lifeless
+                    even if it is at the upper end of the color and clarity scales. As a general rule of thumb, stick
+                    with cut grades of Very Good or higher; the higher the Cut grade you choose, the lower you can go in
+                    the other C's without it significantly affecting the beauty of the stone.
+                  </p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="range-slider range-target">
+            <div class="range-base">
+              <div class="range-connects">
+                <div class="range-connect" style="transform: translate(0%, 0px) scale(1, 1);"></div>
+              </div>
+              <div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+                <div class="range-handle range-handle-lower"></div>
+              </div>
+              <div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+                <div class="range-handle range-handle-upper"></div>
+              </div>
+            </div>
+            <div class="range-pips">
+              <div class="range-pipe--marker" style="left: 0%;"></div>
+              <div class="range-pipe--value" style="left: 0%;">GOOD</div>
+              <div class="range-pipe--marker" style="left: 25%;"></div>
+              <div class="range-pipe--value" style="left: 25%;">VERY GOOD</div>
+              <div class="range-pipe--marker" style="left: 50%;"></div>
+              <div class="range-pipe--value" style="left: 50%;">EXCELLENT</div>
+              <div class="range-pipe--marker" style="left: 75%;"></div>
+              <div class="range-pipe--value" style="left: 75%;">IDEAL</div>
+              <div class="range-pipe--marker" style="left: 100%;"></div>
+              <div class="range-pipe--value" style="left: 100%;">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/8X.png?v=1685949932"
+                  width="auto"
+                  height="auto"
+                  style="max-width: 35px;vertical-align: top;"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-sets-group large-down--hide">
+      <div class="filter-set filter-set--sustainability one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Sustainability</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Sustainability</p>
+                  <!--
+                    <p class="tooltip-content">
+                      Clarity refers to the tiny inclusions (blemishes) in a stone, and whether or not they are visible
+                      to the naked eye. Eye-clean diamonds, which are those without visible inclusions, will fall into
+                      the range of VVS1-SI1. As long as you choose a stone within that range, you will not need to worry
+                      about seeing inclusions, especially if you are selecting a stone with a higher cut grade.
+                    </p>
+                  -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="select-wrapper">
+            <select class="sustainability-select">
+              <option selected>Carbon Negative</option>
+            </select>
+            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+          </div>
+        </div>
+      </div>
+      <div class="filter-set filter-set--quality one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Quality</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Quality</p>
+                  <!--
+                    <p class="tooltip-content">
+                      The Cut of a diamond is the greatest influencer on the sparkle and brilliance of the stone, which
+                      is the first thing we see when looking at a diamond. A poorly cut diamond will appear dull and
+                      lifeless even if it is at the upper end of the color and clarity scales. As a general rule of
+                      thumb, stick with cut grades of Very Good or higher; the higher the Cut grade you choose, the
+                      lower you can go in the other C's without it significantly affecting the beauty of the stone.
+                    </p>
+                  -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="select-wrapper">
+            <select class="sustainability-select">
+              <option selected>Type IIA</option>
+            </select>
+            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-sets-group large-down--hide">
+      <div class="filter-set filter-set--certified one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Certified by</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Certified</p>
+                  <!--
+                    <p class="tooltip-content">
+                      Clarity refers to the tiny inclusions (blemishes) in a stone, and whether or not they are visible
+                      to the naked eye. Eye-clean diamonds, which are those without visible inclusions, will fall into
+                      the range of VVS1-SI1. As long as you choose a stone within that range, you will not need to worry
+                      about seeing inclusions, especially if you are selecting a stone with a higher cut grade.
+                    </p>
+                  -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="select-wrapper">
+            <select class="sustainability-select">
+              <option selected>IGI</option>
+            </select>
+            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+          </div>
+        </div>
+      </div>
+      <div class="filter-set filter-set--fancy one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Fancy</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Color</p>
+                  <p class="tooltip-content">
+                    White diamonds range from D-F (colorless), G-H (near colorless & very difficult to detect), I-J
+                    (near colorless with slightly detectable warmth), K-Z (noticeable color). Color presents itself as a
+                    pale yellow. With Fancy Color diamonds, the intense grades will be the most color saturated.
+                  </p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="options">
+            <div class="option pink active-state">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Pink</div>
+              </button>
+            </div>
+            <div class="option orange">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Orange</div>
+              </button>
+            </div>
+            <div class="option yellow">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Yellow</div>
+              </button>
+            </div>
+            <div class="option blue">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Blue</div>
+              </button>
+            </div>
+            <div class="option green">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Green</div>
+              </button>
+            </div>
+            <div class="option purple">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Purple</div>
+              </button>
+            </div>
+            <div class="option pink">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Pink</div>
+              </button>
+            </div>
+            <div class="option orange">
+              <button>
+                {% render 'icon-shape-round-cut' %}
+                <div>Orange</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-sets-group large-down--hide">
+      <div class="filter-set filter-set--ratio one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>L:W RATIO</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">L:W RATIO</p>
+                  <!--
+                    <p class="tooltip-content">
+                      Carat weight refers not to the size of the stone, but the weight of it; two stones may have
+                      identical carat weights but have different length x width measurements depending on the cut. If
+                      you want to choose a smaller carat weight stone, opt for a higher cut grade, as this will make the
+                      stone appear larger. When selecting a stone for a specific budget, try to go slightly under a full
+                      or half carat weight, because prices jump at those sizes. For example, a 1.9ct stone will cost
+                      less than a 2.0ct, and because carat weight is distributed across the entirety of the diamond,
+                      that size difference would be nearly impossible to detect.
+                    </p>
+                  -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="range-slider range-target">
+            <div class="range-base">
+              <div class="range-connects">
+                <div class="range-connect"></div>
+              </div>
+              <div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+                <div class="range-handle range-handle-lower">
+                  <div class="range-tooltip">0.53</div>
+                </div>
+              </div>
+              <div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+                <div class="range-handle range-handle-upper">
+                  <div class="range-tooltip">2.27</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-set filter-set--table one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Table %</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Table %</p>
+                  <!--
+                    <p class="tooltip-content">
+                      Carat weight refers not to the size of the stone, but the weight of it; two stones may have
+                      identical carat weights but have different length x width measurements depending on the cut. If
+                      you want to choose a smaller carat weight stone, opt for a higher cut grade, as this will make the
+                      stone appear larger. When selecting a stone for a specific budget, try to go slightly under a full
+                      or half carat weight, because prices jump at those sizes. For example, a 1.9ct stone will cost
+                      less than a 2.0ct, and because carat weight is distributed across the entirety of the diamond,
+                      that size difference would be nearly impossible to detect.
+                    </p>
+                  -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="range-slider range-target">
+            <div class="range-base">
+              <div class="range-connects">
+                <div class="range-connect"></div>
+              </div>
+              <div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+                <div class="range-handle range-handle-lower">
+                  <div class="range-tooltip">0.00%</div>
+                </div>
+              </div>
+              <div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+                <div class="range-handle range-handle-upper">
+                  <div class="range-tooltip">90.30%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-sets-group large-down--hide">
+      <div class="filter-set filter-set--fluorescence one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Fluorescence</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Fluorescence</p>
+                  <!--
+                    <p class="tooltip-content">
+                      Clarity refers to the tiny inclusions (blemishes) in a stone, and whether or not they are visible
+                      to the naked eye. Eye-clean diamonds, which are those without visible inclusions, will fall into
+                      the range of VVS1-SI1. As long as you choose a stone within that range, you will not need to worry
+                      about seeing inclusions, especially if you are selecting a stone with a higher cut grade.
+                    </p>
+                  -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="select-wrapper">
+            <select class="sustainability-select">
+              <option selected>None</option>
+            </select>
+            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+          </div>
+        </div>
+      </div>
+      <div class="filter-set filter-set--polish one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Polish</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Polish</p>
+                  <!--
+                    <p class="tooltip-content">
+                      The Cut of a diamond is the greatest influencer on the sparkle and brilliance of the stone, which
+                      is the first thing we see when looking at a diamond. A poorly cut diamond will appear dull and
+                      lifeless even if it is at the upper end of the color and clarity scales. As a general rule of
+                      thumb, stick with cut grades of Very Good or higher; the higher the Cut grade you choose, the
+                      lower you can go in the other C's without it significantly affecting the beauty of the stone.
+                    </p>
+                  -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="select-wrapper">
+            <select class="sustainability-select">
+              <option selected>Excellent</option>
+            </select>
+            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-sets-group large-down--hide">
+      <div class="filter-set filter-set--symmetry one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Symmetry</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Symmetry</p>
+                  <!--
+                    <p class="tooltip-content">
+                      Clarity refers to the tiny inclusions (blemishes) in a stone, and whether or not they are visible
+                      to the naked eye. Eye-clean diamonds, which are those without visible inclusions, will fall into
+                      the range of VVS1-SI1. As long as you choose a stone within that range, you will not need to worry
+                      about seeing inclusions, especially if you are selecting a stone with a higher cut grade.
+                    </p>
+                  -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="select-wrapper">
+            <select class="sustainability-select">
+              <option selected>Excellent</option>
+            </select>
+            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+          </div>
+        </div>
+      </div>
+      <div class="filter-set filter-set--depth one-half medium-down--one-whole">
+        <div class="filter-set-title-wrapper">
+          <div class="filter-set-title">
+            <span>Depth %</span>
+            <div class="filter-info">
+              <div class="tooltip">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801 alt="" "
+                  width="22px"
+                  height="22px"
+                  class="icon-info"
+                >
+                <span class="tooltiptext">
+                  <p class="tooltip-title">Depth %</p>
+                  <!--
+                    <p class="tooltip-content">
+                      Carat weight refers not to the size of the stone, but the weight of it; two stones may have
+                      identical carat weights but have different length x width measurements depending on the cut. If
+                      you want to choose a smaller carat weight stone, opt for a higher cut grade, as this will make the
+                      stone appear larger. When selecting a stone for a specific budget, try to go slightly under a full
+                      or half carat weight, because prices jump at those sizes. For example, a 1.9ct stone will cost
+                      less than a 2.0ct, and because carat weight is distributed across the entirety of the diamond,
+                      that size difference would be nearly impossible to detect.
+                    </p>
+                  -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-set-content">
+          <div class="range-slider range-target">
+            <div class="range-base">
+              <div class="range-connects">
+                <div class="range-connect"></div>
+              </div>
+              <div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+                <div class="range-handle range-handle-lower">
+                  <div class="range-tooltip">0.00%</div>
+                </div>
+              </div>
+              <div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+                <div class="range-handle range-handle-upper">
+                  <div class="range-tooltip">84.70%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endcomment %}
+
+<script>
+  let defaultShape = '{{ defaultShape }}';
+  let defaultColor = '{{ defaultColor }}';
+  let defaultClarity = '{{ defaultClarity }}';
+  let defaultCut = '{{ defaultCut }}';
+  let defaultPolish = '{{ defaultPolish }}';
+  let defaultSymmetry = '{{ defaultSymmetry }}';
+  let defaultFluorescence = '{{ defaultFluorescence }}';
+  let defaultCertifiedBy = '{{ defaultCertifiedBy }}';
+  let defaultCaratMin = '{{ defaultCaratMin }}'; /*'1';*/
+  let defaultCaratMax = '{{ defaultCaratMax }}';
+  let defaultPriceMin = '{{ defaultPriceMin }}';
+  let defaultPriceMax = '{{ defaultPriceMax }}';
+  let defaultTableMin = '{{ defaultTableMin }}';
+  let defaultTableMax = '{{ defaultTableMax }}';
+  let defaultRatioMin = '{{ defaultRatioMin }}';
+  let defaultRatioMax = '{{ defaultRatioMax }}';
+  let defaultDepthMin = '{{ defaultDepthMin }}';
+  let defaultDepthMax = '{{ defaultDepthMax }}';
+  let defaultFancy = '{{ defaultFancy }}';
+  let defaultSustainability = '{{ defaultSustainability }}';
+  let defaultQuality = '{{ defaultQuality }}';
+  let shapeData = '{{ shapeData }}';
+  let clarityData = '{{ clarityData }}';
+  let cutData = '{{ cutData }}';
+  let sustainabilityData = '{{ sustainabilityData }}';
+  let qualityData = '{{ qualityData }}';
+  let fluorescenceData = '{{ fluorescenceData }}';
+  let polishData = '{{ polishData }}';
+  let symmetryData = '{{ symmetryData }}';
+  let certifiedByData = '{{ certifiedByData }}';
+  let colorData = '{{ colorData }}';
+</script>

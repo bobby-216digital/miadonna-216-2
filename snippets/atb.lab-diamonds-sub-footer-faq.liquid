@@ -1,0 +1,231 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Sub Footer FAQ",
+  "class": "sub-footer-faq lab-diamonds-sub-footer-faq",
+  "id": "lab-diamonds-sub-footer-faq",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Title",
+      "info": "FAQ"
+    },
+    {
+      "type": "color",
+      "id": "atb_background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "FAQs"
+    },
+    {
+      "type": "link_list",
+      "id": "block_faqs_menu",
+      "label": "FAQs menu",
+      "info": "Select faqs navigation.",
+      "repeatable": "FAQs"
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_background' -%}
+{%- assign atb_background = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_faqs_menu' -%}
+{%- assign block_faqs_menu = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section sub-footer-faq lab-diamonds-sub-footer-faq">
+{% for block0 in blocks %}
+  {% if block_faqs_menu[forloop.index0] != blank %}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {% for link in block_faqs_menu[forloop.index0].links %}
+            {%- capture answer -%}
+              {%- for childLink in link.links -%}
+                {{ childLink.title | remove: '<br>' | escape -}}
+              {%- endfor -%}
+            {%- endcapture -%}
+            {
+              "@type": "Question",
+              "name": "{{ link.title | escape }}",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{{ answer | strip_html }}"
+              }
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]
+      }
+    </script>
+  {% endif %}
+{% endfor %}
+
+{{ 'lab-diamonds-sub-footer-faq.css' | asset_url | stylesheet_tag }}
+<style>
+ div#faq-section header {
+    width: 100%;
+}
+ div#faq-section {
+    background: {{ atb_background }};
+} 
+</style>
+<div id="faq-section" class="sub_footer-faq section is-width-wide">
+  <div class="container">
+    {%  if atb_title != blank  %}
+      <header>
+    <h2 class="text-center playfair">
+       <span>{{ atb_title }}</span>
+      </h2>
+     <i class="ornamental-break -dark"></i>
+      </header>
+      {% endif %}
+    {% for block0 in blocks %}
+      {% capture lastFAQ %}
+        {% for link in block_faqs_menu[forloop.index0].links %}
+          {% if forloop.last %}
+            <div
+              class="sub_footer-faq-item one-whole"
+            >
+              <button class="sub_footer-accordion-title">
+                <span>{{- link.title | escape -}}</span>
+                {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+              </button>
+              <p class="sub_footer-accordion-content">
+                {% for childLink in link.links %}
+                  {% if childLink.links == blank %}
+                    {% if childLink.url != routes.root_url %}
+                      <a href="{{ childLink.url }}" style="text-decoration:underline;">
+                    {% endif %}
+                    {{ childLink.title | remove: '<br>' | escape -}}
+                    {%- if childLink.title == '<br>' -%}
+                      <br>
+                    {% elsif childLink.title == '<br><br>' -%}
+                      <br>
+                      <br>
+                    {% endif %}
+                    {% if childLink.url != routes.root_url %}
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endcapture %}
+      <div
+        class="sub_footer-faq-items one-half medium-down--one-whole column"
+      >
+        {% assign blockSizeLast = block_faqs_menu[forloop.index0].links.size | modulo: 2 %}
+        {% assign blockSize = block_faqs_menu[forloop.index0].links.size | divided_by: 2 %}
+      
+        {% for link in block_faqs_menu[forloop.index0].links limit: blockSize %}
+          <div
+            class="sub_footer-faq-item one-whole"
+          >
+            <button class="sub_footer-accordion-title">
+              <span>{{- link.title | escape -}}</span>
+              {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+            </button>
+            <p class="sub_footer-accordion-content">
+              {% for childLink in link.links %}
+                {% if childLink.links == blank %}
+                  {% if childLink.url != routes.root_url %}
+                    <a href="{{ childLink.url }}" style="text-decoration:underline;">
+                  {% endif %}
+                  {{ childLink.title | remove: '<br>' | escape -}}
+                  {%- if childLink.title == '<br>' -%}
+                    <br>
+                  {% elsif childLink.title == '<br><br>' -%}
+                    <br>
+                    <br>
+                  {% endif %}
+                  {% if childLink.url != routes.root_url %}
+                    </a>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </p>
+          </div>
+        {% endfor %}
+        {% if blockSizeLast != 0 %}
+          {{ lastFAQ }}
+        {% endif %}
+      </div>
+      <div
+        class="sub_footer-faq-items one-half medium-down--one-whole column"
+      >
+        {% for link in block_faqs_menu[forloop.index0].links limit: blockSize offset: continue %}
+          {% if link.links != blank %}
+            <div
+              class="sub_footer-faq-item one-whole"
+            >
+              <button class="sub_footer-accordion-title">
+                <span>{{- link.title | escape -}}</span>
+                {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+              </button>
+              <p class="sub_footer-accordion-content">
+                {% for childLink in link.links %}
+                  {% if childLink.links == blank %}
+                    {% if childLink.url != routes.root_url %}
+                      <a href="{{ childLink.url }}" style="text-decoration:underline;">
+                    {% endif %}
+                    {{ childLink.title | remove: '<br>' | escape -}}
+                    {%- if childLink.title == '<br>' -%}
+                      <br>
+                    {% elsif childLink.title == '<br><br>' -%}
+                      <br>
+                      <br>
+                    {% endif %}
+                    {% if childLink.url != routes.root_url %}
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

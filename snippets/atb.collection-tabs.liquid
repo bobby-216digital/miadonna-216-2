@@ -1,0 +1,419 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Collection tabs",
+  "class": "collection-tabs jsCollectionTabs",
+  "id": "collection-tabs",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Main Heading",
+      "id": "atb_main_heading",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "label": "Main Subheading",
+      "id": "atb_main_subheading",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "half",
+          "label": "Half"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 40,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 40,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_left",
+      "label": "Left spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_right",
+      "label": "Right spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Tab"
+    },
+    {
+      "type": "text",
+      "id": "block_button_text",
+      "label": "Button Text",
+      "repeatable": "Tab",
+      "info": ""
+    },
+    {
+      "type": "collection",
+      "id": "block_collection",
+      "label": "Collection",
+      "repeatable": "Tab",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_main_heading' -%}
+{%- assign atb_main_heading = val -%}
+{%- include 'atb-render' field:'atb_main_subheading' -%}
+{%- assign atb_main_subheading = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_padding_left' -%}
+{%- assign atb_padding_left = val -%}
+{%- include 'atb-render' field:'atb_padding_right' -%}
+{%- assign atb_padding_right = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_button_text' -%}
+{%- assign block_button_text = val -%}
+{%- include 'atb-render' field:'block_collection' -%}
+{%- assign block_collection = val -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign atb_padding_left = atb_padding_left | plus: 0 -%}
+{%- assign atb_padding_right = atb_padding_right | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section collection-tabs jsCollectionTabs">
+{% comment %} Section specific CSS {% endcomment %}
+
+{{ 'setting-tabs.css' | asset_url | stylesheet_tag }}
+
+<noscript>{{ 'setting-tabs.css' | asset_url | stylesheet_tag }}</noscript>
+
+<style>
+  #shopify-section-{{ section_id }} .section-heading{
+    margin-bottom: 30px;
+  }
+  #shopify-section-{{ section_id }} .section-heading .section--title{
+    margin-top: 0;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: normal;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .section-heading .main-subheading{
+    font-size: 16px;
+    font-style: italic;
+    line-height: 28.71px;
+    letter-spacing: 0.35px;
+    font-family: 'Playfair Display';
+  }
+
+  @media screen and (max-width: 767px){
+    #shopify-section-{{ section_id }} .section-heading .section--title{
+      font-size: 18px;
+    }
+    #shopify-section-{{ section_id }} .section-heading .main-subheading{
+      font-size: 14px;
+    }
+  }
+</style>
+
+{% style %}
+  #shopify-section-{{ section_id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    padding-left: {{ atb_padding_left }}px;
+    padding-right: {{ atb_padding_right }}px;
+    {% if atb_width == 'wide' -%}
+      width: 100%;
+    {%- elsif atb_width == 'half' -%}
+      width: 50%;
+    {%- endif %}
+  }
+  #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tabs-buttons{
+    gap: 0;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+  #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tab-button{
+    border: 0;
+    font-size: 16px;
+    padding: 0 2rem;
+    outline: none;
+    box-shadodow: none;
+    letter-spacing: .1em;
+    background: transparent!important;
+  }
+  #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tab-button:first-child{
+    padding-left: 0;
+  }
+  #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tab-button:last-child{
+    padding-right: 0;
+  }
+  #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tab-button:not(:last-child) {
+    border-right: 2px solid #000;
+  }
+  #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tab-button.button-active {
+    text-decoration: underline;
+  }
+  #shopify-section-{{ section_id }} .product-content-wrapper{
+    justify-content: flex-start;
+  }
+  #shopify-section-{{ section_id }} .product-content-wrapper .product-item{
+    margin-right: 5px !important;
+  }
+  #shopify-section-{{ section_id }} .product-content-wrapper .image-element__wrap{
+    max-width: 100% !important;
+  }
+  #shopify-section-{{ section_id }} .flickity-prev-next-button{
+    background-color: transparent;
+  }
+  @media screen and (max-width: 1300px){
+    #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tabs-buttons{
+      flex-wrap: nowrap;
+      overflow: auto;
+      padding: 0 1rem 1rem;
+      justify-content: flex-start;
+    }
+    #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tab-button{
+      white-space: nowrap;
+    }
+    #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-1,
+    #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-2,
+    #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-3{
+      justify-content: center;
+    }
+  }
+  @media screen and (max-width: 991px){
+    #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-1,
+    #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-2,
+    #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-3{
+      justify-content: flex-start;
+    }
+  }
+
+  @media screen and (max-width: 767px){
+    #shopify-section-{{ section_id }} .setting-tabs-wrapper .setting-tab-button{
+      font-size: 14px;
+    }
+  }
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-setting-tabs
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    has-no-side-gutter
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  <div class="section-heading text-center">
+    <h2 class="section--title">{{ atb_main_heading }}</h2>
+    <div class="main-subheading">
+      {{ atb_main_subheading }}
+    </div>
+  </div>
+  <div class="container">
+    {% assign buttonTextEmpty = false %}
+    {% assign buttonCount = 0 %}
+    {%- for block0 in blocks -%}
+      {% if block_button_text[forloop.index0] == blank %}
+        {% assign buttonTextEmpty = true %}
+      {% endif %}
+      {% if block_button_text[forloop.index0] != blank %}
+        {% assign buttonCount = buttonCount | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+    <setting-tabs class="setting-tabs-wrapper one-whole">
+      {% unless buttonTextEmpty == true %}
+        <div class="setting-tabs-buttons tab-buttons-{{ buttonCount }}">
+          {%- for block0 in blocks -%}
+            {% assign buttonID = block_button_text[forloop.index0] | replace: ' ', '-' | downcase %}
+            <button
+              id="{{ buttonID }}"
+              class="setting-tab-button {{ buttonID }}{% if forloop.first %} button-active{% endif %}"
+            >
+              {{ block_button_text[forloop.index0] }}
+            </button>
+          {% endfor %}
+        </div>
+      {% endunless %}
+
+      {%- for block0 in blocks -%}
+        {% assign buttonID = block_button_text[forloop.index0] | replace: ' ', '-' | downcase %}
+        <div
+          id="{{ buttonID }}-content"
+          class="setting-tab-content {{ buttonID }}-content js-related-products-slider{% if forloop.first %} tab-active{% endif %}"
+        >
+          <div
+            class="product-content-wrapper products-slider"
+            data-products-per-slide="6"
+            data-products-limit="10"
+            data-products-available="10"
+          >
+            {% for product in block_collection[forloop.index0].products limit: 10 %}
+              <div class="product-item one-sixth column medium-down--one-half">
+                <a href="{{ product.url | within: collection }}" tabindex="-1">
+                  {%
+                    render 'image-element',
+                    image: product.featured_media.preview_image,
+                    alt: product.featured_media.preview_image.alt,
+                  %}
+                  <h3>
+                    {{ product.title }}
+                  </h3>
+                  <!-- <p>{{ product.price_max | money }}</p> -->
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </setting-tabs>
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsCollectionTabs.js' | asset_url }}"></script>
+
+
+</section>

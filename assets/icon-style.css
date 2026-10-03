@@ -1,0 +1,125 @@
+@font-face {
+    font-family: 'miadonna-icon';
+    src:url('https://cdn.shopify.com/s/files/1/1164/4258/files/miadonna-icon.eot?v=1685878275');
+    src:url('https://cdn.shopify.com/s/files/1/1164/4258/files/miadonna-icon.eot?v=1685878275#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/1164/4258/files/miadonna-icon.ttf?v=1685878275') format('truetype'),
+        url('https://cdn.shopify.com/s/files/1/1164/4258/files/miadonna-icon.woff?v=1685878275') format('woff'),
+        url('miadonna-icon.svg?v=04052023#miadonna-icon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+[class^="icon-"],
+[class*=" icon-"] {
+  font-family: "miadonna-icon" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  margin-left: 3px;
+  margin-right: 3px;
+  vertical-align: text-bottom;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-online:before {
+  content: "\e911";
+}
+.icon-podcast:before {
+  content: "\e912";
+}
+.icon-print:before {
+  content: "\e913";
+}
+.icon-television:before {
+  content: "\e914";
+}
+.icon-info:before {
+  content: "\e90e";
+}
+.icon-cart:before {
+  content: "\e90f";
+}
+.icon-user:before {
+  content: "\e910";
+}
+.icon-certificate:before {
+  content: "\e900";
+}
+.icon-chat:before {
+  content: "\e901";
+}
+.icon-chevron:before {
+  content: "\e902";
+}
+.icon-close:before {
+  content: "";
+}
+.icon-download:before {
+  content: "\e904";
+}
+.icon-gift:before {
+  content: "\e905";
+}
+.icon-mail:before {
+  content: "\e906";
+}
+.icon-mark:before {
+  content: "";
+}
+.icon-phone:before {
+  content: "\e908";
+}
+.icon-play:before {
+  content: "\e909";
+}
+.icon-plus:before {
+  content: "\e90a";
+}
+.icon-search:before {
+  content: "\e90b";
+}
+.icon-star:before {
+  content: "\e90c";
+}
+.icon-trash:before {
+  content: "\e90d";
+}
+.icon-half-star-left:before {
+  content: "\e915";
+}
+.icon-half-star-right:before {
+  content: "\e917";
+}
+.icon-info-2:before {
+  content: "\e916";
+}
+.icon-arrow-up {
+  font-family: "miadonna-icon" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-arrow-up:before {
+  content: "\e918";
+}
+.icon-arrow-down {
+  font-family: "miadonna-icon" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-arrow-down:before {
+  content: "\e919";
+}

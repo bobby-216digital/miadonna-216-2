@@ -1,0 +1,75 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Blog Topic Tags",
+  "id": "blog_topic_tags",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<section
+  class="
+    section section-blog-tags
+    {{ css_class }}
+    is-width-{{ width }}
+  "
+  {% if animation != 'none' %}
+  {% endif %}
+>
+  <div class="container ">
+    <div class="blog__filter one-whole  medium-down--one-whole column">
+      {% comment %} Blog filter {% endcomment %}
+      <div class="field text-center is-flex-wrap">
+        <div class="select-tags-group">
+          <div name="tag_filter" id="blog_filter" class="select-tags {% if blog.all_tags.size > 6 %}swiper tag_filter--slider{% endif %}">
+            {% if blog.all_tags.size > 6 %}
+              <div class="swiper-wrapper">
+            {% endif %}
+            <a class="tag-button {% if blog.all_tags.size > 6 %}swiper-slide{% endif %} {% unless current_tags %}selected{% endunless %}" href="{{ blog.url }}">All</a>
+            {% for tag in blog.all_tags %}
+              <a
+                class="tag-button {% if blog.all_tags.size > 6 %}swiper-slide{% endif %}{% if current_tags contains tag %} selected {% endif %}"
+                href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}"
+              >
+                {{- tag -}}
+              </a>
+            {% endfor %}
+            {% if blog.all_tags.size > 6 %}
+              </div>
+            {% endif %}
+            {% if blog.all_tags.size > 6 %}
+              <div class="swiper-scrollbar swiper-scrollbar-shape"></div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

@@ -1,0 +1,198 @@
+<style>
+  .recently-viewed-heading.show-heading {
+    display: block !important;
+  }
+  /* @media screen and (max-width: 798px) {
+    .products-slider.mobile-products-slider:after {
+      content: "flickity";
+      display: none; /* hide :after */
+    }
+  } */
+</style>
+
+<ul
+  class="recently-viewed-grid product-content-wrapper has-no-side-gutter products-slider"
+  data-products-per-slide="8"
+  data-products-limit="8"
+  data-products-available="8"
+>
+  <!-- Recently viewed products will appear here -->
+</ul>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+    const productData = JSON.parse(localStorage.getItem("recentlyViewedProduct") || sessionStorage.getItem("recentlyViewedProduct"));
+    const heading = document.querySelector(".recently-viewed-heading");
+    if (productData && productData.length > 1) {
+      heading.style.display = "block !important";
+      heading.classList.add('show-heading');
+    } else {
+      $('#recently-viewed').closest('.recommended-products-section').addClass('recently-view-has-no-data');
+    }
+    if (productData.length > 3 && productData.length < 8) {
+      document.querySelector(".recently-viewed-grid").classList.add('no-slider');
+    }
+    if (productData.length > 7) {
+      document.querySelector(".recently-viewed-grid").setAttribute("data-products-limit", productData.length);
+      document.querySelector(".recently-viewed-grid").setAttribute("data-products-available", productData.length);
+    }
+  });
+  
+  function setRecentlyViewedProducts() {
+    const productData = {
+      productTitle: "{{ product.title | remove: '"' }}",
+      productImg: "{{ settings.speedsize_url_pfx_https -}}{{ product.featured_media | image_url: width: 450 }}",
+      productPrice: "{{ product.price_max | money_with_currency }}",
+      productUrl: "{{ product.url }}",
+      productImageAltText: "{{ product.featured_media.alt | escape }}"
+    };
+
+    const currProductPageTitle = productData.productTitle;
+    const localData = localStorage.getItem("recentlyViewedProduct");
+    let productArray = [];
+    const numberOfProducts = 20;
+
+    if (localData === null) {
+      productArray.push(productData);
+      localStorage.setItem("recentlyViewedProduct", JSON.stringify(productArray));
+      // localStorage.setItem("recentlyViewedProductBlog", JSON.stringify(productArray));
+    } else {
+      productArray = JSON.parse(localData);
+
+      const sameProduct = productArray.some(item => item.productTitle === currProductPageTitle);
+
+      if (!sameProduct) {
+        if (productArray.length >= numberOfProducts) {
+          productArray.shift();
+        }
+        productArray.push(productData);
+        localStorage.setItem("recentlyViewedProduct", JSON.stringify(productArray));
+        // localStorage.setItem("recentlyViewedProductBlog", JSON.stringify(productArray));
+      }
+    }
+  }
+
+  // Session Storage Code
+  // function setRecentlyViewedProducts() {
+  //   const productData = {
+  //     t: "{{ product.title | remove: '\"' | truncate: 100 }}",
+  //     i: "{{ settings.speedsize_url_pfx_https -}}{{ product.featured_media | image_url: width: 300 }}",
+  //     p: "{{ product.price_max | money_with_currency }}",
+  //     u: "{{ product.url }}",
+  //     a: "{{ product.featured_media.alt | escape | truncate: 80 }}"
+  //   };
+
+  //   const storageKey = "recentlyViewedProduct";
+  //   const maxProducts = 20;
+  //   let productArray = [];
+
+  //   console.log("[Session Viewed] Starting script...");
+
+  //   try {
+  //     const sessionData = sessionStorage.getItem(storageKey);
+  //     if (sessionData) {
+  //       productArray = JSON.parse(sessionData);
+  //       console.log("[Session Viewed] Existing session data loaded.");
+  //     } else {
+  //       console.log("[Session Viewed] No existing session data, starting fresh.");
+  //     }
+
+  //     const exists = productArray.some(item => item.u === productData.u);
+
+  //     if (!exists) {
+  //       if (productArray.length >= maxProducts) {
+  //         productArray.shift(); // remove oldest
+  //       }
+
+  //       productArray.push(productData);
+  //       sessionStorage.setItem(storageKey, JSON.stringify(productArray));
+  //       console.log("[Session Viewed] Product saved to sessionStorage.");
+  //     } else {
+  //       console.log("[Session Viewed] Product already exists in session.");
+  //     }
+
+  //     console.log("[Session Viewed] Final sessionStorage array:", productArray);
+  //   } catch (err) {
+  //     console.error("[Session Viewed] Error saving product:", err);
+  //   }
+  // }
+
+  setRecentlyViewedProducts();
+
+  function getRecentlyViewedProducts() {
+    const productArray = JSON.parse(localStorage.getItem("recentlyViewedProduct"));
+    const recentlyViewedHtml = [];
+    const currProductPageTitle = "{{ product.title | remove: '"' }}";
+
+    productArray.forEach((item, index) => {
+      if (item.t !== currProductPageTitle) {
+        if (index > 6) {
+          var desktopCount = 'is-hidden';
+        } else {
+          var desktopCount = '';
+        }
+        if (index > 2) {
+          var tabletCount = 'is-tablet-hidden';
+        } else {
+          var tabletCount = '';
+        }
+        recentlyViewedHtml.unshift(`
+        <li class="product-item one-seventh column medium-down--one-third ${tabletCount} ${desktopCount}"> 
+          <a href="${item.productUrl}">
+            <img class="recently-viewed-img" src="${item.productImg}" loading="lazy" alt="${item.productImageAltText}"/>
+          </a>
+          <h3><a class="recently-viewed-a" href="${item.productUrl}">${item.productTitle}</a></h3>
+          <p>${item.productPrice}</p>
+        </li>
+        `);
+      }
+    });
+
+    const newProductData = `${recentlyViewedHtml.join("")}`;
+    const fullContent = document.querySelector(".recently-viewed-grid");
+    fullContent.innerHTML = newProductData;
+  }
+
+  // Session Storage Code
+  // function getRecentlyViewedProducts() {
+  //   const storedData = sessionStorage.getItem("recentlyViewedProduct");
+  //   if (!storedData) return; // no recently viewed data yet
+  
+  //   let productArray;
+  //   try {
+  //     productArray = JSON.parse(storedData);
+  //   } catch (e) {
+  //     console.error("Error parsing recently viewed products from sessionStorage", e);
+  //     return;
+  //   }
+  
+  //   const recentlyViewedHtml = [];
+  //   const currProductPageTitle = "{{ product.title | remove: '\"' }}";
+  
+  //   productArray.forEach((item, index) => {
+  //     if (item.t !== currProductPageTitle) {
+  //       const desktopCount = index > 6 ? 'is-hidden' : '';
+  //       const tabletCount = index > 2 ? 'is-tablet-hidden' : '';
+  
+  //       recentlyViewedHtml.unshift(`
+  //         <li class="product-item one-seventh column medium-down--one-third ${tabletCount} ${desktopCount}"> 
+  //           <a href="${item.u}">
+  //             <img class="recently-viewed-img" src="${item.i}" loading="lazy" alt="${item.a}"/>
+  //           </a>
+  //           <h3><a class="recently-viewed-a" href="${item.u}">${item.t}</a></h3>
+  //           <p>${item.p}</p>
+  //         </li>
+  //       `);
+  //     }
+  //   });
+  
+  //   const fullContent = document.querySelector(".recently-viewed-grid");
+  //   if (fullContent) {
+  //     fullContent.innerHTML = recentlyViewedHtml.join("");
+  //   }
+  // }
+
+  document.addEventListener("DOMContentLoaded", function (event) {
+    getRecentlyViewedProducts();
+  });
+</script>

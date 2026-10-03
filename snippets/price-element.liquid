@@ -1,0 +1,24 @@
+{% comment %}
+  Required values
+  price: <product price>
+{% endcomment %}
+
+{% if settings.currency_format == 'money_with_currency_format' %}
+  {% if product.tags contains 'Home Try-On' %}
+    {{ price | money_with_currency }}
+  {% else %}
+    {% if compare_price == true %}
+      {{ price | money_with_currency }}
+    {% else %}
+      {% if product.metafields.attributes.collection_product_price != blank %}
+        {{ price | money_with_currency }}
+      {% elsif is_cart and is_cart == 'yes' %}
+        {{ price | money_with_currency }}
+      {% else %}
+        {{ product.price_min | money_with_currency }}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% else %}
+  {{ price | money }}
+{% endif %}

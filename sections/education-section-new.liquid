@@ -1,0 +1,1093 @@
+<div class="lab-grown-diamond-page">
+  <div class="contanier-nw">
+    <div class="diamond-page-row">
+      <div class="diamond-pageleft" role="navigation" aria-label="Page navigation">
+        <div class="lab-grown--sidebar_main" role="navigation" aria-label="Section navigation">
+          <ul class="lab-sidebar-list">
+            {% for block in section.blocks %}
+              <li class="lab-sidebar-list-tem">
+                <a href="#{{ block.settings.main_title | handleize }}">{{ block.settings.main_title }}</a>
+              </li>
+            {% endfor %}
+            <li class="lab-sidebar-list-tem">
+              <a href="#accordion-heading">FAQ's</a>
+            </li>
+          </ul>      
+        </div>
+        <div class="about-links" role="navigation" aria-label="scroll navigation">
+          <div class="faq-categorycontainer">
+            <div class="faq-categorydropdown">
+              <button class="faq-selectCategory" id="faqSelectCategory">
+                Select
+                <span class="faq-arrow">
+                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.02246 6.82764L1.02246 1.82764C0.834961 1.64014 0.834961 1.29639 1.02246 1.10889C1.20996 0.921387 1.55371 0.921387 1.74121 1.10889L6.39746 5.76514L11.0225 1.10889C11.21 0.921387 11.5537 0.921387 11.7412 1.10889C11.9287 1.29639 11.9287 1.64014 11.7412 1.82764L6.74121 6.82764C6.55371 7.01514 6.20996 7.01514 6.02246 6.82764Z" fill="white"></path>
+                  </svg>
+                </span>
+              </button>
+              <ul class="faq-categorylist" id="faqCategory">
+                {% for block in section.blocks %}
+                  <li href="#{{ block.settings.main_title | handleize }}" class="faq-categorybox aboutnav-link" data-title="{{ block.settings.main_title }}" data-id="{{ block.settings.main_title | handleize }}">{{ block.settings.main_title }}</li>
+                {% endfor %}
+                <li href="#accordion-heading" class="faq-categorybox aboutnav-link" data-title="FAQ's" data-id="accordion-heading">FAQ's</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="diamond-pageright">
+            {% for block in section.blocks %}
+                <section class="dmdblock-advantages common-spacing" id="{{ block.settings.main_title | handleize }}" aria-labelledby="{{ block.settings.aria-labelledby }}">
+                    <div class="page-width">
+                            <div class="dmdright-content">
+                                {% if block.settings.main_title != blank %}
+                                    <h2 id="{{ block.settings.main_title }}" class="dmdblock-title">{{ block.settings.main_title }}</h2>
+                                {% endif %}
+                                
+                                {% if block.settings.show_content_block %}
+                                <div class="dmdblock-block">
+
+                                    {% if block.settings.heading != blank %}
+                                    <h3 class="dmdblock-block-heading">
+                                        {{ block.settings.heading }}
+                                    </h3>
+                                    {% endif %}
+                                    {% if block.settings.content != blank %}
+                                    <div class="dmdblock-richtext">
+                                        {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% if block.settings.main_image != blank %}
+                                    <div class="dmdblock-image">
+                                        <img
+                                        src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.main_image | image_url: width: 1200 }}"
+                                        alt="{{ block.settings.main_title | escape }}"
+                                        loading="lazy"
+                                        width="{{ block.settings.main_image.width }}"
+                                        height="{{ block.settings.main_image.height }}"
+                                        >
+                                    </div>
+                                    {% endif %}
+                                    {% if block.settings.second_text != blank %}
+                                      <div class="dmdblock-block img-bottomtext">
+                                          <div class="dmdblock-richtext">
+                                             {{ block.settings.second_text }}
+                                          </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if block.settings.cust_html != blank %}
+                                      {{ block.settings.cust_html }}
+                                    {% endif %}
+                                    {% comment %} Second Block {% endcomment %}
+                                    {% if block.settings.show_custom_grid %}
+                                    <div class="custom-grid"  role="list">
+                                        <div role="listitem"><a href="{{ block.settings.grid_link }}" class="grid-item">
+                                            <img
+                                            src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.grid_image | image_url: width: 600 }}"
+                                            alt="{{ block.settings.grid_title }}"
+                                            loading="lazy"
+                                            width="{{ block.settings.grid_image.width }}"
+                                            height="{{ block.settings.grid_image.height }}"
+                                            >
+
+                                        {% if block.settings.grid_title != blank %}
+                                            <span class="grid-title">{{ block.settings.grid_title }}</span>
+                                        {% endif %}
+
+                                        </a></div>
+
+                                        <div role="listitem"><a href="{{ block.settings.grid_link1 }}" class="grid-item">
+                                            <img
+                                            src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.grid_image1 | image_url: width: 600 }}"
+                                            alt="{{ block.settings.grid_title1 }}"
+                                            loading="lazy"
+                                            width="{{ block.settings.grid_image1.width }}"
+                                            height="{{ block.settings.grid_image1.height }}"
+                                            >
+
+                                        {% if block.settings.grid_title1 != blank %}
+                                            <span class="grid-title">{{ block.settings.grid_title1 }}</span>
+                                        {% endif %}
+
+                                        </a></div>
+
+                                        <div role="listitem"><a href="{{ block.settings.grid_link2 }}" class="grid-item">
+
+                                            <img
+                                            src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.grid_image2 | image_url: width: 600 }}"
+                                            alt="{{ block.settings.grid_title2 }}"
+                                            loading="lazy"
+                                            width="{{ block.settings.grid_image2.width }}"
+                                            height="{{ block.settings.grid_image2.height }}"
+                                            >
+
+                                        {% if block.settings.grid_title2 != blank %}
+                                            <span class="grid-title">{{ block.settings.grid_title2 }}</span>
+                                        {% endif %}
+
+                                        </a></div>
+                                    </div>
+                                {% endif %}
+                                    {% comment %} Third Block {% endcomment %}
+                                    {% if block.settings.show_content_right %}
+                                        <div class="image-text-block">
+
+                                            <div class="image-text-left">
+                                                <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.img_left_image | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.img_right_heading }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.img_left_image.width }}"
+                                            height="{{ block.settings.img_left_image.height }}"
+                                                >
+                                            </div>
+
+                                            <div class="image-text-right">
+
+                                                {% if block.settings.img_right_heading != blank %}
+                                                <h3>{{ block.settings.img_right_heading | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</h3>
+                                                {% endif %}
+
+                                                {% if block.settings.img_right_content != blank %}
+                                                <div class="dmdblock-richtext">
+                                                    {{ block.settings.img_right_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                </div>
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+{% if block.settings.img_left_image2 != blank %}
+                                        <div class="image-text-block">
+
+                                            <div class="image-text-left">
+                                                <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.img_left_image2 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.img_right_heading2 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.img_left_image2.width }}"
+                                            height="{{ block.settings.img_left_image2.height }}"
+                                                >
+                                            </div>
+
+                                            <div class="image-text-right">
+
+                                                {% if block.settings.img_right_heading2 != blank %}
+                                                <h3>{{ block.settings.img_right_heading2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</h3>
+                                                {% endif %}
+
+                                                {% if block.settings.img_right_content2 != blank %}
+                                                <div class="dmdblock-richtext">
+                                                    {{ block.settings.img_right_content2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                </div>
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+                                      {% endif %}
+
+                                      {% if block.settings.img_left_image3 != blank %}
+                                        <div class="image-text-block">
+
+                                            <div class="image-text-left">
+                                                <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.img_left_image3 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.img_right_heading3 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.img_left_image3.width }}"
+                                            height="{{ block.settings.img_left_image3.height }}"
+                                                >
+                                            </div>
+
+                                            <div class="image-text-right">
+
+                                                {% if block.settings.img_right_heading3 != blank %}
+                                                <h3>{{ block.settings.img_right_heading3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</h3>
+                                                {% endif %}
+
+                                                {% if block.settings.img_right_content3 != blank %}
+                                                <div class="dmdblock-richtext">
+                                                    {{ block.settings.img_right_content3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                </div>
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+                                      {% endif %}
+
+                                      {% if block.settings.img_left_image4 != blank %}
+                                        <div class="image-text-block">
+
+                                            <div class="image-text-left">
+                                                <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.img_left_image4 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.img_right_heading4 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.img_left_image4.width }}"
+                                            height="{{ block.settings.img_left_image4.height }}"
+                                                >
+                                            </div>
+
+                                            <div class="image-text-right">
+
+                                                {% if block.settings.img_right_heading4 != blank %}
+                                                <h3>{{ block.settings.img_right_heading4 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</h3>
+                                                {% endif %}
+
+                                                {% if block.settings.img_right_content4 != blank %}
+                                                <div class="dmdblock-richtext">
+                                                    {{ block.settings.img_right_content4 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                </div>
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+                                      {% endif %}
+
+                                        
+                                {% endif %}
+                                {% comment %} Forth Block {% endcomment %}
+                                {% if block.settings.show_info_card %}
+                                <div class="info-grid"  role="list">
+
+                                    <div class="info-card" role="listitem">
+
+                                        <div class="info-card-image">
+                                            <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.card_image | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.card_title }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.card_image.width }}"
+                                            height="{{ block.settings.card_image.height }}"
+                                            >
+                                        </div>
+
+                                        <div class="card-content">
+
+                                            {% if block.settings.card_title != blank %}
+                                                <h3>{{ block.settings.card_title }}</h3>
+                                            {% endif %}
+                                            <div class="dmdblock-richtext">
+                                                {% if block.settings.card_description != blank %}
+                                                    <p>
+                                                    {{ block.settings.card_description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                    <br/>
+                                                    {% if block.settings.card_link_url != blank %}
+                                                        <a href="{{ block.settings.card_link_url }}" class="card-link">
+                                                        {{ block.settings.card_link_label }}
+                                                        </a>
+                                                    {% endif %}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                  {%if block.settings.card_image2 != blank %}
+                                    <div class="info-card" role="listitem">
+
+                                        <div class="info-card-image">
+                                            <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.card_image2 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.card_title2 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.card_image2.width }}"
+                                            height="{{ block.settings.card_image2.height }}"
+                                            >
+                                        </div>
+
+                                        <div class="card-content">
+
+                                            {% if block.settings.card_title2 != blank %}
+                                                <h3>{{ block.settings.card_title2 }}</h3>
+                                            {% endif %}
+                                            <div class="dmdblock-richtext">
+                                                {% if block.settings.card_description2 != blank %}
+                                                    <p>
+                                                    {{ block.settings.card_description2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                    <br/>
+                                                    {% if block.settings.card_link_url2 != blank %}
+                                                        <a href="{{ block.settings.card_link_url2 }}" class="card-link">
+                                                        {{ block.settings.card_link_label2 }}
+                                                        </a>
+                                                    {% endif %}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                  {% endif %}
+
+                                  {%if block.settings.card_image3 != blank %}
+                                    <div class="info-card" role="listitem">
+
+                                        <div class="info-card-image">
+                                            <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.card_image3 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.card_title3 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.card_image3.width }}"
+                                            height="{{ block.settings.card_image3.height }}"
+                                            >
+                                        </div>
+
+                                        <div class="card-content">
+
+                                            {% if block.settings.card_title3 != blank %}
+                                                <h3>{{ block.settings.card_title3 }}</h3>
+                                            {% endif %}
+                                            <div class="dmdblock-richtext">
+                                                {% if block.settings.card_description3 != blank %}
+                                                    <p>
+                                                    {{ block.settings.card_description3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                    <br/>
+                                                    {% if block.settings.card_link_url3 != blank %}
+                                                        <a href="{{ block.settings.card_link_url3 }}" class="card-link">
+                                                        {{ block.settings.card_link_label3 }}
+                                                        </a>
+                                                    {% endif %}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                  {% endif %}
+
+                                  {%if block.settings.card_image4 != blank %}
+                                    <div class="info-card" role="listitem">
+
+                                        <div class="info-card-image">
+                                            <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.card_image4 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.card_title4 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.card_image4.width }}"
+                                            height="{{ block.settings.card_image4.height }}"
+                                            >
+                                        </div>
+
+                                        <div class="card-content">
+
+                                            {% if block.settings.card_title4 != blank %}
+                                                <h3>{{ block.settings.card_title4 }}</h3>
+                                            {% endif %}
+                                            <div class="dmdblock-richtext">
+                                                {% if block.settings.card_description4 != blank %}
+                                                    <p>
+                                                    {{ block.settings.card_description4 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                    <br/>
+                                                    {% if block.settings.card_link_url4 != blank %}
+                                                        <a href="{{ block.settings.card_link_url4 }}" class="card-link">
+                                                        {{ block.settings.card_link_label4 }}
+                                                        </a>
+                                                    {% endif %}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                  {% endif %}
+
+                                  {%if block.settings.card_image5 != blank %}
+                                    <div class="info-card" role="listitem">
+
+                                        <div class="info-card-image">
+                                            <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.card_image5 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.card_title5 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.card_image5.width }}"
+                                            height="{{ block.settings.card_image5.height }}"
+                                            >
+                                        </div>
+
+                                        <div class="card-content">
+
+                                            {% if block.settings.card_title5 != blank %}
+                                                <h3>{{ block.settings.card_title5 }}</h3>
+                                            {% endif %}
+                                            <div class="dmdblock-richtext">
+                                                {% if block.settings.card_description5 != blank %}
+                                                    <p>
+                                                    {{ block.settings.card_description5 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                    <br/>
+                                                    {% if block.settings.card_link_url5 != blank %}
+                                                        <a href="{{ block.settings.card_link_url5 }}" class="card-link">
+                                                        {{ block.settings.card_link_label5 }}
+                                                        </a>
+                                                    {% endif %}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                  {% endif %}
+
+                                  {%if block.settings.card_image6 != blank %}
+                                    <div class="info-card" role="listitem">
+
+                                        <div class="info-card-image">
+                                            <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.card_image6 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.card_title6 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.card_image6.width }}"
+                                            height="{{ block.settings.card_image6.height }}"
+                                            >
+                                        </div>
+
+                                        <div class="card-content">
+
+                                            {% if block.settings.card_title6 != blank %}
+                                                <h3>{{ block.settings.card_title6 }}</h3>
+                                            {% endif %}
+                                            <div class="dmdblock-richtext">
+                                                {% if block.settings.card_description6 != blank %}
+                                                    <p>
+                                                    {{ block.settings.card_description6 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                    <br/>
+                                                    {% if block.settings.card_link_url6 != blank %}
+                                                        <a href="{{ block.settings.card_link_url6 }}" class="card-link">
+                                                        {{ block.settings.card_link_label6 }}
+                                                        </a>
+                                                    {% endif %}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                  {% endif %}
+
+                                  {%if block.settings.card_image7 != blank %}
+                                    <div class="info-card" role="listitem">
+
+                                        <div class="info-card-image">
+                                            <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.card_image7 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.card_title7 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.card_image7.width }}"
+                                            height="{{ block.settings.card_image7.height }}"
+                                            >
+                                        </div>
+
+                                        <div class="card-content">
+
+                                            {% if block.settings.card_title7 != blank %}
+                                                <h3>{{ block.settings.card_title7 }}</h3>
+                                            {% endif %}
+                                            <div class="dmdblock-richtext">
+                                                {% if block.settings.card_description7 != blank %}
+                                                    <p>
+                                                    {{ block.settings.card_description7 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                    <br/>
+                                                    {% if block.settings.card_link_url7 != blank %}
+                                                        <a href="{{ block.settings.card_link_url7 }}" class="card-link">
+                                                        {{ block.settings.card_link_label7 }}
+                                                        </a>
+                                                    {% endif %}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                  {% endif %}
+
+                                  {%if block.settings.card_image8 != blank %}
+                                    <div class="info-card" role="listitem">
+
+                                        <div class="info-card-image">
+                                            <img 
+                                                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.card_image8 | image_url: width: 600 }}" 
+                                                alt="{{ block.settings.card_title8 }}"
+                                                loading="lazy"
+                                                width="{{ block.settings.card_image8.width }}"
+                                            height="{{ block.settings.card_image8.height }}"
+                                            >
+                                        </div>
+
+                                        <div class="card-content">
+
+                                            {% if block.settings.card_title8 != blank %}
+                                                <h3>{{ block.settings.card_title8 }}</h3>
+                                            {% endif %}
+                                            <div class="dmdblock-richtext">
+                                                {% if block.settings.card_description8 != blank %}
+                                                    <p>
+                                                    {{ block.settings.card_description8 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                    <br/>
+                                                    {% if block.settings.card_link_url8 != blank %}
+                                                        <a href="{{ block.settings.card_link_url8 }}" class="card-link">
+                                                        {{ block.settings.card_link_label8 }}
+                                                        </a>
+                                                    {% endif %}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                  {% endif %}
+
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            {% endfor %}
+        </div> 
+      </div>
+    </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Education Section New",
+  "settings": [
+    
+  ],
+
+  
+  "blocks": [
+    {
+      "type": "content_block",
+      "name": "Content Block",
+      "settings": [
+
+        {
+          "type": "header",
+          "content": "Common Content"
+        },
+        {
+          "type": "text",
+          "id": "main_title",
+          "label": "Section Title",
+          "default": "Education Section"
+        },
+        {
+          "type": "text",
+          "id": "aria-labelledby",
+          "label": "aria labelledby"
+        },
+        
+        {
+          "type": "image_picker",
+          "id": "main_image",
+          "label": "Section Image"
+        },
+        {
+          "type": "richtext",
+          "id": "second_text",
+          "label": "Second Paragraph"
+        },
+
+        {
+          "type": "header",
+          "content": "Content Block"
+        },
+        {
+            "type":"checkbox",
+            "id":"show_content_block",
+            "label":"Show content block"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Block Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Text / Bullet List / Ordered List"
+        },
+
+        {
+          "type": "header",
+          "content": "Grid Item"
+        },
+        {
+            "type":"checkbox",
+            "id":"show_custom_grid",
+            "label":"Show Grid"
+        },
+        
+        {
+          "type": "image_picker",
+          "id": "grid_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "grid_title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "grid_link",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "grid_image1",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "grid_title1",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "grid_link1",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "grid_image2",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "grid_title2",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "grid_link2",
+          "label": "Link"
+        },
+
+        {
+          "type": "header",
+          "content": "Image Left Content Right"
+        },
+        {
+            "type":"checkbox",
+            "id":"show_content_right",
+            "label":"Show content Right"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_left_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "img_right_heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "img_right_content",
+          "label": "Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_left_image2",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "img_right_heading2",
+          "label": "Heading2"
+        },
+        {
+          "type": "richtext",
+          "id": "img_right_content2",
+          "label": "Content2"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_left_image3",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "img_right_heading3",
+          "label": "Heading3"
+        },
+        {
+          "type": "richtext",
+          "id": "img_right_content3",
+          "label": "Content3"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_left_image4",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "img_right_heading4",
+          "label": "Heading4"
+        },
+        {
+          "type": "richtext",
+          "id": "img_right_content4",
+          "label": "Content4"
+        },
+
+        {
+          "type": "header",
+          "content": "Info Card (2 Column)"
+        },
+        {
+            "type":"checkbox",
+            "id":"show_info_card",
+            "label":"Show Info Card"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description",
+          "label": "Card Description"
+        },
+        {
+          "type": "url",
+          "id": "card_link_url",
+          "label": "Card Link"
+        },
+        {
+          "type": "text",
+          "id": "card_link_label",
+          "label": "Link Text",
+          "default": "Learn more"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image2",
+          "label": "Card Image2"
+        },
+        {
+          "type": "text",
+          "id": "card_title2",
+          "label": "Card Title2"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description2",
+          "label": "Card Description2"
+        },
+        {
+          "type": "url",
+          "id": "card_link_url2",
+          "label": "Card Link2"
+        },
+        {
+          "type": "text",
+          "id": "card_link_label2",
+          "label": "Link Text2",
+          "default": "Learn more"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image3",
+          "label": "Card Image3"
+        },
+        {
+          "type": "text",
+          "id": "card_title3",
+          "label": "Card Title3"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description3",
+          "label": "Card Description3"
+        },
+        {
+          "type": "url",
+          "id": "card_link_url3",
+          "label": "Card Link3"
+        },
+        {
+          "type": "text",
+          "id": "card_link_label3",
+          "label": "Link Text3",
+          "default": "Learn more"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image4",
+          "label": "Card Image4"
+        },
+        {
+          "type": "text",
+          "id": "card_title4",
+          "label": "Card Title4"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description4",
+          "label": "Card Description4"
+        },
+        {
+          "type": "url",
+          "id": "card_link_url4",
+          "label": "Card Link4"
+        },
+        {
+          "type": "text",
+          "id": "card_link_label4",
+          "label": "Link Text4",
+          "default": "Learn more"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image5",
+          "label": "Card Image5"
+        },
+        {
+          "type": "text",
+          "id": "card_title5",
+          "label": "Card Title5"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description5",
+          "label": "Card Description5"
+        },
+        {
+          "type": "url",
+          "id": "card_link_url5",
+          "label": "Card Link5"
+        },
+        {
+          "type": "text",
+          "id": "card_link_label5",
+          "label": "Link Text5",
+          "default": "Learn more"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image6",
+          "label": "Card Image6"
+        },
+        {
+          "type": "text",
+          "id": "card_title6",
+          "label": "Card Title6"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description6",
+          "label": "Card Description6"
+        },
+        {
+          "type": "url",
+          "id": "card_link_url6",
+          "label": "Card Link6"
+        },
+        {
+          "type": "text",
+          "id": "card_link_label6",
+          "label": "Link Text6",
+          "default": "Learn more"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image7",
+          "label": "Card Image7"
+        },
+        {
+          "type": "text",
+          "id": "card_title7",
+          "label": "Card Title7"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description7",
+          "label": "Card Description7"
+        },
+        {
+          "type": "url",
+          "id": "card_link_url7",
+          "label": "Card Link7"
+        },
+        {
+          "type": "text",
+          "id": "card_link_label7",
+          "label": "Link Text7",
+          "default": "Learn more"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image8",
+          "label": "Card Image8"
+        },
+        {
+          "type": "text",
+          "id": "card_title8",
+          "label": "Card Title8"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description8",
+          "label": "Card Description8"
+        },
+        {
+          "type": "url",
+          "id": "card_link_url8",
+          "label": "Card Link8"
+        },
+        {
+          "type": "text",
+          "id": "card_link_label8",
+          "label": "Link Text8",
+          "default": "Learn more"
+        },
+        {
+          "type":"header",
+          "content":"custom HTML"
+        },
+        
+        {
+          "type":"html",
+          "id":"cust_html",
+          "label":"Custom HTML"
+        }
+        
+
+      ]
+    }
+  ],
+"presets": [
+    {
+      "name": "Education Section New"
+    }
+  ]
+}
+{% endschema %}
+{% comment %} <script>
+  document.querySelector('.default-list').addEventListener('click', function() {
+  const mobileList = document.querySelector('.mobile-list');
+
+  if (mobileList.style.display === 'none' || mobileList.style.display === '') {
+    mobileList.style.display = 'block';
+  } else {
+    mobileList.style.display = 'none';
+  }
+});
+
+
+document.querySelectorAll('.mobile-list li').forEach(function(item) {
+
+  item.addEventListener('click', function() {
+
+    var target = this.getAttribute('data-title');
+    var data_id = this.getAttribute('data-id');
+
+    document.querySelector('.default-list a').textContent = target;
+    document.querySelector('.mobile-list').style.display = 'none';
+
+    var section = document.getElementById(data_id);
+
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop,
+        behavior: 'smooth'
+      });
+    }
+
+  });
+
+});
+</script> {% endcomment %}
+<script>
+  document.getElementById('faqSelectCategory').addEventListener('click', function() {
+  var list = document.getElementById('faqCategory');
+
+  if (list.style.display === 'none' || list.style.display === '') {
+    list.style.display = 'block';
+  } else {
+    list.style.display = 'none';
+  }
+});
+
+
+document.querySelectorAll('#faqCategory li').forEach(function(item) {
+
+  item.addEventListener('click', function() {
+
+    var target = this.getAttribute('data-title');
+    var icons = '<span class="faq-arrow"><svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.02246 6.82764L1.02246 1.82764C0.834961 1.64014 0.834961 1.29639 1.02246 1.10889C1.20996 0.921387 1.55371 0.921387 1.74121 1.10889L6.39746 5.76514L11.0225 1.10889C11.21 0.921387 11.5537 0.921387 11.7412 1.10889C11.9287 1.29639 11.9287 1.64014 11.7412 1.82764L6.74121 6.82764C6.55371 7.01514 6.20996 7.01514 6.02246 6.82764Z" fill="white"></path></svg></span>';
+    var data_id = this.getAttribute('data-id');
+
+    document.getElementById('faqSelectCategory').innerHTML  = target + icons;
+
+    document.getElementById('faqCategory').style.display = 'none';
+
+    var section = document.getElementById(data_id);
+
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop-110,
+        behavior: 'smooth'
+      });
+    }
+
+  });
+
+});
+
+window.addEventListener('scroll', function () {
+
+  var scrollPos = document.documentElement.scrollTop || document.body.scrollTop;
+
+  var sections = document.querySelectorAll('.dmdblock-advantages');
+
+  sections.forEach(function (section) {
+
+    var sectionTop = section.offsetTop - 200;
+    var sectionBottom = sectionTop + section.offsetHeight;
+    var sectionId = section.getAttribute('id');
+
+    if (scrollPos >= sectionTop && scrollPos <= sectionBottom) {
+
+      var links = document.querySelectorAll('.lab-sidebar-list-tem a');
+      
+      links.forEach(function (link) {
+        link.classList.remove('active');
+      });
+
+      var activeLink = document.querySelector('.lab-sidebar-list-tem a[href="#' + sectionId + '"]');
+
+      if (activeLink) {
+        activeLink.classList.add('active');
+      }
+
+    }
+
+  });
+
+});
+</script>

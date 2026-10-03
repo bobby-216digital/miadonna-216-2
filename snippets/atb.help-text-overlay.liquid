@@ -1,0 +1,782 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Help text overlay",
+  "class": "help-text-overlay image-with-text-overlay overlaid-header-option",
+  "id": "help-text-overlay",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_link",
+      "label": "Link",
+      "info": "Links entire image"
+    },
+    {
+      "type": "header",
+      "content": "Image",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_image",
+      "label": "Image",
+      "info": "1800 x 900px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_mobile_image",
+      "label": "Mobile image",
+      "info": "900 x 1800px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Text",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_pretext",
+      "label": "Preheading",
+      "default": "<p>Preheading</p>",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_subtitle",
+      "label": "Subheading",
+      "default": "<p>Additional info in the subheading</p>",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_pretext_color",
+      "label": "Preheading",
+      "default": "#000000",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_subheading_color",
+      "label": "Subheading",
+      "default": "#000000",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_text_horizontal_position",
+      "label": "Horizontal position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_text_vertical_position",
+      "label": "Vertical position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "middle",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Text background",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background_color",
+      "label": "Background",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_background_opacity",
+      "label": "Background opacity",
+      "min": 0,
+      "max": 100,
+      "default": 77,
+      "unit": "%",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_border_color",
+      "label": "Border",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 20,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_text_width",
+      "label": "Text width",
+      "min": 30,
+      "max": 100,
+      "default": 32,
+      "unit": "%",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Button 1",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_1",
+      "label": "Button 1 label",
+      "default": "Button 1",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_1_link",
+      "label": "Button 1 link",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_1_style",
+      "label": "Button 1 style",
+      "options": [
+        {
+          "value": "button--primary",
+          "label": "Primary"
+        },
+        {
+          "value": "button--secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "button--link-style",
+          "label": "Link style"
+        }
+      ],
+      "default": "button--secondary",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Button 2",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_2",
+      "label": "Button 2 label",
+      "default": "Button 2",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_2_link",
+      "label": "Button 2 link",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_2_style",
+      "label": "Button 2 style",
+      "options": [
+        {
+          "value": "button--primary",
+          "label": "Primary"
+        },
+        {
+          "value": "button--secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "button--link-style",
+          "label": "Link style"
+        }
+      ],
+      "default": "button--secondary",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Mobile",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_mobile_text_below_image",
+      "label": "Show text below image",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_pretext_color_mobile",
+      "label": "Preheading",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_subheading_color_mobile",
+      "label": "Subheading",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "wide",
+      "options": [
+        {
+          "value": "half",
+          "label": "Half"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_left",
+      "label": "Left spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_right",
+      "label": "Right spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_link' -%}
+{%- assign atb_link = val -%}
+{%- include 'atb-render' field:'atb_image' -%}
+{%- assign atb_image = val -%}
+{%- include 'atb-render' field:'atb_mobile_image' -%}
+{%- assign atb_mobile_image = val -%}
+{%- include 'atb-render' field:'atb_pretext' -%}
+{%- assign atb_pretext = val -%}
+{%- include 'atb-render' field:'atb_subtitle' -%}
+{%- assign atb_subtitle = val -%}
+{%- include 'atb-render' field:'atb_pretext_color' -%}
+{%- assign atb_pretext_color = val -%}
+{%- include 'atb-render' field:'atb_subheading_color' -%}
+{%- assign atb_subheading_color = val -%}
+{%- include 'atb-render' field:'atb_text_alignment' -%}
+{%- assign atb_text_alignment = val -%}
+{%- include 'atb-render' field:'atb_text_horizontal_position' -%}
+{%- assign atb_text_horizontal_position = val -%}
+{%- include 'atb-render' field:'atb_text_vertical_position' -%}
+{%- assign atb_text_vertical_position = val -%}
+{%- include 'atb-render' field:'atb_background_color' -%}
+{%- assign atb_background_color = val -%}
+{%- include 'atb-render' field:'atb_background_opacity' -%}
+{%- assign atb_background_opacity = val -%}
+{%- include 'atb-render' field:'atb_border_color' -%}
+{%- assign atb_border_color = val -%}
+{%- include 'atb-render' field:'atb_border_width' -%}
+{%- assign atb_border_width = val -%}
+{%- include 'atb-render' field:'atb_text_width' -%}
+{%- assign atb_text_width = val -%}
+{%- include 'atb-render' field:'atb_button_1' -%}
+{%- assign atb_button_1 = val -%}
+{%- include 'atb-render' field:'atb_button_1_link' -%}
+{%- assign atb_button_1_link = val -%}
+{%- include 'atb-render' field:'atb_button_1_style' -%}
+{%- assign atb_button_1_style = val -%}
+{%- include 'atb-render' field:'atb_button_2' -%}
+{%- assign atb_button_2 = val -%}
+{%- include 'atb-render' field:'atb_button_2_link' -%}
+{%- assign atb_button_2_link = val -%}
+{%- include 'atb-render' field:'atb_button_2_style' -%}
+{%- assign atb_button_2_style = val -%}
+{%- include 'atb-render' field:'atb_mobile_text_below_image' -%}
+{%- assign atb_mobile_text_below_image = val -%}
+{%- include 'atb-render' field:'atb_pretext_color_mobile' -%}
+{%- assign atb_pretext_color_mobile = val -%}
+{%- include 'atb-render' field:'atb_subheading_color_mobile' -%}
+{%- assign atb_subheading_color_mobile = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_padding_left' -%}
+{%- assign atb_padding_left = val -%}
+{%- include 'atb-render' field:'atb_padding_right' -%}
+{%- assign atb_padding_right = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- if atb_mobile_text_below_image == blank -%}
+{%- assign atb_mobile_text_below_image = false -%}
+{%- else -%}
+{%- assign atb_mobile_text_below_image = true -%}
+{%- endif -%}
+{%- assign atb_background_opacity = atb_background_opacity | plus: 0 -%}
+{%- assign atb_border_width = atb_border_width | plus: 0 -%}
+{%- assign atb_text_width = atb_text_width | plus: 0 -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign atb_padding_left = atb_padding_left | plus: 0 -%}
+{%- assign atb_padding_right = atb_padding_right | plus: 0 -%}
+{%- assign atb_image_key = atb_image| split: '/files/' | last -%}{%- assign atb_image = images[atb_image_key] -%}{%- assign atb_mobile_image_key = atb_mobile_image| split: '/files/' | last -%}{%- assign atb_mobile_image = images[atb_mobile_image_key] -%}{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section help-text-overlay image-with-text-overlay overlaid-header-option">
+{% comment %}
+  ** Image with text overlay
+{% endcomment %}
+
+{%- assign image = atb_image -%}
+{%- assign link = atb_link -%}
+{%- assign pretext = atb_pretext -%}
+{%- assign subtitle = atb_subtitle -%}
+{%- assign button_1 = atb_button_1 -%}
+{%- assign button_1_link = atb_button_1_link -%}
+{%- assign button_2 = atb_button_2 -%}
+{%- assign button_2_link = atb_button_2_link -%}
+{%- assign mobile_image = atb_mobile_image -%}
+{%- assign mobile_text_below_media = atb_mobile_text_below_image -%}
+{%- assign mobile_preheading_color = atb_pretext_color_mobile -%}
+{%- assign mobile_headline_color = atb_heading_color_mobile -%}
+{%- assign mobile_subtitle_color = atb_subheading_color_mobile -%}
+
+{% if button_1 != blank and button_2 != blank %}
+  {%- assign buttons = true -%}
+{% else %}
+  {%- assign buttons = false -%}
+{% endif %}
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{%- assign background_color_alpha = atb_background_opacity | divided_by: 100.00 -%}
+{%- assign heading_alpha = atb_heading_color | color_extract: 'alpha' -%}
+{%- assign preheading_alpha = atb_pretext_color | color_extract: 'alpha' -%}
+{%- assign subheading_alpha = atb_subheading_color | color_extract: 'alpha' -%}
+{%- assign mobile_headline_alpha = mobile_headline_color | color_extract: 'alpha' -%}
+{%- assign mobile_preheading_alpha = mobile_preheading_color | color_extract: 'alpha' -%}
+{%- assign mobile_subtitle_alpha = mobile_subtitle_color | color_extract: 'alpha' -%}
+{%- assign caption_border_alpha = atb_border_color | color_extract: 'alpha' -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% capture section_css -%}
+  .caption-content {
+    padding: 20px 30px 30px;
+    background-color: {% if background_color_alpha != 100 %}{{ atb_background_color | color_modify: 'alpha', background_color_alpha }}{% else %}{{ atb_background_color }}{% endif %};
+    border: {{ atb_border_width }}px solid {{ atb_border_color }};
+  }
+
+  .image-with-text-overlay__heading {
+    color: {% if heading_alpha != 0 %}{{ atb_heading_color }}{% else %}{{ settings.heading_color }}{% endif %};
+  }
+
+ .image-with-text-overlay__preheading {
+    color: {% if preheading_alpha != 0 %}{{ atb_pretext_color }}{% else %}{{ settings.heading_color }}{% endif %};
+  }
+
+  .image-with-text-overlay__subheading {
+    color: {% if subheading_alpha != 0 %}{{ atb_subheading_color }}{% else %}{{ settings.heading_color }}{% endif %};
+  }
+{%- endcapture -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+
+{% style %}
+  #shopify-section-{{ section_id }} .caption{
+    max-width: 1440px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    right: 0;
+    left: 0;
+  }
+  #shopify-section-{{ section_id }} .image-with-text-overlay__preheading{
+    margin-bottom: 1.5rem;
+  }
+  #shopify-section-{{ section_id }} .image-with-text-overlay__preheading h2{
+    font-size: 45px;
+    font-family: Playfair Display,serif;
+    font-style: italic;
+    line-height: 53px;
+    letter-spacing: .35px;
+  }
+  #shopify-section-{{ section_id }} .image-with-text-overlay__subheading{
+    padding: 0 4rem;
+    margin-bottom: 2rem;
+  }
+  #shopify-section-{{ section_id }} .image-with-text-overlay__subheading p{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.35px;
+  }
+  #shopify-section-{{ section_id }} .image-with-text-overlay__buttons{
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-start;
+  }
+  #shopify-section-{{ section_id }} .image-with-text-overlay__buttons .button{
+    min-width: 250px;
+    min-height: 54px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 0;
+    border: 3px solid #3b3737;
+  }
+  @media screen and (max-width: 1200px){
+    #shopify-section-{{ section_id }} .image-element__wrap{
+      height: 28vw;
+    }
+    #shopify-section-{{ section_id }} .image-with-text-overlay__banner .caption-content{
+      width: 68%;
+      padding: 20px 30px 0px;
+    }
+  }
+  @media screen and (max-width: 991px){
+    #shopify-section-{{ section_id }} {
+      padding: 20px 0 !important;
+    }
+    #shopify-section-{{ section_id }} .image-with-text-overlay__banner .image-element__wrap{
+      height: 50vw;
+    }
+    #shopify-section-{{ section_id }} .image-with-text-overlay__banner .image-element__wrap img{
+      object-position: 22% 50% !important;
+    }
+    #shopify-section-{{ section_id }} .image-with-text-overlay__banner .caption{
+      margin-top: 0;
+      position: static;
+      transform: none;
+    }
+    #shopify-section-{{ section_id }} .image-with-text-overlay__banner .caption-content{
+      width: 100%;
+      padding: 20px 30px 0px;
+    }
+    #shopify-section-{{ section_id }} .image-with-text-overlay__banner .image-with-text-overlay__subheading{
+      padding: 0px;
+    }
+    #shopify-section-{{ section_id }} .image-with-text-overlay__banner .image-with-text-overlay__buttons .button{
+      font-size: 14px !important;
+    }
+  }
+  @media screen and (max-width: 767px){
+    #shopify-section-{{ section_id }} .image-with-text-overlay__banner .image-with-text-overlay__buttons{
+      gap: 1.5rem;
+    }
+  }
+  {% render 'css-loop',
+          css: section_css,
+          id: section_id
+  %}
+
+  @media only screen and (max-width: 480px) {
+    #shopify-section-{{ section_id }} .image-with-text-overlay__heading {
+      color: {% if mobile_headline_alpha != 0 %}{{ mobile_headline_color}}{% endif %};
+    }
+    #shopify-section-{{ section_id }} .image-with-text-overlay__preheading {
+      color: {% if mobile_preheading_alpha != 0 %}{{ mobile_preheading_color}}{% endif %};
+    }
+    #shopify-section-{{ section_id }} .image-with-text-overlay__subheading {
+      color: {% if mobile_subtitle_alpha != 0 %}{{ mobile_subtitle_color}}{% endif %};
+    }
+  }
+
+  @media only screen and (min-width: 480px) {
+    #shopify-section-{{ section_id }} .caption-content {
+      width: {{ atb_text_width }}%;
+    }
+  }
+
+  #shopify-section-{{ section_id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    padding-left: {{ atb_padding_left }}px;
+    padding-right: {{ atb_padding_right }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% elsif atb_width == 'half' %}
+      width: 50%;
+    {% endif %}
+  }
+
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    under-overlay-menu
+    {% if mobile_text_below_media == true %}
+      mobile-text--below-media
+      {% else %}
+      mobile-text--over-media
+    {% endif %}
+    {% if caption_border_alpha != 0 %}
+      has-border
+    {% endif %}
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  <div
+    class="
+      container
+      image-with-text-overlay__container
+      {% if atb_width == 'wide' or atb_width == 'half' %}
+        equal-columns--outside-trim
+      {% endif %}
+    "
+  >
+    <div class="image-with-text-overlay__banner columns one-whole">
+      {% if mobile_image != blank %}
+        {%- assign hide_mobile = 'is-hidden-mobile-only' -%}
+      {% endif %}
+
+      {% if image != blank %}
+        <div class="{{ hide_mobile }}">
+          {%
+            render 'image-element',
+            image: image,
+            alt: image.alt,
+            stretch_width: true,
+            focal_point: image.presentation.focal_point,
+          %}
+        </div>
+      {% else %}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+
+      {% if mobile_image != blank %}
+        <div class="is-hidden-desktop-only">
+          {%
+            render 'image-element',
+            image: mobile_image,
+            alt: mobile_image.alt,
+            stretch_width: true,
+            focal_point: mobile_image.presentation.focal_point,
+          %}
+        </div>
+      {% endif %}
+
+      {% if link != blank %}
+        <a href="{{ link }}" class="banner--full-link"></a>
+      {% endif %}
+
+      {% if pretext != blank or subtitle != blank or button_1 != blank or button_2 != blank %}
+        <div class="caption text-align-{{ atb_text_horizontal_position }} align-{{ atb_text_vertical_position }}">
+          <div class="caption-content text-align-{{ atb_text_alignment }}">
+            {% if pretext != blank %}
+              <div class="image-with-text-overlay__preheading banner__subheading pretext subtitle">
+                {{ pretext }}
+              </div>
+            {% endif %}
+            {% if subtitle != blank %}
+              <div class="image-with-text-overlay__subheading banner__subheading subtitle">
+                {{ subtitle }}
+              </div>
+            {% endif %}
+            {% if button_1 != blank or button_2 != blank %}
+              <div class="image-with-text-overlay__buttons buttons {% unless buttons == true %}is-justify-{{ atb_text_alignment }}{% endunless %}">
+                {% if button_1 != blank %}
+                  {% render 'button',
+                    label: button_1,
+                    href: button_1_link,
+                    type: 'link',
+                    style: atb_button_1_style
+                  %}
+                {% endif %}
+                {% if button_2 != blank %}
+                  {% render 'button',
+                    label: button_2,
+                    href: button_2_link,
+                    type: 'link',
+                    style: atb_button_2_style
+                  %}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+
+</section>

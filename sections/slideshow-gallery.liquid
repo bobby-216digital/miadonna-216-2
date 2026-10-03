@@ -1,0 +1,350 @@
+{% comment %}
+  ** Slideshow gallery **
+{% endcomment %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign blocks = section.blocks -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .desktop-image,
+  #shopify-section-{{ section.id }} .mobile-image {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .gallery-cell{
+    width: 34%;
+  }
+
+  @media screen and (max-width: 768px){
+    #shopify-section-{{ section.id }} .slideshow-classic{
+      margin-left: 0 !important;
+      width: 100% !important;
+    }
+  }
+
+  @media screen and (max-width: 575px){
+    #shopify-section-{{ section.id }} .gallery-cell{
+      width: 100%;
+    }
+  }
+
+  {%
+    render 'css-loop',
+    css: section_css,
+    id: section.id
+  %}
+
+  {%
+    render 'css-loop',
+    css: section.settings.custom_css,
+    id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    slideshow-section
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    under-overlay-menu
+    {% if section.settings.mobile_text_below_image == true %}
+      mobile-text--below-media
+      {% else %}
+      mobile-text--over-media
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div
+    class="
+      slideshow-classic
+      image-slideshow
+      image-slideshow--{{ section.settings.image_transition  }}
+      page-dots--{{ section.settings.show_nav_buttons }}
+    "
+    data-slideshow-classic
+  >
+    {% for block in blocks %}
+      {% comment %} Content settings {% endcomment %}
+      {%- assign image = block.settings.image -%}
+      {%- assign link = block.settings.link -%}
+      {%- assign mobile_image = block.settings.mobile_image -%}
+      {% comment %} Ends content settings {% endcomment %}
+
+      <div
+        class="
+          gallery-cell
+          image-slideshow__slide
+          slideshow-classic__banner
+          {% if section.settings.mobile_text_below_image == true %}
+            mobile-text--below-media
+          {% else %}
+            mobile-text--over-media
+          {% endif %}
+        "
+        id="shopify-section-{{ block.id }}"
+        data-slide-index="{{ forloop.index0 }}"
+        {{ block.shopify_attributes }}
+      >
+        {% if mobile_image != blank %}
+          {%- assign hide_mobile = 'is-hidden-mobile-only' -%}
+        {% endif %}
+
+        {% if image != blank %}
+          {%
+            render 'image-element',
+            image: image,
+            alt: image.alt,
+            stretch_width: true,
+            additional_classes: hide_mobile,
+            focal_point: image.presentation.focal_point,
+          %}
+        {% else %}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+
+        {% if mobile_image != blank %}
+          <div class="is-hidden-desktop-only">
+            {%
+              render 'image-element',
+              image: mobile_image,
+              alt: mobile_image.alt,
+              stretch_width: true,
+              focal_point: mobile_image.presentation.focal_point,
+            %}
+          </div>
+        {% endif %}
+
+        {% if link != blank %}
+          <a class="banner--full-link" href="{{ link }}"></a>
+        {% endif %}
+
+        {% if block.settings.title %}
+          <p class="" style="margin-top: 15px; text-align: center;">{{ block.settings.title }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+<script>
+  setTimeout(function(){
+    $('.custom-slider .flickity-button .flickity-button-icon path').attr('d', 'M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z')
+  }, 3000);
+</script>
+
+{% comment %}JavaScript{% endcomment %}
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  {
+    "image_transition": {{ section.settings.image_transition | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+    "image_slideshow_speed": {{ section.settings.image_slideshow_speed | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+    "show_arrows": {{ section.settings.show_arrows | json }},
+    "show_nav_buttons": {{ section.settings.show_nav_buttons | json }},
+    "number_of_slides": {{ blocks.size | json }}
+  }
+</script>
+<script data-theme-editor-load-script src="{{ 'z__jsSlideshowGallery.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Slideshow - gallery",
+  "class": "jsSlideshowGallery overlaid-header-option slideshow-section under-menu",
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_transition",
+      "label": "Image transition",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "slide",
+          "label": "Slide"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "range",
+      "id": "image_slideshow_speed",
+      "label": "Change image every",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "unit": "sec"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nav_buttons",
+      "label": "Show navigation dots",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wide",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Links entire image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1800 x 900px recommended"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image",
+          "info": "900 x 1800px recommended"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Slideshow - gallery",
+    "category": "Image",
+    "settings": {
+    },
+    "blocks": [
+      {
+        "type": "image",
+        "settings": {
+          "image": ""
+        }
+      },
+      {
+        "type": "image",
+          "settings": {
+          "image": ""
+        }
+      }
+    ]
+  }]
+}
+{% endschema %}

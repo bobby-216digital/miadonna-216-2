@@ -1,0 +1,233 @@
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if section.settings.hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .content-wrapper{
+    padding: 0 30px;
+  }
+  #shopify-section-{{ section.id }} .content-title {
+    margin: 0 auto 20px;
+    max-width: 70rem;
+    font-size: 40px;
+    line-height: 30.46px;
+    font-family: 'Playfair Display';
+  }
+  #shopify-section-{{ section.id }} .content-description {
+    margin-top: 20px;
+    font-size: 14px;
+    max-width: 46rem;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 24px;
+    letter-spacing: 0.35px;
+  }
+  #shopify-section-{{ section.id }} .ring-size-image {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 653px;
+  }
+  {% render 'css-loop',
+    css: section.settings.custom_css,
+    id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-collection-blocks
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div class="content-wrapper text-center">
+    {% if section.settings.title != blank %}
+      <h3 class="content-title" style="color: {{ section.settings.text_color }};">{{ section.settings.title }}</h3>
+    {% endif %}
+    {% if section.settings.description != blank %}
+      <div class="content-description" style="color: {{ section.settings.text_color }};">
+        {{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+      </div>
+    {% endif %}
+    {% if section.settings.image != blank %}
+      {% render 'image-element',
+        image: section.settings.image,
+        alt: section.settings.image.alt,
+        additional_classes: 'ring-size-image'
+      %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Content with image",
+  "class": "content-with-image",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title"
+    },
+    {
+      "type": "richtext",
+      "label": "Description",
+      "id": "description"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "image"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content with image"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "settings": {
+        "show_sidebar": false,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "a60f4ba1-2bc5-4ceb-ad2d-9fe475caef5b": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<script src=\"\/\/foursixty.com\/media\/scripts\/fs.embed.v2.5.js\" data-shopify-add-to-cart=\"false\" data-feed-id=\"MiaDonna\" data-theme=\"sizes\" data-page-size=\"28\"><\/script>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "a60f4ba1-2bc5-4ceb-ad2d-9fe475caef5b"
+  ]
+}

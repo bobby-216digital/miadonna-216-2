@@ -1,0 +1,682 @@
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.sec_background_color }};
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      {% if section.settings.width == 'wide' %}
+        width: 100%;
+      {% endif %}
+      {% if section.settings.hide_mobile %}
+        @media screen and (max-width: 798px){
+          display: none;
+        }
+      {% endif %}
+    }
+    #shopify-section-{{ section.id }} .container{
+      align-items: flex-end;
+    }
+    #shopify-section-{{ section.id }} .content-wrapper{
+      padding: 100px 80px;
+      margin-right: -45%;
+      z-index: 1;
+      position: relative;
+      max-width: 662px;
+      margin-bottom: 80px;
+    }
+    #shopify-section-{{ section.id }} .image-element__wrap{
+      height: auto;
+    }
+    #shopify-section-{{ section.id }} h3{
+      font-weight: 600;
+      line-height: 38.4px;
+      margin-bottom: 30px;
+      letter-spacing: 1.4px;
+    }
+    #shopify-section-{{ section.id }} .description{
+      margin-bottom: 5px;
+    }
+    #shopify-section-{{ section.id }} .description > *{
+
+      margin-top: 0;
+      letter-spacing: 0.35px;
+    }
+    #shopify-section-{{ section.id }} .buttons{
+      display: inline-flex;
+    }
+    #shopify-section-{{ section.id }} .button{
+      width: auto;
+      color: #000;
+      margin: auto;
+      min-height: auto;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      border: 0;
+      margin-right: 20px;
+    }
+    #shopify-section-{{ section.id }} .button.button--primary{
+      color: #fff;
+      background-color: #3b3737;
+    }
+    #shopify-section-{{ section.id }} .button.button--primary:hover{
+      color: #000;
+      border-width: 3px;
+      border-color: #3b3737;
+      background-color: transparent;
+    }
+    #shopify-section-{{ section.id }} .button.button--secondary{
+      border-width: 3px;
+      border-color: #3b3737;
+    }
+    #shopify-section-{{ section.id }} .button.button--secondary:hover{
+      color: #fff;
+    }
+    #shopify-section-{{ section.id }} .button.button--link-style{
+      width: auto;
+      border: none;
+      position: relative;
+      min-height: inherit;
+      padding-bottom: 4px;
+      display: inline-block;
+    }
+    #shopify-section-{{ section.id }} .button.button--link-style::before{
+      background-color: #d4a696;
+      bottom: 0;
+      content: '';
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      transition: width .8s;
+      transform: translateX(-50%);
+      width: 80%;
+      z-index: 0;
+    }
+    #shopify-section-{{ section.id }} .button.button--link-style:hover::before {
+      width: 0;
+    }
+    .box-slider .flickity-page-dots .dot {
+      display: inline-block;
+      width: 60px;
+      height: 4px;
+      margin: 0px 4px;
+      background: #333;
+      border-radius: 0;
+      cursor: pointer;
+      opacity:1;
+  }
+  .box-slider  li.dot.is-selected {
+      background: #fff;
+  }
+  .box-slider    ol.flickity-page-dots {
+      bottom: 0;
+  }
+    .swiper-nav-div .swiper-slide{
+      height:25px !important;
+    }
+    .ring-nav {
+      font-size: 21px !important;
+      font-weight: 500 !important;
+      color: #c2c2c3;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .ring-nav span{
+      margin-right:5px;
+    }
+    .mySwiper .swiper-slide-thumb-active .ring-nav {
+      color: #3c3737;
+      font-weight: bold;
+    }
+    .mySwiper .swiper-wrapper{
+      margin-left:40px !important;
+    }
+  @-webkit-keyframes fillProgressBarVert{0%{height:0%}100%{height:100%}}
+  @keyframes fillProgressBarVert{0%{height:0%}100%{height:100%}}
+    .autoplay-progress,autoplay-progress-new {
+        position: absolute;
+        top:40px;
+        right: 0px;
+        bottom: 0px;
+        left:15px;
+        z-index: 10;
+        width: 2.5px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: rgba(65,57,57,.4);
+        background: rgba(0,0,0,.31);
+      }
+
+
+      .autoplay-progress svg,.autoplay-progress-new svg {
+        --progress: 0;
+        position: absolute;
+        left: 0;
+        top: 0px;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        stroke-width: 4px;
+        stroke:  #413939;
+        fill: none;
+        stroke-dashoffset: calc(200 * (1 - var(--progress)));
+        stroke-dasharray: 200;
+
+      }
+
+   .progress-bar-track {
+      height: 100%;
+      width: 2px;
+      background-color: rgba(65,57,57,.4);
+  }
+     .progress-bar-track .progress-bar-progress {
+      height: 0%;
+      width: 100%;
+      background-color: #413939;
+  }
+    .progress-bar-track .progress-bar-progress {
+      height: 100%;
+      -webkit-animation-name: fillProgressBarVert;
+      animation-name: fillProgressBarVert;
+      -webkit-animation-duration: 5100ms;
+      animation-duration: 5100ms;
+      -webkit-animation-timing-function: linear;
+      animation-timing-function: linear;
+      -webkit-animation-play-state: revert;
+      animation-play-state: revert;
+  }
+    .slider-flex {
+      display: flex;
+      gap: 20px;
+    }
+
+    .mySwiper3 .swiper-slide{
+      width:100% !important;
+    }
+    .mySwiper3 .description p{
+      font-size:12.8px;
+      font-weight:300;
+      line-height:22px;
+      margin-bottom:0.5rem;
+    }
+    .mySwiper3 .description p strong{
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+    .mySwiper3 .swiper-slide-prev, .mySwiper3 .swiper-slide-next{
+      opacity:0;
+      z-index:-1;
+    }
+  .progress-bar-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 95%;
+    margin: 44px auto 0;
+  }
+  .progress-bar-wrapper .swiper-button-prev,
+  .progress-bar-wrapper .swiper-button-next {
+    border: none;
+    background: none;
+    line-height: 0;
+    margin: 0;
+    color: #3c3737;
+    position: static;
+    --swiper-navigation-size: 15px;
+  }
+  .progress-bar-wrapper .swiper-pagination {
+    position: relative;
+    background-color: rgba(0,0,0,.31);
+    width: 85%;
+    height: 10px;
+    max-width: 100%;
+    height: 2px;
+    bottom: 0;
+    top: auto;
+    left: 0%;
+    -webkit-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    transform: translateX(0%);
+    border-top: 0;
+  }
+  .progress-bar-wrapper .swiper-pagination .swiper-pagination-progressbar-fill {
+    border-radius: 7px;
+    top: 0;
+    background-color: #000;
+  }
+     @media screen and (min-width: 991px){
+        .swiper-nav-div {
+        width: 20%;
+        padding: 30px 0;
+        display: flex;
+        gap: 20px;
+      }
+      .mySwiper3 {
+        width: 80%;
+        display: block;
+        padding: 30px 0;
+      }
+     }
+    @media screen and (max-width: 1200px){
+      #shopify-section-{{ section.id }} .content-wrapper{
+        padding: 40px;
+      }
+    }
+    @media screen and (max-width: 1024px){
+      #shopify-section-{{ section.id }} .container {
+        align-items: center;
+      }
+      #shopify-section-{{ section.id }} .content-wrapper{
+        margin-bottom: 0;
+      }
+    }
+    @media screen and (max-width: 991px){
+      #shopify-section-{{ section.id }} .content-wrapper{
+        padding: 20px;
+      }
+      #shopify-section-{{ section.id }} h3 {
+        line-height: 32px;
+        margin-bottom: 15px;
+      }
+      #shopify-section-{{ section.id }} .description {
+        margin-bottom: 18px;
+      }
+      #shopify-section-{{ section.id }} .button {
+        min-height: 50px;
+      }
+
+    }
+    @media screen and (max-width: 767px){
+      #shopify-section-{{ section.id }} .content-wrapper{
+        margin: -100px 2rem 0;
+        text-align: center !important;
+      }
+      .ring-nav {
+        font-size: 20px !important;
+        margin:15px 0;
+      }
+      #shopify-section-{{ section.id }} .description > *{
+        font-size: 12.8px;
+      }
+       #shopify-section-{{ section.id }} .description p{
+         margin-top:1rem;
+       }
+      .mySwiper2 .description p strong,.mySwiper2 .description p a{
+        font-size: 18px;
+      }
+      #shopify-section-{{ section.id }} .button {
+        width: 100%;
+        font-size: 12px !important;
+      }
+      #shopify-section-{{ section.id }} .container .two-thirds{
+        order: -1;
+      }
+      .ring-mobile{
+        position:relative;
+        margin-bottom:30px;
+        height:30px;
+      }
+      .autoplay-progress-new{
+        width: 400px;
+        height: 2px;
+        top: auto;
+        bottom: 5px;
+        left: 10%;
+        position: absolute;
+      }
+    }
+
+    {% render 'css-loop',
+            css: section.settings.custom_css,
+            id: section.id
+    %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-image-with-text
+
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  {%- capture contentCSS -%}
+    {%- for block in section.blocks %}
+      {% if block.type == 'image' -%}
+        {%- if block.settings.image_position == 'right' -%}margin-left: -45%;margin-right: 0;{%- endif -%}
+      {% endif %}
+    {%- endfor -%}
+  {%- endcapture -%}
+  <div class="container ring-slider">
+    <div class="swiper">
+      <div class="swiper mySwiper2">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide slide_{{ forloop.index }}">
+              {% if block.settings.image != blank %}
+                {% render 'image-element', image: block.settings.image, alt: block.settings.image_alt %}
+              {% else %}
+                <div class="image-element__wrap">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+              <div class="is-hidden-desktop-only section ">
+                <h2 class="ring-nav">
+                  <span>0{{ forloop.index }}.</span>{{ block.settings.title }}
+                </h2>
+                <div class="description">
+                  {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+                {% if block.settings.button_text != blank %}
+                  <div class="buttons">
+                    {% render 'button',
+                      label: block.settings.button_text,
+                      href: block.settings.url,
+                      style: block.settings.button_style,
+                      text_color: block.settings.text_color,
+                      background_color: block.settings.background_color,
+                      type: 'link'
+                    %}
+                  </div>
+                {% endif %}
+                {% if block.settings.button_text_2 != blank %}
+                  <div class="buttons">
+                    {% render 'button',
+                      label: block.settings.button_text_2,
+                      href: block.settings.url_2,
+                      style: block.settings.button_style,
+                       text_color: block.settings.text_color,
+                      background_color: block.settings.background_color,
+                      type: 'link'
+                    %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="progress-bar-wrapper is-hidden-desktop-only">
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+        {% comment %}
+          <div class="ring-mobile is-hidden-desktop-only">
+            <div class="autoplay-progress-new">
+              <svg>
+                <line x1="0" y1="0" x2="200" y2="0"  />
+              </svg>
+              <span></span>
+            </div>
+          </div>
+        {% endcomment %}
+      </div>
+      <div class="slider-flex section has-no-side-gutter">
+        <div thumbsSlider="" class="is-hidden-mobile-only swiper mySwiper swiper-nav-div">
+          <!-- <div class="progress-bar-track active"><div class="progress-bar-progress">  </div></div> -->
+          <div class="autoplay-progress">
+            <svg>
+              <title>Progress bar</title>
+              <line x1="0" y1="0" x2="0" y2="200"  />
+            </svg>
+            <span></span>
+            <!--
+              <svg viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="20"></circle>
+              </svg>
+            -->
+          </div>
+          <div class="swiper-wrapper" style="margin-left:20px;">
+            {% for block in section.blocks %}
+              <div class="swiper-slide slide_{{ forloop.index }}" id="slide_{{ forloop.index }}" data-id="{{ forloop.index }}">
+                <h2 class="ring-nav">
+                  <span>0{{ forloop.index }}.</span>{{ block.settings.title }}
+                </h2>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="swiper  mySwiper3 is-hidden-mobile-only">
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              <div class="swiper-slide slide_{{ forloop.index }} one-whole column">
+                <div class="description">
+                  {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+                {% if block.settings.button_text != blank %}
+                  <div class="buttons">
+                    {% render 'button',
+                      label: block.settings.button_text,
+                      href: block.settings.url,
+                      style: block.settings.button_style,
+                      text_color: block.settings.text_color,
+                      background_color: block.settings.background_color,
+                      type: 'link'
+                    %}
+                  </div>
+                {% endif %}
+                {% if block.settings.button_text_2 != blank %}
+                  <div class="buttons">
+                    {% render 'button',
+                      label: block.settings.button_text_2,
+                      href: block.settings.url_2,
+                      style: block.settings.button_style,
+                       text_color: block.settings.text_color,
+                      background_color: block.settings.background_color,
+                      type: 'link'
+                    %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <script data-theme-editor-load-script src="{{ 'z__jsRingSlider.js' | asset_url }}"></script> -->
+
+{% schema %}
+{
+  "name": "Home Ring Slider ",
+   "class": "jsRingSlider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "sec_background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_block",
+      "name": "Box",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+
+        {
+          "type": "text",
+          "label": "Image Alt Text",
+          "id": "image_alt"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "richtext",
+          "label": "Content",
+          "id": "content"
+        },
+        {
+          "type": "text",
+          "label": "Button Text",
+          "id": "button_text"
+        },
+        {
+          "type": "url",
+          "label": "Button Link",
+          "id": "url"
+        },
+        {
+          "type": "text",
+          "label": "Button Text 2",
+          "id": "button_text_2"
+        },
+        {
+          "type": "url",
+          "label": "Button Link 2",
+          "id": "url_2"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Button Background color",
+          "default": "rgba(119,119,119,1)"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Button Text color",
+          "default": "rgba(255,255,255,1)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Ring Slider"
+    }
+  ]
+}
+{% endschema %}

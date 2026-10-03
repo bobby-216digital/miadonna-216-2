@@ -1,0 +1,195 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "CD - Text with Block",
+  "id": "conflict-diamond_section-text3",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_subtitle",
+      "label": "SubTitle",
+      "default": "You Hold the Power to End Conflict Diamonds",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_title",
+      "label": "Title",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_text",
+      "label": "Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Image-Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_image",
+      "label": "Image",
+      "repeatable": "Image-Text",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "block_description",
+      "label": "Description Text",
+      "repeatable": "Image-Text",
+      "info": ""
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_subtitle' -%}
+{%- assign atb_subtitle = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_text' -%}
+{%- assign atb_text = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_description' -%}
+{%- assign block_description = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<style>
+  #shopify-section-{{ section_id }} .content-cell {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section_id }} .content-cell.-bottom-padding-only {
+    padding-top: 0px;
+  }
+  #shopify-section-{{ section_id }} .readability-insets>* {
+    max-width: 76rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section_id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .text-style-chapter-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .text-style-title {
+    color: #000000de;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: .02em;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  #shopify-section-{{ section_id }} .percentages img {
+    margin: 1em 0;
+    height: 70px;
+    width: auto;
+  }
+  #shopify-section-{{ section_id }} .percentages p {
+    margin: 1em;
+    font-family: Playfair Display,serif;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-title {
+      font-size: 36px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section_id }} .text-style-title {
+      font-size: 40px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section_id }} .green-practices {
+      padding: 2rem;
+    }
+  }
+</style>
+
+<section class="section is-standard">
+  <div class="content-cell cell-style-A text-center">
+    <div class="body-cell offset-group readability-insets">
+      {% if atb_subtitle != blank %}
+        <h2 class="text-style-chapter-title">{{ atb_subtitle }}</h2>
+      {% endif %}
+      {% if atb_title != blank %}
+        <p class="text-style-title ">{{ atb_title }}</p>
+      {% endif %}
+      {% if atb_text != blank %}
+        <p>{{ atb_text }}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="content-cell cell-style-A -bottom-padding-only text-center">
+    <div class="body-cell">
+      <div class="container percentages">
+        {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+          <div class="one-third small-down--one-whole column">
+            {% if my_image0 != blank %}
+              <img height="104" width="305" alt="50%" src="{{ settings.speedsize_url_pfx_https -}}{{ my_image0 | img_url:'305x'}}">
+            {% endif %}
+            {% if block_description[forloop.index0] != blank %}
+              <p>
+                {{ block_description[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+              </p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

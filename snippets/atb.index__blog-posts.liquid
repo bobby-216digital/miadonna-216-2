@@ -1,0 +1,489 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Blog posts",
+  "class": "blog-posts blog-posts--1",
+  "id": "index__blog-posts",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Heading",
+      "default": "Recent blog posts",
+      "info": ""
+    },
+    {
+      "type": "blog",
+      "id": "atb_blog_widget_select",
+      "label": "Blog",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_home_page_articles",
+      "label": "Posts",
+      "min": 2,
+      "max": 4,
+      "default": 3,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_blog_show_tags",
+      "label": "Show tags",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_blog_author",
+      "label": "Show author",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_read_time",
+      "label": "Show estimated read time",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_blog_date",
+      "label": "Show date",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_blog_comment_count",
+      "label": "Show comment count",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_blog_show_excerpt",
+      "label": "Show excerpts",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show-border",
+      "label": "Show border",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_label",
+      "label": "Button label",
+      "default": "Read more",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_type",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "button--primary",
+          "label": "Primary"
+        },
+        {
+          "value": "button--secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "button--link-style",
+          "label": "Link style"
+        }
+      ],
+      "default": "button--primary",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "wide",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_blog_widget_select' -%}
+{%- assign atb_blog_widget_select = val -%}
+{%- include 'atb-render' field:'atb_home_page_articles' -%}
+{%- assign atb_home_page_articles = val -%}
+{%- include 'atb-render' field:'atb_blog_show_tags' -%}
+{%- assign atb_blog_show_tags = val -%}
+{%- include 'atb-render' field:'atb_blog_author' -%}
+{%- assign atb_blog_author = val -%}
+{%- include 'atb-render' field:'atb_read_time' -%}
+{%- assign atb_read_time = val -%}
+{%- include 'atb-render' field:'atb_blog_date' -%}
+{%- assign atb_blog_date = val -%}
+{%- include 'atb-render' field:'atb_blog_comment_count' -%}
+{%- assign atb_blog_comment_count = val -%}
+{%- include 'atb-render' field:'atb_blog_show_excerpt' -%}
+{%- assign atb_blog_show_excerpt = val -%}
+{%- include 'atb-render' field:'atb_show-border' -%}
+{%- assign atb_show-border = val -%}
+{%- include 'atb-render' field:'atb_button_label' -%}
+{%- assign atb_button_label = val -%}
+{%- include 'atb-render' field:'atb_button_type' -%}
+{%- assign atb_button_type = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- if atb_blog_show_tags == blank -%}
+{%- assign atb_blog_show_tags = false -%}
+{%- else -%}
+{%- assign atb_blog_show_tags = true -%}
+{%- endif -%}
+{%- if atb_blog_author == blank -%}
+{%- assign atb_blog_author = false -%}
+{%- else -%}
+{%- assign atb_blog_author = true -%}
+{%- endif -%}
+{%- if atb_read_time == blank -%}
+{%- assign atb_read_time = false -%}
+{%- else -%}
+{%- assign atb_read_time = true -%}
+{%- endif -%}
+{%- if atb_blog_date == blank -%}
+{%- assign atb_blog_date = false -%}
+{%- else -%}
+{%- assign atb_blog_date = true -%}
+{%- endif -%}
+{%- if atb_blog_comment_count == blank -%}
+{%- assign atb_blog_comment_count = false -%}
+{%- else -%}
+{%- assign atb_blog_comment_count = true -%}
+{%- endif -%}
+{%- if atb_blog_show_excerpt == blank -%}
+{%- assign atb_blog_show_excerpt = false -%}
+{%- else -%}
+{%- assign atb_blog_show_excerpt = true -%}
+{%- endif -%}
+{%- if atb_show-border == blank -%}
+{%- assign atb_show-border = false -%}
+{%- else -%}
+{%- assign atb_show-border = true -%}
+{%- endif -%}
+{%- assign atb_home_page_articles = atb_home_page_articles | plus: 0 -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section blog-posts blog-posts--1">
+{% comment %}
+** Blog posts **
+{% endcomment %}
+
+{%- assign title = atb_title -%}
+{%- assign blog = blogs[atb_blog_widget_select] -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section_id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' -%}
+      width: 100%;
+    {%- endif %}
+  }
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section class="section
+                {{ atb_css_class }}
+                is-width-{{ atb_width }}"
+                {% if atb_animation != "none" %}
+                  data-scroll-class="{{ atb_animation }}"
+                {% endif %}>
+
+  {% if title != blank %}
+    <div class="container">
+      {% render 'heading',
+              title: title,
+              heading_tag: 'h2',
+              context: 'featured-blog',
+              text_alignment: 'center',
+              url: blog.url
+      %}
+    </div>
+  {% endif %}
+
+  <div class="container">
+    {% if blog != blank %}
+      {% for article in blog.articles limit: atb_home_page_articles %}
+          <div class="featured-article blog-card {% render 'column-width', value: atb_home_page_articles %} columns article card show-border-{{ atb_show-border }} medium-down--one-whole has-margin-bottom ">
+
+            {% if article.image != blank %}
+              <div class="card-image blog-card__image">
+                <figure class="image">
+                  <a class="blog-card__link" href="{{ article.url }}" title="{{ article.title | escape }}">
+                    {%
+                      render 'image-element',
+                      image: article.image,
+                      alt: article.image.alt,
+                      additional_classes: 'blog-card__image',
+                    %}
+                  </a>
+                </figure>
+              </div>
+            {% endif %}
+
+            <div class="card-content blog-card__content">
+              <div class="media">
+                <div class="media-content">
+                  <h3 class="title">
+                    <a class="featured-article--link" href="{{ article.url }}" title="{{ article.title | escape }}">{{ article.title }}</a>
+                  </h3>
+                </div>
+              </div>
+
+              {% if article.excerpt != blank and atb_blog_show_excerpt%}
+                {%- assign postexcerpt = article.excerpt | size -%}
+                {% if postexcerpt > 150 %}
+                  {%- assign excerptlength = 'lg' -%}
+                {% elsif postexcerpt <= 150 %}
+                  {%- assign excerptlength = 'sm' -%}
+                {% endif %}
+                <div class="excerpt excerpt-length-{{ excerptlength }} has-margin-bottom">
+                  {{ article.excerpt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                  <span class="truncation-fade"></span>
+                </div>
+              {% endif %}
+
+              <div class="meta-info is-small">
+                {% if atb_blog_show_tags %}
+                  {% if article.tags.size > 0 %}
+                    <ul class="meta-tag-list tags">
+                    {% for tag in article.tags %}
+                      <li class="tag tag--{{ settings.tag_style}}">
+                        <a href="{{ shop.url}}/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" title="{{ blog.title | escape }} {{ 'blogs.general.tagged' | t }} {{ tag | escape }}">{{ tag }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endif %}
+
+                {% render 'meta-info-list',
+                        article: article,
+                        blog_author: atb_blog_author,
+                        blog_date: atb_blog_date,
+                        blog_read_time: atb_read_time,
+                        blog_comment_count: atb_blog_comment_count
+                %}
+              </div>
+            </div>
+          {% if atb_button_type != 'none' %}
+            <div class="blog-card__read-more">
+              {% render 'button',
+                      label: atb_button_label,
+                      href: article.url,
+                      type: "link",
+                      style: atb_button_type
+              %}
+            </div>
+          {% endif %}
+          </div>
+      {% endfor %}
+    {% else %}
+      {% for i in (1..atb_home_page_articles) %}
+        <div class="featured-article blog-card {% render 'column-width', value: atb_home_page_articles %} columns article card show-border-{{ atb_show-border }} medium-down--one-half small-down--one-whole has-margin-bottom">
+          <div class="card-image blog-card__image">
+            <figure class="image">
+              <a href="{{ article.url }}">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </a>
+            </figure>
+          </div>
+
+          <div class="card-content blog-card__content">
+            <div class="media">
+              <div class="media-content">
+                <h4 class="title">
+                  <a class="featured-article--link" href="#">{{ 'homepage.onboarding.blogpost_title' | t }}</a>
+                </h4>
+              </div>
+            </div>
+
+            {% if atb_blog_show_excerpt%}
+              <div class="excerpt has-margin-bottom">
+                {{ 'homepage.onboarding.blog_excerpt' | t }}
+                <span class="truncation-fade"></span>
+              </div>
+            {% endif %}
+
+            <div class="meta-info is-small">
+                {% if atb_blog_show_tags %}
+                <ul class="meta-tag-list tags ">
+                  {% for i in (1..3) %}
+                    <li class="tag tag--{{ settings.tag_style}}">
+                      <a href="#">
+                        tag{{i}}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+
+                {% render 'meta-info-list',
+                        article: article,
+                        blog_author: atb_blog_author,
+                        blog_date: atb_blog_date,
+                        blog_read_time: atb_read_time,
+                        blog_comment_count: atb_blog_comment_count
+                %}
+              </div>
+            </div>
+
+          {% if atb_button_type != 'none' %}
+            <div class="blog-card__read-more">
+              {% render 'button',
+                      label: atb_button_label,
+                      href: a.url,
+                      type: "link",
+                      style: atb_button_type
+              %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+
+
+</section>

@@ -1,0 +1,55 @@
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' -%}
+      width: 100%;
+    {%- endif %}
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<div class="section-blog-cta">
+<div class="section 
+                {{ section.settings.css_class }}
+                is-width-standard"
+                {% if section.settings.animation != "none" %}
+                
+                {% endif %}>
+
+    <div class="container newsletter-blog">
+      <div class="cta-header column four">
+        <p class="text-8"><span class="text-style-normal">Be the </span>First to Know</p>
+      </div>
+      <div class="cta-form column six">
+         {% render 'new-newsletter-form',
+          type: 'block',
+          block: block
+          %}
+      </div>
+      <div class="cta-contet column six">
+        <p class="text-10">Receive exclusive announcements about new arrivals, special offers, and the latest trends.</p>
+      </div>
+    </div>
+</div>
+</div>
+{% schema %}
+  {
+    "name": "Blog CTA",
+    "settings": [],
+    "presets": [{
+    "name": "Blog CTA",
+    "category": "Blog"
+  }]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

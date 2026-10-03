@@ -1,0 +1,140 @@
+<div class="recently-viewed-wrapper">
+  <h2
+    class="
+      {% if section.settings.heading_position == 'left' %}
+        text-left
+      {% elsif section.settings.heading_position == 'center' %}
+        text-center
+      {% elsif section.settings.heading_position == 'right' %}
+        text-right
+      {% endif %}
+    "
+    id="recently-viewed-heading"
+    style="display: none;"
+  >
+    {{ section.settings.heading }}
+  </h2>
+
+  <ul class="recently-viewed-grid product-content-wrapper  has-no-side-gutter">
+    <!-- Recently viewed products will appear here -->
+  </ul>
+</div>
+
+<script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+      const productData = JSON.parse(localStorage.getItem("recentlyViewedProduct"));
+    const heading = document.getElementById("recently-viewed-heading");
+
+    if (productData && productData.length > 1) {
+      heading.style.display = "block";
+    }
+
+    });
+  function setRecentlyViewedProducts() {
+    const productData = {
+      productTitle: "{{ product.title }}",
+      productImg: "{{ settings.speedsize_url_pfx_https -}}{{ product.featured_media | image_url: width: 450 }}",
+      productPrice: "{{ product.price | money }}",
+      productUrl: "{{ product.url }}",
+      productImageAltText: "{{ product.featured_media.alt | escape }}"
+    };
+
+    const currProductPageTitle = productData.productTitle;
+    const localData = localStorage.getItem("recentlyViewedProduct");
+    let productArray = [];
+    const numberOfProducts = 8;
+
+    if (localData === null) {
+      productArray.push(productData);
+      localStorage.setItem("recentlyViewedProduct", JSON.stringify(productArray));
+    } else {
+      productArray = JSON.parse(localData);
+
+      const sameProduct = productArray.some(item => item.productTitle === currProductPageTitle);
+
+      if (!sameProduct) {
+        if (productArray.length >= numberOfProducts) {
+          productArray.shift();
+        }
+        productArray.push(productData);
+        localStorage.setItem("recentlyViewedProduct", JSON.stringify(productArray));
+      }
+    }
+  }
+
+  setRecentlyViewedProducts();
+
+  function getRecentlyViewedProducts() {
+    const productArray = JSON.parse(localStorage.getItem("recentlyViewedProduct"));
+    const recentlyViewedHtml = [];
+    const currProductPageTitle = "{{ product.title }}";
+
+    productArray.forEach(item => {
+      if (item.productTitle !== currProductPageTitle) {
+        recentlyViewedHtml.unshift(`
+        <li class="product-item one-fifth column medium-down--one-half">
+          <a href="${item.productUrl}">
+            <img class="recently-viewed-img" src="${item.productImg}" loading="lazy" alt="${item.productImageAltText}"/>
+          </a>
+          <h3><a class="recently-viewed-a" href="${item.productUrl}">${item.productTitle}</a></h3>
+          <p>${item.productPrice}</p>
+        </li>
+        `);
+      }
+    });
+
+    const newProductData = `${recentlyViewedHtml.join("")}`;
+    const fullContent = document.querySelector(".recently-viewed-grid");
+    fullContent.innerHTML = newProductData;
+  }
+
+  document.addEventListener("DOMContentLoaded", function (event) {
+    getRecentlyViewedProducts();
+  });
+
+
+
+
+
+
+
+
+</script>
+
+{% schema %}
+{
+  "name": "Recently Viewed",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Recently Viewed",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "heading_position",
+      "label": "Text align",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

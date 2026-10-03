@@ -1,0 +1,939 @@
+{% comment %}
+  Article structured data
+  https://developers.google.com/search/docs/data-types/articles
+{% endcomment %}
+
+{% if template contains 'article' %}
+  {%- capture article_description -%}
+    {%- if article.excerpt != blank -%}
+      {{ article.excerpt | strip_html | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+    {%- else -%}
+      {{ article.content | truncatewords: 100 | strip_html | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ shop.url }}{{ article.url }}"
+      },
+      "headline": {{ article.title | json }},
+      {% if article.image %}
+        "image": {
+          "@type": "ImageObject",
+          "url": {{ article.image | img_url: '800x800' | prepend: 'https:' | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+          "height": 800,
+          "width": 800
+        },
+      {% endif %}
+      "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json}},
+      "dateModified": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json}},
+      "author": {
+        "@type": "Person",
+        "name": {{ article.author | json }}
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": {{ shop.name | json }},
+        "logo": {
+          "@type": "ImageObject",
+          "url": {{ article.user.image | img_url: '200x200' | prepend: 'https:' | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }}
+        }
+      },
+      "description": {{ article_description | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }}
+    }
+  </script>
+{% endif %}
+
+{% comment %}
+  Breadcrumbs
+  https://developers.google.com/search/docs/data-types/breadcrumbs
+{% endcomment %}
+
+{%- if current_tags -%}
+  {%- assign tag_names = current_tags | join: ', ' %}
+  {% comment %}Converting an array to a handle converts it to a string{% endcomment %}
+  {%- capture tag_handles -%}
+    {%- for tag in current_tags -%}
+      {{- tag | handle | append: '|' -}}
+    {%- endfor -%}
+  {%- endcapture -%}
+{%- endif -%}
+
+{% if collection.url == blank %}
+  {% assign collection_url = '/collections/all' %}
+{% else %}
+  {% assign collection_url = collection.url %}
+{% endif %}
+
+{% if template.name == 'product'
+  or template.name == 'list-collections'
+  or template.name == 'collection'
+  or template.name == 'blog'
+  or template.name == 'article'
+  or template.name == 'search'
+  or template.name == 'cart'
+  or template.name == 'page'
+%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "WebPage",
+  "@id": {{ canonical_url | append: '#webpage' | json }},
+  "url": {{ canonical_url | json }},
+  "name": {{ product.title | append: ' | ' | append: shop.name | json }},
+  "description": {{ 'Shop ' | append: product.title | append: ' online at ' | append: shop.name | append: '. Build your jewelry your way, with free US shipping and 60-day returns.' | json }},
+  "dateModified": {{ product.published_at   | date: '%Y-%m-%d' | json }},
+  "isPartOf": {{ shop.url | append: '/#website' | json }}
+}
+</script>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+      {% case template.name %}
+        {% when 'product' %}
+          {% if product.collections.size >= 1 %}
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@id": "{{ shop.url }}/collections",
+                "name": {{ 'structured_data.breadcrumbs.collections' | t | json }}
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@id": "{{ shop.url }}/collections/{{ product.collections.first.handle }}",
+                "name": {{ product.collections.first.title | json }}
+              }
+            },
+          {% else %}
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@id": "{{ shop.url }}/products",
+                "name": {{ 'structured_data.breadcrumbs.products' | t | json }}
+              }
+            },
+          {% endif %}
+          {
+            "@type": "ListItem",
+            "position": {% if product.collections.size >= 1 %}3{% else %}2{% endif %},
+            "item": {
+              "@id": "{{ shop.url }}{{ product.url | within: collection }}",
+              "name": {{ product.title | json }}
+            }
+          }
+        {% when 'list-collections' %}
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ shop.url }}/collections",
+              "name": {{ 'structured_data.breadcrumbs.collections' | t | json }}
+            }
+          }
+          {% if current_page != 1 %}
+            ,
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@id": "{{ shop.url }}/collections",
+                "name": {{ 'structured_data.breadcrumbs.page' | t: page: current_page | json }}
+              }
+            }
+          {% endif %}
+        {% when 'collection' %}
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ shop.url }}/collections",
+              "name": {{ 'structured_data.breadcrumbs.collections' | t | json }}
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ shop.url }}{{ collection_url }}",
+              "name": {{ collection.title | json }}
+            }
+          }
+          {% if current_tags %}
+            ,
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@id": "{{ shop.url }}{{ collection_url }}/{{- tag_handles | split: '|' | join: '+' -}}",
+                "name": {{ 'structured_data.breadcrumbs.tags_html' | t: tags: tag_names | json }}
+              }
+            }
+          {% endif %}
+          {% if current_page != 1 %}
+            {% if current_tags %}
+              {% assign position = 4 %}
+            {% else %}
+              {% assign position = 3 %}
+            {% endif %}
+            ,
+            {
+              "@type": "ListItem",
+              "position": {{ position }},
+              "item": {
+                "@id": "{{ shop.url }}/collections?page={{ current_page }}",
+                "name": {{ 'structured_data.breadcrumbs.page' | t: page: current_page | json }}
+              }
+            }
+          {% endif %}
+        {% when 'blog' or 'article' %}
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ shop.url }}{{ blog.url }}",
+              "name": {{ blog.title | json }}
+            }
+          }
+          {% if template.name == 'article' %}
+            ,
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@id": "{{ shop.url }}{{ article.url }}",
+                "name": {{ article.title | json }}
+              }
+            }
+          {% elsif current_tags %}
+            ,
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@id": "{{ shop.url }}{{ blog.url }}/tagged/{{- tag_handles | split: '|' | join: '+' -}}",
+                "name": {{ 'structured_data.breadcrumbs.tags_html' | t: tags: tag_names | json }}
+              }
+            }
+          {% endif %}
+          {% if current_page != 1 %}
+            {% if current_tags %}
+              {% assign position = 3 %}
+              {%- capture url -%}
+                {{ shop.url }}{{ blog.url }}/tagged/{{ tag_handles | split: '|' | join: '+' }}?page={{ current_page }}
+              {%- endcapture -%}
+            {% else %}
+              {% assign position = 2 %}
+                {%- capture url -%}
+                {{ shop.url }}{{ blog.url }}?page={{ current_page }}
+              {%- endcapture -%}
+            {% endif %}
+            ,
+            {
+              "@type": "ListItem",
+              "position": {{ position }},
+              "item": {
+                "@id": "{{ url }}",
+                "name": {{ 'structured_data.breadcrumbs.page' | t: page: current_page | json }}
+              }
+            }
+          {% endif %}
+        {% when 'search' %}
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ shop.url }}/search",
+              "name": {{ 'structured_data.breadcrumbs.search' | t | json }}
+            }
+          }
+          {% if search.performed %}
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@id": "{{ shop.url }}/search?q={{ search.terms }}",
+                "name": {{ search.terms | json }}
+              }
+            }
+            {% if current_page != 1 %}
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@id": "{{ shop.url }}/search?page={{ current_page }}&q={{ search.terms }}",
+                  "name": {{ 'structured_data.breadcrumbs.page' | t: page: current_page | json }}
+                }
+              }
+            {% endif %}
+          {% endif %}
+        {% when 'cart' %}
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ shop.url }}/cart",
+              "name": {{ 'structured_data.breadcrumbs.cart' | t | json }}
+            }
+          }
+        {% when 'page' %}
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ page.url }}",
+              "name": {{ page.title | json }}
+            }
+          }
+        {% else %}
+        {% endcase %}
+      ]
+    }
+  </script>
+{% endif %}
+
+{% comment %}
+  Product structured data
+  https://developers.google.com/search/docs/data-types/products
+{% endcomment %}
+
+{% if template contains 'product' %}
+  {% assign selected_variant = product.selected_or_first_available_variant | default: product.variants.first %}
+  {% assign product_image = selected_variant.featured_image | default: product.featured_image %}
+  {%- capture product_name -%}
+    {{ product.title }}
+    {%- if selected_variant.title != 'Default Title' and selected_variant.option1 == 'Default Title' -%}
+      - {{ selected_variant.title }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- assign now = 'now' | date: '%Y-%m-%d' | split: '-' -%}
+  {% capture year_from_now %}{{ now[0] | plus: 1 }}-{{ now[1] }}-{{ now[2] | at_most: 28 }}{% endcapture %}
+
+  {% comment %} <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Product",
+      "name": {{ product_name | strip_newlines | json }},
+      {% if template == 'product.loose-lab-diamond' %}
+        {% assign product_media_speedsizeIgnore = product_image | img_url: '1024x1024' | append:'&speedsizeIgnore' %}
+        "image": {{ product_media_speedsizeIgnore }},
+      {% else %}
+        "image": {{ product_image | img_url: '1024x1024' | prepend: 'https:' | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+      {% endif %}
+      {% if product.description != blank %}
+        "description": {{ product.description | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+      {% endif %}
+      {% if product.vendor %}
+        "brand": {
+          "@type": "Thing",
+          "name": {{ product.vendor | json }}
+        },
+      {% endif %}
+      {% if selected_variant.sku != blank %}
+        "sku": {{ selected_variant.sku | json }},
+      {% endif %}
+      {% if selected_variant.barcode != blank %}
+        "mpn": {{ selected_variant.barcode | json }},
+      {% endif %}
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "price": {{ selected_variant.price | divided_by: 100.0 | json }},
+        "availability": "http://schema.org/{% if selected_variant.available %}InStock{% else %}OutOfStock{% endif %}",
+        "url": "{{ shop.url }}{{ selected_variant.url }}",
+        "seller": {
+          "@type": "Organization",
+          "name": {{ shop.name | json }}
+        },
+        "priceValidUntil": {{ year_from_now | json }}
+      }
+      {% if product.metafields.okendo.summaryData.reviewCount > 0 %}
+      ,"aggregateRating": {
+        "@type": "AggregateRating",
+        "description": "Okendo Reviews",
+        "ratingValue": "{{ product.metafields.okendo.summaryData.reviewAverageValue }}",
+        "ratingCount": "{{ product.metafields.okendo.summaryData.reviewCount }}"
+      }
+      {% elsif product.metafields.okendo.ReviewCount > 0 %}
+      ,"aggregateRating": {
+        "@type": "AggregateRating",
+        "description": "Okendo Reviews",
+        "ratingValue": "{{ product.metafields.okendo.ReviewAverageValue }}",
+        "ratingCount": "{{ product.metafields.okendo.ReviewCount }}"
+      }
+      {% endif %}
+    }
+  </script> {% endcomment %}
+
+  <script type="application/ld+json" id="productschema">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product_name | strip_newlines | json }},
+  "url": {{ canonical_url | json }},
+
+  {% if template == 'product.loose-lab-diamond' %}
+    {% assign product_media_speedsizeIgnore = product_image | img_url: '1024x1024' | append: '&speedsizeIgnore' %}
+    "image": {{ product_media_speedsizeIgnore | json }},
+  {% else %}
+    "image": {{ product_image | img_url: '1024x1024' | prepend: 'https:' | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped
+    }},
+  {% endif %}
+
+  {% if product.description != blank %}
+    "description": {{ product.description | strip_html | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped
+    }},
+  {% endif %}
+
+  {% if selected_variant.option1 != blank %}
+    "material": {{ selected_variant.option1 | json }},
+  {% endif %}
+
+    "brand": {
+      "@type": "Brand",
+      "name": "MiaDonna"
+    },
+
+  {% if selected_variant.sku != blank %}
+    "sku": {{ selected_variant.sku | json }},
+  {% endif %}
+
+  {% if selected_variant.barcode != blank %}
+    "mpn": {{ selected_variant.barcode | json }},
+  {% endif %}
+
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": {{ selected_variant.price | divided_by: 100.0 | json }},
+    "availability": "https://schema.org/{% if selected_variant.available %}InStock{% else %}OutOfStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition",
+    "url": {{ canonical_url | json }},
+
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": 0,
+        "currency": "USD"
+      }
+    },
+
+    "seller": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }}
+    },
+
+    "priceValidUntil": {{ year_from_now | json }}
+  }
+
+  {% if product.metafields.okendo.summaryData.reviewCount > 0 %}
+    ,"aggregateRating": {
+      "@type": "AggregateRating",
+      "description": "Okendo Reviews",
+      "ratingValue": {{ product.metafields.okendo.summaryData.reviewAverageValue | json }},
+      "ratingCount": {{ product.metafields.okendo.summaryData.reviewCount | json }},
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+
+  {% elsif product.metafields.okendo.ReviewCount > 0 %}
+    ,"aggregateRating": {
+      "@type": "AggregateRating",
+      "description": "Okendo Reviews",
+      "ratingValue": {{ product.metafields.okendo.ReviewAverageValue | json }},
+      "ratingCount": {{ product.metafields.okendo.ReviewCount | json }},
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  {% endif %}
+}
+</script>
+{% comment %} <script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const OKENDO_USER_ID = 'c157186e-0c88-47d9-bd28-8c79e4d4c421';
+  const PRODUCT_ID = '{{ product.id }}';
+
+  if (!OKENDO_USER_ID || !PRODUCT_ID) {
+    return;
+  }
+
+  const apiUrl =
+    'https://api.okendo.io/v1/stores/' +
+    encodeURIComponent(OKENDO_USER_ID) +
+    '/products/shopify-' +
+    encodeURIComponent(PRODUCT_ID) +
+    '/reviews';
+
+  fetch(apiUrl)
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error('Okendo API Error: ' + response.status);
+      }
+
+      return response.json();
+    })
+    .then(function (data) {
+
+      console.log('Okendo API Response:', data);
+
+      /*
+       * Adjust this after checking the actual Okendo response.
+       */
+      const reviews =
+        Array.isArray(data)
+          ? data
+          : (
+              data.reviews ||
+              data.data ||
+              data.results ||
+              []
+            );
+
+      /*
+       * If there are no reviews,
+       * do NOT add review data to schema.
+       */
+      if (!reviews.length) {
+        console.log('No Okendo reviews found.');
+        return;
+      }
+
+      /*
+       * Get existing Product JSON-LD
+       */
+      const schemaScripts = document.querySelectorAll(
+        'script[id="productschema"]'
+      );
+
+      let productSchemaScript = null;
+      let productSchema = null;
+
+      schemaScripts.forEach(function (script) {
+
+        if (productSchemaScript) {
+          return;
+        }
+
+        try {
+
+          const json = JSON.parse(script.textContent);
+
+          if (
+            json &&
+            json['@type'] === 'Product'
+          ) {
+            productSchemaScript = script;
+            productSchema = json;
+          }
+
+        } catch (error) {
+          // Ignore other JSON-LD blocks
+        }
+
+      });
+
+      /*
+       * Existing Product schema not found.
+       */
+      if (!productSchemaScript || !productSchema) {
+        console.log('Product schema not found.');
+        return;
+      }
+
+      /*
+       * Convert Okendo reviews to Schema.org Review
+       */
+      const schemaReviews = reviews
+        .map(function (review) {
+
+          const reviewBody =
+            review.body ||
+            review.reviewBody ||
+            review.content ||
+            review.comment ||
+            '';
+
+          const rating =
+            review.rating ||
+            review.reviewRating?.ratingValue;
+
+          const authorName =
+            review.reviewer?.displayName ||
+            review.reviewer?.name ||
+            review.reviewerDisplayName ||
+            review.author?.name ||
+            review.author ||
+            '';
+
+          const reviewTitle =
+            review.title ||
+            review.reviewTitle ||
+            review.name ||
+            '';
+
+          const datePublished =
+            review.dateCreated ||
+            review.createdAt ||
+            review.datePublished ||
+            '';
+
+          /*
+           * Do not add incomplete reviews.
+           */
+          if (
+            !reviewBody ||
+            !rating ||
+            !authorName
+          ) {
+            return null;
+          }
+
+          const schemaReview = {
+            '@type': 'Review',
+
+            'reviewBody': String(reviewBody)
+              .replace(/<[^>]*>/g, '')
+              .replace(/\s+/g, ' ')
+              .trim(),
+
+            'reviewRating': {
+              '@type': 'Rating',
+              'ratingValue': String(rating),
+              'bestRating': '5',
+              'worstRating': '1'
+            },
+
+            'author': {
+              '@type': 'Person',
+              'name': String(authorName)
+                .replace(/<[^>]*>/g, '')
+                .trim()
+            }
+          };
+
+          if (reviewTitle) {
+            schemaReview.name = String(reviewTitle)
+              .replace(/<[^>]*>/g, '')
+              .trim();
+          }
+
+          if (datePublished) {
+            schemaReview.datePublished = datePublished;
+          }
+
+          return schemaReview;
+
+        })
+        .filter(Boolean);
+
+      /*
+       * If no valid reviews exist,
+       * don't modify Product schema.
+       */
+      if (!schemaReviews.length) {
+        console.log('No valid Okendo reviews for schema.');
+        return;
+      }
+
+      /*
+       * IMPORTANT:
+       * Keep your existing aggregateRating.
+       * Only add/update review.
+       */
+      productSchema.review = schemaReviews;
+
+      /*
+       * Update existing JSON-LD
+       */
+       console.log('productSchemaScript');
+       console.log(productSchemaScript);
+      productSchemaScript.textContent =
+        JSON.stringify(productSchema);
+console.log(productSchemaScript);
+      console.log(
+        'Updated Product Schema:',
+        productSchema
+      );
+
+    })
+    .catch(function (error) {
+
+      console.error(
+        'Okendo review schema error:',
+        error
+      );
+
+    });
+
+});
+</script> {% endcomment %}
+{% comment %} <script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const OKENDO_USER_ID = 'c157186e-0c88-47d9-bd28-8c79e4d4c421';
+  const PRODUCT_ID = '{{ product.id }}';
+
+  if (!OKENDO_USER_ID || !PRODUCT_ID) {
+    return;
+  }
+
+  const apiUrl =
+    'https://api.okendo.io/v1/stores/' +
+    encodeURIComponent(OKENDO_USER_ID) +
+    '/products/shopify-' +
+    encodeURIComponent(PRODUCT_ID) +
+    '/reviews';
+
+  fetch(apiUrl)
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error('Okendo API Error: ' + response.status);
+      }
+
+      return response.json();
+    })
+    .then(function (data) {
+
+      console.log('Okendo API Response:', data);
+
+      const reviews =
+        Array.isArray(data)
+          ? data
+          : (
+              data.reviews ||
+              data.data ||
+              data.results ||
+              []
+            );
+
+      /*
+       * If there are no reviews,
+       * do NOT add review data to schema.
+       */
+      if (!reviews.length) {
+        console.log('No Okendo reviews found.');
+        return;
+      }
+
+      /*
+       * Get existing Product JSON-LD
+       */
+      const schemaScripts = document.querySelectorAll(
+        'script[type="application/ld+json"]'
+      );
+
+      let productSchemaScript = null;
+      let productSchema = null;
+
+      schemaScripts.forEach(function (script) {
+
+        if (productSchemaScript) {
+          return;
+        }
+
+        try {
+
+          const json = JSON.parse(script.textContent);
+
+          if (
+            json &&
+            json['@type'] === 'Product'
+          ) {
+            productSchemaScript = script;
+            productSchema = json;
+          }
+
+        } catch (error) {
+          // Ignore other JSON-LD blocks
+        }
+
+      });
+
+      /*
+       * Existing Product schema not found.
+       */
+      if (!productSchemaScript || !productSchema) {
+        console.log('Product schema not found.');
+        return;
+      }
+
+      /*
+       * Sort reviews by latest date
+       * and take only the latest 5 reviews.
+       */
+      const latestFiveReviews = reviews
+        .slice()
+        .sort(function (a, b) {
+
+          const dateA =
+            a.dateCreated ||
+            a.createdAt ||
+            a.datePublished ||
+            '';
+
+          const dateB =
+            b.dateCreated ||
+            b.createdAt ||
+            b.datePublished ||
+            '';
+
+          return new Date(dateB) - new Date(dateA);
+
+        })
+        .slice(0, 5);
+
+      /*
+       * Convert latest 5 Okendo reviews
+       * to Schema.org Review.
+       */
+      const schemaReviews = latestFiveReviews
+        .map(function (review) {
+
+          const reviewBody =
+            review.body ||
+            review.reviewBody ||
+            review.content ||
+            review.comment ||
+            '';
+
+          const rating =
+            review.rating ||
+            review.reviewRating?.ratingValue;
+
+          const authorName =
+            review.reviewer?.displayName ||
+            review.reviewer?.name ||
+            review.reviewerDisplayName ||
+            review.author?.name ||
+            review.author ||
+            '';
+
+          const reviewTitle =
+            review.title ||
+            review.reviewTitle ||
+            review.name ||
+            '';
+
+          const datePublished =
+            review.dateCreated ||
+            review.createdAt ||
+            review.datePublished ||
+            '';
+
+          /*
+           * Do not add incomplete reviews.
+           */
+          if (
+            !reviewBody ||
+            !rating ||
+            !authorName
+          ) {
+            return null;
+          }
+
+          const schemaReview = {
+            '@type': 'Review',
+
+            'reviewBody': String(reviewBody)
+              .replace(/<[^>]*>/g, '')
+              .replace(/\s+/g, ' ')
+              .trim(),
+
+            'reviewRating': {
+              '@type': 'Rating',
+              'ratingValue': String(rating),
+              'bestRating': '5',
+              'worstRating': '1'
+            },
+
+            'author': {
+              '@type': 'Person',
+              'name': String(authorName)
+                .replace(/<[^>]*>/g, '')
+                .trim()
+            }
+          };
+
+          if (reviewTitle) {
+            schemaReview.name = String(reviewTitle)
+              .replace(/<[^>]*>/g, '')
+              .trim();
+          }
+
+          if (datePublished) {
+            schemaReview.datePublished = datePublished;
+          }
+
+          return schemaReview;
+
+        })
+        .filter(Boolean);
+
+      /*
+       * If no valid reviews exist,
+       * don't modify Product schema.
+       */
+      if (!schemaReviews.length) {
+        console.log('No valid Okendo reviews for schema.');
+        return;
+      }
+
+      /*
+       * Keep existing aggregateRating.
+       * Only add latest 5 reviews.
+       */
+      productSchema.review = schemaReviews;
+
+      /*
+       * Update existing JSON-LD.
+       */
+      productSchemaScript.textContent =
+        JSON.stringify(productSchema);
+
+      console.log(
+        'Updated Product Schema with latest 5 reviews:',
+        productSchema
+      );
+
+    })
+    .catch(function (error) {
+
+      console.error(
+        'Okendo review schema error:',
+        error
+      );
+
+    });
+
+});
+</script> {% endcomment %}
+{% endif %}
+
+{% comment %}
+  Store information
+  https://developers.google.com/search/docs/data-types/sitename
+{% endcomment %}
+
+{% comment %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name }}",
+      "url": "{{ shop.url }}"
+    }
+  </script>
+{% endcomment %}

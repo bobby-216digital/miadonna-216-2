@@ -1,0 +1,171 @@
+{{ 'lab-gemstone-filter.css' | asset_url | stylesheet_tag }}
+{{ 'certificate-popup.css' | asset_url | stylesheet_tag }}
+
+<noscript>
+  {{ 'lab-gemstone-filter.css' | asset_url | stylesheet_tag }}
+  {{ 'certificate-popup.css' | asset_url | stylesheet_tag -}}
+</noscript>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+{% style %}
+  #shopify-section-{{ section.id }}{
+    padding-top: 0;
+  }
+  @media screen and (max-width: 575px) {
+    #shopify-section-{{ section.id }}{
+      overflow: hidden;
+    }
+  }
+  .filter-sets-group-custom .filter-set {
+    margin-bottom: 20px;
+    margin-right: 20px;
+  }
+
+  .range-slider {
+    background: none !important;
+  }
+  .vdb-tab-content,
+  .vdb-active-content {
+    display: none;
+  }
+  .vdb-tab-content.vdb-current {
+    display: inherit;
+  }
+{% endstyle %}
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first |
+   replace:'\/','/' |
+   replace:'%20',' ' |
+   replace:'\u0026','&'
+-%}
+<div class="container collection__custom-layout">{% comment %}
+  <div class="info-buttons one-whole column large-down--hide">
+  <div class="column">
+  <a href="">START WITH THE SETTING</a>
+  <p>Find the perfect ring, then the perfect stone</p>
+  </div>
+  <div class="column">
+  <a href="">NEED HELP?</a>
+  <p>Let our Jewelry Experts guide your way</p>
+  </div>
+  <div class="column">
+  <a href="">WHY OUR DIAMONDS ARE BETTER</a>
+  <p>Not all Lab-Grown Diamonds are created equal</p>
+  </div>
+  </div>
+  {% endcomment %}
+  {% 
+    render 'custom-lab-gemstone-filters',
+    gemstonePageQueryArray: gemstonePageQueryArray,
+    carat_metafields: collection.metafields.custom-range.filter-carat,
+    price_metafields: collection.metafields.custom-range.filter-price,
+    pageUrl: pageUrl
+  %}
+
+  <div class="filters-toggle-container">
+    <div class="filter-buttons vdb-lb-advanced-filter-desk-view">
+      <button class="button button--primary toggle-button" id="vdb-lb-advanced-filter-desk-view">View Advanced Filters</button>
+      <button class="button reset-button vdb-lb-clear-all-filters">CLEAR FILTERS</button>
+    </div>
+
+    <div class="filter-buttons vdb-lb-advanced-filter-mobile-view">
+      <button class="button button--primary toggle-button" id="vdb-lb-advanced-filter-mobile-view-open">View More Filters</button>
+      <button class="button reset-button vdb-lb-clear-all-filters">CLEAR FILTERS</button>
+    </div>
+  </div>
+
+  <div class="collection__results" id="collection-results-filters">
+    <div class="collection__results-bar one-whole column">
+      <div class="left-bar" style="margin-bottom: 5px;">
+        <span id="search_diamond_count">0 RESULTS</span>
+        <span class="medium-down--hide" style="display: none;">
+          <button type="button" class="vdb-set_tab_view grid-view" data-view="grid" data-tab="tab-1">
+            <!-- 					<img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/grid-view.png?v=1685973103" width="30px" height="30px"> -->
+            <i class="vdb-icon vdb-icon_serachlist_tumbnail_view_gray"></i>
+          </button>
+        </span>
+        <span class="medium-down--hide" style="display: none;">
+          <button type="button" class="vdb-set_tab_view list-view active" data-view="list" data-tab="tab-2">
+            <!-- 					<img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/list-view.png?v=1685973103" width="30px" height="30px"> -->
+            <i class="vdb-icon vdb-icon_serachlist_list_view_gray"></i>
+          </button>
+        </span>
+      </div>
+      <div class="right-bar medium-down--hide" id="vdb-lb-filter-container" style="display: none;">
+        <div class="collection__sort-by-filter">
+          <button class="sort_by" id="sort-by-filter">
+            <span>
+              <span>Sort by:</span>
+              <span id="sort-by-span">LOWEST CARAT</span>
+            </span>
+            <span>
+              <span class="icon sortby-caret" data-icon="down-caret">
+                <i class="icon-solid-caret"></i>
+              </span>
+            </span>
+          </button>
+          <div class="sort-by--list-wrapper" id="sort-by-list-wrapper">
+            <ul class="sort-by--list">
+              <li class="list-item">
+                <label>Carat</label>
+                <p class="vdb-lb-sorting-grid" data-sorting_field="carat" data-sorting_seq="DESC">
+                  <span>Highest</span>
+                </p>
+                <p class="vdb-lb-sorting-grid active" data-sorting_field="carat" data-sorting_seq="ASC">
+                  <span>Lowest</span>
+                </p>
+              </li>
+              <li class="list-item">
+                <label>Price</label>
+                <p class="vdb-lb-sorting-grid" data-sorting_field="price" data-sorting_seq="DESC">
+                  <span>Highest</span>
+                </p>
+                <p class="vdb-lb-sorting-grid" data-sorting_field="price" data-sorting_seq="ASC">
+                  <span>Lowest</span>
+                </p>
+              </li>
+              <li class="list-item">
+                <label>Clarity</label>
+                <p class="vdb-lb-sorting-grid" data-sorting_field="clarity" data-sorting_seq="DESC">
+                  <span>Highest</span>
+                </p>
+                <p class="vdb-lb-sorting-grid" data-sorting_field="clarity" data-sorting_seq="ASC">
+                  <span>Lowest</span>
+                </p>
+              </li>
+              <li class="list-item">
+                <label>Cut</label>
+                <p class="vdb-lb-sorting-grid" data-sorting_field="cut" data-sorting_seq="DESC">
+                  <span>Highest</span>
+                </p>
+                <p class="vdb-lb-sorting-grid" data-sorting_field="cut" data-sorting_seq="ASC">
+                  <span>Lowest</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% render 'lab-gemstone-results-grid--layout', class: 'vdb-tab-content' %}
+    {% render 'lab-gemstone-results-list--layout', class: 'vdb-tab-content vdb-current' %}
+  </div>
+</div>
+{% 
+    render 'mobile-custom-lab-gemstone-filters',
+    gemstonePageQueryArray: gemstonePageQueryArray,
+    carat_metafields: collection.metafields.custom-range.filter-carat,
+    price_metafields: collection.metafields.custom-range.filter-price,
+    pageUrl: pageUrl
+  %}
+{% render 'certificate-popup' %}
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/toolcool-range-slider/dist/plugins/tcrs-moving-tooltip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toolcool-range-slider/dist/plugins/tcrs-generated-labels.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toolcool-range-slider/dist/plugins/tcrs-marks.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toolcool-range-slider/dist/toolcool-range-slider.min.js"></script>
+<script src="{{ 'lab-created-gemstone.js' | asset_url }}" money-format="{{ shop.money_with_currency_format }}" cart-currency-iso-code="{{ cart.currency.iso_code }}" defer></script>

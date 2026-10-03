@@ -1,0 +1,300 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Contact Form",
+  "class": "contact-form",
+  "id": "contact-form",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Heading",
+      "default": "Submit An Email",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_description",
+      "label": "Description",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Select options",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Input placeholders",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_name",
+      "label": "Name placeholder",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_email",
+      "label": "Email placeholder",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_message",
+      "label": "Message placeholder",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_required_text",
+      "label": "Required text",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_description' -%}
+{%- assign atb_description = val -%}
+{%- include 'atb-render' field:'atb_name' -%}
+{%- assign atb_name = val -%}
+{%- include 'atb-render' field:'atb_email' -%}
+{%- assign atb_email = val -%}
+{%- include 'atb-render' field:'atb_message' -%}
+{%- assign atb_message = val -%}
+{%- include 'atb-render' field:'atb_required_text' -%}
+{%- assign atb_required_text = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section contact-form">
+<style>
+    .pink-text {
+    color: #e5b6aa;
+    text-transform: uppercase;
+  }
+    .contact-form-wrapper .contact-form-container {
+    max-width: 650px;
+    margin: 0 auto;
+    background: #ffffff;
+    width: 100%;
+    padding: 2em;
+  }
+
+  .contact-form-wrapper .form-title {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .contact-form-wrapper p {
+    color: #3c3737;
+    font-size: 13px;
+  }
+
+  .contact-form-wrapper p a {
+    font-weight: 500;
+    text-decoration: underline;
+  }
+
+  .contact-form-wrapper .required-text {
+    color: #ffa998;
+    margin-top: 15px;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .contact-form-wrapper .field {
+    margin: 0;
+    position: relative;
+  }
+
+  .contact-form-wrapper .field select {
+    -webkit-appearance: none;
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #777777;
+    width: 100%;
+    height: 52px;
+    border-radius: 0;
+    padding: 0;
+    margin: 14px 0;
+    border: 1px solid #d2d2d2;
+    background: #ffffff;
+    text-align: center;
+  }
+
+  .contact-form-wrapper .field .select-button {
+    background-color: transparent;
+    right: 0px;
+    border-left: 1px solid #d2d2d2;
+    height: 52px;
+    top: 0;
+    margin: 14px 0;
+    position: absolute;
+    pointer-events: none;
+    padding: 1.2em 1.3em;
+  }
+
+  .contact-form-wrapper .field .select-button i {
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  .contact-form-wrapper .field input,
+  .contact-form-wrapper .field textarea {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 300;
+    color: #525252;
+    text-align: center;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    -webkit-font-smoothing: antialiased;
+    margin: 1em 0;
+    background: #f6f6f6;
+    border: #f6f6f6;
+    padding: 12px 17px;
+  }
+
+  .contact-form-wrapper .field textarea {
+    text-align: left;
+  }
+
+  .contact-form-wrapper .field input::placeholder,
+  .contact-form-wrapper .field textarea::placeholder {
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .contact-form-wrapper .field textarea::placeholder {
+    text-align: center;
+  }
+
+  .contact-form-wrapper .field textarea {
+    margin-bottom: 0;
+  }
+
+  .contact-form-wrapper .field .submit-button {
+    position: absolute;
+    right: 0;
+    bottom: 6px;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    display: block;
+  }
+  @media only screen and (max-width: 767px) {
+      .contact-form-wrapper .contact-form-container {
+      padding: 0;
+    }
+
+    }
+</style>
+<div id="contact-form-container"></div>
+<div class="block--{{ forloop.index }} contact-form-wrapper has-margin-top has-padding-top has-margin-bottom text-align-center">
+  <div class="contact-form-container">
+    <header class="form-title">{{ atb_title }}</header>
+    <br>
+    {{ atb_description }}
+    {% form 'contact' %}
+      {% if form.posted_successfully? %}
+        <script>
+          $(document).ready(function () {
+            $(".successForm").dialog({
+              modal: true,
+              dialogClass: "successFormDiolog",
+              draggable: false,
+            });
+          });
+        </script>
+
+        <div class="successForm feedback">
+          <h2 class="pink-text">Success!</h2>
+          <p>We have received your message and we will be getting back to you soon.</p>
+        </div>
+      {% endif %}
+      {% if form.errors %}
+        <div class="errorForm feedback">
+          <!-- {{ form.errors.size }} or {{ form.errors | size }} -->
+          <p>
+            Your contact form has {{ form.errors | size | pluralize: 'an error', 'a few errors' }}. To submit your form,
+            make the following changes and try again:
+          </p>
+          {% for field in form.errors %}
+            <p>The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <fieldset>
+        <div class="field">
+          <div class="select-button">
+            <i class="icon-solid-caret"></i>
+          </div>
+        </div>
+        <div class="field">
+          <input
+            id="name"
+            name="contact[name]"
+            placeholder="{{ atb_name }}"
+            class="field-name"
+            type="text"
+            required=""
+          >
+        </div>
+        <div class="field">
+          <input
+            id="email"
+            name="contact[email]"
+            class="field-email"
+            placeholder="{{ atb_email }}"
+            type="email"
+            required=""
+          >
+        </div>
+        <div class="field">
+          <textarea
+            name="contact[body]"
+            id="message"
+            placeholder="{{ atb_message }}"
+            maxlength="250"
+            class="field-message"
+            rows="5"
+          ></textarea>
+          <input
+            type="image"
+            id="contactFormSubmit"
+            class="submit-button"
+            name="submit"
+            src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/submit-button.png?v=11069712008357948348"
+            border="0"
+            alt="Submit"
+          >
+        </div>
+      </fieldset>
+    {% endform %}
+    <p class="required-text">{{ atb_required_text }}</p>
+  </div>
+</div>
+
+</section>

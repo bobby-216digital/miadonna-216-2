@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "7a840984-2cd3-4835-880c-412e6772e6ee": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "7a840984-2cd3-4835-880c-412e6772e6ee"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "diamond-guide",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

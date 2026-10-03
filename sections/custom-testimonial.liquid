@@ -1,0 +1,269 @@
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if section.settings.hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .readability-insets > *{
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section.id }} .text-style-subtitle {
+    font-size: 14px;
+    line-height: 1.15;
+    letter-spacing: .1em;
+    color: {{ section.settings.text_color }};
+  }
+  #shopify-section-{{ section.id }} .text-style-title {
+    color: {{ section.settings.text_color }};
+    font-size: 30px;
+    line-height: 1.15;
+    margin: 26px auto;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .readability-insets span {
+    color: {{ section.settings.text_color }};
+    font-style: italic;
+    font-family: Playfair Display,serif;
+  }
+  .smaller-title #shopify-section-{{ section.id }} .text-style-title{
+    font-size: 14px;
+  }
+  .smaller-title #shopify-section-{{ section.id }} .text-style-subtitle{
+    font-size: 20px;
+  }
+  #shopify-section-{{ section.id }} .quotes-slider .flickity-page-dots .dot {
+    display: inline-block;
+    width: 60px;
+    height: 4px;
+    margin: 0px 4px;
+    background: #333;
+    border-radius: 0;
+    cursor: pointer;
+    opacity:1;
+  }
+  #shopify-section-{{ section.id }} .quotes-slider  li.dot.is-selected {
+    background: #fff;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section.id }} .text-style-title {
+      margin: 35px auto;
+      /* font-size: 36px; */
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section.id }} .text-style-subtitle {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section.id }} .text-style-title {
+      /* font-size: 40px; */
+    }
+    .smaller-title #shopify-section-{{ section.id }} .text-style-title {
+      font-size:14px;
+    }
+  }
+{% endstyle %}
+<section
+  class="
+    section
+    section-collection-blocks
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div
+    class="container quotes-slider {% if section.blocks.size <= 1 %}no-slider{% endif %}"
+    style="flex-wrap: nowrap;"
+    data-products-per-slide="1"
+    data-products-limit="{% if section.blocks.size > 1 %}15{% else %}1{% endif %}"
+    data-products-available="{% if section.blocks.size > 1 %}15{% else %}1{% endif %}"
+  >
+    {% for block in section.blocks %}
+      <div class="body-cell layout-table one-whole column">
+        <div class="one-whole column">
+          <div class="readability-insets text-center">
+            <h2 class="text-style-subtitle">{{ block.settings.title }}</h2>
+            <p class="offset-cell text-style-title">{{ block.settings.quote }}</p>
+            <span>{{ block.settings.author }}</span>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsQuotesSlider.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Custom Testimonials",
+    "class": "quotes-slider jsQuotesSlider",
+
+  "settings": [
+      {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+
+         {
+          "type": "text",
+          "label": "title",
+          "id": "title"
+        },
+        {
+          "type": "text",
+          "label": "Quote",
+          "id": "quote"
+        },
+        {
+          "type": "text",
+          "label": "Author",
+          "id": "author"
+        }
+      ]
+    }
+  ],
+  "presets": [
+     {
+      "name": "Custom Testimonial"
+    }
+  ]
+}
+{% endschema %}

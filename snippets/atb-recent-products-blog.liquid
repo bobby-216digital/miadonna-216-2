@@ -1,0 +1,86 @@
+<ul class="recently-viewed-grid recent-product-blog product-content-wrapper has-no-side-gutter products-slider"
+  data-products-per-slide="5"
+      data-products-limit="20"
+      data-products-available="20">
+  <!-- Recently viewed products will appear here -->
+</ul>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+    const productData = JSON.parse(localStorage.getItem("recentlyViewedProductBlog"));
+    const heading = document.querySelector(".recently-viewed-heading");
+
+    if (productData && productData.length > 1) {
+      //heading.style.display = "block";
+    }
+  });
+  function setrecentlyViewedProducts() {
+    const productData = {
+      productTitle: "{{ product.title }}",
+      productImg: "{{ settings.speedsize_url_pfx_https -}}{{ product.featured_media | image_url: width: 450 }}",
+      productPrice: "{{ product.price_max | money }}",
+      productUrl: "{{ product.url }}",
+      productImageAltText: "{{ product.featured_media.alt | escape }}"
+    };
+
+    const currProductPageTitle = productData.productTitle;
+    const localData = localStorage.getItem("recentlyViewedProductBlog");
+    let productArray = [];
+    const numberOfProducts = 4;
+
+    if (localData === null) {
+      productArray.push(productData);
+      localStorage.setItem("recentlyViewedProductBlog", JSON.stringify(productArray));
+    } else {
+      productArray = JSON.parse(localData);
+
+      const sameProduct = productArray.some(item => item.productTitle === currProductPageTitle);
+
+      if (!sameProduct) {
+        if (productArray.length >= numberOfProducts) {
+          productArray.shift();
+        }
+        productArray.push(productData);
+        localStorage.setItem("recentlyViewedProductBlog", JSON.stringify(productArray));
+      }
+    }
+  }
+
+  setrecentlyViewedProducts();
+
+  function getrecentlyViewedProducts() {
+    const productArray = JSON.parse(localStorage.getItem("recentlyViewedProductBlog"));
+    const recentlyViewedHtml = [];
+    const currProductPageTitle = "{{ product.title }}";
+    var i=1;
+    console.log("l: "+productArray.length);
+    if(productArray.length > 1){
+    productArray.forEach(item => {
+      if (item.productTitle !== currProductPageTitle && i <= 5) {
+        recentlyViewedHtml.unshift(`
+        <li class="product-item one-fifth column medium-down--one-half"> 
+          <a href="${item.productUrl}">
+            <img class="recently-viewed-img" src="${item.productImg}" loading="lazy" alt="${item.productImageAltText}"/>
+          </a>
+        </li>
+        `);
+      }
+      i++;
+    });
+  } else {
+     recentlyViewedHtml.unshift(`
+        <li class="product-item one-whole column "> 
+         No recently viewed products
+        </li>
+        `);
+  }
+
+    const newProductData = `${recentlyViewedHtml.join("")}`;
+    const fullContent = document.querySelector(".recently-viewed-grid");
+    fullContent.innerHTML = newProductData;
+  }
+
+  document.addEventListener("DOMContentLoaded", function (event) {
+    getrecentlyViewedProducts();
+  });
+</script>

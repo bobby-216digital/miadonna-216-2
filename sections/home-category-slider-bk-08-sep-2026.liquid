@@ -1,0 +1,94 @@
+<section class="category-section {{ section.settings.class }}" role="region" aria-labelledby="category-section-title">
+  <div class="slider-wrapper">
+    <div class="contanier-nw">
+      {%- if section.settings.title != blank or section.settings.content != blank -%}
+        <div class="title-header">
+          {%- unless section.settings.title == blank -%}
+            <h2 id="category-section-title" class="common-hd" tabindex="0">
+              {{ section.settings.title }}
+            </h2>
+          {%- endunless -%}
+
+          {%- unless section.settings.content == blank -%}
+            <p tabindex="0">
+              {{ section.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+            </p>
+          {%- endunless -%}
+        </div>
+      {%- endif -%}
+      
+      {% if section.blocks.size > 0 %}
+      <div class="category-slider sl-space slick-cls progress-sl" aria-label="{{ section.settings.title | strip_html }}">
+        {%- for block in section.blocks -%}
+          {%- assign collection = block.settings.collection -%}
+          {%- assign collection_image = block.settings.image -%}
+          {%- if collection -%}
+            <div class="slide" aria-label="Category: {{ collection.title  |default: block.settings.title }}">
+              <div class="category-slide-text slide-cls sl-spacebox">
+                <a href="{{ collection.url }}" class="img-hover-effect radius-2" aria-label="Shop {{ collection.title |default: block.settings.title }}" tabindex="0">
+                  <img src="{{ settings.speedsize_url_pfx_https -}}{{ collection_image | image_url: width: 500 }}" class="image-full" width="644" height="800" alt="{{ collection.title |default: block.settings.title }}" loading="lazy">
+                  <span class="line-hover">{{ block.settings.title | default:collection.title }}</span>
+                </a>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="progress-container progress-center-mob" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Slider progress">
+        <div class="progress-bar progress-bar-category" style="width: 10%;"></div>
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Home Category Slider",
+    "settings": [
+       {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "textarea",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "content",
+        "label": "Content"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "category",
+        "name": "Category",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Select Collection"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Collection Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+    {
+      "name": "Home Category Slider",
+      "category": "Content"
+    }
+  ]
+  }
+{% endschema %}

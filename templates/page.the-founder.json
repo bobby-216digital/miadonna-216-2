@@ -1,0 +1,374 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "d1f0d464-d487-4f56-8886-0eceaa820708": {
+      "type": "index__image-with-text-2",
+      "blocks": {
+        "template--15038976655439__d1f0d464-d487-4f56-8886-0eceaa820708-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "From Humble Beginnings",
+            "title2": "",
+            "text": "<p>They told her she'd fail. <br/>Turns out they were wrong!</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "template--15038976655439__d1f0d464-d487-4f56-8886-0eceaa820708-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/The_Founder.png",
+            "mobile_image": "shopify://shop_images/The_Founder_66fd2591-c225-4c69-ae78-7e88edcfdfb4.png",
+            "image_link": "",
+            "iframe_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15038976655439__d1f0d464-d487-4f56-8886-0eceaa820708-text-1",
+        "template--15038976655439__d1f0d464-d487-4f56-8886-0eceaa820708-image-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "d2053e70-2b23-42d8-8cd8-06f18be8b2c0": {
+      "type": "buttons-list",
+      "blocks": {
+        "acf786be-907f-4f69-b01a-d86d83af1b77": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our STORY",
+            "button_link": "/pages/about-us",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "9ed46ac7-1331-4318-8fc8-3b60d5e23562": {
+          "type": "button",
+          "settings": {
+            "button_label": "THE FOUNDER",
+            "button_link": "/pages/the-founder",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "4d22f1b4-683e-4e6e-bc32-031d47771319": {
+          "type": "button",
+          "settings": {
+            "button_label": "OUR PLEDGE",
+            "button_link": "/pages/our-pledge",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "71f7bb97-f058-471b-91ad-1f5349238256": {
+          "type": "button",
+          "settings": {
+            "button_label": "OUR CAUSE",
+            "button_link": "/pages/the-greener-diamond",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "7cd147fe-3ddd-44ae-8fc2-04e80bc7c1b6": {
+          "type": "button",
+          "settings": {
+            "button_label": "THE ISSUE",
+            "button_link": "/pages/conflict-diamonds",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        }
+      },
+      "block_order": [
+        "acf786be-907f-4f69-b01a-d86d83af1b77",
+        "9ed46ac7-1331-4318-8fc8-3b60d5e23562",
+        "4d22f1b4-683e-4e6e-bc32-031d47771319",
+        "71f7bb97-f058-471b-91ad-1f5349238256",
+        "7cd147fe-3ddd-44ae-8fc2-04e80bc7c1b6"
+      ],
+      "settings": {
+        "background": "#e7edf5",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "6753973e-c4ef-4c30-8d92-0cc58d4e7063": {
+      "type": "founder-text-section",
+      "settings": {
+        "background": "#ffffff",
+        "subtitle": "ABOUT THE FOUNDER",
+        "title": "In 2005, Anna-Mieke had the vision to create a conflict-free diamond and has led the evolution of the lab-grown diamond industry ever since.",
+        "text": "<p><b>Anna-Mieke Anderson (pronounced Anna-Meeka)</b> is the Founder and CEO of MiaDonna & Company, an award-winning, eco-friendly fine jewelry brand based in Portland, Oregon. Named after her daughter Mia and mother Donna, MiaDonna was founded in 2005 with a bold mission: to modernize a male-dominated, ethically troubled industry by creating a conflict-free, sustainable alternative to mined diamonds.</p>\n\n<p>After learning the origin of her own earth-mined diamond, Anna-Mieke became driven to find a truly ethical solution—and discovered the answer wasn’t in the ground, but in the lab. She became one of the earliest visionaries behind lab-grown diamonds, developing stones that are not only free from conflict but superior in quality and sustainability.</p>\n\n<p>Anna-Mieke is now internationally recognized as a pioneering force in the lab-grown diamond industry, and a passionate environmental and humanitarian activist. Her work has earned widespread acclaim for challenging outdated norms and advocating for a more responsible jewelry standard.</p>\n\n<p>She also founded The Greener Diamond Foundation, which funds education, mentorship, and agriculture programs in diamond mining communities—empowering people who have long suffered the consequences of conflict diamonds. Anna-Mieke personally leads missions to these regions, ensuring lasting impact and sustainable change.</p>\n\n<p>Originally from New Zealand and raised in Australia, Anna-Mieke moved to the U.S. at 19 and now lives in Portland, Oregon. She continues her work as a devoted mother, entrepreneur, and changemaker committed to a better future for people and the planet.</p>\n\n<p>In 2025, after two decades of building MiaDonna—disrupting an industry, challenging the status quo, and proving that luxury and ethics can not only coexist, but thrive—Anna-Mieke decided to step away from MiaDonna to set her sights on a new mission: empowering women into leadership to create lasting global, social, and environmental impact.</p>"
+      }
+    },
+    "5cf36297-b309-453b-962e-0ec306440f72": {
+      "type": "index__image-with-text-overlay",
+      "settings": {
+        "section_background_color": "",
+        "tilt_background": false,
+        "link": "",
+        "image": "shopify://shop_images/Founder_with_Kids.png",
+        "pretext": "",
+        "title": "",
+        "subtitle": "",
+        "pretext_color": "#000000",
+        "heading_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "center",
+        "text_horizontal_position": "center",
+        "text_vertical_position": "middle",
+        "background_color": "#ffffff",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 32,
+        "button_1": "",
+        "button_1_link": "",
+        "button_1_style": "button--secondary",
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "cc002bd6-814b-40cf-af71-382b5f4d255e": {
+      "type": "founder-acheivements",
+      "blocks": {
+        "0576389a-6f0b-43b4-96c4-ea7a172ce679": {
+          "type": "Text",
+          "settings": {
+            "title": "BUSINESS JOURNAL",
+            "content": "Fastest Growing Private Companies",
+            "date": "2013, 2015, 2016, 2017, 2018 / PORTLAND, OR"
+          }
+        },
+        "fc77904f-2686-4c3c-8276-ce8bc1d55527": {
+          "type": "Text",
+          "settings": {
+            "title": "FBI CITIZENS ACADEMY",
+            "content": "FBI Citizens Agent",
+            "date": "2014 / PORTLAND DIVISION"
+          }
+        },
+        "e47bb008-1602-4d75-b5e9-029a3bba1a28": {
+          "type": "Text",
+          "settings": {
+            "title": "BUSINESS JOURNAL",
+            "content": "Top 40 Under 40 Executives",
+            "date": "2014 / PORTLAND, OR"
+          }
+        },
+        "bbbaa01e-20d8-4eeb-b4b3-6d7cae50c54c": {
+          "type": "Text",
+          "settings": {
+            "title": "BUSINESS JOURNAL",
+            "content": "Finalist - Woman of Influence",
+            "date": "2011"
+          }
+        },
+        "a4312a16-dadf-4c2e-96ed-e8afa9b8d6e4": {
+          "type": "Text",
+          "settings": {
+            "title": "GREEN AMERICA",
+            "content": "Finalist - People & Planet Award",
+            "date": "2012"
+          }
+        },
+        "207acd15-1e25-461b-9cd4-dce641052014": {
+          "type": "Text",
+          "settings": {
+            "title": "NEXT MAGAZINE",
+            "content": "Finalist - Woman of the Year",
+            "date": "2012 / NEW ZEALAND"
+          }
+        }
+      },
+      "block_order": [
+        "0576389a-6f0b-43b4-96c4-ea7a172ce679",
+        "fc77904f-2686-4c3c-8276-ce8bc1d55527",
+        "e47bb008-1602-4d75-b5e9-029a3bba1a28",
+        "bbbaa01e-20d8-4eeb-b4b3-6d7cae50c54c",
+        "a4312a16-dadf-4c2e-96ed-e8afa9b8d6e4",
+        "207acd15-1e25-461b-9cd4-dce641052014"
+      ],
+      "settings": {
+        "subtitle": "HONORS & AWARDS",
+        "title": "In the words of Estee Lauder, “I never dreamed of success. I worked for it.”"
+      }
+    },
+    "bd01eccc-09bb-4e48-a7c9-204f97002fd9": {
+      "type": "founder-gallery",
+      "settings": {
+        "image1": "shopify://shop_images/founder-1.jpg",
+        "image2": "shopify://shop_images/founder-2.webp",
+        "image3": "shopify://shop_images/founder-3.jpg",
+        "image4": "shopify://shop_images/founder-4.jpg"
+      }
+    },
+    "241183cb-46ba-4e1c-8ff5-bf3771d05331": {
+      "type": "founder-social-connect",
+      "disabled": true,
+      "settings": {
+        "title": "CONNECT WITH ANNA-MIEKE",
+        "subtitle1": "PRESS INQUIRIES",
+        "subtitle2": "SOCIAL MEDIA",
+        "subtitle3": "FEATURED PRESS",
+        "email": "katy@miadonna.com",
+        "linkedin_name": "annamieke",
+        "linkedin_link": "https://www.linkedin.com/in/annamieke/",
+        "facebook_name": "annamiekeanderson",
+        "facebook_link": "https://www.facebook.com/annamiekeanderson",
+        "instagram_name": "annamiekeanderson",
+        "instagramlink": "https://www.instagram.com/annamiekeanderson/?hl=en"
+      }
+    },
+    "8fd17d33-af5d-4ac2-bf2e-c3dd53fe32cf": {
+      "type": "founder-videos",
+      "disabled": true,
+      "settings": {
+        "video_url1": "https://player.vimeo.com/video/173554573?color=ffa998&title=0&byline=0&portrait=0",
+        "video_url2": "https://player.vimeo.com/video/110815898?color=ffa998&title=0&byline=0&portrait=0"
+      }
+    },
+    "54a2fd0b-e36a-4fc5-8f8d-4da6991f95dc": {
+      "type": "index__image-with-text-overlay",
+      "disabled": true,
+      "settings": {
+        "section_background_color": "",
+        "tilt_background": false,
+        "link": "",
+        "image": "shopify://shop_images/Hero-Banner-1000x600-miadonna-founder-anna-mieke-anderson-ceo_web_1.jpg",
+        "pretext": "",
+        "title": "From Humble Beginnings",
+        "subtitle": "<p>They told her she'd fail. Turns out they were wrong!</p>",
+        "pretext_color": "#ffffff",
+        "heading_color": "#ffffff",
+        "subheading_color": "#ffffff",
+        "text_alignment": "center",
+        "text_horizontal_position": "center",
+        "text_vertical_position": "middle",
+        "background_color": "#ffffff",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 32,
+        "button_1": "",
+        "button_1_link": "",
+        "button_1_style": "button--secondary",
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "index_html_6iKVw8": {
+      "type": "index__html",
+      "name": "Custom HTML",
+      "settings": {
+        "html_content": "",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "d1f0d464-d487-4f56-8886-0eceaa820708",
+    "d2053e70-2b23-42d8-8cd8-06f18be8b2c0",
+    "6753973e-c4ef-4c30-8d92-0cc58d4e7063",
+    "5cf36297-b309-453b-962e-0ec306440f72",
+    "cc002bd6-814b-40cf-af71-382b5f4d255e",
+    "bd01eccc-09bb-4e48-a7c9-204f97002fd9",
+    "241183cb-46ba-4e1c-8ff5-bf3771d05331",
+    "8fd17d33-af5d-4ac2-bf2e-c3dd53fe32cf",
+    "54a2fd0b-e36a-4fc5-8f8d-4da6991f95dc",
+    "index_html_6iKVw8"
+  ]
+}

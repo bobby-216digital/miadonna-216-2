@@ -1,0 +1,722 @@
+<div class="mmdesk">
+    <div class="mmdesk-content">
+        <!-- Left Panel -->
+        <div class="mmleft-panel" role="tablist" aria-label="Shop Categories">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'menu' -%}
+                {%- assign link_title = linklists[block.settings.menu_1].title -%}
+                {%- assign link_title_dn = link_title | handleize | remove:'by-' -%}
+                  {% if block.settings.menu_submenu_title != blank and link_title contains 'EXCLUSIVE' %}
+                    {%- assign link_title = block.settings.menu_submenu_title -%}
+                   {%  endif  %}
+                <button id="tab-{{ link_title_dn }}" class="left-panel-item" role="tab" aria-controls="mm{{ link_title_dn }}" aria-selected="true" data-target="mm{{ link_title_dn }}">{{ link_title }}</button>
+                  {%- assign link_title = linklists[block.settings.menu_1].title -%}
+              {%- endif -%}
+            {%- endfor -%}
+        </div>
+
+        <!-- Right Panel - By Style -->
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'menu' -%}
+            {%- assign menu = linklists[block.settings.menu_1] -%}
+            {%- assign link_title = menu.title -%}
+            {%- assign collectionmenu = '' -%}
+            {%  if block.settings.collection_menu !=blank  %}
+            {%- assign collectionmenu = linklists[block.settings.collection_menu] -%}
+            {%  endif %}
+            {%- assign collection_heading = '' -%}
+            {%  if block.settings.submenu_collection_heading !=blank  %}
+            {%- assign collection_heading = block.settings.submenu_collection_heading -%}
+            {%  endif %}
+            {%- assign link_title_dn = link_title | handleize | remove:'by-' -%}
+            <div class="mmright-panel active mm{{link_title_dn }}-panel" id="mm{{ link_title_dn }}" role="tabpanel"  aria-labelledby="tab-{{ link_title_dn }}">
+              <div class="mm-gridboxright {% if block.settings.menu_show_links_only %} mm-linkright{% endif %}">
+                  <div class="mm-shopall {% if block.settings.menu_1_title != "" %}{% else %}mm-shopspace{% endif %}"> 
+                    <div class="mmobile-subtopbar mm-show">
+                      <button type="button" class="botton-bbnone mm-inputbackbutton" aria-label="Go back to {{ title }} navigation">
+                        {% render 'leftarrow' %}
+                      {{ title }}
+                        </button>
+                    </div>
+                   {% if block.settings.menu_1_title != "" %} <a href="{{ block.settings.menu_1_link }}" class="mm-shopalltext line-hover">{{block.settings.menu_1_title}}</a> {% endif %}
+                   <button class="mm-close" aria-label="Close Panel">
+                      <svg width="10" height="10" viewBox="0 0 12 12" class="icon-close" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Icon close</title>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M0.000612214 11.2946L11.2947 0.00043975L12.0006 0.706322L0.706495 12.0004L0.000612214 11.2946Z" fill="currentColor"></path>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M0.706419 0.000612214L12.0005 11.2947L11.2947 12.0006L0.000536706 0.706495L0.706419 0.000612214Z" fill="currentColor"></path>
+                        </svg>
+                    </button>
+                  </div>
+                  {% if link_title contains 'METAL' %} 
+                    {% if block.settings.menu_show_links_only %}
+                       <div class="mm-linkgrid">
+                <ul class="mmlink-ul">
+              {%- for link in menu.links -%}
+                    {%assign  path=link.url | split: '?filter.p.m.custom.meta' %} 
+                    {%assign  part1=link.title | split: ' '  %} 
+                    {%assign  part=part1[0] | split: '/' %} 
+
+                  <li><a href="{{link.url}}" aria-label="{{part[0]}} {{part[1]}} {{part[2]}}">{{part[0]}} {{part[1]}} {{part[2]}}</a></li>
+                
+                {% endfor %}
+                </ul>
+            
+              </div>
+              
+                    {% else %}  
+                         <div class="mmgrid-section">
+                         <!--  <div class="mmgrid-item">
+                    <a href="{{shop.url}}/?filter.p.m.custom.metal=14K+White+Gold" aria-label="14K White Gold">
+                        <span class="grid-item-img">
+                            <span class="mm-metaltext metal-white">14K</span>
+                        </span>
+                        <span class="grid-item-title">White Gold</span>
+                      </a>
+                  </div> --->{%- for link in menu.links -%}
+                    {%assign  path=link.url | split: '?filter.p.m.custom.meta' %} 
+                    {%assign  part1=link.title | split: ' '  %} 
+                    {%assign  part=part1[0] | split: '/' %} 
+                  <div class="mmgrid-item">
+                     
+                    <a href="{{link.url}}" aria-label="{{part[0]}} {{part[1]}} {{part[2]}}">
+                        <span class="grid-item-img">
+                            <span class="mm-metaltext metal-{{part[0] |handle}}{{part[1] |handle}}">{%if path[1] contains '14K' %} 14K {% elsif path[1] contains '18K' %} 18K {% elsif path[1] contains 'Platinum' %} PL {% elsif part[0] contains 'Two' %} TT{% endif %}</span>
+                        </span>
+                        <span class="grid-item-title">{{  link.title }}</span>
+                      </a>
+                  </div>  {%- endfor -%}
+                 <!--  <div class="mmgrid-item">
+                    <a href="#" aria-label="14K Rose Gold">
+                        <span class="grid-item-img">
+                            <span class="mm-metaltext metal-rose">14K</span>
+                        </span>
+                        <span class="grid-item-title">Rose Gold</span>
+                      </a>
+                  </div>
+                  <div class="mmgrid-item">
+                    <a href="#" aria-label="18K White Gold">
+                        <span class="grid-item-img">
+                            <span class="mm-metaltext metal-white">18K</span>
+                        </span>
+                        <span class="grid-item-title">White Gold</span>
+                      </a>
+                  </div>
+                  <div class="mmgrid-item">
+                    <a href="#" aria-label="18K Yellow Gold">
+                        <span class="grid-item-img">
+                            <span class="mm-metaltext metal-yellow">18K</span>
+                        </span>
+                        <span class="grid-item-title">Yellow Gold</span>
+                      </a>
+                  </div>
+                  <div class="mmgrid-item">
+                    <a href="#" aria-label="18K Rose Gold">
+                        <span class="grid-item-img">
+                            <span class="mm-metaltext metal-rose">18K</span>
+                        </span>
+                        <span class="grid-item-title">Rose Gold</span>
+                      </a>
+                  </div>
+                  <div class="mmgrid-item">
+                    <a href="#" aria-label="14K Rose White">
+                        <span class="grid-item-img">
+                            <span class="mm-metaltext metal-rosewhite">14K</span>
+                        </span>
+                        <span class="grid-item-title">Rose/White</span>
+                      </a>
+                  </div> 
+                  <div class="mmgrid-item">
+                    <a href="#" aria-label="18K Yellow White">
+                        <span class="grid-item-img">
+                            <span class="mm-metaltext metal-yellowwhite">18K</span>
+                        </span>
+                        <span class="grid-item-title">Yellow/White</span>
+                      </a>
+                  </div>
+                  <div class="mmgrid-item">
+                    <a href="#" aria-label="Platinum">
+                        <span class="grid-item-img">
+                            <span class="mm-metaltext metal-platinum">PL</span>
+                        </span>
+                        <span class="grid-item-title">Platinum</span>
+                      </a>
+                  </div>-->
+                         </div>
+                        {% endif %} 
+                         {%  if collectionmenu !=blank  %}
+                     {%  if collection_heading !=blank  %}
+                     <div class="mmgrid-item mmgrid-item-full mmgrid-item-hd">
+                      {{collection_heading}}
+                    </div>
+                       {%  endif %}
+                      {%- for collectionlink in collectionmenu.links -%}
+                              {% assign collection_link_handle = collectionlink.url | split:'/' | last %}
+                               {% assign my_article = collectionlink.url | split:'blogs/' | last %}
+                                    {% assign a = articles[my_article] %}
+
+                                  {%assign  path=collectionlink.url | split: '?shape=' %} 
+                                  {%assign  shape=path[1] | split: '&' %}         
+
+                                 {%assign  path=collectionlink.url | split: '?color=' %} 
+                                 {%assign  diamond=path[1] | split: '&' %}
+
+                                {%assign  p=collectionlink.url | split: '/pages/' %} 
+                                {% assign page_handle = p.last %}
+                      <div class="mmgrid-item">
+                          {% comment %} <a href="{{ collectionlink.url }}" aria-label="{{ collectionlink.title }}">
+                              <span class="grid-item-img">
+                                {%- if collections[collection_link_handle] and collections[collection_link_handle].metafields.custom.menu_image != blank -%}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ collections[collection_link_handle].metafields.custom.menu_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- elsif collections[collection_link_handle] and collections[collection_link_handle].featured_image != blank -%}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ collections[collection_link_handle].featured_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                             {%- elsif blogs['news'].articles[my_article] and blogs['news'].articles.metafields.custom.menu_image != blank -%} {{ articles[collectionlink.url].metafields.custom.menu_image }}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ articles[my_article].metafields.custom.menu_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                            {% elsif shape[0] != "" and collectionlink.url contains '?shape=' %} 
+                               <img fetchpriority="low" src="https://www.miadonna.com/cdn/shop/files/icon-shape-{{shape[0] |handle}}-cut.svg?v=1687114338&width=300" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                                 {% elsif diamond[0] != "" and collectionlink.url contains '?color=' %} 
+                               <img fetchpriority="low" src="https://sfycdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/icon-gemstone-{{diamond[0] |handle}}.png?v=1687114338&width=100" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                            {% elsif my_article != "" and collectionlink.url contains 'blogs/' %} 
+                              {%- unless a.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = a.metafields.custom.menu_image.value %}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endunless -%}
+                            {% elsif p != "" and collectionlink.url contains '/pages/' %} 
+                              {% assign my_page = pages[page_handle] %}
+                              {%- unless my_page.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = my_page.metafields.custom.menu_image.value %}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endunless -%}
+                            {%- else -%}    
+                                <img fetchpriority="low" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/Wedding_Bands_Rings_Thumbnail.png?v=1750646116&width=300" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endif -%}
+                                </span>
+                              <span class="grid-item-title">{{ collectionlink.title }}</span>
+                            </a> {% endcomment %}
+                              <a href="{{ collectionlink.url }}" aria-label="{{ collectionlink.title }}">
+                              <span class="grid-item-img">
+                              {%- if collections[collection_link_handle] and collections[collection_link_handle].metafields.custom.menu_image != blank -%}
+                                {% assign menu_image_meta = collections[collection_link_handle].metafields.custom.menu_image %}
+                                {{ menu_image_meta | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_meta.value.alt | default: collectionlink.title | escape }}">
+                              {%- elsif collections[collection_link_handle] and collections[collection_link_handle].featured_image != blank -%}
+                                {% assign menu_image_featured = collections[collection_link_handle].featured_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_featured | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_featured.alt | default: collectionlink.title | escape }}">
+                             {%- elsif blogs['news'].articles[my_article] and blogs['news'].articles.metafields.custom.menu_image != blank -%} {{ articles[collectionlink.url].metafields.custom.menu_image }}
+                               {% assign menu_image_meta = articles[my_article].metafields.custom.menu_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_meta.value.alt | default: collectionlink.title | escape }}">
+                            {% elsif shape[0] != "" and collectionlink.url contains '?shape=' %} 
+                               <img src="https://www.miadonna.com/cdn/shop/files/icon-shape-{{shape[0] |handle}}-cut.svg?v=1687114338&width=300" width="100px" height="100px" alt="{{ link.title }}">
+                                 {% elsif diamond[0] != "" and collectionlink.url contains '?color=' %} 
+                               <img src="https://sfycdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/icon-gemstone-{{diamond[0] |handle}}.png?v=1687114338&width=100" width="100px" height="100px" alt="{{ link.title }}">
+                            {% elsif my_article != "" and collectionlink.url contains 'blogs/' %} 
+                              {%- unless a.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = a.metafields.custom.menu_image.value %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ img.alt | default: collectionlink.title | escape }}">
+                              {%- endunless -%}
+                            {% elsif p != "" and collectionlink.url contains '/pages/' %} 
+                              {% assign my_page = pages[page_handle] %}
+                              {%- unless my_page.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = my_page.metafields.custom.menu_image.value %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ img.alt | default: collectionlink.title | escape }}">
+                              {%- endunless -%}
+                            {%- else -%}    
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/Wedding_Bands_Rings_Thumbnail.png?v=1750646116&width=300" width="100px" height="100px" alt="{{ collectionlink.title }}">
+                              {%- endif -%}
+                                </span>
+                              <span class="grid-item-title">{{ collectionlink.title }}</span>
+                            </a>
+                      </div>
+                    {% endfor %}
+                      {%- endif -%}
+                {% else %}
+                  
+              {% if block.settings.menu_show_links_only and link_title != 'EXCLUSIVE' %}
+            <div class="mm-linkgrid">
+                <ul class="mmlink-ul">
+                {%- for link in menu.links -%}
+                {% assign my_article = link.url | split:'blogs/' | last %}
+                        {%- liquid
+                    # theme-check-disable
+                    capture content_for_query_string
+                      echo content_for_header
+                    endcapture
+                  -%}
+
+                  {% assign a = articles[my_article] %}
+
+                  {%assign  path=link.url | split: '?shape=' %} 
+                  {%assign  shape=path[1] | split: '&' %}
+
+                  {%assign  path=link.url | split: '?color=' %} 
+                  {%assign  diamond=path[1] | split: '&' %}
+
+                  {%assign  p=link.url | split: '/pages/' %} 
+                  {% assign page_handle = p.last %}
+                    {% assign link_handle = link.url | split:'/' | last %}
+                    {% comment %} <li>                    <a href="{{ link.url }}" aria-label="{{ link.title }}">
+                      {% if page_handle !=blank and link.url contains '/pages/'  and pages[page_handle].metafields.custom.menu_image.value != blank%}
+                       <img fetchpriority="low" class="mm-featured-img" src="{{ settings.speedsize_url_pfx_https -}}{{ pages[page_handle].metafields.custom.menu_image.value | image_url: width: 300 }}" alt="{{ link.title }}" width="620px" height="220px" loading="lazy">
+                      {% elsif collections[link_handle].metafields.custom.menu_image != blank %}
+                           <img fetchpriority="low" class="mm-featured-img" src="{{ settings.speedsize_url_pfx_https -}}{{ collections[link_handle].metafields.custom.menu_image | image_url: width: 300 }}" alt="{{ link.title }}" width="620px" height="220px" loading="lazy">
+                        {% endif %}
+                       <span>{{ link.title }}</span>
+                    </a>
+                  </li> {% endcomment %}
+                  <li>                    
+                    <a href="{{ link.url }}" aria-label="{{ link.title }}">
+                      {% if page_handle !=blank and link.url contains '/pages/'  and pages[page_handle].metafields.custom.menu_image.value != blank%}
+                        {% assign menu_image_meta = pages[page_handle].metafields.custom.menu_image.value %}
+                      <img class="mm-featured-img" src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" alt="{{ menu_image_meta.value.alt | default: link.title | escape }}" width="620px" height="220px">
+                      {% elsif collections[link_handle].metafields.custom.menu_image != blank %}
+                       {% assign menu_image_meta = collections[link_handle].metafields.custom.menu_image %}
+
+                           <img class="mm-featured-img" src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" alt="{{ menu_image_meta.value.alt | default: link.title | escape }}" width="620px" height="220px">
+                        {% endif %}
+                       <span>{{ link.title }}</span>
+                    </a>
+                  </li>
+                
+                {% endfor %}
+                </ul>
+              {%  if collectionmenu !=blank  %}
+                     {%  if collection_heading !=blank  %}
+                     <div class="mmgrid-item mmgrid-item-full mmgrid-item-hd">
+                      {{collection_heading}}
+                    </div>
+                       {%  endif %}
+                      {%- for collectionlink in collectionmenu.links -%}
+                              {% assign collection_link_handle = collectionlink.url | split:'/' | last %}
+                               {% assign my_article = collectionlink.url | split:'blogs/' | last %}
+                                    {% assign a = articles[my_article] %}
+
+                                  {%assign  path=collectionlink.url | split: '?shape=' %} 
+                                  {%assign  shape=path[1] | split: '&' %}         
+
+                                 {%assign  path=collectionlink.url | split: '?color=' %} 
+                                 {%assign  diamond=path[1] | split: '&' %}
+
+                                {%assign  p=collectionlink.url | split: '/pages/' %} 
+                                {% assign page_handle = p.last %}
+                      <div class="mmgrid-item">
+                          {% comment %} <a href="{{ collectionlink.url }}" aria-label="{{ collectionlink.title }}">
+                              <span class="grid-item-img">
+                               {%- if collections[collection_link_handle] and collections[collection_link_handle].metafields.custom.menu_image != blank -%}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ collections[collection_link_handle].metafields.custom.menu_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- elsif collections[collection_link_handle] and collections[collection_link_handle].featured_image != blank -%}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ collections[collection_link_handle].featured_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                             {%- elsif blogs['news'].articles[my_article] and blogs['news'].articles.metafields.custom.menu_image != blank -%} {{ articles[collectionlink.url].metafields.custom.menu_image }}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ articles[my_article].metafields.custom.menu_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                            {% elsif shape[0] != "" and collectionlink.url contains '?shape=' %} 
+                               <img fetchpriority="low" src="https://www.miadonna.com/cdn/shop/files/icon-shape-{{shape[0] |handle}}-cut.svg?v=1687114338&width=300" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                                 {% elsif diamond[0] != "" and collectionlink.url contains '?color=' %} 
+                               <img fetchpriority="low" src="https://sfycdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/icon-gemstone-{{diamond[0] |handle}}.png?v=1687114338&width=100" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                            {% elsif my_article != "" and collectionlink.url contains 'blogs/' %} 
+                              {%- unless a.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = a.metafields.custom.menu_image.value %}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endunless -%}
+                            {% elsif p != "" and collectionlink.url contains '/pages/' %} 
+                              {% assign my_page = pages[page_handle] %}
+                              {%- unless my_page.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = my_page.metafields.custom.menu_image.value %}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endunless -%}
+                            {%- else -%}    
+                                <img fetchpriority="low" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/Wedding_Bands_Rings_Thumbnail.png?v=1750646116&width=300" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endif -%}
+                                </span>
+                              <span class="grid-item-title">{{ collectionlink.title }}</span>
+                            </a> {% endcomment %}
+                            <a href="{{ collectionlink.url }}" aria-label="{{ collectionlink.title }}">
+                              <span class="grid-item-img">
+                                 {%- if collections[collection_link_handle] and collections[collection_link_handle].metafields.custom.menu_image != blank -%}
+                                    {% assign menu_image_meta = collections[collection_link_handle].metafields.custom.menu_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_meta.value.alt | default: collectionlink.title | escape }}">
+                              {%- elsif collections[collection_link_handle] and collections[collection_link_handle].featured_image != blank -%}
+                                 {% assign menu_image_featured = collections[collection_link_handle].featured_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_featured | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_featured.alt | default: collectionlink.title | escape }}">
+                             {%- elsif blogs['news'].articles[my_article] and blogs['news'].articles.metafields.custom.menu_image != blank -%} {{ articles[collectionlink.url].metafields.custom.menu_image }}
+                                   {% assign menu_image_meta = articles[my_article].metafields.custom.menu_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_meta.value.alt | default: collectionlink.title | escape }}">
+                            {% elsif shape[0] != "" and collectionlink.url contains '?shape=' %} 
+                               <img src="https://www.miadonna.com/cdn/shop/files/icon-shape-{{shape[0] |handle}}-cut.svg?v=1687114338&width=300" width="100px" height="100px" alt="{{ link.title }}">
+                                 {% elsif diamond[0] != "" and collectionlink.url contains '?color=' %} 
+                               <img src="https://sfycdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/icon-gemstone-{{diamond[0] |handle}}.png?v=1687114338&width=100" width="100px" height="100px" alt="{{ link.title }}">
+                            {% elsif my_article != "" and collectionlink.url contains 'blogs/' %} 
+                              {%- unless a.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = a.metafields.custom.menu_image.value %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ img.alt | default: collectionlink.title | escape }}">
+                              {%- endunless -%}
+                            {% elsif p != "" and collectionlink.url contains '/pages/' %} 
+                              {% assign my_page = pages[page_handle] %}
+                              {%- unless my_page.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = my_page.metafields.custom.menu_image.value %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ img.alt | default: collectionlink.title | escape }}">
+                              {%- endunless -%}
+                            {%- else -%}    
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/Wedding_Bands_Rings_Thumbnail.png?v=1750646116&width=300" width="100px" height="100px" alt="{{ link.title }}">
+                              {%- endif -%}
+                                </span>
+                              <span class="grid-item-title">{{ collectionlink.title }}</span>
+                            </a>
+                      </div>
+                    {% endfor %}
+                      {%- endif -%}
+              </div>
+                 {% elsif link_title contains 'EXCLUSIVE' %} 
+                <div class="mmgrid-section">
+                  <section class="collection-grid" aria-labelledby="exclusive-collections-heading" role="region">
+                    <div id="exclusive-collections-heading" class="visually-hidden">Exclusive Collections</div>
+                    <ul class="collection-grid__list">
+                      {%- for block in section.blocks -%}
+                        {% if block.type == 'submenu_image_video' %}
+                      {% if block.settings.image != blank %}
+                          <li class="collection-grid__item">
+                            {% if block.settings.image_link != blank   %}
+                        <a href="{{ block.settings.image_link}}" class="collection-grid__link radius-2 " aria-label="{{block.settings.image_title }}">
+                            {% endif %}
+                          <div class="collection-grid__media ">
+                            <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url}}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.image.alt | default: block.settings.image_title | escape }}" loading="lazy">
+                          </div>
+                          {% if block.settings.image_title != blank %}
+                          <div class="collection-grid__caption ">
+                            <p class="line-hover" aria-hidden="true">{{block.settings.image_title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          </div>
+                          {% endif %}
+                          {% if block.settings.image_link != blank   %}
+                        </a>
+                        {% endif %}
+                      </li>
+                    {% elsif block.settings.videourl != blank %}
+                      <li class="collection-grid__item video-element">
+                        {% if block.settings.image_link != blank   %}
+                        <a href="{{ block.settings.image_link}}" class="collection-grid__link radius-2" aria-label="{{block.settings.image_title }}">
+                          {% endif %}
+                          <div class="collection-grid__media">
+                            {% comment %} <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/value-edit.jpg?v=1782129588" alt="Exceptional Value Edit" loading="lazy" width="300" height="380" > {% endcomment %}
+                            <div class="video-fullview menus-video-js">
+                              {% comment %} <video preload="none"  autoplay muted loop playsinline aria-label="{{ block.settings.image_title }}" poster="{{block.settings.video-poster-image-url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx}}">
+                                <source src="{{block.settings.videourl | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx}}" type="video/mp4">
+                              </video> {% endcomment %}
+                              <video
+                                  preload="none"
+                                  muted
+                                  loop
+                                  playsinline
+                                  aria-label="{{ block.settings.image_title }}"
+                                  poster="{{ block.settings.video-poster-image-url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx | default: 'https://cdn.shopify.com/s/files/1/1164/4258/files/placeholder_video_image.jpg' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"
+                                  data-video-src="{{block.settings.videourl | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx}}"
+                                >
+                                </video>
+                            </div>
+                          </div>
+                          {% if block.settings.image_title != blank %}
+                          <div class="collection-grid__caption">
+                            <p class="line-hover" aria-hidden="true">{{block.settings.image_title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          </div>
+                        {% endif %}
+                          {% if block.settings.image_link != blank   %}
+                        </a>
+                        {% endif %}
+                         <button type="button" aria-pressed="false" class="video-control-btn-menu collection-grid__control" aria-label="Pause video for Exceptional Value Edit">
+                          <svg class="mm-play-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M10.502 0.299805C16.1366 0.299805 20.7041 4.86665 20.7041 10.5C20.7041 16.1334 16.1366 20.7002 10.502 20.7002C4.86739 20.7001 0.299805 16.1333 0.299805 10.5C0.299805 4.8667 4.86739 0.299888 10.502 0.299805Z" stroke="#000" stroke-width="0.599615"/>
+                            <path d="M8.08387 7.28252C8.25259 7.17005 8.46348 7.17005 8.6322 7.26846L13.3563 9.85545C13.539 9.95386 13.6515 10.1366 13.6515 10.3475C13.6515 10.5584 13.539 10.7412 13.3563 10.8396L8.6322 13.4266C8.46348 13.525 8.25259 13.525 8.08387 13.4125C7.91516 13.3141 7.80268 13.1314 7.80268 12.9345V7.76055C7.80268 7.56372 7.91516 7.38094 8.08387 7.28252ZM8.4213 7.66214C8.37913 7.64808 8.33695 7.64808 8.30883 7.66214C8.28071 7.69025 8.25259 7.71837 8.25259 7.76055V12.9345C8.25259 12.9767 8.28071 13.0189 8.30883 13.0329C8.33695 13.047 8.37913 13.047 8.4213 13.0329L13.1454 10.446C13.1735 10.4319 13.2016 10.3897 13.2016 10.3475C13.2016 10.3054 13.1735 10.2632 13.1454 10.2491L8.4213 7.66214Z" fill="#000"/>
+                          </svg>
+                          <svg class="mm-push-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                              <path d="M10.502 0.299805C16.1366 0.299805 20.7041 4.86665 20.7041 10.5C20.7041 16.1334 16.1366 20.7002 10.502 20.7002C4.86739 20.7001 0.299805 16.1333 0.299805 10.5C0.299805 4.8667 4.86739 0.299888 10.502 0.299805Z" stroke="#000" stroke-width="0.599615"/>
+                              <rect x="8.15" y="7" width="1" height="7" rx="0.2" fill="#000"/>
+                              <rect x="11.35" y="7" width="1" height="7" rx="0.2" fill="#000"/>
+                          </svg>
+                        </button>
+                        </li>
+                    {% endif %}  
+                      {% comment %} <li class="collection-grid__item video-element">
+                        <a href="/collections/exceptional-value" class="collection-grid__link radius-2" aria-label="View Exceptional Value Edit collection">
+                          <div class="collection-grid__media">
+                            {% comment %} <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/value-edit.jpg?v=1782129588" alt="Exceptional Value Edit" loading="lazy" width="300" height="380" > {% endcomment %}
+                            <div class="video-fullview">
+                              <video autoplay muted loop playsinline aria-label="Exceptional Value Edit promotional video" poster="https://5af7fujqj5h4f5md-11644258.shopifypreview.com/cdn/shop/files/engagement-coll.jpg?v=1772695381&amp;width=800">
+                                <source src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/videos/c/o/v/2b1c254c5fa44dccab5968f71652e5a2.mp4" type="video/mp4">
+                              </video>
+                            </div>
+                          </div>
+                          <div class="collection-grid__caption">
+                            <p class="line-hover">Exceptional Value Edit</p>
+                          </div>
+                        </a>
+                        <button type="button" aria-pressed="false" class="video-control-btn-menu collection-grid__control" aria-label="Pause video for Exceptional Value Edit">
+                          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M10.502 0.299805C16.1366 0.299805 20.7041 4.86665 20.7041 10.5C20.7041 16.1334 16.1366 20.7002 10.502 20.7002C4.86739 20.7001 0.299805 16.1333 0.299805 10.5C0.299805 4.8667 4.86739 0.299888 10.502 0.299805Z" stroke="white" stroke-width="0.599615"/>
+                            <path d="M8.08387 7.28252C8.25259 7.17005 8.46348 7.17005 8.6322 7.26846L13.3563 9.85545C13.539 9.95386 13.6515 10.1366 13.6515 10.3475C13.6515 10.5584 13.539 10.7412 13.3563 10.8396L8.6322 13.4266C8.46348 13.525 8.25259 13.525 8.08387 13.4125C7.91516 13.3141 7.80268 13.1314 7.80268 12.9345V7.76055C7.80268 7.56372 7.91516 7.38094 8.08387 7.28252ZM8.4213 7.66214C8.37913 7.64808 8.33695 7.64808 8.30883 7.66214C8.28071 7.69025 8.25259 7.71837 8.25259 7.76055V12.9345C8.25259 12.9767 8.28071 13.0189 8.30883 13.0329C8.33695 13.047 8.37913 13.047 8.4213 13.0329L13.1454 10.446C13.1735 10.4319 13.2016 10.3897 13.2016 10.3475C13.2016 10.3054 13.1735 10.2632 13.1454 10.2491L8.4213 7.66214Z" fill="white"/>
+                          </svg>
+                        </button>
+                      </li>
+                    
+                      <li class="collection-grid__item video-element">
+                        <a href="/collections/the-vacation-edit" class="collection-grid__link radius-2 img-hover-effect" aria-label="View The Vacation Edit collection">
+                          <div class="collection-grid__media">
+                            <img
+                              src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/vacation-edit.jpg?v=1782129588"
+                              alt="The Vacation Edit"
+                              loading="lazy"
+                              width="300"
+                              height="380"
+                            >
+                          </div>
+                          <div class="collection-grid__caption">
+                            <p class="line-hover" aria-hidden="true">The Vacation Edit</p>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li class="collection-grid__item">
+                        <a href="/pages/design-studio" class="collection-grid__link radius-2 img-hover-effect" aria-label="View Design Studio page">
+                          <div class="collection-grid__media">
+                            <img
+                              src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/design-studio.jpg?v=1782129588"
+                              alt="Design Studio"
+                              loading="lazy"
+                              width="300"
+                              height="380"
+                            >
+                          </div>
+                          <div class="collection-grid__caption">
+                            <p class="line-hover" aria-hidden="true">Design Studio</p>
+                          </div>
+                        </a>
+                        <button type="button" class="collection-grid__control video-control-btn-menu" aria-label="Pause video for Design Studio">
+                          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M10.502 0.299805C16.1366 0.299805 20.7041 4.86665 20.7041 10.5C20.7041 16.1334 16.1366 20.7002 10.502 20.7002C4.86739 20.7001 0.299805 16.1333 0.299805 10.5C0.299805 4.8667 4.86739 0.299888 10.502 0.299805Z" stroke="white" stroke-width="0.599615"/>
+                            <path d="M8.47754 7.64808C8.35101 7.64808 8.25259 7.74649 8.25259 7.87303V12.822C8.25259 12.9486 8.35101 13.047 8.47754 13.047H9.37736C9.5039 13.047 9.60232 12.9486 9.60232 12.822V7.87303C9.60232 7.74649 9.5039 7.64808 9.37736 7.64808H8.47754ZM7.80268 7.87303C7.80268 7.50748 8.11199 7.19817 8.47754 7.19817H9.37736C9.75698 7.19817 10.0522 7.50748 10.0522 7.87303V12.822C10.0522 13.2017 9.75698 13.4969 9.37736 13.4969H8.47754C8.11199 13.4969 7.80268 13.2017 7.80268 12.822V7.87303ZM11.6269 7.64808C11.5004 7.64808 11.402 7.74649 11.402 7.87303V12.822C11.402 12.9486 11.5004 13.047 11.6269 13.047H12.5267C12.6533 13.047 12.7517 12.9486 12.7517 12.822V7.87303C12.7517 7.74649 12.6533 7.64808 12.5267 7.64808H11.6269ZM10.952 7.87303C10.952 7.50748 11.2614 7.19817 11.6269 7.19817H12.5267C12.9063 7.19817 13.2016 7.50748 13.2016 7.87303V12.822C13.2016 13.2017 12.9063 13.4969 12.5267 13.4969H11.6269C11.2614 13.4969 10.952 13.2017 10.952 12.822V7.87303Z" fill="white"/>
+                          </svg>
+                        </button>
+                      </li> {% endcomment %}
+                    {%- endif -%} 
+                    {%- endfor -%} 
+                    </ul>
+                  </section>    
+                </div>  
+                {% else %}
+                  <div class="mmgrid-section">
+                    {%- for link in menu.links -%}
+                    {% assign my_article = link.url | split:'blogs/' | last %}
+                          {%- liquid
+                      # theme-check-disable
+                      capture content_for_query_string
+                        echo content_for_header
+                      endcapture
+                    -%}
+
+                    {% assign a = articles[my_article] %}
+
+                    {%assign  path=link.url | split: '?shape=' %} 
+                    {%assign  shape=path[1] | split: '&' %}
+
+                    {%assign  path=link.url | split: '?color=' %} 
+                    {%assign  diamond=path[1] | split: '&' %}
+
+                    {%assign  p=link.url | split: '/pages/' %} 
+                    {% assign page_handle = p.last %}
+
+                        
+
+                      <div class="mmgrid-item">
+                        {% comment %} <a href="{{ link.url }}" aria-label="{{ link.title }}">
+                            <span class="grid-item-img">
+                              {% assign link_handle = link.url | split:'/' | last %}
+                               {%- if collections[link_handle] and collections[link_handle].metafields.custom.menu_image != blank -%}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ collections[link_handle].metafields.custom.menu_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- elsif collections[link_handle] and collections[link_handle].featured_image != blank -%}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ collections[link_handle].featured_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                             {%- elsif blogs['news'].articles[my_article] and blogs['news'].articles.metafields.custom.menu_image != blank -%} {{ articles[link.url].metafields.custom.menu_image }}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ articles[my_article].metafields.custom.menu_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                            {% elsif shape[0] != "" and link.url contains '?shape=' %} 
+                               <img fetchpriority="low" src="https://www.miadonna.com/cdn/shop/files/icon-shape-{{shape[0] |handle}}-cut.svg?v=1687114338&width=300" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                                 {% elsif diamond[0] != "" and link.url contains '?color=' %} 
+                               <img fetchpriority="low" src="https://sfycdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/icon-gemstone-{{diamond[0] |handle}}.png?v=1687114338&width=100" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                            {% elsif my_article != "" and link.url contains 'blogs/' %} 
+                              {%- unless a.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = a.metafields.custom.menu_image.value %}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endunless -%}
+                            {% elsif p != "" and link.url contains '/pages/' %} 
+                              {% assign my_page = pages[page_handle] %}
+                              {%- unless my_page.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = my_page.metafields.custom.menu_image.value %}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endunless -%}
+                            {%- else -%}    
+                                <img fetchpriority="low" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/Wedding_Bands_Rings_Thumbnail.png?v=1750646116&width=300" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endif -%}
+                            </span>
+                            <span class="grid-item-title">{{ link.title }}</span>
+                          </a> {% endcomment %}
+                          <a href="{{ link.url }}" aria-label="{{ link.title }}">
+                            <span class="grid-item-img">
+                              {% assign link_handle = link.url | split:'/' | last %}
+                               {%- if collections[link_handle] and collections[link_handle].metafields.custom.menu_image != blank -%}
+                                {% assign menu_image_meta = collections[link_handle].metafields.custom.menu_image %}
+                                
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_meta.value.alt | default: link.title | escape }}">
+                              {%- elsif collections[link_handle] and collections[link_handle].featured_image != blank -%}
+                                {% assign menu_image_featured = collections[link_handle].featured_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_featured | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_featured.alt | default: link.title | escape }}">
+                             {%- elsif blogs['news'].articles[my_article] and blogs['news'].articles.metafields.custom.menu_image != blank -%} {{ articles[link.url].metafields.custom.menu_image }}
+                                {% assign menu_image_meta = articles[my_article].metafields.custom.menu_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_meta.value.alt  | escape }}">
+                            {% elsif shape[0] != "" and link.url contains '?shape=' %} 
+                               <img src="https://www.miadonna.com/cdn/shop/files/icon-shape-{{shape[0] |handle}}-cut.svg?v=1687114338&width=300" width="100px" height="100px" alt="{{ link.title }}">
+                                 {% elsif diamond[0] != "" and link.url contains '?color=' %} 
+                               <img src="https://sfycdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/icon-gemstone-{{diamond[0] |handle}}.png?v=1687114338&width=100" width="100px" height="100px" alt="{{ link.title }}">
+                            {% elsif my_article != "" and link.url contains 'blogs/' %} 
+                              {%- unless a.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = a.metafields.custom.menu_image.value %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ img.alt | default: link.title | escape }}">
+                              {%- endunless -%}
+                            {% elsif p != "" and link.url contains '/pages/' %} 
+                              {% assign my_page = pages[page_handle] %}
+                              {%- unless my_page.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = my_page.metafields.custom.menu_image.value %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ img.alt | default: link.title | escape }}">
+                              {%- endunless -%}
+                            {%- else -%}    
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/Wedding_Bands_Rings_Thumbnail.png?v=1750646116&width=300" width="100px" height="100px" alt="{{ link.title }}">
+                              {%- endif -%}
+                            </span>
+                            <span class="grid-item-title">{{ link.title }}</span>
+                          </a>
+                      </div> 
+                    {%- endfor -%}
+                     {%  if collectionmenu !=blank  %}
+                     {%  if collection_heading !=blank  %}
+                     <div class="mmgrid-item mmgrid-item-full mmgrid-item-hd">
+                      {{collection_heading}}
+                    </div>
+                       {%  endif %}
+                      {%- for collectionlink in collectionmenu.links -%}
+                              {% assign collection_link_handle = collectionlink.url | split:'/' | last %}
+                               {% assign my_article = collectionlink.url | split:'blogs/' | last %}
+                                    {% assign a = articles[my_article] %}
+
+                                  {%assign  path=collectionlink.url | split: '?shape=' %} 
+                                  {%assign  shape=path[1] | split: '&' %}         
+
+                                 {%assign  path=collectionlink.url | split: '?color=' %} 
+                                 {%assign  diamond=path[1] | split: '&' %}
+
+                                {%assign  p=collectionlink.url | split: '/pages/' %} 
+                                {% assign page_handle = p.last %}
+                      <div class="mmgrid-item">
+                          {% comment %} <a href="{{ collectionlink.url }}" aria-label="{{ collectionlink.title }}">
+                              <span class="grid-item-img">
+                               {%- if collections[collection_link_handle] and collections[collection_link_handle].metafields.custom.menu_image != blank -%}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ collections[collection_link_handle].metafields.custom.menu_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- elsif collections[collection_link_handle] and collections[collection_link_handle].featured_image != blank -%}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ collections[collection_link_handle].featured_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                             {%- elsif blogs['news'].articles[my_article] and blogs['news'].articles.metafields.custom.menu_image != blank -%} {{ articles[collectionlink.url].metafields.custom.menu_image }}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ articles[my_article].metafields.custom.menu_image | image_url: width: 300 }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                            {% elsif shape[0] != "" and collectionlink.url contains '?shape=' %} 
+                               <img fetchpriority="low" src="https://www.miadonna.com/cdn/shop/files/icon-shape-{{shape[0] |handle}}-cut.svg?v=1687114338&width=300" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                                 {% elsif diamond[0] != "" and collectionlink.url contains '?color=' %} 
+                               <img fetchpriority="low" src="https://sfycdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/icon-gemstone-{{diamond[0] |handle}}.png?v=1687114338&width=100" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                            {% elsif my_article != "" and collectionlink.url contains 'blogs/' %} 
+                              {%- unless a.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = a.metafields.custom.menu_image.value %}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endunless -%}
+                            {% elsif p != "" and collectionlink.url contains '/pages/' %} 
+                              {% assign my_page = pages[page_handle] %}
+                              {%- unless my_page.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = my_page.metafields.custom.menu_image.value %}
+                                <img fetchpriority="low" src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endunless -%}
+                            {%- else -%}    
+                                <img fetchpriority="low" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/Wedding_Bands_Rings_Thumbnail.png?v=1750646116&width=300" width="100px" height="100px" alt="{{ link.title }}" loading="lazy">
+                              {%- endif -%}
+                                </span>
+                              <span class="grid-item-title">{{ collectionlink.title }}</span>
+                            </a> {% endcomment %}
+                             <a href="{{ collectionlink.url }}" aria-label="{{ collectionlink.title }}">
+                              <span class="grid-item-img">
+                             {%- if collections[collection_link_handle] and collections[collection_link_handle].metafields.custom.menu_image != blank -%}
+                              {% assign menu_image_meta = collections[collection_link_handle].metafields.custom.menu_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_meta.value.alt | default: collectionlink.title | escape }}">
+                              {%- elsif collections[collection_link_handle] and collections[collection_link_handle].featured_image != blank -%}
+                                    {% assign menu_image_featured = collections[collection_link_handle].featured_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_featured | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_featured.alt | default: collectionlink.title | escape }}">
+                             {%- elsif blogs['news'].articles[my_article] and blogs['news'].articles.metafields.custom.menu_image != blank -%} {{ articles[collectionlink.url].metafields.custom.menu_image }}
+                                {% assign menu_image_meta = articles[my_article].metafields.custom.menu_image %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ menu_image_meta | image_url: width: 300 }}" width="100px" height="100px" alt="{{ menu_image_meta.value.alt | default: collectionlink.title | escape }}">
+                            {% elsif shape[0] != "" and collectionlink.url contains '?shape=' %} 
+                               <img src="https://www.miadonna.com/cdn/shop/files/icon-shape-{{shape[0] |handle}}-cut.svg?v=1687114338&width=300" width="100px" height="100px" alt="{{ link.title }}">
+                                 {% elsif diamond[0] != "" and collectionlink.url contains '?color=' %} 
+                               <img src="https://sfycdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/icon-gemstone-{{diamond[0] |handle}}.png?v=1687114338&width=100" width="100px" height="100px" alt="{{ link.title }}">
+                            {% elsif my_article != "" and collectionlink.url contains 'blogs/' %} 
+                              {%- unless a.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = a.metafields.custom.menu_image.value %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ img.alt | default: collectionlink.title | escape }}">
+                              {%- endunless -%}
+                            {% elsif p != "" and collectionlink.url contains '/pages/' %} 
+                              {% assign my_page = pages[page_handle] %}
+                              {%- unless my_page.metafields.custom.menu_image.value == blank -%}
+                                {% assign img = my_page.metafields.custom.menu_image.value %}
+                                <img src="{{ settings.speedsize_url_pfx_https -}}{{ img | image_url }}" width="100px" height="100px" alt="{{ img.alt | default: collectionlink.title | escape }}">
+                              {%- endunless -%}
+                            {%- else -%}    
+                                <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/files/Wedding_Bands_Rings_Thumbnail.png?v=1750646116&width=300" width="100px" height="100px" alt="{{ link.title }}">
+                              {%- endif -%}
+                                </span>
+                              <span class="grid-item-title">{{ collectionlink.title }}</span>
+                            </a>
+                      </div>
+                    {% endfor %}
+                      {%- endif -%}
+                  </div> 
+                  {% endif %} 
+                {% endif %}
+                </div>        
+            </div>
+          {% elsif block.type == 'image' %}
+            {%- capture image_html -%}
+              {{ image_html | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              {%- unless block.settings.image == blank -%}
+                {% unless block.settings.mob_image == blank %}
+                  {%- assign mobile_image = block.settings.mob_image -%}
+                {%- else -%}
+                  {%- assign mobile_image = block.settings.image -%}
+                {%- endunless -%}
+                <div class="banner-card">
+                  <img fetchpriority="low" class="mm-hide" src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url: width:520, height: 780}}" width="520px" height="780px" alt="{{ block.settings.image.alt | default: block.settings.image_title | escape }}" loading="lazy">
+                  <img fetchpriority="low" class="mm-show" src="{{ settings.speedsize_url_pfx_https -}}{{ mobile_image | image_url: width:310, height: 150}}" width="310px" height="150px" alt="{{ block.settings.image.alt | default: block.settings.image_title | escape }}" loading="lazy">
+                  <div class="banner-overlay">
+                    <a href="{{ block.settings.url }}" class="button button--secondary">{{ block.settings.image_title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</a>
+                  </div>
+                </div>
+              {%-  endunless -%}
+            {%- endcapture -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if image_html and image_html != blank -%}
+        <div class="banner-section" aria-label="Promotional Banners">
+          {{ image_html | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+          {%- comment -%}
+            <div class="banner-card">
+                <img class="mm-hide" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/mm-design-studio-lg.jpg?v=1761837856" width="520px" height="780px" alt="Design Studio">
+                <img class="mm-show" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/mmobile-designstudio.jpg?v=1761837856" width="310px" height="150px" alt="Design Studio">
+                <div class="banner-overlay">
+                    <a href="#" class="button button--secondary">DESIGN STUDIO</a>
+                </div>
+            </div>
+            <div class="banner-card">
+                <img class="mm-hide" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/mm-newarrival-lg.jpg?v=1761837856" width="520px" height="780px" alt="New Arrivals">
+                <img class="mm-show" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/mmobile-newarrivals.jpg?v=1761837856" width="310px" height="150px" alt="New Arrivals">
+                <div class="banner-overlay">
+                    <a href="#" class="button button--secondary">NEW ARRIVALS</a>
+                </div>
+            </div>
+          {%- endcomment -%}
+        </div>
+        {%- endif -%}
+    </div>
+    <div class="mm-backbg mm-close"></div>
+</div>

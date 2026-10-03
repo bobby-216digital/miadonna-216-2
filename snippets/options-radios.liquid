@@ -1,0 +1,291 @@
+{% comment %}
+  Display variant options for a product
+
+  @param selected_variant
+{% endcomment %}
+
+{% assign swatch_trigger = settings.swatch_trigger | strip | downcase %}
+{% assign file_extension = 'png' %}
+
+{% assign loop_index = option_index | plus: 1 %}
+{%- assign swatch_option_key = 'option' | append: loop_index -%}
+{%- assign selected_variant_title = selected_variant.title | downcase -%}
+
+{% assign option_name = option.name | downcase %}
+
+{%- if show_swatches and option_name == swatch_trigger -%}
+  {%- assign is_color = true -%}
+{%- endif -%}
+
+<div class="swatch{% comment %} is-flex is-flex-wrap{% endcomment %} setting-accordion-item setting-accordion-item{% unless is_color %} setting-accordion-stone{% endunless %}" data-option-index="{{ option_index }}">
+  <legend class="option-title label">
+    <span
+      class="options-selection__option-name setting-accordion-button"
+      data-variant-option-name="{{ 'product.variants.chosen_option_html' | t: option: option.name, tooltip:'', value: option.selected_value | escape }}"
+      data-variant-option-choose-name="{{ 'product.variants.choose_option' | t: option: option.name, tooltip:'' }}"
+    >
+      {%- assign tooltip_info = '&nbsp;' -%}
+      {%- if option_name == 'metal' or option_name == 'quality' -%}
+        {%- capture tooltip_info -%}
+          <a
+            href="javascript:void(0);"
+            class="popup-icon"
+            data-popup="#popup{% if option_name == 'metal' %}1{% else %}2{% endif %}"
+            data-touch="false"
+            data-drag-to-close="false"
+            aria-label="{{ option.name }} guide"
+          >
+            <svg width="10" height="10" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.5 0.5625C6.67441 0.5625 8.4375 2.32559 8.4375 4.5C8.4375 6.67441 6.67441 8.4375 4.5 8.4375C2.32559 8.4375 0.5625 6.67441 0.5625 4.5C0.5625 2.32559 2.32559 0.5625 4.5 0.5625ZM4.5 9C6.98555 9 9 6.98555 9 4.5C9 2.01445 6.98555 0 4.5 0C2.01445 0 0 2.01445 0 4.5C0 6.98555 2.01445 9 4.5 9ZM3.65625 6.1875C3.50156 6.1875 3.375 6.31406 3.375 6.46875C3.375 6.62344 3.50156 6.75 3.65625 6.75H5.34375C5.49844 6.75 5.625 6.62344 5.625 6.46875C5.625 6.31406 5.49844 6.1875 5.34375 6.1875H4.78125V4.21875C4.78125 4.06406 4.65469 3.9375 4.5 3.9375H3.65625C3.50156 3.9375 3.375 4.06406 3.375 4.21875C3.375 4.37344 3.50156 4.5 3.65625 4.5H4.21875V6.1875H3.65625ZM4.5 3.23438C4.73379 3.23438 4.92188 3.04629 4.92188 2.8125C4.92188 2.57871 4.73379 2.39062 4.5 2.39062C4.26621 2.39062 4.07812 2.57871 4.07812 2.8125C4.07812 3.04629 4.26621 3.23438 4.5 3.23438Z" fill="black"/>
+            </svg>
+          </a>
+        {%-  endcapture -%}
+      {%- endif -%}
+      {% if selected_variant %}
+        {{ 'product.variants.chosen_option_html' | t: option: option.name, tooltip: tooltip_info, value: option.selected_value }}
+      {% else %}
+        {{ 'product.variants.choose_option' | t: option: option.name, tooltip: tooltip_info }}
+      {% endif %}
+      {%- if option_name == 'metal' -%}
+        <div id="popup1" style="display:none;">
+          <div class="metal--popup">
+            <h2>Metal</h2>
+            <p>
+              Metal refers to the band material used in each piece of jewelry, and different metals offer
+              unique benefits in durability, color, and feel.
+            </p>
+            <p>
+              White gold offers a bright, timeless look with a finish that adds shine. Yellow gold has a
+              classic, rich tone, while rose gold adds a romantic blush warmth. 14K gold is strong and ideal
+              for daily wear, while 18K gold offers a purer color with a softer feel.
+            </p>
+            <p>
+              Platinum is the most durable option and naturally white in tone. Two-tone designs offer the
+              beauty of mixed metals in one ring, adding contrast and dimension. Your choice of metal is a
+              key part of personal style and wearability.
+            </p>
+          </div>
+        </div>
+      {%- elsif option_name == 'quality' -%}
+        <div id="popup2" style="display:none;">
+          <h2>Diamond Quality</h2>
+          <div class="quality--popup-main">
+            <div class="quality--popup qpop--fvs2">
+              <p>
+                Exceptional brilliance with near-colorless clarity. Each diamond we hand-select for this
+                tier falls within the F color to VS2 clarity range — eye-clean, beautifully white, and
+                crafted to catch the light from every angle..
+              </p>
+            </div>
+            <div class="quality--popup qpop--evs1" style="display:none;">
+              <p>
+                Colorless diamonds with superior clarity. Every lab-grown diamond we hand-select for this
+                tier falls within the E color to VS1 clarity range — exceptionally white with inclusions
+                so minute they're invisible to the eye, even under close inspection.
+              </p>
+            </div>
+            <div class="quality--popup qpop--dvvs2" style="display:none;">
+              <p>
+                The pinnacle of diamond quality. Each lab-grown diamond we hand-select for this tier falls
+                within the D color to VVS2 clarity range — the highest color grade achievable, paired with
+                clarity so pure that inclusions are nearly undetectable, even under 10x magnification.
+              </p>
+            </div>
+
+            <div class="dtl-swatches select-swatch-options-js quality--heading" styl>
+              <button data-id="fvs2" class="swatches-tab  active">F-VS2</button>
+              <button data-id="evs1" class="swatches-tab ">E-VS1</button>
+              <button data-id="dvvs2" class="swatches-tab ">D-VVS2</button>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    </span>
+  </legend>
+  <div
+    class="swatch__options setting-accordion-content{% if is_color %} dtl-metal-opt{% endif %}"
+    data-variant-option
+    data-variant-option-index="{{ option_index }}"
+    data-variant-option-chosen-value="{% if selected_variant %}{{ option.selected_value }}{% else %}false{% endif %}"
+  >
+    {%- if is_color -%}
+    <div class="swiper metal_slider">
+      <div class="swiper-wrapper">
+    {%- else -%}
+    <div class="setting-values-container">
+      <div class="setting-values-wrapper{% if option_name == 'band width' %} lowercase-options{% endif %}">
+    {%- endif -%}
+        {%- for value in option.values -%}
+          {% if option_name == swatch_trigger %}
+            {% assign swatch_search_color = value | downcase %}
+            {% for variant in product.variants %}
+              {% assign option_value_downcased = variant[swatch_option_key] | downcase %}
+              {% if option_value_downcased == swatch_search_color %}
+                {% assign swatch_file_url = variant.image | img_url: 'small' %}
+
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          <div class="{% if is_color %}swatch__option swatches-tab setting-value swiper-slide{% else %}quality-swatch__option{% comment %} dtl-swatches{% endcomment %}{% endif %}" data-variant-option-value-wrapper>
+            <input
+              class="swatch--{{ value | handle }}"
+              type="radio"
+              aria-label="{{ value | escape }}"
+              tabindex="0"
+              name="option-{{ option_index }}"
+              value="{{ value | escape }}"
+              {% if selected_variant and option.selected_value == value %}checked{% endif %}
+              data-variant-option-value
+              data-variant-option-value-index="{{ option_index }}"
+            />
+            <div
+              data-value="{{ value | escape }}"
+              data-value-handle="{{ value | handle }}"
+              class="{{ value | handle }}-swatch{% unless is_color %} swatches-tab{% endunless %}"
+            >
+              {% if is_color %}
+                <div class="tooltip">{{ value }}</div>
+              {% endif %}
+              {% if is_color %}
+                {%- assign value_dn = value | downcase -%}
+                {% assign metalValue = value | split: ' ' %}
+                {% assign metalId = metalValue[0]
+                  | append: '_'
+                  | append: metalValue[1]
+                  | append: '_'
+                  | append: metalValue[2]
+                %}
+                {% assign metalLabel1 = metalValue[0] %}
+                {% assign metalLabel2 = metalValue[1] | append: ' ' | append: metalValue[2] %}
+                {% if metalValue[0] == 'Platinum' or metalValue[0] == 'palladium' %}
+                  {% assign metalLabel1 = 'PL' %}
+                  {% assign metalLabel2 = metalValue[0] %}
+                {% endif %}
+                {% comment %} IGS-18-05-26 {% endcomment %}
+                {% if metals == 'Sterling Silver' %}
+                  {% assign metalLabel1 = 'SS' %}
+                  {% assign metalLabel2 = 'Sterling Silver' %}
+                {% endif %}
+                {% comment %} IGS-18-05-26 {% endcomment %}
+                {% if metalValue[0] == 'Two-Tone' %}
+                  {% assign metalLabel1 = '' %}
+                {% endif %}
+
+                {% if metals == 'Two-Tone 14K White Gold and 14K Rose Gold' %}
+                  {% assign metalLabel1 = '14K' %}
+                  {% assign metalLabel2 = 'White / Rose' %}
+                {% endif %}
+                {% if metals == 'Two-Tone 14K White Gold and 14K Yellow Gold' %}
+                  {% assign metalLabel1 = '14K' %}
+                  {% assign metalLabel2 = 'White / Yellow' %}
+                {% endif %}
+
+                {% assign metalColor = '' %}
+                {% assign metalClass = '' %}
+                {% if metalId == '14K_White_Gold' %}
+                  {% assign metalColor = '#dbd9da' %}
+                  {%- assign metalClass = 'pdp-swatch-white' -%}
+                {% elsif metalId == '18K_White_Gold' %}
+                  {% assign metalColor = '#dbd9da' %}
+                  {%- assign metalClass = 'pdp-swatch-white' -%}
+                {% elsif metalId == '14K_Yellow_Gold' %}
+                  {% assign metalColor = '#e5cca3' %}
+                  {%- assign metalClass = 'pdp-swatch-yellow' -%}
+                {% elsif metalId == '18K_Yellow_Gold' %}
+                  {% assign metalColor = '#e5cca3' %}
+                  {%- assign metalClass = 'pdp-swatch-yellow' -%}
+                {% elsif metalId == '14K_Rose_Gold' %}
+                  {% assign metalColor = '#e6c2a2' %}
+                  {%- assign metalClass = 'pdp-swatch-rose' -%}
+                {% elsif metalId == '18K_Rose_Gold' %}
+                  {% assign metalColor = '#e6c2a2' %}
+                  {%- assign metalClass = 'pdp-swatch-rose' -%}
+                {% elsif metalId == 'Platinum__' %}
+                  {% assign metalColor = '#d8d5dc' %}
+                  {%- assign metalClass = 'pdp-swatch-platinum' -%}
+                {% elsif metalId == 'palladium__' %}
+                  {% assign metalColor = '#d8d5dc' %}
+                  {%- assign metalClass = 'pdp-swatch-palladium' -%}
+                  {% comment %} IGS-18-05-26 {% endcomment %}
+                {% elsif metals == 'Sterling Silver' %}
+                  {% assign metalColor = '#d8d5dc' %}
+                  {%- assign metalClass = 'pdp-swatch-sterling-silver' -%}
+                  {% comment %} IGS-18-05-26 {% endcomment %}
+                {% elsif metalId == 'Two-Tone_14K_White' %}
+                  {% assign metalColor = '#d8d5dc' %}
+                  {%- assign metalClass = 'pdp-swatch-two-tone-white' -%}
+                {% endif %}
+
+                {% if metals == 'Two-Tone 14K White Gold and 14K Rose Gold' %}
+                  {% assign metalId = 'Two-Tone_14K_White_Rose' %}
+                  {%- assign metalClass = 'pdp-swatch-rose-White' -%}
+                {% endif %}
+                {% if metals == 'Two-Tone 14K White Gold and 14K Yellow Gold' %}
+                  {% assign metalId = 'Two-Tone_14K_White_Yellow' %}
+                  {%- assign metalClass = 'pdp-swatch-yellow-white' -%}
+                {% endif %}
+                
+                <label
+                  data-variant-option-value-label
+                  title="{{- value -}}"
+                  data-option-name="{{option.name}}"
+                  class="input_label input_label_variant{% if metalLabel2 == 'White / Rose' %} white-rose-gold{% endif %}{% if metalLabel2 == 'White / Yellow' %} white-yellow-gold{% endif %} {{ metalClass }}"
+                  for="{{metalId}}"
+                  {% comment %} style="background-color: {{metalColor}} !important"{% endcomment %}
+                >
+                  {{- metalLabel1 -}}
+                </label>
+                {%- comment -%}
+                <label
+                  style="
+                    {% if settings.swatches_option_style == 'variant_image' and product.variants[forloop.index0].image != blank %}
+                      background-image: url({{ swatch_file_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }});
+                    {% else %}
+                      background-color: {{ value | split: ' ' | last | handle }};
+                    {% endif %}
+                  "
+                  data-variant-option-value-label
+                  data-variant-image="{% if settings.swatches_option_style == 'variant_image' and product.variants[forloop.index0].image != blank %}true{% endif %}"
+                >
+
+                  {% if product.variants[forloop.index0].image == blank or settings.swatches_option_style != 'variant_image' %}
+                    {% assign image_name = value | handle | append: '.' | append: file_extension %}
+                    {% assign swatch = images[image_name] %}
+                  {% endif %}
+
+                  <img class="swatch__image {% if swatch == empty %}swatch__image--empty{% endif %}" src="{{ settings.speedsize_url_pfx_https -}}{{ swatch | img_url: '50x' }}" alt="">
+
+                  <span class="crossed-out" aria-label="{{ 'products.product.sold_out' | t }}" alt="{{ 'products.product.sold_out' | t }}"></span>
+                </label>
+                {%- endcomment -%}
+              {% else %}
+                <label
+                  data-variant-option-value-label input_label
+                  class="input_label"
+                >
+                  {{ value }}
+                  <span class="crossed-out" aria-label="{{ 'products.product.sold_out' | t }}" alt="{{ 'products.product.sold_out' | t }}"></span>
+                </label>
+              {% endif %}
+              <script class="id-script">
+                (function() {
+                  const idScriptEl = document.querySelector('.id-script:not(.id-script--processed)');
+                  const idScriptsProcessed = document.querySelectorAll('.id-script.id-script--processed').length;
+                  const variantOptionValueWrapper = idScriptEl.closest('[data-variant-option-value-wrapper]');
+                  const variantOptionValue = variantOptionValueWrapper.querySelector('[data-variant-option-value]');
+                  const variantOptionValueLabel = variantOptionValueWrapper.querySelector('[data-variant-option-value-label]');
+                  variantOptionValue.id = `{{ product.id }}-${idScriptsProcessed}`;
+                  variantOptionValueLabel.setAttribute('for', `{{ product.id }}-${idScriptsProcessed}`);
+                  idScriptEl.classList.add('id-script--processed');
+                })();
+              </script>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {%- if is_color -%}
+        <div class="swiper-scrollbar swiper-scrollbar-metal"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

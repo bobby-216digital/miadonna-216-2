@@ -1,0 +1,74 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Blog CTA",
+  "id": "blog-cta",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+{% style %}
+  #shopify-section-{{ section_id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' -%}
+      width: 100%;
+    {%- endif %}
+  }
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<div class="section-blog-cta">
+<div class="section 
+                {{ atb_css_class }}
+                is-width-standard"
+                {% if atb_animation != "none" %}
+                
+                {% endif %}>
+
+    <div class="container newsletter-blog">
+      <div class="cta-header column four">
+        <p class="text-8"><span class="text-style-normal">Be the </span>First to Know</p>
+      </div>
+      <div class="cta-form column six">
+         {% render 'new-newsletter-form',
+          type: 'block',
+          block: block
+          %}
+      </div>
+      <div class="cta-contet column six">
+        <p class="text-10">Receive exclusive announcements about new arrivals, special offers, and the latest trends.</p>
+      </div>
+    </div>
+</div>
+</div>
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script></section>

@@ -1,0 +1,111 @@
+<style>
+.landing-banner-video {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.video-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Desktop */
+.desktop-video {
+  display: block;
+}
+
+.mobile-video {
+  display: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .desktop-video {
+    display: none;
+  }
+  .mobile-video {
+    display: block;
+  }
+}
+</style>
+
+<div class="landing-banner-video">
+
+  {% if section.settings.html5_video_desktop != blank %}
+    <div class="video-wrapper desktop-video">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        {% if section.settings.poster_desktop != blank %}
+          poster="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.poster_desktop | image_url }}"
+        {% endif %}
+      >
+        <source src="{{ section.settings.html5_video_desktop | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="video/mp4">
+      </video>
+    </div>
+  {% endif %}
+
+  {% if section.settings.html5_video_mobile != blank %}
+    <div class="video-wrapper mobile-video">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        {% if section.settings.poster_mobile != blank %}
+          poster="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.poster_mobile | image_url }}"
+        {% endif %}
+      >
+        <source src="{{ section.settings.html5_video_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="video/mp4">
+      </video>
+    </div>
+  {% endif %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Landing Video",
+  "settings": [
+    {
+      "type": "url",
+      "id": "html5_video_desktop",
+      "label": "Desktop MP4 Video URL"
+    },
+    {
+      "type": "url",
+      "id": "html5_video_mobile",
+      "label": "Mobile MP4 Video URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_desktop",
+      "label": "Desktop Poster Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_mobile",
+      "label": "Mobile Poster Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing Video"
+    }
+  ]
+}
+{% endschema %}

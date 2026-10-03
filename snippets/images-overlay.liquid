@@ -1,0 +1,89 @@
+  {% if template == 'product' %}
+
+<!-- Images/Videos overlay -->
+{%- assign threesixty_video = false -%}
+{%- assign vimeo_video = false -%}
+
+{%- if product.metafields.attributes.view_360 and product.metafields.attributes.view_360 != '-' and product.metafields.attributes.view_360 != '_' -%}
+{%- assign threesixty_video = product.metafields.attributes.view_360 -%}
+{%- endif -%}
+{%- if product.metafields.attributes.vimeo_id and product.metafields.attributes.vimeo_id != '-' and product.metafields.attributes.vimeo_id != '_' -%}
+{%- assign vimeo_video = product.metafields.attributes.vimeo_id -%}
+{%- endif -%}
+<div class="_dimmer" for="ImagesAndVideosOverlay"></div>
+<div class="_content" for="ImagesAndVideosOverlay">
+  <div class="overlay-light lg" id="ImagesAndVideosOverlay">
+    <div class="close-box">
+      <a href="#close" class="navigation-operator overlay-toggle-button"><i class="icon-close"></i></a>
+    </div>
+    <div class="tabs-toggle">
+      <h3 class="active toggle" data-target="photos">Images</h3>
+      <span>|</span>
+      <h3 class="toggle" data-target="instagram">Instagram</h3>
+      {% if threesixty_video or vimeo_video %}
+      <span>|</span>
+      <h3 class="toggle" data-target="videos">Video</h3>
+      {% endif %}
+    </div>
+    <div class="tabs">
+      <div class="active tab photos">
+        <div class="pure-g">
+          <div class="pure-u-1 pure-u-lg-1-2">
+            <div class="product-photo">
+              {% comment %} render a placeholder image for the slider to ensure any initial animation looks correct {% endcomment %}
+              <div class="photo"><p class="caption">&nbsp;</p><img src="{{ settings.speedsize_url_pfx_https -}}{{ 'white-tile.png' | asset_img_url: '1100x1100' }}" alt="hello" width="648" height="648" /></div>
+            </div>
+          </div>
+          <div class="pure-u-1 pure-u-lg-1-2">
+            <div class="product-thumbnails">
+              <h2>{{ product.title }}</h2>
+              {% comment %} render a placeholder image for the slider to ensure any initial animation looks correct {% endcomment %}
+              <div class="thumbnail"><img src="{{ settings.speedsize_url_pfx_https -}}{{ 'white-tile.png' | asset_img_url: '110x110', crop: 'center' }}" alt="hello" width="55" height="55" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if threesixty_video or vimeo_video %}
+      <div class="tab videos">
+        <div class="pure-g">
+          <div class="pure-u-1 pure-u-lg-1-2">
+            <div class="product-video">
+              <div class="responsive-video">
+                <iframe frameborder="0" scrolling="no"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="pure-u-1 pure-u-lg-1-2">
+            <div class="product-videos">
+              <h2>{{ product.title }}</h2>
+              {% if threesixty_video %}
+                <a href="{{ product.metafields.attributes.view_360 }}" data-type="360-video" data-iframe-src="{{ product.metafields.attributes.view_360  }}" target="_blank">
+                  {%- comment -%}
+                  <div class="thumb"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><g fill="none" fill-rule="evenodd" transform="translate(.7 .3)"><ellipse cx="9.6" cy="9.7" stroke="#FFF" stroke-width="1.6" rx="8.8" ry="8.9"/><path fill="#FFF" d="M7.3 5.2l6.9 4.5-7 4.6z"/></g></svg></div>
+                  {%- endcomment -%}
+                  360 Degree Video
+                </a>
+              {% endif %}
+              {% if vimeo_video %}
+                <a href="https://vimeo.com/{{ product.metafields.attributes.vimeo_id }}" data-type="vimeo" data-iframe-src="https://player.vimeo.com/video/{{ product.metafields.attributes.vimeo_id  }}?title=0&byline=0&portrait=0" target="_blank">
+                  {%- comment -%}
+                  <div class="thumb"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><g fill="none" fill-rule="evenodd" transform="translate(.7 .3)"><ellipse cx="9.6" cy="9.7" stroke="#FFF" stroke-width="1.6" rx="8.8" ry="8.9"/><path fill="#FFF" d="M7.3 5.2l6.9 4.5-7 4.6z"/></g></svg></div>
+                  {%- endcomment -%}
+                  Lifestyle Video
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <div class="tab instagram" data-entry-width="33.333%">
+        <div class="pure-g">
+          <div class="pure-u-1 content">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        {% endif %}

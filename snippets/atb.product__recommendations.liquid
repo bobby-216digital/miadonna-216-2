@@ -1,0 +1,389 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Related products",
+  "class": "recommended-products-section jsRecommendedProducts",
+  "templates": [
+    "product"
+  ],
+  "id": "product__recommendations",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_product_recommendations",
+      "label": "Show dynamic recommendations",
+      "info": "Dynamic recommendations change and improve with time. [Learn more](https://help.shopify.com/en/themes/development/recommended-products)",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "atb_product_recommendations_style",
+      "label": "Layout",
+      "default": "grid",
+      "options": [
+        {
+          "value": "slider",
+          "label": "Slider"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_product_recommendations_heading",
+      "label": "Heading",
+      "default": "You may also like",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_products_per",
+      "label": "Products per row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_recommended_products_limit",
+      "label": "Limit products",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 6,
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Product thumbnails",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_align_height",
+      "label": "Align to height",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_collection_height",
+      "label": "Product image height",
+      "min": 150,
+      "max": 400,
+      "step": 10,
+      "default": 200,
+      "unit": "px",
+      "info": "Applied when 'Align to height' is enabled. [Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022543913)"
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_show_product_recommendations' -%}
+{%- assign atb_show_product_recommendations = val -%}
+{%- include 'atb-render' field:'atb_product_recommendations_style' -%}
+{%- assign atb_product_recommendations_style = val -%}
+{%- include 'atb-render' field:'atb_product_recommendations_heading' -%}
+{%- assign atb_product_recommendations_heading = val -%}
+{%- include 'atb-render' field:'atb_products_per' -%}
+{%- assign atb_products_per = val -%}
+{%- include 'atb-render' field:'atb_recommended_products_limit' -%}
+{%- assign atb_recommended_products_limit = val -%}
+{%- include 'atb-render' field:'atb_align_height' -%}
+{%- assign atb_align_height = val -%}
+{%- include 'atb-render' field:'atb_collection_height' -%}
+{%- assign atb_collection_height = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- if atb_show_product_recommendations == blank -%}
+{%- assign atb_show_product_recommendations = false -%}
+{%- else -%}
+{%- assign atb_show_product_recommendations = true -%}
+{%- endif -%}
+{%- if atb_align_height == blank -%}
+{%- assign atb_align_height = false -%}
+{%- else -%}
+{%- assign atb_align_height = true -%}
+{%- endif -%}
+{%- assign atb_products_per = atb_products_per | plus: 0 -%}
+{%- assign atb_recommended_products_limit = atb_recommended_products_limit | plus: 0 -%}
+{%- assign atb_collection_height = atb_collection_height | plus: 0 -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section recommended-products-section jsRecommendedProducts">
+{%- comment -%} Product Recommendations  {%- endcomment -%}
+
+{% assign id = section_id %}
+{% comment %} Layout {% endcomment %}
+{% assign width = atb_width %}
+{% assign padding_top = atb_padding_top %}
+{% assign padding_bottom = atb_padding_bottom %}
+{% assign animation = atb_animation | default: 'none' %}
+{% comment %} Advanced {% endcomment %}
+{% assign css_class = atb_css_class %}
+{% assign custom_css = atb_custom_css %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign product_recommendations_heading = atb_product_recommendations_heading -%}
+{%- assign product_recommendations_style = atb_product_recommendations_style -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Check whether product has any tags for custom related products {% endcomment %}
+{% for tag in product.tags %}
+  {% if tag contains 'meta-related-collection-' %}
+    {%- assign related_collection_handle = tag | remove: 'meta-related-collection-' -%}
+  {% endif %}
+{% endfor %}
+
+{% if related_collection_handle != blank %}
+  {% comment %} Show products based on merchant-added tags prepended with 'meta-related-collection-' {% endcomment %}
+  {%- assign collection_size = collections[related_collection_handle].all_products_count -%}
+
+  {% if collection_size > 0 %}
+    {%- assign custom_collection = collections[related_collection_handle] -%}
+    {%- assign products = custom_collection.products -%}
+  {% endif %}
+
+  {% if custom_collection and collection_size > 0 %}
+    {%- assign show_custom_collection = true -%}
+  {% endif %}
+{% else %}
+  {% comment %} Shopify generated dynamic recommendations, falling back to default related products (based on parent collection) {% endcomment %}
+  {%- assign show_custom_collection = false -%}
+  {%- assign dynamic_collection = recommendations -%}
+  {%- assign products = recommendations.products -%}
+  {%- assign products_length = products.size -%}
+  {%- assign show_dynamic_collection = true -%}
+{% endif %}
+
+{% style %}
+  #shopify-section-{{ id }} {
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+    {% if width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+
+  {%
+    render 'css-loop',
+    css: custom_css,
+    id: id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    {{ css_class }}
+    is-width-{{ width }}
+  "
+  {% if animation != 'none' %}
+    data-scroll-class="{{ animation }}"
+  {% endif %}
+>
+  {% capture product_collections_markup %}
+    <div class="container">
+      {% if product_recommendations_heading != blank %}
+        {%
+          render 'heading',
+          title: product_recommendations_heading,
+          heading_tag: 'h4',
+          context: 'recommended-products',
+          text_alignment: 'center'
+        %}
+      {% endif %}
+
+      {% if product_recommendations_style == 'grid' %}
+        {%
+          render 'product-loop',
+          products: products,
+          products_per_row: atb_products_per,
+          limit: atb_recommended_products_limit,
+          align_height: atb_align_height,
+          height: atb_collection_height,
+          context: 'product_recommendations'
+        %}
+      {% else %}
+      <div
+        class="
+          one-whole column
+          related-products
+          related-products--slider
+          js-related-products-slider
+        "
+      >
+        {%
+          render 'product-slider',
+          products: products,
+          per_slide: atb_products_per,
+          limit: atb_recommended_products_limit,
+          align_height: atb_align_height,
+          height: atb_collection_height,
+          related_products: true,
+          product_recommendations: true
+        %}
+      </div>
+      {% endif %}
+    </div>
+  {% endcapture %}
+
+  <div
+    class="product-recommendations"
+    data-base-url="{{ routes.product_recommendations_url }}"
+    data-product-id="{{ product.id }}"
+    data-section-id="{{ section_id }}"
+    data-limit="{{ atb_recommended_products_limit }}"
+    data-enabled="{{ atb_show_product_recommendations }}"
+  >
+    {{ product_collections_markup }}
+  </div>
+</section>
+
+<script
+  type="application/json"
+  data-section-id="{{ section_id }}"
+  data-section-data
+>
+  {
+    "show_custom_collection": {{ show_custom_collection | json }},
+    "show_product_recommendations": {{ atb_show_product_recommendations | json }}
+  }
+</script>
+<script data-theme-editor-load-script src="{{ 'z__jsRecommendedProducts.js' | asset_url }}"></script>
+
+
+</section>

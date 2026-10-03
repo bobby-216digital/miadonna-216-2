@@ -1,0 +1,1509 @@
+{%- capture productHandleContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign productHandlePageUrl = productHandleContentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | split: '.myshopify.com'
+  | last
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+
+{%- assign productHandlePageQueryStringReplace = productHandlePageUrl
+  | replace: request.path, ''
+  | replace: request.host, ''
+-%} 
+    {% comment %} {%- capture productHandleContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+{%- assign productHandlePageUrl = productHandleContentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+
+{%- assign productHandlePageQueryStringReplace = productHandlePageUrl
+  | split: request.path
+  | last
+-%} {% endcomment %}
+{%- assign productHandlePageQueryString = productHandlePageQueryStringReplace | split: '?' | last -%}
+{%- assign productHandlePageQueryArray = productHandlePageQueryString | split: '&' -%}
+{% for param in productHandlePageQueryArray %}
+    {% assign parts = param | split: '=' %}
+      {% assign key = parts[0] %}
+        {% assign value = parts[1] %}
+          {% if key == 'stone-handle' %}
+                  {% assign has_valid_handle = true %}
+                  
+                      {% assign productHandleParams = value %}
+                        {% endif %}
+                          {% if key == 'handle' %}
+                                  {% assign has_valid_handle = true %}
+                                  
+                                      {% assign productHandleParams = value %}
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% assign urlParam = '' %}
+{% if has_valid_handle  %}
+  {% assign urlParam = '?'|append: productHandlePageQueryString %}
+ {% endif %} 
+
+{% if faceted_filtering == 'true' %}
+  
+   {% assign coll_handle = collection.handle %}
+ {% for block in section.blocks %}
+
+        {% case block.type %}
+          {% when 'faceted_filtering' %}
+            {%- assign collection_handles = block.settings.collection_handles | split: ',' -%}
+            {%- if collection_handles contains collection.handle -%}
+              {% assign link_handle_1 = block.settings.button_link_1 | remove: '/collections/' %}
+              {% assign link_handle_2 = block.settings.button_link_2 | remove: '/collections/' %}
+              {% assign link_handle_3 = block.settings.button_link_3 | remove: '/collections/' %}
+              {% assign link_handle_4 = block.settings.button_link_4 | remove: '/collections/' %}
+              {% assign link_handle_5 = block.settings.button_link_5 | remove: '/collections/' %}
+              {% assign link_handle_6 = block.settings.button_link_6 | remove: '/collections/' %}
+              {% assign link_handle_7 = block.settings.button_link_7 | remove: '/collections/' %}
+              {% assign link_handle_8 = block.settings.button_link_8 | remove: '/collections/' %}
+              {% assign link_handle_9 = block.settings.button_link_9 | remove: '/collections/' %}
+              {% assign link_handle_10 = block.settings.button_link_10 | remove: '/collections/' %}
+              {% assign link_handle_11 = block.settings.button_link_11 | remove: '/collections/' %}
+              {% assign link_handle_12 = block.settings.button_link_12 | remove: '/collections/' %}
+              {% assign link_handle_13 = block.settings.button_link_13 | remove: '/collections/' %}
+              {% assign link_handle_14 = block.settings.button_link_14 | remove: '/collections/' %}
+              {% assign link_handle_15 = block.settings.button_link_15 | remove: '/collections/' %}
+              {% assign link_handle_16 = block.settings.button_link_16 | remove: '/collections/' %}
+              {% assign link_handle_17 = block.settings.button_link_17 | remove: '/collections/' %}
+              {% assign link_handle_18 = block.settings.button_link_18 | remove: '/collections/' %}
+              {% assign link_handle_19 = block.settings.button_link_19 | remove: '/collections/' %}
+              {% assign link_handle_20 = block.settings.button_link_20 | remove: '/collections/' %}
+              {% if link_handle_1 == collection.handle
+                or link_handle_2 == collection.handle
+                or link_handle_3 == collection.handle
+                or link_handle_4 == collection.handle
+                or link_handle_5 == collection.handle
+                or link_handle_6 == collection.handle
+                or link_handle_7 == collection.handle
+                or link_handle_8 == collection.handle
+                or link_handle_9 == collection.handle
+                or link_handle_10 == collection.handle
+                or link_handle_11 == collection.handle
+                or link_handle_12 == collection.handle
+                or link_handle_13 == collection.handle
+                or link_handle_14 == collection.handle
+                or link_handle_15 == collection.handle
+                or link_handle_16 == collection.handle
+                or link_handle_17 == collection.handle
+                or link_handle_18 == collection.handle
+                or link_handle_19 == collection.handle
+                or link_handle_20 == collection.handle
+              %}
+              
+                <div class="filters-section--buttons-list{% if collection_handles.size > 8 %} filters-section--buttons-list-overflow{% endif %}">
+                  <div class="filters-section--buttons filters-section--buttons-mobile-button" style="display:none;">
+                    {% if link_handle_1 == collection.handle %}
+                      {% if block.settings.button_text_1 != blank %}
+                        <span class="button active">{{- block.settings.button_text_1 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_2 == collection.handle %}
+                      {% if block.settings.button_text_2 != blank %}
+                        <span class="button active">{{- block.settings.button_text_2 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_3 == collection.handle %}
+                      {% if block.settings.button_text_3 != blank %}
+                        <span class="button active">{{- block.settings.button_text_3 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_4 == collection.handle %}
+                      {% if block.settings.button_text_4 != blank %}
+                        <span class="button active">{{- block.settings.button_text_4 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_5 == collection.handle %}
+                      {% if block.settings.button_text_5 != blank %}
+                        <span class="button active">{{- block.settings.button_text_5 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_6 == collection.handle %}
+                      {% if block.settings.button_text_6 != blank %}
+                        <span class="button active">{{- block.settings.button_text_6 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_7 == collection.handle %}
+                      {% if block.settings.button_text_7 != blank %}
+                        <span class="button active">{{- block.settings.button_text_7 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_8 == collection.handle %}
+                      {% if block.settings.button_text_8 != blank %}
+                        <span class="button active">{{- block.settings.button_text_8 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_9 == collection.handle %}
+                      {% if block.settings.button_text_9 != blank %}
+                        <span class="button active">{{- block.settings.button_text_9 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_10 == collection.handle %}
+                      {% if block.settings.button_text_10 != blank %}
+                        <span class="button active">{{- block.settings.button_text_10 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_11 == collection.handle %}
+                      {% if block.settings.button_text_11 != blank %}
+                        <span class="button active">{{- block.settings.button_text_11 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_12 == collection.handle %}
+                      {% if block.settings.button_text_12 != blank %}
+                        <span class="button active">{{- block.settings.button_text_12 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_13 == collection.handle %}
+                      {% if block.settings.button_text_13 != blank %}
+                        <span class="button active">{{- block.settings.button_text_13 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_14 == collection.handle %}
+                      {% if block.settings.button_text_14 != blank %}
+                        <span class="button active">{{- block.settings.button_text_14 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_15 == collection.handle %}
+                      {% if block.settings.button_text_15 != blank %}
+                        <span class="button active">{{- block.settings.button_text_15 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_16 == collection.handle %}
+                      {% if block.settings.button_text_16 != blank %}
+                        <span class="button active">{{- block.settings.button_text_16 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_17 == collection.handle %}`
+                      {% if block.settings.button_text_17 != blank %}
+                        <span class="button active">{{- block.settings.button_text_17 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_18 == collection.handle %}
+                      {% if block.settings.button_text_18 != blank %}
+                        <span class="button active">{{- block.settings.button_text_18 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_19 == collection.handle %}
+                      {% if block.settings.button_text_19 != blank %}
+                        <span class="button active">{{- block.settings.button_text_19 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_20 == collection.handle %}
+                      {% if block.settings.button_text_20 != blank %}
+                        <span class="button active">{{- block.settings.button_text_20 -}}</span>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                  <div class="collectionfilter-sl slick-cls filters-section--buttons{% if collection_handles.size > 8 %} filters-section--buttons-overflow{% endif %}">
+                    {%- assign items = "" -%}
+                    {%- for j in (1..20) -%}
+                      {%- capture button_text -%}button_text_{{ j }}{%- endcapture -%}
+                      {%- capture position -%}position_{{ j }}{%- endcapture -%}
+                      {%- assign text_value = block.settings[button_text] -%}
+                      {%- assign position_value = block.settings[position] | default:20 -%}
+
+                      {%- if text_value != blank and position_value != blank -%}
+                        {%- assign position_parts = position_value | split: "." -%}
+                        {%- assign main = position_parts[0] | plus: 0 -%}
+                        {%- assign decimal = position_parts[1] | default: 0 | plus: 0 -%}
+                        {%- assign main_padded = main | prepend: "000" | slice: -3, 3 -%}
+                        {%- assign decimal_padded = decimal | prepend: "000" | slice: -3, 3 -%}
+                        {%- assign sortable_position = main_padded | append: decimal_padded -%}
+
+                        {%- capture item -%}
+                          {{ sortable_position }}||{{ j }}
+                        {%- endcapture -%}
+
+                        {%- assign items = items | append: item | append: "::" -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+
+                    {%- assign sorted_items = items | split: "::" | sort -%}
+                    {%- for item in sorted_items -%}
+                      {%- if item != blank -%}
+                        {%- assign parts = item | split: "||" -%}
+                        {%- assign index = parts[1] | plus: 0 -%}
+
+                        {%- capture button_text -%}button_text_{{ index }}{%- endcapture -%}
+                        {%- capture image -%}image_{{ index }}{%- endcapture -%}
+                        {%- capture button_link -%}button_link_{{ index }}{%- endcapture -%}
+
+                        {% assign collection = collections[link_handle] %}
+                        {% assign first_product = collection.products.first %}
+                        {% assign button_link_handle = block.settings[button_link] | remove: '/collections/' %}
+
+                        <div class="slide">
+                          <div class="slide-cls">
+                            <a
+                              href="{{ block.settings[button_link] }}{{ urlParam }}"
+                              class="button coll-filter-boxtop{% if button_link_handle == coll_handle %} active{% endif %}" aria-label="{{- block.settings[button_text] -}}"
+                            >
+                              {%- comment -%}
+                              <span class="coll-thumbh">
+                                {%- if block.settings[image] -%}
+                                  <img fetchpriority="high"src="{{ block.settings[image] | image_url: width: 100, height: 100}}" width="100" height="100" alt="{{ block.settings[image].alt | default: block.settings[button_text] | escape }}">
+                                {%- else -%}
+                                  <img fetchpriority="high" src="{{ first_product.featured_image | image_url: width: 100, height: 100 }}" width="100" height="100" alt="{{ first_product.featured_image.alt | default: block.settings[button_text] | escape }}">
+                                {%- endif -%}
+                              </span>
+                              {%- endcomment -%}
+                              <span class="coll-thumbh">
+                                {%- if block.settings[image] -%}
+                                  {%- assign thumb_1x = block.settings[image] | image_url: width: 100, height: 100 -%}
+                                  {%- assign thumb_2x = block.settings[image] | image_url: width: 200, height: 200 -%}
+                                  {%- assign thumb_3x = block.settings[image] | image_url: width: 300, height: 300 -%}
+                                  <img
+                                    fetchpriority="high"
+                                    src="{{ thumb_1x }}"
+                                    srcset="{{ thumb_1x }} 1x, {{ thumb_2x }} 2x, {{ thumb_3x }} 3x"
+                                    width="100"
+                                    height="100"
+                                    alt="{{ block.settings[image].alt | default: block.settings[button_text] | escape }}"
+                                  >
+                                {%- else -%}
+                                  {%- assign thumb_1x = first_product.featured_image | image_url: width: 100, height: 100 -%}
+                                  {%- assign thumb_2x = first_product.featured_image | image_url: width: 200, height: 200 -%}
+                                  {%- assign thumb_3x = first_product.featured_image | image_url: width: 300, height: 300 -%}
+                                  <img
+                                    fetchpriority="high"
+                                    src="{{ thumb_1x }}"
+                                    srcset="{{ thumb_1x }} 1x, {{ thumb_2x }} 2x, {{ thumb_3x }} 3x"
+                                    width="100"
+                                    height="100"
+                                    alt="{{ first_product.featured_image.alt | default: block.settings[button_text] | escape }}"
+                                  >
+                                {%- endif -%}
+                              </span>
+                              <span class="coll-text">{{ block.settings[button_text] }}</span>
+                            </a>
+                          </div>
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    {%- comment -%}
+                    {% if block.settings.button_text != blank %}
+                      {% assign collection = collections[link_handle] %}
+                      {% assign first_product = collection.products.first %}
+                      
+                      <div class="slide">
+                        <div class="slide-cls">
+                          <a
+                            href="{{ block.settings.button_link  }}"
+                            class="button coll-filter-boxtop{% if link_handle == coll_handle %} active{% endif %}" aria-label="{{- block.settings.button_text -}}"
+                          >
+                            <span class="coll-thumbh">
+                              {% if block.settings.image %}
+                              <img src="{{ block.settings.image | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text -}}"/>
+                              {% else %}
+                                <img src="{{ first_product.featured_image | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text -}}"/>
+                              {% endif %}
+                            </span>
+                            <span class="coll-text">{{- block.settings.button_text -}}</span>
+                          </a>
+                        </div>
+                      </div>
+                    {% endif %}
+                    {% if block.settings.button_text_2 != blank %}
+                      {% assign collection_2 = collections[link_handle_1] %}
+                      {% assign first_product_2 = collection_2.products.first %}
+                    
+                      <div class="slide">
+                        <div class="slide-cls">
+                          <a
+                            href="{{block.settings.button_link_2  }}"
+                            class="button coll-filter-boxtop {% if link_handle_1 == coll_handle %} active{% else %} {% endif %}" aria-label="{{- block.settings.button_text_2 -}}" 
+                          >
+                            <span class="coll-thumbh">
+                              {% if block.settings.image_2 %}
+                              <img src="{{ block.settings.image_2 | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_2 -}}"/>
+                              {% else %}
+                              <img src="{{ first_product_2.featured_image | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_2 -}}"/>
+                              
+                              {% endif %}
+                            </span>
+                            <span class="coll-text">{{- block.settings.button_text_2 -}}</span>
+                          </a>
+                        </div>  
+                      </div>
+                    {% endif %}
+                    {% if block.settings.button_text_3 != blank %}
+                      {% assign collection_3 = collections[link_handle_2] %}
+                      {% assign first_product_3 = collection_3.products.first %}
+                      <div class="slide">
+                        <div class="slide-cls">
+                          <a
+                            href="{{block.settings.button_link_3  }}"
+                            class="button coll-filter-boxtop {% if link_handle_2 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_3 -}}"
+                          >
+                            <span class="coll-thumbh">
+                              {% if block.settings.image_3 %}
+                              <img src="{{ block.settings.image_3 | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_3 -}}"/>
+                              {% else %}
+                              <img src="{{ first_product_3.featured_image | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_3 -}}"/>
+
+                              {% endif %}
+                            </span>
+                            <span class="coll-text">{{- block.settings.button_text_3 -}}</span>
+                          </a>
+                        </div>  
+                      </div>
+                    {% endif %}
+                    {% if block.settings.button_text_4 != blank %}
+                      {% assign collection_4 = collections[link_handle_3] %}
+                      {% assign first_product_4 = collection_4.products.first %}
+                      <div class="slide">
+                        <div class="slide-cls">
+                            <a
+                              href="{{block.settings.button_link_4  }}"
+                              class="button coll-filter-boxtop {% if link_handle_3 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_4 -}}"
+                            >
+                              <span class="coll-thumbh">
+                                {%  if block.settings.image_4 %}
+                                <img src="{{ block.settings.image_4 | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_4 -}}"/>
+                                {% else %}
+                                <img src="{{ first_product_4.featured_image | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_4 -}}"/>
+
+                                {% endif %}
+                              </span>
+                              <span class="coll-text">{{- block.settings.button_text_4 -}}</span>
+                            </a>
+                        </div>
+                      </div>
+                    {% endif %}
+                    {% if block.settings.button_text_5 != blank %}
+                      {% assign collection_5 = collections[link_handle_4] %}
+                      {% assign first_product_5 = collection_5.products.first %}
+                      <div class="slide">
+                        <div class="slide-cls">
+                          <a
+                            href="{{block.settings.button_link_5  }}"
+                            class="button coll-filter-boxtop {% if link_handle_4 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_5 -}}"
+                          >
+                            <span class="coll-thumbh">
+                              {%  if block.settings.image_5 %}
+                              <img src="{{ block.settings.image_5 | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_5 -}}"/>
+                              {% else %}
+                              <img src="{{ first_product_5.featured_image | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_5 -}}"/>
+
+                              {% endif %}
+                            </span>
+                            <span class="coll-text">{{- block.settings.button_text_5 -}}</span>
+                          </a>
+                        </div>  
+                      </div>
+                    {% endif %}
+                    {% if block.settings.button_text_6 != blank %}
+                      {% assign collection_6 = collections[link_handle_5] %}
+                      {% assign first_product_6 = collection_6.products.first %}
+                      <div class="slide{% if link_handle_5 == coll_handle %} slick-current{% endif %}">
+                        <div class="slide-cls">
+                          <a
+                            href="{{block.settings.button_link_6  }}"
+                            class="button coll-filter-boxtop {% if link_handle_5 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_6 -}}"
+                          >
+                            <span class="coll-thumbh">
+                              {% if block.settings.image_6 %}
+                              <img src="{{ block.settings.image_6 | img_url :'' }}" width="100" height="100" alt="{{- block.settings.button_text_6 -}}"/>
+                              {% else %}
+                              <img src="{{ first_product_6.featured_image | img_url :'' }}" width="100" height="100" alt="{{- block.settings.button_text_6 -}}"/>
+                              {% endif %}
+                            </span>
+                            <span class="coll-text">{{- block.settings.button_text_6 -}}</span>
+                          </a>
+                        </div>  
+                      </div>
+                    {% endif %}
+                    {% if block.settings.button_text_7 != blank %}
+                      {% assign collection_7 = collections[link_handle_6] %}
+                      {% assign first_product_7 = collection_7.products.first %}
+                      <div class="slide">
+                        <div class="slide-cls">
+                          <a
+                            href="{{block.settings.button_link_7  }}"
+                            class="button coll-filter-boxtop {% if link_handle_6 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_7 -}}"
+                          >
+                            <span class="coll-thumbh">
+                              {% if block.settings.image_7 %}
+                              <img src="{{  block.settings.image_7 | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_7 -}}"/>
+                              {% else %}
+                              <img src="{{  first_product_7.featured_image | img_url:'' }}" width="100" height="100" alt="{{- block.settings.button_text_7 -}}"/>
+                              {% endif %}
+                            </span>
+                            <span class="coll-text">{{- block.settings.button_text_7 -}}</span>
+                          </a>
+                        </div>  
+                      </div>
+                    {% endif %}
+                    {% if block.settings.button_text_8 != blank %}
+                      {% assign collection_8 = collections[link_handle_7] %}
+                      {% assign first_product_8 = collection_8.products.first %}
+                      <div class="slide">
+                        <div class="slide-cls">
+                          <a
+                            href="{{block.settings.button_link_8 }}"
+                            class="button coll-filter-boxtop {% if link_handle_7 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_8 -}}"
+                          >
+                            <span class="coll-thumbh">
+                              {% if block.settings.image_8 %}
+                              <img src="{{  block.settings.image_8 | img_url:''}}" width="100" height="100" alt="{{- block.settings.button_text_8 -}}"/>
+                              {% else %}
+                              <img src="{{  first_product_8.featured_image | img_url:''}}" width="100" height="100" alt="{{- block.settings.button_text_8 -}}"/>
+
+                              {% endif %}
+                            </span>
+                            <span class="coll-text">{{- block.settings.button_text_8 -}}</span>
+                          </a>
+                        </div>  
+                      </div>
+                    {% endif %}
+                    {% if block.settings.button_text_9 != blank %}
+                       {% assign collection_9 = collections[link_handle_8] %}
+                      {% assign first_product_9 = collection_9.products.first %}
+                      <div class="slide">
+                        <div class="slide-cls">
+                          <a
+                            href="{{block.settings.button_link_9 }}"
+                            class="button coll-filter-boxtop {% if link_handle_8 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_9 -}}"
+                          >
+                            <span class="coll-thumbh">
+                              {% if block.settings.image_9 %}
+                              <img src="{{  block.settings.image_9 | img_url :'' }}" width="100" height="100" alt="{{- block.settings.button_text_9 -}}"/>
+                              {% else %}
+                              <img src="{{  first_product_9.featured_image | img_url :'' }}" width="100" height="100" alt="{{- block.settings.button_text_9 -}}"/>
+
+                              {% endif %}
+                            </span>
+                           <span class="coll-text"> {{- block.settings.button_text_9 -}}</span>
+                          </a>
+                        </div>  
+                      </div>
+                    {% endif %}
+                    {% if block.settings.button_text_10 != blank %}
+                      {% assign collection_10 = collections[link_handle_9] %}
+                      {% assign first_product_10 = collection_10.products.first %}
+                      <div class="slide">
+                        <div class="slide-cls">
+                            <a
+                              href="{{block.settings.button_link_10 }}"
+                              class="button coll-filter-boxtop {% if link_handle_9 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_10 -}}"
+                            >
+                              <span class="coll-thumbh">
+                                {% if block.settings.image_10 %}
+                                <img src="{{ block.settings.image_10 | img_url :'' }}" width="100" height="100" alt="{{- block.settings.button_text_10 -}}"/>
+                                {% else %}
+                                   <img src="{{ first_product_10.featured_image | img_url :'' }}" width="100" height="100" alt="{{- block.settings.button_text_10 -}}"/>
+                                {% endif %}
+                              </span>
+                              <span class="coll-text">{{- block.settings.button_text_10 -}}</span>
+                            </a>
+                        </div>    
+                      </div>
+                    {% endif %}
+                    {%- endcomment -%}
+                  </div>
+                </div>
+                {% endif %}
+                {% break %}
+              
+            {%- else -%}
+              {% comment %}
+              <div class="collection__filters hidden">
+                <div class="collection-filters-bar">
+                  <div class="filter-values-section">
+                    {% paginate collection.products by paginate_limit %}
+                      {{ paginate.items }} Results
+                    {% endpaginate %}
+                  </div>
+                </div>
+                
+              </div>
+              {% endcomment %}
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+{% else %}
+
+<div class="filters-section-wrapper">
+  <div class="filters-section">
+    <div class="filters-section--content">
+
+      <div class="grid-view-opstion">
+          <button type="button" id="btnLarge"  aria-label="Switch to larger product images">
+            <svg role="presentation" width="18" viewBox="0 0 18 18" fill="none">
+              <path fill="currentColor" d="M0 0h18v18H0z"></path>
+            </svg>
+          </button>
+          <button type="button" id="btnMedium" aria-label="Switch to smaller product images">
+            <svg role="presentation" width="18" viewBox="0 0 18 18" fill="none">
+              <path fill="currentColor" d="M0 0h8v8H0zM0 10h8v8H0zM10 0h8v8h-8zM10 10h8v8h-8z"></path>
+            </svg>
+          </button>
+      </div>
+
+      {% paginate collection.products by paginate_limit %}
+        <span id="pdp-setting-item-count" data-item-count="{{ paginate.items }}" class="filter-values-section-results" tabindex="0">{{ paginate.items }} Items</span>
+      {% endpaginate %}
+      {% assign quick_ship_filter = collection.filters | where:'label', 'Quick Ship' | first %}
+      {% assign quick_ship_opt = quick_ship_filter.values | where:'value', 'Quick Ship' | first %}
+      <div class="qdfiltersmain">
+        {%- if quick_ship_opt.value.size > 0 -%}
+          <div class="quickship-toggle" aria-hidden="false">
+            <div>
+                <div id="switchLabel" class="label">Quick Ship</div>
+            </div>
+            <label>
+              <input id="quickship-switch" aria-link="{% if quick_ship_opt.active %}{{quick_ship_opt.url_to_remove }}" checked{% else %}{{quick_ship_opt.url_to_add }}"{% endif %} type="checkbox" aria-labelledby="switchLabel" aria-checked="{% if quick_ship_opt.active %}true{% else %}false{% endif %}" />
+              <span class="track" role="switch" aria-labelledby="switchLabel" tabindex="0">
+                <span class="knob" aria-hidden="true"></span>
+              </span>
+            </label>
+            <script>
+              (function(){
+                const cb = document.getElementById('quickship-switch');
+    
+                function update(){
+                  let filter_url = cb.getAttribute('aria-link');
+                  window.location.href = filter_url;
+                  //cb.setAttribute('aria-checked', cb.checked ? 'true' : 'false');
+                }
+    
+                cb.addEventListener('change', update);
+                // keyboard: allow space/enter on the visible track
+                const track = cb.nextElementSibling;
+                track.addEventListener('keydown', function(e){
+                  if(e.key === ' ' || e.key === 'Enter'){
+                    e.preventDefault();
+                    cb.checked = !cb.checked;
+                    cb.dispatchEvent(new Event('change', {bubbles:true}));
+                    cb.focus();
+                  }
+                });
+                //update();
+              })();
+            </script>
+          </div>
+        {%- endif -%}
+
+        <div class="filters-section--filter-button" role="button" tabindex="0" aria-controls="filter-sidebar" aria-expanded="false">
+          <span>
+            {% render 'icon-filter' %}
+            
+            {% assign has_active_filters = false %}
+
+            <!--Shows "Clear all" and Active filters that have been selected. Do not collapse this element - should always be visible-->
+            {%- for filter in collection.filters -%}
+              {% if filter.type == "price_range"  %}
+                {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                  {% assign has_active_filters = true %}
+                {%- endif -%}
+              {%- else -%}
+                {%- for filter_value in filter.active_values -%}
+                  {% assign has_active_filters = true %}
+                {%- endfor -%}
+              {% endif %}
+            {%- endfor -%}
+            {% if has_active_filters or hide_results_text == false %}
+            <span class="icon-filter-active"></span>
+            {% endif %}
+          </span>
+          <span class="filters-section--filter-button-text">FILTER</span>
+        </div>
+      </div>
+     
+        {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'faceted_filtering' %}
+            {%- assign collection_handles = block.settings.collection_handles | split: ',' -%}
+            {%- if collection_handles contains collection.handle -%}
+              {% comment %} {% assign link_handle = block.settings.button_link | remove: '/collections/' %}
+              {% assign link_handle_1 = block.settings.button_link_2 | remove: '/collections/' %}
+              {% assign link_handle_2 = block.settings.button_link_3 | remove: '/collections/' %}
+              {% assign link_handle_3 = block.settings.button_link_4 | remove: '/collections/' %}
+              {% assign link_handle_4 = block.settings.button_link_5 | remove: '/collections/' %}
+              {% assign link_handle_5 = block.settings.button_link_6 | remove: '/collections/' %}
+              {% assign link_handle_6 = block.settings.button_link_7 | remove: '/collections/' %}
+              {% assign link_handle_7 = block.settings.button_link_8 | remove: '/collections/' %}
+              {% assign link_handle_8 = block.settings.button_link_9 | remove: '/collections/' %}
+              {% assign link_handle_9 = block.settings.button_link_10 | remove: '/collections/' %}
+              {% if link_handle == collection.handle
+                or link_handle_1 == collection.handle
+                or link_handle_2 == collection.handle
+                or link_handle_3 == collection.handle
+                or link_handle_4 == collection.handle
+                or link_handle_5 == collection.handle
+                or link_handle_6 == collection.handle
+                or link_handle_7 == collection.handle
+                or link_handle_8 == collection.handle
+                or link_handle_9 == collection.handle
+              %}
+                <div class="filters-section--buttons-list{% if collection_handles.size > 8 %} filters-section--buttons-list-overflow{% endif %}">
+                  <div class="filters-section--buttons filters-section--buttons-mobile-button">
+                    {% if link_handle == collection.handle %}
+                      {% if block.settings.button_text != blank %}
+                        <span class="button active">{{- block.settings.button_text -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_1 == collection.handle %}
+                      {% if block.settings.button_text_2 != blank %}
+                        <span class="button active">{{- block.settings.button_text_2 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_2 == collection.handle %}
+                      {% if block.settings.button_text_3 != blank %}
+                        <span class="button active">{{- block.settings.button_text_3 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_3 == collection.handle %}
+                      {% if block.settings.button_text_4 != blank %}
+                        <span class="button active">{{- block.settings.button_text_4 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_4 == collection.handle %}
+                      {% if block.settings.button_text_5 != blank %}
+                        <span class="button active">{{- block.settings.button_text_5 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_5 == collection.handle %}
+                      {% if block.settings.button_text_6 != blank %}
+                        <span class="button active">{{- block.settings.button_text_6 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_6 == collection.handle %}
+                      {% if block.settings.button_text_7 != blank %}
+                        <span class="button active">{{- block.settings.button_text_7 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_7 == collection.handle %}
+                      {% if block.settings.button_text_8 != blank %}
+                        <span class="button active">{{- block.settings.button_text_8 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_8 == collection.handle %}
+                      {% if block.settings.button_text_9 != blank %}
+                        <span class="button active">{{- block.settings.button_text_9 -}}</span>
+                      {% endif %}
+                    {% elsif link_handle_9 == collection.handle %}
+                      {% if block.settings.button_text_10 != blank %}
+                        <span class="button active">{{- block.settings.button_text_10 -}}</span>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+
+                  <ul class="filters-section--buttons{% if collection_handles.size > 8 %} filters-section--buttons-overflow{% endif %}">
+                    {% if block.settings.button_text != blank %}
+                      <li>
+                        <a
+                          href="{{ block.settings.button_link  }}"
+                          class="button{% if link_handle == collection.handle %} active{% endif %}"
+                        >
+                          {{- block.settings.button_text -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.button_text_2 != blank %}
+                      <li>
+                        <a
+                          href="{{block.settings.button_link_2  }}"
+                          class="button{% if link_handle_1 == collection.handle %} active{% endif %}"
+                        >
+                          {{- block.settings.button_text_2 -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.button_text_3 != blank %}
+                      <li>
+                        <a
+                          href="{{block.settings.button_link_3  }}"
+                          class="button {% if link_handle_2 == collection.handle %}active {% endif %}"
+                        >
+                          {{- block.settings.button_text_3 -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.button_text_4 != blank %}
+                      <li>
+                        <a
+                          href="{{block.settings.button_link_4  }}"
+                          class="button {% if link_handle_3 == collection.handle %}active {% endif %}"
+                        >
+                          {{- block.settings.button_text_4 -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.button_text_5 != blank %}
+                      <li>
+                        <a
+                          href="{{block.settings.button_link_5  }}"
+                          class="button {% if link_handle_4 == collection.handle %}active {% endif %}"
+                        >
+                          {{- block.settings.button_text_5 -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.button_text_6 != blank %}
+                      <li>
+                        <a
+                          href="{{block.settings.button_link_6  }}"
+                          class="button {% if link_handle_5 == collection.handle %}active {% endif %}"
+                        >
+                          {{- block.settings.button_text_6 -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.button_text_7 != blank %}
+                      <li>
+                        <a
+                          href="{{block.settings.button_link_7  }}"
+                          class="button {% if link_handle_6 == collection.handle %}active {% endif %}"
+                        >
+                          {{- block.settings.button_text_7 -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.button_text_8 != blank %}
+                      <li>
+                        <a
+                          href="{{block.settings.button_link_8 }}"
+                          class="button {% if link_handle_7 == collection.handle %}active {% endif %}"
+                        >
+                          {{- block.settings.button_text_8 -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.button_text_9 != blank %}
+                      <li>
+                        <a
+                          href="{{block.settings.button_link_9 }}"
+                          class="button {% if link_handle_8 == collection.handle %}active {% endif %}"
+                        >
+                          {{- block.settings.button_text_9 -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.button_text_10 != blank %}
+                      <li>
+                        <a
+                          href="{{block.settings.button_link_10 }}"
+                          class="button {% if link_handle_9 == collection.handle %}active {% endif %}"
+                        >
+                          {{- block.settings.button_text_10 -}}
+                        </a>
+                      </li>
+                    {% endif %}
+                  </ul>
+                </div>
+                {% break %}
+              {% endif %}  {% endcomment %}
+            {%- else -%}
+              <div class="collection__filters hidden">
+                <div class="collection-filters-bar">
+                  <div class="filter-values-section">
+                    {% paginate collection.products by paginate_limit %}
+                      {{ paginate.items }} Results
+                    {% endpaginate %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+        {% endcase %}
+      {% endfor %}  
+ 
+      
+      <div class="filters-section--sort-by select-hide" style="display:none;">
+        <label class="hidden" for="sort-by">Sort {% render 'icon', name: 'down-caret' %}</label>
+        <div class="custom-select">
+          <select
+            class="sort_by hidden"
+            data-default-sort="{{ collection.sort_by | default: collection.default_sort_by  }}"
+          >
+            <option hidden>Sort</option>
+            <option value="manual" {% if collection.sort_by == 'manual' %}selected{% endif %}>Highest Rated</option>
+            <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>{{ 'collections.sorting.best_selling' | t }}</option>
+            <option value="title-ascending" {% if collection.sort_by == 'title-ascending' %}selected{% endif %}>Named: A - Z</option>
+            <option value="title-descending" {% if collection.sort_by == 'title-descending' %}selected{% endif %}>Named: Z - A</option>
+            <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>{{ 'collections.sorting.price_ascending' | t }}</option>
+            <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>{{ 'collections.sorting.price_descending' | t }}</option>
+            <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Newest</option>
+          </select>
+        </div>
+        {% render 'icon-caret-down' %}
+      </div>
+      <script type="module">
+        var x, i, j, l, ll, selElmnt, a, b, c;
+        /*look for any elements with the class "custom-select":*/
+        x = document.getElementsByClassName("custom-select");
+        l = x.length;
+        for (i = 0; i < l; i++) {
+          selElmnt = x[i].getElementsByTagName("select")[0];
+          ll = selElmnt.length;
+          /*for each element, create a new DIV that will act as the selected item:*/
+          a = document.createElement("DIV");
+          a.setAttribute("class", "select-selected");
+          a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+          x[i].appendChild(a);
+          /*for each element, create a new DIV that will contain the option list:*/
+          b = document.createElement("DIV");
+          b.setAttribute("class", "select-items select-hide");
+          b.setAttribute("id", "sort-by");
+          for (j = 1; j < ll; j++) {
+            /*for each option in the original select element,
+            create a new DIV that will act as an option item:*/
+            c = document.createElement("DIV");
+            let optionName = selElmnt.options[j].innerHTML;
+            if (optionName.includes("Highest Rated")) {
+              c.setAttribute('data-value', 'manual');
+            } else if (optionName.includes("Best Selling")) {
+              c.setAttribute('data-value', 'best-selling');
+            } else if (optionName.includes("Named: A - Z")) {
+              c.setAttribute('data-value', 'title-ascending');
+            } else if (optionName.includes("Named: Z - A")) {
+              c.setAttribute('data-value', 'title-descending');
+            } else if (optionName.includes("Price: Low to High")) {
+              c.setAttribute('data-value', 'price-ascending');
+            } else if (optionName.includes("Price: High to Low")) {
+              c.setAttribute('data-value', 'price-descending');
+            } else if (optionName.includes("Newest")) {
+              c.setAttribute('data-value', 'created-descending');
+            }
+            if (selElmnt.options[j]['selected'] == true) {
+              c.setAttribute('class', 'same-as-selected');
+            }
+            c.innerHTML = optionName;
+            c.addEventListener("click", function(e) {
+              /*when an item is clicked, update the original select box,
+              and the selected item:*/
+              var y, i, k, s, h, sl, yl;
+              s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+              sl = s.length;
+              h = this.parentNode.previousSibling;
+              for (i = 0; i < sl; i++) {
+                if (s.options[i].innerHTML == this.innerHTML) {
+                  s.selectedIndex = i;
+                  h.innerHTML = this.innerHTML;
+                  y = this.parentNode.getElementsByClassName("same-as-selected");
+                  yl = y.length;
+                  for (k = 0; k < yl; k++) {
+                    y[k].removeAttribute("class");
+                  }
+                  this.setAttribute("class", "same-as-selected");
+                  break;
+                }
+              }
+              setTimeout(() => {
+                // Close the dropdown after selection
+                this.parentNode.parentNode.parentNode.classList.add("select-hide");
+                this.parentNode.classList.add("select-hide");
+              }, 500);
+            });
+            b.appendChild(c);
+          }
+          x[i].appendChild(b);
+          a.parentElement.parentElement.addEventListener("click", function(e) {
+            /*when the select box is clicked, close any other select boxes,
+            and open/close the current select box:*/
+            e.stopPropagation();
+            // console.log(this.querySelector('.select-selected'));
+            // closeAllSelect(this);
+            this.querySelector('.select-selected').nextSibling.classList.toggle("select-hide");
+            this.classList.toggle("select-hide");
+            // this.classList.toggle("select-arrow-active");
+            // document.querySelector('.filters-section--sort-by').classList.toggle("select-hide");
+            // document.querySelector('.filters-section--sort-by .select-items').classList.toggle("select-hide");
+          });
+        }
+        function closeAllSelect(elmnt) {
+          /*a function that will close all select boxes in the document,
+          except the current select box:*/
+          // console.log(elmnt);
+          // var x, y, i, xl, yl, arrNo = [];
+          // x = document.getElementsByClassName("select-items");
+          // y = document.getElementsByClassName("select-selected");
+          // xl = x.length;
+          // yl = y.length;
+          // for (i = 0; i < yl; i++) {
+          //   if (elmnt == y[i]) {
+          //     arrNo.push(i)
+          //   } else {
+          //     y[i].classList.remove("select-arrow-active");
+          //   }
+          // }
+          // for (i = 0; i < xl; i++) {
+          //   if (arrNo.indexOf(i)) {
+          //     x[i].classList.add("select-hide");
+          //   }
+          // }
+          document.querySelector('.filters-section--sort-by').classList.add("select-hide");
+          document.querySelector('.filters-section--sort-by .select-items').classList.add("select-hide");
+        }
+        /*if the user clicks anywhere outside the select box,
+        then close all select boxes:*/
+        document.addEventListener("click", closeAllSelect);
+      </script>
+    </div>
+    {% comment %}
+    {% if link_handle == collection.handle
+      or link_handle_1 == collection.handle
+      or link_handle_2 == collection.handle
+      or link_handle_3 == collection.handle
+      or link_handle_4 == collection.handle
+      or link_handle_5 == collection.handle
+      or link_handle_6 == collection.handle
+      or link_handle_7 == collection.handle
+    %}
+      <ul class="filter-buttons">
+        {% if block.settings.button_text != blank %}
+          <li>
+            <a
+              href="{{block.settings.button_link  }}"
+              class="button  {% if link_handle == collection.handle %}active {% endif %}"
+            >
+              {{- block.settings.button_text -}}
+            </a>
+          </li>
+        {% endif %}
+        {% if block.settings.button_text_2 != blank %}
+          <li>
+            <a
+              href="{{block.settings.button_link_2  }}"
+              class="button {% if link_handle_1 == collection.handle %}active {% endif %}"
+            >
+              {{- block.settings.button_text_2 -}}
+            </a>
+          </li>
+        {% endif %}
+        {% if block.settings.button_text_3 != blank %}
+          <li>
+            <a
+              href="{{block.settings.button_link_3  }}"
+              class="button {% if link_handle_2 == collection.handle %}active {% endif %}"
+            >
+              {{- block.settings.button_text_3 -}}
+            </a>
+          </li>
+        {% endif %}
+        {% if block.settings.button_text_4 != blank %}
+          <li>
+            <a
+              href="{{block.settings.button_link_4  }}"
+              class="button {% if link_handle_3 == collection.handle %}active {% endif %}"
+            >
+              {{- block.settings.button_text_4 -}}
+            </a>
+          </li>
+        {% endif %}
+        {% if block.settings.button_text_5 != blank %}
+          <li>
+            <a
+              href="{{block.settings.button_link_5  }}"
+              class="button {% if link_handle_4 == collection.handle %}active {% endif %}"
+            >
+              {{- block.settings.button_text_5 -}}
+            </a>
+          </li>
+        {% endif %}
+        {% if block.settings.button_text_6 != blank %}
+          <li>
+            <a
+              href="{{block.settings.button_link_6  }}"
+              class="button {% if link_handle_5 == collection.handle %}active {% endif %}"
+            >
+              {{- block.settings.button_text_6 -}}
+            </a>
+          </li>
+        {% endif %}
+        {% if block.settings.button_text_7 != blank %}
+          <li>
+            <a
+              href="{{block.settings.button_link_7  }}"
+              class="button {% if link_handle_6 == collection.handle %}active {% endif %}"
+            >
+              {{- block.settings.button_text_7 -}}
+            </a>
+          </li>
+        {% endif %}
+        {% if block.settings.button_text_8 != blank %}
+          <li>
+            <a
+              href="{{block.settings.button_link_8 }}"
+              class="button {% if link_handle_7 == collection.handle %}active {% endif %}"
+            >
+              {{- block.settings.button_text_8 -}}
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    {% endif %}
+    <div class="filter-values-section">
+      <form class="faceted-filter-form section-setting-tabs" data-faceted-filter-form>
+        {% assign has_active_filters = false %}
+
+        <!--Shows "Clear all" and Active filters that have been selected. Do not collapse this element - should always be visible-->
+        {% capture faceted_active_filters %}
+          {%- for filter in collection.filters -%}
+            {% if filter.type == "price_range"  %}
+              {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                {% assign has_active_filters = true %}
+                <a class="faceted-active-filters__remove-filter button button--primary" href="{{ filter.url_to_remove }}">
+                  {%- assign min_value = filter.min_value.value | default: 0 -%}
+                  {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+                  <span>{{ min_value | money }} - {{ max_value | money }}</span> {% render 'icon', name: 'x', icon_class: 'clear-filter' %}
+                </a>
+              {%- endif -%}
+            {%- else -%}
+              {%- for filter_value in filter.active_values -%}
+                {% assign has_active_filters = true %}
+                <a class="faceted-active-filters__remove-filter button button--primary" href="{{ filter_value.url_to_remove }}">
+                  <span>{{ filter_value.label }}</span>{% render 'icon', name: 'x', icon_class: 'clear-filter' %}
+                </a>
+              {%- endfor -%}
+            {% endif %}
+          {%- endfor -%}
+        {% endcapture %}
+
+        {% assign lowestProductValue = 0 %}
+        {% assign products_by_price = collection.products | sort: 'price' %}
+        {% for product in products_by_price %}
+          {% if forloop.first %}
+            {% assign lowestProductValue = product.price | money_without_currency %}
+          {% endif %}
+        {% endfor %}
+
+        <collection-setting-tabs class="setting-tabs-wrapper one-whole">
+          <div
+            class="setting-tabs-buttons mobile-setting-tabs-buttons tab-buttons-{{ collection.filters.size }}"
+            {% if collection.filters.size < 4 %}
+              style="justify-content: center;"
+            {% endif %}
+          >
+            {%- for filter in collection.filters -%}
+              {% assign buttonID = filter.label | replace: ' ', '-' | downcase %}
+              <a
+                id="{{ buttonID }}"
+                class="setting-tab-button mobile-setting-tab-button {{ buttonID }}"
+              >
+                {{ filter.label }}
+                <i class="icon-solid-caret"></i>
+              </a>
+            {%- endfor -%}
+          </div>
+          <div class="setting-tabs-buttons tab-buttons-{{ collection.filters.size }}">
+            {%- for filter in collection.filters -%}
+              {% assign buttonID = filter.label | replace: ' ', '-' | downcase %}
+              <a
+                id="{{ buttonID }}"
+                class="setting-tab-button {{ buttonID }}"
+              >
+                {{ filter.label }}
+                <i class="icon-solid-caret"></i>
+              </a>
+            {%- endfor -%}
+          </div>
+          {%- for filter in collection.filters -%}
+            {% assign buttonID = filter.label | replace: ' ', '-' | downcase %}
+            <div
+              id="{{ buttonID }}-content"
+              class="setting-tab-content {{ buttonID }}-content"
+            >
+              <div
+                id="shopify-section-{{ block.id }}"
+                class="
+                  sidebar__block
+                  block__{{ block.type | downcase | replace: '_', '-' }}
+                  has-padding-top
+                  has-padding-bottom
+                  {% if settings.toggle_sidebar %}sidebar-toggle-active{% endif %}
+                "
+                {{ block.shopify_attributes }}
+              >
+                <!--
+                  <div data-has-toggle-option>
+                    <h3
+                      class="sidebar-block__heading"
+                      {% if settings.toggle_sidebar %}
+                        data-sidebar-block__toggle="
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  {%- if filter.active_values.size > 0 or filter.min_value.value != blank or filter.max_value.value != blank -%}open{%- else -%}closed{%- endif -%}
+                        "
+                        aria-label="toggle"
+                      {% endif %}
+                    >
+                      {{ filter.label }}
+                      {%- if filter.active_values.size > 0 -%}
+                        <span class="faceted-filter-group-summary__active-count">({{ filter.active_values.size }})</span>
+                      {%- endif -%}
+                      {% if settings.toggle_sidebar %}
+                        <button class="sidebar-block__toggle-icon icon-style--{{ settings.toggle_icon_style }}">
+                          {% if settings.toggle_icon_style == 'plus_and_minus' %}
+                            {% render 'icon', name: 'plus', icon_class: 'icon--active' %}
+                            {% render 'icon', name: 'minus' %}
+                          {% else %}
+                            {% render 'icon', name: 'down-caret', icon_class: 'icon--active' %}
+                          {% endif %}
+                        </button>
+                      {% endif %}
+                    </h3>
+                  </div>
+                -->
+                <div
+                  class="sidebar-block__content content"
+                  {% if settings.toggle_sidebar %}
+                    data-sidebar-block__content--collapsible
+                  {% endif %}
+                >
+                  <div class="faceted-filter-group-display">
+                    <div class="faceted-filter-group-display__header" style="display: none;">
+                      {%- if filter.active_values.size > 0 -%}
+                        <a href="{{ filter.url_to_remove }}" class="faceted-filter-group-display__header-clear">
+                          {%- render 'icon', name: 'x', icon_class: 'clear-filter' -%}
+                          <span>{{ 'collections.sidebar.clear' | t }}</span></a
+                        >
+                      {%- endif -%}
+                    </div>
+
+                    {%- case filter.type -%}
+                      {%- when 'list' -%}
+                        {% if filter.label == 'Shape' %}
+                          {%- assign desired_order = 'round,oval,emerald,princess,asscher,cushion,radiant,pear,heart,rose-brilliant,rose,oval-rose,baguette,marquise'
+                            | split: ','
+                          -%}
+                          {%- assign sorted_values = '' -%}
+
+                          {%- for order_value in desired_order -%}
+                            {%- for filter_value in filter.values -%}
+                              {%- assign shape_value = filter_value.label
+                                | downcase
+                                | replace: ' ', '-'
+                                | remove: '-cut'
+                              -%}
+                              {%- if shape_value == order_value -%}
+                                {%- assign sorted_values = sorted_values | append: filter_value.label | append: ',' -%}
+                              {%- endif -%}
+                            {%- endfor -%}
+                          {%- endfor -%}
+
+                          {%- assign sorted_values = sorted_values | slice: 0, sorted_values.size | rstrip: ',' -%}
+                          {%- assign sorted_values_array = sorted_values | split: ',' -%}
+
+                          <ul class="faceted-filter-group-display__list" style="margin: 1rem auto 0;overflow:auto;">
+                            {%- for sorted_value in sorted_values_array -%}
+                              {%- assign filter_value = filter.values | where: 'label', sorted_value | first -%}
+                              {%- assign shape_value = filter_value.label
+                                | downcase
+                                | replace: ' ', '-'
+                                | remove: '-cut'
+                              -%}
+                              <li class="faceted-filter-group-display__list-item" style="margin: 0;">
+                                {% capture input_id %}Filter-{{ filter.label | escape }}-{{ forloop.index }}{% endcapture %}
+                                <label
+                                  class="faceted-filter-group-display__list-item-label"
+                                  for="{{ input_id }}"
+                                  style="padding: 0;"
+                                >
+                                  <input
+                                    class="faceted-filter-group-display__list-item-input"
+                                    type="checkbox"
+                                    name="{{ filter_value.param_name | escape }}"
+                                    value="{{ filter_value.value | escape }}"
+                                    id="{{ input_id }}"
+                                    {% if filter_value.active -%}
+                                      checked
+                                    {%- endif %}
+                                    {% if filter_value.count == 0 and filter_value.active == false -%}
+                                      disabled
+                                    {%- endif %}
+                                  >
+                                  {% if shape_value == 'round' %}
+                                    {% render 'icon-shape-round-cut' %}
+                                  {% elsif shape_value == 'princess' %}
+                                    {% render 'icon-shape-princess-cut' %}
+                                  {% elsif shape_value == 'cushion' %}
+                                    {% render 'icon-shape-cushion-cut' %}
+                                  {% elsif shape_value == 'oval' %}
+                                    {% render 'icon-shape-oval-cut' %}
+                                  {% elsif shape_value == 'emerald' %}
+                                    {% render 'icon-shape-emerald-cut' %}
+                                  {% elsif shape_value == 'asscher' %}
+                                    {% render 'icon-shape-asscher-cut' %}
+                                  {% elsif shape_value == 'radiant' %}
+                                    {% render 'icon-shape-radiant-cut' %}
+                                  {% elsif shape_value == 'pear' %}
+                                    {% render 'icon-shape-pear-cut' %}
+                                  {% elsif shape_value == 'heart' %}
+                                    {% render 'icon-shape-heart-cut' %}
+                                  {% elsif shape_value == 'marquise' %}
+                                    {% render 'icon-shape-marquise-cut' %}
+                                  {% elsif shape_value == 'oval-rose' %}
+                                    {% render 'icon-shape-oval-rose-cut' %}
+                                  {% elsif shape_value == 'trillion' %}
+                                    {% render 'icon-shape-round-cut' %}
+                                  {% elsif shape_value == 'half-moon' %}
+                                    {% render 'icon-shape-half-moon-cut' %}
+                                  {% elsif shape_value == 'baguette' %}
+                                    {% render 'icon-shape-baguette-cut' %}
+                                  {% elsif shape_value == 'rose-brilliant' %}
+                                    {% render 'icon-shape-rose-brilliant-cut' %}
+                                  {% elsif shape_value == 'rose' %}
+                                    {% render 'icon-shape-rose-cut' %}
+                                  {% endif %}
+                                  <span class="faceted-filter-group-display__list-item-label-text">
+                                    {{- filter_value.label | remove: ' Cut' -}}
+                                  </span>
+                                </label>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        {% elsif filter.label == 'Style' %}
+                          <ul class="faceted-filter-group-display__list" style="margin: 1rem auto 0;">
+                            {%- for filter_value in filter.values -%}
+                              {% assign shape_value = filter_value.label | downcase %}
+                              {% assign shape_value = shape_value | replace: ' ', '-' %}
+                              <li class="faceted-filter-group-display__list-item" style="margin: 0;">
+                                {% capture input_id %}Filter-{{ filter.label | escape }}-{{ forloop.index }}{% endcapture %}
+                                <label
+                                  class="faceted-filter-group-display__list-item-label"
+                                  for="{{ input_id }}"
+                                  style="padding: 0;"
+                                >
+                                  <input
+                                    class="faceted-filter-group-display__list-item-input"
+                                    type="checkbox"
+                                    name="{{ filter_value.param_name | escape }}"
+                                    value="{{ filter_value.value | escape }}"
+                                    id="{{ input_id }}"
+                                    {% if filter_value.active -%}
+                                      checked
+                                    {%- endif %}
+                                    {% if filter_value.count == 0 and filter_value.active == false -%}
+                                      disabled
+                                    {%- endif %}
+                                  >
+                                  {% if shape_value == 'bands' %}
+                                    {% render 'icons-bands' %}
+                                  {% elsif shape_value == 'bracelets' %}
+                                    {% render 'icons-bracelets' %}
+                                  {% elsif shape_value == 'earrings' %}
+                                    {% render 'icons-earrings' %}
+                                  {% elsif shape_value == 'engagement-rings' %}
+                                    {% render 'icons-engagement-rings' %}
+                                  {% elsif shape_value == 'necklace' %}
+                                    {% render 'icons-necklaces' %}
+                                  {% endif %}
+                                  <span class="faceted-filter-group-display__list-item-label-text">
+                                    {{- filter_value.label | remove: ' Cut' -}}
+                                  </span>
+                                </label>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% else %}
+                          <ul
+                            class="faceted-filter-group-display__list {% if filter.label == 'Features' %}filter-value-buttons {% if filter.values.size > 8 %}filter-value-buttons-scroller{% endif %}{% endif %}"
+                            style="margin: 1rem auto 0;"
+                          >
+                            {%- for filter_value in filter.values -%}
+                              <li class="faceted-filter-group-display__list-item {% if filter.label == 'Metal' %}setting-accordion-content{% endif %}">
+                                {% capture input_id %}Filter-{{ filter.label | escape }}-{{ forloop.index }}{% endcapture %}
+                                {% if filter.label == 'Metal' %}
+                                  {% assign firstLabelValue = filter_value.label | split: ' ' %}
+                                  {% assign firstLabelValue = firstLabelValue | first %}
+                                  {% assign labelValue = filter_value.label | remove: firstLabelValue | uniq %}
+                                  <div class="setting-value">
+                                    <div class="setting-value-inputs">
+                                      <input
+                                        class="input_value visually-hidden solid_metal_{{ filter_value.label | replace: ' ', '_' | downcase }}"
+                                        type="radio"
+                                        name="{{ filter_value.param_name | escape }}"
+                                        value="{{ filter_value.value | escape }}"
+                                        id="{{ input_id }}"
+                                        {% if filter_value.active -%}
+                                          checked
+                                        {%- endif %}
+                                        {% if filter_value.count == 0 and filter_value.active == false -%}
+                                          disabled
+                                        {%- endif %}
+                                      >
+                                      <label class="input_label" for="{{ input_id }}">
+                                        {%- if firstLabelValue contains 'K' %}
+                                          {{- firstLabelValue -}}
+                                        {%- endif -%}
+                                      </label>
+                                    </div>
+                                    <p>
+                                      {%- if firstLabelValue contains 'K' %}
+                                        {{- labelValue -}}
+                                      {% else -%}
+                                        {{- filter_value.label -}}
+                                      {%- endif -%}
+                                    </p>
+                                  </div>
+                                {% elsif filter.label == 'Features' %}
+                                  <label
+                                    class="faceted-filter-group-display__list-item-label"
+                                    for="{{ input_id }}"
+                                  >
+                                    <input
+                                      class="faceted-filter-group-display__list-item-input visually-hidden"
+                                      type="checkbox"
+                                      name="{{ filter_value.param_name | escape }}"
+                                      value="{{ filter_value.value | escape }}"
+                                      id="{{ input_id }}"
+                                      {% if filter_value.active -%}
+                                        checked
+                                      {%- endif %}
+                                      {% if filter_value.count == 0 and filter_value.active == false -%}
+                                        disabled
+                                      {%- endif %}
+                                    >
+                                    <span class="button faceted-filter-group-display__list-item-label-text">
+                                      {{- filter_value.label -}}
+                                    </span>
+                                  </label>
+                                {% else %}
+                                  <label
+                                    class="faceted-filter-group-display__list-item-label"
+                                    for="{{ input_id }}"
+                                  >
+                                    <input
+                                      class="faceted-filter-group-display__list-item-input"
+                                      type="checkbox"
+                                      name="{{ filter_value.param_name | escape }}"
+                                      value="{{ filter_value.value | escape }}"
+                                      id="{{ input_id }}"
+                                      {% if filter_value.active -%}
+                                        checked
+                                      {%- endif %}
+                                      {% if filter_value.count == 0 and filter_value.active == false -%}
+                                        disabled
+                                      {%- endif %}
+                                    >
+                                    <svg
+                                      class="faceted-filter-group-display__checkmark"
+                                      aria-hidden="true"
+                                      focusable="false"
+                                      role="presentation"
+                                      width="14"
+                                      height="14"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      viewBox="0 0 14 14"
+                                    >
+                                      <path class="faceted-filter-group-display__checkmark-check" fill="none" d="M2.5 7L5.5 10L11.5 4"></path>
+                                    </svg>
+                                    <span class="faceted-filter-group-display__list-item-label-text">
+                                      {{- filter_value.label -}}
+                                    </span>
+                                  </label>
+                                {% endif %}
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        {% endif %}
+
+                        <div class="faceted-filter-group-display__submit faceted-filter-group-display__list-submit">
+                          {%- assign label = 'collections.sidebar.apply_filter' | t | escape -%}
+                          {% render 'button', label: label, type: 'submit', style: 'button--primary' %}
+                        </div>
+                      {%- when 'price_range' -%}
+                        <div
+                          class="faceted-filter-group-display__price-range"
+                          style="max-width: 50%;margin: 1.5rem auto 0rem;grid-template-columns: repeat(1,1fr);"
+                        >
+                          <tc-range-slider
+                            id="faceted_price_slider"
+                            aria-label1="Minimum price"
+                            aria-label2="Maximum price"
+                            min="{{ lowestProductValue | replace: ',', '' }}"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            {% if filter.min_value.value -%}
+                              value1="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                            {% else %}
+                              value1="{{ lowestProductValue | replace: ',', '' }}"
+                            {%- endif %}
+                            {% if filter.max_value.value -%}
+                              value2="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                            {% else %}
+                              value2="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            {%- endif %}
+                            moving-tooltip="true"
+                            moving-tooltip-distance-to-pointer="-20"
+                            moving-tooltip-bg="transparent"
+                            moving-tooltip-text-color="#3c3737"
+                            moving-tooltip-width="70"
+                            moving-tooltip-height="20"
+                            mousewheel-disabled="true"
+                            pointer-bg="#fca999"
+                            pointer-bg-hover="#fca999"
+                            pointer-bg-focus="#fca999"
+                            pointer-border="1px solid #fca999"
+                            pointer-border-hover="1px solid #fca999"
+                            pointer-border-focus="1px solid #fca999"
+                            slider-bg="#ebebeb"
+                            slider-bg-fill="#fca999"
+                            moving-tooltip-units="$"
+                            moving-tooltip-units-type="prefix"
+                            slider-width="100%"
+                            slider-height="5px"
+                            generate-labels="false"
+                            step="1"
+                            css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                          >
+                          </tc-range-slider>
+                          <div class="faceted-filter-group-display__price-range-from" style="display: none;">
+                            <label
+                              class="faceted-filter-group-display__price-range-label"
+                              for="Filter-{{ filter.label }}-{{ forloop.index }}"
+                            >
+                              {{ 'collections.sidebar.from' | t | escape }}
+                            </label>
+                            <span>{{ cart.currency.symbol }}</span>
+                            <input
+                              class="faceted-filter-group-display__price-range-input"
+                              name="{{ filter.min_value.param_name }}"
+                              id="Filter-{{ filter.label }}-{{ forloop.index }}"
+                              {% if filter.min_value.value -%}
+                                value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                              {%- endif %}
+                              type="number"
+                              placeholder="{{ lowestProductValue | replace: ',', '' }}"
+                              min="{{ lowestProductValue | replace: ',', '' }}"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            >
+                          </div>
+                          <div class="faceted-filter-group-display__price-range-to" style="display: none;">
+                            <label
+                              class="faceted-filter-group-display__price-range-label"
+                              for="Filter-{{ filter.label }}-{{ forloop.index }}"
+                            >
+                              {{ 'collections.sidebar.to' | t | escape }}
+                            </label>
+                            <span>{{ cart.currency.symbol }}</span>
+                            <input
+                              class="faceted-filter-group-display__price-range-input"
+                              name="{{ filter.max_value.param_name }}"
+                              id="Filter-{{ filter.label }}-{{ forloop.index }}"
+                              {% if filter.max_value.value -%}
+                                value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                              {%- endif %}
+                              type="number"
+                              placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                              min="{{ lowestProductValue | replace: ',', '' }}"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            >
+                          </div>
+                        </div>
+
+                        <div class="faceted-filter-group-display__submit" style="margin-top: 2rem;">
+                          {%- assign label = 'collections.sidebar.apply_filter' | t | escape -%}
+                          {% render 'button', label: label, type: 'submit', style: 'button--primary' %}
+                        </div>
+                    {%- endcase -%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </collection-setting-tabs>
+
+        {% if has_active_filters %}
+          <div>
+            <div class="faceted-active-filters">
+              {%- assign label = 'collections.sidebar.clear_all' | t | append: ' filters' -%}
+              {% render 'button',
+                label: label,
+                type: 'link',
+                class: 'faceted-active-filters__clear',
+                href: collection.url
+              %}
+            </div>
+          </div>
+        {% endif %}
+      </form>
+    </div>
+    {% endcomment %}
+  </div>
+</div>
+{% endif %}  

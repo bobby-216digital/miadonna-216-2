@@ -1,0 +1,80 @@
+{% comment %} Check whether product has any tags for custom related products {% endcomment %}
+{% for tag in product.tags %}
+  {% if tag contains 'meta-related-collection-' %}
+    {%- assign related_collection_handle = tag | remove: 'meta-related-collection-' -%}
+  {% endif %}
+{% endfor %}
+
+{% if related_collection_handle != blank %}
+  {% comment %} Show products based on merchant-added tags prepended with 'meta-related-collection-' {% endcomment %}
+  {%- assign collection_size = collections[related_collection_handle].all_products_count -%}
+
+  {% if collection_size > 0 %}
+    {%- assign products = custom_collection.products -%}
+  {% endif %}
+{% else %}
+  {% comment %} Shopify generated dynamic recommendations, falling back to default related products (based on parent collection) {% endcomment %}
+  {%- assign products = recommendations.products -%}
+{% endif %}
+{% for product in products limit: 10 %}
+  {{ product.type }}
+{% endfor %}
+<div
+  class="product-recommendations has-no-side-gutter"
+  data-base-url="{{ routes.product_recommendations_url }}"
+  data-product-id="{{ product.id }}"
+  data-section-id="{{ section.id }}"
+  data-limit="10"
+  data-enabled="true"
+>
+  <div
+    class="
+      one-whole column
+      related-products
+      related-products--slider
+    "
+  >
+    <div
+      class="
+        slider-gallery
+        products-slider products-length-{{ products.size }} product-content-wrapper {% if products.size <= 5 %}no-slider{% endif %}
+      "
+      data-products-per-slide="5"
+      data-products-limit="{{ products.size }}"
+      data-products-available="{{ products.size }}"
+    >
+      {%- for product in products limit: 10 -%}
+        {% unless product.type == 'Penny' %}
+          <div class="product-item one-fifth column medium-down--one-third small-down--one-half">
+            <a href="{{ product.url | within: collection }}">
+              {% render 'image-element',
+                image: product.featured_media.preview_image,
+                alt: product.featured_media.preview_image.alt,
+                max_height: '260'
+              %}
+              <h3>
+                <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+              </h3>
+              {% if product.tags contains 'Home Try-On' %}
+                <p>{{ product.price_max | money_with_currency }}</p>
+              {% else %}
+                <p>{{ product.price_min | money_with_currency }}</p>
+              {% endif %}
+            </a>
+          </div>
+        {% endunless %}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  {
+    "show_custom_collection": {{ show_custom_collection | json }},
+    "show_product_recommendations": true
+  }
+</script>

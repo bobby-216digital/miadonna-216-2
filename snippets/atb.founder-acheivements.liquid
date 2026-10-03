@@ -1,0 +1,258 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Founder Achievements",
+  "max_blocks": 6,
+  "id": "founder-acheivements",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_subtitle",
+      "label": "SubTitle",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_title",
+      "label": "Title",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Text"
+    },
+    {
+      "type": "text",
+      "id": "block_title",
+      "label": "Title",
+      "repeatable": "Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_content",
+      "label": "Content",
+      "repeatable": "Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_date",
+      "label": "Date",
+      "repeatable": "Text",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_subtitle' -%}
+{%- assign atb_subtitle = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_content' -%}
+{%- assign block_content = val -%}
+{%- include 'atb-render' field:'block_date' -%}
+{%- assign block_date = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<style>
+  .separated-grid-layout > *,
+.separated-grid-layout ._item {
+    float: left;
+    z-index: 2;
+    width: 50%;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.separated-grid-layout > *:nth-child(1),
+.separated-grid-layout > *:nth-child(2),
+.separated-grid-layout ._item:nth-child(1),
+.separated-grid-layout ._item:nth-child(2) {
+    border-top: 0;
+}
+@media only screen and (max-width: 749px) {
+    .separated-grid-layout > *:nth-child(2n + 1),
+    .separated-grid-layout ._item:nth-child(2n + 1) {
+        clear: left;
+    }
+
+  .separated-grid-layout-item{
+    display: flex;
+    flex-direction: column;
+    padding: 21px;
+  }
+  .separated-grid-layout-item .achievement-content{
+    height: 100%;
+  }
+}
+@media only screen and (min-width: 750px) {
+    .separated-grid-layout > *,
+    .separated-grid-layout ._item {
+        width: 33.33%;
+    }
+    .separated-grid-layout > *:nth-child(3),
+    .separated-grid-layout ._item:nth-child(3) {
+        border-top: 0;
+    }
+    .separated-grid-layout > *:nth-child(3n + 1),
+    .separated-grid-layout ._item:nth-child(3n + 1) {
+        /* clear: left; */
+    }
+}
+@media only screen and (max-width: 751px) {
+  #shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(2),#shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(5){
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);    
+  }
+}
+@media only screen and (max-width: 481px) {
+  #shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(1),#shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(2){
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  #shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(3),#shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(4){
+    border-top: 0
+  }
+  #shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(2),#shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(4),#shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(6){
+    border-right:0;
+    border-left:0;
+  }
+  #shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(1),#shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(3),#shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(5){
+    border-right: 1px solid rgba(0, 0, 0, 0.1);    
+    border-left:0;
+  }
+}
+  #shopify-section-{{ section_id }} {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section_id }} .text-style-chapter-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .text-style-title {
+    color: #000000de;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .achievement-quote {
+    margin: 2em;
+  }
+  #shopify-section-{{ section_id }} .separated-grid-layout {
+    position: relative;
+  }
+  #shopify-section-{{ section_id }} .separated-grid-layout-item {
+    border-top: 1px solid rgba(0,0,0,.1);
+  }
+  #shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(1),
+  #shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(2),
+  #shopify-section-{{ section_id }} .separated-grid-layout-item:nth-child(3) {
+    border-top: 0px;
+  }
+  #shopify-section-{{ section_id }} .separated-grid-layout-item .achievement-content {
+    margin: 1em 0;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .separated-grid-layout-item .achievement-date {
+    color: #ffa998;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .separated-grid-layout-item p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section_id }} {
+      padding: 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-title {
+      font-size: 36px;
+    }
+    #shopify-section-{{ section_id }} .separated-grid-layout:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 1;
+      pointer-events: none;
+      left: 33.33%;
+      right: 33.33%;
+      border-left: 1px solid rgba(0,0,0,.1);
+      border-right: 1px solid rgba(0,0,0,.1);
+    }
+    #shopify-section-{{ section_id }} .separated-grid-layout-item {
+      padding: 50px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section_id }} .text-style-title {
+      font-size: 40px;
+    }
+  }
+</style>
+
+<section class="section is-standard content-cell cell-style-A">
+  <div class="body-cell text-center">
+    {% if atb_subtitle != blank %}
+      <h2 class="text-style-chapter-title">{{ atb_subtitle }}</h2>
+    {% endif %}
+    {% if atb_title != blank %}
+      <p class="text-style-title achievement-quote">{{ atb_title }}</p>
+    {% endif %}
+    <div class="container separated-grid-layout inset-group has-no-side-gutter">
+      {% for block0 in blocks %}
+        <div class="separated-grid-layout-item one-third small-down--one-half column">
+          {% if block_title[forloop.index0] != blank %}
+            <h2 class="text-style-chapter-title">{{ block_title[forloop.index0] }}</h2>
+          {% endif %}
+          {% if block_content[forloop.index0] != blank %}
+            <p class="achievement-content">{{ block_content[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+          {% endif %}
+          {% if block_date[forloop.index0] != blank %}
+            <p class="achievement-date">{{ block_date[forloop.index0] }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

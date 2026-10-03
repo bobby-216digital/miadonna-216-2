@@ -1,0 +1,898 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "disabled": true,
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_sidebar": false,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ccc272c4-b764-4862-a10c-d61c4a47b0e1": {
+      "type": "index__image-with-text-2",
+      "blocks": {
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "Conflict-Free Diamonds",
+            "title2": "",
+            "text": "<p>Explore our ethically crafted engagement rings featuring lab-grown diamonds and gemstones. Every style is handcrafted to order using recycled precious metals. Each purchase supports our foundation's mission to heal lives and lands impacted by the traditional diamond industry. </p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Conflict-Free-Diamonds-Gemstones-Simulants_Beautiful-Gems-Affordable-Sustainable-Ethical_desktop.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna_Conflict-Free-Diamonds-Gemstones-Simulants_Beautiful-Gems-Affordable-Sustainable-Ethical_mobile.jpg",
+            "image_link": "",
+            "iframe_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-text-1",
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-image-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "74ef9bbf-cbdb-4989-9956-ea23b05c35e5": {
+      "type": "buttons-list",
+      "blocks": {
+        "f0d80f2f-d90c-4c9f-8d60-8c124c05f3bb": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our Story",
+            "button_link": "/pages/about-us",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "8c75c1bf-0b5f-475d-be73-ded5acc2a71f": {
+          "type": "button",
+          "settings": {
+            "button_label": "The Founder",
+            "button_link": "/pages/the-founder",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "065e7c9c-64b2-4435-9dd8-2bca56193f7c": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our Pledge",
+            "button_link": "/pages/our-pledge",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "d728a31e-f5e3-48e1-ae45-29b1e189a655": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our Cause",
+            "button_link": "/pages/the-greener-diamond",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "4aa2b1c1-930f-4f59-9e9b-fad005363578": {
+          "type": "button",
+          "settings": {
+            "button_label": "The issues",
+            "button_link": "/pages/conflict-diamonds",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        }
+      },
+      "block_order": [
+        "f0d80f2f-d90c-4c9f-8d60-8c124c05f3bb",
+        "8c75c1bf-0b5f-475d-be73-ded5acc2a71f",
+        "065e7c9c-64b2-4435-9dd8-2bca56193f7c",
+        "d728a31e-f5e3-48e1-ae45-29b1e189a655",
+        "4aa2b1c1-930f-4f59-9e9b-fad005363578"
+      ],
+      "disabled": true,
+      "settings": {
+        "background": "#f5f5f5",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "a0acd91f-cc30-45d9-b642-50ac5fcbe6ac": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "OUR TECHNOLOGY",
+        "heading_font": "montserrat_n6",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<p>Our collection of ethical and affordable Lab-Grown Diamonds, Gemstones, and Simulants is more beautiful than anything we will ever get out of the earth. They also come free of harmful environmental or social impacts.</p>",
+        "text_font": "playfair_display_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 40,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text": "rgba(0,0,0,0)",
+        "button_style": "button--primary",
+        "background": "#f8f8f8",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 0,
+        "width": "standard",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "32d6329c-c3f7-4569-8ad3-ff8b742afe51": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe51-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Lab-Grown-Diamonds-Superior-Quality.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe51-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "LAB-GROWN DIAMONDS",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p></p><p>After decades of research and development, our scientists can now precisely replicate the earth's natural growing process of crystallizing carbon into brilliant, conflict-free diamonds that are chemically, optically, and physically identical to earth-mined diamonds, yet cost 30 to 40 percent less (according to the Federal Trade Commission).</p><p>If you're looking for a stunning and eco-friendly choice, the exquisite brilliance of MiaDonna's lab-grown diamonds is beyond compare.</p><p><a href=\"https://www.miadonna.com/collections/lab-created-diamonds\" title=\"Loose Lab-Created Diamonds\">SHOP LOOSE DIAMONDS</a></p><p><a href=\"/blogs/news/how-to-choose-a-lab-grown-diamond\" title=\"How to Choose the Right Lab Grown Diamond\">HOW TO CHOOSE THE BEST LAB GROWN DIAMOND</a></p><p></p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe51-image-1",
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe51-text-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space",
+        "custom_css": ""
+      }
+    },
+    "4f7e31af-689f-46c4-addb-7b8b049a2c91": {
+      "type": "icon-card",
+      "blocks": {
+        "b5e62977-efc9-4625-83e5-9047994cb7e8": {
+          "type": "card",
+          "settings": {
+            "title": "GUARANTEED",
+            "sub_title": "CONFLICT- FREE",
+            "icon": "shopify://shop_images/MiaDonna_icon_Ring-Protect-Earth.jpg",
+            "card_info": "Each of MiaDonna's grown diamonds is created in a disclosed laboratory free of humanitarian and environmental abuse.",
+            "link_title": "",
+            "learn_more_link": ""
+          }
+        },
+        "e7d54b0e-c358-4f1f-b775-b223ae10abe3": {
+          "type": "card",
+          "settings": {
+            "title": "100%",
+            "sub_title": "REAL DIAMONDS",
+            "icon": "shopify://shop_images/MiaDonna_icon_Diamonds-Pure-Carbon.jpg",
+            "card_info": "MiaDonna Lab Grown Diamonds are 100% pure crystallized carbon and identical in every way to earth-mined diamonds.",
+            "link_title": "",
+            "learn_more_link": ""
+          }
+        },
+        "f74c58b5-245d-46b7-bbfc-13d26de04005": {
+          "type": "card",
+          "settings": {
+            "title": "PRICED",
+            "sub_title": "UP TO 40% LESS",
+            "icon": "shopify://shop_images/MiaDonna_icon_Save-Money-Affordable.jpg",
+            "card_info": "Lab Grown Diamonds provide exceptional value at up to 40% less than the cost of an equivalent earth-mined diamond.",
+            "link_title": "",
+            "learn_more_link": ""
+          }
+        },
+        "bc553f5a-179a-43b2-a566-1c45b2d261f7": {
+          "type": "card",
+          "settings": {
+            "title": "TOP 1%",
+            "sub_title": "OF ALL DIAMONDS",
+            "icon": "shopify://shop_images/MiaDonna-The-Story-Icons_Diamond-web.png",
+            "card_info": "Every one of our conflict-free diamonds is the illustrious Type lla, the purest form of diamond available.",
+            "link_title": "",
+            "learn_more_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "b5e62977-efc9-4625-83e5-9047994cb7e8",
+        "e7d54b0e-c358-4f1f-b775-b223ae10abe3",
+        "f74c58b5-245d-46b7-bbfc-13d26de04005",
+        "bc553f5a-179a-43b2-a566-1c45b2d261f7"
+      ],
+      "settings": {
+        "title": "",
+        "card_per_row": 4,
+        "show_gutter": true,
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "417af40b-fa42-4b27-9c17-6f66f8e037f5": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "",
+        "text_font": "open_sans_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 2,
+        "button_label": "LEARN MORE ABOUT MIADONNA'S GROWN DIAMONDS",
+        "button_link": "https://www.miadonna.com/pages/lab-grown-diamonds",
+        "button_alignment": "center",
+        "button_background": "#58717a",
+        "button_text": "#ffffff",
+        "button_style": "button--primary",
+        "background": "#ffffff",
+        "gradient": "#ffffff",
+        "gradient_rotation": 0,
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "5fb0f164-ba84-4c8f-aafc-9582d8ca0103": {
+      "type": "collection-block",
+      "blocks": {
+        "40c78440-4092-4072-bb64-fcb27b329b94": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/millie-engagement-ring-pl_2_400x_a1db46c5-363d-4a3a-ae94-1a2a03f4a497_1.webp",
+            "image_alt": "",
+            "title": "Engagement Rings",
+            "url": "https://www.miadonna.com/collections/engagement-rings"
+          }
+        },
+        "fad8f26d-cadf-4669-8f13-e47715ebac24": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/wedding-bands.png",
+            "image_alt": "",
+            "title": "Wedding Bands",
+            "url": "https://www.miadonna.com/collections/wedding-bands"
+          }
+        },
+        "6597e72c-07de-41b3-aaf5-35a341d1025c": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/earrings.png",
+            "image_alt": "",
+            "title": "Earrings",
+            "url": "https://www.miadonna.com/collections/earrings"
+          }
+        },
+        "326dd769-fa6a-4103-8428-37677198bd2d": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/bracelets.png",
+            "image_alt": "",
+            "title": "Bracelets",
+            "url": "https://www.miadonna.com/collections/bracelets"
+          }
+        },
+        "d3628316-c83d-47dc-84ce-a971ee44af34": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/jewelry.png",
+            "image_alt": "",
+            "title": "Jewelry",
+            "url": "https://www.miadonna.com/collections/lab-grown-diamond-jewelry"
+          }
+        }
+      },
+      "block_order": [
+        "40c78440-4092-4072-bb64-fcb27b329b94",
+        "fad8f26d-cadf-4669-8f13-e47715ebac24",
+        "6597e72c-07de-41b3-aaf5-35a341d1025c",
+        "326dd769-fa6a-4103-8428-37677198bd2d",
+        "d3628316-c83d-47dc-84ce-a971ee44af34"
+      ],
+      "settings": {
+        "width": "standard",
+        "main_title": "BESPOKE ENGAGEMENT RINGS & FINE JEWELRY HANDCRAFTED WITH THE TOP 1% OF LAB DIAMONDS",
+        "show_gutter": false,
+        "hide_mobile": false,
+        "background_color": "#3b3737",
+        "text_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ffe6e242-6551-4e5d-a37d-abf980cf1a3f": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "56f080f5-58a8-41d2-b2b1-ee74d6127251": {
+          "type": "text",
+          "settings": {
+            "title": "GROWN GEMSTONES",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p></p><p>Our non-conflict gemstones are created using the most scientifically advanced processes, resulting in beautiful, precious-cut, Lab-Grown Gemstones in a wide variety of colors and shapes. Chatham produces the world's best rubies, sapphires, emeralds, and alexandrite, with identical physical, optical, and chemical properties to earth-mined gemstones, but at a fraction of the cost</p><p><a href=\"https://www.miadonna.com/collections/lab-created-gemstone\" title=\"Loose Lab-Created Gemstones\">SHOP LOOSE GEMSTONES</a></p><p><a href=\"https://www.miadonna.com/collections/lab-created-gemstone-jewelry\" title=\"Lab Created Gemstone Jewelry\">SHOP GEMSTONE JEWELRY</a></p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "61b82b63-0ddb-474a-b218-26dc3f8a74ed": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Lab-Grown-Gemstones-Superior-Quality.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "56f080f5-58a8-41d2-b2b1-ee74d6127251",
+        "61b82b63-0ddb-474a-b218-26dc3f8a74ed"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space",
+        "custom_css": ""
+      }
+    },
+    "28e5838d-33a2-486b-8057-cb5133fb7c47": {
+      "type": "history-tab",
+      "blocks": {
+        "b3c18240-421e-47d4-98dc-52f2a17e1dc7": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Lab-Grown-Gemstone-Blue-Sapphire-Princess-Cut.jpg",
+            "image_alt": "Sapphires",
+            "title": "Beyond the Blue",
+            "year": "Sapphires",
+            "content": "<p>September's birthstone is available in a variety of colors. Famous blue sapphires and dazzling pink sapphires are available in a variety of cuts and sizes. Immensely popular pink sapphires range in hue from champagne to pink champagne to deep pink. Other colors like yellow sapphires are available upon request.</p>"
+          }
+        },
+        "8bda449d-a0e4-4d08-b931-0d7b86910275": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/LCG-Ruby-Princess_42ae41ed-9740-4256-94fb-54c6e67ab558.jpg",
+            "image_alt": "RUBIES",
+            "title": "Passion & Love",
+            "year": "RUBIES",
+            "content": "<p>July's vibrant red birthstone symbolizes passion, love, and vitality, and is available in various shapes and sizes. Second only to diamonds in terms of hardness, rubies are an excellent choice for jewelry worn daily, like engagement rings.</p>"
+          }
+        },
+        "17715353-fbc1-42d5-afeb-142870a5c506": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/LCG-Emerald-Princess.jpg",
+            "image_alt": "EMERALDS",
+            "title": "So Enchanting",
+            "year": "EMERALDS",
+            "content": "<p>May's birthstone represents life, growth, harmony, and abundance. As the most popular gemstone for engagement rings, emeralds have enchanted people for centuries. We proudly offer them in a large selection of shapes and sizes.</p>"
+          }
+        },
+        "e5be66f1-0864-4986-8b97-fe38c14891ba": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/LCG-Alexandrite-Princess_597bb96b-b7b7-4b3d-af21-a8aa653b56ee.jpg",
+            "image_alt": "ALEXANDRITE",
+            "title": "Mysterious & Alluring",
+            "year": "ALEXANDRITE",
+            "content": "<p>Emerald by day, ruby by night, real Alexandrites color changes with the light! June's birthstone varies in color with the light, ranging from green to purply red in hue. While earth-mined Alexandrites are exceptionally rare, our 100% real Alexandrites are readily available in many shapes and sizes.</p>"
+          }
+        },
+        "f0d33d60-2544-48e0-b6d8-4220a420e0ab": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/LCG-Padparadscha-Princess_e6354f67-900b-4ba2-a870-ac4d2caab016.jpg",
+            "image_alt": "PADPARADSCHA",
+            "title": "Rare & Royal",
+            "year": "PADPARADSCHA",
+            "content": "<p>The rarest member of the sapphire family, these gemstones are pinkish-orange in color and available in many shapes and sizes. Their name is derived from the Sinhalese word <em>padma radschen, </em>which means lotus blossom.</p>"
+          }
+        },
+        "b3c18240-421e-47d4-98dc-52f2a17e1d": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Lab-Grown-Gemstone-Blue-Sapphire-Princess-Cut.jpg",
+            "image_alt": "Sapphires",
+            "title": "LAB GEMSTONES",
+            "year": "Sapphires",
+            "content": "<p>September's birthstone is available in different hues of blue and pink and a variety of cuts and sizes Immensely popular pink sapphires range in color from champagne to pink champagne to deep pink Other colors like yellow sapphires are avaliable upon reque</p>"
+          }
+        },
+        "8bda449d-a0e4-4d08-b931-0d7b869102": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/LCG-Ruby-Princess_42ae41ed-9740-4256-94fb-54c6e67ab558.jpg",
+            "image_alt": "RUBIES",
+            "title": "LAB GEMSTONES",
+            "year": "RUBIES",
+            "content": "<p>July's birthstone is vibrant in red and available in various shapes and sizes.</p>"
+          }
+        },
+        "17715353-fbc1-42d5-afeb-142870a5c5": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/LCG-Emerald-Princess_6211c4ec-fe7c-41f9-a7aa-43f8ace7b943.jpg",
+            "image_alt": "EMERALDS",
+            "title": "LAB GEMSTONES",
+            "year": "EMERALDS",
+            "content": "<p>September's birthstone is available in different hues of blue and pink and a variety of cuts and sizes Immensely popular pink sapphires range in color from champagne to pink champagne to deep pink Other colors like yellow sapphires are avaliable upon reque</p>"
+          }
+        },
+        "e5be66f1-0864-4986-8b97-fe38c14891": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/LCG-Alexandrite-Princess_597bb96b-b7b7-4b3d-af21-a8aa653b56ee.jpg",
+            "image_alt": "ALEXANDRITE",
+            "title": "LAB GEMSTONES",
+            "year": "ALEXANDRITE",
+            "content": "<p>Available in a variety of cuts and sizes, this color-changing gemstone changes in different lights, from green and blue to pink and purple.</p>"
+          }
+        },
+        "f0d33d60-2544-48e0-b6d8-4220a420e0": {
+          "type": "tab",
+          "settings": {
+            "image": "shopify://shop_images/LCG-Padparadscha-Princess_e6354f67-900b-4ba2-a870-ac4d2caab016.jpg",
+            "image_alt": "PADPARADSCHA",
+            "title": "LAB GEMSTONES",
+            "year": "PADPARADSCHA",
+            "content": "<p>A rare member of the sapphire family, these gemstones are pink in color and available in many shapes and sizes.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b3c18240-421e-47d4-98dc-52f2a17e1dc7",
+        "8bda449d-a0e4-4d08-b931-0d7b86910275",
+        "17715353-fbc1-42d5-afeb-142870a5c506",
+        "e5be66f1-0864-4986-8b97-fe38c14891ba",
+        "f0d33d60-2544-48e0-b6d8-4220a420e0ab",
+        "b3c18240-421e-47d4-98dc-52f2a17e1d",
+        "8bda449d-a0e4-4d08-b931-0d7b869102",
+        "17715353-fbc1-42d5-afeb-142870a5c5",
+        "e5be66f1-0864-4986-8b97-fe38c14891",
+        "f0d33d60-2544-48e0-b6d8-4220a420e0"
+      ],
+      "settings": {
+        "main_heading": "",
+        "main_subheading": "",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "417af40b-fa42-4b27-9c17-6f66f8e03": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "",
+        "text_font": "open_sans_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 2,
+        "button_label": "LEARN MORE ABOUT OUR GROWN GEMSTONES",
+        "button_link": "https://www.miadonna.com/pages/lab-grown-gemstones",
+        "button_alignment": "center",
+        "button_background": "#58717a",
+        "button_text": "#ffffff",
+        "button_style": "button--primary",
+        "background": "#ffffff",
+        "gradient": "#ffffff",
+        "gradient_rotation": 0,
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "e57144f0-d42a-413c-abfc-3c101d0fd155": {
+      "type": "help-text-overlay",
+      "settings": {
+        "link": "",
+        "image": "shopify://shop_images/Need-Advice-Help-Jewelry-Experts-web.jpg",
+        "pretext": "<h2><em>Need Expert Advice?</em></h2>",
+        "subtitle": "<p>Contact a MiaDonna non-commissioned jewelry specialist to guide you through your shopping experience.</p>",
+        "pretext_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "center",
+        "text_horizontal_position": "right",
+        "text_vertical_position": "middle",
+        "background_color": "#ffffff",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 48,
+        "button_1": "LET'S CHAT",
+        "button_1_link": "shopify://pages/contact-us",
+        "button_1_style": "button--secondary",
+        "button_2": "BOOK APPOINTMENT",
+        "button_2_link": "shopify://pages/appointments",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "wide",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "32d6329c-c3f7-4569-8ad3-ff8b742afe21": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe21-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Lab-Grown-Diamonds-Diamond-Hybrid-Alternative.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe21-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "THE DIAMOND HYBRID",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p></p><p>Another stunning option for those seeking conflict-free diamonds, the Diamond Hybrid is the most realistic-looking diamond simulant available, exclusively offered at $295.00 USD per carat. It is created by placing a perfectly cut crystal core into a chamber of intense heat and pressure and infusing Lab-Crown Diamond crystals (bonding them at the molecular level) into the outer layers of the crystal core. The result is a diamond-infused simulant with a non-precious crystal core and a non-porous solid outer layer of Lab-Grown Diamond that will never wear off or detach from the core.</p><p>The Diamond Hybrid is not pure carbon and, therefore, does not share the same properties of a mined or lab-grown diamond. However, the Diamond Hybrid has an outer carbon layer that is molecularly bonded to the non-precious substrate.</p><p>While we will always recommend our Lab-Grown Diamonds, the Diamond Hybrid is an excellent choice for more budget-conscious consumers, especially for jewelry that doesn't receive the wear and tear of regularly worn rings, like earrings and pendants. Our customers often use them as a future diamond placeholder or in their travel jewelry.</p><p><a href=\"https://www.miadonna.com/collections/diamond-hybrid\" title=\"Shop Loose Diamond Hybrids\">SHOP DIAMOND HYBRIDS</a></p><p><a href=\"https://www.miadonna.com/pages/diamond-upgrade-policy\" title=\"Diamond Upgrade Policy\">LEARN ABOUT OUR DIAMOND UPGRADE PROGRAM</a></p><p></p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe21-image-1",
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe21-text-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space",
+        "custom_css": ""
+      }
+    },
+    "417af40b-fa42-4b27-9c17-6f66f8e037": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "",
+        "text_font": "open_sans_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 2,
+        "button_label": "LEARN MORE ABOUT THE DIAMOND HYBRID",
+        "button_link": "https://www.miadonna.com/collections/diamond-hybrid",
+        "button_alignment": "center",
+        "button_background": "#58717a",
+        "button_text": "#ffffff",
+        "button_style": "button--primary",
+        "background": "#ffffff",
+        "gradient": "#ffffff",
+        "gradient_rotation": 0,
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "0503c1a0-b457-45f4-be09-d0c5c74c7eea": {
+      "type": "icon-card",
+      "blocks": {
+        "c1d13f08-65b9-43cc-a254-6248d160bb62": {
+          "type": "card",
+          "settings": {
+            "title": "TOP 1%",
+            "sub_title": "SUSTAINABLE MATERIALS",
+            "icon": "shopify://shop_images/MiaDonna-The-Story-Icons_Diamond-web.png",
+            "card_info": "We only sell the Top 1% of Lab-Grown Diamonds and Gemstones, ensuring both quality, brilliance, and sustainability. Every setting is handcrafted. using the finest grade recycled of solid gold or platinum.",
+            "link_title": "Learn More",
+            "learn_more_link": "https://www.miadonna.com/pages/lab-grown-diamonds"
+          }
+        },
+        "40ffcd00-36bd-415b-bf58-4fe3aae4a3a5": {
+          "type": "card",
+          "settings": {
+            "title": "GIVES",
+            "sub_title": "BACK 10% PROFITS",
+            "icon": "shopify://shop_images/MiaDonna-The-Story-Icons_Give-Back-hi.png",
+            "card_info": "MiaDonna is a foundation-first company that gives at least 10% net profits to rebuild and repair the land and lives devastated by the diamond mining industry. We do this through our foundation, The Greener Diamond.",
+            "link_title": "Learn More",
+            "learn_more_link": "https://www.miadonna.com/pages/the-greener-diamond"
+          }
+        },
+        "9b6bd637-353f-4ded-9ecd-085fa75e0bae": {
+          "type": "card",
+          "settings": {
+            "title": "PROTECTS",
+            "sub_title": "THE EARTH",
+            "icon": "shopify://shop_images/MiaDonna-The-Story-Icons_Protect-the-Earth-hi.png",
+            "card_info": "We save thousands of tons in natural resources by not mining for diamonds and new gold for our jewelry. We boast a short supply chain and offset carbon emissions required for the minimal shipping by planting a tree for every order.",
+            "link_title": "Learn More",
+            "learn_more_link": "https://www.miadonna.com/pages/our-pledge"
+          }
+        },
+        "c882b7a6-3cda-4516-b472-f38a95b576bf": {
+          "type": "card",
+          "settings": {
+            "title": "BY CONSUMERS,",
+            "sub_title": "FOR CONSUMERS",
+            "icon": "shopify://shop_images/MiaDonna-The-Story-Icons_By-Consumers-hi.png",
+            "card_info": "We love fine jewelry too! We are consumer advocates, offering luxury jewelry for attainable prices, with endless customization options, easy returns and financing options, free domestic shipping, and world class support from our jewelry experts.",
+            "link_title": "Learn More",
+            "learn_more_link": "https://www.miadonna.com/pages/reviews"
+          }
+        },
+        "c2b0a61a-9de7-44c8-8737-9393178513c1": {
+          "type": "card",
+          "settings": {
+            "title": "AMERICAN",
+            "sub_title": "HANDCRAFTED FOR YOU",
+            "icon": "shopify://shop_images/MiaDonna-The-Story-Icons_American-Made-web.png",
+            "card_info": "Our headquarters and store are in Portland, Oregon and our jewelry is handcrafted to order in New York City. We're proud to have our team here in the U.S.!",
+            "link_title": "Learn More",
+            "learn_more_link": "https://www.miadonna.com/pages/visit-us"
+          }
+        },
+        "d1f075f1-a472-4a4a-a2a6-95208d4748f3": {
+          "type": "card",
+          "settings": {
+            "title": "B CORP",
+            "sub_title": "CERTIFIED 92.9 PTS",
+            "icon": "shopify://shop_images/MiaDonna-The-Story-Icons_B-Corp-web.png",
+            "card_info": "As the first B Corp-certified diamond retailer, we continue to meet the highest standards of social and environmental impact. We measure more than profit, and use business as a force for good.",
+            "link_title": "Learn More",
+            "learn_more_link": "https://www.miadonna.com/blogs/news/miadonna-becomes-the-first-b-corp-certified-lab-grown-diamond-company"
+          }
+        }
+      },
+      "block_order": [
+        "c1d13f08-65b9-43cc-a254-6248d160bb62",
+        "40ffcd00-36bd-415b-bf58-4fe3aae4a3a5",
+        "9b6bd637-353f-4ded-9ecd-085fa75e0bae",
+        "c882b7a6-3cda-4516-b472-f38a95b576bf",
+        "c2b0a61a-9de7-44c8-8737-9393178513c1",
+        "d1f075f1-a472-4a4a-a2a6-95208d4748f3"
+      ],
+      "settings": {
+        "title": "The MiaDonna Difference",
+        "card_per_row": 3,
+        "show_gutter": true,
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "e0422252-b178-4354-aaae-d4a69aa9b4f3": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "{% render 'request-quote-popup' %}"
+      }
+    },
+    "846f12fa-ae94-4e2a-b2fb-41eed4565e8b": {
+      "type": "lab-diamonds-sub-footer",
+      "blocks": {
+        "template--15039402803279__846f12fa-ae94-4e2a-b2fb-41eed4565e8b-column-1": {
+          "type": "column",
+          "settings": {
+            "title": "You're shopping the best",
+            "description": "MiaDonna diamonds are the highest quality, most ethical grown diamonds in the industry.",
+            "button_text": "",
+            "button_link": "https://www.miadonna.com/pages/lab-grown-diamonds"
+          }
+        },
+        "2f917ea1-4b1f-466b-9b9d-b35b91bc491e": {
+          "type": "column",
+          "settings": {
+            "title": "COMPLIMENTARY DESIGN SERVICES",
+            "description": "Every ring is handcrafted to order in America: Your ring will always be unique to you and your preferences",
+            "button_text": "",
+            "button_link": "https://www.miadonna.com/collections/engagement-rings"
+          }
+        },
+        "6a09614f-f0a9-43af-9c92-935dbdbbc954": {
+          "type": "column",
+          "settings": {
+            "title": "COMPLIMENTARY 2-DAY SHIPPING",
+            "description": "We insure and register every order and offer free 2-day shipping within the continental US",
+            "button_text": "",
+            "button_link": "https://www.miadonna.com/pages/shipping"
+          }
+        },
+        "820833cc-b46c-4672-a6a0-df178c934e54": {
+          "type": "column",
+          "settings": {
+            "title": "EVERY PURCHASE GIVES BACK",
+            "description": "10% of net profits from every purchase go to our foundation to support people and the planet",
+            "button_text": "",
+            "button_link": "https://www.miadonna.com/pages/the-greener-diamond"
+          }
+        }
+      },
+      "block_order": [
+        "template--15039402803279__846f12fa-ae94-4e2a-b2fb-41eed4565e8b-column-1",
+        "2f917ea1-4b1f-466b-9b9d-b35b91bc491e",
+        "6a09614f-f0a9-43af-9c92-935dbdbbc954",
+        "820833cc-b46c-4672-a6a0-df178c934e54"
+      ],
+      "settings": {
+        "width": "standard",
+        "background_color": "#52727b",
+        "text_color": "#ffffff"
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "main",
+    "ccc272c4-b764-4862-a10c-d61c4a47b0e1",
+    "74ef9bbf-cbdb-4989-9956-ea23b05c35e5",
+    "a0acd91f-cc30-45d9-b642-50ac5fcbe6ac",
+    "32d6329c-c3f7-4569-8ad3-ff8b742afe51",
+    "4f7e31af-689f-46c4-addb-7b8b049a2c91",
+    "417af40b-fa42-4b27-9c17-6f66f8e037f5",
+    "5fb0f164-ba84-4c8f-aafc-9582d8ca0103",
+    "ffe6e242-6551-4e5d-a37d-abf980cf1a3f",
+    "28e5838d-33a2-486b-8057-cb5133fb7c47",
+    "417af40b-fa42-4b27-9c17-6f66f8e03",
+    "e57144f0-d42a-413c-abfc-3c101d0fd155",
+    "32d6329c-c3f7-4569-8ad3-ff8b742afe21",
+    "417af40b-fa42-4b27-9c17-6f66f8e037",
+    "0503c1a0-b457-45f4-be09-d0c5c74c7eea",
+    "e0422252-b178-4354-aaae-d4a69aa9b4f3",
+    "846f12fa-ae94-4e2a-b2fb-41eed4565e8b",
+    "shogun-optimizer"
+  ]
+}

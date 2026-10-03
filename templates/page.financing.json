@@ -1,0 +1,102 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "1a9f9d2d-5142-4e35-937f-f751c1f08785": {
+          "type": "richtext",
+          "settings": {
+            "richtext_alignment": "left",
+            "richtext_font": "Montserrat,sans-serif",
+            "richtext": "<p>MiaDonna offers secure checkout via Visa, MasterCard, Discover and American Express, PayPal, Apple Pay, and/or Amazon Pay accounts. We also provide the option to finance your purchase over 3, 12, 18, 24, or 36 months through BreadPay Financing. You can split your payment into four installments with ShopPay, or if your credit has a few dings on it, you can apply through our financing partner Acima. If you would like to finalize your purchase using multiple credit cards or a combination of payment methods, please contact us at 866.996.9642 for further assistance.</p>"
+          }
+        },
+        "bc56ea4c-ece0-4e55-8a4b-20cb4adad825": {
+          "type": "richtext",
+          "settings": {
+            "richtext_alignment": "left",
+            "richtext_font": "Montserrat,sans-serif",
+            "richtext": "<h2></h2><h2><strong>PAYMENT OPTIONS - ONLINE OR INSTORE</strong></h2><h3><em>Credit Cards</em></h3><p>We accept Visa, MasterCard, Discover, and American Express. Payment declines are common due to the value of the purchase. If your payment is declined, we recommend contacting your card issuing bank to determine the reason for the declined message. After you have contacted your bank, you can try to place the order again or contact us at 866.996.9642 for further assistance.</p><h3><em>Checkout With PayPal</em></h3><p>Complete your MiaDonna purchase using information from your PayPal account.</p><h3><em>Checkout With Apple Pay</em> </h3><p>Complete your MiaDonna purchase using your Apple Pay account.</p><h3><em>Checkout With Amazon</em></h3><p>Complete your MiaDonna purchase using your Amazon account.</p><h2><strong>LOOKING FOR JEWELRY FINANCING?</strong> </h2><p>At MiaDonna, we believe that everyone deserves a chance to indulge in the beauty and elegance of fine jewelry. That's why we've curated a range of financing solutions tailored to your needs, making luxury accessible to all. Get pre-qualified with no obligation to purchase!</p>"
+          }
+        },
+        "3238336a-58c9-47d3-bd91-602a376dbbe1": {
+          "type": "three_column_block",
+          "settings": {
+            "alignment": "center",
+            "title": "Affordable monthly plans",
+            "description": "<p>Pay for your order over 3, 12, 18, 24, or 36 months at competitive interest rates or over three months at as low as 0% APR*.</p>",
+            "title_2": "No Prepayment Penalties",
+            "description_2": "<p>Pay for your purchase with monthly payments and prepay at any time without penalty.</p>",
+            "title_3": "Quick and easy application",
+            "description_3": "<p>Get a decision in seconds with no obligation to buy. Checking your rate won't affect your credit score.</p>",
+            "button_text": "Get my rate",
+            "button_link": "#breadpay"
+          }
+        },
+        "richtext_PbxVfx": {
+          "type": "richtext",
+          "settings": {
+            "richtext_alignment": "left",
+            "richtext_font": "Montserrat,sans-serif",
+            "richtext": "<h3><em>BreadPay</em></h3><p>BreadPay allows you to finance your purchase over 3, 12, 18, 24, or 36 months. Bread does not require a hard credit check for approval and will not impact your credit score. <br/><br/>*Minimum purchase of $50.00 is required. Availability of terms may vary based on purchase price, product, and state of residence. Down payment may be required. Subject to approval of credit application. Rates range from 0% to 34.99% APR, resulting in, for example 36 monthly payments of $38.19 at 21.99% APR, per $1,000.00 borrowed. APRs will vary depending on credit qualifications, loan amount, and term. Bread Pay® loans are made by Comenity Capital Bank, a Bread Financial® company.</p><p></p>"
+          }
+        },
+        "ae957602-880c-4196-bd00-d9a580a01966": {
+          "type": "richtext",
+          "settings": {
+            "richtext_alignment": "left",
+            "richtext_font": "Montserrat,sans-serif",
+            "richtext": "<h3><em>ShopPay</em></h3><p>ShopPay installments lets you split your purchase into four equal installments for purchases between $50 - $3,000 USD.<br/></p><h2>OTHER PAYMENT OPTIONS</h2><h3><em>Bank Wire </em></h3><p>Please contact us if you would like to do a bank wire. We will give you the account information you will need to provide to your bank in order to transfer funds from your account directly to MiaDonna. It may take a few days for your bank to process the bank wire. Once your bank has transferred the funds, MiaDonna is immediately notified, you will receive a confirmation, and your order is processed. Order times may vary based on receipt of bank wire payment. If you have any questions about the process involved in a bank wire, contact your bank or call MiaDonna at 866-996-9642. Please note: some financial institutions do charge a fee for bank wires; please contact your bank for more information. All Canadian and International bank wire payments are subject to a $35.00 USD processing fee by MiaDonna. An ACH or online bill pay transfer is not the same as a wire transfer payment. MiaDonna does not accept ACH transfers as a payment method. Available on orders over $500.00 USD.</p>"
+          }
+        },
+        "68306532-05fe-4ebc-b611-2b07a422adb5": {
+          "type": "richtext",
+          "settings": {
+            "richtext_alignment": "left",
+            "richtext_font": "Montserrat,sans-serif",
+            "richtext": "<h3></h3><h3><strong>With our jewelry financing, you can enjoy benefits such as:</strong> </h3><h3></h3><p><em>Easy Application Process: </em>Our streamlined application process at checkout ensures quick approvals, allowing you to bring home your desired piece of jewelry without delay. </p><p><em>Flexible Payment Plans:</em> We offer a variety of payment plans to suit your budget. Whether you prefer short-term installments or longer-term options, we have a plan that fits your financial goals.</p><p><em>Competitive Rates: </em>Our financing options come with competitive interest rates, ensuring that you receive the best value for your investment. We strive to keep your costs affordable while providing you with exceptional quality.</p><p><em>No Hidden Fees: </em>Transparency is important to us. You can trust that our jewelry financing comes with no hidden fees or surprises. We believe in open communication, so you'll know exactly what you're signing up for.</p><p><em>No Hard Credit Checks: </em>BreadPay offers loans to customers without a hard credit pull from the top 3 bureaus (TransUnion, Experian, and Equifax). Unlike hard inquiries, soft inquiries won't affect your credit scores. (They may or may not be recorded in your credit reports, depending on the credit bureau.)</p><p>Still need help? <a href=\"/pages/contact-us\" title=\"Contact Us\">Contact</a> our friendly team to learn more about our jewelry financing solutions and start your journey toward wearing the jewelry of your dreams. Let us help you sparkle and shine effortlessly!</p>"
+          }
+        },
+        "4fded629-d4c6-4bd1-a81f-9ab50f10dea7": {
+          "type": "default_content",
+          "settings": {
+            "content": false
+          }
+        }
+      },
+      "block_order": [
+        "1a9f9d2d-5142-4e35-937f-f751c1f08785",
+        "bc56ea4c-ece0-4e55-8a4b-20cb4adad825",
+        "3238336a-58c9-47d3-bd91-602a376dbbe1",
+        "richtext_PbxVfx",
+        "ae957602-880c-4196-bd00-d9a580a01966",
+        "68306532-05fe-4ebc-b611-2b07a422adb5",
+        "4fded629-d4c6-4bd1-a81f-9ab50f10dea7"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "customer-care-navigation",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify://shop_images/Flexible-payment-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,74 @@
+<section class="marquee-wrapper" role="region" aria-label="Featured In">
+  <div class="marquee marquee--hover-pause">
+    {% for i in (1..2) %}
+      <div class="marquee__content" role="list"{% if i > 1 %} aria-hidden="true"{% endif %}>
+        {% for block in section.blocks %}
+          <div class="marquee-logo" role="listitem">
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" target="_blank" rel="noopener"{% if i > 1 %} tabindex="-1"{% endif %}>
+            {% endif %}
+              {% if block.settings.logo != blank %}
+                <img 
+                  src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.logo | image_url: width: 300 }}" 
+                  width="{{ block.settings.logo_width | default: 200 }}"
+                  height="{{ block.settings.logo_height | default: 100 }}"
+                  alt="{{ block.settings.alt_text | escape }}">
+              {% endif %}
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marquee Logos",
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo Image"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Alt Text",
+          "default": "Brand logo"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        },
+        {
+          "type": "number",
+          "id": "logo_width",
+          "label": "Image Width (px)",
+          "default": 200
+        },
+        {
+          "type": "number",
+          "id": "logo_height",
+          "label": "Image Height (px)",
+          "default": 100
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Logos",
+      "category": "Brand"
+    }
+  ]
+}
+{% endschema %}

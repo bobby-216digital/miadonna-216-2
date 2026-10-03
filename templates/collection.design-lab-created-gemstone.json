@@ -1,0 +1,123 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "main": {
+      "type": "collection__lab-gemstone",
+      "blocks": {
+        "shape_AjzbR9": {
+          "type": "Shape",
+          "settings": {
+            "description_textarea_shape": "Shape refers to the appearance of the center stone. Most diamond shapes are Round, Square (Princess, Asscher, Cushion, Radiant), Rectangular ( Emerald, Elongated Radiant, Elongated Cushion), Heart-shaped, Pear-shaped (also known as tear-drop), Oval, or Marquise (like an Oval but pointed on both ends).",
+            "include_in_advanced_filter_checkbox_shape": false,
+            "main_title_shape_1": "Round",
+            "main_title_shape_checkbox_1": true,
+            "main_title_shape_2": "Oval",
+            "main_title_shape_checkbox_2": true,
+            "main_title_shape_3": "Emerald",
+            "main_title_shape_checkbox_3": true,
+            "main_title_shape_4": "Princess",
+            "main_title_shape_checkbox_4": true,
+            "main_title_shape_5": "Asscher",
+            "main_title_shape_checkbox_5": false,
+            "main_title_shape_6": "Cushion",
+            "main_title_shape_checkbox_6": true,
+            "main_title_shape_7": "Radiant",
+            "main_title_shape_checkbox_7": false,
+            "main_title_shape_8": "Pear",
+            "main_title_shape_checkbox_8": true,
+            "main_title_shape_9": "Heart",
+            "main_title_shape_checkbox_9": true,
+            "main_title_shape_10": "Rose Brilliant",
+            "main_title_shape_checkbox_10": false,
+            "main_title_shape_11": "Rose",
+            "main_title_shape_checkbox_11": false,
+            "main_title_shape_12": "Oval Rose",
+            "main_title_shape_checkbox_12": false
+          }
+        },
+        "0af56a25-c121-4222-96e1-044aba82bd48": {
+          "type": "Color",
+          "settings": {
+            "description_textarea_color": "White diamonds range from D-F (colorless), G-H (near colorless \\u0026 very difficult to detect), I-J (near colorless with slightly detectable warmth), K-Z (noticeable color). Color presents itself as a pale yellow. With Fancy Color diamonds, the intense grades will be the most color saturated.",
+            "include_in_advanced_filter_checkbox_color": false,
+            "main_title_color_1": "Blue Sapphire",
+            "main_title_color_checkbox_1": true,
+            "main_title_color_2": "Pink Sapphire",
+            "main_title_color_checkbox_2": true,
+            "main_title_color_3": "Ruby",
+            "main_title_color_checkbox_3": true,
+            "main_title_color_4": "Emerald",
+            "main_title_color_checkbox_4": true,
+            "main_title_color_5": "Alexandrite",
+            "main_title_color_checkbox_5": true,
+            "main_title_color_6": "Padparadscha",
+            "main_title_color_checkbox_6": true,
+            "main_title_color_7": "Champagne Sapphire",
+            "main_title_color_checkbox_7": true,
+            "main_title_color_8": "Pink Champagne Sapphire",
+            "main_title_color_checkbox_8": true
+          }
+        },
+        "272a546b-a36f-4b4a-a78e-11f5f77d8c8a": {
+          "type": "Carat",
+          "settings": {
+            "description_textarea_carat": "Carat weight refers not to the size of the stone, but the weight of it; two stones may have identical carat weights but have different length x width measurements depending on the cut. If you want to choose a smaller carat weight stone, opt for a higher cut grade, as this will make the stone appear larger. When selecting a stone for a specific budget, try to go slightly under a full or half carat weight, because prices jump at those sizes. For example, a 1.9ct stone will cost less than a 2.0ct, and because carat weight is distributed across the entirety of the diamond, that size difference would be nearly impossible to detect.",
+            "include_in_advanced_filter_checkbox_carat": false,
+            "main_title_carat_min": 1,
+            "main_title_carat_max": 100
+          }
+        },
+        "092de712-d647-4993-a3bf-ffa54f58c1e7": {
+          "type": "Price",
+          "settings": {
+            "description_textarea_price": "Price range for ring and accessory items are without stones set. Price range for loose stones reflect just the stone, not the ring or accessory added.",
+            "include_in_advanced_filter_checkbox_price": false,
+            "main_title_price_min": 0,
+            "main_title_price_max": 9999999
+          }
+        }
+      },
+      "block_order": [
+        "shape_AjzbR9",
+        "0af56a25-c121-4222-96e1-044aba82bd48",
+        "272a546b-a36f-4b4a-a78e-11f5f77d8c8a",
+        "092de712-d647-4993-a3bf-ffa54f58c1e7"
+      ],
+      "settings": {
+        "collection_breadcrumb": true,
+        "collection_tags": false,
+        "collection_sort": true,
+        "show_sidebar": false,
+        "sidebar_position": "left",
+        "show_promo_banner": false,
+        "image": "shopify:\/\/shop_images\/collection-banner.jpg",
+        "image_darken": false,
+        "promo_title": "Tie the knot in style",
+        "promo_text": "<p>Limited edition Bridal Collection. Viewings by appointment only.<\/p>",
+        "banner_height": "medium",
+        "align_height": false,
+        "collection_height": 200,
+        "products_per_row": 4,
+        "mobile_products_per_row": "2",
+        "pagination_limit": 24,
+        "pagination_type": "basic_pagination",
+        "width": "wide",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

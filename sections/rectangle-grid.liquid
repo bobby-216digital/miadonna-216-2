@@ -1,0 +1,519 @@
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if section.settings.hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .rectangle-grid--slider.no-slider:after {
+    content: "flickity";
+    display: none; /* hide :after */
+  }
+  @media screen and (min-width: 1025px) {
+    /* disable Flickity for large devices */
+    #shopify-section-{{ section.id }} .rectangle-grid--slider.no-slider:after {
+      content: "";
+    }
+  }
+  #shopify-section-{{ section.id }} .section-heading{
+    font-weight: 600;
+    margin-bottom: 38px;
+  }
+  #shopify-section-{{ section.id }} .section-heading > *{
+    line-height: 30.46px;
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  }
+  #shopify-section-{{ section.id }} .section-sub-heading{
+    margin-top: 0.8rem;
+  }
+  #shopify-section-{{ section.id }} .section-sub-heading > *{
+    font-family: {{ section.settings.sub_title_font.family }}, {{ section.settings.sub_title_font.fallback_families }};
+  }
+  #shopify-section-{{ section.id }} .image-element__wrap{
+    height: auto;
+  }
+  #shopify-section-{{ section.id }} .content-wrapper{
+    margin-top: 37px;
+  }
+  #shopify-section-{{ section.id }} .rectangle-grid--slider .content-wrapper{
+    margin-top: 15px;
+  }
+  #shopify-section-{{ section.id }} .section-title{
+    font-weight: 600;
+    /* line-height: 30px; */
+    margin-bottom: 20px;
+    /* letter-spacing: 1.4px; */
+  }
+  #shopify-section-{{ section.id }} .rectangle-grid--slider .section-title {
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: 500;
+    line-height: normal;
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .rectangle-grid--slider .section-title.hover-line::after {
+    background-color: #dea595;
+    bottom: -10px;
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    transition: width .8s;
+    width: 80px;
+    z-index: 0;
+  }
+  #shopify-section-{{ section.id }} .rectangle-grid--slider .column:hover .section-title.hover-line::after {
+    width: 0;
+  }
+  #shopify-section-{{ section.id }} .description{
+    font-size: {{ settings.regular_font_size | times: 0.95 | floor | append: 'px' }};
+    line-height: 24px;
+    margin-top: 0;
+    letter-spacing: 0.35px;
+    margin-bottom: 30px;
+  }
+  #shopify-section-{{ section.id }} .rectangle-grid--slider .section-title,
+  #shopify-section-{{ section.id }} .rectangle-grid--slider .description {
+    margin-bottom: 10px;
+  }
+  #shopify-section-{{ section.id }} .description em{
+    line-height: 25.86px;
+    letter-spacing: .35px;
+    font-family: Playfair Display;
+  }
+  #shopify-section-{{ section.id }} .button{
+    width: 300px;
+    color: #000;
+    margin: auto;
+    min-height: 54px;
+    font-weight: 600;
+    font-size: {{ settings.regular_font_size | append: 'px' }};
+    /* text-transform: uppercase; */
+  }
+  #shopify-section-{{ section.id }} .button-align-left .button{
+    margin-left: 0;
+  }
+  #shopify-section-{{ section.id }} .button-align-right .button{
+    margin-right: 0;
+  }
+  #shopify-section-{{ section.id }} .button.button--primary{
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #3b3737;
+  }
+  #shopify-section-{{ section.id }} .button.button--primary:hover{
+    color: #000;
+    border-width: 3px;
+    border-color: #3b3737;
+    background-color: transparent;
+  }
+  #shopify-section-{{ section.id }} .button.button--secondary{
+    border-width: 3px;
+    border-color: #3b3737;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .button.button--secondary:hover{
+    color: #fff;
+  }
+  #shopify-section-{{ section.id }} .button.button--link-style{
+    width: auto;
+    border: none;
+    position: relative;
+    min-height: inherit;
+    padding-bottom: 4px;
+    display: inline-block;
+  }
+  #shopify-section-{{ section.id }} .button.button--link-style::before{
+    background-color: #d4a696;
+    bottom: 0;
+    content: '';
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    transition: width .8s;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 0;
+  }
+  #shopify-section-{{ section.id }} .button.button--link-style:hover::before {
+    width: 0;
+  }
+  @media screen and (max-width: 1200px){
+    #shopify-section-{{ section.id }} .description br{
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 1024px) {
+    .equal-columns--outside-trim .small-down--two-thirds {
+      width: calc(30% - 20px);
+    }
+  }
+  @media screen and (max-width: 767px){
+    #shopify-section-{{ section.id }} .column:not(:last-child){
+      margin-bottom: 3rem;
+    }
+    #shopify-section-{{ section.id }} .content-wrapper{
+      margin-top: 25px;
+    }
+    #shopify-section-{{ section.id }} .section-title{
+      margin-bottom: 10px;
+    }
+    #shopify-section-{{ section.id }} .rectangle-grid--slider .section-title {
+      font-size: 14px;
+    }
+    #shopify-section-{{ section.id }} .description{
+      font-size: {{ settings.regular_font_size | times: 0.9 | floor | append: 'px' }};
+    }
+    #shopify-section-{{ section.id }} .description br{
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .equal-columns--outside-trim .small-down--two-thirds {
+      width: calc(66.6666666667% - 20px);
+    }
+  }
+
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-image-with-text
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  {% if section.settings.title != blank %}
+    <div
+      class="section-heading text-center"
+    >
+      {{ section.settings.title }}
+      {% if section.settings.sub_title != blank %}
+        <div
+          class="section-sub-heading text-center"
+        >
+          {{ section.settings.sub_title }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="container {% if section.settings.show_slider == true %}{% if section.blocks.size <= 5 %}rectangle-grid--slider no-slider{% endif %}{% endif %}"
+    {% if section.settings.show_slider == true %}
+    style="flex-wrap: nowrap;"
+    data-products-per-slide="5"
+    data-products-limit="{{ section.blocks.size }}"
+    data-products-available="{{ section.blocks.size }}"
+    {% endif %}
+  >
+    {% for block in section.blocks %}
+      <div class="{% render 'column-width', value: section.blocks.size %} column {% if section.settings.show_slider == true %}small-down--two-thirds{% else %}small-down--one-whole{% endif %}">
+        {%- if section.settings.show_slider == true -%}
+        {%- if block.settings.button_text != blank -%}
+          <a href="{{ block.settings.button_link }}">
+        {%- endif -%}
+        {%- endif -%}
+        {% if block.settings.image != blank %}
+          {% render 'image-element', image: block.settings.image, alt: block.settings.image_alt %}
+        {% else %}
+          <div class="image-element__wrap">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+        <div
+          class="content-wrapper text-{{ block.settings.text_alignment }}"
+          style="{% if block.settings.text_alignment == 'left' %}padding-left: 1rem;{% elsif block.settings.text_alignment == 'right' %}padding-right: 1rem;{% endif %}"
+        >
+          <h3 class="section-title {% if section.settings.show_slider == true %}{% if block.settings.description == blank and block.settings.button_text == blank %}hover-line{% endif %}{% endif %}">{{ block.settings.title }}</h3>
+          {% if block.settings.description != blank %}
+          <div class="description">
+            {{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+          </div>
+          {% endif %}
+          {% if block.settings.button_text != blank %}
+            <div class="buttons button-align-{{ block.settings.text_alignment }}">
+              {% render 'button',
+                label: block.settings.button_text,
+                href: block.settings.button_link,
+                style: block.settings.button_style,
+                type: 'link'
+              %}
+            </div>
+          {% endif %}
+        </div>
+        {%- if section.settings.show_slider == true -%}
+        {%- if block.settings.button_text != blank -%}
+          </a>
+        {%- endif -%}
+        {%- endif -%}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsRectangleGrid.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Rectangle Grid",
+  "class": "rectangle-grid jsRectangleGrid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Show slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_slider",
+      "label": "Show slider",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Section title"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Font",
+      "default": "open_sans_n4"
+    },
+    {
+      "type": "richtext",
+      "id": "sub_title",
+      "label": "Section sub title"
+    },
+    {
+      "type": "font_picker",
+      "id": "sub_title_font",
+      "label": "Font",
+      "default": "open_sans_n4"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "text",
+          "label": "Image Alt Text",
+          "id": "image_alt"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "richtext",
+          "label": "Description",
+          "id": "description"
+        },
+        {
+          "type": "text",
+          "label": "Button text",
+          "id": "button_text"
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "button_link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Style",
+          "options": [
+            {
+              "value": "button--primary",
+              "label": "Primary"
+            },
+            {
+              "value": "button--secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "button--link-style",
+              "label": "Link style"
+            }
+          ],
+          "default": "button--primary"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rectangle Grid",
+      "category": "Grid Columns",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

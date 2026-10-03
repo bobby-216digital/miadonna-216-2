@@ -1,0 +1,604 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Product Grid",
+  "class": "product-grid",
+  "id": "product-grid",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Main Title",
+      "id": "atb_main_title",
+      "default": "Find your perfect Wedding Ring",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "label": "Main Subheading",
+      "id": "atb_main_subheading",
+      "default": "<p>Add subtitle here</p>",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_gutter",
+      "label": "Show gutter",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_hide_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background_color",
+      "label": "Background",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "block_type",
+      "label": "Block Type",
+      "info": "",
+      "default": "",
+      "options": [
+        {
+          "value": "image_block",
+          "label": "image_block"
+        },
+        {
+          "value": "big_image_block",
+          "label": "big_image_block"
+        }
+      ],
+      "repeatable": "block"
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "block"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "block_image",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:image_block"
+    },
+    {
+      "type": "text",
+      "label": "Image Alt Text",
+      "id": "block_image_alt",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:image_block,big_image_block"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "block_title",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:image_block"
+    },
+    {
+      "type": "text",
+      "label": "Link",
+      "id": "block_link",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:image_block,big_image_block"
+    },
+    {
+      "type": "select",
+      "label": "Text Position",
+      "id": "block_text_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:image_block"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "block_main_image",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:big_image_block"
+    },
+    {
+      "type": "select",
+      "label": "Image Position",
+      "id": "block_main_image_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:big_image_block"
+    },
+    {
+      "type": "wysiwyg",
+      "label": "Image Text",
+      "id": "block_main_image_text",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:big_image_block"
+    },
+    {
+      "type": "select",
+      "label": "Image Text Position",
+      "id": "block_main_image_text_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:big_image_block"
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled",
+    "some fields may be named the same"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_main_title' -%}
+{%- assign atb_main_title = val -%}
+{%- include 'atb-render' field:'atb_main_subheading' -%}
+{%- assign atb_main_subheading = val -%}
+{%- include 'atb-render' field:'atb_show_gutter' -%}
+{%- assign atb_show_gutter = val -%}
+{%- include 'atb-render' field:'atb_hide_mobile' -%}
+{%- assign atb_hide_mobile = val -%}
+{%- include 'atb-render' field:'atb_background_color' -%}
+{%- assign atb_background_color = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'block_type' -%}
+{%- assign block_type = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_image_alt' -%}
+{%- assign block_image_alt = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_link' -%}
+{%- assign block_link = val -%}
+{%- include 'atb-render' field:'block_text_position' -%}
+{%- assign block_text_position = val -%}
+{%- include 'atb-render' field:'block_main_image' -%}
+{%- assign block_main_image = val -%}
+{%- include 'atb-render' field:'block_main_image_position' -%}
+{%- assign block_main_image_position = val -%}
+{%- include 'atb-render' field:'block_main_image_text' -%}
+{%- assign block_main_image_text = val -%}
+{%- include 'atb-render' field:'block_main_image_text_position' -%}
+{%- assign block_main_image_text_position = val -%}
+{%- if atb_show_gutter == blank -%}
+{%- assign atb_show_gutter = false -%}
+{%- else -%}
+{%- assign atb_show_gutter = true -%}
+{%- endif -%}
+{%- if atb_hide_mobile == blank -%}
+{%- assign atb_hide_mobile = false -%}
+{%- else -%}
+{%- assign atb_hide_mobile = true -%}
+{%- endif -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section product-grid">
+<style>
+  #shopify-section-{{ section_id }} .section-heading{
+    margin-bottom: 30px;
+  }
+  #shopify-section-{{ section_id }} .section-heading h3{
+    margin-top: 0;
+    font-weight: 600;
+    margin-bottom: 18px;
+    line-height: normal;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .section-heading .main-subheading{
+    font-size: 22px;
+    font-style: italic;
+    line-height: 28.71px;
+    letter-spacing: 0.35px;
+    font-family: 'Playfair Display';
+  }
+  #shopify-section-{{ section_id }} h3 {
+    margin: 0;
+  }
+  #shopify-section-{{ section_id }} .images-container figure.column,
+  #shopify-section-{{ section_id }} .large-image-container figure.column{
+    position: relative;
+  }
+  #shopify-section-{{ section_id }} .images-container figure.column:nth-child(1),
+  #shopify-section-{{ section_id }} .images-container figure.column:nth-child(2){
+    margin-bottom: 10px;
+  }
+  #shopify-section-{{ section_id }} .images-container figure .image-text--small,
+  #shopify-section-{{ section_id }} .large-image-container figure .image-text{
+    font-size: {{ settings.regular_font_size | times: 0.95 | floor | append: 'px' }};
+    font-weight: 500;
+    position: absolute;
+    bottom: 15px;
+    left: 12px;
+  }
+  #shopify-section-{{ section_id }} .large-image-container figure .image-text{
+    left: 0;
+    width: 260px;
+    padding: 10px 20px;
+    background-color: #fff;
+  }
+  #shopify-section-{{ section_id }} .large-image-container figure .image-text > *{
+    font-weight: 600;
+    /* line-height: 30px;
+    letter-spacing: 1.4px;
+    font-size: {{ settings.heading_size | times: 0.5 | floor | append: 'px' }}; */
+  }
+  #shopify-section-{{ section_id }} .large-image-container .image-text em{
+    font-weight: 400;
+    font-family: 'Playfair Display';
+  }
+  @media screen and (min-width: 768px){
+    #shopify-section-{{ section_id }} .large-image-container,
+    #shopify-section-{{ section_id }} .images-container,
+    #shopify-section-{{ section_id }} .images-container figure{
+      width: calc(50% - 10px);
+    }
+    #shopify-section-{{ section_id }} .images-container figure.column{
+      margin: 0 5px;
+    }
+  }
+  @media screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} .images-container figure .image-text--small,
+    #shopify-section-{{ section_id }} .large-image-container figure .image-text{
+      font-size: {{ settings.regular_font_size | append: 'px' }};
+      bottom: 35px;
+    }
+    #shopify-section-{{ section_id }} .large-image-container figure .image-text{
+      width: 350px;
+      padding: 15px 30px;
+    }
+    /* #shopify-section-{{ section_id }} .large-image-container figure .image-text > *{
+      font-size: {{ settings.heading_size | times: 0.6 | floor | append: 'px' }};
+    } */
+  }
+  @media screen and (max-width: 767px){
+    /* #shopify-section-{{ section_id }} .section-heading h3{
+      font-size: 18px;
+    } */
+    #shopify-section-{{ section_id }} .section-heading .main-subheading{
+      font-size: 15px;
+    }
+    #shopify-section-{{ section_id }} .images-container,
+    #shopify-section-{{ section_id }} .images-container figure{
+      margin: 0 5px !important;
+      width: calc(50% - 10px);
+    }
+    #shopify-section-{{ section_id }} .images-container figure{
+      margin-bottom: 10px !important;
+    }
+    #shopify-section-{{ section_id }} .large-image-container{
+      order: -1 !important;
+      margin: 0 10px !important;
+    }
+  }
+</style>
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section_id }} {
+    background-color: {{ atb_background_color }};
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if atb_hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-image-with-text
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    {% if atb_show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if atb_width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  {% if atb_main_title != blank %}
+    <div class="section-heading text-center">
+      <h3>{{ atb_main_title }}</h3>
+      {% if atb_main_subheading != blank %}
+        <div class="main-subheading">
+          {{ atb_main_subheading }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="container">
+    {% for block0 in blocks %}
+{%- assign my_image_key1 = block_main_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image1 = images[my_image_key1] -%}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+      {% if block_type[forloop.index0] == 'big_image_block' %}
+        <div
+          class="large-image-container one-half column medium-down--one-whole has-no-side-gutter"
+          style="order: {% if block_main_image_position[forloop.index0] == 'right' %}1{% else %}0{% endif %};margin: 0 5px;"
+        >
+          <figure class="one-whole column">
+            {% if block_link[forloop.index0] != blank %}
+            <a href="{{ block_link[forloop.index0] }}">
+              {% endif %}
+              {% if my_image1 != blank %}
+                {%
+                  render 'image-element',
+                  image: my_image1,
+                  alt: block_image_alt[forloop.index0],
+                %}
+              {% else %}
+                <div class="image-element__wrap">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {% endif %}
+              {% if block_main_image_text[forloop.index0] != blank %}
+                <div
+                  class="image-text text-{{ block_main_image_text_position[forloop.index0] }}"
+                  style="{% if block_main_image_text_position[forloop.index0] == 'right' %}left: auto;right: 0;{% endif %}"
+                >
+                  {{ block_main_image_text[forloop.index0] }}
+                </div>
+              {% endif %}
+            {% if block_link[forloop.index0] != blank %}
+            </a>
+            {% endif %}
+          </figure>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {% assign bigImageBlock = false %}
+    {% for block0 in blocks %}
+{%- assign my_image_key1 = block_main_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image1 = images[my_image_key1] -%}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+      {% if block_type[forloop.index0] == 'big_image_block' %}
+        {% assign bigImageBlock = true %}
+      {% endif %}
+    {% endfor %}
+
+    <div
+      class="container images-container {% if bigImageBlock %}one-half{% else %}one-whole{% endif %} column medium-down--one-whole"
+      style="margin: 0;"
+    >
+      {% for block0 in blocks %}
+{%- assign my_image_key1 = block_main_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image1 = images[my_image_key1] -%}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+        {% if block_type[forloop.index0] == 'image_block' %}
+          <figure class="one-half column medium-down--one-half">
+            {% if block_link[forloop.index0] != blank %}
+            <a href="{{ block_link[forloop.index0] }}">
+            {% endif %}
+              <div class="small-image">
+                {% if my_image0 != blank %}
+                  {%
+                    render 'image-element',
+                    image: my_image0,
+                    alt: block_image_alt[forloop.index0],
+                  %}
+                {% else %}
+                  <div class="image-element__wrap">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {% endif %}
+                {% if block_title[forloop.index0] != blank %}
+                  <p
+                    class="image-text--small"
+                    style="{% if block_text_position[forloop.index0] == 'right' %}left: auto;right: 12px;{% endif %}"
+                  >
+                    {{ block_title[forloop.index0] }}
+                  </p>
+                {% endif %}
+              </div>
+            {% if block_link[forloop.index0] != blank %}
+            </a>
+            {% endif %}
+          </figure>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+</section>

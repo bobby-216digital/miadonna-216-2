@@ -1,0 +1,185 @@
+{% layout none %}
+
+{%- capture settingContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign settingPageUrl = settingContentForQuerystring | split: '"pageurl":"' | last | split: '"' | first | split: '.myshopify.com' | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' -%}
+{%- assign settingPageQueryStringReplace = settingPageUrl | replace: request.path, '' | replace: request.host, '' -%}
+{%- assign settingPageQueryString = settingPageQueryStringReplace | split: '?' | last -%}
+{%- assign settingPageQueryArray = settingPageQueryString | split: '&' -%}
+
+{% assign handle = '' %}
+{% assign url_variant = '' %}
+{% if settingPageQueryArray %}
+    {% for param in settingPageQueryArray %}
+        {%- if param contains 'handle' -%}
+            {% assign handle = param | split: '=' | last | strip %}
+        {%- endif -%}
+        {%- if param contains 'variant' -%}
+          {% assign url_variant = param | split: '=' | last | strip | plus:0 %}
+        {%- endif -%}
+    {% endfor %}
+{% endif %}
+
+{% comment %} "description": "{{ product.description | escape | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}", {% endcomment %}
+{% assign product = all_products[handle] %}
+{%- assign product_description = product.description | split: '<p>|</p>' -%}
+{%- assign description_size = product_description | size -%}
+{%- capture product_description_content -%}
+  {%- if description_size > 1 -%}
+    {%- for segment in product_description -%}
+      {%- if forloop.last -%}
+        <div class="metal-properties">{{ segment | replace: '<br>', '' }}</div>
+      {%- else -%}
+        {{ segment | split: '|' | first | split: '<br>' | first }}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+    {{
+      product.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+    }}
+  {%- endif -%}
+{%- endcapture -%}
+{
+  "id": {{ product.id }},
+  "title": "{{ product.title | escape }}",
+  "handle": "{{ product.handle }}",
+  "style_metafields": {
+    "style_id": "{{ product.metafields.custom.product_group_id }}",
+    "metal_style": "{{ product.metafields.custom.style.value }}",
+    "metal_gender": "{{ product.metafields.custom.gender }}",
+    "metal_length_options": "{% for length in product.metafields.custom.length_options.value %}{{ length }}{% unless forloop.last %}, {% endunless %}{% endfor %}"
+  },
+  "primary_metafields": {
+    "primary_stone_type": "{{ product.metafields.custom.primary_stone_type }}",
+    "primary_stone_creation_method": "{{ product.metafields.custom.primary_stone_creation_method }}",
+    "primary_stone_shape": "{{ product.metafields.custom.primary_stone_shape }}",
+    "primary_stone_setting": "{{ product.metafields.custom.primary_stone_setting }}"
+  },
+  "additional_metafields": {
+      "additional_stone_type": "{{ product.metafields.custom.additional_stone_type }}",
+      "additional_stone_creation_method": "{{ product.metafields.custom.additional_stone_creation_method }}",
+      "additional_stone_shape": "{{ product.metafields.custom.additional_stone_shape }}",
+      "additional_stone_setting": "{{ product.metafields.custom.additional_stone_setting }}"
+  },
+  "variants_json": {{ product.variants | json }},
+  {% unless url_variant == '' %}
+    {%- assign metal_option = '' -%}
+    {%- assign quality_option = '' -%}
+    "variants": [
+      {% for variant in product.variants %}
+        {
+          "id": {{ variant.id }},
+          "stone_color": "{{ variant.metafields.specs.primary_stone_color }}",
+          "stone_clarity": "{{ variant.metafields.specs.primary_stone_clarity }}",
+          "stone_certification": "{{ variant.metafields.specs.primary_stone_certification }}",
+          "stone_avg_wt": "{{ variant.metafields.specs.primary_stone_avg_wt.value }}"
+          {%- if variant.id == url_variant -%}
+            {%- capture variantMeta -%}
+              {%- for option in product.options_with_values -%}
+                {%- if option.name == 'Metal' -%}
+                  {%- assign metal_option = variant.options[forloop.index0] -%}
+                {%- endif -%}
+                {%- if option.name == 'Quality' -%}
+                  {%- assign quality_option = variant.options[forloop.index0] -%}
+                {%- endif -%}
+              {%- endfor -%}
+              "metal": "{{ metal_option }}",
+              "quality": "{{ quality_option }}",
+              "metafields": {
+                "shipping_days": "{{ variant.metafields.attributes.shipping_days }}",
+                "primary_stone_avg_wt": "{{ variant.metafields.specs.primary_stone_avg_wt.value }}",
+                "lifestyle_image_disclaimer": "{{ variant.metafields.custom.lifestyle_image_disclaimer.value }}",
+                "stone_color": "{{ variant.metafields.specs.primary_stone_color.value }}",
+                "stone_clarity": "{{ variant.metafields.specs.primary_stone_clarity.value }}",
+                "stone_certification": "{{ variant.metafields.specs.primary_stone_certification.value }}",
+                "item_id": "{{ variant.sku }}",
+                "metal_color": "{{ variant.metafields.specs.metal_color.value }}",
+                "metal_cwt": "{{ variant.metafields.specs.ctw_decimal }}",
+                "metal_type": "{{ variant.metafields.specs.metal_type.value }}",
+                "metal_plate": "{{ variant.metafields.specs.metal_plating.value }}",
+                "metal_finish": "{{ variant.metafields.custom.metal_finish.value }}",
+                "metal_chain": "{{ variant.metafields.specs.chain_type.value }}",
+                "metal_closure" :"{{ variant.metafields.specs.closure.value }}",
+                "metal_dimension_l": "{{ variant.metafields.specs.dimension_l.value }}",
+                "metal_dimension_h": "{{ variant.metafields.specs.dimension_h.value }}",
+                "metal_dimension_w": "{{ variant.metafields.specs.dimension_w.value }}",
+                "primary_stone_color": "{{variant.metafields.specs.primary_stone_color.value}}",
+                "primary_stone_clarity": "{{variant.metafields.specs.primary_stone_clarity.value}}",
+                "primary_stone_certification": "{{variant.metafields.specs.primary_stone_certification.value}}",
+                "primary_stone_cut": "{{ variant.metafields.custom.primary_stone_cut.value }}",
+                "primary_stone_avg_wt": "{{ variant.metafields.specs.primary_stone_avg_wt.value }}",
+                "primary_stone_count": "{{ variant.metafields.specs.primary_stone_count.value }}",
+                "primary_stone_total_ctw": "{%- if variant.metafields.specs.primary_stone_avg_wt.value != blank and variant.metafields.specs.primary_stone_count.value != blank -%}{{ variant.metafields.specs.primary_stone_avg_wt.value | times:variant.metafields.specs.primary_stone_count.value }}{%- endif -%}",
+                "additional_stone_color": "{{ variant.metafields.custom.additional_stone_color.value }}",
+                "additional_stone_clarity": "{{ variant.metafields.custom.additional_stone_clarity.value }}",
+                "additional_stone_avg_wt": "{{ variant.metafields.specs.additional_stone_avg_wt.value }}",
+                "additional_stone_count": "{{ variant.metafields.specs.additional_stone_count.value }}",
+                "additional_stone_total_ctw": "{%- if variant.metafields.specs.additional_stone_avg_wt.value != blank and variant.metafields.specs.additional_stone_count.value != blank -%}{{ variant.metafields.specs.additional_stone_avg_wt.value | times:variant.metafields.specs.additional_stone_count.value }}{%- endif -%}"
+              }
+            {%- endcapture -%}
+          {%- endif -%}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ],
+    "variantMeta":{
+      {{ variantMeta }}
+    },
+  {% else %}
+  "variants": [
+    {% for variant in product.variants %}
+    {%- assign primary_stone_count = variant.metafields.specs.primary_stone_count -%}
+    {%- assign primary_stone_avg_wt = variant.metafields.specs.primary_stone_avg_wt -%}
+    {%- assign cal_primary_total_carat_wt = '' -%}
+    {%- if primary_stone_count != blank and primary_stone_avg_wt != blank -%}
+      {%- assign cal_primary_total_carat_wt = primary_stone_count.value | times:primary_stone_avg_wt.value -%}
+    {%- endif -%}
+    {%- assign cal_additional_total_carat_wt = '' -%}
+    {%- if variant.metafields.specs.ctw_decimal != blank and cal_primary_total_carat_wt != '' -%}
+      {%- assign cal_additional_total_carat_wt = variant.metafields.specs.ctw_decimal | minus:cal_primary_total_carat_wt -%}
+    {%- endif -%}
+    {
+      "id": {{ variant.id }},
+      "title": "{{ variant.title | escape }}",
+      "title_id": "{{ variant.title | replace:' ','_' }}",
+      "price": "{{ variant.price }}",
+      "compare_at_price": "{{ variant.compare_at_price }}",
+      "sku": "{{ variant.sku | escape }}",
+      "option1": "{{ variant.option1 | escape }}",
+      "metafields": {
+        "shipping_days": "{{ variant.metafields.attributes.shipping_days }}",
+        "primary_stone_avg_wt": "{{ variant.metafields.specs.primary_stone_avg_wt.value }}",
+        "lifestyle_image_disclaimer": "{{ variant.metafields.custom.lifestyle_image_disclaimer.value }}",
+        "stone_color": "{{ variant.metafields.specs.primary_stone_color.value }}",
+        "stone_clarity": "{{ variant.metafields.specs.primary_stone_clarity.value }}",
+        "stone_certification": "{{ variant.metafields.specs.primary_stone_certification.value }}",
+        "item_id": "{{ variant.sku }}",
+        "metal_color": "{{ variant.metafields.specs.metal_color.value }}",
+        "metal_cwt": "{{ variant.metafields.specs.ctw_decimal }}",
+        "metal_type": "{{ variant.metafields.specs.metal_type.value }}",
+        "metal_plate": "{{ variant.metafields.specs.metal_plating.value }}",
+        "metal_finish": "{{ variant.metafields.custom.metal_finish.value }}",
+        "metal_chain": "{{ variant.metafields.specs.chain_type.value }}",
+        "metal_closure" :"{{ variant.metafields.specs.closure.value }}",
+        "metal_dimension_l": "{{ variant.metafields.specs.dimension_l.value }}",
+        "metal_dimension_h": "{{ variant.metafields.specs.dimension_h.value }}",
+        "metal_dimension_w": "{{ variant.metafields.specs.dimension_w.value }}",
+        "primary_stone_color": "{{variant.metafields.specs.primary_stone_color.value}}",
+        "primary_stone_clarity": "{{variant.metafields.specs.primary_stone_clarity.value}}",
+        "primary_stone_certification": "{{variant.metafields.specs.primary_stone_certification.value}}",
+        "primary_stone_cut": "{{ variant.metafields.custom.primary_stone_cut.value }}",
+        "primary_stone_avg_wt": "{{ variant.metafields.specs.primary_stone_avg_wt.value }}",
+        "primary_stone_count": "{{ variant.metafields.specs.primary_stone_count.value }}",
+        {%- comment -%}"primary_stone_total_ctw": "{%- if variant.metafields.specs.primary_stone_avg_wt.value != blank and variant.metafields.specs.primary_stone_count.value != blank -%}{{ variant.metafields.specs.primary_stone_avg_wt.value | times:variant.metafields.specs.primary_stone_count.value }}{%- endif -%}",{%- endcomment -%}
+        "primary_stone_total_ctw": "{%- if cal_primary_total_carat_wt != '' -%}{{ cal_primary_total_carat_wt }}{%- endif -%}",
+        "additional_stone_color": "{{ variant.metafields.custom.additional_stone_color.value }}",
+        "additional_stone_clarity": "{{ variant.metafields.custom.additional_stone_clarity.value }}",
+        "additional_stone_avg_wt": "{{ variant.metafields.specs.additional_stone_avg_wt.value }}",
+        "additional_stone_count": "{{ variant.metafields.specs.additional_stone_count.value }}",
+        {%- comment -%}"additional_stone_total_ctw": "{%- if variant.metafields.specs.additional_stone_avg_wt.value != blank and variant.metafields.specs.additional_stone_count.value != blank -%}{{ variant.metafields.specs.additional_stone_avg_wt.value | times:variant.metafields.specs.additional_stone_count.value }}{%- endif -%}"{%- endcomment -%}
+        "additional_stone_total_ctw": "{%- if cal_additional_total_carat_wt != '' and cal_additional_total_carat_wt > 0 -%}{{ cal_additional_total_carat_wt }}{%- endif -%}"
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  {% endunless %}
+  "options": {{ product.options_with_values | json }}
+}

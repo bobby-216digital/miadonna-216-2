@@ -1,0 +1,382 @@
+{% style %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.background_color }};
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      margin-bottom:40px;
+      {% if section.settings.width == 'wide' %}
+        width: 100%;
+      {% endif %}
+      {% if section.settings.hide_mobile %}
+        @media screen and (max-width: 798px){
+          display: none;
+        }
+      {% endif %}
+    }
+    p.offset-cell.text-style-title {
+      color: #fff;
+      font-weight: 500;
+      font-size: 32px;
+      padding-top: 30px;
+      line-height: 40px;
+      font-family: 'Playfair Display';
+      font-style: italic;
+  }
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.background_color }};
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      margin-bottom:40px;
+      {% if section.settings.width == 'wide' %}
+        width: 100%;
+      {% endif %}
+      {% if section.settings.hide_mobile %}
+        @media screen and (max-width: 798px){
+          display: none;
+        }
+      {% endif %}
+    }
+    p.offset-cell.text-style-title {
+      color: #fff;
+      font-weight: 500;
+      font-size: 32px;
+      padding-top: 30px;
+      line-height: 40px;
+      font-family: 'Playfair Display';
+      font-style: italic;
+  }
+
+  .logo-quote img {
+      padding: 30px 40px;
+      width: 360px;
+
+  }
+  .logo-quote img {
+      padding: 30px 40px;
+      width: 360px;
+
+  }
+
+  .readability-insets span {
+      color: #e6c799;
+      font-family: Montserrat,sans-serif;
+      font-size: 19px;
+      font-weight: 500;
+  }
+  .quotes-slider .quote-titles {
+      padding: 20px 20px 20px 20px;
+  }
+  .readability-insets span {
+      color: #e6c799;
+      font-family: Montserrat,sans-serif;
+      font-size: 19px;
+      font-weight: 500;
+  }
+  .quotes-slider .quote-titles {
+      padding: 20px 20px 20px 20px;
+  }
+
+
+  p.offset-cell.text-style-title{
+  p.offset-cell.text-style-title{
+
+      quotes: "\201c" "\201d" "\201c" "\201d";
+  }
+    p.offset-cell.text-style-title:before {
+      font-size: 108px;
+      left: 10px;
+      font-weight: 600;
+      top: 40px;
+  }
+  .quotes-slider .flickity-page-dots .dot {
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      margin: 0px 4px;
+      background: #777;
+      border-radius: 0;
+      cursor: pointer;
+      opacity:0.3;
+  }
+  .quotes-slider  li.dot.is-selected {
+      background: #777;
+      opacity:1;
+  }
+  .quotes-slider    ol.flickity-page-dots {
+      bottom: -20px;
+  }
+      quotes: "\201c" "\201d" "\201c" "\201d";
+  }
+    p.offset-cell.text-style-title:before {
+      font-size: 108px;
+      left: 10px;
+      font-weight: 600;
+      top: 40px;
+  }
+  .quotes-slider .flickity-page-dots .dot {
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      margin: 0px 4px;
+      background: #777;
+      border-radius: 0;
+      cursor: pointer;
+      opacity:0.3;
+  }
+  .quotes-slider  li.dot.is-selected {
+      background: #777;
+      opacity:1;
+  }
+  .quotes-slider    ol.flickity-page-dots {
+      bottom: -20px;
+  }
+
+  .container.quotes-slider {
+      margin-bottom: 40px;
+  }
+    #shopify-section-{{ section.id }} .logo-quote img {
+      margin-top: 30px;
+    }
+  .body-cell{
+    display:flex;
+    gap:20px;
+    align-items: center;
+    justify-content: center;
+  }
+  element.style {
+      flex-wrap: nowrap;
+  }
+  .container.quotes-slider.flickity-enabled.is-draggable.flickity-resize {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      margin-bottom: 0px;
+  }
+      @media screen and (max-width:768px){
+      .quotes-slider .column {
+      width: 100% !important;
+      display: block;
+      }
+      p.offset-cell.text-style-title {
+      font-size: 22px;
+      line-height:30px;
+      text-align: center;
+      }
+      .quotes-slider .quote-titles {
+          padding: 0 20px;
+      }
+      .logo-quote img {
+          padding: 10px;
+          width: 180px;
+          margin: 0 auto;
+          display: block;
+      }
+    }
+{% endstyle %}
+<section
+  class="
+    section
+    section-collection-blocks
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div
+    class="container quotes-slider {% if section.blocks.size <= 1 %}no-slider{% endif %}"
+    style="flex-wrap: nowrap;"
+    data-products-per-slide="1"
+    data-products-limit="{% if section.blocks.size > 1 %}15{% else %}5{% endif %}"
+    data-products-available="{% if section.blocks.size > 1 %}15{% else %}5{% endif %}"
+  >
+    {% for block in section.blocks %}
+      <div class="body-cell layout-table one-whole column{% if forloop.index > 1 %} is-hidden{% endif %}">
+        <div class="logo-quote">
+          <img
+            src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url: width: 300 }}"
+            width="{{ block.settings.image.width }}"
+            height="100%"
+            loading="lazy"
+            alt="slide"
+          >
+        </div>
+        <div class="quote-titles">
+          <div class="readability-insets">
+            <!-- <h2 class="text-style-subtitle">{{ block.settings.title }}</h2> -->
+            <p class="offset-cell text-style-title">{{ block.settings.quote }}</p>
+            <span>{{ block.settings.author }}</span>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsQuotesSlider.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Home quote slider",
+    "class": "quotes-slider jsQuotesSlider",
+
+  "settings": [
+      {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+          {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+         {
+          "type": "text",
+          "label": "title",
+          "id": "title"
+        },
+        {
+          "type": "text",
+          "label": "Quote",
+          "id": "quote"
+        },
+        {
+          "type": "text",
+          "label": "Author",
+          "id": "author"
+        }
+      ]
+    }
+  ],
+  "presets": [
+     {
+      "name": "Home quote slider"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "dc2d26fd-431a-4ef5-8654-c72e4d45788f": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "returns-exchanges-faqs-1"
+          }
+        },
+        "custom_html_wfi3n4": {
+          "type": "custom_html",
+          "settings": {
+            "html": "<script type=\"application\/ld+json\">\n{\n  \"@context\": \"https:\/\/schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [{\n    \"@type\": \"Question\",\n    \"name\": \"What is your return policy?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Customer satisfaction is a core value at MiaDonna, which is why we offer an easy 60-day return policy. If you are not 100% satisfied with your order, you can return or exchange it in its original condition within 30 days of the date of delivery refund or exchange. Please note the following items cannot be returned:\n1. Custom Jewelry\n2. Sale items\n3. Any item(s) with custom engraving\nYou must request your return authorization AND ship your jewelry back to us within this 60-day return period in NEW, UNWORN condition with:\n1. The return policy tag still attached & untampered with\n2. Original invoice and packaging \nWe do not refund shipping, appraisal costs, or grading cards, and the customer is responsible for the shipping cost to return the product. However, we will refund you the purchase amount minus the original shipping fee. Only one return\/exchange is allowed per customer as we must limit overhead costs to protect our foundation's funding. View our return policy here.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How do I make a return and\/or exchange?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Please follow these simple instructions for returning\/exchanging an item:\nAcquire your Return Authorization Code:\nCall 503-217-6014 or email us at orders@miadonna.com. We will email you a PDF form with shipping instructions and your return authorization code.\nPackage Your Return:\nAll original packaging and collateral materials, including the undamaged ring box and outer cardboard protection box, MiaDonna gift bag, MiaDonna jewelry cleaner, and polishing cloth. For security reasons, never put the word \\\"diamonds\\\" on a package you are sending; please write \\\"MiaDonna.\\\"\nInsure Your Package:\nWe recommend you fully insure your package and ship via US Postal Service Express or Priority Mail, as FedEx® and UPS® will not insure merchandise over $500.00 USD. Failure to follow these instructions exactly will prevent the processing of your return. If you have any questions about our return procedure, please contact us at info@miadonna.com. MiaDonna is not responsible for the loss or damage of return shipments. Once we receive your returned item and it is accepted, your refund or new item (if exchanging) will be processed in just a few days. Your returned item will be reviewed by our quality department upon receipt.\n** Please note that we cannot accept items that are dirty or show signs of wear, or that have been engraved, altered, resized, or damaged in any way; or loose stones that have been set by a jeweler other than MiaDonna. Returns with no MiaDonna return code and packages that are improperly packaged or uninsured will be refused.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Do you have a trade in or upgrade program?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Yes. Please click here to read our full diamond upgrade policy available on MiaDonna Lab Grown Diamonds and Diamond Hybrids®.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Do you allow purchases of multiple items at once so I can decide which I like the most, and return what I do not want?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"If you are purchasing finished jewelry, we do not allow multiple pieces to be purchased for comparison with the intent to keep one and return the others since each piece will be made-to-order. However, we have an excellent team of Jewelry Specialists who will happily assist you in making a decision from our selection. Please do not hesitate to contact us before your purchase so we can answer any of your questions and help you find the perfect setting.\"\n    }\n  }]\n}\n<\/script>"
+          }
+        }
+      },
+      "block_order": [
+        "dc2d26fd-431a-4ef5-8654-c72e4d45788f",
+        "custom_html_wfi3n4"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

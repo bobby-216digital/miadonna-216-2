@@ -1,0 +1,422 @@
+.select-box {
+  writing-mode: horizontal-tb !important;
+  font-style: ;
+  font-variant-ligatures: ;
+  font-variant-caps: ;
+  font-variant-numeric: ;
+  font-variant-east-asian: ;
+  font-variant-alternates: ;
+  font-weight: ;
+  font-stretch: ;
+  font-size: ;
+  font-family: ;
+  font-optical-sizing: ;
+  font-kerning: ;
+  font-feature-settings: ;
+  font-variation-settings: ;
+  text-rendering: auto;
+  color: fieldtext;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  appearance: auto;
+  box-sizing: border-box;
+  align-items: center;
+  white-space-collapse: preserve;
+  text-wrap: nowrap;
+  -webkit-rtl-ordering: logical;
+  background-color: field;
+  cursor: default;
+  margin: 0em;
+  border-width: 1px;
+  border-style: solid;
+  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+  border-image: initial;
+  border-radius: 0px;
+}
+.select-box:not(:-internal-list-box) {
+  overflow: visible !important;
+}
+.select-box:focus {
+  outline: none !important;
+  box-shadow: 0 0 1px 2px #ffa99840 !important;
+}
+.placeholder-svg {
+  background: #f8f8f8;
+}
+html.slider-popup-open {
+  overflow: hidden;
+}
+.luxury-banner .image-with-text-overlay__preheading em {
+  color: #ffffff;
+  font-family: "Playfair Display", serif;
+  font-size: 2.8rem;
+  font-style: italic;
+  text-align: left;
+  display: block;
+  margin-bottom: 1.3rem;
+  letter-spacing: 0.025em;
+}
+
+.luxury-banner .image-with-text-overlay__preheading > * {
+  color: inherit;
+}
+
+.video-slideshow-section .title span {
+  font-weight: inherit;
+  font-family: "Playfair Display", serif;
+  font-size: 2.938583rem;
+  font-style: italic;
+  font-weight: normal;
+  letter-spacing: 0;
+  display: block;
+}
+.video-slideshow-section .slideshow-classic__banner h2.title {
+  font-size: 3.673229rem;
+  font-weight: 600;
+  line-height: 70.526px;
+  text-transform: uppercase;
+}
+.video-slideshow-section .slideshow-classic__subheading {
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 24px;
+}
+.video-slideshow-section .slideshow-classic__buttons a.button--primary {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+.index p a {
+  text-decoration: underline;
+}
+.video-slideshow-section .watch-btn {
+  position: absolute;
+  bottom: 50px;
+  right: 5%;
+}
+.video-slideshow-section .play-button {
+  padding: 20px;
+  position: relative;
+  width: 69px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background: #ffffff;
+  margin-left: 5px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.video-slideshow-section .watch-btn p {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.video-slideshow-section .play-button img {
+  top: 9px;
+  left: 3px;
+  margin: 0 auto;
+  position: relative;
+}
+.video-slideshow-section .video-element-popup {
+  position: fixed;
+  top: 0;
+  /* left: 0; */
+  z-index: 1050;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+}
+.video-slideshow-section .video-element-popup {
+  display: none;
+}
+.video-slideshow-section .slideshow-classic .flickity-button,
+.video-slideshow-section .slideshow-classic .flickity-page-dots {
+  position: absolute;
+  top: auto;
+  bottom: 20% !important;
+  left: 10%;
+  width: auto;
+  z-index: 1;
+}
+.video-slideshow-section .flickity-page-dots .dot {
+  display: inline-block;
+  width: 50px;
+  height: 2px;
+  margin: 0 8px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.25;
+  cursor: pointer;
+}
+.video-slideshow-section .flickity-page-dots .dot.is-selected {
+  opacity: 1;
+}
+.video-slideshow-section span.close-btn {
+  z-index: 9999;
+  color: #000;
+  font-size: 20px;
+  position: absolute;
+  top: 11%;
+  right: 2%;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  border: 2px solid #000;
+  border-radius: 100%;
+  padding: 15px;
+  line-height: 8px;
+  background: #fff;
+  border-color: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  cursor: pointer;
+  line-height: inherit;
+  align-items: center;
+  justify-content: center;
+}
+.quote-section {
+  background: #353535;
+  width: 100%;
+}
+.quote-section .image-element__wrap img,
+.quote-section .image-element__wrap {
+  height: auto;
+  width: auto;
+}
+.home-overlap-text h3,
+.home-overlap-text .description {
+  color: #fff;
+}
+.home-overlap-text .button.button {
+  font-size: 12px !important;
+}
+.home-overlap-text .button.button--primary {
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
+/**Lab-Grown-page**/
+.page-lab-grown-diamonds
+  .image-with-text-overlay
+  .section
+  .caption
+  .image-with-text-overlay__preheading
+  h1
+  em {
+  line-height: 38.42px;
+  font-family: Playfair Display;
+}
+.page-lab-grown-diamonds .image-with-text-1 img {
+  object-fit: contain !important;
+}
+.page-lab-grown-diamonds .image-with-text__image-column {
+  height: auto;
+}
+
+.page-lab-grown-diamonds .image-with-text__image-column .image-element__wrap {
+  max-width: 100% !important;
+}
+.page-lab-grown-diamonds
+  .custom-logo-section
+  .collection-block
+  .image-element__wrap {
+  border-radius: 0 !important;
+  text-align: center;
+  display: block;
+  margin: 0 auto !important;
+}
+.page-lab-grown-diamonds .science-title-section h2,
+.page-lab-grown-diamonds .image-with-text__column .image-with-text__preheading {
+  color: #6f6f6f;
+  font-size: 1.19502rem;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+.page-lab-grown-diamonds .science-title-section h3 {
+  margin: 15px 0 !important;
+  font-size: 1.875rem !important;
+  font-weight: 500;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+.page-lab-grown-diamonds
+  .custom-logo-section
+  .collection-block
+  .image-element__wrap {
+  border-radius: 0;
+}
+.page-lab-grown-diamonds .custom-logo-section .collection-block--slider {
+  justify-content: center;
+  align-items: center;
+}
+.page-lab-grown-diamonds
+  .image-with-text-overlay
+  .herstory-section
+  .image-with-text-overlay__subheading
+  h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 4.5rem;
+  font-style: italic;
+  font-weight: normal;
+  letter-spacing: 0.025em;
+  line-height: 72px;
+}
+.luxury-banner .banner__heading {
+  font-size: 32px;
+  font-weight: 600;
+}
+.rect-home .content-wrapper h3 {
+  line-height: 20px;
+}
+@media (min-width: 991px) {
+  .page-lab-grown-diamonds .custom-logo-section .one-fifth {
+    width: 40%;
+  }
+  .quote-section .container {
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+  }
+
+  .quote-section .three-fifths {
+    width: 30%;
+  }
+  .quote-section .two-fifths {
+    width: 67%;
+    color: #fff;
+  }
+
+  .quote-section.image-with-text__heading {
+    font-family: "Playfair Display", serif;
+    font-size: 3.285991rem;
+    font-style: italic;
+    letter-spacing: 0.025em;
+    text-align: center;
+  }
+  .luxury-banner .image-with-text-overlay__preheading em {
+    color: #ffffff;
+    font-family: "Playfair Display", serif;
+    font-size: 81px;
+    font-style: italic;
+    text-align: left;
+    letter-spacing: 0.025em;
+  }
+  .luxury-banner .image-with-text-overlay__preheading,
+  .luxury-banner .image-with-text-overlay__heading,
+  .luxury-banner .image-with-text-overlay__subheading {
+    margin-left: 7rem;
+  }
+  .luxury-banner .image-with-text-overlay__preheading em {
+    line-height: 100px;
+    margin-left: -7rem;
+    margin-bottom: 1rem;
+  }
+  .rect-home .content-wrapper p {
+    font-size: 14px !important;
+  }
+  .rect-home .large-image-container figure .image-text {
+    font-size: 24px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .rect-home .large-image-container figure .image-text em {
+    font-size: 24px;
+  }
+  .rect-home .large-image-container figure .image-text p {
+    font-size: 19px;
+  }
+  .luxury-banner .is-hidden-desktop-only img {
+    height: 600px;
+  }
+  .image-with-text-overlay .luxury-banner.mobile-text--over-media .caption {
+    top: 40%;
+  }
+  .luxury-banner .image-with-text-overlay__preheading {
+    font-size: 45px;
+  }
+  .luxury-banner .banner__heading {
+    font-size: 24px !important;
+  }
+  .rect-home .content-wrapper h3 {
+    font-size: 16px;
+  }
+  .page-lab-grown-diamonds .image-with-text__image-column {
+    order: 1;
+  }
+  .page-lab-grown-diamonds .image-with-text__text-column {
+    order: 2;
+  }
+  .page-lab-grown-diamonds
+    .custom-logo-section
+    .collection-block.small-down--one-half {
+    width: 92px !important;
+  }
+  .page-lab-grown-diamonds .custom-logo-section .collection-block img {
+    height: 80px !important;
+    width: 90px;
+    object-fit: contain;
+  }
+}
+
+/* #chatra.chatra--pos-right {
+  right: 80px !important;
+}
+
+@media (max-width: 767px) {
+  #chatra.chatra--pos-right {
+    right: 60px !important;
+  }
+} */
+.gray-disabled {
+  position: relative;
+}
+.gray-disabled {
+  opacity: 0.3;
+}
+button#okButton {
+  /* max-width: 200px;
+  width: auto;
+  padding: 21px 30px; */
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 1025px) {
+  .product__images .product-gallery {
+    width: 100%;
+    margin: auto;
+  }
+  .product-gallery
+    .product-gallery__main
+    .product-gallery__image
+    .image__container {
+    max-width: 70% !important;
+  }
+}
+
+::part(acsb-trigger) {
+  color: rgb(0, 0, 0) !important;
+  border-color: rgb(0, 0, 0) !important;
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.stone-specs-detail{padding: 5px 0 20px; display: block;  font-size: 15px; font-weight:600;  color: #5f5d5d;}
+@media screen and (min-width: 1024px) {
+  .stone-specs-detail{padding: 0px 0 15px;}
+}

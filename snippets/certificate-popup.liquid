@@ -1,0 +1,115 @@
+<div
+  class="fancybox-container popup-modal{% if template.name == "product" %} shipping-popup product-images-popup{% endif %} certificate-popup fancybox-is-open"
+  role="dialog"
+  tabindex="-1"
+  id="certificate-popup"
+  style="transition-duration: 366ms;display: none;"
+>
+  {% if template.name == 'product' %}
+    <style>
+      .certificate-popup .popup__image {
+        width: 100%;
+        display: block;
+        min-height: 500px;
+      }
+      .certificate-popup #myCertFrame {
+        min-height: 500px;
+      }
+    </style>
+  {% endif %}
+  <style>
+    .iframe-loader {
+      display: inline-block;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      top: 50%;
+      left: 0;
+      right: 0;
+      opacity: .8;
+      margin: auto;
+      transform: translateY(-50%);
+    }
+    .iframe-loader div {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      margin: 4px;
+      border: 4px solid #5f60ad; //3c3737;
+      border-radius: 50%;
+      animation: iframe-loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      border-color: #5f60ad transparent transparent transparent;
+    }
+    .iframe-loader div:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+    .iframe-loader div:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+    .iframe-loader div:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+    @keyframes iframe-loader {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <div class="fancybox-bg"></div>
+  <div class="fancybox-inner">
+    <div class="fancybox-stage">
+      <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+        <div
+          class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+          style="display: inline-block;"
+        >
+          <button class="close popup__close vdb-lb-close-cert-popup" aria-label="close">
+            <span class="icon icon--vertical-align" data-icon="x">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>Close</title>
+                <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="popup__inner is-flex">
+            <div class="popup__content">
+              <div class="popup__header{% if template.name == "product" %} text-center{% endif %}">
+                {% if template.name == 'product' %}
+                  <h3 class="popup__title">Certificate</h3>
+                {% else %}
+                  <h6 class="popup__title">Certificate</h6>
+                {% endif %}
+              </div>
+              <div class="popup__image">
+                <div class="iframe-loader">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <iframe id="myCertFrame" width="100%" height="100%"></iframe>
+                <img id="myCertImg" width="100%" height="100%">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const iframe = document.getElementById("myCertFrame");
+  // Show the spinner when the iframe is loading
+  iframe.addEventListener("load", function () {
+    if (document.getElementById('myCertFrame').getAttribute('src')) {
+      document.querySelector('.iframe-loader').classList.add('is-hidden');
+    } else {
+      document.querySelector('.iframe-loader').classList.remove('is-hidden');
+    }
+  });
+</script>

@@ -1,0 +1,58 @@
+<div id="tab-1" class="results-grid--layout medium-down--hide {{ class }}">
+  <div class="results-view">
+    <ul class="product-grid product-grid--list" id="vdb-lb-search-result-wrapper"></ul>
+    <div class="container container--pagination vdb-container--pagination" style="display: none;">
+      <div class="one-whole column text-align-center">
+        <div class="paginate one-fourth">
+          <nav class="vdb-pagination-section pagination paginate--both" role="navigation" aria-label="pagination">
+            <!-- I showed design for different scenarios, use only one ul structure -->
+
+            <!-- This is the design after initial page load -->
+            <ul class="pagination-list">
+              <li>
+                <a class="pagination-link is-current">1</a>
+              </li>
+              <li>
+                <a class="pagination-link" href="{{ collection.url }}?page=2">2</a>
+              </li>
+              <li>
+                <a class="pagination-link" href="{{ collection.url }}?page=3">3</a>
+              </li>
+              <li>
+                <a class="pagination-ellipsis">…</a>
+              </li>
+              <li>
+                <a class="pagination-link" href="{{ collection.url }}?page=9">9</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    {% comment %} <div class="container container--pagination vdb-see-more-div" style="display: none">
+      <div class="one-whole column text-align-center">
+        <div class="paginate one-fourth" data-current-page="1" data-paginate-pages="9">
+          <a style="color:;background-color:;" href="javascript:;" class="button button--primary pagination-button__load-more">See more</a>
+        </div>
+      </div>
+    </div> {% endcomment %}
+    <div class="vdb-load-more-div" style="text-align: center;margin:2rem 0;display: none;">
+      <div class="loading-block" style="background-color: transparent;"><div class="inner"><svg width="150" height="150" viewBox="0 0 150 150"><g fill="none" stroke="#777777" stroke-width="3" stroke-miterlimit="10"><path class="logo-1" d="M75.1880276 38.9158992l34.679749 35.443358-35.4419284 34.6783502-34.679749-35.443358z" stroke-width="3.00015"></path><path class="logo-2" d="M75.79 145.261l-50.697-20.185-21.575-50.12 20.184-50.697L73.823 2.684l50.699 20.184 21.573 50.12-20.186 50.697zM73.823 2.684l1.365 36.229m-.764 70.117l1.366 36.231m34.075-70.907l36.23-1.366M3.518 74.956l36.23-1.366m70.117.764l16.044 49.331M74.424 109.03l51.485 14.655M39.748 73.59l-14.655 51.486m49.331-16.046l-49.331 16.046M23.702 24.259L39.748 73.59M23.702 24.259l51.486 14.654m0 0l49.334-16.045m0 0l-14.657 51.486"></path></g></svg><header class="text-style-footnote">Loading Stones...<i></i></header></div></div>
+      {% comment %} <svg
+        viewBox="0 0 44 44"
+        xmlns="http://www.w3.org/2000/svg"
+        style="height: 2.4rem; width: 1.4rem; animation: inex-spinner .5s linear infinite; fill: #449DA7; vertical-align: middle;"
+      >
+        <style>
+          @keyframes inex-spinner{to{transform:rotate(1turn)}}
+        </style>
+        <path d="M15.542 1.487A21.507 21.507 0 00.5 22c0 11.874 9.626 21.5 21.5 21.5 9.847 0 18.364-6.675 20.809-16.072a1.5 1.5 0 00-2.904-.756C37.803 34.755 30.473 40.5 22 40.5 11.783 40.5 3.5 32.217 3.5 22c0-8.137 5.3-15.247 12.942-17.65a1.5 1.5 0 10-.9-2.863z"></path>
+      </svg>
+      Loading Stones... {% endcomment %}
+        </div>
+    {% comment %} <div class="grid-banner column has-padding-bottom">
+      <img class="is-hidden-mobile-only" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/grid-banner.jpg?v=1686061158" width="100%" height="100%">
+      <img class="is-hidden-desktop-only" src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/mobile-listing-banner.jpg?v=1686139820" width="100%" height="100%">
+    </div> {% endcomment %}
+  </div>
+</div>

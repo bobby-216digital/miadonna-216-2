@@ -1,0 +1,201 @@
+<style>
+  @media screen and (max-width: 768px) {
+  .green-practices {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 0; }
+    .green-practices > div {
+      width: 100%; } }
+  .green-practices {
+  text-align: left;
+  clear: both;
+  margin: auto;
+  padding: 4rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.15); }
+  .green-practices:first-of-type {
+    margin-top: 6rem; }
+  .green-practices:last-of-type {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15); }
+  .green-practices > div {
+    display: inline-block; }
+  .green-practices ._image {
+    width: 30%;
+    vertical-align: bottom; }
+    .green-practices ._image img {
+      display: block;
+      margin: auto;
+      padding: 1rem; }
+  .green-practices ._content {
+    width: 64%;
+    margin-left: 5%; }
+    .green-practices ._content h2 {
+      margin: 20px 0px;
+      color: #333; }
+    .green-practices ._content p {
+      margin: auto; }
+
+  #shopify-section-{{ section.id }} .content-cell {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section.id }} .readability-insets>* {
+    max-width: 76rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section.id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .text-style-chapter-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .text-style-title {
+    color: #000000de;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: .02em;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .about-section-content p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  #shopify-section-{{ section.id }} .green-practices {
+    text-align: left;
+    clear: both;
+    margin: auto;
+    padding: 4rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,.15);
+  }
+  #shopify-section-{{ section.id }} .green-practices:first-of-type {
+    margin-top: 6rem;
+  }
+  #shopify-section-{{ section.id }} .green-practices ._content h2 {
+    margin: 20px 0;
+    color: #333;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section.id }} .content-cell {
+      padding: 50px;
+    }
+    #shopify-section-{{ section.id }} .text-style-title {
+      font-size: 36px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section.id }} .content-cell {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section.id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section.id }} .text-style-title {
+      font-size: 40px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .green-practices {
+      padding: 2rem;
+    }
+    #shopify-section-{{ section.id }} .green-practices ._image {
+      width: 35%;
+    }
+    #shopify-section-{{ section.id }} .green-practices ._content {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<section class="content-cell cell-style-A text-center">
+  <div class="offset-group readability-insets">
+    {% if section.settings.banner_title != blank %}
+      <h2 class="text-style-chapter-title">{{ section.settings.banner_title }}</h2>
+    {% endif %}
+    {% if section.settings.banner_text != blank %}
+      <p class="text-style-title">{{ section.settings.banner_text }}</p>
+    {% endif %}
+    {% for block in section.blocks %}
+      <div class="green-practices">
+        <div class="_image">
+          {% if block.settings.image != blank %}
+            <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | img_url: 'master' }}" alt="B-Corp" loading="lazy">
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+        <div class="_content">
+          {% if block.settings.title != blank %}
+            <h2 class="text-style-chapter-title">{{ block.settings.title }}</h2>
+          {% endif %}
+          {% if block.settings.content != blank %}
+            <p>{{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Our Pledge Icon with text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "banner_text",
+      "label": "Text"
+
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Text",
+      "name": "Text",
+      "settings": [
+         {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Pledge Icon with text",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

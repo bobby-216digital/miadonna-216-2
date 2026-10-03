@@ -1,0 +1,69 @@
+<div
+  class="fancybox-container popup-modal certificate-popup product-images-popup shipping-popup fancybox-is-open"
+  role="dialog"
+  tabindex="-1"
+  id="product-return-popup"
+  style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;"
+>
+  <style>
+    .popup__content ol{
+      padding-left:40px;
+    }
+    #product-return-popup .popup__wrapper .subtitle{
+      margin-bottom:20px;
+    }
+  </style>
+  <div class="fancybox-bg" onClick="productReturnClosePopup()"></div>
+  <div class="fancybox-inner">
+    <div class="fancybox-stage">
+      <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+        <div
+          class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+          style="display: inline-block;"
+        >
+          <button onClick="productReturnClosePopup()" class="close popup__close" aria-label="close">
+            <span class="icon icon--vertical-align" data-icon="x">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>Return</title>
+                <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="popup__inner is-flex has-no-side-gutter">
+            <div class="popup__content one-half text-center">
+              <h3>Returns and Exchanges</h3>
+              <p class="subtitle text-left">
+               Customer satisfaction is a core value at MiaDonna, which is why we offer an easy 60-day return policy.
+              </p>
+              <p class="subtitle text-left">
+                If you are not 100% satisfied with your order, you can return or exchange it in its original condition within 60 days of the date of delivery refund or exchange.
+              </p>
+              <p class="subtitle text-left">
+                Please note the following items cannot be returned:
+              </p>
+              
+              <ol class="subtitle text-left">
+               <li>Custom Jewelry</li>
+               <li>Sale items</li>
+               <li>Any item(s) with custom engraving</li>
+              </ol>
+              <p class="subtitle text-left">
+                You must request your return authorization AND ship your jewelry back to us within this 60-day return period in NEW, UNWORN condition with:
+              </p>
+              <ol class="subtitle text-left">
+               <li>The return policy tag still attached & untampered with</li>
+               <li>Original invoice and packaging</li>
+              </ol>
+              <p class="subtitle text-left">
+                We do not refund shipping, appraisal costs, or grading cards, and the customer is responsible for the shipping cost to return the product. However, we will refund you the purchase amount minus the original shipping fee.Only one return/exchange is allowed per customer as we must limit overhead costs to protect our foundation's funding. 
+              </p>
+              <p class="subtitle text-left">
+                <a href="https://www.miadonna.com/pages/returns" target="_blank" style="text-decoration:underline;">View return policy here.</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

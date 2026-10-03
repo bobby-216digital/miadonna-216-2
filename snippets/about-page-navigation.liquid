@@ -1,0 +1,28 @@
+<div class="sticky-menu-rect">
+  <section class="shaded page-submenu sticky-menu">
+    <div class="body-cell tab-bar-rect">
+      <nav class="tab-bar-menu">
+        <a href="/pages/about-us" class="{% if page.handle == 'about-us' %}active-state{% endif %}">
+          <!-- <figure><img src="{{ 'tab-icon-story.png' | file_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"></figure> -->
+          Our Story
+        </a>
+        <a href="/pages/the-founder" class="{% if page.handle == 'the-founder' %}active-state{% endif %}">
+          <!-- <figure><img src="{{ 'tab-icon-founder.png' | file_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"></figure> -->
+          The Founder
+        </a>
+        <a href="/pages/our-pledge" class="{% if page.handle == 'our-pledge' %}active-state{% endif %}">
+          <!-- <figure><img src="{{ 'tab-icon-ethics.png' | file_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"></figure> -->
+          Our Pledge</a>
+        <a href="/pages/the-greener-diamond" class="{% if page.handle == 'the-greener-diamond' %}active-state{% endif %}">
+          <!-- <figure><img src="{{ 'tab-icon-greener.png' | file_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"></figure> -->
+          Our Cause</a>
+        <a href="/pages/conflict-diamonds" class="{% if page.handle == 'conflict-diamonds' %}active-state{% endif %}">
+          <!-- <figure><img src="{{ 'tab-icon-conflict-free.png' | file_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"></figure> -->
+          The Issue</a>
+      </nav>
+    </div>
+  </section>
+</div>
+<section class="section static_page-section is-width-standard  ">
+{% render 'breadcrumb' %}
+</section>

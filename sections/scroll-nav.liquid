@@ -1,0 +1,305 @@
+<div class="about-links" role="navigation" aria-label="scroll navigation">
+    <div class="faq-categorycontainer">
+      <div class="faq-categorydropdown">
+          <button class="faq-selectCategory" id="faqSelectCategory">Select <span class="faq-arrow">{% render 'icon-down-arrow' %}</span></button>
+          <ul class="faq-categorylist" id="faqCategory">
+            {% for block in section.blocks %}
+            {% assign default_faq_handle = block.settings.faqs_menu__title | handle %}
+              <li href="#{{ block.settings.section_id }}"  class="faq-categorybox aboutnav-link {% if default_faq_handle == 'popular-faqs'%} faq-selected {% endif %}">{{ block.settings.link_text }}</li>
+              {% endfor %}
+          </ul>
+      </div>
+  </div>
+  <div class="contanier-nw mob-hide">
+    <div class="scrollnav-slider slick-cls  sl-space">
+        {% for block in section.blocks %}
+          <div class="slide">
+            <div class="scrollnav-slide-text slide-cls sl-spacebox">
+                <a href="#{{ block.settings.section_id }}" class="aboutnav-link {% if forloop.first %}active{% endif %}">{{ block.settings.link_text }}</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+
+
+ <script>
+   
+    const faqSelect = document.getElementById('faqSelectCategory');
+    const faqList = document.getElementById('faqCategory');
+    const faqItems = document.querySelectorAll('.faq-categorybox');
+    const faqArrow = document.querySelector('.faq-arrow');
+
+     // Toggle dropdown on button click
+    faqSelect.addEventListener('click', () => {
+        faqList.classList.toggle('show');
+        faqArrow.classList.toggle('rotate');
+    });
+
+    // Handle category selection
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Update button text
+            faqSelect.childNodes[0].nodeValue = item.textContent;
+
+            // Remove previous selection
+            faqItems.forEach(i => i.classList.remove('faq-selected'));
+
+            // Highlight selected
+            item.classList.add('faq-selected');
+
+            // Close dropdown
+            faqList.classList.remove('show');
+            faqArrow.classList.remove('rotate');
+        });
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.faq-categorydropdown')) {
+            faqList.classList.remove('show');
+            faqArrow.classList.remove('rotate');
+        }
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+    let $scrollnavslider = $('.scrollnav-slider');
+    let scrollParent = document.querySelector('.scrollnav-slider');
+    var totalWidth = 0;
+    let children = scrollParent.children;
+    for (let child of children) {
+      const style = window.getComputedStyle(child);
+      const marginLeft = parseFloat(style.marginLeft);
+      const marginRight = parseFloat(style.marginRight);
+      const fullWidth = child.offsetWidth + marginLeft + marginRight;
+      totalWidth += fullWidth;
+    }
+    let checkWidth = $(window).width() - 71;
+    $scrollnavslider.slick({
+      slidesToShow: 10, 
+      slidesToScroll: 1,
+      swipeToSlide: true,
+      touchThreshold: 50,
+      adaptiveHeight: false,
+      variableWidth: true,
+      arrows: true,
+      autoplay: false,
+      dots: false,
+      accessibility: true,
+      infinite: false,
+      prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                    {% render 'icon-slick-left2' %}</button>`,
+      nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                    {% render 'icon-slick-right2' %}</button>`,
+      responsive: [
+        { breakpoint: 1599, settings: { slidesToShow: 5, slidesToScroll: 1 } },
+        { breakpoint: 1299, settings: { slidesToShow: 5 , slidesToScroll: 1 } },
+        { breakpoint: 1199, settings: { slidesToShow: 4, slidesToScroll: 1 } }
+      ]
+    });
+
+    function centerIfFewSlides(slider) {
+   
+       const $slickList = $scrollnavslider.find('.slick-list');
+            const $slickTrack = $scrollnavslider.find('.slick-track');
+            
+            const listWidth = $slickList.width();
+            const trackWidth = $slickTrack.outerWidth(true);
+            
+            // Calculate total width of all slides including margins
+            let totalSlidesWidth = 0;
+            $scrollnavslider.find('.slick-slide').each(function() {
+              if (!$(this).hasClass('slick-cloned')) {
+                totalSlidesWidth += $(this).outerWidth(true);
+              }
+            });
+            
+            // Check if scrollable (has overflow)
+            //const isOverflowing = totalSlidesWidth > listWidth || trackWidth > listWidth;
+              const isOverflowing = totalSlidesWidth < listWidth ;
+
+            
+            /*console.log('List Width:', listWidth);
+            console.log('Track Width:', trackWidth);
+            console.log('Total Slides Width:', totalSlidesWidth);
+            console.log('Is Overflowing?:', isOverflowing);
+            console.log('Should Center?:', !isOverflowing);*/
+            
+            // First remove all classes
+            $scrollnavslider.removeClass('center-items all-visible');
+            
+            // Add classes only if NOT overflowing
+            if (isOverflowing) {
+              //console.log('Adding center classes - all items visible');
+              $scrollnavslider.addClass('center-items all-visible');
+               $scrollnavslider.find('.slick-cloned').each(function() {
+                 $(this).attr("style", "display: none !important");
+              });
+            } else {
+              $scrollnavslider.find('.slick-cloned').each(function() {
+                 $(this).attr("style", "");
+              });
+              //console.log('Not centering - items are overflowing/scrollable');
+            }
+    }
+    //console.log('totalWidth', totalWidth, checkWidth);
+    
+      $scrollnavslider.on('setPosition', function() {
+        centerIfFewSlides($scrollnavslider);
+      });
+      
+ $scrollnavslider.on('init reInit', function() {
+          centerIfFewSlides();
+        });
+        
+        $(window).on('resize', function() {
+          centerIfFewSlides();
+        });
+
+      $(window).on('resize', function() {
+        centerIfFewSlides($scrollnavslider);
+      });
+
+      });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.querySelector('.about-links');
+  const links = document.querySelectorAll('.aboutnav-link');
+  {%- if template == 'page.miadonna-rewards' -%}
+    const sections = document.querySelectorAll('.product-app--container .shopify-app-block');
+  {%- else -%}
+    const sections = document.querySelectorAll('.section-scroll');
+  {%- endif -%}
+  const navTop = nav.offsetTop;
+
+  let isScrolling = false;
+  let scrollTimeout;
+
+  function applySectionOffset() {
+    const h = nav.offsetHeight;
+    sections.forEach(sec => sec.style.scrollMarginTop = h + 'px');
+  }
+  applySectionOffset();
+  window.addEventListener('resize', applySectionOffset);
+
+
+  function getOffset() {
+    return nav.classList.contains('sticky') ? nav.offsetHeight : 0;
+  }
+
+  function finalScroll(target) {
+    const offset = getOffset();
+    const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+    isScrolling = true;
+    window.scrollTo({ top: y, behavior: "smooth" });
+
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+    }, 1000);
+  }
+
+  function scrollAfterSticky(target) {
+    if (window.scrollY >= navTop) {
+      finalScroll(target);
+      return;
+    }
+
+    window.scrollTo({ top: navTop + 2, behavior: "smooth" });
+
+    const waitForSticky = setInterval(() => {
+      if (window.scrollY >= navTop && nav.classList.contains("sticky")) {
+        clearInterval(waitForSticky);
+        setTimeout(() => finalScroll(target), 50);
+      }
+    }, 10);
+  }
+
+  function updateActiveLink(activeClass) {
+    links.forEach(link => {
+      const cls = link.getAttribute("href").replace("#", "").replace('__title','');
+      link.classList.toggle("active", cls === activeClass);
+    });
+  }
+
+  links.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+
+      const cls = link.getAttribute("href").replace("#", "");
+      let target = document.querySelector("." + cls);
+      if (!target) return;
+
+      isScrolling = true;
+      clearTimeout(scrollTimeout);
+
+      updateActiveLink(cls);
+
+      scrollAfterSticky(target);
+    });
+  });
+
+  window.addEventListener("scroll", () => {
+    const pos = window.scrollY;
+
+    if (pos >= navTop) {
+      nav.classList.add("sticky");
+    } else {
+      nav.classList.remove("sticky");
+    }
+
+    if (isScrolling) return;
+
+    const offset = nav.offsetHeight;
+    const trigger = pos + offset + 50;
+
+    let parentOffset = 0;
+    {%- if template == 'page.miadonna-rewards' -%}
+      parentOffset = document.querySelector('.product-app--container').offsetTop;
+    {%- endif -%}
+
+    let active = "";
+    sections.forEach(sec => {
+      const top = sec.offsetTop + parentOffset;
+      const bottom = top + sec.offsetHeight;
+      if (trigger >= top && trigger < bottom) {
+        {%- if template == 'page.miadonna-rewards' -%}
+          const clsId = sec.getAttribute('id');
+          let cls = clsId.split('_').slice(1,-1).filter(val => val != 'loyalty').join('-').slice(1);
+        {%- else -%} 
+          const cls = [...sec.classList].find(c => c.startsWith("section") && c !== "section-scroll");
+        {%- endif -%}
+        if (cls) active = cls;
+      }
+    });
+
+    if (active) {
+      updateActiveLink(active);
+    }
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Scroll Navigation",
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        { "type": "text", "id": "link_text", "label": "Link Text", "default": "Section" },
+        { "type": "text", "id": "section_id", "label": "Section ID", "default": "section1" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Scroll Navigation", "category": "Navigation" }
+  ],
+  "max_blocks": 12,
+  "settings": []
+}
+{% endschema %}

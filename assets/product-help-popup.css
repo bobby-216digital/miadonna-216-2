@@ -1,0 +1,93 @@
+.product-help-popup.popup-modal .fancybox-slide {
+  padding: 0;
+}
+
+.product-help-popup.certificate-popup .popup__content {
+  display: block;
+  padding: 40px 10px;
+}
+
+.product-help-popup .popup__wrapper h3 {
+  color: #3c3737;
+  border-bottom: 4px solid #f7dcd0;
+  display: inline-block;
+  font-size: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 35px;
+  text-transform: uppercase;
+}
+
+.product-help-popup .popup__wrapper .subtitle {
+  color: #3c3737;
+  font-size: 19px;
+  line-height: 1.55;
+  margin-bottom: 56px;
+  font-family: Playfair Display, serif;
+}
+
+.product-help-popup .popup__wrapper .help-item {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-transform: uppercase;
+}
+
+.product-help-popup .popup__wrapper .help-item svg {
+  fill: #f7dcd0;
+  width: 41px;
+  height: 41px;
+  margin-bottom: 15px;
+}
+
+.product-help-popup .popup__wrapper .one-fourth:nth-child(2) .help-item svg {
+  width: 39px;
+}
+
+.product-help-popup .popup__wrapper .one-fourth:last-child .help-item svg path {
+  fill: #f7dcd0;
+}
+
+.product-help-popup .popup__wrapper .help-item a {
+  color: #3c3737;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .product-help-popup.product-help-popup .popup__wrapper {
+    box-shadow: 0 4px 16px #0003;
+  }
+  .product-help-popup.certificate-popup .popup__content {
+    padding: 0;
+  }
+  .product-help-popup .popup__wrapper {
+    display: inline-block;
+    height: auto;
+    left: 50%;
+    max-height: 82vh;
+    max-width: 920px;
+    padding: 29px 58px 35px;
+    position: absolute;
+    top: 12%;
+    transform: translate(-50%);
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-help-popup .popup__wrapper .help-item {
+    margin-bottom: 2rem;
+  }
+  .product-help-popup .popup__wrapper .help-item svg {
+    margin-bottom: 5px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .product-help-popup.certificate-popup .popup__content {
+    height: auto;
+  }
+}

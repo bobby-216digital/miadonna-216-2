@@ -1,0 +1,152 @@
+<setting-tabs class="setting-tabs-wrapper">
+  <div id="service-content" class="setting-tab-content service-content tab-active">
+    <div class="settings-wrapper block--setting-tabs"></div>
+    <div class="block--form">
+      {% form 'product', product %}
+        <variant-selection
+          {% if variant_selection_id != blank %}
+            id="{{ variant_selection_id }}"
+          {% endif %}
+          class="variant-selection"
+          product-url="{{ product.url }}.js"
+          variant="{% if selected_variant %}{{ selected_variant.id }}{% else %}not-selected{% endif %}"
+          data-variant-selection
+        >
+          {% if product.has_only_default_variant %}
+            <input
+              class="variant-selection__variants variant-selection__variants--default"
+              name="id"
+              type="hidden"
+              value="{{ product.variants.first.id }}"
+              data-variants
+            >
+          {% endif %}
+        </variant-selection>
+        <div class="product-form-container">
+          <div class="product_form">
+            <div class="purchase-details">
+              <div class="purchase-details__buttons purchase-details__spb--false">
+                <div class="button-wrapper">
+                  <button
+                    type="submit"
+                    name="add"
+                    class="button {% if settings.cart_action == 'mini_cart' or settings.cart_action == 'drawer' %} ajax-submit {% endif %}action_button button button--add-to-cart add_to_cart {% if show_payment_button %} action_button--secondary {% endif %}"
+                    data-label="{{ add_to_cart_label | json }}"
+                    data-add-to-cart-trigger
+                  >
+                    ADD TO BAG
+                  </button>
+                </div>
+                {% comment %}
+                <div class="modal_price subtitle" data-display-savings="true">
+                  <div class="price-ui">
+                    <span
+                      class="price{% if product.compare_at_price and product.compare_at_price != product.price %} price--sale {% endif %}"
+                      data-price=""
+                    >
+                      <span class="money" data-price="">{{ product.price | money_with_currency }}</span>
+                    </span>
+                    {% if product.compare_at_price and product.compare_at_price != product.price %}
+                      <span class="compare-at-price" data-compare-at-price="">
+                        <span class="money" data-price="">{{ product.compare_at_price | money_with_currency }}</span>
+                      </span>
+                    {% endif %}
+                  </div>
+                  <!-- <div class="price-ui only-installments" data-price-ui="">$27.46/mo with financing</div> -->
+                </div>
+                {% endcomment %}
+              </div>
+              <div class="cart-warning" style="margin: 0;"></div>
+            </div>
+          </div>
+        </div>
+      {% endform %}
+    </div>
+    {% comment %}
+      <div class="block--order-ship-date">
+        <div class="order-ship-date">
+          <img src="{{ settings.speedsize_url_pfx_https -}}{{ 'calendar.png' | asset_url }}" width="41px" height="44px" loading="eager">
+          {% if category_group == 'wedding' %}
+            {%- assign delivery_date = 'now' | date: '%s' | plus: 1555200 | plus: added_ship_time -%}
+            {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+            {%- if delivery_week_day == 'Tue' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Wed' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Thu' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Fri' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Sat' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Sun' -%}
+              {%- assign delivery_date = delivery_date | plus: 86400 -%}
+            {%- endif -%}
+            <p class="date">{{ delivery_date | date: '%a, %b %e' }}</p>
+          {% elsif category_group == 'sale' %}
+            {%- assign current_hour = 'now' | date: '%k' | plus: 0 -%}
+            {%- if current_hour >= 12 -%}
+              {%- assign delivery_date = 'now' | date: '%s' | plus: added_ship_time -%}
+              {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+              {%- if delivery_week_day == 'Tue' -%}
+                {%- assign delivery_date = delivery_date | plus: 172800 -%}
+              {%- elsif delivery_week_day == 'Wed' -%}
+                {%- assign delivery_date = delivery_date | plus: 86400 -%}
+              {%- endif -%}
+              <p class="date">{{ delivery_date | date: '%a, %b %e' }}</p>
+            {%- else -%}
+              {%- if week_day == 'Fri' -%}
+                {%- assign added_ship_time = 0 -%}
+              {%- endif -%}
+              {%- assign delivery_date = 'now' | date: '%s' | plus: added_ship_time -%}
+              {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+              {%- if delivery_week_day == 'Tue' -%}
+                {%- assign delivery_date = delivery_date | plus: 172800 -%}
+              {%- elsif delivery_week_day == 'Wed' -%}
+                {%- assign delivery_date = delivery_date | plus: 86400 -%}
+              {%- endif -%}
+              <p class="date">{{ delivery_date | date: '%a, %b %e' }}</p>
+            {%- endif -%}
+          {% else %}
+            {%- assign delivery_date = 'now' | date: '%s' | plus: 1555200 | plus: added_ship_time -%}
+            {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+            {%- if delivery_week_day == 'Tue' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Wed' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Thu' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Fri' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Sat' -%}
+              {%- assign delivery_date = delivery_date | plus: 172800 -%}
+            {%- elsif delivery_week_day == 'Sun' -%}
+              {%- assign delivery_date = delivery_date | plus: 86400 -%}
+            {%- endif -%}
+          {% endif %}
+          <p class="order-ship-text">Order now to ship by:</p>
+          <p class="order-ship-date">{{ delivery_date | date: '%a, %b %e' }}</p>
+        </div>
+      </div>
+    {% endcomment %}
+    <div class="block--sku" style="padding: 0;">
+      <div class="order-ship-date">
+        <div style="width:26px;height:auto;"></div>
+        <p class="order-ship-text" style="font-size: 12px;">SKU:</p>
+        <p class="order-ship-date" style="font-size: 12px;">{{ product.selected_or_first_available_variant.sku }}</p>
+      </div>
+    </div>
+
+    <div class="block--selected-ring-values">
+      <div class="selected-ring-values">
+        <img src="{{ settings.speedsize_url_pfx_https -}}{{ 'diamond.png' | asset_url }}" width="41px" height="44px" loading="eager">
+        <p class="selected-ring-text">
+          <span class="selected-ring-value"
+            >Taking care of your fine jewelry ensures it will last for generations. Our jewelry experts are here to
+            maximize the life of your investment.</span
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</setting-tabs>

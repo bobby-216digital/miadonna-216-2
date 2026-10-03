@@ -1,0 +1,2479 @@
+{% comment %}
+  {% capture content %}
+{% endcomment %}
+<!doctype html>
+<html class="no-js no-touch" lang="{{ shop.locale }}">
+  <head>
+    <!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R588DLD');
+</script>
+<!-- End Google Tag Manager -->
+    <script>
+      window.Store = window.Store || {};
+      window.Store.id = {{ shop.id }};
+    </script>
+    <script>
+      {%- comment -%}YETT_BLACKLIST = [/connect.facebook.net/, /www.google-analytics.com/, /script.hotjar.com/, /analytics.tiktok.com/, /gtag/, /static.klaviyo.com/, /polyfill-fastly.net/, /giftbox.ds-cdn.com/, /polyfill.io/]{%- endcomment -%}
+      YETT_BLACKLIST = [/connect.facebook.net/, /www.google-analytics.com/, /analytics.tiktok.com/, /gtag/, /static.klaviyo.com/]
+      !function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"function"==typeof define&&define.amd?define(["exports"],e):e(t.yett={})}(this,function(t){"use strict";var e={blacklist:window.YETT_BLACKLIST,whitelist:window.YETT_WHITELIST},r={blacklisted:[]},n=function(t,r){return t&&(!r||"javascript/blocked"!==r)&&(!e.blacklist||e.blacklist.some(function(e){return e.test(t)}))&&(!e.whitelist||e.whitelist.every(function(e){return!e.test(t)}))},i=function(t){var r=t.getAttribute("src");return e.blacklist&&e.blacklist.every(function(t){return!t.test(r)})||e.whitelist&&e.whitelist.some(function(t){return t.test(r)})},c=new MutationObserver(function(t){t.forEach(function(t){for(var e=t.addedNodes,i=function(t){var i=e[t];if(1===i.nodeType&&"SCRIPT"===i.tagName){var c=i.src,o=i.type;if(n(c,o)){r.blacklisted.push(i.cloneNode()),i.type="javascript/blocked";i.addEventListener("beforescriptexecute",function t(e){"javascript/blocked"===i.getAttribute("type")&&e.preventDefault(),i.removeEventListener("beforescriptexecute",t)}),i.parentElement.removeChild(i)}}},c=0;c<e.length;c++)i(c)})});c.observe(document.documentElement,{childList:!0,subtree:!0});var o=document.createElement;document.createElement=function(){for(var t=arguments.length,e=Array(t),r=0;r<t;r++)e[r]=arguments[r];if("script"!==e[0].toLowerCase())return o.bind(document).apply(void 0,e);var i=o.bind(document).apply(void 0,e),c=i.setAttribute.bind(i);return Object.defineProperties(i,{src:{get:function(){return i.getAttribute("src")},set:function(t){return n(t,i.type)&&c("type","javascript/blocked"),c("src",t),!0}},type:{set:function(t){var e=n(i.src,i.type)?"javascript/blocked":t;return c("type",e),!0}}}),i.setAttribute=function(t,e){"type"===t||"src"===t?i[t]=e:HTMLScriptElement.prototype.setAttribute.call(i,t,e)},i};var l=function(t){if(Array.isArray(t)){for(var e=0,r=Array(t.length);e<t.length;e++)r[e]=t[e];return r}return Array.from(t)},a=new RegExp("[|\\{}()[\\]^$+*?.]","g");t.unblock=function(){for(var t=arguments.length,n=Array(t),o=0;o<t;o++)n[o]=arguments[o];n.length<1?(e.blacklist=[],e.whitelist=[]):(e.blacklist&&(e.blacklist=e.blacklist.filter(function(t){return n.every(function(e){return!t.test(e)})})),e.whitelist&&(e.whitelist=[].concat(l(e.whitelist),l(n.map(function(t){var r=".*"+t.replace(a,"\\$&")+".*";return e.whitelist.find(function(t){return t.toString()===r.toString()})?null:new RegExp(r)}).filter(Boolean)))));for(var s=document.querySelectorAll('script[type="javascript/blocked"]'),u=0;u<s.length;u++){var p=s[u];i(p)&&(p.type="application/javascript",r.blacklisted.push(p),p.parentElement.removeChild(p))}var d=0;[].concat(l(r.blacklisted)).forEach(function(t,e){if(i(t)){var n=document.createElement("script");n.setAttribute("src",t.src),n.setAttribute("type","application/javascript"),document.head.appendChild(n),r.blacklisted.splice(e-d,1),d++}}),e.blacklist&&e.blacklist.length<1&&c.disconnect()},Object.defineProperty(t,"__esModule",{value:!0})});
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="cleartype" content="on">
+    {% if template contains 'blog' %}
+      {% if blog.handle == 'all' or blog.handle == 'engagement-wedding' or blog.handle == 'fine-jewelry' or blog.handle == 'gemstone' or blog.handle == 'lab-diamonds' or blog.handle == 'new-mission' %}
+        <meta name="robots" content="noindex, nofollow">
+      {% else %}
+        <meta name="robots" content="index, follow">
+      {% endif %}
+    {% else %}
+      {%- assign VDBTags = product.tags | where: 'VDB' -%}
+      {% if VDBTags.size > 0 %}
+        <meta name="robots" content="noindex">
+      {% else %}
+        <meta name="robots" content="index, follow">
+      {% endif %}
+    {% endif %}
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.shop_bg_color }}">
+    <meta name="google-site-verification" content="vRttSKXhY4zbQlRK4w9mb4y1ezGF1JPOtOqwLxgwDHA" />
+    <meta name="google-site-verification" content="yw6acQ9Pq_4gQzpHAeW3fyjwPlVmaTRoKBkIjPlT_ZM">
+    {% render 'plus_all_collection_redirect', enable: settings.plus_enable_all_redirect %}
+
+    {% if template contains 'page' %}
+      <link rel="canonical" href="{{ shop.url  }}{{ page.url  }}">
+    {% elsif template contains 'collection' %}
+      <link rel="canonical" href="{{ shop.url  }}{{ collection.url  }}">
+    {% elsif template contains 'article' %}
+      <link rel="canonical" href="{{ shop.url  }}{{ article.url  }}">
+    {% elsif template contains 'blog' %}
+      <link rel="canonical" href="{{ shop.url  }}{{ blog.url  }}">
+    {% else %}
+      <link rel="canonical" href="{{ canonical_url  }}">
+    {% endif %}
+    {%- if current_tags -%}{%- assign meta_tags = current_tags | join: ', ' -%}{%- endif -%}
+    <title>
+      {%- if template.name == 'index' -%}
+        {{ page_title }}
+      {% elsif template.name == 'search' %}
+        Search: Results found for "{{ search.terms }}"
+      {% elsif template.name == 'cart' %}
+        Your Bag
+        {%- if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{%- endif -%}
+        {% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif -%}
+        {%- unless page_title contains shop.name %} | {{ shop.name }}{% endunless -%}     
+         {% elsif template.name == 'product' %}
+
+    {% assign current_variant = product.selected_or_first_available_variant %}
+
+    {% if product.variants.size == 1 %}
+      {% if current_variant.title == 'Default Title' or current_variant.title == 'Variant Name 1' %}
+        {{ product.title }} | {{ shop.name }}
+      {% else %}
+        {{ product.title }} | {{ shop.name }}
+      {% endif %}
+    {% else %}
+      {{ product.title }} | {{ shop.name }}
+    {% endif %}
+      {%- else -%}
+        {{ page_title -}}
+        {%- if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{%- endif -%}
+        {% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif -%}
+        {%- unless page_title contains shop.name %} | {{ shop.name }}{% endunless -%}
+      {%- endif %}
+    </title>
+
+    <link rel="preconnect dns-prefetch" href="https://cdn.shopify.com" crossorigin>
+
+    {% comment %}
+      <!-- DNS prefetches -->
+      <link rel="dns-prefetch" href="https://cdn.shopify.com">
+      <link rel="dns-prefetch" href="https://fonts.shopify.com">
+      <link rel="dns-prefetch" href="https://monorail-edge.shopifysvc.com">
+      <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+
+      <!-- Preconnects -->
+      <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+      <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
+      <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
+      <link rel="preconnect" href="https://ajax.googleapis.com">
+    {% endcomment %}
+
+    <!-- Preloads -->
+    {% comment %}
+      <!-- Preload CSS -->
+      <link rel="preload" href="{{ 'swiper-bundle.min.css' | asset_url }}" as="style">
+      <link rel="preload" href="{{ 'fancybox.css' | asset_url }}" as="style">
+      <link rel="preload" href="{{ 'tooltip.css' | asset_url }}" as="style">
+      <link rel="preload" href="{{ 'vdb-fonts.css' | asset_url }}" as="style">
+      <link rel="preload" href="{{ 'customer.css' | asset_url }}" as="style">
+      <link rel="preload" href="{{ 'styles.css' | asset_url }}" as="style">
+      {{ 'common.css' | asset_url | stylesheet_tag: preload: true }}
+    {% endcomment %}
+
+    <!-- Preload JS -->
+    {% comment %}
+      <link rel="preload" href="{{ 'jquery-1.11.0.min.js' | asset_url }}" as="script">
+      <link rel="preload" href="{{ '3.6.0-jquery.min.js' | asset_url }}" as="script">
+      <link rel="preload" href="{{ 'vendors.js' | asset_url }}" as="script">
+      <link rel="preload" href="{{ 'utilities.js' | asset_url }}" as="script">
+      <link rel="preload" href="{{ 'app.js' | asset_url }}" as="script">
+      {{ 'common.js' | asset_url | preload_tag: as: 'script' }}
+    {% endcomment %}
+
+    {% comment %}
+      {% if settings.show_multiple_currencies or shop.enabled_currencies.size > 1 or localization.available_countries.size > 1 %}
+        <link rel="preload" href="/services/javascripts/currencies.js" as="script">
+        <link rel="preload" href="{{ 'currencyConversion.js' | asset_url }}" as="script">
+      {% endif %}
+    {% endcomment %}
+
+    {% if settings.enable_shipping_calculator and template.name == 'cart' %}
+      <link rel="preload" href="{{ 'shopify_common.js' | shopify_asset_url  }}" as="script">
+      <link rel="preload" href="{{ 'api.jquery.js' | shopify_asset_url  }}" as="script">
+    {% endif %}
+
+    {%- if template.directory == 'customers' -%}
+      <link rel="preload" href="{{ 'shopify_common.js' | shopify_asset_url  }}" as="script">
+      <link rel="preload" href="{{ 'customer_area.js' | shopify_asset_url  }}" as="script">
+    {%- endif -%}
+
+    {% if settings.disqus_enabled %}
+      {% if template.name == 'blog' or template.name == 'article' or template.name == 'index' %}
+        <link rel="preload" href="//{{ settings.disqus_shortname  }}.disqus.com/count.js" as="script">
+      {% endif %}
+    {% endif %}
+    {% include 'SEOManager' %}
+    <!-- CSS for Flex -->
+    <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'fancybox.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'fancyapps-fancybox.css' | asset_url }}" media="print" onload="this.media='all'">
+    {{ 'tooltip.css' | asset_url | stylesheet_tag: preload: true }}
+    <link rel="stylesheet" href="{{ 'vdb-fonts.css' | asset_url }}" media="print" onload="this.media='all'">
+    {{ 'styles.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'common.css' | asset_url | stylesheet_tag: preload: true }}
+    <link rel="stylesheet" href="{{ 'customer.css' | asset_url }}" media="print" onload="this.media='all'">
+    {% if request.page_type == 'article' or request.page_type == 'blog' %}
+      <link rel="stylesheet" href="{{ 'blog-custom.css' | asset_url }}">
+    {% endif %}
+    {% comment %}
+      IE11 doesn't support `Intl.NumberFormat.formatToParts`, which is used by the currency formatting script in various parts of the site.
+      And unfortunately, the `Intl` polyfill from polyfill.io doesn't perform "partial" polyfilling of `Intl`, so simply trying to add
+      the `Intl` polyfill doesn't give IE11 support for the `formatToParts` method.
+      The workaround is to delete the `Intl` object entirely and let the polyfill replace it:
+      https://github.com/Financial-Times/polyfill-service/pull/1750#issuecomment-413301455
+    {% endcomment %}
+
+    {{ 'homepage.css' | asset_url | stylesheet_tag }} 
+    {{ 'slick-slider.css' | asset_url | stylesheet_tag }}
+    {{ 'custom-nw.css' | asset_url | stylesheet_tag }}
+
+    {% comment %}Inject theme-object begin{% endcomment %}
+    <script>
+      window.PXUTheme = window.PXUTheme || {};
+      window.PXUTheme.version = '3.5.0';
+      window.PXUTheme.name = 'Flex';
+    </script>
+    {% comment %}Inject theme-object end{% endcomment %}
+
+    <script>
+      {% render 'js-variables' %}
+    </script>
+    {% comment %}
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{{ 'jquery-1.11.0.min.js' | asset_url }}" async></script>
+    {% endcomment %}
+    
+    <script src="{{ '3.6.0-jquery.min.js' | asset_url }}"></script>
+    <script src="{{ 'vendors.js' | asset_url }}" defer></script>
+    <script src="{{ 'utilities.js' | asset_url }}" ></script>
+
+    {%- if product and product.metafields.custom.style_id_grouping != '' -%}
+      {%- assign metaStyleGrouping = product.metafields.custom.style_id_grouping.value -%}
+      {%- assign groupedProducts = metaStyleGrouping.grouped_products.value | size -%}
+      {%- assign groupedProducts2 = metaStyleGrouping.grouped_products_batch_2.value | size -%}
+      {%- if groupedProducts > 0 or groupedProducts2 > 0 -%}
+        <script>
+          (function () {
+            const originalDefine = customElements.define.bind(customElements);
+
+            customElements.define = function (name, ctor, options) {
+              if (name === 'variant-selection') {
+                const original = ctor.observedAttributes || [];
+                const originalCallback = ctor.prototype.attributeChangedCallback;
+
+                // Add 'product-url' to the observed list
+                Object.defineProperty(ctor, 'observedAttributes', {
+                  get() {
+                    return [...original, 'product-url'];
+                  },
+                });
+
+                // Handle 'product-url' changes the same way 'variant' is handled natively
+                ctor.prototype.attributeChangedCallback = function (attrName, oldValue, newValue) {
+                  if (attrName === 'product-url') {
+                    if (oldValue === newValue) return;
+
+                    this._loaded = false;
+                    this._productFetcher = this._fetchProduct().then((product) => {
+                      if (!product) return;
+                      const variant = product.variants.find((v) => v.available) || product.variants[0];
+                      this.variant = variant.id; // reuses the class's own setter → native dispatch
+                    });
+                    return;
+                  }
+                  originalCallback.call(this, attrName, oldValue, newValue);
+                };
+              }
+              return originalDefine(name, ctor, options);
+            };
+          })();
+        </script>
+      {%- endif -%}
+    {%- endif -%}
+
+    <script src="{{ 'app.js' | asset_url }}" defer></script>
+    <script src="{{ 'z__jsHeader.js' | asset_url }}" ></script>
+    <script src="{{ 'fancyapps-fancybox.js' | asset_url }}" async></script>
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'common.js' | asset_url }}" defer></script>
+    <script src="{{ 'deferred-media.js' | asset_url }}" defer></script>
+
+    {%- if settings.show_multiple_currencies
+      or shop.enabled_currencies.size > 1
+      or localization.available_countries.size > 1
+    -%}
+      <script type="text/javascript" src="/services/javascripts/currencies.js" async></script>
+      <script src="{{ 'currencyConversion.js' | asset_url }}" defer></script>
+    {%- endif -%}
+
+    {%- if settings.enable_shipping_calculator and template.name == 'cart' -%}
+      <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+      <script src="{{ 'api.jquery.js' | shopify_asset_url }}" defer></script>
+      <script src="{{ '/services/javascripts/countries.js' }}"></script>
+    {%- endif -%}
+
+    {%- if template.directory == 'customers' -%}
+      <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+      <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
+    {%- endif -%}
+
+    {% if settings.disqus_enabled %}
+      {% if template.name == 'blog' or template.name == 'article' or template.name == 'index' %}
+        <script id="dsq-count-scr" src="//{{ settings.disqus_shortname }}.disqus.com/count.js" async></script>
+      {% endif %}
+    {% endif %}
+
+    <noscript>
+      <style>
+        /* Insert styles for styles when JS is not loaded */
+
+        .noscript {
+          display: block;
+        }
+      </style>
+    </noscript>
+    <script>
+      document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js');
+      if(window.Shopify&&window.Shopify.designMode)document.documentElement.className+=' in-theme-editor';
+      if(('ontouchstart' in window)||window.DocumentTouch&&document instanceof DocumentTouch)document.documentElement.className=document.documentElement.className.replace(/\bno-touch\b/,'has-touch');
+    </script>
+ {% if template.name == 'product' %}
+      {% assign current_variant = product.selected_or_first_available_variant %}
+      {% if product.variants.size == 1 and current_variant.title == 'Default Title' or product.variants.size == 1 and current_variant.title == 'Variant Name 1' %}
+          {% assign page_description = "Shop " | append: product.title | append: " online at MiaDonna. Free US shipping, 60-day returns and lifetime warranty." %}
+      {% else %}
+        {% assign page_description = "Shop " | append: product.title | append: " online at MiaDonna. Build your jewelry your way, with free US shipping and 60-day returns." %}
+      {% endif %}
+{% endif %}
+    {%- if page_description -%}
+      <meta
+        name="description"
+        content="{{ page_description | escape  }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags | escape }}.{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}.{% endif %}"
+      >
+    {%- endif -%}
+
+    {%- if settings.favicon != null -%}
+      <link
+        rel="shortcut icon"
+        type="image/x-icon"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '180x180' }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '180x180' }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        sizes="57x57"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '57x57' }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        sizes="60x60"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '60x60' }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        sizes="72x72"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '72x72' }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        sizes="76x76"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '76x76' }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        sizes="114x114"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '114x114' }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '180x180' }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        sizes="228x228"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '228x228' }}"
+      >
+    {%- else -%}
+      <link
+        rel="shortcut icon"
+        type="image/x-icon"
+        href="{{ settings.speedsize_url_pfx_https -}}{{ 'favicon.png' | asset_url }}"
+      >
+    {%- endif -%}
+
+    {% assign defer_syntax_first = "document.addEventListener('asyncLazyLoad',function(event){asyncLoad();});if(window.attachEvent)" %}
+    {% assign defer_syntax_second = ', function(){}' %}
+    {% if content_for_header contains 'previewBarInjector' %}
+      {% assign preview_link_part_1 = 'function shopifypreviewscript(){' %}
+      {% assign bbc = 'previewBarInjector.init();
+});' %}
+      {% assign bbd = 'previewBarInjector.init();}' %}
+    {% endif %}
+    {% capture content_header %}
+      {% if content_for_header contains 'previewBarInjector' %}
+        {{ content_for_header | replace: "if(window.attachEvent)" , defer_syntax_first | replace: ", asyncLoad" , defer_syntax_second | replace:"document.addEventListener('DOMContentLoaded', function() {", preview_link_part_1 | replace: bbc, bbd }}
+      {% else %}
+        {{ content_for_header | replace: "if(window.attachEvent)" , defer_syntax_first | replace: ", asyncLoad" , defer_syntax_second }}
+      {% endif %}  
+    {% endcapture %}
+    {{ content_header }}
+    {% comment %}{{ content_for_header }}{% endcomment %}
+
+    {%- liquid 
+      if template == 'product.loose-lab-diamond'
+        ##speedsizeIgnore##
+      endif 
+    -%}
+    {% render 'social-meta-info' %}
+    {%- liquid
+      if template == 'product.loose-lab-diamond'
+        ##endSpeedsizeIgnore##
+      endif
+    -%}
+
+    {% if collection.previous_product %}<link rel="prev" href="{{ collection.previous_product  }}">{% endif %}
+    {% if collection.next_product %}<link rel="next" href="{{ collection.next_product  }}">{% endif %}
+
+    {% if template.name == 'customers' %}
+      {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+      {{ 'customer_area.js' | shopify_asset_url | script_tag }}
+    {% endif %}
+    {% comment %}
+    {% endcomment %}
+
+    {%- if template contains 'collection' -%}
+        <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ collection.title | json }},
+  "description": {{ collection.description | strip_html | strip_newlines | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+  "url": {{ canonical_url | json }}{% if collection.image %},
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": {{ collection.image | image_url: width: 1200 | prepend: "https:" | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }}
+  }{% endif %},
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": {{ collection.products_count }},
+    "itemListElement": [
+      {% paginate collection.products by 30 %}
+        {% for product in collection.products %}
+          {
+            "@type": "ListItem",
+            "position": {{ forloop.index }},
+            "item": {
+              "@type": "Product",
+              "name": {{ product.title | json }},
+              "url": {{ shop.url | append: product.url | json }}
+            }
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      {% endpaginate %}
+    ]
+  }
+}
+</script>
+        {%- render 'data-layer', collection: collection -%}
+    {%- endif -%}
+    {%- if template contains 'product' -%}
+        {%- render 'data-layer-product', product: product -%}
+    {%- endif -%}
+    {% if customer %}
+    <script>
+  Shopify.analytics.publish('email_signup', {email: customer.email });
+</script>
+    {% endif %}
+ {%- if page.handle == 'appointments' -%}
+      <script>
+      dataLayer.push({
+    event: 'book_appointment',
+    category1: 'book an appointment footer/Appointment header',
+    service: 'Virtual Appointment/In-person Appointment/Ring Service/Ring Resize',
+    });
+   </script>
+    {%- endif -%}
+
+    {% comment %}
+    <!-- Hotjar Tracking Code -->
+    <script defer>
+      (function(h,o,t,j,a,r){
+          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+          h._hjSettings={hjid:2090309,hjsv:6};
+          a=o.getElementsByTagName('head')[0];
+          r=o.createElement('script');r.async=1; 
+          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+          a.appendChild(r);
+      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+    <!-- Bing universal tag -->
+    <script defer>
+      (function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"56306427"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");
+    </script>
+    <!-- end Bing tag -->
+    {% endcomment %}
+    {% comment %}
+      Product view data layer v2.0 - part of "Shopify GA4 Kit" by Analyzify
+      Visit https://analyzify.app/shopify-google-analytics/ga4 for complete tutorial
+    {% endcomment %}
+
+
+    <!-- Global site tag (gtag.js) - Google Ads: 1054704953 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1054704953"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      {%- comment -%}
+      gtag('config', 'AW-1054704953');
+      {%- endcomment -%}
+      gtag("config", "AW-1054704953", {
+        page_location: window.top.location.href
+      });
+    </script>
+
+    {% include 'wiser' %}
+    {% include 'wiser_popup' %}
+    <!-- LocalBusiness Schema code -->
+     {% if template == 'index' or template == 'page.customer-care' or template == 'page.visit-2026' %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://www.schema.org",
+        "@type": "LocalBusiness",
+        "name": "MiaDonna",
+        "url": "https://www.miadonna.com/",
+        "logo": "",
+        "image": "",
+        "sameAs": [
+              "https://www.facebook.com/MiaDonnaCompany",
+                  "https://www.instagram.com/miadonnadiamond/",
+                  "https://www.pinterest.com/miadonnacompany/",
+                  "https://www.tiktok.com/@miadonnadiamond"
+          ],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "10250 SW Greenburg Rd # 125, Portland",
+          "addressLocality": "Portland, Oregon",
+          "postalCode": "97223",
+          "addressCountry": "USA"
+        }
+      }
+    </script>
+     <script type="application/ld+json">
+      {
+       "@context": "https://schema.org/",
+       "@type": "WebSite",
+       "name": "MiaDonna",
+       "url": "https://www.miadonna.com/"
+      }
+    </script>
+    {%  endif %}
+         {% if template == 'index'  %}
+
+    <script type="application/ld+json" data-next-head="">
+{
+    "@context": "https://schema.org/",
+    "@type": "Organization",
+    "name": "MiaDonna",
+    "url": "https://www.miadonna.com/",
+    "logo": "https://www.miadonna.com/cdn/shop/files/MiaDonna_Logo_-_With_Tag_1600x.svg",
+    "foundingDate": "2005",
+    
+    "sameAs": [
+    	"https://www.facebook.com/MiaDonnaCompany",
+	"https://www.instagram.com/miadonnadiamond/",
+	"https://www.pinterest.com/miadonnacompany/",
+        	"https://www.youtube.com/@MiaDonnaDiamond",
+	"https://www.tiktok.com/@miadonnadiamond"
+    		]
+    } 
+  </script>
+  {%  endif %}
+   
+     {%- comment -%} "potentialAction": {
+         "@type": "SearchAction",
+         "target": "https://www.miadonna.com/pages/search-results-page?q={search_term_string}",
+         "query-input": "required name=search_term_string"
+       } {%- endcomment -%}
+    {%- if template contains 'product' -%}
+      <!-- Affirm -->
+      <script>
+        _affirm_config = {
+          public_api_key:  "OP248MNARFY1CV4O",
+          script:          "https://cdn1.affirm.com/js/v2/affirm.js"
+        };
+        (function(l,g,m,e,a,f,b){var d,c=l[m]||{},h=document.createElement(f),n=document.getElementsByTagName(f)[0],k=function(a,b,c){return function(){a[b]._.push([c,arguments])}};c[e]=k(c,e,"set");d=c[e];c[a]={};c[a]._=[];d._=[];c[a][b]=k(c,a,b);a=0;for(b="set add save post open empty reset on off trigger ready setProduct".split(" ");a<b.length;a++)d[b[a]]=k(c,e,b[a]);a=0;for(b=["get","token","url","items"];a<b.length;a++)d[b[a]]=function(){};h.async=!0;h.src=g[f];n.parentNode.insertBefore(h,n);delete g[f];d(g);l[m]=c})(window,_affirm_config,"affirm","checkout","ui","script","ready");
+      </script>
+      <!-- End Affirm -->
+    {%- endif -%}
+  <!-- SpeedsizeAppHeadSnippet ADDED AUTOMATICALLY - PLEASE DO NOT REMOVE OR MODIFY WHILE SPEEDSIZE'S APP IS ENABLED! -->
+  <link rel="preconnect" href="https://scdn.speedsize.com/" data-speedsize="auto">
+  <!-- endSpeedsizeAppHeadSnippet -->
+</head>
+  {%- capture money_format_output -%}
+  {%- if settings.currency_format == 'money_with_currency_format' -%}
+    {{- shop.money_with_currency_format | strip_html -}}
+  {%- else -%}
+    {{- shop.money_format | strip_html -}}
+  {%- endif -%}
+{%- endcapture -%}
+  <body
+  class="
+    {%- if template.name == '404' -%}
+      error-404
+    {% else -%}
+      {{ template | replace: '.', '-' | handle }}
+    {%- endif -%}
+    {% if settings.header_layout == 'vertical' -%}
+      has-vertical-header
+    {%- endif -%}
+  "
+  data-money-format="{{ money_format_output }}"
+  data-shop-url="{{ shop.url }}"
+  data-current-lang="{{ request.locale.iso_code }}"
+>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R588DLD"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div style="--background-color: {{ settings.shop_bg_color }}">
+    {% render 'age-gate', id: 'page', sections: content_for_layout %}
+  </div>
+    <svg
+      class="icon-star-reference"
+      aria-hidden="true"
+      focusable="false"
+      role="presentation"
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="3 3 17 17"
+      fill="none"
+    >
+      <title>Star</title>
+      <symbol id="icon-star" style="color:#fca999;">
+        <rect class="icon-star-background" width="20" height="20" fill="currentColor"/>
+        <path d="M10 3L12.163 7.60778L17 8.35121L13.5 11.9359L14.326 17L10 14.6078L5.674 17L6.5 11.9359L3 8.35121L7.837 7.60778L10 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </symbol>
+      <clipPath id="icon-star-clip">
+        <path d="M10 3L12.163 7.60778L17 8.35121L13.5 11.9359L14.326 17L10 14.6078L5.674 17L6.5 11.9359L3 8.35121L7.837 7.60778L10 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </clipPath>
+    </svg>
+
+    {% comment %}Inject icon-star-symbol end{% endcomment %}
+
+    {% comment %}Inject css-variables begin{% endcomment %}
+    {% style %}
+      :root {
+        --color-body-text: {{ settings.regular_color }};
+        --color-body: {{ settings.shop_bg_color }};
+        --color-bg: {{ settings.shop_bg_color }};
+      }
+    {% endstyle %}
+    {% comment %}Inject css-variables end{% endcomment %}
+
+    {% comment %}Inject @pixelunion/shopify-price-ui/price-ui-globals begin{% endcomment %}
+    {%- capture price -%}{%- render 'price-ui-templates', template: 'price' -%}{%- endcapture -%}
+    {%- capture price_percent -%}{%- render 'price-ui-templates', template: 'price-percent' -%}{%- endcapture -%}
+    {%- capture price_min -%}{%- render 'price-ui-templates', template: 'price-min' -%}{%- endcapture -%}
+    {%- capture price_max -%}{%- render 'price-ui-templates', template: 'price-max' -%}{%- endcapture -%}
+    {%- capture unit_quantity -%}{%- render 'price-ui-templates', template: 'unit-quantity' -%}{%- endcapture -%}
+    {%- capture unit_price -%}{%- render 'price-ui-templates', template: 'unit-price' -%}{%- endcapture -%}
+    {%- capture unit_measurement -%}{%- render 'price-ui-templates', template: 'unit-measurement' -%}{%- endcapture -%}
+
+    <template id="price-ui">{%- render 'price-ui-templates', template: 'price-ui' -%}</template>
+    <template id="price-ui-badge">{%- render 'price-ui-templates', template: 'price-ui-badge' -%}</template>
+
+    <template id="price-ui__price">{{ price }}</template>
+    <template id="price-ui__price-range">
+      {{- 'product.price.range_html' | t: price_min: price_min, price_max: price_max -}}
+    </template>
+    <template id="price-ui__unit-pricing">
+      {{-
+        'product.price.unit_pricing_html'
+        | t: unit_quantity: unit_quantity, unit_price: unit_price, unit_measurement: unit_measurement
+      -}}
+    </template>
+    <template id="price-ui-badge__percent-savings-range">
+      {{- 'product.badge.sale_percentage_range_html' | t: price_percent: price_percent -}}
+    </template>
+    <template id="price-ui-badge__percent-savings">
+      {{- 'product.badge.sale_percentage_single_html' | t: price_percent: price_percent -}}
+    </template>
+    <template id="price-ui-badge__price-savings-range">
+      {{- 'product.badge.sale_money_range_html' | t: price: price -}}
+    </template>
+    <template id="price-ui-badge__price-savings">
+      {{- 'product.badge.sale_money_single_html' | t: price: price -}}
+    </template>
+    <template id="price-ui-badge__on-sale">{{- 'product.badge.sale' | t -}}</template>
+    <template id="price-ui-badge__sold-out">{{- 'product.badge.sold_out' | t -}}</template>
+    <template id="price-ui-badge__in-stock">{{- 'product.badge.in_stock' | t -}}</template>
+    {% comment %}Inject @pixelunion/shopify-price-ui/price-ui-globals end{% endcomment %}
+
+    <script type="text/javascript">
+      var _learnq = _learnq || [];
+
+      _learnq.push(['account', 's48Rp2']);
+
+      (function () {
+      var b = document.createElement('script'); b.type = 'text/javascript'; b.async = true;
+      b.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'a.klaviyo.com/media/js/analytics/analytics.js';
+      var a = document.getElementsByTagName('script')[0]; a.parentNode.insertBefore(b, a);
+      })();
+    </script>
+
+    <script defer type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        KlaviyoSubscribe.attachToForms("#email_signup", {
+          success: function(form) {
+            form.find('.email-alert.email-alert-success').finish().show().delay(4000).fadeOut("slow", function() {
+            });
+            $('.email-input').val('').blur();
+            $('.sign-up').blur();
+            ga('send', 'event', 'Funnel Tracking', 'Click', 'Email Sign-up');
+          }
+        });
+      });
+    </script>
+
+    <script>
+      window.ChatraSetup = {
+      colors: [
+          '#f0f0f0', // text color
+          '#001514'  // background color
+              ]
+       };
+    </script>
+          
+    <script>
+      function waitForChatra(callback) {
+        if (typeof Chatra === 'function') {
+          callback();
+        } else {
+          setTimeout(function () {
+            waitForChatra(callback);
+          }, 100); // Retry every 100ms
+        }
+      }
+    
+      document.addEventListener('DOMContentLoaded', function () {
+        waitForChatra(function () {
+          console.log('Chatra script loaded successfully');
+    
+          // Check if the 'openChat' event is firing
+          Chatra('on', 'openChat', function () {
+            console.log('Chatra widget opened');
+            if (window.dataLayer) {
+              console.log('Pushing to dataLayer');
+              dataLayer.push({ event: 'chatbot_click' });
+            } else {
+              console.error('dataLayer is not defined');
+            }
+          });
+          
+          // Debugging: Check if Chatra function is available and listenable
+          if (typeof Chatra !== 'function') {
+            console.error('Chatra is not loaded properly');
+          }
+        });
+      });
+    </script>
+
+    {% unless page.handle == 'ring-size-converter' %}
+      {%- if settings.show_announcement_bar -%}
+        {% section 'announcement-bar' %}
+      {%- endif -%}
+
+      {%- if settings.header_layout == 'classic' -%}
+        {% section 'header__top-bar' %}
+        {% section 'header-classic' %}
+      {%- elsif settings.header_layout == 'centered' -%}
+        {% comment %}
+          {% section 'header-centered__top-bar' %}
+        {% endcomment %}
+        {% section 'header-centered' %}
+      {%- elsif settings.header_layout == 'vertical' -%}
+        {% section 'header-vertical' %}
+      {%- elsif settings.header_layout == 'search_focus' -%}
+        {% section 'header__top-bar' %}
+        {% section 'header-search-focus' %}
+      {%- endif -%}
+
+      {%- if settings.cart_action == 'drawer' -%}
+        {% render 'ajax-cart' %}
+      {%- endif -%}
+
+      {% if settings.mega_menu_1 == true %}
+        {% section 'mega-menu-1' %}
+      {% endif %}
+      {% if settings.mega_menu_2 == true %}
+        {% section 'mega-menu-2' %}
+      {% endif %}
+      {% if settings.mega_menu_3 == true %}
+        {% section 'mega-menu-3' %}
+      {% endif %}
+      {% if settings.mega_menu_4 == true %}
+        {% section 'mega-menu-4' %}
+      {% endif %}
+      {% if settings.mega_menu_5 == true %}
+        {% section 'mega-menu-5' %}
+      {% endif %}
+      {% if settings.mega_menu_6 == true %}
+        {% section 'mega-menu-6' %}
+      {% endif %}
+      {% if settings.mega_menu_7 == true %}
+        {% section 'mega-menu-7' %}
+      {% endif %}
+      {% if settings.mega_menu_8 == true %}
+        {% section 'mega-menu-8' %}
+      {% endif %}
+      {% if settings.mega_menu_9 == true %}
+        {% section 'mega-menu-9' %}
+      {% endif %}
+      {% if settings.mega_menu_10 == true %}
+        {% section 'mega-menu-10' %}
+      {% endif %}
+
+      {% if settings.header_layout == 'vertical' %}
+        <div class="is-beside-vertical-header">
+      {% endif %}
+    {% endunless %}
+
+    <main id="template-{{ template | replace: '.', '-' | handle }}" data-check-for-order="true">
+      <div class="dynamic-sections">
+        {% capture ICART_FULL_PAGE_LAYOUT %}{{ content_for_layout }}{% endcapture %}{% include 'icart-variables', ICART_FULL_PAGE_LAYOUT: ICART_FULL_PAGE_LAYOUT %}
+      </div>
+    </main>
+    {% include 'currency-selector' %}
+    {% unless page.handle == 'ring-size-converter' %}
+      {% comment %}{% if collection.handle == 'lab-created-diamonds' %}
+        {% section 'lab-diamonds-sub-footer' %}
+        {% section 'lab-diamonds-sub-footer-bar' %}
+        {% section 'lab-diamonds-sub-footer-faq' %}
+      {% endif %}{% endcomment %}
+
+      {% if settings.footer_layout == 'centered' %}
+        {% section 'footer__icon-bar' %}
+        {% section 'footer-centered' %}
+      {% elsif settings.footer_layout == 'classic' %}
+        {% section 'footer__icon-bar' %}
+        {% section 'footer-classic' %}
+      {% elsif settings.footer_layout == 'promotional' %}
+        {% section 'footer__icon-bar' %}
+        {% section 'footer-promotional' %}
+      {% endif %}
+    {% endunless %}
+
+    {% if settings.header_layout == 'vertical' %}
+      </div>
+    {% endif %}
+
+    {% if settings.show_fixed_message %}
+      {% section 'fixed-message' %}
+    {% endif %}
+
+    {% if settings.enable_quickshop %}
+      {% render 'quick-shop' %}
+    {% endif %}
+
+    {% if settings.search_display_style == 'popup' %}
+      {% render 'search-popup' %}
+    {% endif %}
+
+    {% if settings.show_popup %}
+      {% section 'popup' %}
+    {% endif %}
+
+    {% render 'mobile-search' %}
+
+    {% render 'structured-data' %}
+    {% include 'swymSnippet' %}
+    {% render 'vdb-cart-grouping' %}
+    {% render 'contact-popup' %}
+    <script src="{{ 'z__jsSettingTabs.js' | asset_url }}" defer></script>
+
+    {% if template contains 'collection' %}
+    <script>
+      let collectionProducts = document.querySelectorAll('.product__thumbnail');
+      collectionProducts.forEach((collectionProduct) => {
+        let linkTags = collectionProduct.querySelectorAll('a');
+        linkTags.forEach((linkTag) => {
+          linkTag.addEventListener('click', () => {
+            let product_handle = collectionProduct.getAttribute('id');
+            let index = collectionProduct.dataset.index;
+            fetch(`/products/${product_handle}.json`) // api for the get request
+            .then(response => response.json())
+            .then(data => {
+              let product = data.product;
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({
+                event: 'pr_select_item',
+                ecommerce:{
+                  item_list_id: {{ collection.id | json }},
+                  item_list_name: {{ collection.title | json }},
+                  items: [{
+                    item_name: `${product.title}`,
+                    item_id: `${product.id}`,
+                    price: `${product.variants[0].price}`,
+                    item_brand: `${product.vendor}`,
+                    item_variant: `${product.variants[0].title}`,
+                    item_category: `${product.product_type}`,
+                    item_list_id: {{ collection.id | json }},
+                    item_list_name: {{ collection.title | json }},
+                    index: `${index}`
+                  }]
+                }
+              });
+            });
+          });
+        });
+      });
+    </script>
+    {% endif %}
+       
+    <!-- TrustBox script -->
+    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" defer></script>
+    <!-- End TrustBox script -->
+    <!-- CRITEO START -->
+    {% render 'criteo-tracking' %}
+    <!-- CRITEO END -->
+    <script>
+      let variant_ids = '', ajaxAvailableRunning = 'No', myAvailableCustomController = null;
+      function loadCheckoutButton(){
+        if (document.querySelectorAll('[name="checkout"]')?.length > 0) {
+          let checkoutElements = document.querySelectorAll('[name="checkout"]');
+          checkoutElements = Array.prototype.slice.call(checkoutElements);
+          for (let i = 0; i < checkoutElements?.length; i++) {
+            checkoutElements[i].addEventListener('click', async function(event) {
+              if (myAvailableCustomController !== null) {
+                myAvailableCustomController.abort();
+              }
+
+              if (ajaxAvailableRunning == 'No') {
+                ajaxAvailableRunning = 'Yes';
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                let cartRawResponse = await fetch('/cart.js', { });
+                let cart_json = await cartRawResponse.text();
+                let cart_arr = JSON.parse(cart_json);
+                let cartGroupedItems = groupingCartItems(cart_arr);
+                if (cartGroupedItems?.length > 0) {
+                  variant_ids = cartGroupedItems.map(e => e.variant_id);
+                }
+
+                myAvailableCustomController = new AbortController();
+                const myAvailableCustomSignal = myAvailableCustomController.signal;
+
+                var formData = new FormData();
+                formData.append("action", "check_vdb_product_stock");
+                formData.append("shop", Shopify.shop);
+                formData.append("variant_ids", variant_ids.join(','));
+                fetch("/apps/vdb-maidonna-inventory-app/frontend.php", { signal: myAvailableCustomSignal, method: 'POST', body: formData })
+                .then(response => response.text())
+                .then(result => {
+                  var obj = JSON.parse(result);
+                    if(obj.SUCCESS=='TRUE'){
+                      var all_available = 'Yes';
+                      var err_msg = '';
+                      for(var i=0; i<obj.DATA.length; i++){
+                        if(obj.DATA[i].available=='No'){
+                          all_available = 'No';
+                          err_msg += 'Product '+obj.DATA[i].title+' is out of stock. ';
+                        }
+                      }
+
+                      if(all_available=='Yes'){
+                        location.href = '/checkout';
+                      }else{
+                        alert(err_msg);
+                      }
+                    }else{
+                      location.href = '/checkout';
+                    }
+                    ajaxAvailableRunning = 'No';
+                });
+              }
+            });
+          }
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => loadCheckoutButton(), 500);
+         setTimeout(() => {
+
+  const videos = document.querySelectorAll('video[data-video-src]');
+
+  const videoObserver = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(function (entry) {
+      //console.log('entry.isIntersecting');
+      //console.log(entry.isIntersecting);
+      if (!entry.isIntersecting) return;
+
+      const video = entry.target;
+      const videoSrc = video.dataset.videoSrc;
+
+      if (videoSrc && !video.querySelector('source')) {
+        const source = document.createElement('source');
+        source.src = videoSrc;
+        source.type = 'video/mp4';
+
+        video.appendChild(source);
+        video.load();
+
+        // Start playback when autoplay is required
+        video.play().catch(function () {});
+      }
+
+      observer.unobserve(video);
+    });
+  }, {
+    rootMargin: '300px 0px'
+  });
+
+  videos.forEach(function (video) {
+    videoObserver.observe(video);
+  });
+}, 2000);
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js"></script>
+    <script>
+      window.addEventListener('load', () => {
+        quicklink.listen();
+      });
+    </script>
+    <!-- Klaviyo integration script from Consentmo GDPR app -->
+    <script id="consentmo-klaviyo-integration-script">
+      function checkConsentForKlaviyo(isMarketingEnabled) {
+        if (isMarketingEnabled) {
+          console.log('exec klaviyo');
+          document.cookie = "__kla_off=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        } else {
+          console.log('blocked klaviyo');
+          document.cookie = "__kla_off=true"; 
+        }
+      }
+
+      document.addEventListener('consentmoSignal_onLoad', function(eventData) {
+        const csmLoadSignal = eventData.detail || {isActive:false};
+
+        if (!csmLoadSignal.isActive) {
+          checkConsentForKlaviyo(true);
+        } else {
+          document.addEventListener('consentmoSignal', function(event) {
+            const csmPreferences = event.detail.preferences;
+            checkConsentForKlaviyo(csmPreferences.marketing);
+          });
+        }
+      });
+    </script>
+  </body>
+    {% comment %}
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-5TPM8S3"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"
+    ></iframe
+  ></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+    {% endcomment %}
+</html>
+<script>
+  function load_defered_scripts() {
+    var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+    if ("IntersectionObserver" in window) {
+      var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(video) {
+          if (video.isIntersecting) {
+            for (var source in video.target.children) {
+              var videoSource = video.target.children[source];
+              if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+                videoSource.src = videoSource.dataset.src;
+              }
+            }
+
+            video.target.load();
+            video.target.classList.remove("lazy");
+            lazyVideoObserver.unobserve(video.target);
+          }
+        });
+      });
+      lazyVideos.forEach(function(lazyVideo) {
+        lazyVideoObserver.observe(lazyVideo);
+      });
+    }
+  }
+</script>
+<script>
+  var windowWidth,lazyLink,lazyImages,lazyBackground,lazyIframe,lazyScripts,navigator_platform,lazyLoadedJS,src,style,datasrc,urls,analytics,s,x,i,j,flag;function init(){flag&&(flag=0,lazyLoadImg(),lazyLoadBackground(),lazyLoadIframe(),load_all_js())}function isElementInViewport(t){var a=t.getBoundingClientRect();return a.top>=0&&a.left>=0&&a.bottom<=(window.innerHeight||document.documentElement.clientHeight)&&a.right<=(window.innerWidth||document.documentElement.clientWidth)}function lazyLoadLink(){lazyLink.forEach(function(t){t.href=null==t.dataset.href?t.href:t.dataset.href})}function lazyLoadImg(){lazyImages.forEach(function(t){null!=(src=windowWidth<600?null==t.dataset.mobsrc?t.dataset.src:t.dataset.mobsrc:t.dataset.src)&&(t.src=src),t.classList.remove("lazy2")})}function lazyLoadImg2(){lazyImages.forEach(function(t){isElementInViewport(t)&&(null!=(src=windowWidth<600?null==t.dataset.mobsrc?t.dataset.src:t.dataset.mobsrc:t.dataset.src)&&(t.src=src),t.classList.remove("lazy"))})}function lazyLoadBackground(){lazyBackground.forEach(function(t){lazybg=windowWidth<600?null==t.dataset.mobstyle?t.dataset.style:t.dataset.mobstyle:t.dataset.style,null!=lazybg&&(t.style=lazybg),t.classList.remove("lazybg")})}function lazyLoadIframe(){lazyIframe.forEach(function(t){t.src=null==t.dataset.src?t.src:t.dataset.src})}function lazyLoadScripts(){j!=lazyScripts.length&&("lazyload2"==lazyScripts[j].getAttribute("type")?(lazyScripts[j].setAttribute("type","lazyloaded"),void 0!==lazyScripts[j].dataset.src?((s=document.createElement("script")).src=lazyScripts[j].dataset.src,document.body.appendChild(s),s.onload=function(){j++,lazyLoadScripts()}):((s=document.createElement("script")).innerHTML=lazyScripts[j].innerHTML,document.body.appendChild(s),j++,lazyLoadScripts())):(j++,lazyLoadScripts()))}function lazyLoadCss(t){(s=document.createElement("link")).rel="stylesheet",s.href=t,document.getElementsByTagName("head")[0].appendChild(s)}function lazyLoadJS(t){if(lazyLoadedJS)return setTimeout(function(){lazyLoadJS(t)},200),!1;lazyLoadedJS=1,(s=document.createElement("script")).src=t,s.onload=function(){lazyLoadedJS=0},document.body.appendChild(s)}document.addEventListener("DOMContentLoaded",function(){windowWidth=screen.width,lazyLink=document.querySelectorAll("link"),lazyImages=document.querySelectorAll("img.lazy2"),nolazyImages=document.querySelectorAll("img.lazy"),lazyBackground=document.querySelectorAll(".lazybg"),lazyIframe=document.querySelectorAll("iframe"),lazyScripts=document.getElementsByTagName("script"),navigator_platform=navigator.platform,i=0,j=0,flag=1,window.addEventListener("scroll",function(){init()}),window.addEventListener("mousemove",function(){init()}),window.addEventListener("touchstart",function(){init()}),"Linux x86_64"!=navigator_platform&&init(),setTimeout(function(){init()},60000)});
+  function load_all_js() {
+    j=0;
+    lazyScripts = document.getElementsByTagName("script");
+    lazyLoadScripts();
+    load_defered_scripts();
+    const event = new Event("customspeed");
+    document.dispatchEvent(event);
+    {% if content_for_header contains 'previewBarInjector' %}shopifypreviewscript();{% endif %}
+  }
+</script>
+<script type="text/javascript">
+  var i,yourImg=document.querySelectorAll("img");
+  for(i=0;i<yourImg.length;i++){
+    if(yourImg[i].hasAttribute("fetchpriority") && yourImg[i].getAttribute("fetchpriority") === "high"){yourImg[i].setAttribute("loading","eager")}else{yourImg[i].setAttribute("loading","lazy")};
+    if(yourImg[i].hasAttribute("alt","")){}else{yourImg[i].setAttribute("alt","")};
+  }
+</script>
+<script>
+  var script_loaded=!1;function loadJSscripts(){if(!script_loaded){script_loaded=!0,document.querySelectorAll("iframe.lazy").forEach(t=>{datasrc=t.dataset.src,null!=datasrc&&(t.src=datasrc)});var t=document.getElementsByTagName("script");for(i=0;i<t.length;i++)if(null!==t[i].getAttribute("data-src")&&(t[i].setAttribute("src",t[i].getAttribute("data-src")),delete t[i].dataset.src),"lazyloadscript"==t[i].getAttribute("type")){for(var e=document.createElement("script"),a=0;a<t[i].attributes.length;a++){var n=t[i].attributes[a];e.setAttribute(n.name,n.value)}e.type="text/javascript",e.innerHTML=t[i].innerHTML,t[i].parentNode.removeChild(t[i]),t[i].parentNode.insertBefore(e,t[i])}var r=document.getElementsByTagName("link");for(i=0;i<r.length;i++)null!==r[i].getAttribute("data-href")&&(r[i].setAttribute("href",r[i].getAttribute("data-href")),delete r[i].dataset.href);document.dispatchEvent(new CustomEvent("StartKernelLoading")),setTimeout(function(){document.dispatchEvent(new CustomEvent("asyncLazyLoad"))},400)}}document.addEventListener("customspeed",loadJSscripts,!1),window.addEventListener?window.addEventListener("load",function(){},!1):window.attachEvent?window.attachEvent("onload",function(){}):window.onload=(t=>{});
+</script>
+<script>
+  var isReplaced=!1;const Load=()=>{isReplaced||(/*window.yett.unblock(),*/console.log("apps lazy loaded successfully"),isReplaced=!0)};/*document.addEventListener("customspeed",Load),*/document.addEventListener("DOMContentLoaded",(function(){var e=[].slice.call(document.querySelectorAll("img.merox-lazy"));if("IntersectionObserver"in window&&"IntersectionObserverEntry"in window&&"intersectionRatio"in window.IntersectionObserverEntry.prototype){let t=new IntersectionObserver((function(e,n){e.forEach((function(e){if(e.isIntersecting){let n=e.target;n.src=n.dataset.src,n.classList.remove("merox-lazy"),t.unobserve(n)}}))}));e.forEach((function(e){t.observe(e)}))}}));
+</script>
+
+<script>
+  document.addEventListener('visitorConsentCollected', (event) => {
+  console.log('Consent updated here:', event.detail);
+
+  const {
+    analyticsAllowed,
+    marketingAllowed,
+    preferencesProcessingAllowed,
+    saleOfDataAllowed
+  } = event.detail;
+
+  if (analyticsAllowed && marketingAllowed) {
+    // e.g. load Google Analytics, fire a custom event, etc.
+    console.log('Analytics allowed — run your custom code here');
+    window.yett.unblock();
+  }
+
+  if (marketingAllowed) {
+    // e.g. load marketing/ad pixels
+  }
+});
+  (function () {
+
+    "use strict";
+
+    var yettUnblocked = false;
+
+
+    /*
+     * ---------------------------------------------------------
+     * YETT UNBLOCK
+     * ---------------------------------------------------------
+     */
+
+
+    /*
+     * ---------------------------------------------------------
+     * CHECK SHOPIFY CONSENT
+     * ---------------------------------------------------------
+     */
+
+    function checkConsent() {
+
+        var privacy =
+            window.Shopify &&
+            window.Shopify.customerPrivacy;
+
+
+        if (!privacy) {
+
+            console.log(
+                "[CONSENT] Customer Privacy API not ready yet."
+            );
+
+            return;
+        }
+
+
+        var analyticsAllowed =
+            privacy.analyticsProcessingAllowed();
+
+
+        var marketingAllowed =
+            privacy.marketingAllowed();
+
+
+        console.log(
+            "[CONSENT] Current permissions:",
+            {
+                analytics: analyticsAllowed,
+                marketing: marketingAllowed
+            }
+        );
+
+
+        /*
+         * Your YETT blacklist contains both analytics
+         * and marketing-related scripts.
+         *
+         * Therefore we only release them when both
+         * categories are allowed.
+         */
+
+        if (
+            analyticsAllowed &&
+            marketingAllowed
+        ) {
+
+            window.yett.unblock();
+
+        } else {
+
+            console.log(
+                "[CONSENT] Analytics/marketing not allowed."
+            );
+
+            console.log(
+                "[CONSENT] Yett remains BLOCKED."
+            );
+        }
+    }
+
+
+    /*
+     * ---------------------------------------------------------
+     * LOAD SHOPIFY CUSTOMER PRIVACY API
+     * ---------------------------------------------------------
+     */
+
+    function loadCustomerPrivacyAPI() {
+
+        /*
+         * API already available.
+         */
+
+        if (
+            window.Shopify &&
+            window.Shopify.customerPrivacy
+        ) {
+
+            console.log(
+                "[CONSENT] Customer Privacy API already available."
+            );
+
+            checkConsent();
+
+            return;
+        }
+
+
+        /*
+         * Shopify object isn't available yet.
+         */
+
+        if (
+            !window.Shopify
+        ) {
+
+            console.log(
+                "[CONSENT] Shopify object not ready."
+            );
+
+            setTimeout(
+                loadCustomerPrivacyAPI,
+                100
+            );
+
+            return;
+        }
+
+
+        /*
+         * Shopify exists but Customer Privacy API
+         * hasn't been loaded.
+         */
+
+        if (
+            typeof window.Shopify.loadFeatures !== "function"
+        ) {
+
+            console.log(
+                "[CONSENT] Shopify.loadFeatures not available yet."
+            );
+
+            setTimeout(
+                loadCustomerPrivacyAPI,
+                100
+            );
+
+            return;
+        }
+
+
+        console.log(
+            "[CONSENT] Loading Customer Privacy API..."
+        );
+
+
+        window.Shopify.loadFeatures(
+            [
+                {
+                    name: "consent-tracking-api",
+                    version: "0.1"
+                }
+            ],
+            function (error) {
+
+                if (error) {
+
+                    console.error(
+                        "[CONSENT] Customer Privacy API failed:",
+                        error
+                    );
+
+                    /*
+                     * FAIL CLOSED:
+                     *
+                     * Do NOT unblock Yett.
+                     */
+                    return;
+                }
+
+
+                console.log(
+                    "[CONSENT] Customer Privacy API loaded."
+                );
+
+
+                /*
+                 * Now the API should be available.
+                 */
+
+                checkConsent();
+
+            }
+        );
+    }
+
+
+    /*
+     * ---------------------------------------------------------
+     * SHOPIFY CONSENT EVENT
+     * ---------------------------------------------------------
+     *
+     * This listener must be registered BEFORE the visitor
+     * clicks Accept / Decline.
+     */
+
+    
+    /*
+     * ---------------------------------------------------------
+     * START
+     * ---------------------------------------------------------
+     */
+
+    console.log(
+        "[CONSENT] Consent controller starting..."
+    );
+    loadCustomerPrivacyAPI();
+})();
+</script>
+          
+<script type="text/javascript" src="{{ 'slick.min.js' | asset_url }}"></script>
+<script>
+    $(document).ready(function () {
+      var $collectionTab = $('.collection-tab-slider');
+      var $whyslider = $('.why-slider');
+      var $shapeslider = $('.shape-slider');
+      var $styleslider = $('.style-slider');
+      var $shapemobslider = $('.shape-mob-slider');
+      var $categoryslider = $('.category-slider');
+      //var $collectionfilter = $('.collectionfilter-sl');
+      var $prdshapeslider = $('.prdshape-slider');
+      var $customslider = $('.custom-slider');
+      var $testimonialinrslider = $('.testimonial-inrslider');
+      var $progressBarWhy = $('.progress-bar-why');  // Progress bar for "why-slider"
+      var $progressBarShape = $('.progress-bar-shape');  // Progress bar for "shape-slider"
+      var $progressBarStyle = $('.progress-bar-style');  // Progress bar for "style-slider"
+      var $progressBarCategory = $('.progress-bar-category');  // Progress bar for "category-slider"
+      var $progressBarcollectionTab = $('.progress-bar-tabslider');  // Progress bar for "tabslider-slider"
+      var $progressBarcustomlider = $('.progress-bar-customlider'); // Progress bar for custom slider
+      var $progressBartestimonial = $('.progress-bar-testimonial'); // Progress bar for custom slider
+          
+
+     function updateProgress(currentSlide, slick, $progressBar) {
+          var totalSlides = slick.slideCount;
+          var slidesToShow = slick.options.slidesToShow;
+
+          var maxIndex = totalSlides - slidesToShow;
+
+          if (maxIndex <= 0) maxIndex = 1;
+
+          var progress = 10 + (currentSlide / maxIndex) * 90;
+
+          if (currentSlide >= maxIndex) progress = 100;
+
+          $progressBar.css('width', progress + '%');
+          $progressBar.closest('.progress-container').attr('aria-valuenow', progress.toFixed(0));
+      }
+
+
+        $whyslider.slick({
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          swipeToSlide: true,
+          touchThreshold: 50,
+          arrows: true,
+          autoplay: false,
+          dots: false,
+          accessibility: true,
+          infinite: false,
+          prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                        {% render 'icon-slick-left2' %}
+                    </button>`,
+          nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                       {% render 'icon-slick-right2' %}
+                    </button>`,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 2
+              }
+            },
+            {
+              breakpoint: 767,
+              settings: {
+                slidesToShow: 2.4
+              }
+            },
+            {
+              breakpoint: 574,
+              settings: {
+                slidesToShow: 1.4,
+                slidesToScroll: 1
+              }
+            }
+          ]
+        });
+
+        $whyslider.on('init reInit afterChange', function (event, slick, currentSlide) {
+          var i = currentSlide || 0;
+
+          if (event.type === 'init') {
+            $progressBarWhy.css('width', '10%');
+          } else {
+            updateProgress(i, slick, $progressBarWhy);
+          }
+        });
+
+      $shapeslider.slick({
+        slidesToShow: 5.5,  
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        touchThreshold: 50,
+        arrows: true,
+        autoplay: false,
+        dots: false,
+        accessibility: true,
+        infinite: false,
+        prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                        {% render 'icon-slick-left2' %}
+                    </button>`,
+        nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                       {% render 'icon-slick-right2' %}
+                    </button>`,
+        responsive: [
+          {
+            breakpoint: 1599, 
+            settings: {
+              slidesToShow: 4.5,  
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 1024,  
+            settings: {
+              slidesToShow: 3, 
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 799, 
+            settings: {
+              slidesToShow: 2, 
+              slidesToScroll: 1,
+              arrows: false,
+            }
+          }
+        ]
+      });
+
+      $shapeslider.on('init reInit afterChange', function (event, slick, currentSlide) {
+          var i = currentSlide || 0;
+
+          // On init, default 10%
+          if (event.type === 'init') {
+              $progressBarShape.css('width', '10%');
+          }
+
+          updateProgress(i, slick, $progressBarShape);
+      });
+
+
+      // Style Slider
+      $styleslider.slick({
+        slidesToShow: 5.5,  
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        touchThreshold: 50,
+        arrows: true,
+        autoplay: false,
+        dots: false,
+        accessibility: true,
+        infinite: false,
+        prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                        {% render 'icon-slick-left2' %}
+                    </button>`,
+        nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                       {% render 'icon-slick-right2' %}
+                    </button>`,
+        responsive: [
+          {
+            breakpoint: 1599, 
+            settings: {
+              slidesToShow: 4.5,  
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 1299,  
+            settings: {
+              slidesToShow: 3.5, 
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 992,  
+            settings: {
+              slidesToShow: 2.5, 
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 575, 
+            settings: {
+              slidesToShow: 1.4, 
+              slidesToScroll: 1,
+              arrows: false,
+            },
+          }
+        ]
+      });
+
+      $styleslider.on('init reInit afterChange', function (event, slick, currentSlide) {
+          var i = currentSlide || 0;
+
+          // On init, default 10%
+          if (event.type === 'init') {
+              $progressBarStyle.css('width', '10%');
+          }
+
+          updateProgress(i, slick, $progressBarStyle);
+      });
+
+
+
+      // Category Slider
+      $categoryslider.slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        touchThreshold: 50,
+        adaptiveHeight: false,
+        arrows: true,
+        autoplay: false,
+        dots: false,
+        accessibility: true,
+        infinite: false,
+        prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                        {% render 'icon-slick-left2' %}
+                    </button>`,
+        nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                       {% render 'icon-slick-right2' %}
+                    </button>`,
+        responsive: [
+          {
+            breakpoint: 1024,  
+            settings: {
+              slidesToShow: 3, 
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 767,  
+            settings: {
+              slidesToShow: 2, 
+              slidesToScroll: 1,
+              arrows: false
+            }
+          },
+          {
+            breakpoint: 575,  
+            settings: {
+              slidesToShow: 1, 
+              slidesToScroll: 1,
+              arrows: false
+            }
+          }
+        ]
+      });
+
+      $categoryslider.on('init reInit afterChange', function (event, slick, currentSlide) {
+          var i = currentSlide || 0;
+
+          if (event.type === 'init') {
+            $progressBarCategory.css('width', '10%');
+          } else {
+            updateProgress(i, slick, $progressBarCategory);
+          }
+      });
+
+      $collectionTab.slick({
+        slidesToShow: 3.5,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        touchThreshold: 50,
+        arrows: true,
+        autoplay: false,
+        dots: false,
+        accessibility: true,
+        infinite: false,
+        prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                        {% render 'icon-slick-left2' %}
+                    </button>`,
+        nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                       {% render 'icon-slick-right2' %}
+                    </button>`,
+        responsive: [
+          {
+            breakpoint: 1025,  
+            settings: {
+              slidesToShow: 2.5, 
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 767,  
+            settings: {
+              slidesToShow: 2.5, 
+              slidesToScroll: 1,
+              arrows: false,
+            }
+          },
+          {
+            breakpoint: 574,  
+            settings: {
+              slidesToShow: 1.4, 
+              slidesToScroll: 1,
+              arrows: false,
+            }
+          }
+        ]
+      });
+
+      $collectionTab.on('init reInit afterChange', function (event, slick, currentSlide) {
+          var i = currentSlide || 0;
+
+          if (event.type === 'init') {
+            $progressBarcollectionTab.css('width', '10%');
+          } else {
+            updateProgress(i, slick, $progressBarcollectionTab);
+          }
+      });
+
+      $customslider.slick({
+      slidesToShow: 5.5, 
+      slidesToScroll: 1,
+      swipeToSlide: true,
+      touchThreshold: 50,
+      adaptiveHeight: false,
+      arrows: true,
+      autoplay: false,
+      dots: false,
+      accessibility: true,
+      infinite: false,
+      prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                      {% render 'icon-slick-left2' %}
+                  </button>`,
+      nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                      {% render 'icon-slick-right2' %}
+                  </button>`,
+      responsive: [
+        {
+          breakpoint: 1599,
+          settings: {
+            slidesToShow: 4.5,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3.5,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 799,
+          settings: {
+            slidesToShow: 2.5,
+            slidesToScroll: 1,
+            arrows: false
+          }
+        },
+         {
+          breakpoint: 575,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false
+          }
+        }
+      ]
+    });
+
+    $customslider.on('init reInit afterChange', function (event, slick, currentSlide) {
+        var i = currentSlide || 0;
+
+        // On init, default 10%
+        if (event.type === 'init') {
+            $progressBarcustomlider.css('width', '10%');
+        }
+
+        updateProgress(i, slick, $progressBarcustomlider);
+    });
+
+    $testimonialinrslider.slick({
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        touchThreshold: 50,
+        adaptiveHeight: false,
+        arrows: true,
+        autoplay: false,
+        dots: false,
+        accessibility: true,
+        infinite: false,
+        prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                      {% render 'icon-slick-left2' %}
+                  </button>`,
+      nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                      {% render 'icon-slick-right2' %}
+                  </button>`,
+        responsive: [
+          {
+            breakpoint: 1199,  
+            settings: {
+              slidesToShow: 2, 
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 767,  
+            settings: {
+              slidesToShow: 2, 
+              slidesToScroll: 1,
+               arrows: false
+            }
+          },
+          {
+            breakpoint: 575,  
+            settings: {
+              slidesToShow: 1, 
+              slidesToScroll: 1,
+               arrows: false
+            }
+          }
+        ]
+      });
+
+      $testimonialinrslider.on('init reInit afterChange', function (event, slick, currentSlide) {
+          var i = currentSlide || 0;
+
+          if (event.type === 'init') {
+            $progressBartestimonial.css('width', '10%');
+          } else {
+            updateProgress(i, slick, $progressBartestimonial);
+          }
+      }); 
+
+       $testimonialinrslider.on('init reInit setPosition', function (event, slick, currentSlide) {
+        var totalSlides = slick.slideCount;
+          var slidesToShow = slick.options.slidesToShow;
+        if( totalSlides > slidesToShow ){
+            $progressBartestimonial.closest('.progress-container').show();
+          } else {
+            $progressBartestimonial.closest('.progress-container').hide();
+          }
+
+      }); 
+  });
+</script>
+          
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const accordionItems = document.querySelectorAll(".accordion-item");
+    const maxVisible = 5; 
+
+    // Function to add View More button in mobile
+    function handleAccordionView() {
+      const existingBtn = document.querySelector(".view-more-btn");
+      if (window.innerWidth <= 767) {
+        if (accordionItems.length > maxVisible && !existingBtn) {
+          // Hide extra items
+          accordionItems.forEach((item, index) => {
+            if (index >= maxVisible) {
+              item.style.display = "none";
+            }
+          });
+
+          // Create View More button
+          const viewMoreBtn = document.createElement("button");
+          viewMoreBtn.textContent = "View More";
+          viewMoreBtn.className = "view-more-btn button button--secondary";
+
+          // Add type and initial aria-label
+          viewMoreBtn.setAttribute("type", "button");
+          viewMoreBtn.setAttribute("aria-label", "View more items");
+
+          // Insert button after accordion list
+          accordionItems[accordionItems.length - 1].parentNode.appendChild(viewMoreBtn);
+
+          // Toggle functionality
+          viewMoreBtn.addEventListener("click", function () {
+            const isExpanded = viewMoreBtn.classList.toggle("expanded");
+            if (isExpanded) {
+              accordionItems.forEach((item) => (item.style.display = "block"));
+              viewMoreBtn.textContent = "View Less";
+              viewMoreBtn.setAttribute("aria-label", "View less items");
+            } else {
+              accordionItems.forEach((item, index) => {
+                item.style.display = index < maxVisible ? "block" : "none";
+              });
+              viewMoreBtn.textContent = "View More";
+              viewMoreBtn.setAttribute("aria-label", "View more items");
+            }
+          });
+        }
+      } else {
+        // Desktop: show all items + remove button if exists
+        accordionItems.forEach((item) => (item.style.display = "block"));
+        if (existingBtn) existingBtn.remove();
+      }
+    }
+
+    // Initial load
+    handleAccordionView();
+
+    // On resize
+    window.addEventListener("resize", handleAccordionView);
+
+    // Accordion open/close logic
+    accordionItems.forEach((item) => {
+      const title = item.querySelector(".accordion-title");
+      const content = item.querySelector(".accordion-content");
+
+      if(title){
+        title.addEventListener("click", () => {
+          const isOpen = item.classList.contains("active");
+
+          if (isOpen) {
+            item.classList.remove("active");
+            content.style.height = 0;
+          } else {
+            item.classList.add("active");
+            const inner = content.querySelector(".accordion-content-inner");
+            content.style.height = inner.scrollHeight + "px";
+          }
+        });
+      }
+    });
+  });
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    {% if template contains 'collection' %}
+      if(window.innerWidth >= 1300){
+        var video_element = document.querySelectorAll(".plp-banner-video-desktop");
+      }
+      else{
+        var video_element = document.querySelectorAll(".plp-banner-video-mobile");
+      }
+
+      if(video_element){
+        video_element.forEach((video) => {
+          const sources = video.querySelectorAll("source");
+          sources.forEach(source => {
+            if (source.dataset.src) {
+              source.src = source.dataset.src;
+            }
+          });
+          video.load();
+          video.play();
+        });
+      }
+
+
+
+      const titleSelector = '.product-thumbnail__title';
+      const caratSelector = '.prd-caret-text';
+      const shapeSelector = '.shape-filter-wrapper';
+      var itemsPerRow = 4;
+      if(screen.width <= 1024){
+        itemsPerRow = 2;
+      }
+      function setRowWiseEqualHeights() {
+        const items = document.querySelectorAll('.product-grid-list-element');
+        const titles = document.querySelectorAll('.product-thumbnail__title');
+        const shapes = document.querySelectorAll('.shape-filter-wrapper');
+        const carats = document.querySelectorAll('.prd-caret-text');
+        let titleRows = {};
+        let caratRows = {};
+        let shapeRows = {};
+
+        items.forEach(item => {
+          const top = Math.round(item.getBoundingClientRect().top);
+
+          if (!titleRows[top]) {
+            titleRows[top] = [];
+          }
+          if (!caratRows[top]) {
+            caratRows[top] = [];
+          }
+          if (!shapeRows[top]) {
+            shapeRows[top] = [];
+          }
+
+          const title = item.querySelector('.product-thumbnail__title');
+          const carat = item.querySelector('.prd-caret-text');
+          const shape = item.querySelector('.shape-filter-wrapper');
+          if (title) {
+            titleRows[top].push(title);
+          }
+          if (carat) {
+            caratRows[top].push(carat);
+          }
+          if (shape) {
+            shapeRows[top].push(shape);
+          }
+        });
+
+        Object.values(titleRows).forEach(rowTitles => {
+          let maxTitleHeight = 0;
+
+          rowTitles.forEach(title => {
+            maxTitleHeight = Math.max(maxTitleHeight, title.offsetHeight);
+          });
+
+          rowTitles.forEach(title => {
+            title.style.height = maxTitleHeight + 'px';
+          });
+        });
+
+        Object.values(caratRows).forEach(rowCarat => {
+          let maxCaratHeight = 0;
+
+          rowCarat.forEach(carat => {
+            maxCaratHeight = Math.max(maxCaratHeight, carat.offsetHeight);
+          });
+
+          rowCarat.forEach(carat => {
+            carat.style.height = maxCaratHeight + 'px';
+          });
+        });
+
+        Object.values(shapeRows).forEach(rowShapes => {
+          let maxShapeHeight = 0;
+
+          rowShapes.forEach(shape => {
+            maxShapeHeight = Math.max(maxShapeHeight, shape.offsetHeight);
+          });
+
+          rowShapes.forEach(shape => {
+            shape.style.height = maxShapeHeight + 'px';
+          });
+        });
+      }
+      setRowWiseEqualHeights();
+
+      window.addEventListener('resize', () => {
+        setRowWiseEqualHeights();
+      });
+    {%- endif -%}
+    const collectionEl = document.getElementById("gridchange");
+    const btnLarge = document.getElementById("btnLarge");
+    const btnMedium = document.getElementById("btnMedium");
+
+    function resetPlpSlider() {
+      const $gallerySlider = $('.plp_prd-sl');
+
+      if (window.innerWidth < 1025) {
+        $($gallerySlider).each(function() {
+          const $slider = $(this);
+          if ($slider.hasClass('slick-initialized')) {
+              $slider.slick('unslick');
+            }
+          // Check if already initialized
+          if (!$slider.hasClass('slick-initialized')) {
+            $slider.slick({
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              swipeToSlide: true,
+              touchThreshold: 50,
+              arrows: false,
+              autoplay: false,
+              dots: true,
+              accessibility: true,
+              infinite: false
+            });
+          }
+        });
+      }
+    }
+
+    // Function to set layout & active button
+    function setLayout(layout, activeBtn) {
+      collectionEl.setAttribute("collection-mobile-layout", layout);
+      btnLarge.classList.remove("active");
+      btnMedium.classList.remove("active");
+      activeBtn.classList.add("active");
+
+      // Save selection
+      localStorage.setItem("collectionLayout", layout);
+
+      if (layout === "large") {
+        //$('.shape-filter-list-wrapper').css('width', '300px');
+        if (window.innerWidth < 1025) {
+          document.querySelectorAll('.product-wrap').forEach(function(productCard){
+            let activeSwatch = productCard.querySelector('.swatch.active');
+            if (!activeSwatch) return;
+
+            let label = activeSwatch.getAttribute('data-disclaimer');
+            let labelEl = productCard.querySelector('.list-dtllable');
+            if (!labelEl) return;
+
+            if(!label){
+              labelEl.innerHTML = '';
+              labelEl.style.display = 'none';
+            }
+            else{
+              labelEl.innerHTML = '<span>' + label + '</span>';
+              labelEl.style.display = 'block';
+            }
+          });
+        }
+        reloadShapeSlider(10,true);
+        setRowWiseEqualHeights(1);
+      } else {
+        //$('.shape-filter-list-wrapper').css('width', '');
+        if (window.innerWidth < 798) {
+          document.querySelectorAll('.product-wrap').forEach(function(productCard){
+            let activeSwatch = productCard.querySelector('.swatch.active');
+            if (!activeSwatch) return;
+
+            let label = activeSwatch.getAttribute('data-disclaimer');
+            let labelEl = productCard.querySelector('.list-dtllable');
+            if (!labelEl) return;
+
+            labelEl.innerHTML = '';
+            labelEl.style.display = 'none';
+          });
+        }
+        reloadShapeSlider(5,false);
+        setRowWiseEqualHeights(2);
+      }
+    }
+
+    // Load saved layout from localStorage
+    const savedLayout = localStorage.getItem("collectionLayout") || "medium";
+    if (savedLayout === "large") {
+        setLayout("large", btnLarge);
+    } else {
+        setLayout("medium", btnMedium);
+    }
+
+    // Click events
+    btnLarge.addEventListener("click", function () {
+      document.querySelectorAll('.product-wrap').forEach(function(productCard){
+        let activeSwatch = productCard.querySelector('.swatch.active');
+        if (!activeSwatch) return;
+
+        let label = activeSwatch.getAttribute('data-disclaimer');
+
+        let labelEl = productCard.querySelector('.list-dtllable');
+        if (!labelEl) return;
+        if(label){
+          labelEl.innerHTML = '<span>'+label+'</span>';
+          labelEl.style.display = 'block';
+        }
+        else{
+          labelEl.innerHTML = '';
+          labelEl.style.display = 'none';
+        }
+      });
+      setLayout("large", btnLarge);
+      requestAnimationFrame(() => {
+        resetPlpSlider();
+      });
+    });
+
+    btnMedium.addEventListener("click", function () {
+      document.querySelectorAll('.product-wrap').forEach(function(productCard){
+        let activeSwatch = productCard.querySelector('.swatch.active');
+        if (!activeSwatch) return;
+
+        let label = activeSwatch.getAttribute('data-disclaimer');
+
+        let labelEl = productCard.querySelector('.list-dtllable');
+        if (!labelEl) return;
+
+        labelEl.innerHTML = '';
+        labelEl.style.display = 'none';
+
+      });
+      setLayout("medium", btnMedium);
+      requestAnimationFrame(() => {
+        resetPlpSlider();
+      });
+    });
+  });
+
+var $collectionfilter = $('.collectionfilter-sl');
+    $collectionfilter.slick({
+    slidesToShow: 7.5,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    touchThreshold: 50,
+    arrows: true,
+    autoplay: false,
+    dots: false,
+    accessibility: true,
+    infinite: false, 
+     prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                  {% render 'icon-slick-left2' %}
+                </button>`,
+    nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                  {% render 'icon-slick-right2' %}
+                </button>`,
+    
+    responsive: [
+      { breakpoint: 1599, settings: { slidesToShow: 6.5, slidesToScroll: 1 } },
+      { breakpoint: 1299, settings: { slidesToShow: 5.5, slidesToScroll: 1 } },
+      { breakpoint: 1199, settings: { slidesToShow: 4.5, slidesToScroll: 1 } },
+      { breakpoint: 574,  settings: { slidesToShow: 2, slidesToScroll: 1 } },
+      { breakpoint: 374,  settings: { slidesToShow: 2, slidesToScroll: 1 } }
+    ]
+});
+
+$('.collectionfilter-sl').on('setPosition', function(event, slick) {
+  if (slick.slideCount <= slick.options.slidesToShow) {
+    slick.$slideTrack.css('transform', 'none');
+  }
+});
+</script>
+
+<script>
+$(document).ready(function () {
+  function updateDropdownMode() {
+    const isDesktop = $(window).width() > 1024;
+
+    $('.mega-menu__section').each(function () {
+      let $section = $(this);
+      let $currentActiveLeft = $section.find('.left-panel-item.active');
+      let $currentActiveRight = $section.find('.mmright-panel.active');
+      $section.find('.mmright-panel')
+        .removeClass('active')
+        .attr('aria-hidden', 'true');
+
+      $section.find('.left-panel-item')
+        .removeClass('active')
+        .attr('aria-selected', 'false');
+
+      if (isDesktop) {
+        $('body').addClass('dropdown-click--false');
+      } else {
+        $('body').removeClass('dropdown-click--false');
+      }
+
+      if ($currentActiveLeft.length && $currentActiveRight.length) {
+        $currentActiveLeft.addClass('active').attr('aria-selected', 'true');
+        $currentActiveRight.addClass('active').attr('aria-hidden', 'false');
+      } else {
+        $section.find('.mmright-panel').first()
+          .addClass('active')
+          .attr('aria-hidden', 'false');
+
+        $section.find('.left-panel-item').first()
+          .addClass('active')
+          .attr('aria-selected', 'true');
+      }
+
+    });
+  }
+
+  updateDropdownMode();
+
+  let resizeTimer;
+  $(window).on('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateDropdownMode, 150);
+  });
+  $(document).on('click', '.mega-menu-open', function () {
+    setTimeout(updateDropdownMode, 50);
+  });
+
+  $(document).on('click', '.mm-close', function () {
+    $(this).closest('.mega-menu__section').removeClass('is-active');
+  });
+
+  let touchMoved = false;
+
+  $(document).on('touchstart', '.left-panel-item', function () {
+    touchMoved = false;
+  });
+
+  $(document).on('touchmove', '.left-panel-item', function () {
+    touchMoved = true; 
+  });
+
+  $(document).on('touchend click', '.left-panel-item', function (e) {
+
+    if (touchMoved) return;
+
+    e.stopPropagation();
+
+    const targetId = $(this).data('target');
+    const $megaMenu = $(this).closest('.mega-menu__section');
+
+    $megaMenu.find('.mmright-panel')
+      .removeClass('active')
+      .attr('aria-hidden', 'true');
+
+    $megaMenu.find('.left-panel-item')
+      .removeClass('active')
+      .attr('aria-selected', 'false');
+
+    $megaMenu.find('#' + targetId)
+      .addClass('active')
+      .attr('aria-hidden', 'false');
+
+    $(this)
+      .addClass('active')
+      .attr('aria-selected', 'true');
+  });
+
+  $(document).on('click', '.mm-inputbackbutton', function (e) {
+    e.preventDefault();
+    var $submenuList = $(this).closest('.mobile-submenu__list');
+    $submenuList.prevAll('.submenu__input').first().prop('checked', false);
+  });
+
+});
+</script>
+
+<script>
+$(document).on('click', function (e) {
+  if ($('body').hasClass('dropdown-click--false')) {
+    if (!$(e.target).closest('.mmdesk-content').length) {
+      $('.mega-menu__section').each(function () {
+        $(this).find('.mmright-panel')
+          .removeClass('active')
+          .attr('aria-hidden', 'true');
+
+        $(this).find('.left-panel-item')
+          .removeClass('active')
+          .attr('aria-selected', 'false');
+
+        $(this).find('.mmright-panel').first()
+          .addClass('active')
+          .attr('aria-hidden', 'false');
+        $(this).find('.left-panel-item').first()
+          .addClass('active')
+          .attr('aria-selected', 'true');
+      });
+    }
+  }
+});
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navbarItems = document.querySelectorAll(".navbar-item");
+
+    navbarItems.forEach(item => {
+      item.addEventListener("mouseenter", () => {
+        if (item.classList.contains("has-mega-menu")) {
+          document.documentElement.classList.add("mm-openmenu");
+          item.classList.add("active"); // add active class
+          console.log("HTML class + active added");
+        }
+      });
+
+      item.addEventListener("mouseleave", () => {
+        if (item.classList.contains("has-mega-menu")) {
+          document.documentElement.classList.remove("mm-openmenu");
+          item.classList.remove("active"); // remove active class
+          console.log("HTML class + active removed");
+        }
+      });
+    });
+  });
+</script>
+
+{% comment %}  Menu Banner Height {% endcomment %}
+<script>
+  (function($){
+    if (typeof $ === 'undefined') {
+      console.warn('jQuery not found — banner card height script skipped.');
+      return;
+    }
+
+    // Debounce helper
+    function debounce(fn, wait) {
+      var t;
+      return function() {
+        var ctx = this, args = arguments;
+        clearTimeout(t);
+        t = setTimeout(function(){ fn.apply(ctx, args); }, wait);
+      };
+    }
+
+    function adjustBannerCards() {
+      var $banner = $('.mmdesk .banner-section').first();
+      if (!$banner.length) return;
+
+      var bannerHeight = $banner.outerHeight(); 
+      var $cards = $banner.find('.banner-card');
+
+      if (!$cards.length) return;
+
+      if (bannerHeight === 0) {
+        setTimeout(adjustBannerCards, 200);
+        return;
+      }
+
+      var eachHeight = Math.floor(bannerHeight / $cards.length);
+
+      $cards.each(function(){
+        $(this).css({
+          'height': eachHeight + 'px',
+          'min-height': '',
+          'max-height': ''
+        });
+      });
+    }
+
+    var debouncedAdjust = debounce(adjustBannerCards, 80);
+
+    $(window).on('load resize orientationchange', debouncedAdjust);
+
+    $(document).on('shopify:section:load shopify:section:reorder shopify:section:select shopify:section:deselect shopify:section:unload', function(){
+      debouncedAdjust();
+    });
+
+    $(document).ajaxComplete(function(){ debouncedAdjust(); });
+
+    function observeBanner() {
+      var bannerEl = document.querySelector('.banner-section');
+      if (!bannerEl) return;
+      var mo = new MutationObserver(debouncedAdjust);
+      mo.observe(bannerEl, { childList: true, subtree: true, attributes: true, characterData: true });
+      bannerEl.__bannerObserver = mo;
+    }
+    $(function(){ 
+      adjustBannerCards();
+      observeBanner();
+    });
+
+    window.adjustBannerCards = adjustBannerCards;
+
+  })(window.jQuery);
+</script>
+
+<script>
+  const stickyMenu = document.querySelector('.sticky-menu-wrapper');
+  stickyMenu.addEventListener('mouseleave', function () {
+    document
+      .querySelectorAll('.mega-menu__section.is-active')
+      .forEach(section => {
+        section.classList.remove('is-active');
+      });
+  });
+</script>
+
+{% comment %}
+  {% endcapture %}
+{% endcomment %}
+{% assign content = content | replace_first: '<!doctype', '!doctype' | split: ' <' %}
+{%- for html in content -%}
+  {%- assign htmlblock = html | strip | prepend: ' <' -%}
+  {{ htmlblock | replace: ' </', '</' }}
+{%- endfor -%}
+
+{% comment %} product image slider {% endcomment %}
+{%- if template contains 'collection' -%}
+  <script>
+    $(document).ready(function () {
+      function initPlpSlider() {
+        if ($(window).width() < 1025) {
+          const $gallerySlider = $('.plp_prd-sl');
+
+          $($gallerySlider).each(function() {
+            const $slider = $(this);
+            if ($slider.hasClass('slick-initialized')) {
+                $slider.slick('unslick');
+              }
+            // Check if already initialized
+            if (!$slider.hasClass('slick-initialized')) {
+              $slider.slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                swipeToSlide: true,
+                touchThreshold: 50,
+                arrows: false,
+                autoplay: false,
+                dots: true,
+                accessibility: true,
+                infinite: false
+              });
+            }
+          });
+        } else {
+          if ($('.plp_prd-sl').hasClass('slick-initialized')) {
+            $('.plp_prd-sl').slick('unslick');
+          }
+        }
+      }
+
+      initPlpSlider();
+      let lastWidth = window.innerWidth;
+      
+      $(window).on('resize', function () {
+        if (window.innerWidth !== lastWidth) {
+          lastWidth = window.innerWidth;
+          initPlpSlider();
+        }
+      });
+    });
+
+    $('.plp_prd-sl').on('click', '.slick-dots button', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  </script>
+{%- endif -%}
+
+<script>
+  (function () {
+  function syncTabindex(slide) {
+    var hidden = slide.getAttribute('aria-hidden') === 'true';
+    slide.setAttribute('tabindex', hidden ? '-1' : '0');
+    slide.querySelectorAll('a, button, input, select, textarea, [tabindex]')
+      .forEach(function (el) {
+        if (hidden) {
+          if (!el.hasAttribute('data-orig-tabindex') && el.hasAttribute('tabindex')) {
+            el.setAttribute('data-orig-tabindex', el.getAttribute('tabindex'));
+          }
+          el.setAttribute('tabindex', '-1');
+        } else if (el.hasAttribute('data-orig-tabindex')) {
+          el.setAttribute('tabindex', el.getAttribute('data-orig-tabindex'));
+          el.removeAttribute('data-orig-tabindex');
+        } else {
+          el.removeAttribute('tabindex');
+        }
+      });
+  }
+
+  function init(root) {
+    root.querySelectorAll('.slick-slide').forEach(syncTabindex);
+
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        if (m.attributeName === 'aria-hidden' && m.target.classList.contains('slick-slide')) {
+          syncTabindex(m.target);
+        }
+      });
+    });
+
+    root.querySelectorAll('.slick-slide').forEach(function (slide) {
+      observer.observe(slide, { attributes: true, attributeFilter: ['aria-hidden'] });
+    });
+  }
+
+  document.querySelectorAll('.slick-slider, .slider').forEach(init);
+
+  // Catch sliders added/rebuilt later
+  new MutationObserver(function () {
+    document.querySelectorAll('.slick-slider, .slider').forEach(init);
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+</script>

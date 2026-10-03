@@ -1,0 +1,89 @@
+<style>
+  #shopify-section-{{ section.id }} {
+
+  }
+  .masonry-grid img{
+    height: 100%;
+    object-fit: cover;
+  }
+  .pure-g {
+
+    text-rendering: optimizespeed;
+
+    display: -webkit-flex;
+    -webkit-flex-flow: row wrap;
+    display: -ms-flexbox;
+    -ms-flex-flow: row wrap;
+    -ms-align-content: flex-start;
+    -webkit-align-content: flex-start;
+    align-content: flex-start
+}
+
+  .pure-u-5-12,.pure-u-10-24 {
+    width: 41.6667%;
+    *width: 41.6357%
+}
+  .pure-u-7-12,.pure-u-14-24 {
+    width: 58.3333%;
+    *width: 58.3023%
+}
+  .masonry-grid {
+  margin: auto;
+  width: 80%; }
+  .masonry-grid > div {
+    margin: 0.75rem 0; }
+    .masonry-grid > div:nth-child(odd) {
+      padding-right: 0.75rem; }
+    .masonry-grid > div:nth-child(even) {
+      padding-left: 0.75rem; }
+
+</style>
+
+<section class="section is-standard content-cell -bottom-padding-only">
+  <div class="pure-g masonry-grid -the-founder body-cell">
+    <div class="pure-u-10-24"><img src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image1 | img_url : 'original' }}" alt="miadonna" loading="lazy"></div>
+    <div class="pure-u-14-24"><img src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image2 | img_url : 'original' }}" alt="miadonna" loading="lazy"></div>
+    <div class="pure-u-14-24"><img src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image3 | img_url : 'original' }}" alt="miadonna" loading="lazy"></div>
+    <div class="pure-u-10-24"><img src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image4 | img_url : 'original' }}" alt="miadonna" loading="lazy"></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Founder - Gallery",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "Image1"
+    },
+     {
+      "type": "image_picker",
+      "id": "image2",
+      "label": "Image2"
+    },
+      {
+      "type": "image_picker",
+      "id": "image3",
+      "label": "Image3"
+    },
+      {
+      "type": "image_picker",
+      "id": "image4",
+      "label": "Image4"
+    }
+  ],
+   "presets": [
+  {
+    "name": "Founder - Gallery",
+    "category": "Image"
+  }
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

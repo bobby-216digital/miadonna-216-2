@@ -1,0 +1,41 @@
+.range-slider .pointer-shape,
+.range-slider .pointer-shape:hover,
+.range-slider .pointer-shape:focus,
+.range-slider .pointer:hover .pointer-shape,
+.range-slider .pointer:focus .pointer-shape {
+  box-shadow: none;
+}
+
+.range-slider .tooltip,
+.range-slider .mark-value {
+  font-size: 12px;
+  font-family: Montserrat, sans-serif;
+}
+
+.range-slider .mark-value {
+  transform: translate(-50%, -30%);
+}
+
+.range-slider .mark {
+  background: #fff;
+  width: 5px;
+  height: 14px;
+  transform: translate(-50%, -100%);
+  z-index: 10;
+}
+
+.range-slider .mark:first-child,
+.range-slider .mark:last-child {
+  width: 0px;
+}
+
+@media only screen and (max-width: 798px) {
+  .range-slider .mark {
+    background: #fdf0e7;
+  }
+  .range-slider .tooltip,
+  .range-slider .mark-value {
+    font-size: 10px;
+    font-family: Montserrat, sans-serif;
+  }
+}

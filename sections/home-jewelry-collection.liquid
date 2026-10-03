@@ -1,0 +1,87 @@
+<section class="jewelry-collection">
+  <div class="contanier-nw">
+    <div class="jewelry-section row-col">
+      {% for block in section.blocks %}
+        {% assign heading_id = 'jewelry-heading-' | append: block.id %}
+        <div class="col-2 jewelry-item" role="group" aria-labelledby="{{ heading_id }}">
+          <a href="{{ block.settings.link | default: '#' }}" class="flex img-hover-effect radius-2" aria-label="{{ block.settings.aria_label }}">
+            {% if block.settings.image %}
+              <img 
+                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url: width: 870 }}"
+                class="image-full"
+                width="870"
+                height="770"
+                alt="{{ block.settings.heading_bottom | escape }}"
+              />
+            {% endif %}
+          </a>
+          <div class="jewelry-text">
+            <h2 id="{{ heading_id }}" class="common-hd text-white" tabindex="0">
+              <span class="subtext">{{ block.settings.heading_top }}</span> {{ block.settings.heading_bottom }}
+            </h2>
+            <a href="{{ block.settings.link | default: '#' }}" class="line-hover text-white" aria-label="{{ block.settings.aria_label }}">
+              {{ block.settings.link_text }}
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Jewelry Collection",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "collection_item",
+      "name": "Collection Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_top",
+          "label": "Heading Top (Span)",
+          "default": "LAB-GROWN"
+        },
+        {
+          "type": "text",
+          "id": "heading_bottom",
+          "label": "Heading Bottom",
+          "default": "DIAMOND STUDS"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "text",
+          "id": "aria_label",
+          "label": "ARIA Label for Link",
+          "default": "Shop Lab-Grown Jewelry Item"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    {
+      "name": "Home Jewelry Collection",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

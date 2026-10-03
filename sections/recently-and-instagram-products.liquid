@@ -1,0 +1,308 @@
+{% comment %} Section specific CSS {% endcomment %}
+
+{{ 'setting-tabs.css' | asset_url | stylesheet_tag }}
+
+<noscript>{{ 'setting-tabs.css' | asset_url | stylesheet_tag }}</noscript>
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-left: {{ section.settings.padding_left }}px;
+    padding-right: {{ section.settings.padding_right }}px;
+    {% if section.settings.width == 'wide' -%}
+      width: 100%;
+    {%- elsif section.settings.width == 'half' -%}
+      width: 50%;
+    {%- endif %}
+  }
+  #shopify-section-{{ section.id }}.you-may-also-has-no-data.wear-it-with-has-no-data,
+  #shopify-section-{{ section.id }}.recently-view-has-no-data {
+    display: none;
+  }
+  #shopify-section-{{ section.id }} .product-content-wrapper{
+    justify-content: flex-start;
+  }
+  #shopify-section-{{ section.id }} .products-slider.no-slider:after {
+    content: "flickity";
+    display: none; /* hide :after */
+  }
+  #shopify-section-{{ section.id }}  .section-setting-tabs .setting-tabs-wrapper .setting-tab-content.you-may-also-like-content:not(.has-data),
+  #shopify-section-{{ section.id }}  .section-setting-tabs .setting-tabs-wrapper .setting-tab-content.wear-it-with-content:not(.has-data) {
+    display: block;
+  }
+  @media screen and (min-width: 1024px) {
+    /* disable Flickity for large devices */
+    #shopify-section-{{ section.id }} .products-slider.no-slider:after {
+      content: "";
+    }
+  }
+  @media screen and (max-width: 798px){
+    #shopify-section-{{ section.id }} .is-tablet-hidden {
+      display:none;
+    }
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-setting-tabs
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    has-no-side-gutter
+    {% if block.settings.you_may_also_like == true %}{% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div class="container">
+    <setting-tabs class="setting-tabs-wrapper one-whole js-related-products-slider">
+      <div class="setting-tabs-buttons">
+        {%- for block in section.blocks -%}
+          {% if block.type == 'tab' %}
+            {% assign buttonID = block.settings.button_text | replace: ' ', '-' | downcase %}
+            {% assign buttonTitle = block.settings.button_text %}
+          {% endif %}
+          {% if block.type == '@app' %}
+            {% assign buttonID = block.type | replace: '@', '' | downcase %}
+            {% assign buttonTitle = '@Miadonnadiamond' %}
+          {% endif %}
+          <button
+            id="{{ buttonID }}"
+            class="setting-tab-button{% if buttonID contains 'recently' %} recently-viewed-heading {% endif %} {{ buttonID }}{% if forloop.first %} button-active{% endif %}"
+            {% if buttonID contains 'recently' %}
+              style="display: none;"
+            {% endif %}
+          >
+            {{ buttonTitle }}
+          </button>
+        {% endfor %}
+      </div>
+
+      {%- for block in section.blocks -%}
+        {% if block.type == 'tab' %}
+          {% assign buttonContentID = block.settings.button_text | replace: ' ', '-' | downcase %}
+        {% endif %}
+        {% if block.type == '@app' %}
+          {% assign buttonContentID = block.type | replace: '@', '' | downcase %}
+        {% endif %}
+        <div
+          id="{{ buttonContentID }}-content"
+          class="setting-tab-content {{ buttonContentID }}-content{% if forloop.first %} tab-active{% endif %}"
+        >
+          {% if block.settings.recent_products == true %}
+            <!-- <div class="js-related-products-slider"> -->
+            {% render 'recent-products' %}
+            <!-- </div> -->
+          {% elsif block.settings.frequently_bought_together == true %}
+            <!-- <div class="js-related-products-slider"> -->
+            {% render 'frequently-bought-together' %}
+            <!-- </div> -->
+          {% elsif block.settings.you_may_also_like == true %}
+            {% render 'recommended-products' %}
+          {% elsif block.settings['complementary-products'] == true %}
+            {% render 'wear-it-with', buttonId: buttonContentID %}
+          {% endif %}
+          {{ block.settings.liquid_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+          {% if block.type == '@app' %}
+            {% render block %}
+            <p style="font-size: 15px;color: #777;font-style: italic;letter-spacing: 1px;font-family: Playfair Display,serif;">
+              Share a photo of your MiaDonna style by tagging your photos with #MyMiaDonna
+            </p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </setting-tabs>
+  </div>
+</section>
+
+<script data-theme-editor-load-script src="{{ 'z__jsRecommendedProducts.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Product related",
+   "class": "recommended-products-section jsRecommendedProducts",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "half",
+          "label": "Half"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Tab content"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "header",
+          "content": "Dynamic Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "recent_products",
+          "label": "Recent products"
+        },
+        {
+          "type": "checkbox",
+          "id": "frequently_bought_together",
+          "label": "Frequently bought together"
+        },
+        {
+          "type": "checkbox",
+          "id": "you_may_also_like",
+          "label": "You may also like"
+        },
+        {
+          "type": "checkbox",
+          "id": "complementary-products",
+          "label": "Complementary products"
+        },
+        {
+          "type": "header",
+          "content": "Liquid code setting"
+        },
+        {
+          "type": "liquid",
+          "id": "liquid_content",
+          "label": "Liquid code"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently and instagram products"
+    }
+  ]
+}
+{% endschema %}

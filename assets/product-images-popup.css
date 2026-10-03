@@ -1,0 +1,191 @@
+.certificate-popup .fancybox-bg {
+  background: #1e1e1e;
+  opacity:0.9;
+}
+
+.product-images-popup .popup__wrapper {
+  max-width: 1186px;
+  max-height: 82vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-wrap: touch;
+  overflow-wrap: touch;
+  box-shadow: 0 4px 16px #0003;
+}
+
+.certificate-popup .popup__close {
+  color: #fff;
+  background-color: #5f5d5d;
+}
+
+.certificate-popup .popup__content {
+  max-width: 100%;
+  padding: 25px 30px;
+}
+
+.certificate-popup .popup__content h6 {
+  font-size: 18px;
+  text-transform: none;
+  /* padding-bottom: 1rem; */
+  margin-bottom: 1rem;
+  font-family: Playfair Display, serif;
+  /* border-bottom: 1px solid #777; */
+}
+
+.certificate-popup .popup__content h6.product-alt {
+  font-size: 15px;
+  font-style: italic;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.product-images-popup .setting-tabs-wrapper .setting-tabs-buttons {
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.product-images-popup
+  .setting-tabs-wrapper
+  .setting-tabs-buttons
+  .setting-tab-button {
+  padding: 0;
+  border: 0;
+  font-size: 15px;
+  font-weight: 400;
+  background-color: transparent;
+}
+
+.product-images-popup
+  .setting-tabs-wrapper
+  .setting-tabs-buttons
+  .setting-tab-button.button-active {
+  border-bottom: 2px solid #000;
+}
+
+.product-images-popup .setting-tabs-wrapper .setting-tab-content {
+  border: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.product-images-popup
+  .setting-tab-content
+  .product-gallery
+  .flickity-page-dots {
+  display: none;
+}
+
+.product-images-popup
+  .setting-tab-content
+  .product-gallery__thumbnails-wrapper {
+  margin: 0 5%;
+  max-width: 400px;
+}
+
+.product-images-popup .setting-tab-content .product-gallery__thumbnails {
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.product-images-popup
+  .setting-tab-content
+  .product-gallery__thumbnails
+  .product-gallery__thumbnail {
+  cursor: pointer;
+  display: inline-block;
+}
+
+#threeSixty_video,
+#vimeo_video {
+  display: none;
+}
+
+#threeSixty_video.video-active,
+#vimeo_video.video-active {
+  display: block;
+}
+
+.video-buttons-wrapper .video-button {
+  width: 80%;
+  color: #777;
+  display: block;
+  font-size: 11px;
+  margin-left: auto;
+}
+
+.video-buttons-wrapper .video-button.video-button-active,
+.video-buttons-wrapper .video-button:hover {
+  text-decoration: underline;
+}
+
+.video-buttons-wrapper .video-button:first-of-type {
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .popup-modal .fancybox-slide {
+    overflow: hidden;
+  }
+  .certificate-popup .popup__content {
+    padding: 25px 15px;
+  }
+  .product-images-popup
+    .setting-tab-content
+    .product-gallery__thumbnails-wrapper {
+    margin: 0 0.5%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-images-popup .popup__wrapper {
+    width: 100%;
+    max-height: 100vh;
+    box-shadow: none;
+  }
+  .certificate-popup .popup__content {
+    justify-content: flex-start;
+    height: 100vh;
+    padding: 50px 15px;
+  }
+  .product-images-popup
+    .setting-tab-content
+    .product-gallery__thumbnails-wrapper {
+    /* max-width: 100%; */
+    margin: 0 auto;
+  }
+  .product-gallery .product-gallery__main .flickity-button {
+    top: 58%;
+    /* transform: translateY(-50%); */
+  }
+  .product-gallery .product-gallery__main .flickity-prev-next-button.previous {
+    left: 10px;
+  }
+  .product-gallery .product-gallery__main .flickity-prev-next-button.next {
+    right: 10px;
+  }
+  .certificate-popup .popup__content h6:not(.product-alt) {
+    margin-top: 42px;
+  }
+  .product-images-popup .setting-tab-content .product-gallery__thumbnails {
+    margin-top: 20px;
+  }
+  .video-buttons-wrapper .video-button {
+    margin-left: 1rem;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .certificate-popup .fancybox-slide {
+    align-items: flex-start;
+    padding: 0;
+  }
+  .certificate-popup .popup__content {
+    padding: 50px 10px 10px;
+  }
+  .certificate-popup .popup__content h6 {
+    /* font-size: 15px; */
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+}

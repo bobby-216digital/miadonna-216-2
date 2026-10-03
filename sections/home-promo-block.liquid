@@ -1,0 +1,135 @@
+<section class="common-spacing" role="region" aria-labelledby="promo-heading">
+  <div class="contanier-nw">
+    <div class="promo-section">
+      <div class="row-col">
+        <div class="col-2 flex">
+        <picture class="image-full flex jcc" tabindex="0">
+            {% if section.settings.promo_image_mobile != blank %}
+              <source 
+                media="(max-width: 767px)" 
+                srcset="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.promo_image_mobile | image_url: width: 600 }}">
+            {% endif %}
+            {% if section.settings.promo_image != blank %}
+              <img 
+                src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.promo_image | image_url: width: 870 }}" 
+                class="radius-2" 
+                width="480" 
+                height="170" 
+                alt="{{ section.settings.image_alt | escape  }}" />
+            {% endif %}
+          </picture>
+        </div>
+        <div class="col-2">
+          <div class="radius-2 promo-box">
+            <div class="promo-text promo-block">
+              <h2 id="promo-heading" class="common-hd" tabindex="0">
+                {{ section.settings.heading | escape }}
+                <span>{{ section.settings.subheading | escape }}</span>
+              </h2>
+               {{ section.settings.description | replace: '<p>', '<p tabindex="0">' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              {% if section.settings.button_link != blank %}
+                <a href="{{ section.settings.button_link }}" 
+                  class="line-hover" 
+                  aria-label="Shop now for lab-grown diamond engagement rings">
+                  {{ section.settings.button_label }}
+                </a>
+              {% endif %}
+              <a href="#" class="close" aria-label="Close promotional banner">
+                <svg width="9" height="9" viewBox="0 0 12 12" class="icon-close" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Icon close</title>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.000612214 11.2946L11.2947 0.00043975L12.0006 0.706322L0.706495 12.0004L0.000612214 11.2946Z" fill="currentColor"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.706419 0.000612214L12.0005 11.2947L11.2947 12.0006L0.000536706 0.706495L0.706419 0.000612214Z" fill="currentColor"></path>
+                </svg>
+              </a>
+              <a href="https://www.miadonna.com/pages/specials-and-promotions" class="link" aria-label="View terms and conditions for the promotion">*Terms apply.</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const closeBtn = document.querySelector(".promo-section .close");
+    const promoSection = document.querySelector(".promo-section");
+
+    if (!promoSection) return;
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        const sectionHeight = promoSection.offsetHeight;
+        promoSection.style.height = sectionHeight + "px";
+        promoSection.offsetHeight; // reflow
+
+        promoSection.style.height = "0";
+        promoSection.style.opacity = "0";
+        promoSection.style.padding = "0";
+        promoSection.style.margin = "0";
+
+        promoSection.addEventListener("transitionend", function handler() {
+          promoSection.style.display = "none";
+          promoSection.removeEventListener("transitionend", handler);
+        });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Promo Section",
+  "settings": [
+     {
+      "type": "image_picker",
+      "id": "promo_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_image_mobile",
+      "label": "Mobile Image (optional)"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt Text",
+      "default": "Diamond Studs Promo"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+     {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Promo Description"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Promo Section",
+      "category": "Promotions"
+    }
+  ]
+}
+{% endschema %}

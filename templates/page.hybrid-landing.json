@@ -1,0 +1,566 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "e67776f4-746e-48bb-b52c-7a1740b75611": {
+      "type": "index__image-with-text-overlay",
+      "settings": {
+        "section_background_color": "",
+        "tilt_background": false,
+        "link": "",
+        "image": "shopify://shop_images/MiaDonna_Diamond-Hybrid-Simulant-Gemstone-Alternative-Affordable-Starter-Diamond_desktop.jpg",
+        "mobile_image": "shopify://shop_images/MiaDonna_Diamond-Hybrid-Simulant-Gemstone-Alternative-Affordable-Starter-Diamond_mobile.jpg",
+        "pretext": "<h1><em>Diamond Hybrid<br/></em> Simulant</h1>",
+        "title": "",
+        "subtitle": "<p>The Diamond Hybrid® is the most affordable and beautiful diamond-infused simulant ever created.</p>",
+        "pretext_color": "#000000",
+        "heading_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "left",
+        "text_horizontal_position": "left",
+        "text_vertical_position": "middle",
+        "background_color": "#ffffff",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 45,
+        "button_1": "SHOP NOW",
+        "button_1_link": "/collections/diamond-hybrid",
+        "button_1_style": "button--secondary",
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "standard",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "container-width remove-description",
+        "custom_css": ".section {\n    width: 100%;\n    max-width: 100%;\n}\n.section .caption {\n  max-width: 1440px;\n  width: 95%;\n  margin-left: auto;\n  margin-right: auto;\n  left: 0;\n  right: 0;\n}"
+      }
+    },
+    "891ca800-423e-45d9-903e-02047782e3b6": {
+      "type": "icon-card",
+      "blocks": {
+        "bbcda7e7-a311-409f-a7f3-cd811fb97b2c": {
+          "type": "card",
+          "settings": {
+            "title": "",
+            "sub_title": "INFUSED",
+            "icon": "shopify://shop_images/icon-diamond_5338fda4-6048-473f-9567-2e0abda8c35b.png",
+            "card_info": "SP3 carbon bonds on the lab-grown<br> diamond-infused outer layer for a<br> hardness of 8.8.",
+            "link_title": "",
+            "learn_more_link": ""
+          }
+        },
+        "e68153d3-d4c4-4afe-aa98-61699b1dd4c8": {
+          "type": "card",
+          "settings": {
+            "title": "",
+            "sub_title": "VALUE",
+            "icon": "shopify://shop_images/icon-tag.png",
+            "card_info": "Approximately 3% the cost of an <br>earth-mined diamond at a flat rate of <br>$295 USD per carat.",
+            "link_title": "",
+            "learn_more_link": ""
+          }
+        },
+        "68c42715-687d-4c7f-950b-7e2a60d4b6dd": {
+          "type": "card",
+          "settings": {
+            "title": "",
+            "sub_title": "LOVE",
+            "icon": "shopify://shop_images/icon-love.png",
+            "card_info": "Every purchase funds our foundation <br>The Greener Diamond, which restores <br>diamond mining communities.",
+            "link_title": "",
+            "learn_more_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "bbcda7e7-a311-409f-a7f3-cd811fb97b2c",
+        "e68153d3-d4c4-4afe-aa98-61699b1dd4c8",
+        "68c42715-687d-4c7f-950b-7e2a60d4b6dd"
+      ],
+      "settings": {
+        "title": "Diamond Hybrid Benefits",
+        "card_per_row": 3,
+        "show_gutter": true,
+        "background_color": "#ffffff",
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "5565f196-7a42-4c2f-a833-cf96c4d6d6ad": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "Exceptional value. Endless possibilities.",
+        "heading_font": "montserrat_n5",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 28,
+        "text": "<p>The Diamond Hybrid provides affordable beauty guaranteed to be D to F in color and VVS1 to VS2 in clarity. It is also available in many shapes and carat sizes, making it the perfect addition to any engagement ring or fine jewelry.</p>",
+        "text_font": "montserrat_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 15,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#eeeeee",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "one-third",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "1e1a5ae8-b93f-4a67-acbe-5693ef7b92a6": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/what-is-a-diamond-hybrid_dc17fd95-48a4-4b72-9968-867c25aa1b1b.jpg",
+            "image_link": "",
+            "image_text": "<p><strong>Ring Shown: </strong><a href=\"https://www.miadonna.com/products/traditional-solitaire-engagement-ring\">Traditional Solitaire Engagement Ring</a>.</p>"
+          }
+        },
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "What Is A Diamond Hybrid?",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p></p><p>Constructed from a crystal core that has an infusion of enhanced synthetic diamond on the outer layer, the Diamond Hybrid possesses the most realistic brilliance you will ever see from a diamond simulant and is offered at $295 USD per carat, making it the ideal stone for simulated diamond rings. Diamond Hybrid is a simulate and not a lab-grown diamond, which is pure carbon.</p><p><strong>On a tight budget?</strong></p><p>There’s no reason to wait to get engaged. Many MiaDonna customers have used Diamond Hybrid center stones as a placeholder before upgrading to a lab-grown diamond. Set the ring of your dreams with a Diamond Hybrid now, and later upgrade to a lab-grown diamond when your budget allows. <a href=\"https://www.miadonna.com/pages/diamond-upgrade-policy\"><strong>Learn more about our Upgrade Program here.</strong></a> You really can have it all!</p><p>Diamond Hybrids are also a popular choice for travel jewelry.</p><p><a href=\"https://www.miadonna.com/collections/diamond-hybrid\" title=\"Loose Diamond Hybrid Simulant Database\">SHOP LOOSE DIAMOND HYBRIDS</a></p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-image-1",
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-text-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 80,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space",
+        "custom_css": ""
+      }
+    },
+    "e1737905-910b-4240-a9c5-18766d656dbf": {
+      "type": "page__text-with-table",
+      "blocks": {
+        "template--15036906930255__e1737905-910b-4240-a9c5-18766d656dbf-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "",
+            "title2": "How is the Diamond Hybrid created?",
+            "heading_size": "regular",
+            "text": "<p>The Diamond Hybrid is created by placing a perfectly-cut crystal core or substrate into a chamber of intense heat and pressure and infusing lab-created diamond crystals, or bonding them at a molecular level, into the outer layers of the crystal core. These lab created diamond crystals stack up on the core and realign with each other. The finished product is a diamond-infused simulant with a nonprecious crystal core and a solid outer layer of lab-created diamond that will never wear off or detach from the core.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "template--15036906930255__e1737905-910b-4240-a9c5-18766d656dbf-table-1": {
+          "type": "table",
+          "settings": {
+            "heading1": "PROPERTIES",
+            "heading2": "HYBRID",
+            "heading3": "GROWN",
+            "heading4": "MINED",
+            "r1v1": "CONFLICT-FREE",
+            "r1v2": "YES",
+            "r1v3": "YES",
+            "r1v4": "NO",
+            "r2v1": "HARDNESS (MOHS)",
+            "r2v2": "8.8",
+            "r2v3": "10",
+            "r2v4": "10",
+            "r3v1": "SP3 CARBON BONDS",
+            "r3v2": "85% ON OUTER LAYER",
+            "r3v3": "100%",
+            "r3v4": "100%",
+            "r4v1": "PRICE",
+            "r4v2": "$",
+            "r4v3": "$$$",
+            "r4v4": "$$$$"
+          }
+        }
+      },
+      "block_order": [
+        "template--15036906930255__e1737905-910b-4240-a9c5-18766d656dbf-text-1",
+        "template--15036906930255__e1737905-910b-4240-a9c5-18766d656dbf-table-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "css_class": "more-space",
+        "custom_css": ".image-with-text__heading{\ntext-transform: capitalize;\n    font-size: 36px;\n}\n\n.more-space .image-with-text__heading {\n    margin-bottom: 25px !important;\n}"
+      }
+    },
+    "7f0058fa-5265-4dff-9929-c3cebf6c7257": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "SET IT WITH",
+        "heading_font": "montserrat_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 20,
+        "text": "<p>Trending Jewelry Styles</p>",
+        "text_font": "playfair_display_i4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 28,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#eeeeee",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 0,
+        "width": "one-third",
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "width-70",
+        "custom_css": ".rich-text__heading{\nfont-size: 16px;\n   margin-bottom: 0;\n}"
+      }
+    },
+    "e630d6af-5c54-4dc2-bb57-4b865606f685": {
+      "type": "index__collection-list",
+      "blocks": {
+        "template--15036422193231__adf9f8e8-6db7-4cf0-ac13-eaf6e5f0d923-collection-1": {
+          "type": "collection",
+          "settings": {
+            "feature_collection": "solitaire-bridal-sets",
+            "image": "shopify://shop_images/trending-solitaire.jpg",
+            "title": "Solitaire",
+            "button_label": ""
+          }
+        },
+        "template--15036422193231__adf9f8e8-6db7-4cf0-ac13-eaf6e5f0d923-collection-2": {
+          "type": "collection",
+          "settings": {
+            "feature_collection": "vintage-and-antique-style-engagement-rings",
+            "image": "shopify://shop_images/trending-primary.jpg",
+            "title": "Vintage",
+            "button_label": ""
+          }
+        },
+        "template--15036422193231__adf9f8e8-6db7-4cf0-ac13-eaf6e5f0d923-collection-3": {
+          "type": "collection",
+          "settings": {
+            "feature_collection": "",
+            "image": "shopify://shop_images/trending-halo.jpg",
+            "title": "Halo",
+            "button_label": ""
+          }
+        },
+        "cdd8536a-caa3-44f8-ba4b-229f051ec01c": {
+          "type": "collection",
+          "settings": {
+            "feature_collection": "lab-grown-diamond-jewelry",
+            "image": "shopify://shop_images/trending-jewelry.jpg",
+            "title": "Jewelry",
+            "button_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15036422193231__adf9f8e8-6db7-4cf0-ac13-eaf6e5f0d923-collection-1",
+        "template--15036422193231__adf9f8e8-6db7-4cf0-ac13-eaf6e5f0d923-collection-2",
+        "template--15036422193231__adf9f8e8-6db7-4cf0-ac13-eaf6e5f0d923-collection-3",
+        "cdd8536a-caa3-44f8-ba4b-229f051ec01c"
+      ],
+      "settings": {
+        "collections_per_row": 4,
+        "align_height": false,
+        "collection_height": 400,
+        "enable_zoom": true,
+        "button_style": "button--secondary",
+        "overlay_background": "rgba(0,0,0,0)",
+        "overlay_background_opacity": 70,
+        "overlay_text": "#000000",
+        "collection_title_below_image": false,
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 0,
+        "padding_bottom": 50,
+        "animation": "none",
+        "css_class": "custom-collection-list",
+        "custom_css": ""
+      }
+    },
+    "782fd616-41a0-438d-8bed-324b858e2757": {
+      "type": "page__image-with-text",
+      "blocks": {
+        "template--15036512829519__782fd616-41a0-438d-8bed-324b858e2757-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/what-is-the-price-of-a-diamond-hybrid_ae11144e-4d85-423e-9b10-890791bf793d.jpg",
+            "image_link": "",
+            "image_text": "<p><a href=\"https://www.miadonna.com/products/jamie-solitaire-engagement-ring\">Jamie Solitaire Engagement Ring</a>.</p>",
+            "iframe_video": ""
+          }
+        },
+        "template--15036512829519__782fd616-41a0-438d-8bed-324b858e2757-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "",
+            "title2": "What is the price of a Diamond Hybrid?",
+            "heading_size": "regular",
+            "text": "<p>Priced at only $295 USD per carat, each Diamond Hybrid is graded at VVS1 clarity, D color and comes with a full complimentary warranty, making the Diamond Hybrid the most beautiful and economic diamond alternative available. Your designer dream ring is truly a reality now.</p><p>You can view a Diamond Hybrid for yourself in our <a href=\"https://www.miadonna.com/pages/visit-us\">Portland, Oregon store</a> or order it online with free U.S. shipping and 60-DAY returns.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--15036512829519__782fd616-41a0-438d-8bed-324b858e2757-image-1",
+        "template--15036512829519__782fd616-41a0-438d-8bed-324b858e2757-text-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 80,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "9dcfb443-8046-49af-ac37-93939b6ce2a8": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "187134e9-6732-4b0e-a3a1-654c00edc1d6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/what-is-the-price-of-a-diamond-hybrid_ae11144e-4d85-423e-9b10-890791bf793d.jpg",
+            "image_link": "",
+            "image_text": "<p><strong>Ring Shown: </strong><a href=\"https://www.miadonna.com/products/jamie-solitaire-engagement-ring\">Jamie Solitaire Engagement Ring</a>.</p>"
+          }
+        },
+        "46f8b294-cbe8-4de9-8d92-21a590a9b90e": {
+          "type": "text",
+          "settings": {
+            "title": "What Is The Price Of A Diamond Hybrid?",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p></p><p>Priced at only $295 USD per carat, each Diamond Hybrid is graded at VVS1 clarity, D color and comes with a full complimentary warranty, making the Diamond Hybrid the most beautiful and economic diamond alternative available. Your designer dream ring is truly a reality now.</p><p>You can view a Diamond Hybrid for yourself in our <a href=\"https://www.miadonna.com/pages/visit-us\">Portland, Oregon store</a> or order it online with free U.S. shipping and 60-DAY returns.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "187134e9-6732-4b0e-a3a1-654c00edc1d6",
+        "46f8b294-cbe8-4de9-8d92-21a590a9b90e"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space",
+        "custom_css": ""
+      }
+    },
+    "5fe96095-596a-4ccc-92ce-845286aba8d3": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "e69278e0-1878-470a-9325-9a376235d644": {
+          "type": "text",
+          "settings": {
+            "title": "What Is The Hardness And Durability Of A Diamond Hybrid?",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p></p><p>The Diamond Hybrid has a hardness of 8.8, similar to a precious gem, like a Sapphire or Ruby, and should be treated with the same care. <em>While it is incredibly hard, it is possible to damage a Diamond Hybrid as it is a simulant and NOT a diamond.</em> The Hybrid stone, because of its infused outer diamond layer, is also nearly two times harder than an ordinary cubic zirconia and will not absorb oils from the everyday use of soaps, lotions and, beauty products.</p><p>If you are looking for something more durable, please take a look at our <a href=\"https://www.miadonna.com/pages/lab-grown-diamonds\" title=\"Learn more about lab grown diamonds\">real lab grown diamonds.</a></p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "f8f2eeda-c0f1-452f-8db0-deecd2958f7c": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/what-is-the-hardness-and-durability-of-a-diamond-hybrid_da66812f-3164-4bb9-8781-c8ee7eb20326.jpg",
+            "image_link": "",
+            "image_text": "<p><strong>Ring Shown: </strong><a href=\"https://www.miadonna.com/products/diamond-halo-stud-earrings\">Diamond Halo Stud Earrings</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "e69278e0-1878-470a-9325-9a376235d644",
+        "f8f2eeda-c0f1-452f-8db0-deecd2958f7c"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space",
+        "custom_css": ""
+      }
+    },
+    "606e077f-a3be-46b8-a305-00b631409bd1": {
+      "type": "lab-diamonds-sub-footer-faq",
+      "blocks": {
+        "template--15036512829519__606e077f-a3be-46b8-a305-00b631409bd1-content-1": {
+          "type": "content",
+          "settings": {
+            "faqs_menu": "diamond-hybrid-simulate-faqs"
+          }
+        }
+      },
+      "block_order": [
+        "template--15036512829519__606e077f-a3be-46b8-a305-00b631409bd1-content-1"
+      ],
+      "settings": {
+        "title": "FAQ",
+        "background": "#f6f1ec"
+      }
+    },
+    "33859d71-061f-476a-9da9-c43b7bf0e7ba": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<p>Not the answers you were looking for? <a href=\"mailto:help@miadonna.com\">Send us an email</a>.</p>",
+        "text_font": "open_sans_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text": "rgba(0,0,0,0)",
+        "button_style": "button--primary",
+        "background": "#f6f1ec",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "e67776f4-746e-48bb-b52c-7a1740b75611",
+    "891ca800-423e-45d9-903e-02047782e3b6",
+    "5565f196-7a42-4c2f-a833-cf96c4d6d6ad",
+    "1e1a5ae8-b93f-4a67-acbe-5693ef7b92a6",
+    "e1737905-910b-4240-a9c5-18766d656dbf",
+    "7f0058fa-5265-4dff-9929-c3cebf6c7257",
+    "e630d6af-5c54-4dc2-bb57-4b865606f685",
+    "782fd616-41a0-438d-8bed-324b858e2757",
+    "9dcfb443-8046-49af-ac37-93939b6ce2a8",
+    "5fe96095-596a-4ccc-92ce-845286aba8d3",
+    "606e077f-a3be-46b8-a305-00b631409bd1",
+    "33859d71-061f-476a-9da9-c43b7bf0e7ba"
+  ]
+}

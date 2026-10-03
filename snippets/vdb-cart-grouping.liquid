@@ -1,0 +1,844 @@
+{% assign vdbMoneyFormat = '${{amount}}' %}
+{%- assign money_format = '${{no_decial}}' -%}
+<script>
+    const vdbMoneyFormat = "{{ vdbMoneyFormat }}";
+    const money_format = "{{money_format}}";
+    function vdbCartFormatMoney(cents, format) {
+        if (typeof cents == 'string') {
+            cents = cents.replace('.', '');
+        }
+        var value = '';
+        var placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
+        var formatString = (format || vdbMoneyFormat);
+
+        function defaultOption(opt, def) {
+            return (typeof opt == 'undefined' ? def : opt);
+        }
+
+        function formatWithDelimiters(number, precision, thousands, decimal) {
+            precision = defaultOption(precision, 2);
+            thousands = defaultOption(thousands, ',');
+            decimal = defaultOption(decimal, '.');
+            if (isNaN(number) || number == null) {
+                return 0;
+            }
+            number = (number / 100.0).toFixed(precision);
+            var parts = number.split('.'),
+                dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
+                cents = parts[1] ? (decimal + parts[1]) : '';
+            return dollars + cents;
+        }
+        switch (formatString.match(placeholderRegex)[1]) {
+            case 'amount':
+                value = formatWithDelimiters(cents, 2);
+                break;
+            case 'amount_no_decimals':
+                value = formatWithDelimiters(cents, 0);
+                break;
+            case 'amount_with_comma_separator':
+                value = formatWithDelimiters(cents, 2, '.', ',');
+                break;
+            case 'amount_no_decimals_with_comma_separator':
+                value = formatWithDelimiters(cents, 0, '.', ',');
+                break;
+            case 'no_decial':
+                value = Math.floor(cents/100).toLocaleString("en-US");
+                break;
+        }
+        return formatString.replace(placeholderRegex, value);
+    }
+
+  const noImageURL = '{{ settings.speedsize_url_pfx_https -}}{{ image | img_url: 'master' }}';
+
+  async function freeProductAddToCart() {
+    if (document.getElementById('free-product-id') || document.getElementById('free-product-id-two')) {
+      let freeProductIdVariantId =  document.getElementById('free-product-id') ? document.getElementById('free-product-id').dataset.variantId : "";
+      let freeProductIdVariantIdTwo = document.getElementById('free-product-id-two') ? document.getElementById('free-product-id-two').dataset.variantId : "";
+      if(freeProductIdVariantId?.length > 0 || freeProductIdVariantIdTwo?.length > 0 ){
+        let freeCartRawResponse = await fetch('/cart.js', { });
+        let free_cart_json = await freeCartRawResponse.text();
+        let free_cart_arr = JSON.parse(free_cart_json);
+        let freeCartGroupedItems = groupingCartItems(free_cart_arr);
+        let isFreeProductExists = 'Yes', isFreeProductOneExists = freeProductIdVariantId?.length > 0 ? 'Yes' : 'No', isFreeProductTwoExists = freeProductIdVariantIdTwo?.length > 0 ? 'Yes' : 'No';
+
+        for (let i = 0; i < freeCartGroupedItems.length; i++) {
+          if(freeCartGroupedItems[i].variant_id == freeProductIdVariantId){
+            isFreeProductExists = 'No';
+            isFreeProductOneExists = 'No';
+          } else if(freeCartGroupedItems[i].variant_id == freeProductIdVariantIdTwo){
+            isFreeProductExists = 'No';
+            isFreeProductTwoExists = 'No';
+          }
+        }
+  
+        if (isFreeProductExists == "Yes") {
+          let formItems = [];
+          isFreeProductOneExists == 'Yes' && (formItems.push({'id': freeProductIdVariantId, 'quantity': 1 }));
+          isFreeProductTwoExists == 'Yes' && (formItems.push({'id': freeProductIdVariantIdTwo, 'quantity': 1 }));
+          if (formItems?.length > 0) {
+            let formData = {'items':formItems};
+            let rawResponse = await fetch("/cart/add.js", {
+              method: "POST",
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(formData),
+            });
+            await rawResponse.json();
+            // window.PXUTheme.jsAjaxCart.updateView();
+          }
+        }
+      }
+    }
+  }
+  function groupingCartItems(cart_arr){
+    let final_item_group = [];
+    if(cart_arr.items && cart_arr.items.length>0){
+      let tmp_group = {};
+      for(let i=0; i<cart_arr.items.length; i++){
+        let item = cart_arr.items[i];
+        let group_name;
+        /*if(item.properties != null && Object.keys(item.properties).length > 0 && item.properties['_groupId'] != undefined && item.properties['_groupId'] != ""){
+          group_name = item.properties['_groupId'];
+        }else */
+        if(item.handle == "one-tree-planted" || item.handle == "copy-of-one-tree-planted"){
+          group_name = 'free-product';
+        } else {
+          group_name = 'no-group';
+        }
+        if(tmp_group[group_name] == undefined){
+          tmp_group[group_name] = [];
+        }
+        tmp_group[group_name].push(item);
+      }
+
+      Object.keys(tmp_group).forEach((grp_key) => {
+        if(grp_key=="no-group"){
+          tmp_group[grp_key].forEach((item) => {
+			let tmp_item = item;
+			if(typeof tmp_item.properties['_main_product'] != "undefined" && tmp_item.properties['_main_product'] != ""){
+				tmp_item.image = tmp_item.properties['_main_product'];
+			}else{
+				tmp_item.image = tmp_item.image; 
+			}
+            final_item_group.push(tmp_item);
+          });
+        }
+        else if(grp_key!="free-product"){
+          let combined_item = {
+            "handle": "",
+            "image": "",
+            "price": 0,
+            "title": "",
+            "properties": {},
+            "quantity": "",
+            "url": "",
+            "key": "",
+          };
+          tmp_group[grp_key].forEach((item) => {
+            if(item.properties['_isMain'] != undefined && item.properties['_isMain'] == "true"){
+              combined_item.handle = item.handle;
+              combined_item.title = item.title;
+              combined_item.quantity = item.quantity;
+              if(item.properties['_product_url'] != undefined && item.properties['_product_url'] != ""){
+                combined_item.url = item.properties['_product_url']+"&variant="+item.variant_id;
+              }else{
+                combined_item.url = item.url; 
+              }
+              if(item.properties['_main_product'] != undefined && item.properties['_main_product'] != ""){
+                combined_item.image = item.properties['_main_product'];
+              }else{
+                combined_item.image = item.image; 
+              }
+            }
+            combined_item.price = parseInt(combined_item.price) + parseInt(item.line_price);
+            combined_item.key = combined_item.key + "," + item.key;
+
+            if(item.properties['Metal'] != undefined && item.properties['Metal'] != ""){
+              combined_item.properties['01_VDB_Metal'] = item.properties['Metal'];
+            }
+            if(item.properties['Size'] != undefined && item.properties['Size'] != ""){
+              combined_item.properties['02_VDB_Size'] = item.properties['Size'];
+            }
+            if(item.properties['Material'] != undefined && item.properties['Material'] != ""){
+              combined_item.properties['03_VDB_Material'] = item.properties['Material'];
+            }
+            if(item.properties['shape'] != undefined && item.properties['shape'] != ""){
+              combined_item.properties['04_VDB_Stone Shape'] = item.properties['shape'];
+            }
+            if(item.properties['stone'] != undefined && item.properties['stone'] != ""){
+              combined_item.properties['04_VDB_Stone'] = item.properties['stone'];
+            }
+            if(item.properties['side_stone'] != undefined && item.properties['side_stone'] != ""){
+              combined_item.properties['05_VDB_Side Stone'] = item.properties['side_stone'];
+            }
+            if(item.properties['engravingFont'] != undefined && item.properties['engravingFont'] != ""){
+              combined_item.properties['07_VDB_Engraving Font'] = item.properties['engravingFont'];
+            }
+            if(item.properties['engravingText'] != undefined && item.properties['engravingText'] != ""){
+              combined_item.properties['08_VDB_Engraving Text'] = item.properties['engravingText'];
+            }
+            if(item.properties['Names'] != undefined && item.properties['Names'] != ""){
+              combined_item.properties['09_VDB_Names'] = item.properties['Names'];
+            }
+            if(item.properties['Chain_Length'] != undefined && item.properties['Chain_Length'] != ""){
+              combined_item.properties['10_VDB_Chain Length'] = item.properties['Chain_Length'];
+            }
+            if(item.sku != undefined && item.sku?.length > 0 && item.properties['_isMain'] != undefined && item.properties['_isMain'] == "true"){
+              combined_item.properties['11_VDB_Setting SKU'] = `<a class="cart-item-custom" href="${combined_item.url}" target="_blank">${item.sku}</a>`;
+            }
+            if(item.sku != undefined && item.sku?.length > 0 && item.properties['isStone'] != undefined && item.properties['isStone'] == "true"){
+                if (item.properties['gem_type'] != undefined && item.properties['gem_type'] != "") {
+                    combined_item.properties['12_VDB_Gemstone SKU'] = `<a class="cart-item-custom" href="${item.url}" target="_blank">${item.sku}</a>`;
+                } else {
+                    combined_item.properties['12_VDB_Diamond SKU'] = `<a class="cart-item-custom" href="${item.url}" target="_blank">${item.sku}</a>`;
+                }
+            }
+            if(item.properties['Setting SKU'] != undefined && item.properties['Setting SKU'] != ""){
+                combined_item.properties['13_VDB_Setting SKU'] = `<a class="cart-item-custom" href="${combined_item.url}" target="_blank">${item.properties['Setting SKU']}</a>`;
+            }
+            if(item.properties['Gemstone SKU'] != undefined && item.properties['Gemstone SKU'] != ""){
+                combined_item.properties['14_VDB_Gemstone SKU'] = `<a class="cart-item-custom" href="${item.url}" target="_blank">${item.properties['Gemstone SKU']}</a>`;
+            }
+            if(item.properties['Diamond SKU'] != undefined && item.properties['Diamond SKU'] != ""){
+                combined_item.properties['14_VDB_Diamond SKU'] = `<a class="cart-item-custom" href="${item.url}" target="_blank">${item.properties['Diamond SKU']}</a>`;
+            }
+            if(item.properties['Size2'] != undefined && item.properties['Size2'] != ""){
+                combined_item.properties['15_VDB_Size'] = item.properties['Size2'];
+            }
+        });
+
+          final_item_group.push(combined_item);
+        }
+      });
+      Object.keys(tmp_group).forEach((grp_key) => {
+        if(grp_key=="free-product"){
+          tmp_group[grp_key].forEach((item) => {
+            final_item_group.push(item);
+          });
+        }
+      });
+    }
+    return final_item_group;
+  }
+
+  async function open_group_cart_drawer(need_to_open=true){
+    let cart_total_without_free_gift = 0;
+    let free_gift_product_handle = '{{ settings.free_gift_product.handle }}';
+    let free_gift_product_variant_id = '{{ settings.free_gift_product.selected_or_first_available_variant.id }}';
+    let is_free_gift_product_exist_in_cart = 'no';
+  
+    if(need_to_open==true){
+       window.PXUTheme.jsAjaxCart.showDrawer(); 
+    }
+
+    if(document.getElementsByClassName('ajax-cart__list').length > 0){
+      for(let c=0; c<document.getElementsByClassName('ajax-cart__list').length; c++){
+        document.getElementsByClassName('ajax-cart__list')[c].innerHTML = '<div style="text-align:center">Loading...</div>';   
+      }
+    }
+    if(document.getElementsByClassName('free_gift_bar_section')){
+      for(let c=0; c<document.getElementsByClassName('free_gift_bar_section').length; c++){
+        document.getElementsByClassName('free_gift_bar_section')[c].style.display = 'none'; 
+      }
+    }
+
+    let cartRawResponse = await fetch('/cart.js', { });
+    let cart_json = await cartRawResponse.text();  
+    let cart_arr = JSON.parse(cart_json);
+    
+    if(cart_arr.cart_level_discount_applications.length > 0){
+      document.querySelector('body').classList.add('ajax-discount');
+    }else{
+      document.querySelector('body').classList.remove('ajax-discount');
+    }
+    let cartGroupedItems = groupingCartItems(cart_arr);
+    let cartHtml = '';
+    if(cartGroupedItems.length > 0){
+      cartGroupedItems.forEach((item) => {
+        if(item.handle != free_gift_product_handle){
+          cart_total_without_free_gift += parseInt(item.price)/100; 
+        }
+        if(item.handle == free_gift_product_handle){
+          is_free_gift_product_exist_in_cart = 'yes';
+        }
+        let item_url = item.url;
+        let free_product_class = '';
+        if(item.handle == "one-tree-planted" || item.handle == "copy-of-one-tree-planted"){
+          item_url = 'javascript:;';
+          free_product_class = 'free-product-item';
+        }
+        cartHtml += `<div class="ajax-cart__product media ${free_product_class}" data-variant-id="" data-cart-item="" data-line-item="" aria-label="Cart Item: ${item.title}">
+          <div class="cartprd-topbar">
+            <div class="ajax-cart__product-title">
+                <h3 class="ajax-cart__product-title-content">
+                    <a href="${item_url}" aria-label="Product: ${item.title}"> ${item.title} </a>
+                </h3>
+                <div class="ajax-cart__price-wrapper">
+                    ${ (typeof item.properties['_Compare At Price'] != "undefined" && Number(item.properties['_Compare At Price']) > 0) ? `<div class="ajax-cart__line-items-discount">
+                        <s class="original-price">
+                            <span class="money">${vdbCartFormatMoney(parseFloat(item.properties['_Compare At Price']), money_format)}</span>
+                        </s>
+                    </div>`:""}
+                    <div class="ajax-cart__price price">
+                      <span class="money ">${vdbCartFormatMoney(parseFloat(item.price), money_format)}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carttopbar-right">
+                <button type="button"  onclick="tpc_cart_item_remove('cart_drawer','${item.key}')" class="remove-prd" aria-label="Remove item from cart">
+                    <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.25 0.65625C4.40625 0.25 4.78125 0 5.1875 0H8.8125C9.21875 0 9.59375 0.25 9.75 0.65625L10.25 2H13.25C13.6562 2 14 2.34375 14 2.75C14 3.15625 13.6562 3.5 13.25 3.5H0.75C0.34375 3.5 0 3.15625 0 2.75C0 2.34375 0.34375 2 0.75 2H3.75L4.25 0.65625ZM1.625 14.6562L0.90625 5H2.40625L3.125 14.5312C3.125 14.8125 3.34375 15 3.625 15H10.4062C10.6562 15 10.875 14.8125 10.9062 14.5312L11.5938 5H13.0938L12.375 14.6562C12.3125 15.6875 11.4375 16.5 10.4062 16.5H3.625C2.5625 16.5 1.6875 15.6875 1.625 14.6562Z" fill="black"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+         <div class="is-flex is-align-flex-start">
+            <figure class="ajax-cart__product-image media-left">
+               <a href="${item_url}">
+               <!--speedsizeIgnore-->
+                <img src="${item.image ? item.image : noImageURL}" alt="${item.title}" loading="lazy" width="100%" height="100%">
+                <!--endSpeedsizeIgnore-->
+               </a>`;
+        if(item.handle != "one-tree-planted" && item.handle != "copy-of-one-tree-planted"){
+          /*cartHtml += `       <div class="ajax-cart__right-content media-right">
+               <a href="javascript:;" onclick="tpc_cart_item_remove('cart_drawer','${item.key}')">Remove</a>
+               </div>`;  */
+        }
+        
+        {% comment %} cartHtml += `</figure>
+            <div class="ajax-cart__product-content media-content">
+               <div class="ajax-cart__line-items">`; {% endcomment %}
+                 cartHtml += `</figure>
+            <div class="ajax-cart__product-content media-content">`;
+            if (item?.vendor?.includes('TCC')) {  
+            cartHtml += `<div class="designstudio-Properties">
+              <button
+                type="button"
+                class="ajax-cart__line-item-main_title"
+                aria-expanded="false"
+                aria-controls="settings-details">
+                Settings Details
+              </button>`;
+            }   
+               cartHtml += `<div class="ajax-cart__line-items">`;
+            if(item.handle == "one-tree-planted" || item.handle == "copy-of-one-tree-planted"){
+              if(item.product_description != undefined){
+                cartHtml += `<div class="ajax-cart__line-item"><span class="option-title"> ${item.product_description}</span> </div>`; 
+              }      
+            }
+            var custom_estimate_date = '';
+            if(item.properties && Object.keys(item.properties).length > 0){
+              let item_properties = Object.keys(item.properties);
+              if (item?.vendor && !item.vendor.includes('TCC')) {
+                item_properties.sort();
+              }
+              item_properties.forEach(function (prop) {
+                let prop_arr = prop.split('_VDB_');
+                let prop_title = prop_arr[0];
+                if(prop_arr[1] != undefined){
+                  prop_title = prop_arr[1];
+                }
+                if(prop_title.charAt(0)!="_"){
+                 if (prop_title == 'Estimate Ship Date' || prop_title == 'Estimated Ship Date') {
+                   if (item?.vendor && !item.vendor.includes('TCC')) {
+                    custom_estimate_date = `<div class="ajax-cart__line-item"> <span class="option-label">${prop_title}:</span><span class="option-title"> ${item.properties[prop]}</span> </div>`;
+                   }else{
+                    cartHtml += `<div class="ajax-cart__line-item"> <span class="option-label">${prop_title}:</span><span class="option-title"> ${item.properties[prop]}</span> </div>`;
+                  }
+                  }
+                  else{
+                    cartHtml += `<div class="ajax-cart__line-item"> <span class="option-label">${prop_title}:</span><span class="option-title"> ${item.properties[prop]}</span> </div>`;     
+                  }
+                }
+               });
+            }
+            cartHtml += custom_estimate_date;
+            const storedProps = JSON.parse(localStorage.getItem('itemProperties')) || {};
+            if(storedProps[item.id]){
+              if(typeof storedProps[item.id]['length'] != 'undefined' && storedProps[item.id]['length'] != ''){
+                cartHtml += `<div class="ajax-cart__line-item"> <span class="option-label">Length: </span><span class="option-title">${storedProps[item.id]['length']}</span> </div>`;
+              }
+              /*if(typeof storedProps[item.id]['estimate_ship_date'] != 'undefined' && storedProps[item.id]['estimate_ship_date'] != ''){
+                cartHtml += `<div class="ajax-cart__line-item"> <span class="option-label">Estimate Ship Date:</span><span class="option-title">${storedProps[item.id]['estimate_ship_date']}</span> </div>`;
+              }*/
+            }
+            {% comment %} cartHtml += `</div>
+            </div>
+         </div>
+      </div>`; {% endcomment %}
+      cartHtml += `</div>`;
+             if (item?.vendor?.includes('TCC')) {  
+              cartHtml += `</div>`;
+              cartHtml += `<div class="ajax-cart__line-items-designstudio">`;
+              if(item.properties && Object.keys(item.properties).length > 0){
+                let item_properties = Object.keys(item.properties);
+                item_properties.sort();
+                item_properties.forEach(function (prop) {
+                      let prop_arr = prop.split('_VDB_');
+                      let prop_title = prop_arr[0];
+                      if(prop_arr[1] != undefined){
+                        prop_title = prop_arr[1];
+                      }
+                      if(prop_title.charAt(0)!="_"){
+                        if (prop_title == 'Estimate Ship Date' || prop_title == 'Estimated Ship Date') {
+                          cartHtml += `<div class="ajax-cart__line-item ajax-cart__line-item-designstudio"> <span class="option-label">${prop_title}:</span><span class="option-title"> ${item.properties[prop]}</span> </div>`;
+                        }
+                      }
+                })
+              }
+              cartHtml += `</div>`;
+
+               cartHtml += `</div>`;
+             } 
+            cartHtml += `</div>
+         </div>
+      </div>`;
+      });
+
+      if(document.getElementsByClassName('ajax-cart__form').length > 0){
+        for(let c=0; c<document.getElementsByClassName('ajax-cart__form').length; c++){
+          document.getElementsByClassName('ajax-cart__form')[c].classList.remove("is-hidden");   
+        }
+      }
+      if(document.getElementsByClassName('ajax-cart__empty-cart-message').length > 0){
+        for(let c=0; c<document.getElementsByClassName('ajax-cart__empty-cart-message').length; c++){
+          document.getElementsByClassName('ajax-cart__empty-cart-message')[c].classList.add("is-hidden");   
+        }
+      }
+    }else{
+      if(document.getElementsByClassName('ajax-cart__form').length > 0){
+        for(let c=0; c<document.getElementsByClassName('ajax-cart__form').length; c++){
+          document.getElementsByClassName('ajax-cart__form')[c].classList.add("is-hidden");   
+        }
+      }
+      if(document.getElementsByClassName('ajax-cart__empty-cart-message').length > 0){
+        for(let c=0; c<document.getElementsByClassName('ajax-cart__empty-cart-message').length; c++){
+          document.getElementsByClassName('ajax-cart__empty-cart-message')[c].classList.remove("is-hidden");   
+        }
+      }
+    }
+
+    //render cart html
+    if(document.getElementsByClassName('ajax-cart__list').length > 0){
+      for(let c=0; c<document.getElementsByClassName('ajax-cart__list').length; c++){
+        document.getElementsByClassName('ajax-cart__list')[c].innerHTML = cartHtml;   
+      }
+    }
+
+    //render cart total
+    if(document.getElementsByClassName('vdb_cart_drawer_subtotal')){
+      for(let c=0; c<document.getElementsByClassName('vdb_cart_drawer_subtotal').length; c++){
+        document.getElementsByClassName('vdb_cart_drawer_subtotal')[c].innerHTML = vdbCartFormatMoney(parseFloat(cart_arr.total_price), money_format);
+      }
+    }
+
+    let cartDiscountParents = document.querySelectorAll('.cart__discounts');
+    if (cartDiscountParents) {
+      for(let p=0; p<cartDiscountParents.length; p++){
+        let cartDiscountChildElements = cartDiscountParents[p].querySelectorAll('.ajax-cart__row-description');
+        if(cartDiscountChildElements.length > 0){
+          if(cart_arr.cart_level_discount_applications != undefined && cart_arr.cart_level_discount_applications[0] != undefined && cart_arr.cart_level_discount_applications[0].title != undefined){
+            for(let c=0; c<cartDiscountChildElements.length; c++){
+              cartDiscountChildElements[c].innerHTML = "<p>(<strong>Discount:&nbsp;</strong>"+cart_arr.cart_level_discount_applications[0].title+")</p>";   
+            } 
+          }else{
+            for(let c=0; c<cartDiscountChildElements.length; c++){
+              cartDiscountChildElements[c].innerHTML = "";   
+            }
+          }
+        }
+      }
+    }
+
+    loadCheckoutButton();
+
+    //freegift logic
+    {% if settings.enable_free_gift %}
+      let free_gift_limit = parseFloat('{{ settings.free_gift_limit }}');
+      if(is_free_gift_product_exist_in_cart=='no'){
+        if(cart_total_without_free_gift >= free_gift_limit && free_gift_product_variant_id!=""){
+          //if cart total is greater than limit, then ADD free-gift in cart
+          let formDataFreeGift = {'items':[{'id': free_gift_product_variant_id, 'quantity': 1 }]};
+          
+          await fetch("/cart/add.js", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formDataFreeGift),
+          });
+          await open_group_cart_drawer();
+        }else{
+           //show free-gift-bar 
+          if(document.getElementsByClassName('free_gift_bar_section')){
+            for(let c=0; c<document.getElementsByClassName('free_gift_bar_section').length; c++){
+              document.getElementsByClassName('free_gift_bar_section')[c].style.display = 'block'; 
+            }
+          }
+          if(document.getElementsByClassName('free_gift_away_amount')){
+            for(let c=0; c<document.getElementsByClassName('free_gift_away_amount').length; c++){
+              document.getElementsByClassName('free_gift_away_amount')[c].innerHTML = '{{ cart.currency.symbol  }} '+(parseFloat(free_gift_limit - cart_total_without_free_gift)).toFixed(2); 
+            }
+          }
+          if(document.getElementsByClassName('free_gift_bar')){
+            for(let c=0; c<document.getElementsByClassName('free_gift_bar').length; c++){
+              document.getElementsByClassName('free_gift_bar')[c].value = cart_total_without_free_gift*100/free_gift_limit; 
+            }
+          }
+          
+        }
+      }else{
+        if(cart_total_without_free_gift < free_gift_limit && free_gift_product_variant_id!=""){
+          //if cart total is less than limit and free-gift is already in cart, then REMOVE free-gift from cart
+          let formDataFreeGift = new FormData();
+          formDataFreeGift.append('updates['+free_gift_product_variant_id+']', 0);
+          await fetch('/cart/update.js', { method: 'POST', body: formDataFreeGift });
+          await open_group_cart_drawer();
+        }
+      }
+    {% endif %}
+  }
+  async function tpc_cart_item_remove(source,keys){
+    let keys_arr = keys.split(',');
+    if(keys_arr.length > 0){
+      var formData = new FormData();
+      for(let k=0; k<keys_arr.length; k++){
+        if(keys_arr[k]!=""){
+          formData.append('updates['+keys_arr[k]+']', 0);
+          var deleteVariantIdArr = keys_arr[k].split(':');console.log('keys_arr[k]', keys_arr[k], deleteVariantIdArr);
+          if(deleteVariantIdArr[0] != ''){
+            let storedProps = JSON.parse(localStorage.getItem('itemProperties')) || {};console.log('storedProps', storedProps);
+            delete storedProps[deleteVariantIdArr[0]];
+
+            localStorage.setItem('itemProperties', JSON.stringify(storedProps));console.log('storedProps222', storedProps);
+          }
+        }
+      }
+
+      //remove current product or group-products
+      await fetch('/cart/update.js', { method: 'POST', body: formData });
+
+      //now check that have we ONLY free product, existed in cart then remove it
+      let freeProductIdVariantId='', freeProductIdVariantId_2='';
+      if (document.getElementById('free-product-id')) {
+        freeProductIdVariantId = document.getElementById('free-product-id').dataset.variantId;  
+      }
+      if (document.getElementById('free-product-id-two')) {
+        freeProductIdVariantId_2 = document.getElementById('free-product-id-two').dataset.variantId;  
+      }
+      if(freeProductIdVariantId!='' || freeProductIdVariantId_2!=""){
+        let rawResponseFree = await fetch('/cart.json');
+        let cartObjFree = await rawResponseFree.json();
+        if(cartObjFree.total_price == 0){
+          var formDataFree = new FormData();
+          if(freeProductIdVariantId!=""){
+            formDataFree.append('updates['+freeProductIdVariantId+']', 0);  
+          }
+          if(freeProductIdVariantId_2!=""){
+            formDataFree.append('updates['+freeProductIdVariantId_2+']', 0);  
+          }
+          
+          await fetch('/cart/update.js', { method: 'POST', body: formDataFree });
+        } 
+      }
+      
+      if(source=='cart_drawer'){
+        open_group_cart_drawer();
+      }else{
+        location.reload(); 
+      }
+    }
+  }
+  
+  (function(){
+    setTimeout(function(){
+      //this functions load on page load. So we render html, but do not open cart drawer.
+      open_group_cart_drawer(false);
+    },3000);
+  })();
+</script>
+
+{% if request.page_type == 'cart' %}
+  <textarea id="cart_json" aria-hidden="true" tabindex="-1">{{ cart | json }}</textarea>
+  <script>
+    let cart_json = document.getElementById('cart_json').value
+    let cart_arr = JSON.parse(cart_json);
+    let cartGroupedItems = groupingCartItems(cart_arr);
+    if(cartGroupedItems.length > 0){
+      let cartHtml = '';
+      cartGroupedItems.forEach((item) => {
+        cartHtml += `<div class="cart__card_vdb_item cart__card container is-align-center" data-variant-id="" data-line-item="">
+           <div class="cart__image">
+              <a href="${item.url}" title="${item.title}" class="cart_page_image">
+                 <div class="image-element__wrap">
+                    <!--speedsizeIgnore-->
+                    <img alt="" class="transition--fade-in lazyautosizes ls-is-cached lazyloaded" sizes="192px" src="${item.image ? item.image : noImageURL}">
+                    <!--endSpeedsizeIgnore-->
+                 </div>
+              </a>
+           </div>
+           <div class="cart__info">
+              <div class="cart__description">
+                 <div class="cart__text">
+                    <p class="item__title">
+                       <a href="${item.url}">${item.title}</a>
+                    </p>
+                    <p> </p>`;
+                    if(item.properties && Object.keys(item.properties).length > 0){
+                      let item_properties = Object.keys(item.properties);
+                      item_properties.sort();
+                      var custom_estimate_date = '';
+                      item_properties.forEach(function (prop) {
+                        let prop_arr = prop.split('_VDB_');
+                        let prop_title = prop_arr[0];
+                        if(prop_arr[1] != undefined){
+                          prop_title = prop_arr[1];
+                        }
+                        if(prop_title.charAt(0)!="_"){
+                          if(prop_title == 'Estimate Ship Date'){
+                            custom_estimate_date = `<div>${prop_title}: ${item.properties[prop]}</div>`;
+                          }
+                          else{
+                            cartHtml += `<div> ${prop_title}: ${item.properties[prop]} </div>`;
+                          }
+                        }
+                      });
+                      cartHtml += custom_estimate_date;
+                      const storedProps = JSON.parse(localStorage.getItem('itemProperties')) || {};
+                      if(storedProps[item.id]){
+                        if(typeof storedProps[item.id]['length'] != 'undefined' && storedProps[item.id]['length'] != ''){
+                          cartHtml += `<div>Length: ${storedProps[item.id]['length']}</div>`;
+                        }
+                        /*if(typeof storedProps[item.id]['estimate_ship_date'] != 'undefined' && storedProps[item.id]['estimate_ship_date'] != ''){
+                          cartHtml += `<div>Estimate Ship Date:${storedProps[item.id]['estimate_ship_date']}</div>`;
+                        }*/
+                      }
+                      cartHtml += `<p></p>`;
+                    }
+                    cartHtml += `</div>
+                          </div>
+                          <div class="cart__total"> <p> <span class="money">${vdbCartFormatMoney(parseFloat(item.price))}</span> </p> </div>
+                      </div>
+                      <div class="cart__remove" style="">
+                        <button class="close is-inline-flex is-align-center is-justify-center" onclick="tpc_cart_item_remove('cart_page','${item.key}')" type="button">
+                            <span class="icon " data-icon="x">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                              <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+                              </svg>
+                            </span>
+                        </button>
+                      </div>
+                      
+                    </div>`;
+                  });
+
+      //remove current item html
+      if(document.getElementsByClassName('cart__card_vdb_item')){
+        let ei_count = document.getElementsByClassName('cart__card_vdb_item').length;
+        for(let ei=0; ei<ei_count; ei++){
+          document.getElementsByClassName('cart__card_vdb_item')[0].remove();  //here loop removes every elem, so always it takes 0 positioned elem.
+        }
+      }
+      //add new item html
+      if(document.getElementsByClassName('cart__item-list')){
+        document.getElementsByClassName('cart__item-list')[0].insertAdjacentHTML("afterbegin", cartHtml)
+      }
+    }
+    
+
+
+  </script>
+{% endif %}
+
+{% if page_type_param == 'checkout' %}
+  <div id="vdb_price_to_get_symbol" style="display:none">{{ 100 | money }}</div>
+  <script>
+    groupingCheckoutItems();
+     function groupingCheckoutItems(){
+       let cart_arr = {};
+       let properties = {};
+       cart_arr.items = [];
+        {% for line_item in checkout.line_items %}
+            properties = {};
+            {% for prop in line_item.properties %}
+                {%- if prop.first == "_isMain" and prop.last == "true" -%}
+                    properties["{{ prop.first }}"] = "{{ prop.last }}";
+                    {%- if line_item.sku != blank -%}
+                        properties["Setting SKU"] = "{{ line_item.sku }}";
+                    {%- endif -%}
+                {%- elsif prop.first == "isStone" and prop.last == "true" -%}
+                    properties["{{ prop.first }}"] = "{{ prop.last }}";
+                    {%- if line_item.sku != blank -%}
+                        {%- if prop.first == "gem_type" and prop.last != blank -%}
+                            properties["Gemstone SKU"] = "{{ line_item.sku }}";
+                        {%- else -%}
+                            properties["Diamond SKU"] = "{{ line_item.sku }}";
+                        {%- endif -%}
+                    {%- endif -%}
+                {%- else -%}
+                    properties["{{ prop.first }}"] = "{{ prop.last }}";
+                {%- endif -%}
+            {% endfor %}
+
+            cart_arr.items.push({
+              "image": {% if line_item.image.src != blank %}"https://cdn.shopify.com/s/files/1/1164/4258/{{ line_item.image.src }}{%  else %} "{{"https"}}{{ settings.speedsize_url_pfx_https -}}{{ image | img_url: 'master' }}{% endif %}",
+              "line_price": {{ line_item.final_line_price }},
+              "price": {{ line_item.final_line_price }},
+              "title": '{{ line_item.title | replace: "'", "" }}',
+              "properties": properties,
+              "quantity": {{ line_item.quantity }},
+              "handle": '{{ line_item.product.handle }}',
+              "url": '{{ line_item.product.url }}'
+            });
+       {% endfor %}
+
+       let vdb_price_to_get_symbol = document.getElementById('vdb_price_to_get_symbol').innerHTML;
+       let cartGroupedItems = groupingCartItems(cart_arr);
+       const checkoutItemsTable = document.querySelector('.product-table');
+       if(cartGroupedItems.length > 0 && checkoutItemsTable){
+        let cartHtml = '';
+        cartGroupedItems.forEach((item) => {
+          cartHtml += `<tr class="product tt-0" data-product-id="" data-variant-id="" data-product-type="" data-customer-ready-visible="">
+           <td class="product__image">
+              <div class="product-thumbnail ">
+                 <div class="product-thumbnail__wrapper">
+                    <img alt="penny" class="product-thumbnail__image" src="${item.image}">
+                 </div>
+                 <span class="product-thumbnail__quantity" aria-hidden="true">${item.quantity}</span>
+              </div>
+           </td>
+           <th class="product__description" scope="row">
+              <span class="product__description__name order-summary__emphasis">${item.title}</span>
+              <span class="product__description__variant order-summary__small-text"></span>`;
+          if(item.properties && Object.keys(item.properties).length > 0){
+            let item_properties = Object.keys(item.properties);
+            item_properties.sort();
+            item_properties.forEach(function callback(prop) {
+              let prop_arr = prop.split('_VDB_');
+              let prop_title = prop_arr[0];
+              if(prop_arr[1] != undefined){
+                prop_title = prop_arr[1];
+              }
+              if(prop_title.charAt(0)!="_"){
+                cartHtml += `<span class="product__description__property order-summary__small-text"> ${prop_title}: ${item.properties[prop]} </span>`;    
+              }
+             });
+          }
+          cartHtml += `</th>
+           <td class="product__quantity">
+              <span class="visually-hidden"> ${ (item.quantity) } </span>
+           </td>
+           <td class="product__price">
+              <span class="order-summary__emphasis skeleton-while-loading">${vdbCartFormatMoney(parseFloat(item.price))}</span>
+           </td>
+        </tr>`;
+        });
+
+         const checkoutItemsTableTbody = checkoutItemsTable.querySelector('tbody');
+         if (checkoutItemsTableTbody) {
+           checkoutItemsTableTbody.innerHTML = cartHtml;
+         }
+      }
+
+     }
+  </script>
+{% endif %}
+<script>
+  $(document).on("click", ".ajax-cart__line-item-main_title", function () {
+      
+      var $el =  $(this);
+
+if ($el.length) {
+    var $nextDiv = $el.parent().next('div');
+
+    if ($nextDiv.length) {
+       $nextDiv.toggleClass("hidden");
+    }
+}
+$(this).toggleClass("active");
+      $(this).next(".ajax-cart__line-items").stop(true, true).slideToggle(300);
+  });
+  (function ($) {
+  // Flag to prevent recursive fetch calls when MageSDK fetches /cart.js internally
+  let isUpdatingMagePoints = false;
+
+  // Function to update ALL instances on the page
+  function updateMageCartPoints() {
+    if (isUpdatingMagePoints) return;
+
+    const fetchPoints = function () {
+      if (window.MageSDK && typeof window.MageSDK.getCartEarningValue === 'function') {
+        isUpdatingMagePoints = true;
+
+        window.MageSDK.getCartEarningValue()
+          .then(function (resp) {
+            if (resp && resp.success) {
+              const isCredit = resp.data.loyaltyMode === 'store_credit';
+              const formattedPoints = isCredit
+                ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(resp.data.points))
+                : resp.data.formatted; // e.g. "150"
+              const label = isCredit
+                ? `Earn <strong>${formattedPoints}</strong>&nbsp;Store Credit With This Purchase`
+                : `Earn <strong>${formattedPoints} Points</strong>&nbsp;With This Purchase`;
+              
+              // Target ALL instances by class name
+              const $pills = $('.mage-cart-rewards-pill');
+              
+              if ($pills.length) {
+                // Update text inside every instance
+                $pills.find('.mage-rewards-text').html(label);
+                // Show all pill instances
+                $pills.show(); 
+              }
+            }
+          })
+          .catch(function (err) {
+            console.error('Error fetching Mage SDK points:', err);
+          })
+          .finally(function () {
+            isUpdatingMagePoints = false; // Unlock interceptor flag
+          });
+      }
+    };
+
+    if (window.MageSDK) {
+      fetchPoints();
+    } else {
+      document.addEventListener('mage-sdk-loaded', fetchPoints, { once: true });
+    }
+  }
+
+
+  // 1. Run on DOM Ready
+  $(document).ready(function () {
+    updateMageCartPoints();
+  });
+
+  // 2. Intercept Native fetch() requests (Dawn theme, modern AJAX drawers)
+  const originalFetch = window.fetch;
+  window.fetch = async function () {
+    const response = await originalFetch.apply(this, arguments);
+    const url = typeof arguments[0] === 'string' ? arguments[0] : arguments[0]?.url || '';
+
+    if (
+      !isUpdatingMagePoints && 
+      (url.includes('/cart/add') || url.includes('/cart/change') || url.includes('/cart/update') || url.includes('/cart.js'))
+    ) {
+      updateMageCartPoints();
+    }
+
+    return response;
+  };
+
+  // 3. Intercept jQuery AJAX requests (Legacy AJAX drawers)
+  $(document).ajaxComplete(function (event, xhr, settings) {
+    if (
+      !isUpdatingMagePoints && 
+      settings.url && 
+      (settings.url.includes('/cart/add') || settings.url.includes('/cart/change') || settings.url.includes('/cart/update') || settings.url.includes('/cart.js'))
+    ) {
+      updateMageCartPoints();
+    }
+  });
+
+})(jQuery);
+</script>

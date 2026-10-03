@@ -1,0 +1,421 @@
+{% comment %} Section specific CSS {% endcomment %}
+
+{{ 'setting-tabs.css' | asset_url | stylesheet_tag }}
+
+<noscript>{{ 'setting-tabs.css' | asset_url | stylesheet_tag }}</noscript>
+
+<style>
+  #shopify-section-{{ section.id }} .section-heading{
+    margin-bottom: 30px;
+  }
+  #shopify-section-{{ section.id }} .section-heading h3{
+    margin-top: 0;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: normal;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .section-heading .main-subheading{
+    font-size: 22px;
+    font-style: italic;
+    line-height: 28.71px;
+    letter-spacing: 0.35px;
+    font-family: 'Playfair Display';
+  }
+
+  .history-content-wrapper {
+    align-items: center;
+    gap:20px;
+  }
+  .history-content-wrapper h6{
+    margin: 0 0 20px 6px;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-style: italic;
+  }
+  .history-content-wrapper h6 span{
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+  }
+  .history-tabs-buttons .flickity-prev-next-button{
+    top:28px;
+  }
+
+  @media screen and (max-width: 767px){
+    #shopify-section-{{ section.id }} .section-heading h3{
+      font-size: 18px;
+    }
+    #shopify-section-{{ section.id }} .section-heading .main-subheading{
+      font-size: 16px;
+    }
+     #shopify-section-{{ section.id }} .image-element__wrap img{
+       max-width: 180px;
+       margin: auto;
+     }
+    #shopify-section-{{ section.id }} .year-title{
+      font-size: 18px;  
+    }
+    #shopify-section-{{ section.id }} .year-title, #shopify-section-{{ section.id }} .history-content{
+      text-align: center;
+    }
+  }
+</style>
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-left: {{ section.settings.padding_left }}px;
+    padding-right: {{ section.settings.padding_right }}px;
+    {% if section.settings.width == 'wide' -%}
+      width: 100%;
+    {%- elsif section.settings.width == 'half' -%}
+      width: 50%;
+    {%- endif %}
+  }
+  #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons{
+    gap: 0;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tab-button{
+    border: 3px solid #f5f5f5;
+    font-size: 16px;
+    padding: 0.5rem 2rem;
+    outline: none;
+    box-shadodow: none;
+    letter-spacing: .1em;
+    background: #f5f5f5;
+    text-align:center;
+    margin-right:5px;
+   min-width:max-content;
+  }
+  
+  
+  #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tab-button.button-active {
+   border-color:#fca999;
+  }
+  #shopify-section-{{ section.id }} .product-content-wrapper{
+    justify-content: flex-start;
+  }
+  #shopify-section-{{ section.id }} .product-content-wrapper .product-item{
+    margin-right: 5px !important;
+  }
+  #shopify-section-{{ section.id }} .product-content-wrapper .image-element__wrap{
+    max-width: 100% !important;
+  }
+  #shopify-section-{{ section.id }} .flickity-prev-next-button{
+    background-color: transparent;
+  }
+  @media screen and (max-width: 1300px){
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons{
+      flex-wrap: nowrap;
+      overflow: auto;
+      padding: 0 1rem 1rem;
+      justify-content: flex-start;
+    }
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tab-button{
+      white-space: nowrap;
+    }
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-1,
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-2,
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-3{
+      justify-content: center;
+    }
+  }
+  @media screen and (max-width: 991px){
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-1,
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-2,
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-3{
+      justify-content: flex-start;
+    }
+  }
+
+  @media screen and (max-width: 767px){
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tab-button{
+      font-size: 14px;
+    }
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
+      left: -7px;
+    }
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
+      right: -19px;
+    }
+    #shopify-section-{{ section.id }} .flickity-prev-next-button .flickity-button-icon{
+      height: 15px;
+      width: 15px;
+    }
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-setting-tabs
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    has-no-side-gutter
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div class="section-heading text-center">
+    <h3>{{ section.settings.main_heading }}</h3>
+    <div class="main-subheading">
+      {{ section.settings.main_subheading }}
+    </div>
+  </div>
+  <div class="container">
+    {% assign buttonTextEmpty = false %}
+    {% assign buttonCount = 0 %}
+    {%- for block in section.blocks -%}
+      {% if block.settings.button_text == blank %}
+        {% assign buttonTextEmpty = true %}
+      {% endif %}
+      {% if block.settings.button_text != blank %}
+        {% assign buttonCount = buttonCount | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+    
+    <setting-tabs class="setting-tabs-wrapper one-whole">
+      
+        <div class="setting-tabs-buttons history-tabs-buttons tab-buttons-{{ buttonCount }}">
+          {%- for block in section.blocks -%}
+            {% assign buttonID = block.settings.year | replace: ' ', '-' | downcase %}
+            <button
+              id="{{ buttonID }}"
+              class="setting-tab-button history-button two column {{ buttonID }}{% if forloop.first %} button-active{% endif %}"
+            >
+              {{ block.settings.year }}
+            </button>
+          {% endfor %}
+        </div>
+      
+
+       {%- for block in section.blocks -%}
+        {% assign buttonID = block.settings.year | replace: ' ', '-' | downcase %}
+        <div
+          id="{{ buttonID }}-content"
+          class="setting-tab-content {{ buttonID }}-content js-related-products-slider{% if forloop.first %} tab-active{% endif %}"
+        >
+          <div
+            class="section history-content-wrapper container"
+          >
+       
+          
+        <div class="one-third column medium-down--one-half small-down--one-whole">
+         
+          {% if block.settings.image != blank %}
+            {%
+              render 'image-element',
+              image: block.settings.image,
+              alt: block.settings.image_alt
+            %}
+          {% else %}
+            <div class="image-element__wrap" style="height: auto;">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+        <div class="ten column medium-down--one-half small-down--one-whole">
+        
+          {% if block.settings.title != blank %}
+            <h6 style="color: {{ section.settings.text_color }};" class="year-title"><span>{{ block.settings.year }}:</span> {{ block.settings.title }}</h6>
+          {% endif %}
+
+          <div class="history-content">
+            {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+          </div>
+        </div>
+
+      
+          </div>
+        </div>
+      {% endfor %}
+    </setting-tabs>
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsCollectionTabs.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "History tabs",
+  "class": "collection-tabs history-tabs jsCollectionTabs",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+         {
+      "type": "text",
+      "label": "Main Heading",
+      "id": "main_heading"
+    },
+    {
+      "type": "richtext",
+      "label": "Main Subheading",
+      "id": "main_subheading"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "half",
+          "label": "Half"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+       "settings": [
+     
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        
+        {
+          "type": "text",
+          "label": "Image Alt Text",
+          "id": "image_alt"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        },
+         {
+          "type": "text",
+          "label": "Year",
+          "id": "year"
+        },
+        {
+          "type": "richtext",
+          "label": "Content",
+          "id": "content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "History tabs"
+    }
+  ]
+}
+{% endschema %}

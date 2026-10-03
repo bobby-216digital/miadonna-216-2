@@ -1,0 +1,108 @@
+<section class="confidence-section {{ section.settings.class }}" role="region" aria-labelledby="made-for-your-story-heading">
+    <div class="confidence-inner radius-2">
+      <h2 id="made-for-your-story-heading" class="common-hd" tabindex="0">
+        {{ section.settings.heading }}
+      </h2>
+      <p tabindex="0">{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+      <div class="confidence-row" role="list">
+        {% for block in section.blocks %}
+          <div class="confidence-box" role="listitem">
+            <a href="{{ block.settings.link }}" aria-label="{{ block.settings.label }}" tabindex="0">
+              {% if block.settings.icon_image != blank %}
+                <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.icon_image | img_url: 'medium' }}" alt="{{ block.settings.label }}">
+              {% else %}
+                <!-- Optional fallback SVG -->
+                {{ block.settings.icon_svg }}
+              {% endif %}
+              <span>{{ block.settings.label }}</span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Confidence Section",
+  "settings": [
+     {
+      "type": "text",
+      "id": "class",
+      "label": "Class",
+      "default": "common-spacing"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Confidence Starts Here"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Promo Description",
+      "default": "Description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "confidence_item",
+      "name": "Confidence Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Lifetime Guarantee"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "textarea",
+          "id": "icon_svg",
+          "label": "Custom SVG (optional)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Home Confidence Section",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "confidence_item",
+          "settings": {
+            "label": "Lifetime Guarantee",
+            "icon_svg": "<svg>...</svg>"
+          }
+        },
+        {
+          "type": "confidence_item",
+          "settings": {
+            "label": "Free U.S. Shipping",
+            "icon_svg": "<svg>...</svg>"
+          }
+        },
+        {
+          "type": "confidence_item",
+          "settings": {
+            "label": "Free 60-Day Returns",
+            "icon_svg": "<svg>...</svg>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

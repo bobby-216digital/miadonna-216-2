@@ -1,0 +1,87 @@
+{% assign product_to_add_auto = all_products['one-tree-planted'] %}
+
+{% if product_to_add_auto and cart.item_count > 0 %}
+   {% assign treeProductExists = false %}
+  {% for item in cart.items %}
+    {% if item.product.tags contains 'planted' %}
+      {% assign treeProductExists = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  {% if cart.item_count == 1  %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var treeProductRow = document.querySelector(".cart__card_vdb_item[data-variant-id='40793682083919']");
+    if (treeProductRow) {
+      var removeButton = document.querySelector(".cart__remove");
+      if (removeButton) {
+        removeButton.click();
+      }
+    }
+  });
+</script>
+
+ {% endif %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var addToCartButton = document.querySelector('.button--add-to-cart'); // Replace with your actual button selector
+
+  if (addToCartButton) {
+    addToCartButton.addEventListener("click", function(event) {
+      event.preventDefault();
+
+      // Parse the JSON string into a JavaScript object for the "One Tree Planted" product
+      var treeProduct = JSON.parse('{"id":7107697377359,"title":"One Tree Planted","handle":"one-tree-planted","description":"You\'ll Plant A Tree In The Amazon Rainforest Through Your Purchase\\n","published_at":"2023-09-22T11:14:50-07:00","created_at":"2023-09-21T05:36:11-07:00","vendor":"hidden","type":"","tags":["planted"],"price":10000,"price_min":10000,"price_max":10000,"available":true,"price_varies":false,"compare_at_price":null,"compare_at_price_min":0,"compare_at_price_max":0,"compare_at_price_varies":false,"variants":[{"id":40793682083919,"title":"Default Title","option1":"Default Title","option2":null,"option3":null,"sku":"","requires_shipping":true,"taxable":false,"featured_image":null,"available":true,"name":"One Tree Planted","public_title":null,"options":["Default Title"],"price":10000,"weight":0,"compare_at_price":null,"inventory_quantity":100,"inventory_management":"shopify","inventory_policy":"deny","barcode":"","requires_selling_plan":false,"selling_plan_allocations":[],"quantity_rule":{"min":1,"max":null,"increment":1}}],"images":["https:\/\/scdn.speedsize.com\/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05\/www.miadonna.com\/cdn\/shop\/files\/tree.jpg?v=1695299772"],"featured_image":"https:\/\/scdn.speedsize.com\/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05\/www.miadonna.com\/cdn\/shop\/files\/tree.jpg?v=1695299772","options":["Title"],"media":[{"alt":null,"id":28544312049743,"position":1,"preview_image":{"aspect_ratio":0.667,"height":600,"width":400,"src":"https:\/\/scdn.speedsize.com\/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05\/www.miadonna.com\/cdn\/shop\/files\/tree.jpg?v=1695299772"},"aspect_ratio":0.667,"height":600,"media_type":"image","src":"https:\/\/scdn.speedsize.com\/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05\/www.miadonna.com\/cdn\/shop\/files\/tree.jpg?v=1695299772","width":400}],"requires_selling_plan":false,"selling_plan_groups":[],"content":"You\'ll Plant A Tree In The Amazon Rainforest Through Your Purchase\\n"}');
+
+      var treeProductId = treeProduct.variants[0].id; // Access the product variant ID for the tree product
+      var currentProductId = '{{ product.id }}'; // Replace with your current product's ID
+      var quantity = 1; // Adjust the quantity as needed
+
+      // Send an AJAX request to add both products to the cart
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'id=' + currentProductId + '&quantity=' + quantity + '&id=' + treeProductId + '&quantity=' + quantity,
+      })
+      .then(function(response) {
+        if (response.ok) {
+          // Both products added to cart successfully; update your cart UI here
+          alert('Products added to cart!');
+          // You may want to fetch the updated cart contents and update the sidebar without a page refresh.
+        } else {
+          // Handle errors if the request fails
+          console.error('Failed to add products to cart.');
+        }
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+      });
+    });
+  }
+});
+</script>
+
+
+<script>
+  // Hide remove button and quantity button for labor-charge product
+  var treeProductRow = document.querySelector(".cart__card_vdb_item[data-variant-id='40793682083919']");
+  console.log(treeProductRow);
+  if (treeProductRow) {
+    var removeButton = treeProductRow.querySelector(".cart__remove-btn");
+    if (removeButton) {
+      removeButton.style.display = "none";
+    }
+    
+    var quantityButton = treeProductRow.querySelector(".cart__remove");
+    if (quantityButton) {
+      quantityButton.style.display = "none";
+    }
+  }
+
+</script>
+
+

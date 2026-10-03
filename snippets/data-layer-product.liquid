@@ -1,0 +1,42 @@
+<script type="text/javascript" defer>
+  {% for collection in collections %}
+    {% assign product_type = product.type | handle %}
+    {% if collection.handle == product_type %}
+      {% assign collection_id = collection.id %}
+      {% assign collection_title = collection.title %}
+    {% endif %}
+  {% endfor %}
+
+  window.dataLayer = window.dataLayer || [];
+
+  window.appStart = function(){
+    {% assign template_name = template.name %}
+
+    window.productPageHandle = function(){
+      window.dataLayer.push({
+        event: 'pr_view_item',
+        ecommerce:{
+          currency: {{ cart.currency.iso_code | json }},
+          value: {{ product.selected_or_first_available_variant.price | divided_by: 100 | json }},
+          items: [{
+            item_name: {{ product.title | json }},
+            item_id: {{ product.id | json }},
+            item_brand: {{ product.vendor | json }},
+            item_variant: {{ product.selected_or_first_available_variant.title | json }},
+            item_category: {{ product.type | json }},
+            item_list_id: {{ collection_id | json }},
+            item_list_name: {{ collection_title | json }},
+            price: {{ product.selected_or_first_available_variant.price | divided_by: 100 | json }}
+          }]
+        }
+      });
+    };
+
+    {% case template_name %}
+    {% when 'product' %}
+    	productPageHandle()
+    {% endcase %}
+  }
+
+  appStart();
+</script>

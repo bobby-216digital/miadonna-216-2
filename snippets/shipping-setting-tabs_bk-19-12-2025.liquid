@@ -1,0 +1,179 @@
+<div class="block--order-ship-date">
+  <div class="order-ship-date">
+    <img
+      src="{{ settings.speedsize_url_pfx_https -}}{{ 'calendar.png' | asset_url }}"
+      width="41px"
+      height="44px"
+      loading="eager"
+    >
+
+    {% if product.tags contains 'Ready To Ship' %}
+      {%- assign delivery_date = 'now' | date: '%s' -%}
+      {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+      {%- if delivery_week_day == 'Mon' -%}
+        {%- assign delivery_date = delivery_date | plus: 86400 -%}
+      {%- elsif delivery_week_day == 'Tue' -%}
+        {%- assign delivery_date = delivery_date | plus: 86400 -%}
+      {%- elsif delivery_week_day == 'Wed' -%}
+        {%- assign delivery_date = delivery_date | plus: 86400 -%}
+      {%- elsif delivery_week_day == 'Thu' -%}
+        {%- assign delivery_date = delivery_date | plus: 86400 -%}
+      {%- elsif delivery_week_day == 'Fri' -%}
+        {%- assign delivery_date = delivery_date | plus: 259200 -%}
+      {%- elsif delivery_week_day == 'Sat' -%}
+        {%- assign delivery_date = delivery_date | plus: 172800 -%}
+      {%- elsif delivery_week_day == 'Sun' -%}
+        {%- assign delivery_date = delivery_date | plus: 86400 -%}
+      {%- endif -%}
+     
+      {% elsif product.type contains 'Bracelets' %}
+        
+      {%- comment -%} old delivery condition was 1900800{%- endcomment -%}
+      {%- comment -%}
+      {%- assign delivery_date = 'now' | date: '%s' -%}
+      {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+
+      {%- if delivery_week_day == 'Mon' -%}
+        {%- assign delivery_date = delivery_date | plus: 1036800 -%}
+      {%- elsif delivery_week_day == 'Tue' -%}
+        {%- assign delivery_date = delivery_date | plus: 1036800 -%}
+      {%- elsif delivery_week_day == 'Wed' -%}
+        {%- assign delivery_date = delivery_date | plus: 1036800 -%}
+      {%- elsif delivery_week_day == 'Thu' -%}
+        {%- assign delivery_date = delivery_date | plus: 1036800 -%}
+      {%- elsif delivery_week_day == 'Fri' -%}
+        {%- assign delivery_date = delivery_date | plus: 1209600 -%}
+      {%- elsif delivery_week_day == 'Sat' -%}
+        {%- assign delivery_date = delivery_date | plus: 1209600 -%}
+      {%- elsif delivery_week_day == 'Sun' -%}
+        {%- assign delivery_date = delivery_date | plus: 1123200 -%}
+      {%- endif -%}
+      {%- endcomment -%}
+      
+      {%- comment -%} Set 12 business days condition on 2nd Dec 2025 as per mail "Shipping Timelines - Update Bracelet Timeline to 12-Days"{%- endcomment -%}
+
+      {%- assign holidayDates = '01/01,19/01,16/02,25/05,19/06,03/07,07/08,12/10,11/11,26/11,25/12' -%}
+      {%- assign estDate = "now" | date: "%s" -%}
+      {%- assign newestDate = estDate -%}
+      {%- assign estimateDays = 12 -%}
+      {%- for i in (1..estimateDays) -%}
+        {%- assign newestDate = newestDate | plus: 86400 -%}
+        {%- assign estDay = newestDate | date:'%a' -%}
+        {%- if estDay == 'Sat' -%}
+          {%- assign newestDate = newestDate | plus : 172800 -%}
+        {%- endif -%}
+        {%- if estDay == 'Sun' -%}
+          {%- assign newestDate = newestDate | plus : 86400 -%}
+        {%- endif -%}
+        {%- assign estDateMonth = newestDate | date:'%d/%m' -%}
+        {%- if holidayDates contains estDateMonth -%}
+          {%- assign newestDate = newestDate | plus : 86400 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign estDay = newestDate | date:'%a' -%}
+      {%- if estDay == 'Sat' -%}
+        {%- assign newestDate = newestDate | date: "%s" | plus : 172800 -%}
+      {%- endif -%}
+      {%- if estDay == 'Sun' -%}
+        {%- assign newestDate = newestDate | date: "%s" | plus : 86400 -%}
+      {%- endif -%}
+      {%- assign estDateMonth = newestDate | date:'%d/%m' -%}
+      {%- if holidayDates contains estDateMonth -%}
+        {%- assign newestDate = newestDate | date: "%s" | plus : 86400 | date: "%a, %b %d, %Y" -%}
+        {%- assign estDay = newestDate | date:'%a' -%}
+        {%- if estDay == 'Sat' -%}
+          {%- assign newestDate = newestDate | date: "%s" | plus : 86400 | date: "%a, %b %d, %Y" -%}
+        {%- endif -%}
+        {%- if estDay == 'Sun' -%}
+          {%- assign newestDate = newestDate | date: "%s" | plus : 172800 | date: "%a, %b %d, %Y" -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- assign delivery_date = newestDate -%}
+
+    {% elsif isStoneProduct == true %}
+        
+      {%- assign delivery_date = 'now' | date: '%s' -%}
+      {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+
+      {%- if delivery_week_day == 'Mon' -%}
+        {%- assign delivery_date = delivery_date | plus: 604800 -%}
+      {%- elsif delivery_week_day == 'Tue' -%}
+        {%- assign delivery_date = delivery_date | plus: 604800 -%}
+      {%- elsif delivery_week_day == 'Wed' -%}
+        {%- assign delivery_date = delivery_date | plus: 604800 -%}
+      {%- elsif delivery_week_day == 'Thu' -%}
+        {%- assign delivery_date = delivery_date | plus: 604800 -%}
+      {%- elsif delivery_week_day == 'Fri' -%}
+        {%- assign delivery_date = delivery_date | plus: 604800 -%}
+      {%- elsif delivery_week_day == 'Sat' -%}
+        {%- assign delivery_date = delivery_date | plus: 604800 -%}
+      {%- elsif delivery_week_day == 'Sun' -%}
+        {%- assign delivery_date = delivery_date | plus: 604800 -%}
+      {%- endif -%}
+    {% elsif category_group == 'wedding' %}
+      {%- assign delivery_date = 'now' | date: '%s' -%}
+      {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+      {%- if delivery_week_day == 'Mon' -%}
+        {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+      {%- elsif delivery_week_day == 'Tue' -%}
+        {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+      {%- elsif delivery_week_day == 'Wed' -%}
+        {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+      {%- elsif delivery_week_day == 'Thu' -%}
+        {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+      {%- elsif delivery_week_day == 'Fri' -%}
+        {%- assign delivery_date = delivery_date | plus: 1555200 -%}
+      {%- elsif delivery_week_day == 'Sat' -%}
+        {%- assign delivery_date = delivery_date | plus: 1555200 -%}
+      {%- elsif delivery_week_day == 'Sun' -%}
+        {%- assign delivery_date = delivery_date | plus: 1468800 -%}
+      {%- endif -%}
+    {% elsif category_group == 'sale' %}
+      {%- assign current_hour = 'now' | date: '%k' -%}
+      {%- if current_hour >= 12 -%}
+        {%- assign delivery_date = 'now' | date: '%s' -%}
+        {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+        {%- if delivery_week_day == 'Tue' -%}
+          {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+        {%- elsif delivery_week_day == 'Wed' -%}
+          {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+        {%- endif -%}
+
+      {%- else -%}
+        {%- if week_day == 'Fri' -%}
+          {%- assign added_ship_time = 0 -%}
+        {%- endif -%}
+        {%- assign delivery_date = 'now' | date: '%s' -%}
+        {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+        {%- if delivery_week_day == 'Tue' -%}
+          {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+        {%- elsif delivery_week_day == 'Wed' -%}
+          {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+        {%- endif -%}
+      {%- endif -%}
+    {% else %}
+     
+      {%- assign delivery_date = 'now' | date: '%s' -%}
+      {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+      {%- if delivery_week_day == 'Mon' -%}
+        {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+      {%- elsif delivery_week_day == 'Tue' -%}
+        {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+      {%- elsif delivery_week_day == 'Wed' -%}
+        {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+      {%- elsif delivery_week_day == 'Thu' -%}
+        {%- assign delivery_date = delivery_date | plus: 1382400 -%}
+      {%- elsif delivery_week_day == 'Fri' -%}
+        {%- assign delivery_date = delivery_date | plus: 1555200 -%}
+      {%- elsif delivery_week_day == 'Sat' -%}
+        {%- assign delivery_date = delivery_date | plus: 1555200 -%}
+      {%- elsif delivery_week_day == 'Sun' -%}
+        {%- assign delivery_date = delivery_date | plus: 1468800 -%}
+      {%- endif -%}
+    {% endif %}
+   
+ 
+    <p class="order-ship-text">Order now to ship by:</p>
+    <p id="estimate_ship_date" class="order-ship-date order-ship-days" data-default-date="{{ delivery_date | date: '%a, %b %e' }}"> {{ delivery_date | date: '%a, %b %e' }}</p>
+  </div>
+</div>

@@ -1,0 +1,430 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Testimonials",
+  "class": "testimonials jsTestimonials",
+  "max_blocks": 21,
+  "id": "index__testimonial",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_border",
+      "label": "Show border",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_enable_images",
+      "label": "Show images",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_crop_shape",
+      "label": "Image crop shape",
+      "info": "Upload square images for best cropping results",
+      "options": [
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "select",
+      "id": "atb_card_alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_card_text",
+      "label": "Quote text",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_card_background",
+      "label": "Quote background",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Testimonial"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_image",
+      "label": "Image",
+      "info": "500 x 500px recommended",
+      "repeatable": "Testimonial"
+    },
+    {
+      "type": "wysiwyg",
+      "id": "block_quote",
+      "label": "Text",
+      "default": "<p>Include a favorite customer quote or feedback here.</p>",
+      "repeatable": "Testimonial",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "block_text",
+      "label": "Text",
+      "default": "<p><strong>Customer name</strong></p><p><em>More info about them could go here.</em></p><p>customerlink.com</p>",
+      "repeatable": "Testimonial",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "block_info_text",
+      "label": "Info text",
+      "default": "rgba(0,0,0,0)",
+      "repeatable": "Testimonial",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "block_info_background",
+      "label": "Info background",
+      "default": "rgba(0,0,0,0)",
+      "repeatable": "Testimonial",
+      "info": ""
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_show_border' -%}
+{%- assign atb_show_border = val -%}
+{%- include 'atb-render' field:'atb_enable_images' -%}
+{%- assign atb_enable_images = val -%}
+{%- include 'atb-render' field:'atb_crop_shape' -%}
+{%- assign atb_crop_shape = val -%}
+{%- include 'atb-render' field:'atb_card_alignment' -%}
+{%- assign atb_card_alignment = val -%}
+{%- include 'atb-render' field:'atb_card_text' -%}
+{%- assign atb_card_text = val -%}
+{%- include 'atb-render' field:'atb_card_background' -%}
+{%- assign atb_card_background = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_quote' -%}
+{%- assign block_quote = val -%}
+{%- include 'atb-render' field:'block_text' -%}
+{%- assign block_text = val -%}
+{%- include 'atb-render' field:'block_info_text' -%}
+{%- assign block_info_text = val -%}
+{%- include 'atb-render' field:'block_info_background' -%}
+{%- assign block_info_background = val -%}
+{%- if atb_show_border == blank -%}
+{%- assign atb_show_border = false -%}
+{%- else -%}
+{%- assign atb_show_border = true -%}
+{%- endif -%}
+{%- if atb_enable_images == blank -%}
+{%- assign atb_enable_images = false -%}
+{%- else -%}
+{%- assign atb_enable_images = true -%}
+{%- endif -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section testimonials jsTestimonials">
+{% comment %}
+** Testimonial **
+{% endcomment %}
+
+{%- assign blocks = section.blocks -%}
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{%- assign card_text_alpha = atb_card_text | color_extract: 'alpha' -%}
+{%- assign card_background_alpha = atb_card_background | color_extract: 'alpha' -%}
+
+{% comment %} Column width {% endcomment %}
+{% if blocks.size >= 3 %}
+  {%- assign column_value = 3 -%}
+{% else %}
+  {%- assign column_value = blocks.size -%}
+{% endif %}
+
+{% capture section_css -%}
+
+  .testimonial-block {
+    background-color: {%- if card_background_alpha != 0 -%}{{ atb_card_background }}{%- endif -%};
+  }
+
+  .testimonial__description {
+    color: {%- if card_text_alpha != 0 -%}{{ atb_card_text }}{%- endif -%};
+  }
+{%- endcapture -%}
+
+{% style %}
+  #shopify-section-{{ section_id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+  {% render 'css-loop',
+          css: section_css,
+          id: section_id
+  %}
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+<section class="section
+                {{ atb_css_class }}
+                is-width-{{ atb_width }}
+                {% if blocks.size == 3 %}mobile-slider{% endif %}
+                {% if blocks.size <= 3 %}desktop-slider--disabled{% endif %}
+                "
+          {% if atb_animation != "none" %}
+            data-scroll-class="{{ atb_animation }}"
+          {% endif %}>
+
+  {% if blocks.size > 2 %}
+    <div class="container">
+      <div class="testimonial__nav-wrapper one-whole column is-flex">
+        <div class="testimonial__nav testimonial__nav--prev">
+          {% render 'icon', name: 'left-arrow' %}
+        </div>
+        <div class="testimonial__nav testimonial__nav--next ">
+          {% render 'icon', name: 'right-arrow' %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="testimonials container" {% if blocks.size > 2 %}data-testimonial-slider{% endif %}>
+    {% for block in blocks %}
+
+      {% comment %} Content settings {% endcomment %}
+      {%- assign image = my_image0 -%}
+      {%- assign quote = block_quote[forloop.index0] -%}
+      {%- assign text = block_text[forloop.index0] -%}
+      {%- assign info_text = block_info_text[forloop.index0] -%}
+      {%- assign info_background = block_info_background[forloop.index0] -%}
+      {% comment %} End content settings {% endcomment %}
+
+      {% comment %} Is the color set to transparent? {% endcomment %}
+      {%- assign info_text_alpha = info_text | color_extract: 'alpha' -%}
+      {%- assign info_background_alpha = info_background | color_extract: 'alpha' -%}
+
+      <div id="shopify-section-{{ blocks[forloop.index0] }}"
+          class="testimonial-block
+                  block--{{ blocks[forloop.index0] }}
+                  column
+                  has-images-enabled-{{ atb_enable_images  }}
+                  testimonial-border--{{ atb_show_border }}
+                  testimonial-align--{{ atb_card_alignment }}
+                  {% render 'column-width', value: column_value %}
+                  medium-down--one-whole" data-testimonial-index={{ forloop.index0 }} {{ block.shopify_attributes }}>
+
+        <style>
+            .block--{{ blocks[forloop.index0] }} .testimonial__name {
+              color: {%- if info_text_alpha != 0 -%}{{ info_text }}{%- endif -%};
+              background-color: {%- if info_background_alpha != 0 -%}{{ info_background }}{% else %}{{ settings.shop_bg_color }}{%- endif -%};
+            }
+        </style>
+
+        <div class="testimonial__description">
+            {{ quote }}
+        </div>
+        <div class="testimonial__name">
+
+          {{ text }}
+
+          <div class="testimonial__image has-image-crop image-style--{{ atb_crop_shape }}">
+              {% if atb_enable_images == true %}
+                {% if image != blank %}
+                  {%
+                    render 'image-element',
+                    image: image,
+                    alt: image.alt,
+                    focal_point: image.presentation.focal_point,
+                  %}
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              {% endif %}
+            </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% comment %}JavaScript{% endcomment %}
+<script
+  type="application/json"
+  data-section-id="{{ section_id }}"
+  data-section-data
+>
+  {
+  }
+</script>
+<script data-theme-editor-load-script src="{{ 'z__jsTestimonials.js' | asset_url }}"></script>
+
+
+
+</section>

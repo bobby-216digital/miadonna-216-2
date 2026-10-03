@@ -1,0 +1,96 @@
+{{ 'lab-diamonds-sub-footer-bar.css' | asset_url | stylesheet_tag }}
+
+{% assign width = section.settings.width %}
+
+<div class="sub_footer-bar">
+  <div class="section is-width-{{ width }}">
+    <div class="container">
+      {% for block in section.blocks %}
+        <div
+          class="
+            sub_footer-bar-item {%
+              render 'column-width',
+              value: section.blocks.size
+            %} medium-down--one-whole column
+          "
+        >
+          <div class="sub_footer-bar-content">
+            {% if block.settings.url != blank %}
+              <a href="{{ block.settings.url }}">
+            {% endif %}
+            <p>{{ block.settings.title }}</p>
+            {% if block.settings.url != blank %}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Sub Footer Bar",
+  "class": "sub-footer-bar lab-diamonds-sub-footer-bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "EASY 60-DAY RETURNS"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sub Footer Bar",
+      "category": "Sub Footer Bar",
+      "blocks": [
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

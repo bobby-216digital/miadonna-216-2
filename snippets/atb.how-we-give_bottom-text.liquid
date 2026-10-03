@@ -1,0 +1,75 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Text With Button",
+  "id": "how-we-give_bottom-text",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Title",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_description",
+      "label": "Description Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_btn_text",
+      "label": "Button Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_btn_link",
+      "label": "Button Link",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_description' -%}
+{%- assign atb_description = val -%}
+{%- include 'atb-render' field:'atb_btn_text' -%}
+{%- assign atb_btn_text = val -%}
+{%- include 'atb-render' field:'atb_btn_link' -%}
+{%- assign atb_btn_link = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<div class="content-cell black-text">
+	<div class="body-cell typeset-cell"><i class="ornamental-break ornamental-break-green"></i>
+		<h2>{{ atb_title }}</h2>
+		{{ atb_description }}
+  <a href="{{ atb_btn_link }}" class="green-btn">{{ atb_btn_text }}</a>
+	</div>
+</div>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script></section>

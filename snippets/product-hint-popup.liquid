@@ -1,0 +1,397 @@
+<div
+  class="fancybox-container popup-modal certificate-popup product-images-popup product-hint-popup fancybox-is-open"
+  role="dialog"
+  tabindex="-1"
+  id="product-hint-popup"
+  style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;"
+>
+  <div class="fancybox-bg" onClick="productHintClosePopup()"></div>
+  <div class="fancybox-inner">
+    <div class="fancybox-stage">
+      <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+        <div
+          class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+          style="display: inline-block;"
+        >
+          <button onClick="productHintClosePopup()" class="close popup__close" aria-label="close">
+            <span class="icon icon--vertical-align" data-icon="x">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                 <title>Close</title>
+                <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="popup__inner is-flex">
+            <div class="popup__content one-half text-center">
+              <h3>Send a Hint</h3>
+              <p class="subtitle">
+                Tell them
+                <i>it's time</i>
+                with a subtle hint.
+              </p>
+
+              <form
+                class="send-hint-form"
+                id="send-hint-form"
+                onsubmit="return false"
+              >
+                <input
+                  type="hidden"
+                  name="product-title"
+                  id="product-title"
+                  value="{{ product.title }}"
+                >
+   <input
+                  type="hidden"
+                  name="product-url"
+                  id="product-url"
+                  value="{{ product.url }}"
+                >
+                <div class="container">
+                  <div class="one-half small-down--one-whole column">
+                    <h5>Sender</h5>
+                    <label for="hint_from_name" class="visually-hidden">Sender name</label>
+                    <input
+                      type="text"
+                      name="NAME"
+                      id="hint_from_name"
+                      placeholder="NAME*"
+                      required
+                    >
+                    <label for="hint_from_email" class="visually-hidden">Sender email</label>
+                    <input
+                      type="email"
+                      name="EMAIL"
+                      id="hint_from_email"
+                      placeholder="EMAIL*"
+                      required
+                    >
+                  </div>
+                  <div class="one-half small-down--one-whole column">
+                    <h5>Recipient</h5>
+                    <label for="hint_to_name" class="visually-hidden">Recipient name</label>
+                    <input
+                      type="text"
+                      name="RNAME"
+                      id="hint_to_name"
+                      placeholder="NAME*"
+                      required
+                    >
+                    <div style="display: none;" id="error_message_name_required" class="error_message">Please enter the name</div>
+
+                    <label for="hint_to_email" class="visually-hidden">Recipient email</label>
+                    <input
+                      type="email"
+                      name="REMAIL"
+                      id="hint_to_email"
+                      placeholder="EMAIL*"
+                      required
+                    >
+                  </div>
+                </div>
+                <hr>
+                <h5>Make sure they know your...</h5>
+                <div class="container">
+                  <div class="one-half small-down--one-whole column">
+                    <label for="hint_metal_preference" class="visually-hidden">Metal Preference</label>
+                    <select
+                      name="MPREFERNCE"
+                      id="hint_metal_preference"
+                    >
+                      <option
+                        value=""
+                        disabled
+                        selected
+                      >
+                        METAL PREFERENCE
+                      </option>
+                      <option value="14K White Gold">14K White Gold</option>
+                      <option value="14K Yellow Gold">14K Yellow Gold</option>
+                      <option value="14K Rose Gold">14K Rose Gold</option>
+                      <option value="18K White Gold">18K White Gold</option>
+                      <option value="18K Yellow Gold">18K Yellow Gold</option>
+                      <option value="18K Rose Gold">18K Rose Gold</option>
+                      <option value="Platinum">Platinum</option>
+                    </select>
+                    <label for="hint_ring_size" class="visually-hidden">Ring Size</label>
+                    <select
+                       name="RSIZE"
+                      id="hint_ring_size"
+                    >
+                      <option
+                        value=""
+                        disabled
+                        selected
+                      >
+                        RING SIZE
+                      </option>
+                      <option value="3">3</option>
+                      <option value="3.25">3.25</option>
+                      <option value="3.50">3.50</option>
+                      <option value="3.75">3.75</option>
+                      <option value="4">4</option>
+                      <option value="4.25">4.25</option>
+                      <option value="4.50">4.50</option>
+                      <option value="4.75">4.75</option>
+                      <option value="5">5</option>
+                      <option value="5.25">5.25</option>
+                      <option value="5.50">5.50</option>
+                      <option value="5.75">5.75</option>
+                      <option value="6">6</option>
+                      <option value="6.25">6.25</option>
+                      <option value="6.50">6.50</option>
+                      <option value="6.75">6.75</option>
+                      <option value="7">7</option>
+                      <option value="7.25">7.25</option>
+                      <option value="7.50">7.50</option>
+                      <option value="7.75">7.75</option>
+                      <option value="8">8</option>
+                      <option value="8.25">8.25</option>
+                      <option value="8.50">8.50</option>
+                      <option value="8.75">8.75</option>
+                      <option value="9">9</option>
+                      <option value="9.25">9.25</option>
+                      <option value="9.50">9.50</option>
+                      <option value="9.75">9.75</option>
+                      <option value="10">10</option>
+                      <option value="10.25">10.25</option>
+                      <option value="10.50">10.50</option>
+                      <option value="10.75">10.75</option>
+                      <option value="11">11</option>
+                      <option value="11.25">11.25</option>
+                      <option value="11.50">11.50</option>
+                      <option value="11.75">11.75</option>
+                      <option value="12">12</option>
+                      <option value="12.25">12.25</option>
+                      <option value="12.50">12.50</option>
+                      <option value="12.75">12.75</option>
+                      <option value="13">13</option>
+                      <option value="13.25">13.25</option>
+                      <option value="13.50">13.50</option>
+                      <option value="13.75">13.75</option>
+                    </select>
+                    <label for="hint_center_stone" class="visually-hidden">Center Stone Type</label>
+                    <select
+                     name="STYPE"
+                      id="hint_center_stone"
+                    >
+                      <option
+                        value=""
+                        disabled
+                        selected
+                      >
+                        CENTER STONE TYPE
+                      </option>
+                      <option value="Lab-Grown Diamond">Lab-Grown Diamond</option>
+                      <option value="Lab-Grown Gemstone">Lab-Grown Gemstone</option>
+                      <option value="Diamond Hybrid">Diamond Hybrid&reg;</option>
+                    </select>
+                  </div>
+                  <div class="one-half small-down--one-whole column">
+                    <label for="hint_personal_note" class="visually-hidden">Add a Personal Note</label>
+                    <textarea
+                     name="NOTE"
+                      id="hint_personal_note"
+                      placeholder="ADD A PERSONAL NOTE"
+                    ></textarea>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  onclick="submitFormhint()"
+                  id="hint-submit"
+                >
+                  Send Hint
+                </button>
+                <p class="small">*Required</p>
+
+                <footer>
+                  <div class="text-style-subtitle tinted email-alert email-alert-success">
+                    Congratulations! Your hint was successfully sent.
+                  </div>
+                  <div class="text-style-subtitle tinted email-alert email-alert-error">The email address you entered doesn't appear to be valid. Please check it and try again, or give us a call at (503) 336-1581 for assistance.</div>
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function submitFormhint() {
+    let formData = new FormData();
+    var fromemail = jQuery("#hint_from_email").val();
+    var fromname = jQuery("#hint_from_name").val();
+    var name = jQuery("#hint_to_name").val();
+    var title = jQuery("#product-title").val();
+    var email = jQuery("#hint_to_email").val();
+    var metalprefernce = jQuery("#hint_metal_preference").val();
+    var ringsize = jQuery("#hint_ring_size").val();
+    var centerstone = jQuery("#hint_center_stone").val();
+    var personalnote = jQuery("#hint_personal_note").val();
+    var producturl = jQuery("#product-url").val();
+  
+    if (fromname.length <= 0) {
+      // $('#error_message_name_required').css('display', 'block');
+      return;
+    }
+    if (fromemail.length <= 0) {
+      // $('#error_message_name_required').css('display', 'block');
+      return;
+    }
+    var expressionReguliere = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+    if (expressionReguliere.test(email)) {
+      console.log("Mail Okay");
+      formData.append("email", email);
+      formData.append("$first_name", name);
+  
+      formData.append(
+        "$fields",
+        "metalprefernce,$metalprefernce,fromname,$fromname,fromemail,$fromemail,ringsize,$ringsize,centerstone,$centerstone,title,$title,personalnote,$personalnote,producturl,$producturl"
+      );
+      formData.append("$metalprefernce", metalprefernce);
+      formData.append("$fromname", fromname);
+      formData.append("$fromemail", fromemail);
+      formData.append("$ringsize", ringsize);
+      formData.append("$centerstone", centerstone);
+      formData.append("$title", title);
+      formData.append("$personalnote", personalnote);
+      formData.append("$producturl", producturl);
+      let fetchData = {
+        method: "POST",
+        body: formData,
+        // headers: headers
+      };
+      fetch(
+        "https://manage.kmail-lists.com/ajax/subscriptions/subscribe?a=s48Rp2&g=RNsVSW",
+        fetchData
+      )
+        .then((data) => data.json())
+        .then((response) => {
+          console.log(response);
+  
+          $(".email-alert-success").css("display", "block");
+  
+          document.getElementById("send-hint-form").reset();
+          trackProfileUpdate(email);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      console.log("Error mail");
+      $(".email-alert-error").css("display", "block");
+    }
+   
+  }
+  function trackProfileUpdate(email) {
+    const settings = {
+      async: true,
+      crossDomain: true,
+      url: 'https://a.klaviyo.com/api/track',
+      method: 'POST',
+      headers: {
+        accept: 'text/html',
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        data: '{"token": "s48Rp2", "event": "Profile Updated", "customer_properties": {"$email": "'+ email +'"}}'
+      }
+    };
+    
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+  }
+</script>
+<!-- <script>
+
+
+  function validateEmails(emails) {
+  for (var i = 0; i < emails.length; i++) {
+    if (isEmpty(emails[i]) || emails[i].length < 6 || emails[i].indexOf('@') < 1) {
+      return false;
+    }
+  }
+  return true;
+}
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+function isEmpty(obj) {
+  // double equals is correct here.
+  if (obj == null) return true;
+  if (obj.length > 0) return false;
+  if (obj.length === 0) return true;
+  for (var key in obj) {
+    if (hasOwnProperty.call(obj, key)) return false;
+  }
+  var validTypeofs = ['number', 'string', 'symbol'];
+  var type = typeof obj;
+  if (validTypeofs.indexOf(type) >= 0) return false;
+  return true;
+}
+   $('#send-hint-form').submit(function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    var $form = $(e.currentTarget);
+    var $button = $form.find('button[type="submit"]');
+    var buttonText;
+    var $alerts;
+
+    if (!$button.prop('disabled')) {
+      buttonText = $button.text();
+      $button.text('Sending...').prop('disabled', true);
+      $alerts = $form.find('footer .email-alert').fadeOut();
+
+      var data = {
+        hintToName: $form.find('input[name="hint_to_name"]').val(),
+        hintToEmail: $form.find('input[name="hint_to_email"]').val(),
+        hintFromName: $form.find('input[name="hint_from_name"]').val(),
+        hintFromEmail: $form.find('input[name="hint_from_email"]').val(),
+        product: $form.find('input[name="product-title"]').val(),
+        productURL: document.URL,
+        hintMetalPreference: $form.find('select[name="hint_metal_preference"]').val(),
+        hintRingSize: $form.find('select[name="hint_ring_size"]').val(),
+        hintCenterStone: $form.find('select[name="hint_center_stone"]').val(),
+        hintPersonalNote: $form.find('textarea[name="hint_personal_note"]').val(),
+      };
+
+      if (validateEmails([data.hintToEmail, data.hintFromEmail])) {
+        $.post({
+          url: 'https://miadonna-forms-functions.azurewebsites.net/api/SendAHint',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          success: function () {
+            $button.text(buttonText).prop('disabled', false);
+            $form[0].reset();
+
+
+          $alerts.filter('.email-alert-success').fadeIn().delay(3000).fadeOut('slow');
+
+          $form.closest('._content .overlay-toggle-button').click();
+          },
+        }).fail(function () {
+          $alerts
+            .filter('.email-alert-error')
+            .text(
+              'There was an error sending your hint. Please give us a call at (503) 336-1581 for assistance or try again later.'
+            )
+            .fadeIn();
+
+          $button.text(buttonText).prop('disabled', false);
+        });
+      } else {
+        $alerts
+          .filter('.email-alert-error')
+          .text(
+            "The email address you entered doesn't appear to be valid. Please check it and try again, or give us a call at (503) 336-1581 for assistance."
+          )
+          .fadeIn();
+
+        $button.text(buttonText).prop('disabled', false);
+      }
+    }
+  });
+</script> -->

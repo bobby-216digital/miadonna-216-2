@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "30599593-c6cf-46de-98a2-79cb1176ee42": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "international-orders-faqs"
+          }
+        },
+        "custom_html_bj3tiB": {
+          "type": "custom_html",
+          "settings": {
+            "html": "<script type=\"application\/ld+json\">\n{\n  \"@context\": \"https:\/\/schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [{\n    \"@type\": \"Question\",\n    \"name\": \"Who pays for the cost of my order coming into my country from the US?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"International recipients are responsible for paying the Duty and Customs charges that may be applied at entry into your country. Please contact your local Customs Department with questions about additional fees and processes regarding your order from MiaDonna.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How much does shipping cost for international orders?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"A $150 USD flat-rate shipping charge is applied to all international orders. See more details on international shipping.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How can I convert my ring size to USA sizes?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Download our International Ring Size Conversion Chart to convert your ring size easily!\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Where do you ship to?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"We ship to all 50 states and internationally to about 50 countries, including Canada, Australia, the UK, France, Germany, Switzerland, Italy, New Zealand, and many others. All international shipments are subject to the laws set forth by your country's Customs Department. Please note that MiaDonna has no control over customs\/taxes for individual countries. If you are unsure how the customs process works in your country, please contact your Customs Department directly with any questions or concerns you may have about receiving your MiaDonna order. Here's a full list of shipping destinations: Australia, Austria, Bahamas, Bahrain, Barbados, Belgium, Bermuda, Bonaire, Canada, Cayman Islands, China, Curacao, Denmark, Faroe Islands, Finland, France, Germany, Gibraltar, Greenland, Guam, Hong Kong, Ireland, Jamaica, Japan, Macau, Malaysia, Marshall Islands, Montserrat, Netherlands, New Zealand, Norway, Portugal, Puerto Rico, Qatar, Singapore, Spain, Sweden, Switzerland, Taiwan, Trinidad and Tobago, Turks and Caicos Islands, U.S. Virgin Islands, United Kingdom,and United States.\"\n    }\n  }]\n}\n<\/script>"
+          }
+        }
+      },
+      "block_order": [
+        "30599593-c6cf-46de-98a2-79cb1176ee42",
+        "custom_html_bj3tiB"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

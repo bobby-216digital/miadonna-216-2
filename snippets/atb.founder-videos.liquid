@@ -1,0 +1,112 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Founder Videos",
+  "class": "bottom-padding-only",
+  "id": "founder-videos",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_video_url1",
+      "label": "Vimeo Url 1",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_video_url2",
+      "label": "Vimeo Url 2",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_video_url1' -%}
+{%- assign atb_video_url1 = val -%}
+{%- include 'atb-render' field:'atb_video_url2' -%}
+{%- assign atb_video_url2 = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section bottom-padding-only">
+<style>
+  #shopify-section-{{ section_id }} {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section_id }}.bottom-padding-only {
+    padding-top: 0;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section_id }} {
+      padding: 50px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} {
+      padding: 100px 50px;
+    }
+  }
+  @media only screen and (max-width: 1023px) {
+    #shopify-section-{{ section_id }} .founder-video .video-col {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+    #shopify-section-{{ section_id }} .founder-video .video-col:first-child {
+      padding-top: 0;
+    }
+    #shopify-section-{{ section_id }} .founder-video .video-col:last-child {
+      padding-bottom: 0;
+    }
+  }
+</style>
+
+<section class="section is-standard content-cell -bottom-padding-only founder-video">
+  <div class="body-cell">
+    <div class="container video-grid">
+      <div class="one-half small-down--one-whole column video-col">
+        <iframe
+          src="{{ atb_video_url1  }}?color=ffa998&amp;title=0&amp;byline=0&amp;portrait=0"
+          width="640"
+          height="360"
+          frameborder="0"
+          webkitallowfullscreen=""
+          mozallowfullscreen=""
+          allowfullscreen=""
+        ></iframe>
+      </div>
+      <div class="one-half small-down--one-whole column video-col">
+        <iframe
+          src="{{ atb_video_url2  }}?color=ffa998&amp;title=0&amp;byline=0&amp;portrait=0"
+          width="640"
+          height="360"
+          frameborder="0"
+          webkitallowfullscreen=""
+          mozallowfullscreen=""
+          allowfullscreen=""
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

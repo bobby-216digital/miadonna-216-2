@@ -1,0 +1,116 @@
+<section class="section lgd-block lgd-real">
+  <div class="container">
+    <div class="pure-g body-cell cta-row"><div class="pure-u-1 pure-u-lg-24-24 cta-col">
+        <div class="cta-table">
+          <table>
+            <tbody>
+              <tr>
+                <th></th>
+                <th>{{ section.settings.header1 }}</th>
+                <th>{{ section.settings.header2 }}</th>
+              </tr>
+              {% for block in section.blocks %}
+              <tr>
+                <td>{{ block.settings.title }}</td>
+                <td>{{ block.settings.value1 }}</td>
+                <td>{{ block.settings.value2 }}</td>
+              </tr>
+              {% endfor %}
+             
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+  <style>
+    .cta-row .cta-col .cta-table table tr:nth-child(2n) td {
+    background-color: #f4f4f4;
+}
+    .cta-row .cta-col .cta-table table tr:nth-child(odd) td {
+    background-color: #f9f9f9;
+}
+    .cta-row .cta-col .cta-table table th, .cta-row .cta-col .cta-table table td {
+    text-align: center;
+}
+   .cta-row .cta-col .cta-table table th {
+    background: #e2e2e2;
+    color: #000;
+    text-transform: uppercase;
+}
+    .cta-row .cta-col .cta-table table th, .cta-row .cta-col .cta-table table td {
+    font-size: 15px;
+    padding: 2em;
+}
+    .cta-row .cta-col .cta-table table th,.cta-row .cta-col .cta-table table td {
+    border: 1px solid #ffffff;
+    }
+    .cta-row .cta-col .cta-table table {
+    font-family: Montserrat,sans-serif;
+    font-weight: 500;
+    overflow-x: auto;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+    @media screen and (max-width:768px){
+      .cta-row .cta-col .cta-table table th, .cta-row .cta-col .cta-table table td {
+    font-size: 9px;
+    padding: 1.5em;
+    line-height: 16px;
+}
+    }
+  </style>
+{% schema %}
+  {
+    "name": "Table Data",
+    "settings": [
+       {
+      "type": "text",
+      "id": "header1",
+      "label": "Heading 1"
+       },
+      {
+      "type": "text",
+      "id": "header2",
+      "label": "Heading 2"
+       }
+    ],
+      "blocks": [
+    {
+      "type": "text",
+      "name": "table_text",
+      "settings": [
+        {
+          "type": "text",
+           "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "value1",
+          "label": "Value 1"
+        },
+         {
+          "type": "text",
+          "id": "value2",
+          "label": "Value 2"
+        }
+      ]
+    }
+      ],
+      "presets": [
+    {
+      "name": "Table Data",
+      "category": "Text"
+    }
+      ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

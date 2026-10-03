@@ -1,0 +1,164 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Blog Menu",
+  "id": "blog-menu-section",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_blog_menu_title",
+      "label": "Blog Menu Title",
+      "info": ""
+    },
+    {
+      "type": "link_list",
+      "id": "atb_blog_menu",
+      "label": "Select Menu",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "block_type",
+      "label": "Block Type",
+      "info": "",
+      "default": "",
+      "options": [
+        {
+          "value": "search",
+          "label": "search"
+        }
+      ],
+      "repeatable": "block"
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "block"
+    },
+    {
+      "type": "select",
+      "id": "block_search_results",
+      "label": "Search results",
+      "options": [
+        {
+          "value": "article",
+          "label": "Blog posts"
+        }
+      ],
+      "default": "article",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:search"
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_blog_menu_title' -%}
+{%- assign atb_blog_menu_title = val -%}
+{%- include 'atb-render' field:'atb_blog_menu' -%}
+{%- assign atb_blog_menu = val -%}
+{%- include 'atb-render' field:'block_type' -%}
+{%- assign block_type = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_search_results' -%}
+{%- assign block_search_results = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+{% assign id = section_id %}
+{% comment %}Layout{% endcomment %}
+{% assign width = atb_width %}
+{% assign padding_top = atb_padding_top %}
+{% assign padding_bottom = atb_padding_bottom %}
+{% assign animation = atb_animation | default: 'none' %}
+{% comment %} Advanced {% endcomment %}
+{% assign css_class = atb_css_class %}
+{% assign custom_css = atb_custom_css %}
+
+{% comment %} CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ id }} {
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+    {% if width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+
+  .sidebar-section {
+    {% if atb_sidebar_position == 'right' %}
+      order: 1;
+    {% endif %}
+  }
+
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<div class="hide-mobile section-blog-menu">
+<div class="section is-width-standard 
+        {{ css_class }}
+        is-width-{{ width }}"
+        {% if animation != "none" %}
+          data-scroll-class="{{ animation }}"
+        {% endif %}>
+  <div class="container top-blog-section">
+    
+        {% if atb_blog_menu_title %}
+          <!--<div class="menu-title column one-nine medium-down--one-whole ">
+            <h3>{{ atb_blog_menu_title }}</h3>
+          </div>-->
+        {% endif; %}
+        {% if atb_blog_menu %}
+         <div class="blog-menu column medium-down--one-whole">
+          {%
+              render 'sidebar__menu',
+              menu: atb_blog_menu
+          %}
+         </div>
+        {% endif; %}
+        {% for block0 in blocks %}
+        <!--<div class="blog-search-bar column one-fifth medium-down--one-whole">
+          {% if block_type[forloop.index0] == 'search' %}
+              {%
+                render 'sidebar__search',
+                block: block,
+                context: 'sidebar'
+              %}
+          {% endif %}
+        </div>-->
+        {% endfor %}
+  </div>
+</div>
+</div>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script></section>

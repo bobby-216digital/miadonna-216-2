@@ -1,0 +1,32 @@
+{% case media.media_type %}
+  {% when 'image' %}
+    {% capture image_alt %}{{ media.alt | escape }}{% endcapture %}
+    {% if media.media_type contains 'video' %}
+      {% assign thumbnail_badge = 'video-thumbnail' %}
+    {% elsif media.media_type contains 'model' %}
+      {% assign thumbnail_badge = '3d-thumbnail' %}
+    {% else %}
+      {% assign thumbnail_badge = '' %}
+    {% endif %}
+
+    <div
+      class="product-gallery__thumbnail one-fifth column is-relative"
+      data-title="{{ image_alt | split: '|' | last  }}"
+      tabindex="0"
+      style="opacity: 1;"
+    >
+      {% capture image_80x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '80x' }}{% endcapture %}
+      {% capture image_160x %}{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '160x' }}{% endcapture %}
+      <img
+        src="{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '300x'  }}"
+        srcset="{{ image_80x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }} 80w,{{ image_160x | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }} 160w"
+        alt="{{ image_alt | split: '|' | last  }}"
+        width="{{ media.width }}"
+        height="{{ media.height }}"
+        loading="lazy"
+      >
+      {% if thumbnail_badge != blank %}
+        {% render 'icon', name: thumbnail_badge, icon_class: 'media-badge' %}
+      {% endif %}
+    </div>
+{% endcase %}

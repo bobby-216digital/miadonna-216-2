@@ -1,0 +1,53 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Custom liquid",
+  "class": "shopify-section--custom-liquid",
+  "id": "custom-liquid",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "liquid",
+      "id": "atb_custom_liquid",
+      "label": "Custom liquid",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_custom_liquid' -%}
+{%- assign atb_custom_liquid = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section shopify-section--custom-liquid">
+<script
+  type="application/json"
+  data-section-type="custom-liquid"
+  data-section-id="{{ section_id }}"
+>
+</script>
+
+<section class="section">
+  <div class="container">
+    <div class="one-whole column">
+      {{ atb_custom_liquid }}
+    </div>
+  </div>
+</section>
+
+
+</section>

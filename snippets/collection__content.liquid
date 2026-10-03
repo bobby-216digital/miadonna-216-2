@@ -1,0 +1,691 @@
+{%- assign productHandlePageQueryArray = productHandlePageQueryString | split: '&' -%}
+{% assign has_valid_handle = false %}
+
+{% for param in productHandlePageQueryArray %}
+  {% assign parts = param | split: '=' %}
+  {% assign key = parts[0] %}
+  {% if key == 'stone-handle' %}
+   {% assign  template = 'collection.filter-tab' %}
+     {% assign has_valid_handle = true %}
+ {% endif %}
+{% if key == 'handle' %}
+  {% assign  template = 'collection.filter-tab' %}
+        {% assign has_valid_handle = true %}
+
+{% endif %}
+{% endfor %}
+{% if has_valid_handle %}
+{% render 'disabled-Carat-Warning-Popup' %}
+{% endif %}  
+<script>
+{% if has_valid_handle %}
+  window.is_disabled_items = true;
+function disabledCaratWarningPopup(prodUrl){
+    $disabledCaratWarningPopup_popup = document.getElementById("disabled-popup");
+    $disabledCaratWarningPopup_okButton = document.getElementById("okButton");
+    
+    $disabledCaratWarningPopup_okButton.setAttribute("data-prodUrl", prodUrl);
+    $disabledCaratWarningPopup_popup.style.display = "block";
+    $disabledCaratWarningPopup_popup.style.opacity = "1";
+    $disabledCaratWarningPopup_popup.style.visibility = "visible";
+    $disabledCaratWarningPopup_popup.style.zIndex = "99992";
+
+    $disabledCaratWarningPopup_okButton.addEventListener("click", function() {
+      window.location.href = $disabledCaratWarningPopup_okButton.getAttribute("data-prodUrl");
+    });
+  }
+{% endif %}  
+</script>
+
+<style>
+  @media (max-width: 1025px) {
+    .plp-grid-new[collection-mobile-layout="medium"] .list-dtllable {
+    display: none !important;
+  }
+}
+</style>
+{% liquid
+  assign has_faceted_filtering_block = false
+  assign faceted_filtering_blocks_count = section.blocks | where: 'type', 'faceted_filtering' | size
+  if faceted_filtering_blocks_count > 0
+    assign has_faceted_filtering_block = true
+  endif
+%}
+{% assign searchable_setting_collection = 0 %}
+{% for link in linklists['filtered-setting-collections'].links %}
+  {% if collection.handle == link.object.handle %}
+    {% assign searchable_setting_collection = 1 %}
+  {% endif %}
+{% endfor %}
+
+{% assign searchable_accessories_collection = 0 %}
+{% for link in linklists['filtered-accessories-collections'].links %}
+  {% if collection.handle == link.object.handle %}
+    {% assign searchable_accessories_collection = 1 %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}
+{%- if searchable_setting_collection == 1 or searchable_accessories_collection == 1 -%}
+{% endcomment %}
+  <style>
+    .header-sticky-wrapper.is-sticky .header {
+      position: relative !important;
+    }
+    @media only screen and (max-width: 798px) {
+      .header-sticky-wrapper.is-sticky .mobile-header {
+        position: relative !important;
+      }
+    }
+  </style>
+{% comment %}
+{%- endif -%}
+{% endcomment %}
+
+{% for block in section.blocks %}
+  {% if block.type == 'faceted_filtering' %}
+    {%- assign show_filters = 0 -%}
+    {%- assign collection_handles = block.settings.collection_handles | split: ',' -%}
+    {% if collection_handles contains collection.handle %}
+      {%- assign show_filters = 1 -%}
+    {% endif %}
+    {% if show_filters == 1 %}
+      {% assign linkHandle = block.settings.button_link | remove: '/collections/' %}
+      {% assign linkHandle_1 = block.settings.button_link_2 | remove: '/collections/' %}
+      {% assign linkHandle_2 = block.settings.button_link_3 | remove: '/collections/' %}
+      {% assign linkHandle_3 = block.settings.button_link_4 | remove: '/collections/' %}
+      {% assign linkHandle_4 = block.settings.button_link_5 | remove: '/collections/' %}
+      {% assign linkHandle_5 = block.settings.button_link_6 | remove: '/collections/' %}
+      {% assign linkHandle_6 = block.settings.button_link_7 | remove: '/collections/' %}
+      {% assign linkHandle_7 = block.settings.button_link_8 | remove: '/collections/' %}
+      {% assign linkHandle_8 = block.settings.button_link_9 | remove: '/collections/' %}
+      {% assign linkHandle_9 = block.settings.button_link_10 | remove: '/collections/' %}
+      
+      {% if linkHandle == collection.handle
+        or linkHandle_1 == collection.handle
+        or linkHandle_2 == collection.handle
+        or linkHandle_3 == collection.handle
+        or linkHandle_4 == collection.handle
+        or linkHandle_5 == collection.handle
+        or linkHandle_6 == collection.handle
+        or linkHandle_7 == collection.handle
+        or linkHandle_8 == collection.handle
+        or linkHandle_9 == collection.handle
+      %}
+        {% assign hide_results_text = false %}
+        {% if collection_handles.size > 8 %}
+          {% assign filter_class = 'collection__faceted-filters-wrapper-overflow' %}
+        {% endif %}
+      {% endif %}
+      {% break %}
+    {% else %}
+      {% assign hide_results_text = true %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<style>
+  .product__thumbnail .price .money, .product__thumbnail .compare-at-price .money {
+    line-height: 23px;
+  }
+</style>
+{% assign marketing_banner_video_1 = collection.metafields.collection.marketing_banner_video_1.value %}
+{% assign marketing_banner_video_1_mobile = collection.metafields.collection.marketing_banner_video_1_mobile.value %}
+{% assign marketing_banner_video_2 = collection.metafields.collection.marketing_banner_video_2.value %}
+{% assign marketing_banner_video_2_mobile = collection.metafields.custom.marketing_banner_video_2_mobile.value %}
+
+  {% assign limit = section.settings.pagination_limit %}
+{% if marketing_banner_video_1 or marketing_banner_video_1_mobile %}
+    {% if marketing_banner_video_2 or marketing_banner_video_2_mobile %}
+        {% assign limit = section.settings.pagination_limit %}
+    {% else %}
+      {% assign limit = section.settings.pagination_limit | minus: 2 %}
+    {% endif %}
+{% elsif marketing_banner_video_2 or marketing_banner_video_2_mobile %}
+    {% assign limit = section.settings.pagination_limit  | minus: 2  %}
+{% endif %}
+
+
+{% assign has_active_filters = false %}
+{% for filter in collection.filters %}
+  {% if filter.active_values.size > 0 %}
+    {% assign has_active_filters = true %}
+  {% endif %}
+{% endfor %}
+
+{% if has_active_filters %}
+<div
+  class="contanier-nw has-no-side-gutter {% if hide_results_text %} hide-result-text-mobile{% endif %}"
+  {% if template == 'collection.filter-tab' %}
+    style="display:none"
+  {% endif %}
+>
+  <div class="collection__filters one-whole column">
+    {% comment %} Collection filters {% endcomment %}
+    {% render 'collection__filters', paginate_limit: limit, collection: collection %}
+  </div>
+</div>
+{% endif %}
+{%- if has_valid_handle -%}
+  <div id="setting-content-no-result" class="hide" style="padding: 40px 0px 40px 0;background-color: #f5f5f5;">
+    <div class="no-results">
+      <div class="no-results-content text-center" style="padding-bottom: 25px;">
+        <p>No products are available at the moment. Please try again later.</p>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+<div class="contanier-nw  collection__content">
+  {% if section.blocks.size > 0 and section.settings.show_sidebar %}
+    <aside
+      class="
+        sidebar-section
+        one-fourth
+        medium-down--one-whole
+        column
+      "
+    >
+      {% liquid
+        assign has_faceted_filtering_block = false
+        assign faceted_filtering_blocks_count = section.blocks | where: 'type', 'faceted_filtering' | size
+        if faceted_filtering_blocks_count > 0
+          assign has_faceted_filtering_block = true
+        endif
+        assign legacy_filter_block_types = 'tag_list,tag_filter,type_list,vendor_list' | split: ','
+      %}
+
+      {% for block in section.blocks %}
+        {% if block.type == 'faceted_filtering' %}
+          {% render 'sidebar__faceted-filter', block: block, collection: collection %}
+        {% else %}
+          {%- comment -%} Non-faceted filter blocks {%- endcomment -%}
+          <div
+            id="shopify-section-{{ block.id }}"
+            class="
+              sidebar__block
+              block__{{ block.type | downcase | replace: '_', '-' }}
+              has-padding-top
+              has-padding-bottom
+              {% if settings.toggle_sidebar %}sidebar-toggle-active{% endif %}
+              {% if has_faceted_filtering_block and legacy_filter_block_types contains block.type %}is-hidden{% endif %}
+            "
+            {{ block.shopify_attributes }}
+          >
+            {% if block.type == 'collection_list' %}
+              {% comment %} Tag list {% endcomment %}
+              {% render 'sidebar__collection-list', block: block %}
+
+            {% elsif block.type == 'featured_promo' %}
+              {% comment %} Featured promo {% endcomment %}
+              {% render 'sidebar__featured-promo', block: block, id: block.id %}
+
+            {% elsif block.type == 'html' %}
+              {% comment %} Custom HTML {% endcomment %}
+              {% render 'sidebar__html', block: block %}
+
+            {% elsif block.type == 'menu' %}
+              {% comment %} Menu {% endcomment %}
+              {% render 'sidebar__menu', menu: block.settings.menu %}
+
+            {% elsif block.type == 'newsletter' %}
+              {% comment %} Newsletter {% endcomment %}
+              {% render 'sidebar__newsletter', block: block %}
+
+            {% elsif block.type == 'page' %}
+              {% comment %} Page {% endcomment %}
+              {% render 'sidebar__page', page: block.settings.page %}
+
+            {% elsif block.type == 'search' %}
+              {% comment %} Search {% endcomment %}
+              {% render 'sidebar__search', block: block, context: 'sidebar' %}
+
+            {% elsif block.type == 'tag_filter' and has_faceted_filtering_block == false %}
+              {% comment %} Tag filter {% endcomment %}
+              {% render 'sidebar__tag-filter', block: block %}
+
+            {% elsif block.type == 'tag_list' and has_faceted_filtering_block == false %}
+              {% comment %} Tag list {% endcomment %}
+              {% render 'sidebar__tag-list', block: block %}
+
+            {% elsif block.type == 'text' %}
+              {% comment %} Text {% endcomment %}
+              {% render 'sidebar__text', block: block %}
+
+            {% elsif block.type == 'type_list' and has_faceted_filtering_block == false %}
+              {% comment %} Type list {% endcomment %}
+              {% render 'sidebar__type-list', block: block %}
+
+            {% elsif block.type == 'vendor_list' and has_faceted_filtering_block == false %}
+              {% comment %} Vendor list {% endcomment %}
+              {% render 'sidebar__vendor-list', block: block %}
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </aside>
+  {% endif %}
+
+  {% paginate collection.products by limit %}
+    <div
+      class="
+        collection__main
+        {% if section.blocks.size > 0 and section.settings.show_sidebar %}
+          three-fourths
+          medium-down--one-whole
+          column
+          equal-columns--outside-trim
+        {% endif %}
+      "
+      data-collection-main
+    >
+      {% if section.settings.show_promo_banner %}
+        <div class="collection-promo-banner container">
+          <div
+            class="
+              banner__wrapper
+              one-whole
+              column
+              dark-overlay-{{ section.settings.image_darken  }}
+              is-{{ section.settings.banner_height }}
+              has-margin-bottom
+            "
+          >
+            {% if section.settings.image != blank %}
+              {% render 'image-element',
+                image: section.settings.image,
+                alt: section.settings.image.alt,
+                focal_point: section.settings.image.presentation.focal_point
+              %}
+            {% else %}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+            <div class="banner__content card-content">
+              <div class="banner__text text-align-center">
+                <h1 class="banner__heading title">{{ section.settings.promo_title }}</h1>
+                {% if section.settings.promo_text != blank %}
+                  <div class="banner__subheading subtitle">{{ section.settings.promo_text }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if collection.products.size == 0 %}
+        <div class="container container--no-products-in-collection text-align-center has-padding-bottom has-padding-top">
+          <div class="one-whole column">
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+        </div>
+      {% else %}
+        <div class="collection-matrix__wrapper">
+          <div class="collection__loading-icon button is-loading is-loading--icon-only"></div>
+          <div
+            class="container collection-matrix plp-grid-new" id="gridchange" collection-mobile-layout="medium"
+            {% if section.settings.pagination_type != 'basic_pagination' %}
+              data-load-more--grid
+            {% endif %}
+          >
+            {%- assign products_per_row = section.settings.products_per_row -%}
+            {%- assign mobile_products_per_row = section.settings.mobile_products_per_row -%}
+            <style>
+              .collection-matrix__wrapper .container {
+                grid-template-columns: repeat({{ products_per_row }}, 1fr);
+              }
+              .collection-matrix__wrapper .container > .column{
+                margin: 0 5px;
+              }
+              .collection-matrix__wrapper .container > .one-whole{
+                width: calc(100% - 5px);
+                margin-bottom: 10px;
+              }
+              @media only screen and (max-width: 1400px){
+                .collection-matrix__wrapper .container {
+                  grid-template-columns: repeat({{ products_per_row | minus: 1 }}, 1fr);
+                }
+              }
+              @media only screen and (max-width: 800px){
+                .collection-matrix__wrapper .container {
+                  grid-template-columns: repeat({{ mobile_products_per_row }}, 1fr);
+                }
+              }
+              {% if collection.products.size < 19 %}
+                .callout-banner~.callout-banner {
+                  display:none;
+                }
+              {% endif %}
+            </style>
+            {% render 'collection-product-loop',
+              current_page: paginate.current_page,
+              products: products,
+              products_per_row: products_per_row,
+              mobile_products_per_row: mobile_products_per_row,
+              limit: limit,
+              align_height: section.settings.align_height,
+              height: section.settings.collection_height
+            %}
+            {%- assign grid_callout_index = 0 -%}
+            {% for block in section.blocks %}
+              {% if block.type == 'grid_callout' %}
+                {%- assign collectionHandles = block.settings.handles | split: ',' -%}
+                {% if collectionHandles contains collection.handle %}
+                  {%- assign grid_callout_index = grid_callout_index | plus: 1 -%}
+                  {%- if collection.products.size > 4 -%}
+                    {%- assign html5_video = block.settings.html5_video -%}
+                    {% if html5_video != blank %}
+                      {%- assign video_exists = true -%}
+                    {% else %}
+                      {%- assign video_exists = false -%}
+                    {% endif %}
+                    <div
+                      id="callout-{{ block.id }}"
+                      class="callout-banner callout-banner-{{ grid_callout_index }} column"
+                      {% if video_exists == false %}
+                        style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;"
+                      {% endif %}
+                    >
+                      {% if block.settings.link != blank %}
+                        <a class="banner-link" href="{{ block.settings.link }}">
+                      {% endif %}
+                      <style>
+                        .collection-matrix__wrapper .container #callout-{{ block.id }}.callout-banner {
+                          grid-area: {{ block.settings.grid_row_start }} / {{ block.settings.grid_column_start }} / {{ block.settings.grid_row_end }} / {{ block.settings.grid_column_end }};
+                        }
+                        @media only screen and (max-width: 1400px){
+                          .collection-matrix__wrapper .container #callout-{{ block.id }}.callout-banner {
+                            grid-area: {{ block.settings.grid_row_start }} / {{ block.settings.grid_column_start | minus: 1 }} / {{ block.settings.grid_row_end }} / {{ block.settings.grid_column_end | minus: 1 }};
+                          }
+                        }
+                        @media only screen and (max-width: 801px){
+                          .collection-matrix__wrapper .container #callout-{{ block.id }}.callout-banner {
+                            grid-row-start: {{ block.settings.grid_row_start | divided_by: 2 | times: 3 }};
+                            grid-row-end: {{ block.settings.grid_row_end | divided_by: 2 | times: 3 }};
+                            grid-column-start: 1;
+                            grid-column-end: 3;
+                          }
+                        }
+                        {% if block.settings.hide_on_mobile %}
+                        @media only screen and (max-width: 575px){
+                          #callout-{{ block.id }} .callout-banner--details {
+                            display: none;
+                          }
+                        }
+                        {% endif %}
+                      </style>
+                      {% if video_exists == false %}
+                        {% if block.settings.image != blank %}
+                          {% render 'image-element',
+                            image: block.settings.image,
+                            alt: block.settings.image.alt,
+                            focal_point: block.settings.image.presentation.focal_point
+                          %}
+                        {% else %}
+                          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endif %}
+                      {% endif %}
+                      {% if video_exists %}
+                        {% if html5_video != blank %}
+                          <div class="plyr__video-wrapper">
+                            <div
+                              class="plyr__video-embed video-{{ block.id }}"
+                              data-video-element
+                              style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;"
+                            >
+                              <div class="video-element" data-video-element>
+                                <video
+                                  id="grid-video-player"
+                                  poster="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | img_url: 'master' }}"
+                                  class="video-{{ block.id }}"
+                                  autoplay
+                                  muted
+                                  loop
+                                  playsinline
+                                  webkit-playsinline
+                                >
+                                  <source src="{{ html5_video | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+                                </video>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                      {% if block.settings.title_1 != blank or block.settings.title_2 != blank %}
+                        <div class="callout-banner--details">
+                          <div class="image-text text-left" style="">
+                            <p>
+                              <em>{{ block.settings.title_1 }}</em>
+                            </p>
+                            <p>{{ block.settings.title_2 }}</p>
+                          </div>
+                        </div>
+                      {% endif %}
+                      {% if block.settings.link != blank %}
+                        </a>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+              {% if block.type == 'long_grid_callout' %}
+                {%- assign collectionHandles = block.settings.handles | split: ',' -%}
+                {% if collectionHandles contains collection.handle %}
+                  {%- if collection.products.size > 4 -%}
+                    {%- assign html5_video = block.settings.html5_video -%}
+                    {% if html5_video != blank %}
+                      {%- assign video_exists = true -%}
+                    {% else %}
+                      {%- assign video_exists = false -%}
+                    {% endif %}
+                    <div
+                      id="callout-{{ block.id }}"
+                      class="callout-banner video-wrapper column"
+                      {% if video_exists == false %}
+                        style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;"
+                      {% endif %}
+                    >
+                      <style>
+                        .collection-matrix__wrapper .container #callout-{{ block.id }}.callout-banner {
+                          grid-area: {{ block.settings.grid_row_start }} / {{ block.settings.grid_column_start }} / {{ block.settings.grid_row_end }} / {{ block.settings.grid_column_end }};
+                        }
+                        .collection-matrix__wrapper .callout-banner .plyr__video-wrapper{
+                          width: 100%;
+                          position: static;
+                        }
+                        .collection-matrix__wrapper .callout-banner #grid-video-player {
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          right: 0;
+                          bottom: 0;
+                          width: 100%;
+                          height: 100%;
+                          object-fit: cover;
+                          object-position: center;
+                        }
+                        .collection-matrix__wrapper .callout-banner .video__text-container {
+                          top: auto;
+                          padding: 2%;
+                        }
+                        .collection-matrix__wrapper .callout-banner .video__text-wrapper {
+                          padding: 25px;
+                          max-width: 350px;
+                          position: relative;
+                        }
+                        .collection-matrix__wrapper .callout-banner .video__text-container .overlay {
+                          background-color: #ffffff;
+                          opacity: {{ block.settings.background_opacity | divided_by: 100.00 }};
+                        }
+                        .collection-matrix__wrapper .callout-banner .video-heading{
+                          font-weight: 600;
+                          line-height: 40px;
+                          letter-spacing: 1.4px;
+                          margin-bottom: 1.25rem;
+                        }
+                        .collection-matrix__wrapper .callout-banner .video-sub-heading{
+                          font-weight: 500;
+                          line-height: 36px;
+                          letter-spacing: 1.4px;
+                          margin-bottom: 1.25rem;
+                        }
+                        .collection-matrix__wrapper .callout-banner .video-description{
+                          font-weight: 500;
+                          padding-top: 10px;
+                          margin-bottom: 3rem;
+                          letter-spacing: 0.35px;
+                        }
+                        .collection-matrix__wrapper .callout-banner .video-button{
+                          min-width: 250px;
+                          min-height: 45px;
+                          font-weight: 600;
+                          font-size: 13px;
+                          margin-bottom: 0;
+                          border: 3px solid #000;
+                        }
+                        @media only screen and (max-width: 798px){
+                          .collection-matrix__wrapper .container #callout-{{ block.id }}.callout-banner {
+                            grid-row-start: {{ block.settings.grid_row_start | divided_by: 2 | times: 3 }};
+                            grid-row-end: {{ block.settings.grid_row_end | divided_by: 2 | times: 3 }};
+                            grid-column-start: 1;
+                            grid-column-end: 3;
+                          }
+                        }
+                        @media only screen and (min-width: 480px) {
+                          .collection-matrix__wrapper .container .callout-banner .video__text-wrapper {
+                            max-width: {{ block.settings.text_width }}%;
+                          }
+                        }
+                        {% if block.settings.hide_on_mobile %}
+                        @media only screen and (max-width: 575px){
+                          #callout-{{ block.id }} .video__text-container {
+                            display: none;
+                          }
+                        }
+                        {% endif %}
+                      </style>
+                      {% if video_exists == false %}
+                        {% if block.settings.image != blank %}
+                          {% render 'image-element',
+                            image: block.settings.image,
+                            alt: block.settings.image.alt,
+                            focal_point: block.settings.image.presentation.focal_point
+                          %}
+                        {% else %}
+                          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endif %}
+                      {% endif %}
+                      {% if video_exists %}
+                        {% if html5_video != blank %}
+                          <div class="plyr__video-wrapper">
+                            <div
+                              class="plyr__video-embed video-{{ block.id }}"
+                              data-video-element
+                              style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;"
+                            >
+                              <div class="video-element" data-video-element>
+                                <video
+                                  id="grid-video-player"
+                                  poster="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | img_url: 'master' }}"
+                                  class="video-{{ block.id }}"
+                                  autoplay
+                                  muted
+                                  loop
+                                  playsinline
+                                  webkit-playsinline
+                                >
+                                  <source src="{{ html5_video | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+                                </video>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                      {% if block.settings.heading != blank
+                        or block.settings.sub_heading != blank
+                        or block.settings.description != blank
+                        or block.settings.button_text != blank
+                      %}
+                        <div class="video__text-container" data-video-text-container>
+                          <div class="video__text-wrapper text-left">
+                            {% if block.settings.show_overlay %}
+                              <div class="overlay"></div>
+                            {% endif %}
+                            {% if block.settings.heading != blank %}
+                              <h2 class="video-heading">{{ block.settings.heading }}</h2>
+                            {% endif %}
+                            {% if block.settings.sub_heading != blank %}
+                              <h3 class="video-sub-heading">{{ block.settings.sub_heading }}</h3>
+                            {% endif %}
+                            {% if block.settings.description != blank %}
+                              <p class="video-description">{{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                            {% endif %}
+                            {% render 'button',
+                              label: block.settings.button_text,
+                              href: block.settings.button_link,
+                              class: 'video-button',
+                              style: block.settings.button_style,
+                              type: 'link'
+                            %}
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="container container--pagination">
+        <div class="one-whole column text-align-center">
+          {% comment %}
+            {% if paginate.pages > 1 %}
+              {% if paginate.next.url %}
+                {% assign next_url = paginate.next.url %}
+                <div class="paginate one-fourth">
+                  <button id="load-more" next-url="{{ next_url }}" class="button button--primary pagination-button__load-more">Load More</button>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endcomment %}
+          {%- assign load_more_text = 'Load more' -%}
+          {% render 'pagination',
+            paginate: paginate,
+            pagination_type: section.settings.pagination_type,
+            load_more_text: load_more_text
+          %}
+        </div>
+      </div>
+    </div>
+
+    {% comment %} JavaScript {% endcomment %}
+    <script
+      type="application/json"
+      data-section-id="{{ section.id }}"
+      data-section-data
+    >
+      {
+        "enable_filter": {{ section.settings.collection_tags | json }},
+        "enable_sorting": {{ section.settings.collection_sort | json }},
+        "enable_breadcrumb": {{ section.settings.collection_breadcrumb | json}},
+        "pagination_type": {{ section.settings.pagination_type | json }},
+        "number_of_pages": {{ paginate.pages | json }}
+      }
+    </script>
+  {% endpaginate %}
+</div>
+
+<script>
+  const filterMinValue = "{{ flterMinValue }}";
+</script>
+
+{% if has_faceted_filtering_block and section.settings.show_sidebar == false %}
+  {% comment %}
+  {% if searchable_setting_collection == 1 or collection.handle == 'shop' or searchable_accessories_collection == 1 %}
+  {% endcomment %}
+    {% render 'mobile-collection__faceted-filter', block: block, collection: collection %}
+  {% comment %}
+  {% endif %}
+  {% endcomment %}
+{% endif %}

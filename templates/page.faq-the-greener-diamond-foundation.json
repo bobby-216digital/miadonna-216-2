@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "42fd0d83-2053-4be0-9c69-fe170857c034": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "the-foundation-faqs"
+          }
+        },
+        "custom_html_AG4zDa": {
+          "type": "custom_html",
+          "settings": {
+            "html": ""
+          }
+        }
+      },
+      "block_order": [
+        "42fd0d83-2053-4be0-9c69-fe170857c034",
+        "custom_html_AG4zDa"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

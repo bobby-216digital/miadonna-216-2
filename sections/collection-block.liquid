@@ -1,0 +1,364 @@
+<style>
+  #shopify-section-{{ section.id }} .collection-block--slider{
+    width: 85%;
+  }
+  {% comment %} #shopify-section-{{ section.id }} .flickity-viewport{
+    margin-left: -5px;
+  } {% endcomment %}
+  #shopify-section-{{ section.id }} .flickity-button{
+    top: 45%;
+    padding: 0;
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+  #shopify-section-{{ section.id }} .flickity-prev-next-button .flickity-button-icon{
+    margin: 0;
+    fill: {{ section.settings.text_color }};
+  }
+  #shopify-section-{{ section.id }} .flickity-prev-next-button.previous{
+    left: -20px;
+  }
+  #shopify-section-{{ section.id }} .flickity-prev-next-button.next{
+    right: -30px;
+  }
+  #shopify-section-{{ section.id }} .column{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  #shopify-section-{{ section.id }} .collection-block-wrapper h2,
+  #shopify-section-{{ section.id }} .collection-block-wrapper h3{
+    width: 100%;
+    font-weight: 600;
+    /* line-height: 29px; */
+    text-align: center;
+    margin-bottom: 32px;
+    /* letter-spacing: 1.4px; */
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .collection-block .image-element__wrap{
+    border-radius: 50%;
+  }
+  #shopify-section-{{ section.id }} .collection-block--slider.no-slider .image-element__wrap{
+    margin: 0;
+  }
+  #shopify-section-{{ section.id }} .collection-block .image-element__wrap {
+    height: auto;
+    /* max-width: 100% !important; */
+  }
+  #shopify-section-{{ section.id }} .collection-block img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0;
+  }
+  #shopify-section-{{ section.id }} .collection-block .block--title{
+    text-align: center;
+    margin-top: 15px;
+    /* font-style: italic;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; */
+  }
+  @media screen and (min-width: 768px){
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.previous{
+      left: -50px;
+    }
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.next{
+      right: -50px;
+    }
+  }
+  @media screen and (max-width: 767px){
+    /* #shopify-section-{{ section.id }} .collection-block-wrapper h2{
+      font-size: 20px;
+    }
+    #shopify-section-{{ section.id }} .collection-block h3{
+      font-size: 16px;
+    } */
+    #shopify-section-{{ section.id }} .flickity-prev-next-button .flickity-button-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if section.settings.hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .collection-block--slider.no-slider:after {
+    content: "flickity";
+    display: none; /* hide :after */
+  }
+  @media screen and (min-width: 1025px) {
+    /* disable Flickity for large devices */
+    #shopify-section-{{ section.id }} .collection-block--slider.no-slider:after {
+      content: "";
+    }
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-collection-blocks
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div class="collection-block-wrapper">
+    {% if section.settings.main_title != blank %}
+      {% if section.settings.background_color == 'transparent' or section.settings.background_color == '#ffffff' %}
+        <h2 class="section--title" style="color: {{ section.settings.text_color }};">
+          {{ section.settings.main_title }}
+        </h2>
+      {% else %}
+        <style>
+          #shopify-section-{{ section.id }} .collection-block-wrapper h3 {
+            max-width: 65%;
+            margin: 0 auto 32px;
+          }
+        </style>
+        <h3 class="section--title" style="color: {{ section.settings.text_color }};">
+          {{ section.settings.main_title }}
+        </h3>
+      {% endif %}
+    {% endif %}
+    <div
+      class="container collection-block--slider {% if section.blocks.size <= 5 %}no-slider{% endif %}"
+      style="flex-wrap: nowrap;"
+      data-products-per-slide="5"
+      data-products-limit="{% if section.blocks.size > 5 %}15{% else %}5{% endif %}"
+      data-products-available="{% if section.blocks.size > 5 %}15{% else %}5{% endif %}"
+    >
+      {% for block in section.blocks %}
+        <div class="collection-block one-fifth column large-down--one-fourth medium-down--one-third small-down--one-half">
+          {% if block.settings.url != blank %}
+            <a
+              href="{{ block.settings.url }}"
+              class="collection-link"
+              style="color: {{ section.settings.text_color }};"
+              tabindex="-1"
+            >
+          {% endif %}
+          {% if block.settings.image != blank %}
+            {% comment %}
+            {%
+              render 'image-element',
+              image: block.settings.image,
+              alt: block.settings.image_alt,
+            %}
+            {% endcomment %}
+            {% assign actual_image_width = block.settings.image.width | append: 'x' %}
+            <img
+              alt="{{ block.settings.image.alt | escape }}"
+              src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url: width: actual_image_width }}"
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+            >
+          {% else %}
+            <div class="image-element__wrap" style="height: auto;">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+          {% if block.settings.title != blank %}
+            <h4 class="block--title" style="color: {{ section.settings.text_color }};">{{ block.settings.title }}</h4>
+          {% endif %}
+          {% if block.settings.url != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsCollectionBlocks.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Collection Block",
+  "class": "collection-blocks jsCollectionBlocks",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "label": "Main Title",
+      "id": "main_title",
+      "default": "Find your perfect Wedding Ring"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_block",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "text",
+          "label": "Image Alt Text",
+          "id": "image_alt"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "url",
+          "label": "Collection Link",
+          "id": "url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "collection block"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,106 @@
+{{ 'prime.scss.css' | asset_url | stylesheet_tag }}
+{{ 'page-custom.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .diamond-landing-template-content .hero .display-layout.-header{
+      display: flex;
+    height: unset;
+    min-height: unset;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 100px 120px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .diamond-landing-template-content .hero .display-layout .inner {
+    margin: 0;
+    width: 50%;
+    top: unset;
+    transform: unset;
+}
+  @media screen and (max-width: 750px){
+.diamond-landing-template-content .hero .display-layout.-header {
+    padding: 0 40px 30px;
+}
+    .diamond-landing-template-content .hero .display-layout .inner, .diamond-landing-template-content .hero .video-player {
+    width: 100%;
+}
+    .diamond-landing-template-content .hero .display-layout .tap-button {
+    margin: 20px auto 20px;
+}
+  }
+</style>
+<div class="diamond-landing-template-content">
+<div class="hero">
+    <div class="container">
+      <div class="page-banner-layout display-layout -header cell-style-light">
+        <div class="inner">
+          <header class="_header typeset-cell">
+            <h1>{{ section.settings.main_title }}</h1>
+          </header>
+
+          <section class="_content minor-cell">
+            <p>{{  section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+           {% if section.settings.button_label != blank %} 
+            <p><a href="{{ section.settings.button_link }}" class="tap-button -tight button-style-dark">{{ section.settings.button_label }}</a></p>
+         {% endif %}
+             </section>
+        </div><!-- Desktop -->
+        <figure class="_artwork formatted-image device-targeted for-tablet for-desktop" style="background-image: url({{ settings.speedsize_url_pfx_https -}}{{ section.settings.desktop_image | img_url:'original' }})"></figure>
+
+        <!-- Mobile -->
+        <figure class="_artwork formatted-image device-targeted for-mobile" style="background-image: url({{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_image | img_url:'original'}})"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Banner Image",
+    "settings": [
+      
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "main_title"
+    },
+    
+    {
+      "type": "richtext",
+      "label": "Description",
+      "id": "description"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+       {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image"
+    },
+        {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image"
+    }
+    ],
+  "presets": [
+    {
+         "name": "Banner Image"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

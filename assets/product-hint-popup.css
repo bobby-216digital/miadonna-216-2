@@ -1,0 +1,161 @@
+.product-hint-popup.popup-modal .fancybox-slide {
+  padding: 0;
+}
+
+.product-hint-popup.certificate-popup .popup__content {
+  display: block;
+  padding: 40px 10px;
+}
+
+.product-hint-popup .popup__wrapper h3 {
+  color: #3c3737;
+  border-bottom: 4px solid #f7dcd0;
+  display: inline-block;
+  font-size: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 35px;
+  text-transform: uppercase;
+}
+
+.product-hint-popup .popup__wrapper .subtitle {
+  color: #3c3737;
+  font-size: 19px;
+  line-height: 1.55;
+  margin-bottom: 56px;
+  font-family: Playfair Display, serif;
+}
+
+.product-hint-popup .popup__wrapper .help-item {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-transform: uppercase;
+}
+
+.product-hint-popup .popup__wrapper h5 {
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.product-hint-popup .popup__wrapper form {
+  margin: 0 auto;
+  max-width: 474px;
+}
+
+.product-hint-popup .popup__wrapper form h5 {
+  margin-bottom: 14px;
+}
+
+.product-hint-popup .popup__wrapper hr {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  display: block;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 0;
+}
+
+.product-hint-popup .popup__wrapper form input,
+.product-hint-popup .popup__wrapper form textarea {
+  background-color: #f6f6f6;
+  display: block;
+  font-family: Montserrat, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin: 0 0 9px;
+  padding: 13px 20px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-color: #777;
+  outline: 0;
+  line-height: 1.55;
+  text-transform: none;
+}
+
+.product-hint-popup .popup__wrapper form textarea {
+  min-height: 100px;
+}
+
+.product-hint-popup .popup__wrapper form select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #f6f6f6;
+  border: 1px solid #777777;
+  border-radius: 0;
+  display: block;
+  font-family: Montserrat, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+  margin-bottom: 9px;
+  padding: 13px 20px;
+  width: 100%;
+}
+
+.product-hint-popup .popup__wrapper form option {
+  font-family: Montserrat, sans-serif;
+  font-size: 15px;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+.product-hint-popup .popup__wrapper form button[type="submit"],.product-hint-popup .popup__wrapper .popup_submit_button {
+  background-color: #4a4a4a;
+  color: #fff;
+  display: inline-block;
+  font-family: Montserrat, sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  margin-top: 21px;
+  max-width: 220px;
+  padding: 14px 27px;
+  text-transform: uppercase;
+  transition: background 0.25s ease-in-out;
+  width: 100%;
+}
+
+.product-hint-popup .popup__wrapper .small {
+  color: #646464;
+  font-family: Montserrat, sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+@media screen and (min-width: 1024px) {
+  .product-hint-popup.product-hint-popup .popup__wrapper {
+    box-shadow: 0 4px 16px #0003;
+  }
+  .product-hint-popup.certificate-popup .popup__content {
+    padding: 0;
+  }
+  .product-hint-popup .popup__wrapper {
+    display: inline-block;
+    height: auto;
+    left: 50%;
+    max-height: 82vh;
+    max-width: 920px;
+    padding: 29px 58px 35px;
+    position: absolute;
+    top: 12%;
+    transform: translate(-50%);
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .product-hint-popup.certificate-popup .popup__content {
+    height: auto;
+  }
+}

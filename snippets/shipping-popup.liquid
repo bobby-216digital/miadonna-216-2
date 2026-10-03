@@ -1,0 +1,148 @@
+{% assign HawaiiUSD = 40 %}
+{% assign APOUSD = 50 %}
+{% assign GuamUSD = 150 %}
+{% assign CanadaUSD = 150 %}
+{% assign ROWUSD = 150 %}
+{% assign USAOnly = 40 %}
+{% assign selectedCurrency = cart.currency.iso_code %}
+
+{% case selectedCurrency %}
+  {% when 'USD' %}
+    {% assign conversionRate = 1 %}
+  {% when 'AUD' %}
+    {% assign conversionRate = 1.3 %}
+    <!-- Example conversion rate for AUD -->
+  {% when 'CAD' %}
+    {% assign conversionRate = 1.25 %}
+    <!-- Example conversion rate for CAD -->
+  {% when 'EUR' %}
+    {% assign conversionRate = 0.85 %}
+    <!-- Example conversion rate for EUR -->
+  {% when 'GBP' %}
+    {% assign conversionRate = 0.75 %}
+    <!-- Example conversion rate for GBP -->
+  {% when 'NZD' %}
+    {% assign conversionRate = 1.4 %}
+    <!-- Example conversion rate for NZD -->
+  {% else %}
+    {% assign conversionRate = 1 %}
+{% endcase %}
+
+{% assign convertedPriceHawaii = HawaiiUSD | times: conversionRate %}
+{% assign convertedPriceAPO = APOUSD | times: conversionRate %}
+{% assign convertedPriceGuam = GuamUSD | times: conversionRate %}
+{% assign convertedPriceCanada = CanadaUSD | times: conversionRate %}
+{% assign convertedPriceROW = ROWUSD | times: conversionRate %}
+{% assign convertedPriceUSA = USAOnly | times: conversionRate %}
+
+<div
+  class="fancybox-container popup-modal certificate-popup product-images-popup shipping-popup fancybox-is-open"
+  role="dialog"
+  tabindex="-1"
+  id="shipping-popup"
+  style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;"
+>
+  <div class="fancybox-bg" onClick="shippinClosePopup()"></div>
+  <div class="fancybox-inner">
+    <div class="fancybox-stage">
+      <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+        <div
+          class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+          style="display: inline-block;"
+        >
+          <button onClick="shippinClosePopup()" class="close popup__close" aria-label="close">
+            <span class="icon icon--vertical-align" data-icon="x">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>close</title>
+                <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="popup__inner is-flex has-no-side-gutter">
+            <div class="popup__content one-half text-center">
+              <h3>Shipping Rates</h3>
+              <p class="subtitle">
+                Orders shipped within the <strong><i>Continental United States</i></strong> receive free, highly
+                insured, signature required, UPS 2-day shipping. <br>
+                <strong
+                  ><i
+                    >Ring orders are eligible to receive one complimentary resizing within 90 days of receiving the
+                    order.*</i
+                  ></strong
+                ><br>
+                <strong><i>International orders</i></strong> are shipped highly insured, signature required, FedEx
+                International Priority shipping.
+              </p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Destination</th>
+                    <th>Shipping Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Continental United States</td>
+                    <td>Free*</td>
+                  </tr>
+                  <tr>
+                    <td>Hawaii, Alaska &amp; Puerto Rico</td>
+                    <td>
+                      {{ cart.currency.symbol -}}
+                      {{- convertedPriceHawaii }}
+                       {{ cart.currency.iso_code -}}*
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>APO/FPO</td>
+                    <td>
+                      {{ cart.currency.symbol -}}
+                      {{- convertedPriceAPO }}
+                      {{ cart.currency.iso_code -}}*
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Guam</td>
+                    <td>
+                      {{ cart.currency.symbol -}}
+                      {{- convertedPriceGuam }}
+                      {{ cart.currency.iso_code -}}*
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Canada</td>
+                    <td>
+                      {{ cart.currency.symbol -}}
+                      {{- convertedPriceCanada }}
+                      {{ cart.currency.iso_code -}}*
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Rest of the World that we can ship to</td>
+                    <td>
+                      {{ cart.currency.symbol -}}
+                      {{- convertedPriceROW }}
+                      {{ cart.currency.iso_code -}}*
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Overnight Shipping Upgrade (USA only)</td>
+                    <td>
+                      {{ cart.currency.symbol -}}
+                      {{- convertedPriceUSA }}
+                      {{ cart.currency.iso_code -}}*
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="small">*Delivery signature required</p>
+              <p class="small">
+                *Complimentary ring resizing up to one USA ring size. See the sizing FAQ on this page for details.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

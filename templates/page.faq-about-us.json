@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "524c6514-5655-4fa1-af6d-2718af3078f4": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "about-miadonna-faqs-4"
+          }
+        },
+        "custom_html_P4MKLK": {
+          "type": "custom_html",
+          "settings": {
+            "html": ""
+          }
+        }
+      },
+      "block_order": [
+        "524c6514-5655-4fa1-af6d-2718af3078f4",
+        "custom_html_P4MKLK"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

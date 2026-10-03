@@ -1,0 +1,284 @@
+
+{% assign selectedtagname = '' %}
+ {% assign selectedtagnamehandle = 'news' %}
+{% for tag in blog.all_tags %}
+  {%  assign taghandle = tag | handleize  %}
+  {%  assign currenttaghandle = current_tags | handleize  %}
+  {% if currenttaghandle != blank %}
+  {% if taghandle contains currenttaghandle %}
+      {% assign selectedtagname = tag %}
+      {% assign selectedtagnamehandle = taghandle %}
+  {% endif %}
+  {% endif %}
+{% endfor %}
+<div
+  class="blog-linksec
+    {{ css_class }}
+    is-width-{{ width }}
+  "
+  {% if animation != 'none' %}
+  {% endif %}
+>
+  <div class="about-links bgclick-sl bgselectboxmob" role="navigation" aria-label="Blog navigation">
+     <div class="faq-categorycontainer">
+      <div class="faq-categorydropdown">
+          <button class="faq-selectCategory" id="faqSelectCategory">{% if current_tags == blank %} All {%- else -%} {{ selectedtagname }} {%- endif %} <span class="faq-arrow">{% render 'icon-down-arrow' %}</span></button>
+          <ul class="faq-categorylist" id="faqCategory">
+            <li href="{{ blog.url }}"  class="faq-categorybox aboutnav-link {% unless current_tags %}faq-selected{% endunless %}">All</li>
+            {% for tag in blog.all_tags %}
+              {%  assign taghandle = tag | handleize  %}
+              <li href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" urltag  class="faq-categorybox aboutnav-link {% if selectedtagnamehandle == taghandle %}faq-selected {% endif %}">{{- tag -}}</li>
+              {% endfor %}
+          </ul>
+        </div>
+        </div>
+      <div class="contanier-nw mob-hide">
+        <div class="scrollnav-slider slick-cls  sl-space">
+          <div class="slide">
+            <div class="scrollnav-slide-text slide-cls sl-spacebox">
+              <a
+                class="aboutnav-link aboutnav-link {% unless current_tags %}active{% endunless %}"
+                href="{{ blog.url }}"
+              >
+                All
+              </a>
+            </div>
+          </div>
+          {% for tag in blog.all_tags %}
+             {%  assign taghandle = tag | handleize  %}
+            <div class="slide">
+              <div class="scrollnav-slide-text slide-cls sl-spacebox">
+                <a
+                  class="aboutnav-link {% if selectedtagnamehandle == taghandle %}active {% endif %}"
+                  href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}"
+                >
+                  {{- tag -}}
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+</div>
+
+
+ <script>
+    $(document).ready(function() {
+      // Initialize all sliders
+      $('.scrollnav-slider').each(function() {
+        const $slider = $(this);
+        
+        // Initialize Slick Slider
+        $slider.slick({
+        slidesToShow: 10, 
+      slidesToScroll: 1,
+      swipeToSlide: true,
+      touchThreshold: 50,
+      adaptiveHeight: false,
+      variableWidth: true,
+      arrows: true,
+      autoplay: false,
+      dots: false,
+      accessibility: true,
+      infinite: false,
+      prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                    {% render 'icon-slick-left2' %}</button>`,
+      nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                    {% render 'icon-slick-right2' %}</button>`,
+      responsive: [
+        { breakpoint: 1599, settings: { slidesToShow: 6, slidesToScroll: 1 } },
+        { breakpoint: 1299, settings: { slidesToShow: 4, slidesToScroll: 1 } },
+        { breakpoint: 1025, settings: { slidesToShow: 3, slidesToScroll: 1 } }
+      ]
+        });
+
+        // Function to check if all items are visible
+        function checkItemsVisibility() {
+         
+            const $slickList = $slider.find('.slick-list');
+            const $slickTrack = $slider.find('.slick-track');
+            
+            const listWidth = $slickList.width();
+            const trackWidth = $slickTrack.outerWidth(true);
+            
+            // Calculate total width of all slides including margins
+            let totalSlidesWidth = 0;
+            $slider.find('.slick-slide').each(function() {
+              if (!$(this).hasClass('slick-cloned')) {
+                totalSlidesWidth += $(this).outerWidth(true);
+              }
+            });
+            
+            // Check if scrollable (has overflow)
+            const isOverflowing = totalSlidesWidth > listWidth || trackWidth > listWidth;
+            
+            console.log('List Width:', listWidth);
+            console.log('Track Width:', trackWidth);
+            console.log('Total Slides Width:', totalSlidesWidth);
+            console.log('Is Overflowing?:', isOverflowing);
+            console.log('Should Center?:', !isOverflowing);
+            
+            // First remove all classes
+            $slider.removeClass('center-items all-visible');
+            
+            // Add classes only if NOT overflowing
+            if (!isOverflowing) {
+              console.log('Adding center classes - all items visible');
+              $slider.addClass('center-items all-visible');
+              $slider.find('.slick-cloned').each(function() {
+                 $(this).attr("style", "display: none !important");
+              });
+            } else {
+              console.log('Not centering - items are overflowing/scrollable');
+              $slider.find('.slick-cloned').each(function() {
+                 $(this).attr("style", "");
+              });
+            }
+         
+        }
+
+        // Check on load, after init, and resize
+        checkItemsVisibility();
+        
+        $slider.on('init reInit', function() {
+          checkItemsVisibility();
+        });
+         $slider.on('afterChange', function() {
+          rebindevent();
+        });
+        
+        $(window).on('resize', function() {
+          checkItemsVisibility();
+        });
+      });
+
+
+    });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    rebindevent();
+  });
+function updateActiveLink(activeClass,links) {
+    {% comment %} links.forEach(link => {
+      const cls = link.getAttribute("href").replace("#", "");
+      link.classList.toggle("active", cls === activeClass);
+    }); {% endcomment %}
+      window.location.href= activeClass;
+
+  }
+  function rebindevent() {
+    // ===== Variables =====
+    const nav = document.querySelector('.about-links');
+    const links = document.querySelectorAll('.aboutnav-link');
+    const sections = document.querySelectorAll('.section-scroll');
+    const offset = 80; // Adjust for your header height
+    const navTop = nav.offsetTop; // where nav becomes sticky
+
+    links.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+
+      const cls = link.getAttribute("href").replace("#", "");
+      updateActiveLink(cls,links);
+
+     
+    });
+  });
+    // ===== Scrollspy + Sticky nav =====
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY;
+
+      // --- Sticky nav ---
+      if (scrollPos >= navTop) {
+        nav.classList.add('sticky');
+      } else {
+        nav.classList.remove('sticky');
+      }
+
+      // --- Scrollspy active link highlight ---
+      let currentSection = '';
+      const triggerPoint = scrollPos + offset + 10;
+
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        if (triggerPoint >= top && triggerPoint < bottom) {
+          const uniqueClass = Array.from(section.classList).find(c => c !== 'section-scroll');
+          currentSection = uniqueClass;
+        }
+      });
+
+      links.forEach(link => {
+        const targetClass = link.getAttribute('href').replace('#', '');
+        link.classList.toggle('active', targetClass === currentSection);
+         link.addEventListener("click", e => {
+          e.preventDefault();
+
+          const cls = link.getAttribute("href").replace("#", "");
+          window.location.href= cls;
+        })
+      });
+    });
+  }
+</script>
+<script>
+    const faqSelect = document.getElementById('faqSelectCategory');
+    const faqList = document.getElementById('faqCategory');
+    const faqItems = document.querySelectorAll('.faq-categorybox');
+    const faqArrow = document.querySelector('.faq-arrow');
+
+    // Toggle dropdown on button click
+    faqSelect.addEventListener('click', () => {
+        faqList.classList.toggle('show');
+        faqArrow.classList.toggle('rotate');
+    });
+
+    // Handle category selection
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Update button text
+            faqSelect.childNodes[0].nodeValue = item.textContent;
+
+            // Remove previous selection
+            faqItems.forEach(i => i.classList.remove('faq-selected'));
+
+            // Highlight selected
+            item.classList.add('faq-selected');
+
+            // Close dropdown
+            faqList.classList.remove('show');
+            faqArrow.classList.remove('rotate');
+        });
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.faq-categorydropdown')) {
+            faqList.classList.remove('show');
+            faqArrow.classList.remove('rotate');
+        }
+    });
+</script>
+
+
+{% schema %}
+{
+  "name": "Blog Topic Tags",
+  "settings": [],
+  "presets": [
+  {
+    "category": "blogs",
+    "name": "Blog Topic Tags"
+  }
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

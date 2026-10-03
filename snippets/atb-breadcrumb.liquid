@@ -1,0 +1,165 @@
+{% if settings.breadcrumb_separator == 'caret' %}
+  {% assign breadcrumb_separator = 'right-caret' %}
+{% elsif settings.breadcrumb_separator == 'arrow' %}
+  {% assign breadcrumb_separator = 'right-arrow' %}
+{% elsif settings.breadcrumb_separator == 'bullet' %}
+  {% assign breadcrumb_separator = 'bullet' %}
+{% elsif settings.breadcrumb_separator == 'slash' %}
+  {% assign breadcrumb_separator = 'slash' %}
+{% endif %}
+
+<nav
+  class="
+    breadcrumb
+    is-{{ settings.breadcrumb_size }}
+    is-{{ settings.breadcrumb_capitalization }}
+  "
+  aria-label="breadcrumbs"
+>
+  <ul>
+    <li>
+      <a href="{{ routes.root_url }}" title="{{ shop.name | escape }}">
+        {{ shop.name | escape }}
+      </a>
+    </li>
+    {% if template.name == 'product' %}
+      <li>
+        <span class="breadcrumb-separator">
+          <span class="icon">|</span>
+        </span>
+        {% if product.type == 'Service' %}
+          <a href="/collections/{{ product.type | handle }}">{{ product.type }}</a>
+        {% else %}
+          <a
+            href="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}{{ product.type | handle }}{% endif %}"
+            title="{{ product.type | escape }}"
+          >
+            {% unless collection.title %}{{ product.type }}{% endunless %}
+          </a>
+        {% endif %}
+      </li>
+      {% if current_tags %}
+        {% for tag in current_tags %}
+          <li>
+            <span class="breadcrumb-separator">
+              <span class="icon">|</span>
+            </span>
+            <a
+              href="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %} {{ tag | handleize }}"
+              title="{{ tag | escape }}"
+            >
+              {{ tag }}
+            </a>
+          </li>
+        {% endfor %}
+      {% endif %}
+    {% elsif template.name == 'collection' %}
+      <li>
+        <span class="breadcrumb-separator">
+          <span class="icon">|</span>
+        </span>
+        <!--
+          <a href="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}" title="{{ collection.title | escape }}">
+        -->
+        <span>
+          {%- unless collection.title %}
+            {{ 'collections.general.all' | t }}
+          {% else %}
+            {{ collection.title }}
+          {% endunless -%}
+        </span>
+        <!-- </a> -->
+      </li>
+    {% elsif template.name == 'search' %}
+      <li>
+        <span class="breadcrumb-separator">
+          {% render 'icon', name: breadcrumb_separator %}
+        </span>
+        <a href="{{ routes.search_url }}" title="{{ 'general.search.title' | t | escape }}">
+          {{ 'general.search.title' | t }}
+        </a>
+      </li>
+    {% elsif context == 'article' %}
+      <li>
+        <span class="breadcrumb-separator ">&nbsp; | &nbsp;</span>
+        <a href="https://www.miadonna.com/blogs/all" title="{{ blog.title | escape }}"> Blog </a>
+      </li>
+      <li>
+        <span class="breadcrumb-separator ">&nbsp; | &nbsp;</span>
+        <a href="{{ blog.url }}" title="{{ blog.title | escape }}">
+          {{ blog.title }}
+        </a>
+      </li>
+    {% elsif template.name == 'page' %}
+      {% if page.metafields.custom.page_breadcrumb != blank %}
+        <li>
+          <span class="breadcrumb-separator">
+            <span class="icon">|</span>
+          </span>
+        {% if page.metafields.custom.page_breadcrumb == 'Diamond Guide'  %}
+          <a href="/pages/stone-guide-compare-stones">
+          {{ page.metafields.custom.page_breadcrumb }}
+          </a>
+        {% elsif page.metafields.custom.page_breadcrumb == 'FAQs' %}
+          <a href="/pages/faqs">
+          {{ page.metafields.custom.page_breadcrumb }}
+          </a>
+        {% else %}
+          {{ page.metafields.custom.page_breadcrumb }}
+        {% endif %}
+        </li>
+      {% endif %}
+   
+      {% if page.handle != blank %}
+        <li>
+          <span class="breadcrumb-separator">
+            <span class="icon">|</span>
+          </span>
+          {{ page.title }}
+        </li>
+      {% endif %}
+    {% endif %}
+    {% if product.handle != blank %}
+      <li>
+        <span class="breadcrumb-separator">
+          <span class="icon">|</span>
+        </span>
+        {% comment %} {%- assign caratTags = product.tags | where: 'carat_' | last -%}
+        {%- assign shapeTags = product.tags | where: 'shape_' | last -%}
+        {%- assign gemTypeTags = product.tags | where: 'gem_type_' | last -%}
+        {% if product.type == "Lab Created Gemstone" %}
+          {%- if caratTags.size > 0 %} {{ caratTags | remove: 'carat_' | capitalize }} {% endif -%} Carat {%- if shapeTags.size > 0 %} {{ shapeTags | remove: 'shape_' | capitalize }} {% endif -%} Cut Lab-Created {%- if gemTypeTags.size > 0 %} {{ gemTypeTags | remove: 'gem_type_' | capitalize }}{% endif -%}
+        {% elsif product.type == "Lab Created Diamond" %}
+          {%- if caratTags.size > 0 %} {{ caratTags | remove: 'carat_' | capitalize }} {% endif -%} Carat {%- if shapeTags.size > 0 %} {{ shapeTags | remove: 'shape_' | capitalize }} {% endif -%} Cut Lab-Created Diamond
+        {% elsif product.type == "Diamond Hybrid" %}
+          {%- if caratTags.size > 0 %} {{ caratTags | remove: 'carat_' | capitalize }} {% endif -%} Carat {%- if shapeTags.size > 0 %} {{ shapeTags | remove: 'shape_' | remove: '_cut' | capitalize }} {% endif -%} Cut Diamond Hybrid
+        {% else %} {% endif %} {% endcomment %}
+        {{ product.title }}
+      </li>
+    {% endif %}
+    {% if template.name == 'collection' %}
+      {% paginate collection.products by atb_pagination_limit %}
+        {% if paginate.pages != 0 %}
+          <li class="breadcrumb__page-count js-breadcrumb-text is-hidden">
+            <span class="breadcrumb-separator is-hidden">
+              {% render 'icon', name: breadcrumb_separator %}
+            </span>
+            <span class=" is-hidden" data-breadcrumb-text></span>
+          </li>
+        {% endif %}
+      {% endpaginate %}
+    {% endif %}
+    {% if template.name == 'search' %}
+      {% paginate search.results by atb_pagination_limit %}
+        {% if paginate.pages != 0 %}
+          <li class="breadcrumb__page-count js-breadcrumb-text is-hidden">
+            <span class="breadcrumb-separator">
+              {% render 'icon', name: breadcrumb_separator %}
+            </span>
+            <span data-breadcrumb-text></span>
+          </li>
+        {% endif %}
+      {% endpaginate %}
+    {% endif %}
+  </ul>
+</nav>

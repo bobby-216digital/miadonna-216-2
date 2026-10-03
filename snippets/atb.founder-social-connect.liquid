@@ -1,0 +1,254 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Founder - Social Connect",
+  "id": "founder-social-connect",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Title",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_subtitle1",
+      "label": "Subtitle 1",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_subtitle2",
+      "label": "Subtitle 2",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_subtitle3",
+      "label": "Subtitle 3",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_email",
+      "label": "Email",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_linkedin_name",
+      "label": "Linkedin Name",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_linkedin_link",
+      "label": "Linkedin Url",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_facebook_name",
+      "label": "Facebook Name",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_facebook_link",
+      "label": "Facebook Url",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_instagram_name",
+      "label": "Instagram Name",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_instagramlink",
+      "label": "Instagram Url",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_subtitle1' -%}
+{%- assign atb_subtitle1 = val -%}
+{%- include 'atb-render' field:'atb_subtitle2' -%}
+{%- assign atb_subtitle2 = val -%}
+{%- include 'atb-render' field:'atb_subtitle3' -%}
+{%- assign atb_subtitle3 = val -%}
+{%- include 'atb-render' field:'atb_email' -%}
+{%- assign atb_email = val -%}
+{%- include 'atb-render' field:'atb_linkedin_name' -%}
+{%- assign atb_linkedin_name = val -%}
+{%- include 'atb-render' field:'atb_linkedin_link' -%}
+{%- assign atb_linkedin_link = val -%}
+{%- include 'atb-render' field:'atb_facebook_name' -%}
+{%- assign atb_facebook_name = val -%}
+{%- include 'atb-render' field:'atb_facebook_link' -%}
+{%- assign atb_facebook_link = val -%}
+{%- include 'atb-render' field:'atb_instagram_name' -%}
+{%- assign atb_instagram_name = val -%}
+{%- include 'atb-render' field:'atb_instagramlink' -%}
+{%- assign atb_instagramlink = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<style>
+  #shopify-section-{{ section_id }} {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section_id }} .founder-connect .text-style-chapter-title,
+  #shopify-section-{{ section_id }} .founder-connect .text-style-subtitle {
+    color: #777777;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .founder-connect h2 {
+    margin-bottom: 2em;
+  }
+  #shopify-section-{{ section_id }} .founder-connect .connect-grid {
+    padding: 1em;
+    text-align: center;
+    display: -webkit-flex;
+    -webkit-flex-flow: row wrap;
+    display: -ms-flexbox;
+    -ms-flex-flow: row wrap;
+    -ms-align-content: flex-start;
+    -webkit-align-content: flex-start;
+    align-content: flex-start;
+  }
+  #shopify-section-{{ section_id }} .founder-connect .connect-grid .connect-col {
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .founder-connect .connect-grid .connect-col h3 {
+    color: #000000de;
+    margin-bottom: 1em;
+  }
+  #shopify-section-{{ section_id }} .founder-connect .connect-grid .connect-col .connect-content {
+    line-height: 1.8em;
+    margin-bottom: 1em;
+  }
+  #shopify-section-{{ section_id }} .founder-connect .connect-grid .connect-col .connect-content .highlight {
+    font-family: Montserrat,sans-serif;
+    color: #ffa998;
+    font-size: 14px;
+  }
+  #shopify-section-{{ section_id }} .founder-connect .connect-grid .connect-col .connect-content a {
+    color: #ffa998;
+    font-weight: 300;
+    text-decoration: none;
+  }
+  #shopify-section-{{ section_id }} .founder-connect .connect-grid .connect-col .connect-content a:hover {
+    text-decoration: underline;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section_id }} {
+      padding: 50px;
+    }
+    #shopify-section-{{ section_id }} .founder-connect .connect-grid .connect-col:not(:last-child) {
+      border-right: 1px solid rgba(0,0,0,.1);
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section_id }} .founder-connect .text-style-chapter-title,
+    #shopify-section-{{ section_id }} .founder-connect .text-style-subtitle {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section_id }} .founder-connect .connect-grid .connect-col {
+      font-size: 18px;
+      line-height: 1.55;
+    }
+  }
+  @media only screen and (max-width: 749px) {
+    #shopify-section-{{ section_id }} .founder-connect .connect-grid .connect-col:not(:last-child) {
+      border-bottom: 1px solid rgba(0,0,0,.1);
+      margin-bottom: 1em;
+    }
+  }
+</style>
+
+<section class="section is-standard content-cell -bottom-padding-only founder-connect text-center">
+  <div class="body-cell">
+    <h2 class="text-style-chapter-title">{{ atb_title }}</h2>
+    <div class="container connect-grid has-no-side-gutter">
+      <div class="one-third small-down--one-whole column connect-col">
+        <h3 class="text-style-subtitle -dark">{{ atb_subtitle1 }}</h3>
+        <p class="connect-content">
+          {{ atb_email -}}
+          <br>
+          <!-- <span class="highlight">Nike Communications</span> -->
+        </p>
+      </div>
+      <div class="one-third small-down--one-whole column connect-col">
+        <h3 class="text-style-subtitle -dark">{{ atb_subtitle2 }}</h3>
+        <p class="connect-content">
+          LinkedIn:<br>
+          <span class="highlight"
+            ><a href="{{ atb_linkedin_link }}" target="_blank">
+              {{- atb_linkedin_name -}}
+            </a></span
+          >
+        </p>
+        <p class="connect-content">
+          Facebook:<br>
+          <span class="highlight"
+            ><a href="{{ atb_facebook_link }}" target="_blank">
+              {{- atb_facebook_name -}}
+            </a></span
+          >
+        </p>
+        <p class="connect-content">
+          Instagram:<br>
+          <span class="highlight"
+            ><a href="{{ atb_instagramlink }}" target="_blank">
+              {{- atb_instagram_name -}}
+            </a></span
+          >
+        </p>
+      </div>
+      <div class="one-third small-down--one-whole column connect-col">
+        <h3 class="text-style-subtitle -dark">{{ atb_subtitle3 }}</h3>
+        <p class="connect-content">
+          Articles &amp; Media:<br>
+          <span class="highlight">
+            <a href="/pages/the-press-room">View</a>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

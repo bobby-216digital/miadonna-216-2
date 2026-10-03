@@ -1,0 +1,1186 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "disabled": true,
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_sidebar": false,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ccc272c4-b764-4862-a10c-d61c4a47b0e1": {
+      "type": "index__image-with-text-2",
+      "blocks": {
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "The Greener Diamond",
+            "title2": "",
+            "text": "<p>True, sustainable change requires more than a single donation. Find out how we are empowering communities together. <br/>You're the hero that makes this happen.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_The-Grenner-Diamond_Giving-Back-Philantropy-Humanitarian-Human-Rights-Advocate-Support_desktop.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna_The-Grenner-Diamond_Giving-Back-Philantropy-Humanitarian-Human-Rights-Advocate-Support_mobile.jpg",
+            "image_link": "",
+            "iframe_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-text-1",
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-image-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "74ef9bbf-cbdb-4989-9956-ea23b05c35e5": {
+      "type": "buttons-list",
+      "blocks": {
+        "f0d80f2f-d90c-4c9f-8d60-8c124c05f3bb": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our Story",
+            "button_link": "/pages/about-us",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "8c75c1bf-0b5f-475d-be73-ded5acc2a71f": {
+          "type": "button",
+          "settings": {
+            "button_label": "The Founder",
+            "button_link": "/pages/the-founder",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "065e7c9c-64b2-4435-9dd8-2bca56193f7c": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our Pledge",
+            "button_link": "/pages/our-pledge",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "d728a31e-f5e3-48e1-ae45-29b1e189a655": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our Cause",
+            "button_link": "/pages/the-greener-diamond",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "4aa2b1c1-930f-4f59-9e9b-fad005363578": {
+          "type": "button",
+          "settings": {
+            "button_label": "The issues",
+            "button_link": "/pages/conflict-diamonds",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        }
+      },
+      "block_order": [
+        "f0d80f2f-d90c-4c9f-8d60-8c124c05f3bb",
+        "8c75c1bf-0b5f-475d-be73-ded5acc2a71f",
+        "065e7c9c-64b2-4435-9dd8-2bca56193f7c",
+        "d728a31e-f5e3-48e1-ae45-29b1e189a655",
+        "4aa2b1c1-930f-4f59-9e9b-fad005363578"
+      ],
+      "settings": {
+        "background": "#e7edf5",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "a0acd91f-cc30-45d9-b642-50ac5fcbe6ac": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "CREATING A GREENER DIAMOND FUTURE",
+        "heading_font": "montserrat_n6",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<p>The Greener Diamond (TGD) is our charity foundation. Together with MiaDonna, TGD works as an integral part of our solution, by empowering communities to grow food instead of mining for diamonds.</p>",
+        "text_font": "playfair_display_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 35,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text": "rgba(0,0,0,0)",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ".rich-text__text.content p{\n    max-width: 1000px;\n    margin: 0 auto;\n}"
+      }
+    },
+    "6bc6251e-8032-4639-957b-ccd37b101405": {
+      "type": "index__divider",
+      "settings": {
+        "divider_style": "short",
+        "divider_width": 2,
+        "divider_color": "rgba(0,0,0,0)",
+        "alignment": "center",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "548d900e-861a-4e70-9d27-47f9556dc5a1": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 20,
+        "text": "<p>When founder Anna-Mieke learned she had most likely purchased a conflict diamond, she started sponsoring a boy in a diamond community in Liberia, Africa. Through his and his mother's first-hand accounts, she saw how much her sponsorship was changing their lives for the better, learned how their communities were devastated by the diamond mining industry, and knew additional help was needed on a much larger scale.</p>",
+        "text_font": "montserrat_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#eeeeee",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "#ffffff",
+        "gradient": "#ffffff",
+        "gradient_rotation": 0,
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ".rich-text__text.content p{\n    max-width: 740px;\n    margin: 0 auto;\n}"
+      }
+    },
+    "7a65bd64-95f9-407b-bcf7-9ba6b9aa5990": {
+      "type": "index__image-with-text-overlay",
+      "settings": {
+        "section_background_color": "",
+        "tilt_background": false,
+        "link": "",
+        "image": "shopify://shop_images/MiaDonna_The-Greener-Diamond-YIA-group_web.jpg",
+        "mobile_image": "shopify://shop_images/MiaDonna_The-Greener-Diamond-YIA-group-MOBILE.jpg",
+        "pretext": "",
+        "title": "",
+        "subtitle": "",
+        "pretext_color": "#000000",
+        "heading_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "center",
+        "text_horizontal_position": "center",
+        "text_vertical_position": "middle",
+        "background_color": "#ffffff",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 32,
+        "button_1": "",
+        "button_1_link": "",
+        "button_1_style": "button--secondary",
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ac8ce8dd-0152-4ffa-bcd4-d6f7fce0e4f9": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "montserrat_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<p>Each time you purchase an ethical and affordable MiaDonna product, a portion of the proceeds goes straight into programs that help restore the lives and land in sub-Saharan Africa.</p><p>We are committed to <strong>giving back 10% of net profits</strong>. However, we do much more than just that.</p><p>The MiaDonna team also donates countless hours of their time to developing projects and ensuring each project is successful, which allows The Greener Diamond to run with no administrative costs. Most of TGD's projects have a set dollar amount. Agricultural projects have a strict timeline to plant before the seasonal rains arrive. There have been many months when MiaDonna has been known to donate up to 100% of their monthly net proceeds, in addition to the team's hours, to get farms planted in time. Otherwise, these communities would have to wait another year until the next planting season is upon them.</p>",
+        "text_font": "montserrat_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#eeeeee",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "#ffffff",
+        "gradient": "#ffffff",
+        "gradient_rotation": 0,
+        "width": "wide",
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ".rich-text__text.content p:not(:last-child){\n    margin-bottom: 25px;\n}\n.rich-text__text.content p{\nmax-width: 720px;\n    margin-left: auto;\n    margin-right: auto;\n}"
+      }
+    },
+    "b92ee84a-cfce-4d87-93bd-5e2e81254de5": {
+      "type": "index__icon-with-text-column",
+      "blocks": {
+        "2a4eea22-f7e4-4555-b055-1a909e1a4b72": {
+          "type": "logo_image",
+          "settings": {
+            "title": "100%",
+            "text": "<p>TGD is 100% funded by MiaDonna’s conscious consumers. <br/>We do not take donations.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "1e329f5a-20d0-4016-a3a1-08db8096f35e": {
+          "type": "logo_image",
+          "settings": {
+            "title": "0%",
+            "text": "<p>TGD contributes a whopping zero percent to administrative costs. Every cent goes to projects.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "8b546bb5-b8e0-44e3-a2a2-15313b8071fc": {
+          "type": "logo_image",
+          "settings": {
+            "title": "100%",
+            "text": "<p>TGD is 100% run by volunteers who dedicate their time and effort to projects locally and abroad.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "2a4eea22-f7e4-4555-b055-1a909e1a4b72",
+        "1e329f5a-20d0-4016-a3a1-08db8096f35e",
+        "8b546bb5-b8e0-44e3-a2a2-15313b8071fc"
+      ],
+      "custom_css": [
+        "@media only screen and (min-width: 799px) {.custom-ranker .icon-column__title {font-weight: 700 !important; font-size: 45px !important; }}"
+      ],
+      "settings": {
+        "preheading": "",
+        "heading": "",
+        "icons_per_row": 3,
+        "icon_size": "medium",
+        "align_text": "center",
+        "button_style": "button--primary",
+        "icon_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "background": "#e5edf6",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 0,
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "custom-ranker",
+        "custom_css": "section.sectio{\nbox-shadow:none;\n}\n\n.icon-column__title {\n   margin-bottom: 10px !imporftant;\n  }\n.icon-column__title{\nmargin-bottom: 10px !important;\n}\np{\n     font-weight: 600;\ntext-transform: capitalize;\n}"
+      }
+    },
+    "f3bf7cb0-4d95-4eae-a4d1-5def9556bdd4": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "montserrat_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<p>Because of You and MiaDonna, The Greener Diamond is able to continue developing new projects to help undo the damage caused by the earth-mined diamond trade. TGD currently sponsors agricultural farms in Liberia and Sierra Leone, where reformed child soldiers are trained to grow food instead of mining for diamonds. <br/><br/>Also, when asked, TGD has been known to fund emergency projects, like relief and support endeavors for Ebola survivors and orphans, Ukrainian refugees, and educating rural communities during the COVID-19 pandemic.</p><p>Learn more about The Greener Diamond projects below.</p>",
+        "text_font": "montserrat_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#eeeeee",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "#ffffff",
+        "gradient": "#ffffff",
+        "gradient_rotation": 0,
+        "width": "wide",
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ".rich-text__text.content p:not(:last-child){\n    max-width: 800px;\n    margin: 0 auto;\n    margin-bottom: 25px;\n}"
+      }
+    },
+    "b8c0584f-2426-45f6-ac70-deabca70bf6b": {
+      "type": "slideshow-gallery",
+      "blocks": {
+        "template--15039479414863__b8c0584f-2426-45f6-ac70-deabca70bf6b-image-1": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_1.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_1.jpg",
+            "title": "Corn harvest at the Liberia farm has an eager helper"
+          }
+        },
+        "783acc41-abc0-46ae-93a6-b707435dd2fb": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_2.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_2.jpg",
+            "title": "Center for Women's Empowerment, Liberia"
+          }
+        },
+        "307bd84c-0550-4630-94a6-9a9f1dd1f696": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_3._Kimmie-Weeks-Farm-Liberia-organic-Kiss-the-Ground.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_3._Kimmie-Weeks-Farm-Liberia-organic-Kiss-the-Ground.jpg",
+            "title": "Activist & partner Kimmie Weeks leads our Liberian farm"
+          }
+        },
+        "template--15039479414863__b8c0584f-2426-45f6-ac70-deabca70bf6b-image-2": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_14.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_14.jpg",
+            "title": "Ponpon and Anna-Mieke reuniting in 2016"
+          }
+        },
+        "9e12f196-f237-49cd-8051-7901be98adcb": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_4_COVID-relief-volunteer-Liberia.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_4_COVID-relief-volunteer-Liberia.jpg",
+            "title": "Volunteers provide COVID-19 resources and education"
+          }
+        },
+        "743373d9-af1f-4234-9ac4-09ed72a8f48b": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_5_Farm-collard-greens-organic-volunteer-Liberia-Africa.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_5_Farm-collard-greens-organic-volunteer-Liberia-Africa.jpg",
+            "title": "Growing organic collards at the Liberian farm"
+          }
+        },
+        "8a8e639a-2eef-4e2a-88dd-64af293da3aa": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_10_Girls-Mentorship-Program-Liberia-Africa-Anna-Mieke-Anderson.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_10_Girls-Mentorship-Program-Liberia-Africa-Anna-Mieke-Anderson.jpg",
+            "title": "Founder Anna-Mieke and the Girls Mentorship Program in Liberia"
+          }
+        },
+        "2293f7fa-658d-46e8-bc74-a08303f20f7a": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_16_Ukraine-refuguees-Poland-relief-donations.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_16_Ukraine-refuguees-Poland-relief-donations.jpg",
+            "title": "Assisting Ukrainian refugees in Poland"
+          }
+        },
+        "5b004040-0c25-4777-bec5-a82491097928": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_7_kids-Liberia-Africa-well-water-volunteer-giving-back.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_7_kids-Liberia-Africa-well-water-volunteer-giving-back.jpg",
+            "title": "We often provide free convenient wells to communities"
+          }
+        },
+        "22da1bea-91bb-4193-aa69-46084c093f25": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_9_Elwou-Orphanage-Liberia-Africa-giving-back.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_9_Elwou-Orphanage-Liberia-Africa-giving-back.jpg",
+            "title": "Girls from the Elwou Orphanage"
+          }
+        },
+        "1b90d341-e785-4eff-bc1f-a75e4594df4a": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_13_Liberia-farm-volunteers-chickens-Africa-giving-back.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-carousel_13_Liberia-farm-volunteers-chickens-Africa-giving-back.jpg",
+            "title": "Chickens provide food & fertilizer at the Liberia farm"
+          }
+        }
+      },
+      "block_order": [
+        "template--15039479414863__b8c0584f-2426-45f6-ac70-deabca70bf6b-image-1",
+        "783acc41-abc0-46ae-93a6-b707435dd2fb",
+        "307bd84c-0550-4630-94a6-9a9f1dd1f696",
+        "template--15039479414863__b8c0584f-2426-45f6-ac70-deabca70bf6b-image-2",
+        "9e12f196-f237-49cd-8051-7901be98adcb",
+        "743373d9-af1f-4234-9ac4-09ed72a8f48b",
+        "8a8e639a-2eef-4e2a-88dd-64af293da3aa",
+        "2293f7fa-658d-46e8-bc74-a08303f20f7a",
+        "5b004040-0c25-4777-bec5-a82491097928",
+        "22da1bea-91bb-4193-aa69-46084c093f25",
+        "1b90d341-e785-4eff-bc1f-a75e4594df4a"
+      ],
+      "settings": {
+        "image_transition": "slide",
+        "image_slideshow_speed": 4,
+        "show_arrows": true,
+        "show_nav_buttons": false,
+        "width": "standard",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "fadeInLeft",
+        "css_class": "custom-slider",
+        "custom_css": ".slideshow-classic .gallery-cell .image-element__wrap{\npadding: 10px;\n}\n.flickity-button{\ntop: 50%;\n    padding: 0;\n    outline: none;\n    box-shadow: none;\n    background-color: transparent;\n}\n.flickity-button-icon{\nfill: #ffffff;\n    background: #000;\n    padding: 7px;\n    border-radius: 100%;\n    height: 30px;\n    width: 30px;\n}"
+      }
+    },
+    "32d6329c-c3f7-4569-8ad3-ff8b742afe51": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe51-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "THE GREENER DIAMOND AGRICULTURAL TRAINING CENTER, LIBERIA",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>Using the groundbreaking method from <a href=\"https://kisstheground.com/\" target=\"_blank\" title=\"Kiss the Ground\"><em>Kiss The Ground</em></a>, we are creating our first farm that is growing food with 100% organic fertilizer, no pesticides, and no rototilling on 10 acres of land. </p><p>For Phase I, we farmed just the first five acres. In 2021 it was officially a sustainable success! Additional food was sold at markets and provided more funding for the farm. In 2022, we started on Phase II and the additional five acres with the goal of it being our most long-term sustainable farm yet. </p><p>Beyond providing food security and vital education for the local community, our goal is to protect the topsoil and keep it alive to absorb even more carbon out of the atmosphere than trees and oceans.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe51-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-Farm-Liberia.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe51-text-1",
+        "template--15035832991823__32d6329c-c3f7-4569-8ad3-ff8b742afe51-image-1"
+      ],
+      "custom_css": [
+        "@media (min-width: 768px) {.image-with-text__heading.is-small {margin-bottom: 20px; font-size: 30px; }}"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "f8bea500-5c0d-4262-a369-703910dfb1d4": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-Ukraine-Refugee-Relief.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "UKRAINIAN REFUGEE RELIEF, POLAND",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>Upon Russia's invasion of Ukraine, thousands of Ukrainians fled their homeland. One in three earth-mined diamonds come from Russia, and that massive industry is helping fund their senseless war. This makes all Russian-sourced diamonds definitively blood diamonds.</p><p>We worked with the Polish organization <a href=\"https://ocalenie.org.pl/\" target=\"_blank\" title=\"Fundacja Ocalenie\">Fundacja Ocalenie</a> to provide much-needed financial assistance for the countless refugees who fled to Poland. Fundacja Ocalenie is a non-government, grassroots organization that has served the needs of Ukrainian refugees in Poland well before the current crisis unfolded. With their boots-on-the-ground guidance, we helped provide food, medical assistance, and accommodation for hundreds of Polish refugees.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-image-1",
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-text-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "1df684c8-4734-4e06-b700-3c8f32579b1a": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "2df796be-611d-4075-8dea-96af315b7f8a": {
+          "type": "text",
+          "settings": {
+            "title": "COVID URGENT RELIEF PROGRAM, LIBERIA",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>During the pandemic, sanitation stations and food were provided to locals, most of whom do not have access to running water. Educating Liberians on the importance of washing hands and wearing masks was vital to protecting the nation, which only has five ventilators and limited healthcare resources. </p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "0afd17d8-768c-4c51-b82a-db76863b4944": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-COVID-Relief.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "2df796be-611d-4075-8dea-96af315b7f8a",
+        "0afd17d8-768c-4c51-b82a-db76863b4944"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "7aa7f3a8-12de-42ad-a23e-dca3080b7183": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "ececaf5e-7b01-4061-b3ff-bbf1203e4ff3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-DRC-School.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "0e37f061-e6be-4fd5-a5ff-ef05d91bcd52": {
+          "type": "text",
+          "settings": {
+            "title": "DRC PRIMARY EDUCATION INITIATIVE, DEMOCRATIC REPUBLIC OF THE CONGO (DRC)",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>In the DRC, approximately 40,000 children work in unregulated gold mines. These children face dangerous conditions and constant threats of violence. In addition, it's estimated that 48 women and girls are raped every hour, most often near the mines.</p><p>Due to ongoing violence, fighting, and corruption in the DRC, we partnered with the <a href=\"https://panzifoundation.org/the-crisis/\" target=\"_blank\" title=\"Panzi Foundation\">Panzi Foundation</a>, headed by Nobel Peace Prize winner, Dr. Denis Mukwege. Our DRC Primary Education Initiative repaired an existing school and built an additional school to get more than 1,000 students out of the mines, including 500 young girls. In addition, we offered psychosocial support and financial incentives to the families.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "ececaf5e-7b01-4061-b3ff-bbf1203e4ff3",
+        "0e37f061-e6be-4fd5-a5ff-ef05d91bcd52"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "72e2fe77-f5b5-4e7e-8221-f1635fe7ade4": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "558100f7-24d9-4ed2-9938-dfa7a10e9cd3": {
+          "type": "text",
+          "settings": {
+            "title": "THE GREENER DIAMOND FARM, SIERRA LEONE",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>The Farm is located in the Kono District of Sierra Leone. It is a little over 100 acres and employs and trains over 500 local, reformed child soldiers and street kids. The Kono District was chosen for the first Greener Diamond Farm location as it is considered one of the world's largest fought-over areas due to its abundance of natural resources.</p><p>In addition to providing food for the community, the farm teaches former soldiers and homeless children how to support themselves without violence.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "8bcf1b45-aa0d-4986-91f3-f603fbaecf67": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-Sierra-Leone-Kono-Farm.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "558100f7-24d9-4ed2-9938-dfa7a10e9cd3",
+        "8bcf1b45-aa0d-4986-91f3-f603fbaecf67"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 30,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "41d109d0-07d1-4519-a105-03dc6e151aeb": {
+      "type": "index__rich-text",
+      "custom_css": [
+        ".testimonial .rich-text__heading:after {}",
+        "@media only screen and (min-width: 799px) {.testimonial .card-content {max-width: 1050px; margin: auto; padding: 3.5rem 15px; }}"
+      ],
+      "settings": {
+        "title": "In the Kono, it is not uncommon to find a diamond on the ground after a storm.",
+        "heading_font": "montserrat_n4",
+        "heading_color": "#ffffff",
+        "heading_alignment": "center",
+        "heading_size": 32,
+        "text": "<p>Because of this, there has always been a fight over the Kono District.</p><p>During the Sierra Leone civil war it got even more brutal. The group that conquered the Kono District ran Sierra Leone and the kept profits from its natural resources. They will always be in conflict and on the brink of civil war. That is why I found it so important to put our farm there. The local youth are tired of mining, poverty and conflict, they now realize mining will never prosper them. This (The Greener Diamond Farm) is what the local people want... they asked The Greener Diamond and we delivered.” – Anna-Mieke</p>",
+        "text_font": "montserrat_n4",
+        "text_color": "#ffffff",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#eeeeee",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "#353535",
+        "gradient": "#353535",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "testimonial",
+        "custom_css": ".quate{\ndisplay: block;\nmargin: auto;\nmargin-bottom: 20px;\ntext-align: center;\nmax-width: 40px\n}"
+      }
+    },
+    "562adb14-bd23-404c-b634-006c404075f8": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "cb8464a4-eaec-49c0-a587-df210725848e": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-Elwou-Orphanage.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "b22a2425-5552-495e-9daf-970d6681841b": {
+          "type": "text",
+          "settings": {
+            "title": "ELWOU ORPHANAGE, LIBERIA",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>The orphanage currently hosts 80 children and six primary caregivers. Sadly, this orphanage has been relying on aid given to them or by begging to survive. The goal of this project is to help the orphanage grow food and raise livestock for self-consumption, as well as to sell the surplus harvest to meet their other needs</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "cb8464a4-eaec-49c0-a587-df210725848e",
+        "b22a2425-5552-495e-9daf-970d6681841b"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 30,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "13100962-cd14-4855-92a7-ee1f5145da12": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "743675e4-e8f3-485e-bca2-23ee6b492b8c": {
+          "type": "text",
+          "settings": {
+            "title": "CENTER FOR WOMEN'S EMPOWERMENT, LIBERIA",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>Using basic education, alternative counseling and vocational training, the Center for Women's Empowerment provides a safe place for women to flourish, and alleviate the negative impact the civil war has had on them.<br/>At the end of each year, the women graduate in a particular area of their choice, such as sewing or baking. Graduates of the Center for Women's Empowerment are awarded a micro-credit loan and are assigned to an advisor who will work with them to establish small businesses.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "2723d8eb-88c2-4a65-bad0-0b8c474d2fd7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-Center-Womens-Empowerment-Liberia_43147191-ce6c-4bf4-82c0-dd22a7f07faa.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "743675e4-e8f3-485e-bca2-23ee6b492b8c",
+        "2723d8eb-88c2-4a65-bad0-0b8c474d2fd7"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "600875c1-795d-487d-8754-7f96e53abf3d": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "5f5df8a8-885e-48c2-9bdd-f3d9dea1b181": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-SOS-Technical-School-Togo.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "79bdf904-3378-4938-8896-5d00a12948c9": {
+          "type": "text",
+          "settings": {
+            "title": "SOS TECHNICAL SCHOOL, TOGO",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>Nearly 300 students receive education and training in computer science, welding, carpentry and several other vocations at the SOS technical school. Togo is a small country in western Africa and was in desperate need of the new school due to the country's literacy rate of less than 50%, and extreme poverty. In 2009, The Greener Diamond partnered with SOS Children's Villages to help fund young men learning the skill of carpentry</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "5f5df8a8-885e-48c2-9bdd-f3d9dea1b181",
+        "79bdf904-3378-4938-8896-5d00a12948c9"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "1ba326b5-e65e-40df-95e6-e6e266df5c86": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "2f15e41d-67dc-4035-8068-3ed4b1373fdb": {
+          "type": "text",
+          "settings": {
+            "title": "EBOLA PROJECT, LIBERIA",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>UNICEF reported almost 18,000 cases and more than 6,000 deaths from Ebola during the 2014 outbreak, creating 7,000 orphaned children. The Greener Diamond supplied grants to families who took in orphans to help cover the increased expenses associated with the additions to their families.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "bf4405ee-02c5-4c83-9238-89821b55f4ec": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-Ebola-Relief-Liberia.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "2f15e41d-67dc-4035-8068-3ed4b1373fdb",
+        "bf4405ee-02c5-4c83-9238-89821b55f4ec"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "05f4e351-fe36-44f6-b6f7-91962335c875": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "97bf0244-adbd-45a0-8242-6c933e1151eb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-The-Greener-Diamond-Ponpon-Family-Sponsorship.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "d16cdfc8-2424-490d-9105-cc3b389152f0": {
+          "type": "text",
+          "settings": {
+            "title": "PONPON FAMILY SPONSORSHIP",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>In addition to sponsoring Ponpon monthly as a child, we have paid for his schooling, college tuition, and sponsored his wages at Youth Action International. We've also provided funds to cover some of his family's basic living expenses for over a decade.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "97bf0244-adbd-45a0-8242-6c933e1151eb",
+        "d16cdfc8-2424-490d-9105-cc3b389152f0"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "more-space",
+        "custom_css": ""
+      }
+    },
+    "ffe6e242-6551-4e5d-a37d-abf980cf1a3f": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "56f080f5-58a8-41d2-b2b1-ee74d6127251": {
+          "type": "text",
+          "settings": {
+            "title": "HOW IT WORKS",
+            "pre-title": "",
+            "heading_size": "large",
+            "text": "<p>MiaDonna and The Greener Diamond Foundation were created together, to work as a system towards the common goal of bringing the beauty of love back to diamonds by repairing the damage caused by unethical diamond mining.</p><p><br/>People purchasing eco-friendly diamond jewelry from MiaDonna eliminates the need to mine for these natural resources. It is also the funding source to build agricultural projects in diamond mining communities, so the locals can farm instead of mine. We like to say that we grow diamonds so we can grow food!</p><p><br/><a href=\"/pages/our-pledge\" title=\"/pages/our-pledge\">Read Our Pledge</a></p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "61b82b63-0ddb-474a-b218-26dc3f8a74ed": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Lab-Diamonds-Fashion-Engagement-Rings-Luxury_hi.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "56f080f5-58a8-41d2-b2b1-ee74d6127251",
+        "61b82b63-0ddb-474a-b218-26dc3f8a74ed"
+      ],
+      "disabled": true,
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half",
+        "custom_css": ".image-with-text__column .image-element__wrap{\n}\n.image-with-text__heading{\nfont-weight: 600;\nfont-size: 18px;\nline-height: 36px;\nletter-spacing: .35px;\n}"
+      }
+    },
+    "5fb0f164-ba84-4c8f-aafc-9582d8ca0103": {
+      "type": "collection-block",
+      "blocks": {
+        "40c78440-4092-4072-bb64-fcb27b329b94": {
+          "type": "collection_block",
+          "settings": {
+            "image_alt": "",
+            "title": "Engagement Rings",
+            "url": "/collections/halo-engagement-rings"
+          }
+        },
+        "fad8f26d-cadf-4669-8f13-e47715ebac24": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/wedding-bands.png",
+            "image_alt": "",
+            "title": "Wedding Bands",
+            "url": "/collections/wedding-bands"
+          }
+        },
+        "6597e72c-07de-41b3-aaf5-35a341d1025c": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/earrings.png",
+            "image_alt": "",
+            "title": "Earrings",
+            "url": "/collections/earrings"
+          }
+        },
+        "326dd769-fa6a-4103-8428-37677198bd2d": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/bracelets.png",
+            "image_alt": "",
+            "title": "Bracelets",
+            "url": "/collections/bracelets"
+          }
+        },
+        "d3628316-c83d-47dc-84ce-a971ee44af34": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/jewelry.png",
+            "image_alt": "",
+            "title": "jewelry",
+            "url": "/collections/ready-to-ship"
+          }
+        }
+      },
+      "block_order": [
+        "40c78440-4092-4072-bb64-fcb27b329b94",
+        "fad8f26d-cadf-4669-8f13-e47715ebac24",
+        "6597e72c-07de-41b3-aaf5-35a341d1025c",
+        "326dd769-fa6a-4103-8428-37677198bd2d",
+        "d3628316-c83d-47dc-84ce-a971ee44af34"
+      ],
+      "disabled": true,
+      "settings": {
+        "width": "standard",
+        "main_title": "YOUR PURCHASE HAS POWER",
+        "show_gutter": true,
+        "hide_mobile": false,
+        "background_color": "#ffffff",
+        "text_color": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "46ee47c1-72c2-4d8e-93a3-4221268459f1": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "Your Purchase has Power",
+        "heading_font": "playfair_display_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 40,
+        "text": "<p>The Greener Diamond is committed to more than just giving back. We don't believe in writing checks to charities and never looking back. We roll up our sleeves and work directly with the people in war-torn African communities who have suffered from past (and current) diamond greed. TGD also wants to make sure your taxpayer dollars are not contributing to stripping the land and people bare.</p><p>This is all being done because of your decision to make a more informed choice by choosing MiaDonna's conflict-free Lab-Grown Diamonds.</p><p>Thank you for helping to make a difference!</p>",
+        "text_font": "montserrat_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#eeeeee",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "#ffffff",
+        "gradient": "#ffffff",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 50,
+        "padding_bottom": 80,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ".rich-text__text.content p{    \nmax-width: 720px;\n    margin: 0 auto;\n}\n.rich-text__text.content p:not(:last-child) {\n    margin-bottom: 25px;\n}"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ccc272c4-b764-4862-a10c-d61c4a47b0e1",
+    "74ef9bbf-cbdb-4989-9956-ea23b05c35e5",
+    "a0acd91f-cc30-45d9-b642-50ac5fcbe6ac",
+    "6bc6251e-8032-4639-957b-ccd37b101405",
+    "548d900e-861a-4e70-9d27-47f9556dc5a1",
+    "7a65bd64-95f9-407b-bcf7-9ba6b9aa5990",
+    "ac8ce8dd-0152-4ffa-bcd4-d6f7fce0e4f9",
+    "b92ee84a-cfce-4d87-93bd-5e2e81254de5",
+    "f3bf7cb0-4d95-4eae-a4d1-5def9556bdd4",
+    "b8c0584f-2426-45f6-ac70-deabca70bf6b",
+    "32d6329c-c3f7-4569-8ad3-ff8b742afe51",
+    "f8bea500-5c0d-4262-a369-703910dfb1d4",
+    "1df684c8-4734-4e06-b700-3c8f32579b1a",
+    "7aa7f3a8-12de-42ad-a23e-dca3080b7183",
+    "72e2fe77-f5b5-4e7e-8221-f1635fe7ade4",
+    "41d109d0-07d1-4519-a105-03dc6e151aeb",
+    "562adb14-bd23-404c-b634-006c404075f8",
+    "13100962-cd14-4855-92a7-ee1f5145da12",
+    "600875c1-795d-487d-8754-7f96e53abf3d",
+    "1ba326b5-e65e-40df-95e6-e6e266df5c86",
+    "05f4e351-fe36-44f6-b6f7-91962335c875",
+    "ffe6e242-6551-4e5d-a37d-abf980cf1a3f",
+    "5fb0f164-ba84-4c8f-aafc-9582d8ca0103",
+    "46ee47c1-72c2-4d8e-93a3-4221268459f1"
+  ]
+}

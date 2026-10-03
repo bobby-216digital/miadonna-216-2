@@ -1,0 +1,79 @@
+<section class="whymiadonna-section common-spacing" role="region" aria-labelledby="why-miadonna-title">
+  <div class="contanier-nw">
+    <div class="slider-wrapper">
+      <h2 class="common-hd" tabindex="0" id="why-miadonna-title" tabindex="0">Why Miadonna</h2>
+      <div class="why-slider toparrow-sl slick-cls" aria-label="Why Miadonna">
+        {% for block in section.blocks %}
+          <div class="slide ">
+            <div class="why-slide-text">
+              <a href="{{ block.settings.link | default: '#' }}" class="img-hover-effect">
+                <picture class="image-full flex radius-2 overhidden">
+                  {% if block.settings.mobile_image %}
+                    <source media="(max-width: 767px)" srcset="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.mobile_image | image_url: width: 580 }}" aria-hidden="true">
+                  {% endif %}
+                  {% if block.settings.desktop_image %}
+                    <img
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.desktop_image | image_url: width: 580 }}"
+                      class="image-full"
+                      width="580"
+                      height="580"
+                      alt=""
+                      loading="lazy">
+                  {% endif %}
+                </picture>
+                <span>{{ block.settings.heading }}</span>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="progress-container" role="presentation" aria-hidden="true">
+        <div class="progress-bar progress-bar-why" style="width: 10%;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Why Miadonna Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "First in Lab-Grown Diamonds"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Slide Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Home Why Miadonna Slider",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

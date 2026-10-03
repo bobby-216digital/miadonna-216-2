@@ -1,0 +1,633 @@
+{% comment %}
+  ** Image with text **
+{% endcomment %}
+
+{{ 'index_image-with-text-2.css' | asset_url | stylesheet_tag }}
+
+<noscript>{{ 'index_image-with-text-2.css' | asset_url | stylesheet_tag }}</noscript>
+<style>
+  .cta-table table td,.cta-table table th {
+    padding: 2em;
+    text-align: center;
+}
+
+.cta-table {
+    font-family: Montserrat,sans-serif;
+    font-weight: 500;
+    overflow-x: auto;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.cta-table table th {
+    background: #e2e2e2;
+    color: #000;
+    text-transform: uppercase;
+    border: 1px solid #fff;
+}
+
+.cta-table table tr:nth-child(2n) td {
+    background: #f4f4f4;
+    border: 1px solid #fff;
+}
+
+.cta-table table tr:nth-child(odd) td {
+    background: #f9f9f9;
+    border: 1px solid #fff;
+}
+  </style>
+{% comment %} Content settings {% endcomment %}
+{%- assign blocks = section.blocks -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .plyr__video-embed{
+    width: 100%;
+    /* height: 100%; */
+  }
+  @media screen and (min-width: 1300px){
+    #shopify-section-{{ section.id }} .image-with-text__heading{
+      margin-bottom: 3rem;
+    }
+  }
+  @media screen and (max-width: 768px){
+    #shopify-section-{{ section.id }} {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+      has-background
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div
+    class="container"
+  >
+    {% if blocks.size > 0 %}
+      {% for block in blocks %}
+        {% if block.type == 'text' %}
+          {% comment %} Content settings {% endcomment %}
+          {%- assign text = block.settings.text -%}
+          {% comment %} End content settings {% endcomment %}
+
+          {% comment %} Is the color set to transparent? {% endcomment %}
+          {%- assign background_alpha = block.settings.background | color_extract: 'alpha' -%}
+          {%- assign text_alpha = block.settings.text_color | color_extract: 'alpha' -%}
+          {% comment %} Block specific CSS {% endcomment %}
+          {% capture block_css -%}
+
+            .image-with-text__heading {
+              color: {%- if text_alpha != 0 -%}{{ block.settings.text_color }}{%- else -%}{{ settings.heading_color }}{%- endif -%};
+            }
+
+            .image-with-text__text {
+              color: {%- if text_alpha != 0 -%}{{ block.settings.text_color }}{%- else -%}{{ settings.regular_color }}{%- endif -%};
+            }
+          {%- endcapture -%}
+
+          {% style %}
+            #shopify-section-{{ block.id }} {
+                background-color: {%- if background_alpha != 0 -%}{{ block.settings.background }}{% endif %};
+              }
+            {% render 'css-loop',
+                    css: block_css,
+                    id: block.id
+            %}
+          {% endstyle %}
+
+          <div
+            class="
+              one-half
+              medium-down--one-whole
+              column
+              has-padding-left
+              has-padding-right
+              {% if background_alpha != 0 %}has-background {% endif %}
+              is-flex
+              is-flex-wrap
+              is-justify-{{ block.settings.alignment }}
+              is-align-{{ block.settings.vertical_position }}
+            "
+            {% if type != 'block' %}
+              {{ block.shopify_attributes }} id="shopify-section-{{ block.id }}"
+            {% endif %}
+          >
+      
+            <div class="image-with-text__wrapper">
+           
+                <h3 class="image-with-text__heading text-align-{{ block.settings.alignment }} is-{{ block.settings.heading_size }}"  style="font-size: 28px;font-weight: 600;line-height: 1.2 !important;    margin-bottom: 0;">
+                
+                  {{ block.settings.title2 }}
+                </h1>
+           
+
+              {% if text != blank %}
+                <div class="image-with-text__text text-align-{{ block.settings.alignment }} content">
+                  {{ text }}
+                </div>
+              {% endif %}
+
+              {% if block.settings.button_label != blank %}
+                <div class="buttons is-{{ block.settings.alignment }}">
+                  {% render 'button',
+                    label: block.settings.button_label,
+                    href: block.settings.link,
+                    style: block.settings.button_style,
+                    type: 'link'
+                  %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+        {% elsif block.type == 'table' %}
+          {% comment %} Content settings {% endcomment %}
+          {%- assign image = block.settings.image -%}
+          {%- assign iframe_video = block.settings.iframe_video -%}
+          {% comment %} End content settings {% endcomment %}
+
+          <div
+            class="
+              one-half
+              medium-down--one-whole
+              column
+              is-align-center
+              {% if iframe_video %}column-has-video{% endif %}
+            "
+            {% if type != 'block' %}
+              {{ block.shopify_attributes }}
+              id="shopify-section-{{ block.id }}"
+            {% endif %}
+            style="position: relative;"
+          >
+         <div class="cta-table">
+          <table>
+            <tbody>
+              <tr>
+                <th>{{ block.settings.heading1 }}</th>
+                <th>{{ block.settings.heading2 }}</th>
+                <th>{{ block.settings.heading3 }}</th>
+                <th>{{ block.settings.heading4 }}</th>
+              </tr>
+              <tr>
+                <td>{{ block.settings.r1v1 }}</td>
+                <td>{{ block.settings.r1v2 }}</td>
+                <td>{{ block.settings.r1v3 }}</td>
+                <td>{{ block.settings.r1v4 }}</td>
+              </tr>
+              <tr>
+              <td>{{ block.settings.r2v1 }}</td>
+                <td>{{ block.settings.r2v2 }}</td>
+                <td>{{ block.settings.r2v3 }}</td>
+                <td>{{ block.settings.r2v4 }}</td>
+              </tr>
+              <tr>
+                <td>{{ block.settings.r3v1 }}</td>
+                <td>{{ block.settings.r3v2 }}</td>
+                <td>{{ block.settings.r3v3 }}</td>
+                <td>{{ block.settings.r3v4 }}</td>
+              </tr>
+              <tr>
+                <td>{{ block.settings.r4v1 }}</td>
+                <td>{{ block.settings.r4v2 }}</td>
+                <td>{{ block.settings.r4v3 }}</td>
+                <td>{{ block.settings.r4v4 }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+              {% if block.settings.image_text != blank %}
+              <p><strong>Ring Shown:</strong> {{ block.settings.image_text | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+<style>
+  @media screen and (max-width:768px){
+    .image-with-text .image-element__wrap {
+    margin: 0;
+    width: 100%;
+}
+
+.image-with-text .one-half {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.image-with-text .image-with-text__wrapper h1, .image-with-text .image-with-text__wrapper p,  .image-with-text .image-with-text__wrapper .buttons {
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+  }
+</style>
+{% schema %}
+{
+  "name": "Page Text With Table",
+  "class": "image-with-text image-with-text-2",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+
+      {
+      "type": "table",
+      "name": "Table",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading1",
+          "label": "Column Heading 1"
+        },
+       {
+          "type": "text",
+          "id": "heading2",
+          "label": "Column Heading 2"
+        },
+        {
+          "type": "text",
+          "id": "heading3",
+          "label": "Column Heading 3"
+        },
+        {
+          "type": "text",
+          "id": "heading4",
+          "label": "Column Heading 4"
+        },
+          {
+          "type": "text",
+          "id": "r1v1",
+          "label": "Row1 Value1"
+        },
+           {
+          "type": "text",
+          "id": "r1v2",
+          "label": "Row1 Value2"
+        },
+           {
+          "type": "text",
+          "id": "r1v3",
+          "label": "Row1 Value3"
+        },
+           {
+          "type": "text",
+          "id": "r1v4",
+          "label": "Row1 Value4"
+        },
+              {
+          "type": "text",
+          "id": "r2v1",
+          "label": "Row2 Value1"
+        },
+           {
+          "type": "text",
+          "id": "r2v2",
+          "label": "Row2 Value2"
+        },
+           {
+          "type": "text",
+          "id": "r2v3",
+          "label": "Row2 Value3"
+        },
+           {
+          "type": "text",
+          "id": "r2v4",
+          "label": "Row2 Value4"
+        },
+              {
+          "type": "text",
+          "id": "r3v1",
+          "label": "Row3 Value1"
+        },
+           {
+          "type": "text",
+          "id": "r3v2",
+          "label": "Row3 Value2"
+        },
+           {
+          "type": "text",
+          "id": "r3v3",
+          "label": "Row3 Value3"
+        },
+           {
+          "type": "text",
+          "id": "r3v4",
+          "label": "Row3 Value4"
+        },
+              {
+          "type": "text",
+          "id": "r4v1",
+          "label": "Row4 Value1"
+        },
+           {
+          "type": "text",
+          "id": "r4v2",
+          "label": "Row4 Value2"
+        },
+           {
+          "type": "text",
+          "id": "r4v3",
+          "label": "Row4 Value3"
+        },
+           {
+          "type": "text",
+          "id": "r4v4",
+          "label": "Row4 Value4"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading text here"
+        },
+        {
+          "type": "text",
+          "id": "title2",
+          "label": "Heading",
+          "default": "Heading text here"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Base size",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "regular",
+              "label": "Regular"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "regular"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "View all"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "button--primary",
+              "label": "Primary"
+            },
+            {
+              "value": "button--secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "button--link-style",
+              "label": "Link style"
+            }
+          ],
+          "default": "button--primary"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "vertical_position",
+          "label": "Vertical position",
+          "options": [
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "center"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Text With Table",
+      "category": "Text",
+      "settings": {
+          "padding_top": 20,
+          "padding_bottom": 20
+      },
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "table"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

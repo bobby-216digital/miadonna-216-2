@@ -1,0 +1,800 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "disabled": true,
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "settings": {
+        "show_breadcrumb": true,
+        "show_sidebar": false,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "d0355d07-3dcb-44ce-8218-520315f30c52": {
+      "type": "index__image-with-text-overlay",
+      "settings": {
+        "section_background_color": "",
+        "tilt_background": false,
+        "link": "",
+        "image": "shopify://shop_images/MiaDonna_Reviews_Desktop.png",
+        "mobile_image": "shopify://shop_images/MiaDonna_Reviews_Mobile.png",
+        "pretext": "",
+        "title": "MiaDonna Reviews",
+        "subtitle": "<p>Honest words from real customers. Discover why so many choose MiaDonna's lab-grown engagement rings and fine jewelry, crafted with care and backed by complimentary shipping and returns.</p>",
+        "pretext_color": "#001514",
+        "heading_color": "#ffffff",
+        "subheading_color": "#ffffff",
+        "text_alignment": "center",
+        "text_horizontal_position": "left",
+        "text_vertical_position": "middle",
+        "background_color": "#ffffff",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 45,
+        "button_1": "",
+        "button_1_link": "shopify://pages/jewelry",
+        "button_1_style": "button--secondary",
+        "open_new_new_tab_button_1_ink": false,
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "open_new_new_tab_button__2_link": false,
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "#000000",
+        "heading_color_mobile": "#000000",
+        "subheading_color_mobile": "#000000",
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "bannermain-static",
+        "custom_css": ""
+      }
+    },
+    "f19d4a1e-cb62-44be-b06d-7ae157f1b81e": {
+      "type": "buttons-list",
+      "blocks": {
+        "be155c8d-2d58-4b49-a71b-2640d8df7b1a": {
+          "type": "button",
+          "settings": {
+            "button_label": "Product",
+            "button_link": "#customer-product",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "41c80c9f-2e31-45c3-8b86-f28d418f98d2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Trustpilot",
+            "button_link": "#trustpilot",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "42035820-b441-4dfc-b1a0-d905315e4ef8": {
+          "type": "button",
+          "settings": {
+            "button_label": "Heroes",
+            "button_link": "#heroes",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "f1c804e0-5831-4841-8fbe-b7b00994e3aa": {
+          "type": "button",
+          "settings": {
+            "button_label": "B Corp",
+            "button_link": "#b-corp",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "67d08662-515a-4efd-9659-87400d522f29": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Service",
+            "button_link": "#customer-service",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        }
+      },
+      "block_order": [
+        "be155c8d-2d58-4b49-a71b-2640d8df7b1a",
+        "41c80c9f-2e31-45c3-8b86-f28d418f98d2",
+        "42035820-b441-4dfc-b1a0-d905315e4ef8",
+        "f1c804e0-5831-4841-8fbe-b7b00994e3aa",
+        "67d08662-515a-4efd-9659-87400d522f29"
+      ],
+      "disabled": true,
+      "settings": {
+        "background": "#f5f5f5",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "4873b28e-4ddb-4ca9-8b1f-959b0aad8267": {
+      "type": "index__html",
+      "settings": {
+        "html_content": "<div id=\"customer-product\"></div>",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "08b8a488-74a2-41a4-a6aa-302e7c99f4f2": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "Real Customer Reviews",
+        "heading_font": "cormorant_n6",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "",
+        "text_font": "playfair_display_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "1693655344000ebb58": {
+      "type": "apps",
+      "blocks": {
+        "2ba32974-6dbc-4da8-abc0-a96e968909c3": {
+          "type": "shopify://apps/okendo/blocks/reviews-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "",
+            "widget_type": "reviews_widget"
+          }
+        }
+      },
+      "block_order": [
+        "2ba32974-6dbc-4da8-abc0-a96e968909c3"
+      ],
+      "settings": {
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "4774595b-e1ef-4150-ad0d-62f71a825959": {
+      "type": "index__html",
+      "disabled": true,
+      "settings": {
+        "html_content": "<div id=\"trustpilot\"></div>",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "1c2410c8-1678-4be2-b54a-258b501c4477": {
+      "type": "index__rich-text",
+      "disabled": true,
+      "settings": {
+        "title": "Trustpilot Reviews",
+        "heading_font": "montserrat_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<p><em>Exceptionally proud to have over 500 five-star reviews</em></p>",
+        "text_font": "playfair_display_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "b374e630-bb39-47fd-a530-090f70ae2bb5": {
+      "type": "index__html",
+      "disabled": true,
+      "settings": {
+        "html_content": "<!-- TrustBox widget - Grid -->\n<div class=\"trustpilot-widget\" data-locale=\"en-US\" data-template-id=\"539adbd6dec7e10e686debee\" data-businessunit-id=\"55198b880000ff00057e6345\" data-style-height=\"400px\" data-style-width=\"100%\" data-theme=\"light\" data-stars=\"3,4,5\" data-schema-type=\"Organization\">\n<a href=\"https://www.trustpilot.com/review/www.miadonna.com\" target=\"_blank\" rel=\"noopener\">Trustpilot</a>\n</div>\n<!-- End TrustBox widget -->",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "32794def-b17f-451f-a7c2-6429583594dc": {
+      "type": "index__html",
+      "disabled": true,
+      "settings": {
+        "html_content": "<div id=\"heroes\"></div>",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "b7c56e1c-54b2-424e-99f6-0edffeef0d4b": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "MiaDonna Moments",
+        "heading_font": "cormorant_n6",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "",
+        "text_font": "playfair_display_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "60971834-51d0-4245-802c-3445f56a77e8": {
+      "type": "index__gallery",
+      "blocks": {
+        "image_AYeiKA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Kenzie_Riley.png",
+            "link": ""
+          }
+        },
+        "image_TijHwi": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Brit_Marco.png",
+            "link": ""
+          }
+        },
+        "image_QNBftr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Couple.png",
+            "link": ""
+          }
+        },
+        "image_GJY4m9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Andrew_Kate.png",
+            "link": ""
+          }
+        },
+        "image_YTzFL3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Carson_Henry.png",
+            "link": ""
+          }
+        },
+        "image_m7qtM3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Molly_Chris.png",
+            "link": ""
+          }
+        },
+        "template--15029275230287__60971834-51d0-4245-802c-3445f56a77e8-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/AlexisHCustomerPhoto_1_687db3a3-d320-4cfd-9fef-5634b4f53154.jpg",
+            "link": ""
+          }
+        },
+        "template--15029275230287__60971834-51d0-4245-802c-3445f56a77e8-image-2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/TJB2.webp",
+            "link": ""
+          }
+        },
+        "template--15029275230287__60971834-51d0-4245-802c-3445f56a77e8-image-3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/will-and-presley-1_746cccaa-add9-402b-aa53-e8781cd4ea52.jpg",
+            "link": ""
+          }
+        },
+        "template--15029275230287__60971834-51d0-4245-802c-3445f56a77e8-image-4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Shaun_Menary_Photography_-_Weikowski_03_0f3f4281-fb6c-4d35-9c70-0955fd9566b1.jpg",
+            "link": ""
+          }
+        },
+        "174d9623-d34c-4710-8859-34f0c877c675": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Karen_Jared_4_a9114434-90c7-484b-8a14-6109d1e37dc6.jpg",
+            "link": ""
+          }
+        },
+        "322b1a0c-4ac1-4f2d-bfc0-ceccb7b227a2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Banner_1_1255a328-1bb3-47f1-8152-49f870b24c51.jpg",
+            "link": "https://www.instagram.com/miadonnadiamond/"
+          }
+        }
+      },
+      "block_order": [
+        "image_AYeiKA",
+        "image_TijHwi",
+        "image_QNBftr",
+        "image_GJY4m9",
+        "image_YTzFL3",
+        "image_m7qtM3",
+        "template--15029275230287__60971834-51d0-4245-802c-3445f56a77e8-image-1",
+        "template--15029275230287__60971834-51d0-4245-802c-3445f56a77e8-image-2",
+        "template--15029275230287__60971834-51d0-4245-802c-3445f56a77e8-image-3",
+        "template--15029275230287__60971834-51d0-4245-802c-3445f56a77e8-image-4",
+        "174d9623-d34c-4710-8859-34f0c877c675",
+        "322b1a0c-4ac1-4f2d-bfc0-ceccb7b227a2"
+      ],
+      "settings": {
+        "gallery_type": "classic",
+        "crop_images": false,
+        "images_per_row": 3,
+        "enable_lightbox": false,
+        "overlay_color": "rgba(0,0,0,0)",
+        "link_color": "#ffffff",
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "1b30672c-8342-4c2f-ab2c-65bafec4cad3": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "",
+        "text_font": "open_sans_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "FOLLOW US ON INSTAGRAM",
+        "button_link": "https://www.instagram.com/miadonnadiamond/",
+        "button_alignment": "center",
+        "button_background": "#001514",
+        "button_text": "#ffffff",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "bdfe2305-cb27-49ba-acaf-d8b006609116": {
+      "type": "index__html",
+      "settings": {
+        "html_content": "<div id=\"b-corp\"></div>",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "d127fb56-4edb-4715-a405-606970a02278": {
+      "type": "index__rich-text",
+      "disabled": true,
+      "settings": {
+        "title": "B CORPORATION Certified",
+        "heading_font": "montserrat_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<h3><em>MiaDonna received the honorable B Corp stamp in 2019,</em></h3><h3><em>certifying our commitment to social and environmental responsibility.</em> </h3><h3></h3><p>We are the first B Corp Certified Lab-Grown Diamond company in the U.S. and we couldn’t be more excited about this! It is our collective duty to</p><p>establish annual goals to meet the highest environmental and social standards in the industry. We are the rebels after all, and we are here to positively</p><p>impact our communities near and far.</p>",
+        "text_font": "montserrat_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#58717a",
+        "button_text": "#ffffff",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ddafbcf4-06b7-4466-ba46-ed4ea6d410e7": {
+      "type": "index__image-with-text-overlay",
+      "disabled": true,
+      "settings": {
+        "section_background_color": "",
+        "tilt_background": false,
+        "link": "",
+        "image": "shopify://shop_images/BCorp_Widget_1300x_a569e06e-7673-4180-9a1f-310a1fad927a.webp",
+        "pretext": "",
+        "title": "",
+        "subtitle": "",
+        "pretext_color": "#000000",
+        "heading_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "center",
+        "text_horizontal_position": "center",
+        "text_vertical_position": "middle",
+        "background_color": "#ffffff",
+        "background_opacity": 77,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 32,
+        "button_1": "",
+        "button_1_link": "",
+        "button_1_style": "button--secondary",
+        "open_new_new_tab_button_1_ink": false,
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "open_new_new_tab_button__2_link": false,
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "standard",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ab29c5d2-dc7a-482c-a49c-eefaab90720c": {
+      "type": "index__html",
+      "disabled": true,
+      "settings": {
+        "html_content": "<div id=\"customer-service\"></div>",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "68f9ab3f-e2fa-4aed-8517-fb98f74a2aec": {
+      "type": "index__rich-text",
+      "disabled": true,
+      "settings": {
+        "title": "Customer Service",
+        "heading_font": "montserrat_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<h3><em>Have a question? Need a little style advice? Not sure where to start?<br/>No problem, our non-commissioned jewelry experts are here to help.</em></h3>",
+        "text_font": "playfair_display_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#000000",
+        "button_text": "#ffffff",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "d103bc62-1cb5-4295-bc15-379ee7acc900": {
+      "type": "slideshow-gallery",
+      "blocks": {
+        "template--15029275230287__d103bc62-1cb5-4295-bc15-379ee7acc900-image-1": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/Reviews_QuoteGraphics_1-700x_756b24b2-6dba-4b65-a39b-e9244ca731fd.jpg",
+            "title": ""
+          }
+        },
+        "template--15029275230287__d103bc62-1cb5-4295-bc15-379ee7acc900-image-2": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/Reviews_QuoteGraphics_2-700x.webp",
+            "title": ""
+          }
+        },
+        "40b3e411-25c2-4b38-8e2d-5f1b9848cd5c": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/Reviews_QuoteGraphics_5-700x.webp",
+            "title": ""
+          }
+        },
+        "c1b5e651-96b9-4ac1-b5aa-4374ce9840a1": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/Reviews_QuoteGraphics_3-700x.webp",
+            "title": ""
+          }
+        },
+        "ff8f86d8-4013-4078-b5a2-fe05c42784bd": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/Reviews_QuoteGraphics_4-700x_0d22cf3b-965c-4c25-bd8d-5a28497e9be2.jpg",
+            "title": ""
+          }
+        },
+        "f1f29990-2353-4897-b0bb-275b3fc34a75": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/Reviews_QuoteGraphics_6.webp",
+            "title": ""
+          }
+        },
+        "ee48eabd-4e60-4af9-b01a-763e835155a3": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/Reviews_QuoteGraphics_7.webp",
+            "title": ""
+          }
+        },
+        "73145c6f-6aff-4bd1-806d-ea239025cbdb": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "image": "shopify://shop_images/Reviews_QuoteGraphics_8_4f14ed1f-442f-44ca-81f3-b7417deb1cbb.jpg",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15029275230287__d103bc62-1cb5-4295-bc15-379ee7acc900-image-1",
+        "template--15029275230287__d103bc62-1cb5-4295-bc15-379ee7acc900-image-2",
+        "40b3e411-25c2-4b38-8e2d-5f1b9848cd5c",
+        "c1b5e651-96b9-4ac1-b5aa-4374ce9840a1",
+        "ff8f86d8-4013-4078-b5a2-fe05c42784bd",
+        "f1f29990-2353-4897-b0bb-275b3fc34a75",
+        "ee48eabd-4e60-4af9-b01a-763e835155a3",
+        "73145c6f-6aff-4bd1-806d-ea239025cbdb"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_transition": "slide",
+        "image_slideshow_speed": 5,
+        "show_arrows": true,
+        "show_nav_buttons": false,
+        "width": "standard",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ddb01efb-ab38-43e6-b22a-8ecacfe0cf06": {
+      "type": "index__rich-text",
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<p><a href=\"#lets-chat\" title=\"Let's Chat\">LET’S CHAT</a> <a href=\"/pages/appointments\" title=\"Appointments\">Book Appointment</a></p>",
+        "text_font": "montserrat_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#eeeeee",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 20,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "main",
+    "d0355d07-3dcb-44ce-8218-520315f30c52",
+    "f19d4a1e-cb62-44be-b06d-7ae157f1b81e",
+    "4873b28e-4ddb-4ca9-8b1f-959b0aad8267",
+    "08b8a488-74a2-41a4-a6aa-302e7c99f4f2",
+    "1693655344000ebb58",
+    "4774595b-e1ef-4150-ad0d-62f71a825959",
+    "1c2410c8-1678-4be2-b54a-258b501c4477",
+    "b374e630-bb39-47fd-a530-090f70ae2bb5",
+    "32794def-b17f-451f-a7c2-6429583594dc",
+    "b7c56e1c-54b2-424e-99f6-0edffeef0d4b",
+    "60971834-51d0-4245-802c-3445f56a77e8",
+    "1b30672c-8342-4c2f-ab2c-65bafec4cad3",
+    "bdfe2305-cb27-49ba-acaf-d8b006609116",
+    "d127fb56-4edb-4715-a405-606970a02278",
+    "ddafbcf4-06b7-4466-ba46-ed4ea6d410e7",
+    "ab29c5d2-dc7a-482c-a49c-eefaab90720c",
+    "68f9ab3f-e2fa-4aed-8517-fb98f74a2aec",
+    "d103bc62-1cb5-4295-bc15-379ee7acc900",
+    "ddb01efb-ab38-43e6-b22a-8ecacfe0cf06",
+    "shogun-optimizer"
+  ]
+}

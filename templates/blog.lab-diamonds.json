@@ -1,0 +1,333 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "e81b212b-eaed-4f25-beab-6e8c54a04a37": {
+      "type": "blog-menu-section",
+      "blocks": {
+        "64dfe6fc-f7ba-477e-a69e-5e7110709842": {
+          "type": "search",
+          "settings": {
+            "search_results": "article"
+          }
+        }
+      },
+      "block_order": [
+        "64dfe6fc-f7ba-477e-a69e-5e7110709842"
+      ],
+      "settings": {
+        "blog_menu_title": "Blog:",
+        "blog_menu": "blog-menu"
+      }
+    },
+    "7698ea3c-c34a-4aea-a044-0ae9368400ed": {
+      "type": "index__image-with-text-overlay",
+      "settings": {
+        "section_background_color": "",
+        "tilt_background": false,
+        "link": "",
+        "image": "shopify:\/\/shop_images\/BANNER.png",
+        "mobile_image": "shopify:\/\/shop_images\/screen_shot_2023-07-06_at.png",
+        "pretext": "",
+        "title": "LAB DIAMONDS",
+        "subtitle": "<p>YOUR SOURCE FOR ETHICAL INSPIRATION<\/p>",
+        "pretext_color": "#000000",
+        "heading_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "left",
+        "text_horizontal_position": "left",
+        "text_vertical_position": "middle",
+        "background_color": "rgba(0,0,0,0)",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 40,
+        "button_1": "",
+        "button_1_link": "",
+        "button_1_style": "button--secondary",
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": false,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "topic-banner",
+        "custom_css": ""
+      }
+    },
+    "f41c40ac-1117-4bd9-837a-8ba1b2b15daa": {
+      "type": "blog-mobile-menu",
+      "blocks": {
+        "13d5b750-fa1e-452b-ac42-7fb2ecd07e02": {
+          "type": "search",
+          "settings": {
+            "search_results": "article"
+          }
+        }
+      },
+      "block_order": [
+        "13d5b750-fa1e-452b-ac42-7fb2ecd07e02"
+      ],
+      "settings": {
+        "blog_menu": "blog-menu",
+        "breadcrumb": false,
+        "blog_title": false
+      }
+    },
+    "520f44f1-23d3-43d8-8c6d-7a37e07822a3": {
+      "type": "blog_topic_tags",
+      "settings": {
+      }
+    },
+    "banner": {
+      "type": "banner",
+      "disabled": true,
+      "settings": {
+        "image": "shopify:\/\/shop_images\/BANNER.png",
+        "image_darken": false,
+        "subtitle": "",
+        "width": "wide",
+        "banner_height": "medium",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "11f4de7b-949a-4253-81b7-c955e1af27ce": {
+      "type": "popular-blog",
+      "blocks": {
+        "378cd367-dcb8-482f-9fb5-780bf91f7abf": {
+          "type": "section-group",
+          "settings": {
+            "blogpost": "engagement-wedding\/the-enchanting-world-of-sapphire-colors-a-comprehensive-guide"
+          }
+        },
+        "a5b380c1-28af-4e01-a9fa-cd68ad49005f": {
+          "type": "section-group",
+          "settings": {
+            "blogpost": "engagement-wedding\/new-ring-collection-blog"
+          }
+        },
+        "3926b87a-aa48-4a98-93bb-06180f5234af": {
+          "type": "section-group",
+          "settings": {
+            "blogpost": "engagement-wedding\/the-enchanting-world-of-sapphire-colors-a-comprehensive-guide-1"
+          }
+        },
+        "f5dd4997-e893-4b49-a404-a28c98846583": {
+          "type": "section-group",
+          "settings": {
+            "blogpost": "engagement-wedding\/test-blog-1"
+          }
+        }
+      },
+      "block_order": [
+        "378cd367-dcb8-482f-9fb5-780bf91f7abf",
+        "a5b380c1-28af-4e01-a9fa-cd68ad49005f",
+        "3926b87a-aa48-4a98-93bb-06180f5234af",
+        "f5dd4997-e893-4b49-a404-a28c98846583"
+      ],
+      "settings": {
+        "title": "<span class=\"text-style\">Most <\/span>Popular"
+      }
+    },
+    "ebfd7437-63df-488b-99df-18616c721158": {
+      "type": "blog-cta",
+      "settings": {
+      }
+    },
+    "main": {
+      "type": "new_blog_main",
+      "blocks": {
+        "dbd897d0-82e6-4085-b25a-0afc861a84ef": {
+          "type": "search",
+          "settings": {
+            "title": "Search",
+            "search_results": "article"
+          }
+        },
+        "72fbf557-d94b-42d1-922e-ed71736ae9fe": {
+          "type": "post_tags",
+          "settings": {
+            "title": "",
+            "blog": "news"
+          }
+        },
+        "4ff11c3a-42bf-4971-9790-864c22b96f33": {
+          "type": "recent_posts",
+          "disabled": true,
+          "settings": {
+            "title": "Recent posts",
+            "blog": "news",
+            "blog_post_count": 10
+          }
+        },
+        "d9b5f98e-d7e7-4674-8a45-faad3fc0b45f": {
+          "type": "menu",
+          "disabled": true,
+          "settings": {
+            "menu": "lv-footer-1"
+          }
+        }
+      },
+      "block_order": [
+        "dbd897d0-82e6-4085-b25a-0afc861a84ef",
+        "72fbf557-d94b-42d1-922e-ed71736ae9fe",
+        "4ff11c3a-42bf-4971-9790-864c22b96f33",
+        "d9b5f98e-d7e7-4674-8a45-faad3fc0b45f"
+      ],
+      "settings": {
+        "blog_tags": false,
+        "blog_posts_per_row": 3,
+        "blog_posts_per_page": 6,
+        "pagination_type": "basic_pagination",
+        "show_sidebar": false,
+        "sidebar_position": "right",
+        "blog_author": true,
+        "blog_date": true,
+        "read_time": false,
+        "blog_comment_count": false,
+        "blog_show_tags": true,
+        "blog_show_excerpt": true,
+        "show_border": true,
+        "button_label": "Read  More",
+        "button_type": "button--link-style",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "animation": "fadeIn",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "f126061f-0c3f-4aa0-8dad-65d6be2615ac": {
+      "type": "lab-diamonds-sub-footer",
+      "blocks": {
+        "template--15027328188495__f126061f-0c3f-4aa0-8dad-65d6be2615ac-column-1": {
+          "type": "column",
+          "settings": {
+            "title": "YOU’RE SHOPPING THE BEST",
+            "description": "MiaDonna diamonds are the highest quality, most ethical, American-grown diamonds in the industry.",
+            "button_text": "",
+            "button_link": "https:\/\/www.miadonna.com\/pages\/lab-grown-diamonds"
+          }
+        },
+        "b2468a9b-04ff-48ed-830b-71ee99edcfc1": {
+          "type": "column",
+          "settings": {
+            "title": "COMPLIMENTARY DESIGN SERVICES",
+            "description": "Every ring is handcrafted to order in America. Your ring will always be unique to you and your preferences.Learn more",
+            "button_text": "",
+            "button_link": "https:\/\/www.miadonna.com\/collections\/engagement-rings"
+          }
+        },
+        "754a0d5b-5451-46fc-820a-6749f43808c3": {
+          "type": "column",
+          "settings": {
+            "title": "COMPLIMENTARY 2-DAY SHIPPING",
+            "description": "We insure and register every order and offer free 2-day shipping within the continental U.S.",
+            "button_text": "",
+            "button_link": "https:\/\/www.miadonna.com\/pages\/shipping"
+          }
+        },
+        "0c412c45-18cf-492e-b233-1ea8b95493af": {
+          "type": "column",
+          "settings": {
+            "title": "EVERY PURCHASE GIVES BACK",
+            "description": "10% of net profits from every purchase go to our foundation to support people and the planet.",
+            "button_text": "",
+            "button_link": "https:\/\/www.miadonna.com\/pages\/the-greener-diamond"
+          }
+        }
+      },
+      "block_order": [
+        "template--15027328188495__f126061f-0c3f-4aa0-8dad-65d6be2615ac-column-1",
+        "b2468a9b-04ff-48ed-830b-71ee99edcfc1",
+        "754a0d5b-5451-46fc-820a-6749f43808c3",
+        "0c412c45-18cf-492e-b233-1ea8b95493af"
+      ],
+      "settings": {
+        "width": "standard",
+        "background_color": "#fdf0e7",
+        "text_color": "#000000"
+      }
+    },
+    "27289297-f18f-4b4b-84af-ddd8febd624c": {
+      "type": "lab-diamonds-sub-footer-bar",
+      "blocks": {
+        "4350ee44-3825-4f82-a011-042c2ed24637": {
+          "type": "column",
+          "settings": {
+            "title": "EASY 60-DAY RETURNS",
+            "url": ""
+          }
+        },
+        "template--15027328188495__27289297-f18f-4b4b-84af-ddd8febd624c-column-1": {
+          "type": "column",
+          "settings": {
+            "title": "FREE* RESIZING",
+            "url": ""
+          }
+        },
+        "3309efe5-5f9e-4d9e-b3de-cb5d2d3312aa": {
+          "type": "column",
+          "settings": {
+            "title": "TRANSPARENT FINANCING OPTIONS",
+            "url": ""
+          }
+        },
+        "b3edec3f-154e-43c0-8eff-9fb296ab7fba": {
+          "type": "column",
+          "settings": {
+            "title": "LIFETIME GUARANTEE",
+            "url": ""
+          }
+        },
+        "66e4e87d-1fc6-4771-9d08-c52088218aa8": {
+          "type": "column",
+          "settings": {
+            "title": "B CORP CERTIFIED",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "4350ee44-3825-4f82-a011-042c2ed24637",
+        "template--15027328188495__27289297-f18f-4b4b-84af-ddd8febd624c-column-1",
+        "3309efe5-5f9e-4d9e-b3de-cb5d2d3312aa",
+        "b3edec3f-154e-43c0-8eff-9fb296ab7fba",
+        "66e4e87d-1fc6-4771-9d08-c52088218aa8"
+      ],
+      "settings": {
+        "width": "standard"
+      }
+    }
+  },
+  "order": [
+    "e81b212b-eaed-4f25-beab-6e8c54a04a37",
+    "7698ea3c-c34a-4aea-a044-0ae9368400ed",
+    "f41c40ac-1117-4bd9-837a-8ba1b2b15daa",
+    "520f44f1-23d3-43d8-8c6d-7a37e07822a3",
+    "banner",
+    "11f4de7b-949a-4253-81b7-c955e1af27ce",
+    "ebfd7437-63df-488b-99df-18616c721158",
+    "main",
+    "f126061f-0c3f-4aa0-8dad-65d6be2615ac",
+    "27289297-f18f-4b4b-84af-ddd8febd624c"
+  ]
+}

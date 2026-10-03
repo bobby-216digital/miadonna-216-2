@@ -1,0 +1,147 @@
+{% assign blog_handles = "news,engagement-wedding,gemstone,fine-jewelry,lab-diamonds,new-mission" | split: "," %}
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' -%}
+      width: 100%;
+    {%- endif %}
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section class="section section-popular-blog
+                {{ section.settings.css_class }}
+                is-width-{{ section.settings.width }}"
+                {% if section.settings.animation != "none" %}
+                  
+                {% endif %}>
+    <div class="container-new">
+       {% for handle in blog_handles %}
+         {% if blogs[handle].articles.size > 0  %}
+      <div class="all-blog-list ">
+         <h2 class="blog-cat-title title"> {{ blogs[handle].title }} <a href="https://www.miadonna.com/blogs/{{ handle }}" class="red-link">View all</a></h2>
+     
+         <div  class="main-all-blog container">
+        {% for article in blogs[handle].articles %}
+             <div class="ten gray-bg  medium-down--one-whole column equal-columns--outside-trim has-margin-top">
+               {% if article.image %}
+              <div class="card-image blog-card__image">
+                <figure class="image">
+                  <a href="{{ article.url }}" title="{{ article.title | escape }}">
+                    {%
+                      render 'image-element',
+                      image: article.image,
+                      alt: article.image.alt,
+                      stretch_width: true,
+                    %}
+                  </a>
+                </figure>
+                </div>
+                {% endif %}
+               <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+              <div class="meta-info is-small">
+                   <span> {{ article.published_at | time_tag: format: 'month_day_year' }}    </span> | <span>  By {{ article.author }}</span>  | <span> {% render 'blog__read-time', article: article %} </span>
+              </div>
+                {% if article.excerpt != blank %}
+                {% assign postexcerpt = article.excerpt | size %}
+                {% if postexcerpt > 150 %}
+                    {% assign excerptlength = 'lg' %}
+                {% elsif postexcerpt <= 150 %}
+                    {% assign excerptlength = 'sm' %}
+                {% endif %}
+              <div class="excerpt-new excerpt-length-{{ excerptlength }} has-margin-bottom">
+                  <span>{{ article.excerpt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</span> <a href="{{ article.url }}"> Read More </a>
+                </div>
+    
+              {% endif %}
+              
+             </div>
+          {% break %}
+         {% endfor %}
+         <aside class="sidebar-section   six medium-down--one-whole   column has-margin-top">
+           {% for article in blogs[handle].articles %}
+             {% if forloop.index == 5 %} 
+                 {% break %}
+            {% endif %}
+              {% if forloop.index > 1 %} 
+                  <div class="one-whole column related-blogs--content equal-columns--outside-trim field is-grouped is-flex-wrap">
+                    <div class=" columns article blog-card-sidebar  medium-down--one-whole">
+                      {% if article.image %}
+                        <div class="card-image blog-card__image side-image">
+                          <figure class="image">
+                            <a href="{{ article.url }}" title="{{ article.title | escape }}">
+                              <img src="{{ settings.speedsize_url_pfx_https -}}{{ article.image | img_url: '150x150' ,crop: 'center'}}" alt="{{  article.title }}">
+                            </a>
+                          </figure>
+                        </div>
+                      {% endif %}
+                      <div class="blog-details">
+                  <div class="meta-info is-small">
+                      
+                        {% if article.tags.size > 0 %}
+                        <ul class="meta-tag-list tags">
+                        {% for tag in article.tags %}
+                          <li class="tag tag--{{ settings.tag_style}}">
+                            <a href="{{ shop.url}}/blogs/{{ handle }}/tagged/{{ tag | handleize }}" title="{{ blog.title | escape }} {{ 'blogs.general.tagged' | t }} {{ tag | escape }}">{{ tag }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                        </ul>
+                        {% endif %}
+                     
+
+                    </div>
+
+                  <div class="card-content blog-card__content">
+                    <div class="media">
+                      <div class="media-content">
+                        <h4 class="title">
+                          <a href="{{ article.url }}" title="{{ article.title | escape }}">{{ article.title | truncate: 55 }}</a>
+                        </h4>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+         		<div class="meta-info is-small">
+                    <span> {{ article.published_at | time_tag: format: 'month_day_year' }}    </span> | <span>  By {{ article.author }}</span> 
+              	</div>
+                </div>
+                    </div>
+                  </div>
+            {% endif %}
+            {% endfor %}
+         </aside>
+         </div>
+         <div class="topic-desc" style="display:none;">{{ blogs[handle].metafields.custom.description }}</div>
+      </div>
+           {% endif %}
+  {% endfor %}
+    </div>
+</section>
+  
+{% schema %}
+  {
+    "name": "All Blog Listing",
+    "settings": [],
+    "presets": [
+    {
+      "category": "blogs",
+      "name": "All Blog Listing"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

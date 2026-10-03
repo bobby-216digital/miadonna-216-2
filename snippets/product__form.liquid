@@ -1,0 +1,1189 @@
+{%- style -%}
+  .font-garamond { font-family: {{settings.engr_font_garamond.family}}, serif }
+  .font-helvetica { font-family: {{settings.engr_font_helvetica.family}}, serif }
+  .font-lucida { font-family: {{settings.engr_font_lucida.family}}, serif}
+  .font-timesnewroman {font-family: {{settings.engr_font_timesnewroman.family}}, serif }
+  .font-trajanpro { font-family: {{settings.engr_font_trajanpro.family}}, serif }
+  .blur-price {
+      color: #bbb;
+      filter: blur(4px);
+      user-select: none;
+      pointer-events: none;
+      animation: pulse 1.2s infinite;
+  }
+{%- endstyle -%}
+{% if show_payment_button == false or product.selling_plan_groups.size > 0 %}
+  {% assign show_payment_button = false %}
+{% else %}
+  {% assign show_payment_button = true %}
+{% endif %}
+{%- assign attributes_customizable = product.metafields.attributes.customizable | plus: 0 -%}
+{%- assign attributes_can_be_engraved = product.metafields.attributes.can_be_engraved | plus: 0 -%}
+{%- assign attributes_engraving_limit = product.metafields.attributes.engraving_limit | plus: 0 -%}
+
+{%- assign product_collections = product.collections | map: 'title' | join: ' ' -%}
+{%- assign isStoneProduct = false -%}
+{%- if 'Lab Created Diamond Lab Created Gemstone Diamond Hybrid' contains product.type -%}
+  {%- assign isStoneProduct = true -%}
+{%- endif -%}
+{%- assign category_group = 'stone' -%}
+{% if product_collections contains 'Lab-Grown Diamond Tennis Necklaces' %}
+  {%- assign category_group = 'tennis necklaces' -%}
+{%- elsif product_collections contains 'Sale' or 
+          product_collections contains 'Ready To Ship' or 
+          product_collections contains 'Ready-To-Ship'
+-%}
+  {%- assign category_group = 'sale' -%}
+{%- elsif product_collections contains 'Engagement' or 
+          product_collections contains 'Wedding' or 
+          product_collections contains 'Accessories'
+-%}
+  {%- assign category_group = 'wedding' -%}
+{%- endif -%}
+{%- assign added_ship_time = 0 -%}
+{%- assign week_day = 'now' | date: '%a' -%}
+{%- if week_day == 'Mon' -%}
+  {%- assign added_ship_time = 2160000 -%}
+{%- elsif week_day == 'Tue' -%}
+  {%- assign added_ship_time = 2332800 -%}
+{%- elsif week_day == 'Wed' -%}
+  {%- assign added_ship_time = 2332800 -%}
+{%- endif -%}
+
+{%- assign metal_option = '' -%}
+{%- assign quality_option = '' -%}
+{%- for option in product.options_with_values -%}
+  {%- if option.name == 'Metal' -%}
+    {%- assign metal_option = selected_variant.options[forloop.index0] -%}
+  {%- endif -%}
+  {%- if option.name == 'Quality' -%}
+    {%- assign quality_option = selected_variant.options[forloop.index0] -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign groupId = "now" | date: "%s%N" | md5 | slice: 0, 30  -%}
+
+<div
+  class="
+    clearfix
+    product_form
+    init
+    smart-payment-button--{{ show_payment_button }}
+    {% if product.variants.size > 1 or product.options.size > 1 %}product_form_options{% endif %}
+    product_form--{{ settings.product_form_style }}
+    setting-tabs-wrapper
+  "
+  id="product-form-{{ product.id }}"
+  data-product-form
+  data-money-format="{{ shop.money_format | strip_html }}"
+  data-shop-currency="{{ shop.currency }}"
+  data-select-id="product-select-{{ product.id }}{{ product-form }}{{ object.id }}{{ block.id }}"
+  data-enable-state="{% if template.name == 'product' %}true{% else %}false{% endif %}"
+  {% if settings.limit_quantity or settings.display_inventory_left %}
+    data-variant-inventory="[{%- for v in product.variants -%}{"id":{{v.id}},"inventory_quantity":{{v.inventory_quantity}},"inventory_management":"{{v.inventory_management}}","inventory_policy":"{{v.inventory_policy}}"}{% if forloop.last == false %},{% endif %}{%- endfor -%}]"
+  {% endif %}
+  data-product-id="{{ product.id }}"
+  data-allow-image-convention="{{ product.metafields.attributes.allow_image_convention }}"
+  data-image-extension="{{ product.metafields.attributes.image_convention_extension }}"
+>
+  {% form 'product', product %}
+    <input type="hidden" name="properties[_groupId]" id="main__groupId" value="{{ groupId }}">
+    <input type="hidden" name="properties[_isMain]" value="true">
+    {%- comment -%}
+    <input type="hidden" name="properties[shape]" id="shape_property" value="{{ product.metafields.attributes.shapes }}">
+    <input type="hidden" name="properties[Carat]" id="carat_property" value="{{ product.metafields.custom.ctw_fraction | strip }}">
+    <input type="hidden" name="properties[Metal]" id="metal_property" value="{{ metal_option }}">
+    <input type="hidden" name="properties[Quality]" id="quality_property" value="{{ quality_option }}">
+    {%- endcomment -%}
+    <input type="hidden" name="properties[_product_url]" id="product_url_property" value="">
+    <input type="hidden" name="properties[_main_product]" id="main_product_property" value="">
+    <input type="hidden" name="properties[Certified]" id="certified_property" value="{{ selected_variant.metafields.specs.primary_stone_certification | default:'no' }}">
+    <input type="hidden" name="properties[Estimate Ship Date]" id="estimate_ship_date_property">
+    <input type="hidden" name="items[1][id]" id="engravng_item_property" value="{{ all_products['custom-engraving'].selected_or_first_available_variant.id }}" disabled>
+    <input type="hidden" name="items[1][properties][_groupId]" id="engraving_groupid_property" value="{{ groupId }}" disabled>
+    <input type="hidden" name="items[1][properties][_isMain]" id="engraving_ismain_property" value="false" disabled>
+    <input type="hidden" name="items[1][properties][engraving]" id="is_engraving_property" value="" disabled>
+    <input type="hidden" name="items[1][properties][engravingFont]" id="engraving_font_property" value="" disabled>
+    <input type="hidden" name="items[1][properties][engravingText]" id="engraving_text_property" value="" disabled>
+    <div style="display: none;" data-shop-pay-installments-template>{{ form | payment_terms }}</div>
+
+    {% comment %}
+      Display variant options for a product
+
+      @param product
+      @param selected_variant
+      @param style
+
+      @param enable_swatches
+      @param swatches_shape
+      @param swatches_option_trigger
+      @param swatches_option_style
+      @param swatches_product_page_size
+      @param swatch_colors
+    {% endcomment %}
+    {% assign style = 'select' %}
+    {% if settings.product_form_style == 'radio' %}
+      {% assign style = 'radio' %}
+    {% endif %}
+    {% assign product = product %}
+    {% assign sold_out_options = sold_out_options %}
+    {% assign selected_variant = selected_variant %}
+    {% assign enable_swatches = settings.enable_swatches %}
+    {% assign swatches_shape = settings.swatch_style %}
+    {% assign swatches_option_trigger = settings.swatch_trigger %}
+    {% comment %}Inject @pixelunion/shopify-variants-ui/variant-selection begin{% endcomment %}
+    {% comment %}
+      Display variant options for a product
+
+      @param product
+      @param selected_variant
+      @param variant_selection_id
+      @param sold_out_options
+      @param style
+
+      @param enable_swatches
+      @param swatches_shape
+      @param swatches_option_trigger
+      @param swatches_option_style
+      @param swatches_product_page_size
+      @param swatches_custom_colors
+    {% endcomment %}
+
+    <variant-selection
+      {% if variant_selection_id != blank %}
+        id="{{ variant_selection_id }}"
+      {% endif %}
+      class="variant-selection"
+      product-url="{{ product.url }}.js"
+      variant="{% if selected_variant %}{{ selected_variant.id }}{% else %}not-selected{% endif %}"
+      data-variant-selection
+    >
+      {% if product.has_only_default_variant %}
+        <input
+          class="variant-selection__variants variant-selection__variants--default"
+          name="id"
+          type="hidden"
+          value="{{ product.variants.first.id }}"
+          data-variants
+        >
+      {% else %}
+        <noscript>
+          <style>
+            .variant-selection__variants {
+              display: block !important;
+            }
+          </style>
+        </noscript>
+        <select
+          class="variant-selection__variants"
+          name="id"
+          style="display: none"
+          data-variants
+        >
+          <option
+            value="not-selected"
+            disabled
+            {% if selected_variant == blank %}
+              selected
+            {% endif %}
+          >
+            {{ 'product.variants.choose_variant' | t }}
+          </option>
+          {% for variant in product.variants %}
+            <option
+              {% if selected_variant and selected_variant.id == variant.id %}
+                selected
+              {% endif %}
+              value="{{ variant.id }}"
+              {% unless variant.available %}
+                disabled
+              {% endunless %}
+            >
+              {{ variant.title }} - {{ variant.price | money }}
+            </option>
+          {% endfor %}
+        </select>
+
+        {% comment %}Inject @pixelunion/shopify-variants-ui/options-selection begin{% endcomment %}
+        {% comment %}
+          Display variant options for a product
+
+          @param product
+          @param selected_variant
+          @param variant_selection_id
+          @param sold_out_options
+          @param style
+
+          @param enable_swatches
+          @param swatches_shape
+          @param swatches_option_trigger
+          @param swatches_option_style
+          @param swatches_product_page_size
+          @param swatches_custom_colors
+          @param swatch_file_type
+        {% endcomment %}
+
+        <options-selection
+          {% if variant_selection_id != blank %}
+            variant-selection="{{ variant_selection_id }}"
+          {% endif %}
+          style="display: none;"
+          {% if sold_out_options == 'disabled' %}
+            disable-unavailable
+          {% endif %}
+          {% if sold_out_options == 'hidden' %}
+            remove-unavailable
+          {% endif %}
+          data-options-selection
+        >
+          <script>
+            let combinations = [];
+            let qualityCaratGroup = {};
+
+            function normalizeFraction(value) {
+              return value
+                .normalize('NFKD')      // ¼ → 1⁄4
+                .replace(/\u2044/g, '/') // ⁄ → /
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                .replace(/-+/g, '-');
+            }
+            (function() {
+              const scriptTag = document.scripts[document.scripts.length - 1];
+              const parentTag = scriptTag.parentNode;
+
+              parentTag.style.display = '';
+            })()
+          </script>
+
+          {% for option in product.options_with_values %}
+            {% assign option_index = forloop.index0 %}
+            {% assign show_swatches = false %}
+            {% if enable_swatches %}
+              {%- assign swatches_option_trigger = swatches_option_trigger | strip | downcase -%}
+              {%- assign option_name = option.name | strip | downcase -%}
+
+              {% if option_name == swatches_option_trigger %}
+                {% assign show_swatches = true %}
+                {% assign swatch_option_key = 'option' | append: forloop.index %}
+              {% endif %}
+            {% endif %}
+
+            {% if style == 'select' and show_swatches == false %}
+              {% render 'options-select',
+                product: product,
+                selected_variant: selected_variant,
+                option: option,
+                option_index: option_index
+              %}
+            {% elsif style == 'radio' or show_swatches == true %}
+              {%
+                render 'options-radios',
+                product: product,
+                selected_variant: selected_variant,
+                option: option,
+                option_index: option_index,
+                show_swatches: show_swatches,
+                swatch_option_key: swatch_option_key,
+                swatch_size: swatches_product_page_size,
+                swatches_option_style: swatches_option_style,
+                swatch_file_type: swatch_file_type,
+                swatches_custom_colors: swatches_custom_colors,
+                swatches_shape: swatches_shape,
+              %}
+            {% endif %}
+
+            {%- assign styleGrouping = product.metafields.custom.style_id_grouping.value -%}
+
+            {%- if forloop.first and styleGrouping -%}
+              {%- assign current_product_shape = product.metafields.attributes.shapes -%}
+              {%- assign current_product_carat = product.metafields.custom.ctw_fraction | strip -%}
+              {%- assign grouped_products = styleGrouping.grouped_products.value -%}
+              {%- assign grouped_products_2 = styleGrouping.grouped_products_batch_2.value -%}
+              {%- assign groupedShapes = '' -%}
+              {%- assign groupedCarat = '' -%}
+              {%- if grouped_products -%}
+                {%- for grp_product in grouped_products -%}
+                  {%- assign groupedCaratArr = groupedCarat | split:'|' -%}
+                  {%- assign product_shape = grp_product.metafields.attributes.shapes -%}
+                  {%- assign product_carat = grp_product.metafields.custom.ctw_fraction | strip -%}
+                  <script>
+                      combinations.push(['{{ grp_product.handle }}','{{ grp_product.metafields.attributes.allow_image_convention }}','{{ product_shape | handleize }}', normalizeFraction('{{ product_carat }}')]);
+
+                      var carat_value = '{{ product_carat }}';
+                      {%- for quality in grp_product.options_by_name['Quality'].values -%}
+                        if(!qualityCaratGroup['{{quality }}']){
+                          qualityCaratGroup['{{quality }}'] = [];
+                        }
+                        if (!qualityCaratGroup['{{ quality | escape }}'].includes(carat_value)) {
+                          qualityCaratGroup['{{quality }}'].push(carat_value);
+                        }
+                      {%- endfor -%}
+                  </script>
+                  {%- unless groupedShapes contains product_shape -%}
+                      {%- assign groupedShapes = groupedShapes | append: '|' | append: product_shape -%}
+                  {%- endunless -%}
+                  {%- unless groupedCaratArr contains product_carat -%}
+                      {%- assign groupedCarat = groupedCarat | append: '|' | append: product_carat -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              {%- endif -%}
+              {%- if grouped_products_2 -%}
+                {%- for grp_product2 in grouped_products_2 -%}
+                  {%- assign product_shape = grp_product2.metafields.attributes.shapes -%}
+                  {%- assign product_carat = grp_product2.metafields.custom.ctw_fraction | strip -%}
+                  {%- assign groupedCaratArr = groupedCarat | split:'|' -%}
+                  <script>
+                    combinations.push(['{{ grp_product2.handle }}','{{ grp_product2.metafields.attributes.allow_image_convention }}','{{ product_shape | handleize }}', normalizeFraction('{{ product_carat }}')]);
+
+                    var carat_value = '{{ product_carat }}';
+                    {%- for quality in grp_product2.options_by_name['Quality'].values -%}
+                      if(!qualityCaratGroup['{{quality }}']){
+                        qualityCaratGroup['{{quality }}'] = [];
+                      }
+                      if (!qualityCaratGroup['{{ quality | escape }}'].includes(carat_value)) {
+                        qualityCaratGroup['{{quality }}'].push(carat_value);
+                      }
+                    {%- endfor -%}
+                  </script>
+                  {%- unless groupedShapes contains product_shape -%}
+                    {%- assign groupedShapes = groupedShapes | append: '|' | append: product_shape -%}
+                  {%- endunless -%}
+                  {%- unless groupedCaratArr contains product_carat -%}
+                    {%- assign groupedCarat = groupedCarat | append: '|' | append: product_carat -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              {%- endif -%}
+              {%- assign groupedShapes = groupedShapes | remove_first: '|' -%}
+              {%- assign groupedCarat = groupedCarat | remove_first: '|' -%}
+              {% assign groupedShapesArr = groupedShapes | split: '|'%}
+              {% assign groupedCaratArr = groupedCarat | split: '|' | sort %}
+              {% if groupedShapesArr.size > 0 %}
+                <div class="setting-accordion-item setting-accordion-shape">
+                  <div class="setting-accordion-button accordion-active hide_this_after_stone">
+                    <span class="caret-wrapper">
+                      <i class="icon-solid-caret"></i>
+                    </span>
+                    <span class="button_text">Stone shape:
+                      <a href="javascript:void(0);" class="popup-icon" data-popup="#popup4" aria-label="Shape guide">
+                        <svg width="10" height="10" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M4.5 0.5625C6.67441 0.5625 8.4375 2.32559 8.4375 4.5C8.4375 6.67441 6.67441 8.4375 4.5 8.4375C2.32559 8.4375 0.5625 6.67441 0.5625 4.5C0.5625 2.32559 2.32559 0.5625 4.5 0.5625ZM4.5 9C6.98555 9 9 6.98555 9 4.5C9 2.01445 6.98555 0 4.5 0C2.01445 0 0 2.01445 0 4.5C0 6.98555 2.01445 9 4.5 9ZM3.65625 6.1875C3.50156 6.1875 3.375 6.31406 3.375 6.46875C3.375 6.62344 3.50156 6.75 3.65625 6.75H5.34375C5.49844 6.75 5.625 6.62344 5.625 6.46875C5.625 6.31406 5.49844 6.1875 5.34375 6.1875H4.78125V4.21875C4.78125 4.06406 4.65469 3.9375 4.5 3.9375H3.65625C3.50156 3.9375 3.375 4.06406 3.375 4.21875C3.375 4.37344 3.50156 4.5 3.65625 4.5H4.21875V6.1875H3.65625ZM4.5 3.23438C4.73379 3.23438 4.92188 3.04629 4.92188 2.8125C4.92188 2.57871 4.73379 2.39062 4.5 2.39062C4.26621 2.39062 4.07812 2.57871 4.07812 2.8125C4.07812 3.04629 4.26621 3.23438 4.5 3.23438Z" fill="black"/>
+                        </svg>
+                      </a>
+                      <div id="popup4" class="stoneshape--popup" style="display:none;">
+                        <h2>Shape</h2>
+                        <div class="content-popup">
+                          <h3>Round Cut</h3>
+                          <p>he most brilliant and timeless diamond shape. Its 58 precisely cut facets maximize light return, creating unmatched sparkle and fire.</p>
+                          <h3>Oval Cut</h3>
+                          <p>An elongated take on the classic round brilliant. Its graceful silhouette elongates the finger and appears larger than a round of equal carat weight.</p>
+                          <h3>Emerald Cut</h3>
+                          <p>A sophisticated rectangular shape with step-cut facets and cropped corners. Known for its hall-of-mirrors effect and understated, vintage-inspired elegance.</p>
+                          <h3>Cushion Cut</h3>
+                          <p>A romantic square shape with softly rounded corners. Combines brilliant faceting with a pillow-like silhouette for a warm, antique-inspired look.</p>
+                          <h3>Marquise Cut</h3>
+                          <p>An elongated shape with pointed ends, inspired by the smile of Marquise de Pompadour. Maximizes carat weight and creates a striking, regal appearance.</p>
+                          <h3>Radiant Cut</h3>
+                          <p>A rectangular or square shape with trimmed corners and brilliant faceting. Offers exceptional sparkle paired with the clean lines of an emerald silhouette.</p>
+                          <h3>Pear Cut</h3>
+                          <p>A graceful teardrop shape that blends the brilliance of a round with the elegance of a marquise. Worn with the point facing the fingertip for an elongating effect.</p>
+                          <h3>Princess Cut</h3>
+                          <p>A contemporary square shape with sharp, uncut corners and brilliant faceting. Delivers modern geometry with exceptional fire and light performance.</p>
+                          <h3>Asscher Cut</h3>
+                          <p>A square step-cut shape with deeply cropped corners, giving it an octagonal silhouette. Celebrated for its Art Deco heritage and mesmerizing concentric facets.</p>
+                          <h3>Heart Cut</h3>
+                          <p>A romantic and unmistakable symbol of love. This brilliant-faceted shape requires precise symmetry to achieve its iconic silhouette.</p>
+                          <h3>Elongated Cushion Cut</h3>
+                          <p>A refined variation of the classic cushion, stretched into a rectangular silhouette. Offers the softness of rounded corners with a longer, more elegant profile.</p>
+                        </div>
+                      </div>
+                    </span>
+                    <span id="shape_selected_value" class="shape_selected_value">{{ current_product_shape }}</span>
+                    {%- comment -%}
+                    <span class="modify_stone_button" style="display:none"><u>Change</u></span>
+                    <span>
+                      <div class="tooltip">
+                        <span class="tooltiptext" style="display: none">
+                          <p class="tooltip-content">Stone shape</p>
+                        </span>
+                      </div>
+                    </span>
+                    {%- endcomment -%}
+                  </div>
+                  <div class="setting-accordion-content pdp-item-options">
+                    <div class="detail-shapes swiper shapes-slider shapes--slider">
+                      <div class="swiper-wrapper">
+                        {%- for shapes in groupedShapesArr -%}
+                          <div
+                            class="setting-value-inputs shape-enable-disable swiper-slide">
+                            <label class="input_label style-group-shape{% if current_product_shape == shapes %} active{% endif %}" data-shape="{{ shapes | handleize }}" data-shape-name="{{ shapes }}">
+                              {% if shapes == 'Round Cut' %}
+                                {% render 'icon-shape-round-cut' %}
+                              {% elsif shapes == 'Princess Cut' %}
+                                  {% render 'icon-shape-princess-cut' %}
+                              {% elsif shapes == 'Cushion Cut' %}
+                                  {% render 'icon-shape-cushion-cut' %}
+                              {% elsif shapes == 'Oval Cut' %}
+                                  {% render 'icon-shape-oval-cut' %}
+                              {% elsif shapes == 'Emerald Cut' %}
+                                  {% render 'icon-shape-emerald-cut' %}
+                              {% elsif shapes == 'Asscher Cut' %}
+                                  {% render 'icon-shape-asscher-cut' %}
+                              {% elsif shapes == 'Radiant Cut' %}
+                                  {% render 'icon-shape-radiant-cut' %}
+                              {% elsif shapes == 'Pear Cut' %}
+                                  {% render 'icon-shape-pear-cut' %}
+                              {% elsif shapes == 'Heart Cut' %}
+                                  {% render 'icon-shape-heart-cut' %}
+                              {% elsif shapes == 'Marquise Cut' %}
+                                  {% render 'icon-shape-marquise-cut' %}
+                              {% elsif shapes == 'Oval Rose Cut' %}
+                                  {% render 'icon-shape-oval-rose-cut' %}
+                              {% elsif shapes == 'Trillion Cut' %}
+                                  {% render 'icon-shape-trillion-cut' %}
+                              {% elsif shapes == 'Half Cut' %}
+                                  {% render 'icon-shape-half-moon-cut' %}
+                              {% elsif shapes == 'Baguette Cut' %}
+                                  {% render 'icon-shape-baguette-cut' %}
+                              {% elsif shapes == 'Rose Brilliant Cut' %}
+                                  {% render 'icon-shape-baguette-cut' %}
+                              {% elsif shapes == 'Rose Cut' %}
+                                  {% render 'icon-shape-oval-rose-cut' %}
+                              {% elsif shapes == 'Trapezoid Cut' %}
+                                  {% render 'icon-shape-trapezoid-cut' %}
+                              {% elsif shapes == 'Elongated Cushion Cut' %}
+                                  {% render 'icon-shape-elongated-cushion' %}
+                              {% elsif shapes == 'Old Mine Cut' %}
+                                  {% render 'icon-shape-old-mine-cut' %}
+                              {% endif %}
+                            </label>
+                          </div>
+                        {%- endfor -%}
+                        {% comment %}{% if groupedShapesArr.size > 5 %}<div class="swiper-scrollbar swiper-scrollbar-shape"></div>{%endif %}{% endcomment %}
+                      </div>
+                      <div class="swiper-scrollbar swiper-scrollbar-shape"></div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if groupedCaratArr.size > 0 -%}
+                <div class="setting-accordion-item setting-accordion-stone">
+                  <div class="setting-accordion-button accordion-active hide_this_after_stone">
+                    <span class="caret-wrapper">
+                      <i class="icon-solid-caret"></i>
+                    </span>
+                    <span class="button_text">Carat Weight:&nbsp;</span>
+                    <span id="carat_selected_value" class="carat_selected_value">{{ current_product_carat }} ctw</span>
+                    {%- assign stone_svg_cw = selected_variant.metafields.specs.primary_stone_avg_wt.value -%}
+                    &nbsp;<span class="stone_avg_wt stone-dots{% if stone_svg_cw == blank %} hide{% endif %}" id="primary-stone-avg-wt">&nbsp;{{ stone_svg_cw }} ct Center</span>
+                  </div>
+                  <div class="setting-accordion-content pdp-item-options">
+                    <div class="setting-values-container">
+                        <div class="detail-carats setting-values-wrapper">
+                            {%- for carat in groupedCaratArr -%}
+                              <div
+                                class="{% comment %}setting-value-inputs {% endcomment %}shape-enable-disable custom-carat-options"
+                                data-carat-option="{{ carat }}"
+                              >
+                                {%- comment -%}
+                                {%- assign caratArr = carat | split:' ' -%}
+                                {%- if caratArr.size > 1 -%}
+                                  {%- capture caratValue -%}
+                                     {{ caratArr.first }}<sup>{{ caratArr.last }}</sup> ctw
+                                  {%- endcapture -%}
+                                {%- else -%}
+                                  {%- assign caratValue = carat | append:' ctw' -%}
+                                {%- endif -%}
+                                {%- endcomment -%}
+                                {%- assign caratValue = carat | append:' ctw' -%}
+                                <label class="input_label style-group-carat{% if current_product_carat == carat %} active{% endif %}" data-carat="{{ carat }}" data-carat-name="{{ carat }}">{{ caratValue }}</label>
+                              </div>
+                            {%- endfor -%}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {% endfor %}
+        </options-selection>
+        {% comment %}Inject @pixelunion/shopify-variants-ui/options-selection end{% endcomment %}
+      {% endif %}
+    </variant-selection>
+    {% comment %}Inject @pixelunion/shopify-variants-ui/variant-selection end{% endcomment %}
+
+    {%- assign is_ring_engraving_content = false -%}
+    <div class="single-column" id="ring_engraving_section">
+      {%- if product.metafields.custom.length_options.value != blank -%}
+        {%- assign is_ring_engraving_content = true -%}
+        {%- assign size_length_meta = product.metafields.custom.length_options.value -%}
+        <div class="setting-accordion-item setting-accordion-ring-size">
+          <div class="setting-accordion-button accordion-active">
+            <span class="caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+            <span class="button_text">Length:</span>
+            <span id="ring_sizes_selected_value" class="ring_sizes_selected_value"></span>
+          </div>
+          <div class="setting-accordion-content">
+            <div class="select-wrapper">
+              <label for="ring_sizes" class="visually-hidden">Length</label>
+              <select class="sustainability-select" name="properties[Size]" data-option-type="length" id="ring_sizes" aria-describedby="ring_error">
+                <option data-option-price="0" value="">Select Length</option>
+                {% for length in size_length_meta %}
+                  <option value="{{ length }}">{{ length }}</option>
+                {% endfor %}
+              </select>
+              {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+            </div>
+          </div>
+          <strong><span id="ring_error" class="error-nwcolor" role="alert"></span></strong>
+          <!-- Size field Ends -->
+        </div>
+      {% elsif product.type != 'Pendants' and product.type != 'Earrings' and product.type != 'Bracelets' %}
+        <div
+          class="setting-accordion-item{% if attributes_customizable != 1 or attributes_can_be_engraved != 1 %} setting-accordion-item--full-width{% endif %}"
+          style="margin-bottom: 10px;"
+        >
+          {% comment %} Sizes 1 {% endcomment %}
+          <div class="setting-accordion-item setting-accordion-ring-size">
+            {% assign cond1 = false %}
+            {% if product.metafields.attributes.show_sizes == 0
+              or product.metafields.attributes.show_sizes == ''
+            %}
+              {% assign cond1 = true %}
+            {% endif %}
+
+            {% assign cond2 = false %}
+            {% if product.type == 'Earrings' or product.type == 'Bracelets' %}
+              {% assign cond2 = true %}
+            {% endif %}
+
+            {% if cond1 == true or cond2 == true %}
+            {% else %}
+              {% if product.metafields.attributes.sizes %}
+                {% if attributes_basic_builder == 1 %}
+                  {% if product.metafields.attributes.sizes contains ',' %}
+                    {% assign dynamicSizes = product.metafields.attributes.sizes | split: ',' %}
+                  {% else %}
+                    {% assign dynamicSizes = product.metafields.attributes.sizes | split: '|' %}
+                  {% endif %}
+                {% else %}
+                  {% if product.metafields.attributes.sizes contains ',' %}
+                    {% assign dynamicSizes = product.metafields.attributes.sizes | split: ',' %}
+                  {% else %}
+                    {% assign dynamicSizes = product.metafields.attributes.sizes | split: '|' %}
+                  {% endif %}
+                {% endif %}
+              {% elsif attributes_customizable == 1 %}
+                {% assign dynamicSizes = '3:0|3.25:0|3.50:0|3.75:0|4.00:0|4.25:0|4.50:0|4.75:0|5.00:0|5.25:0|5.50:0|5.75:0|6.00:0|6.25:0|6.50:0|6.75:0|7.00:0|7.25:0|7.50:0|7.75:0|8.00:0|8.25:0|8.50:0|8.75:0|9.00:0|9.25:0|9.50:0|9.75:0|10.00:0'
+                  | split: '|'
+                %}
+              {% endif %}
+
+              {% if dynamicSizes.size > 1 %}
+                {%- assign is_ring_engraving_content = true -%}
+                {% comment %} default_non_active_accordion {% endcomment %}
+                <div class="setting-accordion-button accordion-active">
+                  <span class="caret-wrapper">
+                    <i class="icon-solid-caret"></i>
+                  </span>
+                  <span class="button_text">U.S. Ring Size:</span>
+                  <span id="ring_sizes_selected_value" class="ring_sizes_selected_value"></span>
+                  <span class="size-guide line-hover" onclick="ringSizerPopup()"
+                    ><b>
+                      {%- if product.metafields.attributes.sizes_label != blank %}
+                        {{- product.metafields.attributes.sizes_label -}}
+                      {% else %}
+                        Size
+                      {%- endif %}
+                      Guide</b
+                    ></span
+                  >
+                </div>
+                <div class="setting-accordion-content pdp-item-options">
+                  <div class="select-wrapper">
+                      <label for="ring_sizes" class="visually-hidden">
+                        {% if product.metafields.attributes.sizes_label != blank %}
+                          {{ product.metafields.attributes.sizes_label }}
+                        {% else %}
+                          Ring Size
+                        {% endif %}
+                      </label>
+
+                      <select
+                        class="sustainability-select"
+                        id="ring_sizes"
+                        aria-describedby="ring_error"
+                        name="properties[{% if product.metafields.attributes.sizes_label != blank %}{{ product.metafields.attributes.sizes_label }}{% else %}Size{% endif %}]"
+                        data-ring-label="{% if product.metafields.attributes.sizes_label != blank %}{{ product.metafields.attributes.sizes_label }}{% else %}Size{% endif %}"
+                      >
+                        <option data-option-price="0" value="">
+                          Select {% if product.metafields.attributes.sizes_label != blank %}{{ product.metafields.attributes.sizes_label }}{% else %}Ring Size{% endif %}
+                        </option>
+
+                        {% for sizes in dynamicSizes %}
+                          {% assign size = sizes | split: ':' %}
+                          <option value="{{ size[0] | replace: '(current size)', '' }}">
+                            {{ size[0] }}
+                          </option>
+                        {% endfor %}
+                      </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                </div>
+                <strong><span id="ring_error" class="error-nwcolor" role="alert"></span></strong>
+              {% endif %}
+            {% endif %}
+            <!-- Size field Ends -->
+
+            <!-- finishes field Starts -->
+            {% if product.metafields.attributes.finishes and attributes_customizable == 1 %}
+              {% assign dynamicFinishes = product.metafields.attributes.finishes | split: '|' %}
+              {%- assign is_ring_engraving_content = true -%}
+              <div class="setting-accordion-item accordion-active">
+                <div class="setting-accordion-button accordion-active default_non_active_accordion">
+                  <span class="caret-wrapper"><i class="icon-solid-caret"></i></span>
+                  <span class="button_text">Finishes:</span>
+                  <span id="ring_finish_selected_value" class="ring_finish_selected_value"></span>
+                </div>
+                <div class="setting-accordion-content">
+                  <div class="select-wrapper">
+                    <label for="ring_finish" class="visually-hidden">Finish</label>
+                    <select name="properties[Finish]" class="sustainability-select" id="ring_finish">
+                      {% for finishes in dynamicFinishes %}
+                        {% assign finish = finishes | split: ':' %}
+                        <option data-size_price="{{finish[1]}}">{{ finish[0] }}</option>
+                      {% endfor %}
+                    </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            <!-- finishes field Ends -->
+          </div>
+          {% comment %} END Sizes 1 {% endcomment %}
+
+          {% comment %} Sizes 2 {% endcomment %}
+          <div class="setting-accordion-item setting-accordion-ring-size-two">
+            {% unless product.metafields.attributes.show_sizes2 == 0
+              or product.metafields.attributes.show_sizes2 == ''
+              or product.metafields.attributes.show_sizes2 == blank
+            %}
+              {% if product.metafields.attributes.sizes2 %}
+                {% if attributes_basic_builder == 1 %}
+                  {% assign dynamicSizes2 = product.metafields.attributes.sizes2 | split: ',' %}
+                {% else %}
+                  {% assign dynamicSizes2 = product.metafields.attributes.sizes2 | split: '|' %}
+                {% endif %}
+              {% elsif attributes_customizable == 1 %}
+                {% assign dynamicSizes2 = '3:0|3.25:0|3.50:0|3.75:0|4.00:0|4.25:0|4.50:0|4.75:0|5.00:0|5.25:0|5.50:0|5.75:0|6.00:0|6.25:0|6.50:0|6.75:0|7.00:0|7.25:0|7.50:0|7.75:0|8.00:0|8.25:0|8.50:0|8.75:0|9.00:0|9.25:0|9.50:0|9.75:0|10.00:0'
+                  | split: '|'
+                %}
+              {% endif %}
+
+              {% if dynamicSizes2.size > 1 %}
+                {%- assign is_ring_engraving_content = true -%}
+                <div
+                  class="setting-accordion-button default_non_active_accordion accordion-active"
+                  style="margin-top: 0px;"
+                >
+                  <span class="caret-wrapper"><i class="icon-solid-caret"></i></span>
+                  <span class="button_text">
+                    {%- if product.metafields.attributes.sizes_label2 != blank %}
+                      {{- product.metafields.attributes.sizes_label2 -}}
+                    {% else -%}
+                      U.S. Ring Size
+                    {%- endif -%}
+                    :</span
+                  >
+                  <span id="ring_sizes2_selected_value" class="ring_sizes2_selected_value"></span>
+                </div>
+                <span class="size-guide" onclick="ringSizerPopup()"
+                  ><b>
+                    {%- if product.metafields.attributes.sizes_label2 != blank %}
+                      {{- product.metafields.attributes.sizes_label2 -}}
+                    {% else -%}
+                      Ring Size
+                    {%- endif %}
+                    Guide</b
+                  ></span
+                >
+                <div class="setting-accordion-content">
+                  <div class="select-wrapper">
+                    <label for="ring_sizes2" class="visually-hidden">
+                      {% if product.metafields.attributes.sizes_label2 != blank %}
+                        {{- product.metafields.attributes.sizes_label2 -}}
+                      {% else -%}
+                        U.S. Ring Size
+                      {%- endif %}
+                    </label>
+                    <select
+                      class="sustainability-select"
+                      id="ring_sizes2"
+                      name="properties[{% if product.metafields.attributes.sizes_label2 != blank %}{{- product.metafields.attributes.sizes_label2 -}}{% else %}Size2{% endif %}]"
+                      data-ring-label="{% if product.metafields.attributes.sizes_label2 != blank %}{{- product.metafields.attributes.sizes_label2 -}}{% else %}Size2{% endif %}"
+                    >
+                      <option data-option-price="0" value="">
+                        Select
+                        {% if product.metafields.attributes.sizes_label2 != blank %}
+                          {{- product.metafields.attributes.sizes_label2 -}}
+                        {% else -%}
+                          Ring Size
+                        {%- endif %}
+                      </option>
+                      {% for sizes2 in dynamicSizes2 %}
+                        {% assign size2 = sizes2 | split: ':' %}
+                        <option
+                          {% comment %}data-option-price="{{size2[1]}}"{% endcomment %}
+                          value="{{ size2[0] | replace : '(current size)' , '' }}"
+                        >
+                          {{ size2[0] }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                </div>
+                <b><span id="ring2_error" class="error-nwcolor"></span></b>
+              {% endif %}
+            {% endunless %}
+            <!-- Size field Ends -->
+          </div>
+          {% comment %} END Sizes 2 {% endcomment %}
+        </div>
+      {% endif %}
+
+      <!-- engraving field Starts -->
+      {% if attributes_customizable == 1 %}
+        <div class="setting-accordion-item setting-accordion-engraving">
+          {% if attributes_can_be_engraved == 1 %}
+            {%- assign is_ring_engraving_content = true -%}
+            {% comment %} default_non_active_accordion {% endcomment %}
+            <div class="setting-accordion-button accordion-active engravingsec">
+              <div class="engrving-label">
+                <span class="caret-wrapper">
+                  <i class="icon-solid-caret"></i>
+                </span>
+                <span class="button_text">Engraving:</span>
+                <span id="engraving_selected_value" class="engraving_selected_value"></span>
+              </div>
+              <fieldset class="radio-wrapper" style="border: none; margin: 0; padding: 0;">
+                <legend class="visually-hidden">Engraving</legend>
+                <div class="label-wrapper">
+                  <input type="radio" name="engraving" id="no" value="No" checked>
+                  <label for="no">No</label>
+                </div>
+                <div class="label-wrapper">
+                  <input
+                    type="radio"
+                    name="engraving"
+                    id="yes"
+                    value="Yes"
+                    data-option-price="{{all_products['custom-engraving'].selected_or_first_available_variant.price}}"
+                  >
+                  <label for="yes">Yes</label>
+                  {% comment %}
+                    <label for="yes">Yes (
+                    {{- all_products['custom-engraving'].selected_or_first_available_variant.price |
+                    money -}}
+                    &nbsp; {{ cart.currency.iso_code }})</label>
+                  {% endcomment %}
+                </div>
+              </fieldset>
+            </div>
+            <div class="setting-accordion-content">
+              <div id="show_hide_engraving" class="hide">
+                <!-- engraving Font Field Starts -->
+                <div class="setting-accordion-item">
+                  <div class="setting-accordion-button accordion-active">
+                    <span class="caret-wrapper">
+                      <i class="icon-solid-caret"></i>
+                    </span>
+                    <span class="button_text">Font Type:</span>
+                    <span
+                      id="engraving_font_selected_value"
+                      class="engraving_font_selected_value"
+                    ></span>
+                  </div>
+                  <div class="setting-accordion-content pdp-item-options">
+                    <div class="select-wrapper">
+                      <label for="engraving_font" class="visually-hidden">Engraving font</label>
+                      <select
+                        class="sustainability-select"
+                        name="engraving_font"
+                        id="engraving_font"
+                      >
+                        <option data-v-6fa4a54e="" value="">Select Font Type</option>
+                        <option
+                          data-v-6fa4a54e=""
+                          value="Garamond"
+                          data-family_class="font-garamond"
+                        >
+                          Garamond
+                        </option>
+                        <option
+                          data-v-6fa4a54e=""
+                          value="Helvetica"
+                          data-family_class="font-helvetica"
+                        >
+                          Helvetica
+                        </option>
+                      </select>
+                      {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                    </div>
+                    <b><span id="font_error" class="error-nwcolor"></span></b>
+                    <br>
+                    <!-- engraving Font Field Ends -->
+                    <div class="select-wrapper">
+                      {% assign nameLimit = 20 %}
+                      <!-- engraving name textbox Field Starts -->
+                      {% if product.metafields.attributes.engraving_limit %}
+                        {% assign nameLimit = attributes_engraving_limit %}
+                      {% endif %}
+
+                      {% if product.metafields.attributes.names_title %}
+                        <label class="input_label" for="engraving_name1">
+                          {{- product.metafields.attributes.names_title -}}
+                        </label>
+                      {% endif %}
+
+                      {% assign textBoxCount = 1 %}
+                      {% if product.metafields.attributes.names_fields %}
+                        {% assign textBoxCount = product.metafields.attributes.names_fields %}
+                      {% endif %}
+                      {% for i in (1..textBoxCount) %}
+                        <input
+                          type="text"
+                          class="multiple_engraving_names"
+                          name="engraving_name{{i}}"
+                          id="engraving_name{{i}}"
+                          placeholder="Text"
+                          maxlength="{{nameLimit}}"
+                          value=""
+                        >
+                        <b><span id="name_error{{i}}" class="error-nwcolor"></span></b>
+                        <div class="setting-accordion-item"></div>
+                        <br>
+                      {% endfor %}
+                    </div>
+
+                    <br>
+                    <div class="dtl-preview-sec">
+                      <div class="select-wrapper">
+                        <span class="engraving-label">Preview: </span>
+                        <span id="engraving_preview"></span>
+                      </div>
+                      <p> 
+                      <svg width="12" height="12" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.5 0.5625C6.67441 0.5625 8.4375 2.32559 8.4375 4.5C8.4375 6.67441 6.67441 8.4375 4.5 8.4375C2.32559 8.4375 0.5625 6.67441 0.5625 4.5C0.5625 2.32559 2.32559 0.5625 4.5 0.5625ZM4.5 9C6.98555 9 9 6.98555 9 4.5C9 2.01445 6.98555 0 4.5 0C2.01445 0 0 2.01445 0 4.5C0 6.98555 2.01445 9 4.5 9ZM3.65625 6.1875C3.50156 6.1875 3.375 6.31406 3.375 6.46875C3.375 6.62344 3.50156 6.75 3.65625 6.75H5.34375C5.49844 6.75 5.625 6.62344 5.625 6.46875C5.625 6.31406 5.49844 6.1875 5.34375 6.1875H4.78125V4.21875C4.78125 4.06406 4.65469 3.9375 4.5 3.9375H3.65625C3.50156 3.9375 3.375 4.06406 3.375 4.21875C3.375 4.37344 3.50156 4.5 3.65625 4.5H4.21875V6.1875H3.65625ZM4.5 3.23438C4.73379 3.23438 4.92188 3.04629 4.92188 2.8125C4.92188 2.57871 4.73379 2.39062 4.5 2.39062C4.26621 2.39062 4.07812 2.57871 4.07812 2.8125C4.07812 3.04629 4.26621 3.23438 4.5 3.23438Z" fill="black"/>
+                      </svg>    
+                      Up to 20 characters (15 or fewer recommended). Engraved on the side of the band's interior, leaving the bottom clear for resizing.</p>
+                    </div>
+                  </div>
+                  <!-- engraving name textbox Field ENds -->
+                </div>
+                {% comment %}
+                  <div class="radio-wrapper terms">
+                      <label for="accept">
+                          <input type="checkbox" name="accept" id="accept">
+                          I accept and understand that engraved items cannot be exchanged or returned
+                      </label>
+                  </div>
+                {% endcomment %}
+                <b><span id="accept_error" class="error-nwcolor"></span></b>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% elsif attributes_basic_builder == 1 %}
+        {% if product.metafields.attributes.initials_engraving == 1 %}
+          {%- assign is_ring_engraving_content = true -%}
+          {% assign InitialsEngraving = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z ' | split: ' ' %}
+          <div id="no_engraving" class="setting-accordion-item">
+            <div class="setting-accordion-item">
+              <div class="setting-accordion-button accordion-active">
+                <span class="caret-wrapper">
+                  <i class="icon-solid-caret"></i>
+                </span>
+                {% assign engravingTitle = 'Initial Engraving' %}
+                {% if product.metafields.attributes.engraving_title %}
+                  {% assign engravingTitle = product.metafields.attributes.engraving_title %}
+                {% endif %}
+                <span class="button_text">{{ engravingTitle }}:</span>
+                <span
+                  id="initial_engraving_selected_value"
+                  class="initial_engraving_selected_value"
+                ></span>
+              </div>
+              <div class="setting-accordion-content">
+                <div class="select-box-wrapper" style="width: 100%;">
+                  <div class="select-wrapper">
+                    <label for="initial_engraving" class="visually-hidden">Initial</label>
+                    <select
+                      class="sustainability-select"
+                      name="initial_engraving"
+                      id="initial_engraving"
+                    >
+                      <option value="">{{ 'Select Initial' }}</option>
+                      {% for alpha in InitialsEngraving %}
+                        <option value="{{alpha}}">{{ alpha }}</option>
+                      {% endfor %}
+                    </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                  <b><span id="initial_engraving_error" class="error-nwcolor"></span></b>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% elsif product.metafields.attributes.names_engraving == 1 %}
+          {%- assign is_ring_engraving_content = true -%}
+          <div id="show_hide_engraving" class="hide">
+            <div class="setting-accordion-content">
+              <div class="select-wrapper">
+                {% assign nameLimit = 20 %}
+                <!-- engraving name textbox Field Starts -->
+                {% if product.metafields.attributes.names_limit %}
+                  {% assign nameLimit = product.metafields.attributes.names_limit %}
+                {% endif %}
+
+                {% if product.metafields.attributes.names_title %}
+                  <label class="input_label" for="engraving_name1">
+                    {{- product.metafields.attributes.names_title -}}
+                  </label>
+                  <br>
+                {% endif %}
+
+                {% assign textBoxCount = 1 %}
+                {% if product.metafields.attributes.names_fields %}
+                  {% assign textBoxCount = product.metafields.attributes.names_fields %}
+                {% endif %}
+                {% for i in (1..textBoxCount) %}
+                  {% if textBoxCount > 1 %}
+                    <label for="engraving_name{{i}}">
+                      {%- if i == 1 %} * {% endif %} Name {{ i }}
+                  {% endif %}
+                  <input
+                    type="text"
+                    class="multiple_engraving_names"
+                    name="engraving_name{{i}}"
+                    id="engraving_name{{i}}"
+                    placeholder="Text"
+                    maxlength="{{nameLimit}}"
+                    value=""
+                    style="margin-bottom : 10px"
+                  >
+                  <b><span id="name_error{{i}}" class="error-nwcolor"></span></b>
+                  <div class="setting-accordion-item"></div>
+                  <p></p>
+                  {% if textBoxCount > 1 %}
+                    </label>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+              <br>
+              {% comment %}
+                <div class="radio-wrapper terms">
+                    <label for="accept">
+                        <input type="checkbox" class="static_accept" name="accept" id="accept">
+                        I accept and understand that engraved items cannot be exchanged or returned
+                    </label>
+                </div>
+              {% endcomment %}
+              <b><span id="accept_error_static" class="error-nwcolor"></span></b>
+            </div>
+        {% endif %}
+      {% endif %}
+      <!-- engraving field Starts -->
+    </div>
+
+    {% if product.available %}
+      {% if settings.display_inventory_left %}
+        <p class="items_left">
+          {% if selected_variant.inventory_management != blank and selected_variant.inventory_quantity > 0 %}
+            {% capture items_left_text %}
+              {% if selected_variant.inventory_quantity == 1 %}
+                {{ 'products.product.items_left_count.one' | t }}
+              {% else %}
+                {{ 'products.product.items_left_count.other' | t }}
+              {% endif %}
+            {% endcapture %}
+            {% if selected_variant.inventory_quantity <= settings.inventory_threshold %}
+              {{ selected_variant.inventory_quantity }}
+              {{ items_left_text }}
+            {% endif %}
+          {% endif %}
+        </p>
+      {% endif %}
+
+      <div class="purchase-details {% if settings.display_product_quantity %}has-quantity-box{% endif %}">
+        {% if settings.display_product_quantity %}
+          <div class="purchase-details__quantity product-quantity-box quantity-box--{{ settings.qty_box_style }}">
+            {%
+              render 'quantity-box',
+              variant: selected_variant,
+            %}
+          </div>
+        {% endif %}
+
+        <div class="purchase-details__buttons purchase-details__spb--{{ show_payment_button }}">
+          {% if settings.cart_action == 'reload_page' %}
+            <input type="hidden" name="return_to" value="back">
+          {% elsif settings.cart_action == 'redirect_cart' %}
+            <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+          {% endif %}
+
+          <div class="button-wrapper">
+            {% capture add_to_cart_label %}{% if collection_handles contains 'pre-order' %}{{ 'collections.general.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}{% endcapture %}
+            <button
+              type="submit"
+              name="add"
+              class="button {% if settings.cart_action == 'mini_cart' or settings.cart_action == 'drawer' %} ajax-submit {% endif %}action_button button--add-to-cart {% if show_payment_button %} action_button--secondary {% endif %}"
+              data-label="{{ add_to_cart_label | json }}"
+              data-add-to-cart-trigger
+            >
+              {% if settings.button_cart_icon != blank and settings.button_cart_icon_position == 'left' %}
+                {% render 'icon', name: settings.button_cart_icon, icon_class: 'icon--cart' %}
+              {% endif %}
+              {{ add_to_cart_label }}
+              <span
+                class=" {% if selected_variant.compare_at_price and selected_variant.compare_at_price != selected_variant.price %}price--sale{% endif %}"
+              >
+                &nbsp;-&nbsp;{{- cart.currency.symbol }}
+                <span class="money final_price">
+                  {{-
+                    selected_variant.price
+                    | divided_by: 100.0
+                    | split: '.'
+                    | first
+                  -}}
+                </span>
+              </span>
+              <span class="text" style="display: none;">{{ add_to_cart_label }}</span>
+              {% if settings.button_cart_icon != blank and settings.button_cart_icon_position == 'right' %}
+                {% render 'icon', name: settings.button_cart_icon, icon_class: 'icon--cart icon--right' %}
+              {% endif %}
+              <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" class="checkmark">
+                <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
+              </svg>
+            </button>
+          </div>
+          {% if show_payment_button %}
+            {{ form | payment_button }}
+          {% endif %}
+        </div>
+
+        <div class="cart-warning" style="margin: 0;"></div>
+      </div>
+    {% endif %}
+  {% endform %}
+
+  {% render 'shipping-setting-tabs',
+    isStoneProduct: isStoneProduct,
+    category_group: category_group,
+    added_ship_time: added_ship_time
+  %}
+
+  <div class="surface-pick-up surface-pick-up--loading" data-surface-pick-up></div>
+  <div class="surface-pick-up__modal" data-surface-pick-up-modal></div>
+</div>
+
+<script>
+  const estimateDateEl = document.getElementById('estimate_ship_date');
+  const estimateDateProp = document.getElementById('estimate_ship_date_property');
+  if(estimateDateEl && estimateDateProp){
+    let estimateDateValue = estimateDateEl.innerHTML;
+    estimateDateProp.value = estimateDateValue.trim();
+  }
+
+  const ring_size_dropdown = document.getElementById('ring_sizes');
+  if(ring_size_dropdown){
+    ring_size_dropdown.addEventListener('change', () => {
+      document.getElementById('ring_error').innerHTML = '';
+    });
+  }
+
+  const engravng_item_property = document.getElementById('engravng_item_property');
+  const engraving_groupid_property = document.getElementById('engraving_groupid_property');
+  const engraving_ismain_property = document.getElementById('engraving_ismain_property');
+  const is_engraving_property = document.getElementById('is_engraving_property');
+  const engraving_font_property = document.getElementById('engraving_font_property');
+  const engraving_text_property = document.getElementById('engraving_text_property');
+  const show_hide_engraving = document.getElementById('show_hide_engraving');
+  const engraving_input = document.querySelectorAll('[name="engraving"]');
+  if(engraving_input){
+    engraving_input.forEach((engraving) => {
+      engraving.onchange = function() {
+        if(engraving.value == 'Yes'){
+          show_hide_engraving.classList.remove('hide');
+          engravng_item_property.disabled = false;
+          engraving_groupid_property.disabled = false;
+          engraving_ismain_property.disabled = false;
+          is_engraving_property.disabled = false;
+          is_engraving_property.value = 'Yes';
+          engraving_font_property.disabled = false;
+          engraving_text_property.disabled = false;
+        }
+        else{
+          show_hide_engraving.classList.add('hide');
+          engravng_item_property.disabled = true;
+          engraving_groupid_property.disabled = true;
+          engraving_ismain_property.disabled = true;
+          is_engraving_property.disabled = true;
+          engraving_font_property.disabled = true;
+          engraving_text_property.disabled = true;
+        }
+      }
+    });
+
+    const engraving_font = document.getElementById('engraving_font');
+    if (engraving_font !== null) {
+      document.getElementById("engraving_font").onchange = function (e) {
+        const fontValue = e.target.value;
+        if(fontValue != ''){
+          document.getElementById('font_error').innerHTML = '';
+        }
+        display_preview();
+      };
+    }
+    const engravingNameHtml = document.getElementById('engraving_name1');
+    if (engravingNameHtml !== null) {
+      document.getElementById("engraving_name1").onkeyup = function (e) {
+        const engravingText = e.target.value;
+        if(engravingText != ''){
+          document.getElementById('name_error1').innerHTML = '';
+        }
+        display_preview();
+      };
+    }
+  }
+
+	function display_preview() {
+		var f = document.getElementById("engraving_font");
+		if (f != null) {
+			var font_value = f.options[f.selectedIndex].value;
+			var font_class_for_preview = f.options[f.selectedIndex].dataset.family_class;
+			if (document.getElementById("engraving_name1") != null) {
+				var name = document.getElementById("engraving_name1").value;
+				if (document.getElementById("engraving_preview") != null) {
+					document.getElementById("engraving_preview").innerHTML = name;
+					document.getElementById("engraving_preview").className = font_class_for_preview;
+          engraving_font_property.value = font_value;
+          engraving_text_property.value = name;
+				}
+			}
+		} else {
+			if (document.getElementById("engraving_name1") != null) {
+			var name = document.getElementById("engraving_name1").value;
+				if (document.getElementById("engraving_preview") != null) {
+					document.getElementById("engraving_preview").innerHTML = name;
+          engraving_text_property.value = name;
+				}
+			}
+		}
+	}
+</script>

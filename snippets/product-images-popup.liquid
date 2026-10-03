@@ -1,0 +1,288 @@
+{% comment %}
+  Optional values
+  display_thumbnails: <boolean>
+  thumbnail_position: <string>
+  enable_thumbnail_slider: <boolean>
+  gallery_arrows: <boolean>
+  slideshow_transition: <string>
+  enable_product_lightbox: <boolean>
+{% endcomment %}
+
+{% comment %}Assign object as block or section{% endcomment %}
+{% if type == 'block' %}
+  {% assign object = block %}
+{% else %}
+  {% assign object = section %}
+{% endif %}
+
+{%- assign display_thumbnails = display_thumbnails | default: object.settings.display_thumbnails -%}
+{%- assign thumbnail_position = thumbnail_position | default: object.settings.thumbnail_position -%}
+{%- assign enable_thumbnail_slider = enable_thumbnail_slider | default: object.settings.enable_thumbnail_slider -%}
+{%- assign gallery_arrows = gallery_arrows | default: object.settings.gallery_arrows -%}
+{%- assign slideshow_transition = slideshow_transition | default: object.settings.slideshow_transition -%}
+{%- assign enable_product_lightbox = enable_product_lightbox | default: object.settings.enable_product_lightbox -%}
+
+{% style %}
+  .shopify-model-viewer-ui model-viewer {
+    --progress-bar-height: 2px;
+    --progress-bar-color: {{ settings.regular_color }};
+  }
+
+  {% if set_product_height == true %}
+    .product-{{ product.id }} .product-gallery__model model-viewer {
+      min-height: {{ product_height }}px;
+    }
+
+    .product-{{ product.id }} .product-gallery__main img,
+    .product-{{ product.id }} .product-gallery__main .plyr--html5 video,
+    .product-{{ product.id }} .product-gallery__main .plyr--youtube {
+      max-height: {{ product_height }}px;
+    }
+  {% endif %}
+{% endstyle %}
+
+{% assign featured_image = product.selected_or_first_available_variant.featured_image
+  | default: product.featured_image
+%}
+
+{%- if product.metafields.attributes.view_360
+  and product.metafields.attributes.view_360 != '-'
+  and product.metafields.attributes.view_360 != '_'
+-%}
+  {%- assign threeSixty_video = product.metafields.attributes.view_360 -%}
+{%- endif -%}
+{%- if product.metafields.attributes.vimeo_id
+  and product.metafields.attributes.vimeo_id != '-'
+  and product.metafields.attributes.vimeo_id != '_'
+-%}
+  {%- assign vimeo_video = product.metafields.attributes.vimeo_id -%}
+{%- endif -%}
+
+<style>
+  .images-popup-open .fs-wrapper {
+    z-index: 150000 !important;
+  }
+</style>
+
+<div
+  class="fancybox-container popup-modal certificate-popup product-images-popup fancybox-is-open"
+  role="dialog"
+  tabindex="-1"
+  id="product-images-popup"
+  style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;"
+>
+  <div class="fancybox-bg" onClick="productImagesClosePopup()"></div>
+  <div class="fancybox-inner">
+    <div class="fancybox-stage">
+      <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+        <div
+          class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+          style="display: inline-block;"
+        >
+          <button onClick="productImagesClosePopup()" class="close popup__close" aria-label="close">
+            <span class="icon icon--vertical-align" data-icon="x">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>close</title>
+                <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="popup__inner is-flex has-no-side-gutter">
+            <div class="popup__content one-half">
+              <setting-tabs class="setting-tabs-wrapper">
+                <div class="setting-tabs-buttons">
+                  <button id="product-images" class="setting-tab-button product-images button-active">Images</button>
+                  <span class="instagram-slash">|</span>
+                  <button id="product-instagram" class="setting-tab-button product-instagram">Instagram</button>
+                  {% if vimeo_video %}
+                    <span class="video-slash">|</span>
+                  {% endif %}
+                  <button id="product-videos" class="setting-tab-button product-videos">
+                    {% if vimeo_video %}Video{% endif %}
+                  </button>
+                </div>
+                <div id="product-images-content" class="setting-tab-content product-images-content tab-active">
+                  <div
+                    class="
+                      product-gallery
+                      product-gallery__thumbnails--{{ display_thumbnails }}
+                      product-gallery--media-amount-{{ product.media.size }}
+                      slideshow-transition--{{ slideshow_transition }}
+                      {% if thumbnail_position %}
+                        product-gallery--{{ thumbnail_position }}
+                      {% endif %}
+                      display-arrows--{{ gallery_arrows }}
+                      {% if set_product_height == true %}
+                        has-height-set
+                      {%endif %}
+                      container
+                    "
+                    data-enable-zoom="{{ enable_zoom }}"
+                    data-video-loop="{{ video_looping  }}"
+                  >
+                    <div
+                      class="product-gallery__main_2 slideshow-transition--{{ slideshow_transition }} one-half medium-down--one-whole "
+                      data-product-id="{{ product.id }}"
+                      data-media-count="{{ product.media.size }}"
+                    >
+                      {% for media in product.media limit: 4 %}
+                        {% if media.src contains 'webwhite'
+                          or media.src contains 'WebWhite'
+                          or media.src contains 'white'
+                          or media.src contains 'White'
+                          or media.src contains 'home_try-on'
+                          or media.src contains 'hero'
+                          or media.src contains 'Hero'
+                        %}
+                          {% comment %} Check alt text for video iframe {% endcomment %}
+                          {% render 'images-loop', media: media %}
+                        {% else %}
+                          {% render 'images-loop', media: media %}
+                        {% endif %}
+                      {% endfor %}
+                      {% for media in product.media limit: 3 offset: continue %}
+                        {% if media.src contains 'lifestyle' or media.src contains 'Lifestyle' %}
+                          {% comment %} Check alt text for video iframe {% endcomment %}
+                          {% render 'images-loop', media: media %}
+                        {% else %}
+                          {% render 'images-loop', media: media %}
+                        {% endif %}
+                      {% endfor %}
+                      {% for media in product.media offset: continue %}
+                        {% comment %} Check alt text for video iframe {% endcomment %}
+                        {% render 'images-loop', media: media %}
+                      {% endfor %}
+                    </div>
+                    <div class="product-gallery__thumbnails-wrapper one-half medium-down--one-whole">
+                      <h6 class="product-title text-center">{{ product.title }}</h6>
+                      {% if thumbnail_position != 'no-thumbnails' and product.media.size > 0 %}
+                        <div
+                          class="
+                            product-gallery__thumbnails
+                            product-gallery__thumbnails--{{ thumbnail_position }}
+                            js-gallery-carousel
+                            is-slide-nav--{{ enable_thumbnail_slider }}
+                            {% if enable_thumbnail_slider == false %}
+                              container equal-columns--outside-trim
+                              is-justify-center
+                            {% endif %}
+                          "
+                          style="opacity: 1;"
+                        >
+                          {% for media in product.media limit: 4 %}
+                            {% if media.src contains 'webwhite'
+                              or media.src contains 'WebWhite'
+                              or media.src contains 'white'
+                              or media.src contains 'White'
+                              or media.src contains 'home_try-on'
+                              or media.src contains 'hero'
+                              or media.src contains 'Hero'
+                            %}
+                              {% comment %} Check alt text for video iframe {% endcomment %}
+                              {% render 'thumbnails-loop', media: media %}
+                            {% else %}
+                              {% render 'thumbnails-loop', media: media %}
+                            {% endif %}
+                          {% endfor %}
+                          {% for media in product.media limit: 3 offset: continue %}
+                            {% if media.src contains 'lifestyle' or media.src contains 'Lifestyle' %}
+                              {% comment %} Check alt text for video iframe {% endcomment %}
+                              {% render 'thumbnails-loop', media: media %}
+                            {% else %}
+                              {% render 'thumbnails-loop', media: media %}
+                            {% endif %}
+                          {% endfor %}
+                          {% for media in product.media offset: continue %}
+                            {% comment %} Check alt text for video iframe {% endcomment %}
+                            {% render 'thumbnails-loop', media: media %}
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div id="product-instagram-content" class="setting-tab-content product-instagram-content">
+                  <div id="foursixty-hideable-container" style="display:none">
+                    <script
+                      src="//foursixty.com/media/scripts/fs.slider.v2.5.js"
+                      data-feed-id="MiaDonna"
+                      data-theme="slider_v2_5"
+                      data-open-links-in-same-page="true"
+                      data-connector-filter="7552"
+                      data-show-okendo-stars="true"
+                      data-cell-size="25%"
+                      data-has-posts-selector="#foursixty-hideable-container"
+                      data-for-url="true"
+                    ></script>
+                  </div>
+                  <style>
+                    .fs-has-links::after { padding:5px 7.5px;background-color:#ffffff;color:rgba(0, 0, 0, 0.8);content:"SHOP IT"; } .fs-wrapper { height:auto; } .fs-slider_v2_5  .fs-entry-container { height:0 !important;width:25%!important;padding-top:25%!important; } .fs-wrapper div.fs-text-container .fs-entry-title, div.fs-detail-title { font-family:Times New Roman, serif;font-style:normal;font-weight:normal;font-size:14px; } div.fs-text-container .fs-entry-date, div.fs-detail-container .fs-post-info, div.fs-wrapper div.fs-has-links::after, .fs-text-product, .fs-overlink-text { font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:14px; } .fs-wrapper div.fs-text-container * { color:#ffffff; } .fs-wrapper div.fs-text-container { background-color:rgba(0, 0, 0, 0.8);margin:0px; } div.fs-entry-date { display:none; } div.fs-entry-title { display:none; } .fs-slider_v2_5 .fs-wrapper div.fs-timeline-entry { margin:1px; }
+                  </style>
+                </div>
+                <div id="product-videos-content" class="setting-tab-content product-videos-content">
+                  <div class="container">
+                    <div class="one-half medium-down--one-whole">
+                      {% comment %}
+                        {% if threeSixty_video %}
+                          <div
+                            id="threeSixty_video"
+                            {% if threeSixty_video %}
+                              class="video-active"
+                            {% endif %}
+                          >
+                            <div class="lazyframe" data-ratio="9:16">
+                              <iframe
+                                frameborder="0"
+                                scrolling="no"
+                                data-src="{{ threeSixty_video  }}"
+                              ></iframe>
+                            </div>
+                          </div>
+                        {% endif %}
+                      {% endcomment %}
+                      {% if vimeo_video %}
+                        <div
+                          id="vimeo_video"
+                          class="video-active"
+                        >
+                          <div class="lazyframe" data-ratio="9:16">
+                            <iframe
+                              frameborder="0"
+                              scrolling="no"
+                              data-src="https://player.vimeo.com/video/{{ vimeo_video  }}?loop=1&amp;autoplay=1&amp;muted=1&amp;quality=720p&amp;title=0&amp;byline=0&amp;portrait=0"
+                            ></iframe>
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="one-half medium-down--one-whole">
+                      <h6 class="product-title text-center">{{ product.title }}</h6>
+                      <div class="video-buttons-wrapper">
+                        {% comment %}
+                          {% if threeSixty_video %}
+                            <a
+                              class="video-button threeSixty_video-button {% if threeSixty_video %}video-button-active{% endif %}"
+                              onClick="productVideoButtons('threeSixty')"
+                              >360 DEGREE VIDEO</a
+                            >
+                          {% endif %}
+                        {% endcomment %}
+                        {% if vimeo_video %}
+                          <a
+                            class="video-button vimeo_video-button video-button-active"
+                            onClick="productVideoButtons('vimeo')"
+                            >LIFESTYLE VIDEO</a
+                          >
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </setting-tabs>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

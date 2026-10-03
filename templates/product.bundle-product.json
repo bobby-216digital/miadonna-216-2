@@ -1,0 +1,516 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {
+      }
+    },
+    "shogun-above": {
+      "type": "shogun-above",
+      "settings": {
+      }
+    },
+    "breadcrumbs": {
+      "type": "product__breadcrumb",
+      "settings": {
+        "width": "standard",
+        "padding_top": 5,
+        "padding_bottom": 5,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "sidebar": {
+      "type": "product__sidebar",
+      "settings": {
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "main": {
+      "type": "product__main",
+      "blocks": {
+        "87bc854e-d1f7-496c-988c-2218299827db": {
+          "type": "media-buttons",
+          "settings": {
+            "button_1": "",
+            "button_2": "Images",
+            "button_3": "Video",
+            "button_4": "View All"
+          }
+        },
+        "52aa36eb-9e56-463f-b271-d3a4c1866891": {
+          "type": "tgd",
+          "settings": {
+            "image1": "shopify://shop_images/TGD-purchase-power.png",
+            "title1": "YOUR PURCHASE HAS POWER.",
+            "content1": "<p>10% net profits give back to people and the planet.</p>",
+            "image2": "shopify://shop_images/TGD-certification.png",
+            "title2": "CERTIFIED ETHICAL & SUSTAINABLE.",
+            "content2": "<p>We meet the highest standards of social and environmental impact.</p>",
+            "image3": "shopify://shop_images/TGD-Partner-Stamp.png",
+            "title3": "YOUR ORDER PLANTS A TREE.",
+            "content3": "<p>We offset the carbon required for shipping by planting a tree.</p>"
+          }
+        },
+        "aa1b46b1-422d-491d-b120-4084180888f2": {
+          "type": "additional-product-tabs",
+          "settings": {
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "0d3f9e84-ad59-4557-bfe2-805fa988518e": {
+          "type": "rating",
+          "disabled": true,
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "disabled": true,
+          "settings": {
+            "display_savings": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+          }
+        },
+        "form": {
+          "type": "form",
+          "disabled": true,
+          "settings": {
+            "show_payment_button": false
+          }
+        },
+        "6e4b51f5-2184-4986-a2b7-00053c9aca0d": {
+          "type": "setting-tabs",
+          "settings": {
+          }
+        },
+        "e4e3958e-13fd-49d0-94cc-00d3e7f97b85": {
+          "type": "additional-links",
+          "settings": {
+          }
+        },
+        "b6fa27ff-767e-4a87-b789-0d1ce73f9eea": {
+          "type": "promotion-banner",
+          "disabled": true,
+          "settings": {
+            "url": "shopify://collections",
+            "image": "shopify://shop_images/circle-image.png",
+            "title": "END SOON!",
+            "content": "<p>Make a qualifying purchase or fill out the form by 6/15/23 and be entered to win a 1.0ct Martini Pendant Necklace as a gift from our founder, Anna-Mieke!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "87bc854e-d1f7-496c-988c-2218299827db",
+        "52aa36eb-9e56-463f-b271-d3a4c1866891",
+        "aa1b46b1-422d-491d-b120-4084180888f2",
+        "title",
+        "0d3f9e84-ad59-4557-bfe2-805fa988518e",
+        "price",
+        "description",
+        "form",
+        "6e4b51f5-2184-4986-a2b7-00053c9aca0d",
+        "e4e3958e-13fd-49d0-94cc-00d3e7f97b85",
+        "b6fa27ff-767e-4a87-b789-0d1ce73f9eea"
+      ],
+      "settings": {
+        "product_images_position": "left",
+        "set_product_height": false,
+        "product_height": 500,
+        "video_looping": true,
+        "gallery_arrows": true,
+        "enable_zoom": false,
+        "enable_product_lightbox": false,
+        "slideshow_speed": 0,
+        "slideshow_transition": "slide",
+        "display_thumbnails": false,
+        "thumbnail_position": "bottom-thumbnails",
+        "enable_thumbnail_slider": true,
+        "width": "standard",
+        "padding_top": 10,
+        "padding_bottom": 12,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "e23d3ddf-89ee-4ff1-8ad1-c5cbc4523df4": {
+      "type": "recently-and-instagram-products",
+      "blocks": {
+        "b0c09c06-908f-4227-902f-b1c2407c038a": {
+          "type": "tab",
+          "settings": {
+            "button_text": "You may also like",
+            "recent_products": false,
+            "frequently_bought_together": false,
+            "you_may_also_like": true,
+            "complementary-products": false,
+            "liquid_content": ""
+          }
+        },
+        "8bac94f1-af0d-4e56-8363-d0ef02d00641": {
+          "type": "tab",
+          "settings": {
+            "button_text": "Wear it with",
+            "recent_products": false,
+            "frequently_bought_together": false,
+            "you_may_also_like": false,
+            "complementary-products": true,
+            "liquid_content": ""
+          }
+        }
+      },
+      "block_order": [
+        "b0c09c06-908f-4227-902f-b1c2407c038a",
+        "8bac94f1-af0d-4e56-8363-d0ef02d00641"
+      ],
+      "settings": {
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "67036fa3-bc07-4052-860d-232c22a7ac1b": {
+      "type": "recently-and-instagram-products",
+      "blocks": {
+        "51e5d667-16e7-43b8-88b7-06173044b274": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "button_text": "MIADONNADIAMOND",
+            "recent_products": false,
+            "frequently_bought_together": false,
+            "you_may_also_like": false,
+            "complementary-products": false,
+            "liquid_content": "<div id=\"foursixty-hideable-container\" style=\"display:none\"><h3>@MIADONNADIAMOND</h3><script src=\"//foursixty.com/media/scripts/fs.slider.v2.5.js\" data-feed-id=\"MiaDonna\" data-theme=\"slider_v2_5\" data-open-links-in-same-page=\"true\" data-connector-filter=\"7552\" data-show-okendo-stars=\"true\" data-cell-size=\"20%\" data-has-posts-selector=\"#foursixty-hideable-container\" data-for-url=\"true\"></script></div>\n<style>.fs-has-links::after { padding:5px 7.5px;background-color:#ffffff;color:rgba(0, 0, 0, 0.8);content:\"SHOP IT\"; } .fs-wrapper { height:auto; } .fs-slider_v2_5  .fs-entry-container { height:0 !important;width:20%!important;padding-top:20%!important; } .fs-wrapper div.fs-text-container .fs-entry-title, div.fs-detail-title { font-family:Times New Roman, serif;font-style:normal;font-weight:normal;font-size:14px; } div.fs-text-container .fs-entry-date, div.fs-detail-container .fs-post-info, div.fs-wrapper div.fs-has-links::after, .fs-text-product, .fs-overlink-text { font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:14px; } .fs-wrapper div.fs-text-container * { color:#ffffff; } .fs-wrapper div.fs-text-container { background-color:rgba(0, 0, 0, 0.8);margin:0px; } div.fs-entry-date { display:none; } div.fs-entry-title { display:none; } .fs-slider_v2_5 .fs-wrapper div.fs-timeline-entry { margin:1px; } </style>"
+          }
+        },
+        "559d5560-f213-4af7-933d-70d6b1b141e7": {
+          "type": "shopify://apps/foursixty-shoppable-social-ugc/blocks/custom_slider/e2616dfe-fbb6-4e7d-874d-d250b973556d",
+          "settings": {
+            "foreground_color": "#ffffff",
+            "background_color": "#000000",
+            "background_color_alpha": 90,
+            "post_spacing": 1,
+            "hover_margin": 0,
+            "cell_size": "20%",
+            "target_blank": false,
+            "arrows_outside": false,
+            "show_icon": true,
+            "show_text": false,
+            "show_date": false,
+            "call_to_action": "SHOP IT",
+            "shop_type": "button",
+            "body_font_size": 14,
+            "body_font": "helvetica_n4",
+            "accent_font_size": 14,
+            "accent_font": "helvetica_n4",
+            "disable_filter": false,
+            "override_feed_id": "",
+            "arbitrary_attributes": "",
+            "custom_css": "",
+            "custom_js": ""
+          }
+        }
+      },
+      "block_order": [
+        "51e5d667-16e7-43b8-88b7-06173044b274",
+        "559d5560-f213-4af7-933d-70d6b1b141e7"
+      ],
+      "settings": {
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "af87b56d-46fa-43dd-8492-1cae4e33908d": {
+      "type": "recently-and-instagram-products",
+      "blocks": {
+        "def9361f-a60f-496a-9b50-71a2e28304d1": {
+          "type": "tab",
+          "settings": {
+            "button_text": "Recently Viewed",
+            "recent_products": true,
+            "frequently_bought_together": false,
+            "you_may_also_like": false,
+            "complementary-products": false,
+            "liquid_content": ""
+          }
+        }
+      },
+      "block_order": [
+        "def9361f-a60f-496a-9b50-71a2e28304d1"
+      ],
+      "settings": {
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "c4259346-c5e4-4af9-b169-e3ce9142d670": {
+      "type": "index__video",
+      "disabled": true,
+      "settings": {
+        "aspect_ratio": "16:9",
+        "autoplay": true,
+        "autoloop": true,
+        "mute_video": true,
+        "controls": false,
+        "iframe_video": "https://player.vimeo.com/video/378642826?loop=true&pip=0&background=1&autoplay=true&&byline=false&portrait=false&title=false&speed=true&transparent=0&gesture=media",
+        "html5_video": "",
+        "pretext": "",
+        "title": "VIDEOMODULE",
+        "subtitle": "MiaDonna diamonds and gemstones are the highest quality, most ethical, American-grown luxury in the industry.",
+        "pretext_color": "#000000",
+        "heading_color": "#000000",
+        "subheading_color": "#000000",
+        "horizontal_text_position": "center",
+        "vertical_text_position": "center",
+        "text_align": "center",
+        "button_label": "",
+        "button_style": "button--secondary",
+        "overlay_style": "none",
+        "video_overlay_color": "#ffffff",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "background_opacity": 77,
+        "text_width": 70,
+        "mobile_text_below_video": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "wide",
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "5a6e36ac-d2f3-4db9-ba44-7a64c1ed28a7": {
+      "type": "index__html",
+      "settings": {
+        "html_content": "<div id=\"why-miadonna\"></div>",
+        "width": "standard",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "c1b5de52-5a9e-41b1-ae46-7ab811295333": {
+      "type": "image-with-text-2",
+      "blocks": {
+        "77c09153-8589-423c-bad8-e96caaa3862b": {
+          "type": "image-with-text",
+          "settings": {
+            "image_position": "left",
+            "image": "shopify://shop_images/MiaDonna_lab-grown-diamond-pear-cut-engagement-ring-gold_circle_75f77b3c-a566-468a-852c-8f7d4fc7ad4b.png",
+            "image_link": "",
+            "title": "HIGH QUALITY",
+            "content": "<p>MiaDonna's fine jewelry is handcrafted using 100% recycled solid gold and platinum at a higher gram weight, meaning your jewelry will last for generations. Our Lab-Grown Diamonds and Gemstones are among the Top 1% of all diamonds and gems, no matter their origin.</p>"
+          }
+        },
+        "bf41c0c3-b08d-4373-9cb3-7b94a9b2273b": {
+          "type": "image-with-text",
+          "settings": {
+            "image_position": "right",
+            "image": "shopify://shop_images/MiadONNA_Heart-shaped-diamond-lab-grown-sustainable-eco-friendly_circle_4295639c-6d55-49c2-907e-e1842531d91b.png",
+            "image_link": "",
+            "title": "SUSTAINABILITY",
+            "content": "<p>We save thousands of tons in natural resources by not mining for diamonds and new gold or platinum for our jewelry. We proudly grow own our exceptional diamonds, and boast a short supply chain. Carbon emissions required for production and minimal shipping are offset by planting a tree for every order. Many of our Lab-Grown Diamonds are certified to be carbon neutral or carbon negative.</p>"
+          }
+        },
+        "cd6b92d8-536e-4abd-a273-ef4c9e99d566": {
+          "type": "image-with-text",
+          "settings": {
+            "image_position": "left",
+            "image": "shopify://shop_images/MiaDonna_Gives-Back-The-Greener-Diamond-sustainable-ethical_circle_2ce05c1e-6a84-4146-9bb6-b5e3e6e0ab17.png",
+            "image_link": "",
+            "title": "GIVING BACK",
+            "content": "<p>MiaDonna is a foundation-first company that gives at least 10% net profits from every single purchase to rebuild and repair the lives and land devastated by the diamond and gold mining industries. We do this through our foundation, <a href=\"/pages/the-greener-diamond\" title=\"The Greener Diamond\">The Greener Diamond</a>. As a social enterprise, we measure more than profit. Giving back is crucial part of our business, and never an afterthought.</p>"
+          }
+        },
+        "03478d9d-ca2b-40af-b05f-6637e6d042d6": {
+          "type": "image-with-text",
+          "settings": {
+            "image_position": "right",
+            "image": "shopify://shop_images/MiaDonna_B-Corp-Certified-sustainable-ethical-eco-friendly_circle_7e9363c0-380b-483e-872d-2e09a33698d0.png",
+            "image_link": "",
+            "title": "WE PROVE IT",
+            "content": "<p>We hate greenwashing and deceptive marketing as much as you do. We're proud of our many third-party certifications that prove our bold, industry-leading claims. As the first B Corp-certified diamond retailer, we continue to meet the highest standards of social and environmental impact. We use business as a force for good.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "77c09153-8589-423c-bad8-e96caaa3862b",
+        "bf41c0c3-b08d-4373-9cb3-7b94a9b2273b",
+        "cd6b92d8-536e-4abd-a273-ef4c9e99d566",
+        "03478d9d-ca2b-40af-b05f-6637e6d042d6"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": false,
+        "hide_mobile": false,
+        "background_color": "#f5f5f5",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "custom_liquid_qTkgcN": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "{% render 'okendo-reviews-widget', product: product %}"
+      }
+    },
+    "03e287f2-9030-491b-a7d8-5f64f7363128": {
+      "type": "lab-diamonds-sub-footer-faq",
+      "blocks": {
+        "961990a6-e3f0-49a3-94dd-303891e5e350": {
+          "type": "content",
+          "settings": {
+            "faqs_menu": "popular-faqs",
+            "faq_schema": ""
+          }
+        }
+      },
+      "block_order": [
+        "961990a6-e3f0-49a3-94dd-303891e5e350"
+      ],
+      "settings": {
+        "title": "",
+        "background": "rgba(0,0,0,0)"
+      }
+    },
+    "8cc47849-3f36-4c72-b2df-fdbedd093fcf": {
+      "type": "recently-viewed",
+      "disabled": true,
+      "settings": {
+        "heading": "Recently Viewed",
+        "heading_position": "center"
+      }
+    },
+    "ea619891-b006-4647-bcd1-ebf563898ebb": {
+      "type": "content-accordion",
+      "blocks": {
+        "template--14990618230863__ea619891-b006-4647-bcd1-ebf563898ebb-content-1": {
+          "type": "content",
+          "settings": {
+            "content": "{{ product.metafields.custom.product_bottom_text }}"
+          }
+        }
+      },
+      "block_order": [
+        "template--14990618230863__ea619891-b006-4647-bcd1-ebf563898ebb-content-1"
+      ],
+      "settings": {
+        "title": "",
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "518cf1da-c07d-400a-bb41-c08d0f648add": {
+      "type": "product__recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_style": "grid",
+        "product_recommendations_heading": "You may also like",
+        "products_per": 3,
+        "recommended_products_limit": 6,
+        "align_height": false,
+        "collection_height": 200,
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "shogun-below": {
+      "type": "shogun-below",
+      "settings": {
+      }
+    },
+    "d8e22c8f-95c1-4dca-87f0-e69cc8e460ec": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<script>\nwindow.addEventListener('load', function() {\nvar _learnq = window._learnq || [];\nfunction addedToCart() {\n  fetch(`${window.location.origin}/cart.js`)\n  .then(res => res.clone().json().then(data => {\n    var cart = {\n      total_price: data.total_price/100,\n      $value: data.total_price/100,\n      total_discount: data.total_discount,\n      original_total_price: data.original_total_price/100,\n      items: data.items\n    }\n    if (item !== 'undefined') {\n      cart = Object.assign(cart, item)\n    }\n    if (klAjax) {\n        _learnq.push(['track', 'Added to Cart', cart]);\n        klAjax = false;\n      }\n  }))\n};\n(function (ns, fetch) {\n  ns.fetch = function() {\n    const response = fetch.apply(this, arguments);\n    response.then(res => {\n      if (`${window.location.origin}/cart/add.js`\n      \t.includes(res.url)) {\n        \taddedToCart()\n      }\n    });\n    return response\n  }\n}(window, window.fetch));\nvar klAjax = true;\nvar atcButtons = document.querySelectorAll(\"form[action*='/cart/add'] button[type='submit']\");\nfor (var i = 0; i < atcButtons.length; i++) {\n    atcButtons[i].addEventListener(\"click\", function() {\n      if (klAjax) {\n        _learnq.push(['track', 'Added to Cart', item]);\n        klAjax = false;\n      }\n    })\n}\n});\n</script>"
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "shogun-above",
+    "breadcrumbs",
+    "sidebar",
+    "main",
+    "e23d3ddf-89ee-4ff1-8ad1-c5cbc4523df4",
+    "67036fa3-bc07-4052-860d-232c22a7ac1b",
+    "af87b56d-46fa-43dd-8492-1cae4e33908d",
+    "c4259346-c5e4-4af9-b169-e3ce9142d670",
+    "5a6e36ac-d2f3-4db9-ba44-7a64c1ed28a7",
+    "c1b5de52-5a9e-41b1-ae46-7ab811295333",
+    "custom_liquid_qTkgcN",
+    "03e287f2-9030-491b-a7d8-5f64f7363128",
+    "8cc47849-3f36-4c72-b2df-fdbedd093fcf",
+    "ea619891-b006-4647-bcd1-ebf563898ebb",
+    "518cf1da-c07d-400a-bb41-c08d0f648add",
+    "shogun-below",
+    "d8e22c8f-95c1-4dca-87f0-e69cc8e460ec",
+    "shogun-optimizer"
+  ]
+}

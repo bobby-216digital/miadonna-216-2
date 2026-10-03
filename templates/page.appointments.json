@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "e86b40e3-9ea2-483d-91e8-3c9bd167f847": {
+          "type": "custom_html",
+          "settings": {
+            "html": "<iframe src=\"https:\/\/my.setmore.com\/bookingpage\/67240127-4c0d-4292-9379-3ee1b681ab2a\" height=\"100%\" width=\"100%\" title=\"Book an appointment\"><\/iframe>"
+          }
+        }
+      },
+      "block_order": [
+        "e86b40e3-9ea2-483d-91e8-3c9bd167f847"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "customer-care-navigation",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

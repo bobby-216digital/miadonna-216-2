@@ -1,0 +1,204 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section.id }} .founder-connect .text-style-chapter-title,
+  #shopify-section-{{ section.id }} .founder-connect .text-style-subtitle {
+    color: #777777;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .founder-connect h2 {
+    margin-bottom: 2em;
+  }
+  #shopify-section-{{ section.id }} .founder-connect .connect-grid {
+    padding: 1em;
+    text-align: center;
+    display: -webkit-flex;
+    -webkit-flex-flow: row wrap;
+    display: -ms-flexbox;
+    -ms-flex-flow: row wrap;
+    -ms-align-content: flex-start;
+    -webkit-align-content: flex-start;
+    align-content: flex-start;
+  }
+  #shopify-section-{{ section.id }} .founder-connect .connect-grid .connect-col {
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .founder-connect .connect-grid .connect-col h3 {
+    color: #000000de;
+    margin-bottom: 1em;
+  }
+  #shopify-section-{{ section.id }} .founder-connect .connect-grid .connect-col .connect-content {
+    line-height: 1.8em;
+    margin-bottom: 1em;
+  }
+  #shopify-section-{{ section.id }} .founder-connect .connect-grid .connect-col .connect-content .highlight {
+    font-family: Montserrat,sans-serif;
+    color: #ffa998;
+    font-size: 14px;
+  }
+  #shopify-section-{{ section.id }} .founder-connect .connect-grid .connect-col .connect-content a {
+    color: #ffa998;
+    font-weight: 300;
+    text-decoration: none;
+  }
+  #shopify-section-{{ section.id }} .founder-connect .connect-grid .connect-col .connect-content a:hover {
+    text-decoration: underline;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section.id }} {
+      padding: 50px;
+    }
+    #shopify-section-{{ section.id }} .founder-connect .connect-grid .connect-col:not(:last-child) {
+      border-right: 1px solid rgba(0,0,0,.1);
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section.id }} {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section.id }} .founder-connect .text-style-chapter-title,
+    #shopify-section-{{ section.id }} .founder-connect .text-style-subtitle {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section.id }} .founder-connect .connect-grid .connect-col {
+      font-size: 18px;
+      line-height: 1.55;
+    }
+  }
+  @media only screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .founder-connect .connect-grid .connect-col:not(:last-child) {
+      border-bottom: 1px solid rgba(0,0,0,.1);
+      margin-bottom: 1em;
+    }
+  }
+</style>
+
+<section class="section is-standard content-cell -bottom-padding-only founder-connect text-center">
+  <div class="body-cell">
+    <h2 class="text-style-chapter-title">{{ section.settings.title }}</h2>
+    <div class="container connect-grid has-no-side-gutter">
+      <div class="one-third small-down--one-whole column connect-col">
+        <h3 class="text-style-subtitle -dark">{{ section.settings.subtitle1 }}</h3>
+        <p class="connect-content">
+          {{ section.settings.email -}}
+          <br>
+          <!-- <span class="highlight">Nike Communications</span> -->
+        </p>
+      </div>
+      <div class="one-third small-down--one-whole column connect-col">
+        <h3 class="text-style-subtitle -dark">{{ section.settings.subtitle2 }}</h3>
+        <p class="connect-content">
+          LinkedIn:<br>
+          <span class="highlight"
+            ><a href="{{ section.settings.linkedin_link }}" target="_blank">
+              {{- section.settings.linkedin_name -}}
+            </a></span
+          >
+        </p>
+        <p class="connect-content">
+          Facebook:<br>
+          <span class="highlight"
+            ><a href="{{ section.settings.facebook_link }}" target="_blank">
+              {{- section.settings.facebook_name -}}
+            </a></span
+          >
+        </p>
+        <p class="connect-content">
+          Instagram:<br>
+          <span class="highlight"
+            ><a href="{{ section.settings.instagramlink }}" target="_blank">
+              {{- section.settings.instagram_name -}}
+            </a></span
+          >
+        </p>
+      </div>
+      <div class="one-third small-down--one-whole column connect-col">
+        <h3 class="text-style-subtitle -dark">{{ section.settings.subtitle3 }}</h3>
+        <p class="connect-content">
+          Articles &amp; Media:<br>
+          <span class="highlight">
+            <a href="/pages/the-press-room">View</a>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Founder - Social Connect",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle1",
+      "label": "Subtitle 1"
+    },
+   {
+      "type": "text",
+      "id": "subtitle2",
+      "label": "Subtitle 2"
+    },
+    {
+      "type": "text",
+      "id": "subtitle3",
+      "label": "Subtitle 3"
+    },
+      {
+      "type": "text",
+      "id": "email",
+      "label": "Email"
+    },
+      {
+      "type": "text",
+      "id": "linkedin_name",
+      "label": "Linkedin Name"
+    },
+      {
+      "type": "text",
+      "id": "linkedin_link",
+      "label": "Linkedin Url"
+    },
+       {
+      "type": "text",
+      "id": "facebook_name",
+      "label": "Facebook Name"
+    },
+      {
+      "type": "text",
+      "id": "facebook_link",
+      "label": "Facebook Url"
+    },
+     {
+      "type": "text",
+      "id": "instagram_name",
+      "label": "Instagram Name"
+    },
+      {
+      "type": "text",
+      "id": "instagramlink",
+      "label": "Instagram Url"
+    }
+  ],
+   "presets": [
+  {
+    "name": "Founder - Social Connect",
+    "category": "Image"
+  }
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

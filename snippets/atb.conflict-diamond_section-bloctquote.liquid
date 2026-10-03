@@ -1,0 +1,185 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "CD- Blockquote with Image",
+  "id": "conflict-diamond_section-bloctquote",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_image",
+      "label": "Image",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_quote_text",
+      "label": "Quote Text",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_image_position",
+      "label": "Image Alignment",
+      "default": "left",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_image' -%}
+{%- assign atb_image = val -%}
+{%- include 'atb-render' field:'atb_quote_text' -%}
+{%- assign atb_quote_text = val -%}
+{%- include 'atb-render' field:'atb_image_position' -%}
+{%- assign atb_image_position = val -%}
+{%- assign atb_image_key = atb_image| split: '/files/' | last -%}{%- assign atb_image = images[atb_image_key] -%}{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<style>
+  #shopify-section-{{ section_id }} .shaded {
+    background: rgba(0,0,0,.04);
+  }
+  #shopify-section-{{ section_id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} ._body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #shopify-section-{{ section_id }} .content-cell {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section_id }} .text-style-subtitle {
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  #shopify-section-{{ section_id }} .quote-layout {
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .quote-layout blockquote {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  #shopify-section-{{ section_id }} .quote-layout blockquote:before,
+  #shopify-section-{{ section_id }} .quote-layout blockquote:after {
+    content: "\201c";
+    display: block;
+    font-size: 110px;
+    font-style: normal;
+    line-height: 1;
+    height: 65px;
+    margin: 26px 0;
+    color: #777;
+    opacity: 1;
+  }
+  #shopify-section-{{ section_id }} .quote-layout blockquote:after {
+    content: "\201d";
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 50px;
+    }
+    #shopify-section-{{ section_id }} .quote-layout blockquote {
+      font-size: 36px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-subtitle {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section_id }} .quote-layout blockquote {
+      font-size: 40px;
+    }
+    #shopify-section-{{ section_id }} .quote-layout blockquote:before,
+    #shopify-section-{{ section_id }} .quote-layout blockquote:after {
+      font-size: 164px;
+      height: 110px;
+    }
+  }
+  @media only screen and (max-width: 749px){
+    #shopify-section-{{ section_id }} ._image {
+      order: 0 !important;
+    }
+  }
+</style>
+
+<section class="body-cell section is-standard">
+  <div class="media-grid-layout cell-style-A">
+    <section class="container has-no-side-gutter shaded">
+      <figure
+        class="_image formatted-image one-half small-down--one-whole column"
+        {% if atb_image_position == 'right' %}
+          style="order: 2"
+        {% endif %}
+      >
+        {% if atb_image != blank %}
+          {%
+            render 'image-element',
+            image: atb_image,
+            alt: atb_image.alt,
+            stretch_width: true,
+            additional_classes: 'media-grid__image',
+            focal_point: atb_image.presentation.focal_point,
+          %}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </figure>
+      <section class="_body content-cell offset-group one-half small-down--one-whole column text-center">
+        <figure class="quote-layout">
+          <blockquote>{{ atb_quote_text }}</blockquote>
+        </figure>
+      </section>
+    </section>
+  </div>
+</section>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

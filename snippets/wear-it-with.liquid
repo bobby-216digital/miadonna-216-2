@@ -1,0 +1,158 @@
+{% comment %} <style>
+  .has-no-side-gutter .complementary-products.no-slider .one-fifth {
+    width: calc(20% - 0.3rem);
+  }
+  @media only screen and (max-width: 798px) {
+    .has-no-side-gutter .complementary-products .medium-down--one-third {
+      width: calc(33.3333333333% - 0.3rem);
+    }
+  }
+</style> {% endcomment %}
+
+<div
+  class="complementary-products product-content-wrapper no-slider"
+  data-products-per-slide="5"
+  data-products-limit=""
+  data-products-available=""
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=10&intent=complementary"
+>
+  {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+    {% if recommendations.intent == 'complementary' %}
+    {% endif %}
+    {%- for product in recommendations.products -%}
+      <div class="product-item one-fifth column medium-down--one-third">
+        <a href="{{ product.url | within: collection }}">
+          {% render 'image-element',
+            image: product.featured_media.preview_image,
+            alt: product.featured_media.preview_image.alt,
+            max_height: '260'
+          %}
+          <h3>
+            <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+          </h3>
+          {% if product.tags contains 'Home Try-On' %}
+            <p>{{ product.price_max | money_with_currency }}</p>
+          {% else %}
+            <p>{{ product.price_min | money_with_currency }}</p>
+          {% endif %}
+        </a>
+      </div>
+    {%- endfor -%}
+  {%- endif -%}
+</div>
+<script>
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.complementary-products');
+        if (recommendations) {
+          let products_count = recommendations.querySelectorAll('.product-item').length;
+        
+          productRecommendationsSection.setAttribute('data-products-limit', products_count);
+          productRecommendationsSection.setAttribute('data-products-available', products_count);
+  
+          if (products_count > 5) {
+            productRecommendationsSection.classList.remove('no-slider');
+          }
+        }
+
+        // alert(recommendations.querySelectorAll('.product-item').length);
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          $('#wear-it-with-content').addClass('has-data');
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+        } else {
+          console.log('No Complementary Products Data!');
+          $('#wear-it-with').hide();
+          $('#wear-it-with-content').hide();
+          $('#wear-it-with').closest('.recommended-products-section').addClass('wear-it-with-has-no-data');
+        }
+
+        $(".js-related-products-slider .complementary-products").each((_, slider) => {
+          const $relatedSlider = $(slider);
+  
+          const slideData = {
+            products_per_slide: $relatedSlider.data("products-per-slide"),
+            products_available: $relatedSlider.data("products-available"),
+            products_limit: $relatedSlider.data("products-limit"),
+            initialIndex: 0,
+            cellAlign: "left",
+            wrapAround: true,
+            prevNextButtons: false,
+            arrowShape: window.arrowShape,
+          };
+  
+          if (
+            slideData.products_available > slideData.products_per_slide &&
+            slideData.products_limit > slideData.products_per_slide
+          ) {
+            slideData.wrapAround = true;
+            slideData.prevNextButtons = true;
+          } else {
+            slideData.wrapAround = false;
+            slideData.prevNextButtons = false;
+          }
+  
+          if (
+            slideData.products_available < slideData.products_per_slide ||
+            slideData.products_limit < slideData.products_per_slide
+          ) {
+            $relatedSlider.addClass("container is-justify-center");
+            $relatedSlider.find(".gallery-cell").addClass("column");
+            $relatedSlider.flickity({
+              watchCSS: true,
+              lazyLoad: 2,
+              freeScroll: true,
+              imagesLoaded: true,
+              draggable: true,
+              cellAlign: "left",
+              wrapAround: slideData.wrapAround,
+              pageDots: false,
+              contain: true,
+              prevNextButtons: true,
+              initialIndex: slideData.initialIndex,
+            });
+          } else {
+            console.log($relatedSlider);
+            $relatedSlider.flickity({
+              lazyLoad: 2,
+              freeScroll: true,
+              imagesLoaded: true,
+              draggable: true,
+              cellAlign: "left",
+              wrapAround: slideData.wrapAround,
+              pageDots: false,
+              contain: true,
+              prevNextButtons: slideData.prevNextButtons,
+              initialIndex: slideData.initialIndex,
+              // arrowShape: window.arrowShape,
+            });
+  
+            // Resize flickity when the slider is settled
+            $relatedSlider.on("settle.flickity", () =>
+              $relatedSlider.flickity("resize")
+            );
+  
+            $(window).on("load", () => $relatedSlider.flickity("resize"));
+          }
+        });
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.complementary-products');
+  const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+
+  observer.observe(productRecommendationsSection);
+</script>

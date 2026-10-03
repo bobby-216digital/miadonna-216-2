@@ -1,0 +1,341 @@
+
+<style>
+.progresssetup.setup1 { order: 1; }
+.progresssetup.setup2 { order: 2; }
+.progresssetup.setup3 { order: 3; }
+</style>
+{%- capture ContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign currentPageUrl = ContentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&' -%}
+{%- assign productHandlePageQueryString = currentPageUrl | split: '?' | last -%}
+{%- assign productHandlePageQueryArray = productHandlePageQueryString | split: '&' -%}
+
+{% assign defaultShapeValue = '' %}
+{% for param in productHandlePageQueryArray %}
+    {% assign parts = param | split: '=' %}
+    {% assign key = parts[0] %}
+    {% assign value = parts[1] %}
+    {% if key == 'shape' %}
+        {% assign defaultShapeValue = value %}
+        {% unless defaultShapeValue contains 'Cut' %}
+            {% assign defaultShapeValue = defaultShapeValue | append:'+Cut' %}
+        {% endunless %}
+    {% endif %}
+{% endfor %}
+{%- assign show_stone_view_link = true -%}
+{%- assign is_first_step_active = false -%}
+{%- assign is_diamond_ring_view_page = true -%}
+ {%- if template == 'product.loose-lab-diamond' and currentPageUrl contains 'stone-handle' -%}
+    {%- assign is_diamond_ring_view_page = true -%}
+    
+{%- endif -%}
+ {%- if template == 'product' and currentPageUrl contains 'stone-handle' -%}
+    {%- assign is_diamond_ring_view_page = true -%}
+    
+{%- endif -%}
+{%- assign diamond_page = false -%}
+ {%- if template == 'product' and currentPageUrl contains 'dyo=diamond_journey' -%}
+    {%- assign diamond_page = true -%}
+    
+{%- endif -%}
+
+
+
+{% assign showsetup  = false %}
+
+{%- if currentPageUrl contains 'viewdiamond=' -%}
+
+  {% assign showsetup  = true %}
+
+{%- elsif template contains 'product' -%}
+
+  {%- if currentPageUrl contains 'stone-handle='
+      or currentPageUrl contains 'ring-handle=' -%}
+
+    {% assign showsetup =true %}
+
+  {%- endif -%}
+
+{%- endif -%}
+{% assign allproductShapes = '' %}
+{%- if template contains 'product' -%}
+
+  {%- if currentPageUrl contains 'stone-handle='
+      and  currentPageUrl contains 'ring-handle=' -%}
+    {% assign allproductShapes = product.metafields.attributes.shapes | strip %}
+
+{% if allproductShapes != blank %}
+  {% assign allproductShapes = allproductShapes | replace: '|', ',' %}
+{% endif %}
+  {%  endif %}
+{%  endif %}
+
+   {%  if showsetup %}
+<div class="dmdstep-sec">
+    <div class="contanier-nw">
+        <div class="dmd-steps" role="list" aria-label="Ring customization steps">
+             {% assign viewdiamonda = false %}
+            {%- if currentPageUrl contains 'viewdiamond=' %}
+                {% assign viewdiamonda = true %}
+            {%  endif  %}    
+             {% if currentPageUrl contains 'progresssetup=2' %} 
+                {% assign viewdiamonda = false %}
+        {% endif %}
+            {%- if currentPageUrl contains 'stone-handle='-%}
+                   {%- unless currentPageUrl contains 'shape=' -%}
+                    {%- assign select_ring_step = true -%}
+                    {%- assign show_stone_view_link = true -%}
+                          {%- assign diamond_ring_handle = currentPageUrl | split:'ring-handle=' | last | split:'&' | first -%}
+                     {%- unless currentPageUrl contains 'ring-handle=' -%}
+                         {%- assign diamond_ring_handle = product.handle -%}
+                         {%- endunless -%}
+                {%- else -%}
+                    {%- assign diamond_ring_handle = currentPageUrl | split:'ring-handle=' | last | split:'&' | first -%}
+                    {%- unless currentPageUrl contains 'ring-handle=' -%}
+                         {%- assign diamond_ring_handle = product.handle -%}
+                         {%- endunless -%}
+                {%- endunless -%}
+                  {%- assign select_ring_step = false -%}
+                {%- assign caratVal = '' -%}
+                {%- assign cutVal = '' -%}
+                {%- if currentPageUrl contains '#' -%}
+                    {%- assign stone_handle = currentPageUrl | split:'stone-handle=' | last | split:'#' | first -%}
+                {%- else -%}
+                    {%- assign stone_handle = currentPageUrl | split:'stone-handle=' | last | split:'&' | first -%}
+                {%- endif -%}
+                {%- assign stone_item = all_products[stone_handle] -%}
+                {%- for tag in stone_item.tags -%}
+                    {%- assign tagDn = tag | downcase -%}
+                    {%- if tagDn contains 'carat_' -%}
+                        {%- assign caratVal = ' ' | append: tag | append:' ct' | remove:'carat_' | remove:'Carat_' -%}
+                    {%- elsif tagDn contains 'cut_' -%}
+                        {%- assign cutVal = ' ' | append: tag | append:' Cut' | remove:'cut_' | remove:'Cut_' | replace:'_', ' ' -%}
+                    {%- endif -%}
+                {%- endfor -%}
+                {%- assign stone_title = caratVal | append:cutVal -%}
+                {%- assign stone_link = stone_item.url -%}
+                {% if stone_item.featured_image %}
+
+                {%- assign stone_image = stone_item.featured_image | image_url: width: '100px', height: '100px' -%}
+                {% else %}
+               {%- assign stone_image = 'https://www.miadonna.com/apps/vdb-maidonna-inventory-app/images/no-image.png?crop=center&height=100&v=1730004494&width=100' %}  
+                {%  endif %}
+                {% if currentPageUrl contains '/collections/loose-lab-grown-diamonds' %} 
+                        {%- assign is_first_step_active = true -%}
+                {% endif %}    
+                <div
+                    class="step step-js{% unless is_diamond_ring_view_page %} active{% else %} completed {% if currentPageUrl contains '/collections/loose-lab-grown-diamonds' %} active{% endif %}{% endunless %}  {% if currentPageUrl contains 'progresssetup=2' %} progresssetup setup2{% endif %}"
+                    role="listitem"
+                    aria-label="Step 1 completed. Diamond selected for {{ stone_item.price | money }}. {{ stone_title }}"
+                >
+                    {%- unless is_diamond_ring_view_page -%}
+                        {%- assign is_first_step_active = true -%}
+                        <div class="step-number" aria-hidden="true">1</div>
+                    {%- else -%}
+                        <div class="check" aria-hidden="true">
+                            <svg width="14" height="11" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.5 8.13158L6.44545 13.5L17.5 1.5"
+    
+                                    stroke-width="3"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                    {%- endunless -%}
+                    <div class="step-info">
+                        <div class="steptitle">
+                            LAB GROWN DIAMOND
+                            <div class="sub sub-none-m diamondseup-title">{{ stone_title }}</div>
+                        </div>
+                        
+                        <div class="stepright">
+                            <div class="price diamond-price">{{ stone_item.price | money }}</div>
+                            <div class="steplinks">
+                            {%- if show_stone_view_link and is_first_step_active == false -%}
+                                <a target="_blank"  steplinks href="{{ stone_link }}{% if diamond_page!=blank %}?dyo=diamond_journey{% endif %}" class="tdu" aria-label="View selected diamond">View</a>
+                                <span aria-hidden="true"> | </span>
+                            {%- endif -%}
+                             {%- if currentPageUrl contains 'ring-handle=' -%}
+                             <a href="/collections/lab-created-diamonds?viewdiamond=yes{% if currentPageUrl contains 'progresssetup=2' %}&progresssetup=2{% endif %}{% if defaultShapeValue != blank %}&supported_shapes={{ allproductShapes }}{%  endif %}{% if defaultShapeValue != '' %}&shape={{defaultShapeValue}}{% endif %}&min_carat=1&dyo=diamond_journey{%- if diamond_ring_handle -%}&ring-handle={{ diamond_ring_handle }}{%- endif -%}" class="tdu" aria-label="Change selected diamond">Change</a>
+                             {%  else %}
+                                <a href="/collections/lab-created-diamonds" class="tdu" aria-label="Change selected diamond">Change</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="imgicon">
+                        <!--speedsizeIgnore-->
+                        <img
+                            src="{{ stone_image }}"
+                            alt="Selected round cut diamond"
+                            width="48"
+                            height="48"
+                            class="radius-2"
+                        >
+                        <!--endSpeedsizeIgnore-->
+                    </div>
+                </div>
+            {%- else -%}
+                <div
+                    class="step step-js  active {% if currentPageUrl contains 'progresssetup=2' %} progresssetup setup2{% endif %}"
+                    role="listitem"
+                    aria-current="step"
+                    aria-label="Step 1 Lab Grown Diamond"
+                >
+                    <div class="step-number" aria-hidden="true">{% if currentPageUrl contains 'progresssetup=2' %}2{% else %}1{% endif %}</div>
+                    <div class="step-info">
+                        <div class="steptitle review">
+                           
+                                 
+                                   <div class="sub">Choose Your</div>
+                              LAB GROWN DIAMOND
+                            
+                        </div>
+                    </div>
+                    <div class="imgicon">
+                        <svg width="56" height="46" viewBox="0 0 56 46" fill="none">
+                            <path d="M41.8928 0.75L43.1786 2.36333L54.75 16.8833L43.1786 28.8262L27.75 44.75L12.3214 28.8262L0.75 16.8833L12.3214 2.36333L13.6071 0.75H27.75H41.8928Z" fill="white"/>
+                            <path d="M27.75 0.75H13.6071L12.3214 2.36333L0.75 16.8833L12.3214 28.8262L27.75 44.75L43.1786 28.8262L54.75 16.8833L43.1786 2.36333M54.75 16.8833H37.8933M27.75 44.75L37.8933 16.8833M27.75 44.75L17.6066 16.8833M0.75 16.8833H17.6066M43.1786 2.36333L41.8928 0.75H27.75M43.1786 2.36333L37.8933 16.8833M12.3214 2.36333L17.6066 16.8833M37.8933 16.8833L27.75 0.75M37.8933 16.8833H17.6066M27.75 0.75L17.6066 16.8833" stroke="#001514" stroke-width="1.5" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            {%- endif -%}
+            <div class="divider" aria-hidden="true"></div>
+          
+            {%- assign is_setting_tab_active = false -%}
+            
+            {%- if currentPageUrl contains 'ring-handle=' -%}
+             
+                {%- assign is_setting_tab_active = true -%}
+                {%- assign ring_handle = currentPageUrl | split:'ring-handle=' | last | split:'&' | first -%}
+                {%- assign ring_item = all_products[ring_handle] -%}
+                {% assign  stone_item1 = ''  %}
+                {% if stone_item %}
+                {% assign  stone_item1 = '&stone-handle='|append:stone_item.handle|append:'&viewdiamond=yes'  %}
+                {% endif %}
+            {%- endif -%}
+            {%- if is_setting_tab_active -%}
+                {%- assign ring_price = ring_item.price | money -%}
+                {%- assign ring_title = ring_item.title -%}
+                
+                {%- assign ring_url = ring_item.url -%}
+                {%- assign ring_image = ring_item.featured_image | image_url: width: '100px', height: '100px' -%}
+                <div
+                    class="step step-js completed  {% if currentPageUrl contains 'progresssetup=2' %} progresssetup setup1{% endif %}"
+                    role="listitem"
+                    aria-label="Step 2 completed. Ring setting selected for {{ ring_price }}. {{ ring_title }}"
+                >
+                    <div class="check" aria-hidden="true">
+                        <svg width="14" height="11" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.5 8.13158L6.44545 13.5L17.5 1.5"
+                            stroke-width="3"
+                            stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="step-info">
+                        <div class="steptitle">
+                            SETTING
+                            <div class="sub sub-none-m ringseup-title">{{ ring_title }}</div>
+                        </div>
+                        <div class="stepright">
+                            <div class="price ring-price">{{ ring_price }}</div>
+                            {% if stone_item %}
+                                <div class="steplinks">
+                                    <a href="/collections/lab-grown-diamond-engagement-rings/?shape={{ defaultShapeValue }}{{stone_item1}}&filter.p.m.custom.shape={{ defaultShapeValue }}{% if currentPageUrl contains 'progresssetup=2' %}&progresssetup=2{% endif %}&dyo=diamond_journey #ring-products-section" class="tdu" aria-label="Change ring setting">Change</a>
+                                </div>
+                            {% else %}
+                                                <a href="/collections/lab-grown-diamond-engagement-rings/" class="tdu" aria-label="Change ring setting">Change</a>
+                
+                            {%  endif %}   
+                        </div>
+                    </div>
+
+                    <div class="imgicon ringsetupimage">
+                        <img
+                            src="{{ ring_image | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"
+                            alt="Selected Isla three stone ring setting"
+                            width="48"
+                            height="48"
+                            class="radius-2"
+                        >
+                    </div>
+                </div>
+            {%- else -%}
+                <div
+                    class="step step-js{% if currentPageUrl contains 'stone-handle' or currentPageUrl contains 'handle'  %} active{% endif %}  {% if currentPageUrl contains 'progresssetup=2' %} progresssetup setup1{% endif %}"
+                    role="listitem"
+                    aria-current="step"
+                    aria-label="Step 2 Choose Your Setting"
+                >
+                    <div class="step-number" aria-hidden="true">{% if currentPageUrl contains 'progresssetup=2' %}1{% else %}2{% endif %}</div>
+                    <div class="step-info">
+                        <div class="steptitle review">
+                            <div class="sub">Choose Your</div>
+                            SETTING
+                        </div>
+                    </div>
+                    <div class="imgicon">
+                        <svg width="45" height="59" viewBox="0 0 45 59" fill="none">
+                            <circle cx="22.5" cy="36.25" r="21.75" stroke="#001514" stroke-width="1.5"/>
+                            <circle cx="22.5" cy="36.25" r="17.75" stroke="#001514" stroke-width="1.5"/>
+                            <path d="M28.5003 10.3213C30.0003 11.0535 32.8003 13.2642 32.0003 16.2499C23.6003 12.6499 15.8337 14.7499 13.0003 16.2499C12.2003 13.0499 15.0003 10.9641 16.5003 10.3213" stroke="#001514" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M28 0.75L28.5 1.3L33 6.25L28.5 10.3214L22.5 15.75L16.5 10.3214L12 6.25L16.5 1.3L17 0.75H22.5H28Z" fill="white"/>
+                            <path d="M22.5 0.75H17L16.5 1.3L12 6.25L16.5 10.3214L22.5 15.75L28.5 10.3214L33 6.25L28.5 1.3M33 6.25H26.4446M22.5 15.75L26.4446 6.25M22.5 15.75L18.5554 6.25M12 6.25H18.5554M28.5 1.3L28 0.75H22.5M28.5 1.3L26.4446 6.25M16.5 1.3L18.5554 6.25M26.4446 6.25L22.5 0.75M26.4446 6.25H18.5554M22.5 0.75L18.5554 6.25" stroke="#D8D5DC" stroke-width="1.5" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            {%- endif -%}
+            <div class="divider" aria-hidden="true"></div>
+            {%- assign is_review_step_active = false -%}
+            {%- assign is_show_image = false -%}
+            {%- if currentPageUrl contains 'ring-handle' and currentPageUrl contains 'stone-handle' -%}
+                {%- assign is_review_step_active = true -%}
+                {%- assign is_show_image = true -%}
+                {% assign image_url = product.featured_image | image_url: width: '100px', height: '100px' %}
+            {%- elsif template contains 'product' -%}
+                {%- unless currentPageUrl contains 'stone-handle' -%}
+                    {%- assign is_review_step_active = true -%}
+                {%- endunless -%}
+            {%- endif -%}
+            {%- if is_first_step_active -%}
+                {%- assign is_review_step_active = false -%}
+            {%- endif -%}
+            <div
+                class="step step-js{% if is_review_step_active %} active{% endif %}  {% if currentPageUrl contains 'progresssetup=2' %} progresssetup setup3{% endif %}"
+                role="listitem"
+                aria-current="step"
+                aria-label="Step 3 current. Complete and review ring"
+            >
+                <div class="step-number" aria-hidden="true">3</div>
+                <div class="step-info">
+                    <div class="steptitle review">
+                           <div class="sub">Finalize Your </div>
+                           Ring
+                    </div>
+                </div>
+                <div class="imgicon">
+                    <svg width="45" height="59" viewBox="0 0 45 59" fill="none">
+                        <circle cx="22.5" cy="36.25" r="21.75" stroke="#001514" stroke-width="1.5"></circle>
+                        <circle cx="22.5" cy="36.25" r="17.75" stroke="#001514" stroke-width="1.5"></circle>
+                        <path d="M28.5003 10.3213C30.0003 11.0535 32.8003 13.2642 32.0003 16.2499C23.6003 12.6499 15.8337 14.7499 13.0003 16.2499C12.2003 13.0499 15.0003 10.9641 16.5003 10.3213" stroke="#001514" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M28 0.75L28.5 1.3L33 6.25L28.5 10.3214L22.5 15.75L16.5 10.3214L12 6.25L16.5 1.3L17 0.75H22.5H28Z" fill="white"></path>
+                        <path d="M22.5 0.75H17L16.5 1.3L12 6.25L16.5 10.3214L22.5 15.75L28.5 10.3214L33 6.25L28.5 1.3M33 6.25H26.4446M22.5 15.75L26.4446 6.25M22.5 15.75L18.5554 6.25M12 6.25H18.5554M28.5 1.3L28 0.75H22.5M28.5 1.3L26.4446 6.25M16.5 1.3L18.5554 6.25M26.4446 6.25L22.5 0.75M26.4446 6.25H18.5554M22.5 0.75L18.5554 6.25" stroke="#001514" stroke-width="1.5" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endif -%}
+<script>
+setTimeout(function () {   
+     const activeElement = document.querySelector('.step-js.active');
+    if (activeElement) {
+
+     
+          activeElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
+}, 1000);
+</script>    

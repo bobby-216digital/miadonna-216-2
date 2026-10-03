@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "fba43a27-4eee-4297-bbd2-2ba5786b5ab2": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "jewelry-faqs"
+          }
+        },
+        "custom_html_PkNx7z": {
+          "type": "custom_html",
+          "settings": {
+            "html": ""
+          }
+        }
+      },
+      "block_order": [
+        "fba43a27-4eee-4297-bbd2-2ba5786b5ab2",
+        "custom_html_PkNx7z"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

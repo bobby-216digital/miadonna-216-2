@@ -1,0 +1,139 @@
+<section class="style-section common-spacing" role="region" aria-labelledby="style-slider-title">
+  <div class="contanier-nw">
+    <div class="slider-wrapper">
+      <div class="title-header title-header-link">
+        <h2 id="style-slider-title" class="common-hd" tabindex="0">
+          {{ section.settings.section_title }}
+        </h2>
+        <a href="{{ section.settings.cta_link }}" class="arrow-link" aria-label="{{ section.settings.cta_text }}">
+          {{ section.settings.cta_text }}
+          {% render 'icon-rightarrow' %}
+        </a>
+      </div>
+
+      <div class="style-slider sl-space slick-cls" aria-label="find your style">
+        {% for block in section.blocks %}
+          <div class="slide">
+            <div class="style-slide-text slide-cls sl-spacebox">
+              <a href="{{ block.settings.style_link }}" class="radius-2" aria-label="{{ block.settings.style_name }}">
+                
+                {% if block.settings.style_image %}
+                  <span class="shap-svg" aria-hidden="true">
+                    <img 
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.style_image | image_url:width: 500}}" 
+                      alt="{{ block.settings.style_name }}" 
+                      width="416" 
+                      height="617"
+                      loading="lazy"
+                    >
+                  </span>
+                {% endif %}
+
+                {% if block.settings.hover_image %}
+                  <img 
+                    src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.hover_image | image_url: width: 500}}" 
+                    class="style-h-show" 
+                    width="555" 
+                    height="822" 
+                    alt="{{ block.settings.style_name }}"
+                  >
+                {% endif %}
+
+                <span id="desc-{{ forloop.index }}" class="sr-only">
+                  {{ block.settings.style_name }}
+                </span>
+
+                <span class="line-hover black-link" aria-hidden="true">
+                  {{ block.settings.style_name }}
+                </span>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Slider progress">
+        <div class="progress-bar progress-bar-style" style="width: 10%;"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home style Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Engagement Rings by style"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Find your diamond"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link",
+      "default": "/"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "style_slide",
+      "name": "style Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "style_name",
+          "label": "style Name",
+          "default": "Oval"
+        },
+        {
+          "type": "image_picker",
+          "id": "style_image",
+          "label": "style Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "hover_image",
+          "label": "Hover Image"
+        },
+        {
+          "type": "url",
+          "id": "style_link",
+          "label": "style Link",
+          "default": "/"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Home style Slider",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "style_slide",
+          "settings": {
+            "style_name": "Oval"
+          }
+        },
+        {
+          "type": "style_slide",
+          "settings": {
+            "style_name": "Round"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

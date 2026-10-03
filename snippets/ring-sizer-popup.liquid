@@ -1,0 +1,147 @@
+<style>
+  .ring-sizer-popup .popup__wrapper {
+    max-width: 810px;
+    max-height: 100%;
+    overflow: auto;
+    padding: 2rem 4.75rem 2rem;
+  }
+  .converter-container .ring-size-form {
+    padding: 0;
+    box-shadow: none;
+    margin: 0 !important;
+  }
+  @media screen and (max-width: 768px){
+    .ring-sizer-popup .popup__wrapper {
+        padding: 0rem !important;
+    }
+  }
+</style>
+
+<div
+  class="fancybox-container popup-modal certificate-popup product-images-popup ring-sizer-popup fancybox-is-open"
+  role="dialog"
+  tabindex="-1"
+  id="ring-sizer-popup"
+  style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;"
+>
+  <div class="fancybox-bg" onClick="ringSizerClosePopup()"></div>
+  <div class="fancybox-inner">
+    <div class="fancybox-stage">
+      <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+        <div
+          class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+          style="display: inline-block;"
+        >
+          <button onClick="ringSizerClosePopup()" class="close popup__close" aria-label="close">
+            <span class="icon icon--vertical-align" data-icon="x">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>close</title>
+                <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="popup__inner is-flex has-no-side-gutter">
+            <div class="converter-container">
+              <div class="ring-size-form" id="interactive-ring-sizer">
+                <h2 class="text-style-chapter-title">International Ring Size Converter</h2>
+                <form class="pure-form pure-form-stacked ac-custom ac-checkbox ac-cross">
+                  <fieldset>
+                    <legend>Legend</legend>
+
+                    <div class="pure-g">
+                      <div class="pure-u-1 pure-u-lg-1">
+                        <label class="show-on-select" for="ring_finger_diameter">Ring Finger Diameter (MM)</label>
+                        <div class="select-wrapper ring-finger-diameter">
+                          <select id="ring_finger_diameter" class="required pure-input-1-2" required>
+                            <option selected="selected">Ring Finger Diameter (MM)</option>
+                          </select>
+                          <div class="select-button"><div class="arrow"></div></div>
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1 pure-u-lg-1-2">
+                        <label class="show-on-select" for="usa_canada">USA & Canada</label>
+                        <div class="select-wrapper">
+                          <select id="usa_canada" class="required pure-input-1-2" required>
+                            <option selected="selected">USA & Canada</option>
+                          </select>
+                          <div class="select-button"><div class="arrow"></div></div>
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1 pure-u-lg-1-2">
+                        <label class="show-on-select" for="australian_british">Australian & British</label>
+                        <div class="select-wrapper">
+                          <select id="australian_british" class="required pure-input-1-2" required>
+                            <option selected="selected">Australian & British</option>
+                          </select>
+                          <div class="select-button"><div class="arrow"></div></div>
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1 pure-u-lg-1-2">
+                        <label class="show-on-select" for="french_russian">French & Russian</label>
+                        <div class="select-wrapper">
+                          <select id="french_russian" class="required pure-input-1-2" required>
+                            <option selected="selected">French & Russian</option>
+                          </select>
+                          <div class="select-button"><div class="arrow"></div></div>
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1 pure-u-lg-1-2">
+                        <label class="show-on-select" for="german">German</label>
+                        <div class="select-wrapper">
+                          <select id="german" class="required pure-input-1-2" required>
+                            <option selected="selected">German</option>
+                          </select>
+                          <div class="select-button"><div class="arrow"></div></div>
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1 pure-u-lg-1-2">
+                        <label class="show-on-select" for="japanese">Japanese</label>
+                        <div class="select-wrapper">
+                          <select id="japanese" class="required pure-input-1-2" required>
+                            <option selected="selected">Japanese</option>
+                          </select>
+                          <div class="select-button"><div class="arrow"></div></div>
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1 pure-u-lg-1-2">
+                        <label class="show-on-select" for="swiss">Swiss</label>
+                        <div class="select-wrapper">
+                          <select id="swiss" class="required pure-input-1-2" required>
+                            <option selected="selected">Swiss</option>
+                          </select>
+                          <div class="select-button"><div class="arrow"></div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </form>
+
+                <div class="ring-size-instructions">
+                  <p>Instructions</p>
+                  <ol>
+                    <li>Wrap a piece of string or paper around your finger.</li>
+                    <li>Mark the point where the two ends meet.</li>
+                    <li>
+                      Measure the string or paper against a ruler to get the circumference (in millimeteres) of your
+                      finger.
+                    </li>
+                    <li>Divide that number by 3.14 to get the diameter of your finger.</li>
+                    <li>Use the interactive table above to convert your ring size.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'ringSizer-interactive.js' | asset_url  }}" defer="defer"></script>

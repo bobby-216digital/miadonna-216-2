@@ -1,0 +1,796 @@
+{%- capture productHandleContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign productHandlePageUrl = productHandleContentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | split: '.myshopify.com'
+  | last
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+{%- assign productHandlePageQueryStringReplace = productHandlePageUrl
+  | replace: request.path, ''
+  | replace: request.host, ''
+-%}
+{%- assign productHandlePageQueryString = productHandlePageQueryStringReplace | split: '?' | last -%}
+{%- assign productHandlePageQueryArray = productHandlePageQueryString | split: '&' -%}
+
+{% assign productHandleParams = '' %}
+{% assign productShapeParams = '' %}
+{% assign productMetalParams = '' %}
+
+{% assign marketing_banner_video_1 = collection.metafields.collection.marketing_banner_video_1.value %}
+{% assign marketing_banner_video_1_mobile = collection.metafields.collection.marketing_banner_video_1_mobile.value %}
+{% assign marketing_banner_1_headline = collection.metafields.collection.marketing_banner_1_headline.value %}
+{% assign marketing_banner_1_link_text = collection.metafields.collection.marketing_banner_1_link_text.value %}
+{% assign marketing_banner_1_link = collection.metafields.collection.marketing_banner_1_link.value %}
+{%- assign marketing_banner_1_text_color = collection.metafields.collection.marketing_banner_1_text_color -%}
+{% assign marketing_banner_video_2 = collection.metafields.collection.marketing_banner_video_2.value %}
+{% assign marketing_banner_video_2_mobile = collection.metafields.custom.marketing_banner_video_2_mobile.value %}
+{% assign marketing_banner_2_headline = collection.metafields.collection.marketing_banner_2_headline.value %}
+{% assign marketing_banner_2_link_text = collection.metafields.collection.marketing_banner_2_link_text.value %}
+{% assign marketing_banner_2_link = collection.metafields.collection.marketing_banner_2_link.value %}
+{%- assign marketing_banner_2_text_color = collection.metafields.collection.marketing_banner_2_text_color -%}
+
+{% if productHandlePageQueryArray != blank %}
+  {% for param in productHandlePageQueryArray %}
+    {%- if param contains 'handle' -%}
+      {% assign productHandleParams = param | split: '=' | last %}
+    {%- endif -%}
+  {% endfor %}
+
+  {% for param in productHandlePageQueryArray %}
+    {%- if param contains 'shape' -%}
+      {% assign productShapeParams = param | split: '=' | last %}
+    {%- endif -%}
+  {% endfor %}
+
+  {% for param in productHandlePageQueryArray %}
+    {%- if param contains 'filter.p.m.custom.metal' -%}
+      {% assign productMetalParams = param | split: '=' | last | strip %}
+      {% assign productMetalParams = productMetalParams | replace: '+', '%20' | strip %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if related_products == true %}
+  {% assign hover_enabled = block.settings.show_related_products_title_on_hover %}
+{% else %}
+  {% assign hover_enabled = settings.thumbnail_hover_enabled %}
+{% endif %}
+
+{% if type == 'block' %}
+  {% assign object = block %}
+{% else %}
+  {% assign object = section %}
+{% endif %}
+
+{% assign secondaryImage = product.media[1] %}
+
+{% assign collection_handles = product.collections | map: 'handle' %}
+{% if product.featured_media.preview_image.alt contains 'youtube' or image.alt contains 'vimeo' %}
+  {% assign alt_text = product.title %}
+{% else %}
+  {% assign alt_text = product.featured_media.preview_image.alt %}
+{% endif %}
+{% if alt_text == blank %}
+  {% assign alt_text = product.title %} 
+{% endif %}
+
+{% if type == 'block' %}
+  {% assign image_crop = block.settings.image_crop %}
+{% else %}
+  {% assign image_crop = section.settings.image_crop %}
+{% endif %}
+
+{% if align_height == true %}
+  {% style %}
+    .shopify-model-viewer-ui model-viewer {
+      --progress-bar-height: 2px;
+      --progress-bar-color: {{ settings.regular_color }};
+    }
+  {% endstyle %}
+{% endif %}
+{% if template == 'collection.filter-tab' %}
+  {% assign canonical_urll = canonical_url | split: '/' | last %}
+  {% if product.url contains '?' %}
+    {% assign canonical_url_append = '&material=lab-diamond&stone-handle=' %}
+    {% assign canonical_url_gem_append = '&material=lab-gemstone&stone-handle=' %}
+  {% else %}
+    {% assign canonical_url_append = '?material=lab-diamond&stone-handle=' %}
+    {% assign canonical_url_gem_append = '?material=lab-gemstone&stone-handle=' %}
+  {% endif %}
+
+  {% assign selected_product_handles = all_products[productHandleParams] %}
+  {% assign caret_tag = selected_product_handles.tags | where: 'carat_' %}
+  {% assign carat_first = caret_tag | split: 'carat_' | last | remove: '[' %}
+  {% assign carat_first = carat_first | remove: '"]' | plus: 0 %}
+
+  {% assign gem_type_tag = selected_product_handles.tags | where: 'gem_type_' %}
+  {% assign gem_type_first = gem_type_tag | split: 'gem_type_' | last | replace: '_', '%20' %}
+
+  {% assign flag = 0 %}
+  {% assign max_carat_weight = product.metafields.attributes.max_carat_weight | divided_by: 100.0 %}
+  {% assign min_carat_weight = product.metafields.attributes.min_carat_weight | divided_by: 100.0 %}
+
+  {% if max_carat_weight != blank and min_carat_weight != blank %}
+    {% if carat_first >= min_carat_weight and carat_first <= max_carat_weight %}
+      {% assign flag = 1 %}
+    {% else %}
+      {% assign flag = 0 %}
+    {% endif %}
+  {% else %}
+    {% assign flag = 0 %}
+  {% endif %}
+
+  {% if selected_product_handles.type == 'Lab Created Diamond' %}
+    {% assign append_url = canonical_url_append | append: productHandleParams %}
+    {% assign prod_url = product.url | append: append_url %}
+  {% elsif selected_product_handles.type == 'Lab Created Gemstone'
+    or selected_product_handles.type == 'Diamond Hybrid'
+  %}
+    {% assign append_url_gem = canonical_url_gem_append | append: productHandleParams %}
+    {% assign prod_url = product.url | append: append_url_gem %}
+  {% else %}
+    {% assign prod_url = product.url | within: collection %}
+  {% endif %}
+{% else %}
+
+{% endif %}
+
+{% assign firstbannerimage = true %}
+{% if marketing_banner_video_1 or marketing_banner_video_1_mobile %}
+  {% assign firstbannerimage = false %}
+{% comment %} {%- if index == 3 or index == 2-%} {% endcomment %}
+ {%- if  index == 3-%}
+
+  
+  
+  {% unless marketing_banner_video_1 %}
+    {% assign marketing_banner_video_1 = marketing_banner_video_1_mobile  %}
+  {% endunless %}  
+  {% unless marketing_banner_video_1_mobile %}
+    {% assign marketing_banner_video_1_mobile = marketing_banner_video_1  %}
+  {% endunless %}  
+<div
+  class="
+    {% if flag == 0 %}gray-disabled{% else %}active-filter{% endif %}
+    one-whole
+    medium-down--one-whole
+    {% if mobile_products_per_row == '1' %}
+      small-down--one-whole
+    {% else %}
+      small-down--one-whole
+    {% endif %}
+    column
+    {% if settings.enable_quickshop %}
+      quick-shop--true
+      quick-shop--closed
+      product-{{ product.id }} js-product_section
+    {% endif %}
+    thumbnail
+    product__thumbnail
+    product__grid-item
+    thumbnail__hover-overlay--{{ hover_enabled }}
+    plp-banner-section
+    plp-promotion-banner-{% if index == 3 or index == 9 %}desktop{% else %}medium{% endif %}
+  "
+  {% if section.settings.pagination_type != 'basic_pagination' %}
+    data-load-more--grid-item
+  {% endif %}
+>
+
+  <div class="list-bnrbox">
+    {% if marketing_banner_video_1.media_type == 'video' %}
+      {% if marketing_banner_1_link %} 
+        <a href="{{ marketing_banner_1_link }}" class="video-fullview v-desktopview"  aria-label="Shop Now">
+      {% else %}
+        <div class="video-fullview v-desktopview">
+      {% endif %}
+
+      {%- for source in marketing_banner_video_1.sources -%}
+        {%- if source.mime_type contains 'video' -%}
+          {%- assign video_url = source.url -%}
+          {%- assign poster_url = video_url | append:'&speedsize=w_1080,pstr' -%}
+          {%- assign mime_type = source.mime_type -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      <video class="plp-banner-video-desktop" preload="auto"  autoplay muted loop playsinline poster="{{ poster_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+        <source src="{{ video_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="{{ mime_type }}">  
+        Your browser does not support the video tag.  
+      </video>
+      {% if marketing_banner_1_link %} 
+      </a>
+       {% else %}
+       </div>
+      {% endif %}
+        {% if marketing_banner_1_link %} 
+      <a href="{{ marketing_banner_1_link }}" class="video-fullview v-mobileview"   aria-label="Shop Now">
+       {% else %}
+           <div class="video-fullview v-mobileview">
+      {% endif %}
+      {%- for source in marketing_banner_video_1_mobile.sources -%}
+        {%- if source.mime_type contains 'video' -%}
+          {%- assign video_url_1_mobile = source.url -%}
+          {%- assign poster_url_1_mobile = video_url_1_mobile | append:'&speedsize=w_1080,pstr' -%}
+          {%- assign mime_type_1_mobile = source.mime_type -%}
+        {%- endif -%}
+      {%- endfor -%}
+        <video class="plp-banner-video-mobile" autoplay muted loop playsinline poster="{{ poster_url_1_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+          <source data-src="{{ video_url_1_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" src="" type="{{ mime_type_1_mobile }}">
+          Your browser does not support the video tag.
+        </video>
+       {% if marketing_banner_1_link %} 
+      </a>
+        {% else %}
+       </div>
+      {% endif %}
+      {% else %}
+      {% if marketing_banner_1_link!=blank %} 
+        <a href="{{ marketing_banner_1_link }}" class="list-bnrimg" style="background: url('{{ marketing_banner_video_1 | image_url}}');" role="img" aria-label="{{ marketing_banner_video_1.alt | escape }}">
+      {% else %}  
+           <div class="list-bnrimg" style="background: url('{{ settings.speedsize_url_pfx_https -}}{{ marketing_banner_video_1|image_url}} }}');" role="img" aria-label="{{ marketing_banner_video_1.alt | escape }}">
+      {%- endif -%}
+        <img class="plp-banner-img" src="{{ settings.speedsize_url_pfx_https -}}{{ marketing_banner_video_1_mobile|image_url}}" alt="{{ marketing_banner_video_1_mobile.alt | escape }}"  width="1250px"   height="1250px" loading="lazy">
+         {% if marketing_banner_1_link!=blank %} 
+        </a>
+         {% else %}  
+        </div>
+    {%- endif -%}
+    {%- endif -%}
+    {% if marketing_banner_1_headline!=blank or marketing_banner_1_link_text!=blank or marketing_banner_1_link!=blank %}
+    <div class="list-bnrbox-text{% if marketing_banner_1_text_color == 'Black' %} list-bnrbox-text-black{% endif %}" aria-hidden="false">
+      {% if marketing_banner_1_headline %}
+      <h2 id="banner-heading-1">{{ marketing_banner_1_headline }}</h2>
+       {% endif %}
+       {% if marketing_banner_1_link!=blank and marketing_banner_1_link_text!=blank %} 
+        <a href="{{ marketing_banner_1_link }}" class="line-hover" aria-label="{{marketing_banner_1_link_text}}">{{marketing_banner_1_link_text}}</a>
+      {% elsif marketing_banner_1_link_text!=blank %}
+         <div class="sub-text" aria-label="{{marketing_banner_1_link_text}}">{{marketing_banner_1_link_text}}</div>
+      {% endif %}
+    </div>
+   {% endif %}
+
+  </div>
+</div>
+{%- endif -%}
+{%- endif -%}
+
+{% if marketing_banner_video_2 or marketing_banner_video_2_mobile  %}
+{% comment %} {%- if index == 11 or index == 9 -%} {% endcomment %}
+ {%  assign assignindex = 11%}
+ {% if  firstbannerimage %}
+  {%  assign assignindex = 13 %}
+ {% endif %}
+ {%- if index == assignindex -%}
+  {% unless marketing_banner_video_2 %}
+      {% assign marketing_banner_video_2 = marketing_banner_video_2_mobile  %}
+  {% endunless %}  
+  {% unless marketing_banner_video_2_mobile %}
+      {% assign marketing_banner_video_2_mobile = marketing_banner_video_2  %}
+  {% endunless %}
+
+  <div
+  class="
+    {% if flag == 0 %}gray-disabled{% else %}active-filter{% endif %}
+    one-whole
+    medium-down--one-whole
+    {% if mobile_products_per_row == '1' %}
+      small-down--one-whole
+    {% else %}
+      small-down--one-whole
+    {% endif %}
+    column
+    {% if settings.enable_quickshop %}
+      quick-shop--true
+      quick-shop--closed
+      product-{{ product.id }} js-product_section
+    {% endif %}
+    thumbnail
+    product__thumbnail
+    product__grid-item
+    thumbnail__hover-overlay--{{ hover_enabled }}
+    plp-banner-section
+    plp-promotion-banner-{% if index == 3 or index == assignindex %}desktop{% else %}medium{% endif %}
+  "
+  {% if section.settings.pagination_type != 'basic_pagination' %}a
+    data-load-more--grid-item
+  {% endif %}
+>
+
+  <div class="list-bnrbox">
+     {% if marketing_banner_video_2.media_type == 'video' %}
+      
+      {% if marketing_banner_2_link %} 
+      <a href="{{ marketing_banner_2_link }}" class="video-fullview v-desktopview"  aria-label="Shop Now">
+      {% else %}
+        <div class="video-fullview v-desktopview">
+      {% endif %}
+      {%- for source in marketing_banner_video_2.sources -%}
+        {%- if source.mime_type contains 'video' -%}
+          {%- assign video_url_2 = source.url -%}
+          {%- assign poster_url_2 = video_url_2 | append:'&speedsize=w_1080,pstr' -%}
+          {%- assign mime_type_2 = source.mime_type -%}
+        {%- endif -%}
+      {%- endfor -%}
+   
+        <video class="plp-banner-video-desktop" autoplay muted loop playsinline poster="{{ poster_url_2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+          <source data-src="{{ video_url_2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" src="" type="{{ mime_type_2 }}">
+          Your browser does not support the video tag.
+        </video>
+    {% if marketing_banner_2_link %} 
+      </a>
+      {% else %}
+      </div>
+      {% endif %}
+      {% if marketing_banner_2_link %} 
+      <a href="{{ marketing_banner_2_link }}" class="video-fullview v-mobileview"  aria-label="Shop Now">
+      {% else %}
+        <div class="video-fullview v-mobileview">
+      {% endif %}
+      {%- for source in marketing_banner_video_2_mobile.sources -%}
+        {%- if source.mime_type contains 'video' -%}
+          {%- assign video_url_2_mobile = source.url -%}
+          {%- assign poster_url_2_mobile = video_url_2_mobile | append:'&speedsize=w_1080,pstr' -%}
+          {%- assign mime_type_2_mobile = source.mime_type -%}
+        {%- endif -%}
+      {%- endfor -%}
+        <video class="plp-banner-video-mobile" autoplay muted loop playsinline poster="{{ poster_url_2_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+          <source data-src="{{ video_url_2_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" src="" type="{{ mime_type_2_mobile }}">
+          Your browser does not support the video tag.
+        </video>
+     {% if marketing_banner_2_link %} 
+      </a>
+      {% else %}
+      </div>
+       {% endif %}
+      {% else %}
+    
+    {% if marketing_banner_2_link!=blank %} 
+        <a href="{{ marketing_banner_2_link }}" class="list-bnrimg" style="background: url('{{ marketing_banner_video_2|image_url}} }}');" role="img"  aria-label="{{ marketing_banner_video_2.alt | escape }}">
+        {% else %}  
+           <div class="list-bnrimg" style="background: url('{{ settings.speedsize_url_pfx_https -}}{{ marketing_banner_video_2|image_url}} }}');" role="img"  aria-label="{{ marketing_banner_video_2.alt | escape }}">
+      {%- endif -%}
+        <img class="plp-banner-img" src="{{ settings.speedsize_url_pfx_https -}}{{ marketing_banner_video_2_mobile|image_url}}" alt="{{ marketing_banner_video_2_mobile.alt | escape }}"  width="1250px"   height="1250px" loading="lazy">
+      {% if marketing_banner_2_link!=blank %} 
+          </a>
+      {% else %}  
+    </div>
+    {%- endif -%}
+     {%- endif -%}
+    {% if marketing_banner_2_headline!=blank or marketing_banner_2_link_text!=blank or marketing_banner_2_link!=blank %}
+    <div class="list-bnrbox-text{% if marketing_banner_2_text_color == 'Black' %} list-bnrbox-text-black{% endif %}" aria-hidden="false">
+      {% if marketing_banner_2_headline %}
+      <h2 id="banner-heading-1">{{ marketing_banner_2_headline }}</h2>
+       {% endif %}
+       {% if marketing_banner_2_link!=blank and marketing_banner_2_link_text!=blank %} 
+      <a href="{{ marketing_banner_2_link }}" class="line-hover" aria-label="{{marketing_banner_2_link_text}}">{{marketing_banner_2_link_text}}</a>
+       {% elsif marketing_banner_2_link_text!=blank %}
+        <div class="sub-text" aria-label="{{marketing_banner_2_link_text}}">{{marketing_banner_2_link_text}}</div>
+      {% endif %}
+    </div>
+   {% endif %}
+
+  </div>
+</div>
+{%- endif -%}
+{%- endif -%}
+
+
+<div
+  id="{{ product.handle }}"
+  data-index="{{ index }}"
+  class="
+    {% if flag == 0 %}gray-disabled{% else %}active-filter{% endif %}
+    one-whole
+    medium-down--one-whole
+    {% if mobile_products_per_row == '1' %}
+      small-down--one-whole
+    {% else %}
+      small-down--one-whole
+    {% endif %}
+    column
+    {% if settings.enable_quickshop %}
+      quick-shop--true
+      quick-shop--closed
+      product-{{ product.id }} js-product_section
+    {% endif %}
+    {% if settings.stickers_enabled %}
+      has-thumbnail-sticker
+    {% endif %}
+    thumbnail
+    product__thumbnail
+    product__grid-item
+    thumbnail__hover-overlay--{{ hover_enabled }}
+    product-grid-list-element
+  "
+  {% if section.settings.pagination_type != 'basic_pagination' %}
+    data-load-more--grid-item
+  {% endif %}
+  {% if flag == 0 %}
+    onclick="disabledCaratWarningPopup('{{ product.url }}');"
+  {% endif %}
+>
+  <div class="product-wrap">
+    <div
+      class="
+        product-image__wrapper
+        {% if product.media[1] != blank and settings.show_secondary_image == true %}
+          has-secondary-image-swap
+        {% elsif product.media[1] == blank and settings.show_secondary_image == true %}
+          has-secondary-image-swap
+        {% endif %}
+      "
+    >
+      <div id="{{ product.handle }}-loader" class="thumbnail__loading-icon button is-loading is-loading--icon-only loader__active"></div>
+      <div class="image__container product__imageContainer">
+        {% if template == 'collection.filter-tab' and flag == 1 %}
+          <a
+            id="{{ product.handle }}-image-url"
+            href="{% if template == 'collection.filter-tab' %}{{ prod_url }}&shape={{ productShapeParams }}{% if carat_first != blank %}&stone-carat={{ carat_first }}{% endif %}{% if gem_type_first != blank %}&gem_color={{ gem_type_first }}{% endif %}{% else %}{{ product.url  }}{% endif %}{% if productMetalParams != blank %}&solid_metal={{ productMetalParams }}{% endif %}"
+          >
+        {% elsif template == 'collection.all-engagement-rings' %}
+          <a
+            id="{{ product.handle }}-image-url"
+            href="{% if template == 'collection.filter-tab' %}{{ prod_url }}&shape={{ productShapeParams }}{% if carat_first != blank %}&stone-carat={{ carat_first }}{% endif %}{% if gem_type_first != blank %}&gem_color={{ gem_type_first }}{% endif %}{% else %}{{ product.url  }}{% endif %}{% if productMetalParams != blank %}&solid_metal={{ productMetalParams }}{% endif %}"
+          >
+        {% elsif template == 'collection' %}
+          <a
+            id="{{ product.handle }}-image-url"
+            href="{% if template == 'collection.filter-tab' %}{{ prod_url }}&shape={{ productShapeParams }}{% if carat_first != blank %}&stone-carat={{ carat_first }}{% endif %}{% if gem_type_first != blank %}&gem_color={{ gem_type_first }}{% endif %}{% else %}{{ product.url  }}{% endif %}{% if productMetalParams != blank %}&solid_metal={{ productMetalParams }}{% endif %}"
+          >
+        {% endif %}
+        {% if settings.stickers_enabled %}
+          {% render 'product-thumbnail__sticker',
+            product: product,
+            context: 'product',
+            collection_handles: collection_handles
+          %}
+        {% endif %}
+
+        {% render 'collection-product-badge', product: product %}
+        {% assign collectionPageDefaultOnError = '' %}
+        {% assign collectionPageHoverOnError = '' %}
+        {% if product.metafields.attributes.collection_page_default_metal != blank
+          and product.metafields.attributes.collection_page_default_shape != blank
+          and product.metafields.attributes.collection_page_default_position
+        %}
+          {% assign collectionPageDefaultMetal = product.metafields.attributes.collection_page_default_metal
+            | replace: '14K', ''
+            | replace: '18K', ''
+            | strip
+          %}
+          {% assign collectionPageDefaultMetal = collectionPageDefaultMetal | replace: ' ', '' | downcase %}
+          {% assign collectionPageDefaultShape = product.metafields.attributes.collection_page_default_shape
+            | replace: ' ', ''
+            | strip
+            | replace: ' ', ''
+            | downcase
+          %}
+          {% assign collectionPageDefaultPosition = product.metafields.attributes.collection_page_default_position %}
+          {% assign collectionPageHoverPosition = product.metafields.attributes.collection_page_hover_position %}
+
+          {% assign image_convention_extension = product.metafields.attributes.image_convention_extension %}
+          {% if product.metafields.attributes.image_convention_extension == blank %}
+            {% assign image_convention_extension = 'webp' %}
+          {% endif %}
+          {% assign collectionPageDefaultOnError = product.handle
+            | append: '-'
+            | append: collectionPageDefaultMetal
+            | append: '-labgrowndiamond-'
+            | append: collectionPageDefaultShape
+            | append: '-1.00ct-'
+            | append: collectionPageDefaultPosition
+            | append: '-web.'
+            | append: image_convention_extension
+          %}
+          {% if product.metafields.attributes.collection_page_hover_position != blank %}
+            {% assign collectionPageHoverOnError = product.handle
+              | append: '-'
+              | append: collectionPageDefaultMetal
+              | append: '-labgrowndiamond-'
+              | append: collectionPageDefaultShape
+              | append: '-1.00ct-'
+              | append: collectionPageHoverPosition
+              | append: '-web.'
+              | append: image_convention_extension
+            %}
+          {% endif %}
+        {% endif %}
+        <div class="plp_prd-sl">
+          <div
+            id="{{ product.handle }}-main"
+            data-img-pid="{{ product.handle }}-main"
+            {% if collectionPageDefaultOnError != blank %}
+              data-on-error="{{ collectionPageDefaultOnError }}"
+            {% endif %}
+          >
+            {% render 'image-element',
+              image: product.featured_media.preview_image,
+                alt: alt_text,
+              object_fit: align_height,
+              max_height: height
+            %}
+          </div>
+
+          {% comment %}
+            <div class="thumbnail-slider has-no-side-gutter">
+              {% for media in product.media %}
+                {% if media.src contains 'webwhite-001'
+                  or media.src contains 'WebWhite-001'
+                  or media.src contains 'Webwhite-001'
+                  or media.src contains 'webwhite-002'
+                  or media.src contains 'WebWhite-002'
+                  or media.src contains 'Webwhite-002'
+                %}
+                  <div class="one-whole">
+                    {% render 'collection-product-badge', product: product %}
+                    {% if template == 'collection.filter-tab' and flag == 1 %}
+                      <a href="{% if template == 'collection.filter-tab' %}{{ prod_url }}&shape={{ productShapeParams }}{% if carat_first != blank %}&stone-carat={{ carat_first }}{% endif %}{% if gem_type_first != blank %}&gem_color={{ gem_type_first }}{% endif %}{% else %}{{ product.url  }}{% endif %}">
+                    {% elsif template == 'collection'  %}
+                      <a href="{% if template == 'collection.filter-tab' %}{{ prod_url }}&shape={{ productShapeParams }}{% if carat_first != blank %}&stone-carat={{ carat_first }}{% endif %}{% if gem_type_first != blank %}&gem_color={{ gem_type_first }}{% endif %}{% else %}{{ product.url  }}{% endif %}">
+                    {% endif %}
+                      {%
+                        render 'image-element',
+                        image: media,
+                        alt: alt_text,
+                        object_fit: align_height,
+                        max_height: height,
+                      %}
+                    {% if template == 'collection.filter-tab' and flag == 1 %}
+                    </a>
+                    {% elsif template == 'collection'  %}
+                    </a>
+                    {% endif %}
+                  </div>
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+              {% for media in product.media %}
+                {% if media.src contains 'WebWhite-004'
+                  or media.src contains 'webwhite-004'
+                  or media.src contains 'Webwhite-004'
+                %}
+                  <div class="one-whole is-hidden">
+                    <a href="{{ product.url }}">
+                      {%
+                        render 'image-element',
+                        image: media,
+                        alt: alt_text,
+                        object_fit: align_height,
+                        max_height: height,
+                      %}
+                    </a>
+                  </div>
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+              {% for media in product.media %}
+                {% if media.src contains 'lifestyle' or media.src contains 'Lifestyle' %}
+                  <div class="one-whole is-hidden">
+                    <a href="{{ product.url }}">
+                      {%
+                        render 'image-element',
+                        image: media,
+                        alt: alt_text,
+                        object_fit: align_height,
+                        max_height: height,
+                      %}
+                    </a>
+                  </div>
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endcomment %}
+
+          {% comment %} Secondary image {% endcomment %}
+          {% if settings.show_secondary_image == true %}
+            {% if product.media[1] != blank %}
+              {% if product.media[1].media_type == 'external_video' %}
+                <div class="product-thumbnail__video secondary swap--visible video-on-hover">
+                  <div data-youtube-video>
+                    {{
+                      product.media[1]
+                      | external_video_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                    }}
+                  </div>
+                </div>
+              {% elsif product.media[1].media_type == 'video' %}
+                <div class="product-thumbnail__video secondary swap--visible video-on-hover" data-html5-video>
+                  {{
+                    product.media[1]
+                    | video_tag: controls: false | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                  }}
+                </div>
+              {% else %}
+                <div id="{{ product.handle }}-hover" class="product-image-hover" data-img-pid="{{ product.handle }}-hover" {% if collectionPageHoverOnError != blank %} data-on-error="{{ collectionPageHoverOnError }}" {% endif %}>
+                  {% render 'image-element',
+                    image: product.media[1],
+                    alt: alt_text,
+                    object_fit: align_height,
+                    max_height: height,
+                    additional_classes: 'secondary swap--visible'
+                  %}
+                  <div class="list-dtllable" data-disclaimer="{{ disclaimer_text }}" style="display:none;"></div>
+                </div>
+              {% endif %}
+            {% else %}
+              <div id="{{ product.handle }}-hover" data-img-pid="{{ product.handle }}-hover" {% if collectionPageHoverOnError != blank %} data-on-error="{{ collectionPageHoverOnError }}" {% endif %}>
+                {% render 'image-element',
+                  image: product.featured_media.preview_image,
+                  alt: alt_text,
+                  object_fit: align_height,
+                  max_height: height,
+                  additional_classes: 'secondary swap--visible'
+                %}
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+        {% if template == 'collection.filter-tab' and flag == 1 %}
+          </a>
+        {% elsif template == 'collection.all-engagement-rings' %}
+          </a>
+        {% elsif template == 'collection' %}
+          </a>
+        {% endif %}
+      </div>
+
+      {% if hover_enabled or settings.enable_quickshop %}
+        <div class="thumbnail-overlay__container">
+          <a class="hidden-product-link" href="{{ product.url | within: collection }}">{{ product.title | escape }}</a>
+
+          {% if hover_enabled %}
+            <div class="quick-shop__info animated fadeInDown">
+              <div class="thumbnail-overlay">
+                <div class="info text-align-center">
+                  {% if settings.display_vendor %}
+                    <span class="product-thumbnail__vendor">{{ product.vendor }}</span>
+                  {% endif %}
+
+                  <p class="product-thumbnail__title">{{ product.title | escape }}</p>
+
+                  {% if collection_handles contains 'coming-soon' %}
+                    <span>{{ 'collections.general.coming_soon' | t }}</span>
+                  {% elsif product.available == false %}
+                    <span class="product-thumbnail__price">
+                      {{ 'collections.general.sold_out' | t }}
+                    </span>
+                  {% else %}
+                    <span
+                      class="
+                        product-thumbnail__price price
+                        {% if product.compare_at_price > product.price %}
+                          sale
+                        {% endif %}
+                      "
+                    >
+                      {% if product.price_varies %}
+                        <small
+                          ><em>{{ 'products.general.from' | t }}</em></small
+                        >
+                      {% endif %}
+                      {% if product.price_min > 0 %}
+                        <span class="money">
+                          {% render 'price-element', price: product.price_min, product: product %}
+                        </span>
+                      {% else %}
+                        {{ settings.free_price_text }}
+                      {% endif %}
+                      {%- assign variant = product.selected_or_first_available_variant -%}
+                      {% if product.compare_at_price > product.price %}
+                        <span class="product-thumbnail__was-price compare-at-price">
+                          <span class="money">
+                            {% render 'price-element', product: product, price: product.compare_at_price %}
+                          </span>
+                        </span>
+                      {% endif %}
+                    </span>
+                    {% if settings.select_first_available_variant %}
+                      {%- assign variant_for_unit_price = product.variants | sort: 'price' | first -%}
+                      {% render 'unit-price', item: variant_for_unit_price, class: 'product-thumbnail__unit-price' %}
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if settings.enable_quickshop %}
+            {% render 'product-thumbnail__quick-shop-button', product: product %}
+          {% endif %}
+
+          {% if hover_enabled %}
+            {% if settings.enable_shopify_collection_badges and product.metafields.reviews.rating.value != blank %}
+              <div class="product__rating rating">
+                {% render 'rating-stars',
+                  value: product.metafields.reviews.rating.value.rating,
+                  scale_max: product.metafields.reviews.rating.value.scale_max
+                %}
+
+                <p class="rating__text">
+                  <span aria-hidden="true">
+                    {{ product.metafields.reviews.rating.value }} /
+                    {{ product.metafields.reviews.rating.value.scale_max }}
+                  </span>
+                </p>
+
+                <p class="rating__count">
+                  <span aria-hidden="true">
+                    {{ product.metafields.reviews.rating_count }}
+                    {% if product.metafields.reviews.rating_count > 1 %}
+                      {{ 'general.accessibility.star_reviews_text' | t }}
+                    {% else %}
+                      {{ 'general.accessibility.star_review_text' | t }}
+                    {% endif %}
+                  </span>
+                </p>
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% comment %}
+      <div class="thumbnail__caption text-align-{{ settings.thumbnail_text_alignment }}">
+        <div class="product-thumbnail" style="padding-bottom: 0rem;margin-top: 0.8rem;">
+          <!-- Swym Wishlist Plus EPI Button -->
+          <button
+            data-with-epi="true"
+            class="swym-button swym-add-to-wishlist-view-product product_{{product.id}}"
+            data-swaction="addToWishlist"
+            data-product-id="{{product.id | json}}"
+            data-variant-id="{{product.variants[0].id}}"
+            data-product-url="{{ shop.url }}{{ product.url }}"
+          ></button>
+          <!-- Swym Wishlist Plus EPI Button -->
+        </div>
+      </div>
+      {% endcomment %}
+    </div>
+
+    <div class="thumbnail__caption text-align-{{ settings.thumbnail_text_alignment }}">
+      {% render 'product-thumbnail__product-info', product: product, collection_handles: collection_handles %}
+    </div>
+  </div>
+
+  {% render 'product-thumbnail__swatch', product: product %}
+
+  {% if hover_enabled == false %}
+    {% if settings.enable_shopify_collection_badges and product.metafields.reviews.rating.value != blank %}
+      <div
+        class="
+          product__rating
+          rating
+          is-justify-{{ settings.thumbnail_text_alignment }}
+        "
+      >
+        {% render 'rating-stars',
+          value: product.metafields.reviews.rating.value.rating,
+          scale_max: product.metafields.reviews.rating.value.scale_max
+        %}
+
+        <p class="rating__text">
+          <span aria-hidden="true">
+            {{ product.metafields.reviews.rating.value }} / {{ product.metafields.reviews.rating.value.scale_max }}
+          </span>
+        </p>
+
+        <p class="rating__count">
+          <span aria-hidden="true">
+            {{ product.metafields.reviews.rating_count }}
+            {% if product.metafields.reviews.rating_count > 1 %}
+              {{ 'general.accessibility.star_reviews_text' | t }}
+            {% else %}
+              {{ 'general.accessibility.star_review_text' | t }}
+            {% endif %}
+          </span>
+        </p>
+      </div>
+    {% endif %}
+  {% endif %}
+</div>

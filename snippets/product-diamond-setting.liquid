@@ -1,0 +1,401 @@
+<script src="https://cdn.jsdelivr.net/npm/toolcool-range-slider/dist/plugins/tcrs-moving-tooltip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toolcool-range-slider/dist/plugins/tcrs-generated-labels.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toolcool-range-slider/dist/plugins/tcrs-marks.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toolcool-range-slider/dist/toolcool-range-slider.min.js"></script>
+
+{% assign lowestProductValue = 0 %}
+{% assign products_by_price = collection.products | sort: 'price' %}
+{% for product in products_by_price %}
+  {% if forloop.first %}
+    {% assign lowestProductValue = product.price | money_without_currency %}
+  {% endif %}
+{% endfor %}
+{% assign shape_filter = product.tags | where:'shape_' %}
+{% assign split_first = shape_filter | split:'shape_' | last | remove:'"]'  %}
+{% assign shape_rm_under = split_first | replace:'_',' ' %}
+
+{% assign words = shape_rm_under | split: " " %}
+{% assign capitalizedWords = "" %}
+
+{% for word in words %}
+  {% assign capitalizedWord = word | capitalize %}
+  {% assign capitalizedWords = capitalizedWords | append: capitalizedWord %}
+  {% unless forloop.last %}
+    {% assign capitalizedWords = capitalizedWords | append: "+" %}
+  {% endunless %}
+{% endfor %}
+{% if capitalizedWords contains 'Cut' %}
+  {% assign defaultCut = capitalizedWords %}
+  {% else %}
+  {% assign defaultCut = capitalizedWords | append:'+Cut' %}
+  {% endif %}
+
+
+<div class="filters-section-wrapper">
+  <div class="filters-section text-align-center">
+    <h3 class="filter-heading">Find the Perfect Setting for Your Chosen Diamond</h3>
+    <ul class="filter-buttons">
+      <li>
+        <button class="filter-btn button active" data-handle="engagement-rings">All</button>
+      </li>
+      <li>
+        <button class="filter-btn button" data-handle="solitaire-engagement-rings">Solitaire</button>
+      </li>
+      <li>
+        <button class="filter-btn button" data-handle="vintage-and-antique-style-engagement-rings">Vintage</button>
+      </li>
+      <li>
+        <button class="filter-btn button" data-handle="side-stone-engagement-rings">Accented</button>
+      </li>
+      <li>
+        <button class="filter-btn button" data-handle="halo-engagement-rings">Halo</button>
+      </li>
+      <li>
+        <button class="filter-btn button" data-handle="three-stone-engagement-rings">Three-Stone</button>
+      </li>
+      <li>
+        <button class="filter-btn button" data-handle="two-tone-engagement-rings">Two-Tone</button>
+      </li>
+      <li>
+        <button class="filter-btn button" data-handle="modern-engagement-rings">Modern</button>
+      </li>
+    </ul>
+    <div class="filter-values-section">
+      <div class="filter-buttons-wrapper">
+        <div class="filter-button" id="price-tab">
+          Price
+          <span class="icon filter-caret" data-icon="down-caret">
+            <i class="icon-solid-caret"></i>
+          </span>
+        </div>
+        <div class="filter-button" id="feature-tab">
+          Features
+          <span class="icon filter-caret" data-icon="down-caret">
+            <i class="icon-solid-caret"></i>
+          </span>
+        </div>
+      </div>
+      <div class="filter-content price-tab" style="display: none;">
+        <tc-range-slider
+          id="diamond_price_slider"
+          min="500"
+          max="5000"
+          value1="500"
+          value2="5000"
+          aria-label1="Minimum price"
+          aria-label2="Maximum price"
+          moving-tooltip="true"
+          moving-tooltip-distance-to-pointer="-30"
+          moving-tooltip-bg="transparent"
+          moving-tooltip-text-color="#3c3737"
+          moving-tooltip-width="70"
+          moving-tooltip-height="20"
+          mousewheel-disabled="true"
+          pointer-bg="#fca999"
+          pointer-bg-hover="#fca999"
+          pointer-bg-focus="#fca999"
+          pointer-border="1px solid #fca999"
+          pointer-border-hover="1px solid #fca999"
+          pointer-border-focus="1px solid #fca999"
+          slider-bg="#ebebeb"
+          slider-bg-fill="#fca999"
+          moving-tooltip-units="$"
+          moving-tooltip-units-type="prefix"
+          slider-width="100%"
+          slider-height="5px"
+          generate-labels="false"
+          step="1"
+          css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+        >
+        </tc-range-slider>
+        <div class="faceted-filter-group-display__submit" style="margin-top: 2rem;">
+          {%- assign label = 'collections.sidebar.apply_filter' | t | escape -%}
+          {% render 'button', label: label, type: 'button', style: 'button--primary custom-filter-apply-btn' %}
+        </div>
+      </div>
+      <div class="filter-content feature-tab" style="display: none;">
+        <ul class="filter-value-buttons">
+          <li>
+            <button class="button" data-features="Has Matching Band">Has Matching Band</button>
+          </li>
+          <li>
+            <button class="button" data-features="Prong-Set">Prong-Set</button>
+          </li>
+          <li>
+            <button class="button" data-features="Low Profile">Low Profile</button>
+          </li>
+          <li>
+            <button class="button" data-features="Cathedral-Set">Cathedral-Set</button>
+          </li>
+          <li>
+            <button class="button" data-features="Bezel-Set">Bezel-Set</button>
+          </li>
+          <li>
+            <button class="button" data-features="Trellis-Set">Trellis-Set</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="results-grid--layout">
+  <div class="results-view has-no-side-gutter" id="product-append">
+    <ul class="product-grid product-grid--list fgfg">
+      {% for product in collection['engagement-rings'].products %}
+      {% endfor %}  
+    </ul>
+  </div>
+</div>
+<script>
+  const productHandle = "{{ product.handle }}";
+  var shapeFilter = "{{ defaultCut }}";
+  window.PRODUCT_DIAMOND = {};
+  window.PRODUCT_DIAMOND.config = window.PRODUCT_DIAMOND.config || {};
+  window.PRODUCT_DIAMOND.config = {
+    defaultCollection: 'lab-grown-diamond-engagement-rings',
+    collection: 'lab-grown-diamond-engagement-rings',
+    minPrice: '',
+    maxPrice: '',
+    features: '',
+    pageNumber: 1,
+  };
+  let ajaxCallProductListRunning = 'No', myCustomController = null;
+
+  document.addEventListener("DOMContentLoaded", async function() {
+    getCollectionList();
+    setTimeout(thumbnailSliders(), 2000);
+  });
+
+  const $diamondPriceSlider = document.getElementById('diamond_price_slider');
+  $diamondPriceSlider.addEventListener('change', (evt) => {
+    evt.preventDefault();
+    const fromPriceInput = evt.detail.value1;
+    const toPriceInput = evt.detail.value2;
+
+    window.PRODUCT_DIAMOND.config.minPrice = fromPriceInput;
+    window.PRODUCT_DIAMOND.config.maxPrice = toPriceInput;
+  });
+
+  if(document.getElementsByClassName('custom-filter-apply-btn')?.length>0){
+      let customFilterApplyButtonElements = document.getElementsByClassName('custom-filter-apply-btn');
+      customFilterApplyButtonElements = Array.prototype.slice.call(customFilterApplyButtonElements);
+      if (customFilterApplyButtonElements?.length > 0) {
+        for (let i = 0; i < customFilterApplyButtonElements?.length; i++) {
+          customFilterApplyButtonElements[i].addEventListener('click', function() {
+            getCollectionList();
+            setTimeout(thumbnailSliders(), 2000);
+          });
+        }
+      }
+    }
+
+  let filterValueButtonsElements = document.querySelectorAll('.filter-value-buttons .button');
+  filterValueButtonsElements = Array.prototype.slice.call(filterValueButtonsElements);
+  if (filterValueButtonsElements?.length > 0) {
+    for (let i = 0; i < filterValueButtonsElements?.length; i++) {
+      filterValueButtonsElements[i].addEventListener('click', function() {
+        filterValueButtonsElements.forEach(e => e.classList.remove('active'));
+        this.classList.add('active');
+        window.PRODUCT_DIAMOND.config.features = this.dataset.features;
+        getCollectionList();
+        setTimeout(thumbnailSliders(), 2000);
+      });
+    }
+  }
+
+  let filterBtnElements = document.getElementsByClassName('filter-btn');
+  filterBtnElements = Array.prototype.slice.call(filterBtnElements);
+  if (filterBtnElements?.length > 0) {
+    for (let i = 0; i < filterBtnElements?.length; i++) {
+      filterBtnElements[i].addEventListener('click', function() {
+        filterBtnElements.forEach(e => e.classList.remove('active'));
+        this.classList.add('active');
+        window.PRODUCT_DIAMOND.config.collection = this.dataset.handle;
+
+        //When select new collection then after reset price and features
+        $diamondPriceSlider.value1 = $diamondPriceSlider.min;
+        $diamondPriceSlider.value2 = $diamondPriceSlider.max;
+        filterValueButtonsElements.forEach(e => e.classList.remove('active'));
+
+        window.PRODUCT_DIAMOND.config.minPrice = '';
+        window.PRODUCT_DIAMOND.config.maxPrice = '';
+        window.PRODUCT_DIAMOND.config.features = '';
+        window.PRODUCT_DIAMOND.config.pageNumber = 1;
+
+        hidePriceAndFeatureTab();
+
+        setTimeout(getCollectionList(), 5000);
+        setTimeout(thumbnailSliders(), 5000);
+      });
+    }
+  }
+
+  function initPaginationButton(){
+    if(document.getElementsByClassName('custom-pagination-link')?.length>0){
+      let customPaginationLinkElements = document.getElementsByClassName('custom-pagination-link');
+      customPaginationLinkElements = Array.prototype.slice.call(customPaginationLinkElements);
+      if (customPaginationLinkElements?.length > 0) {
+        for (let i = 0; i < customPaginationLinkElements?.length; i++) {
+          customPaginationLinkElements[i].addEventListener('click', function() {
+            const pageNumber = this.dataset.pagenumber;
+            window.PRODUCT_DIAMOND.config.pageNumber = parseInt(pageNumber);
+            getCollectionList();
+            setTimeout(thumbnailSliders(), 2000);
+          });
+        }
+      }
+    }
+  }
+
+  function getCollectionList(){
+    ajaxCallDiamondListRunning = 'No';
+    var collectionURL = `/collections/${window.PRODUCT_DIAMOND.config.collection}/?view=filter-tab&handle=${productHandle}&filter.p.m.custom.shape=${shapeFilter}`;
+    if(window.PRODUCT_DIAMOND.config.minPrice != '' || window.PRODUCT_DIAMOND.config.maxPrice != ''){
+      collectionURL += `&filter.v.price.gte=${window.PRODUCT_DIAMOND.config.minPrice}&filter.v.price.lte=${window.PRODUCT_DIAMOND.config.maxPrice}`;
+    }
+  
+    if(window.PRODUCT_DIAMOND.config.features != ''){
+      collectionURL += `&filter.p.m.custom.features=${window.PRODUCT_DIAMOND.config.features}`;
+    }
+    collectionURL += `&page=${window.PRODUCT_DIAMOND.config.pageNumber}`;
+    
+    fetchMultipleHTML(collectionURL);
+  }
+  async function fetchHTML(url) {
+    if (myCustomController !== null) {
+      myCustomController.abort();
+    }
+
+    if (ajaxCallProductListRunning == 'No') {
+      ajaxCallProductListRunning = 'Yes';
+
+      myCustomController = new AbortController();
+      const myCustomSignal = myCustomController.signal;
+      
+      const response = await fetch(url, { signal: myCustomSignal, method: 'GET' });
+      const html = await response.text();
+      return html;
+    }
+  }
+  async function fetchMultipleHTML(urls) {
+    const fetchPromises = fetchHTML(urls);
+    try {
+      const htmlArray = await fetchPromises;
+
+      ajaxCallProductListRunning = 'No';
+      if(htmlArray){
+        if (document.getElementById('product-append')) {
+          document.getElementById('product-append').innerHTML = htmlArray;
+          setTimeout(thumbnailSliders(), 2000);
+        }
+      }
+      initPaginationButton();
+      if(document.getElementsByClassName('collection-matrix')[0].children.length > 0){
+		let child_elems = document.getElementsByClassName('collection-matrix')[0].children;
+		let activeChildArr = [];
+		for(let i=0; i<child_elems.length; i++){
+			let child_element = child_elems[i];
+			if (child_element.classList.contains("active-filter")) {
+				activeChildArr.push(child_element);
+			}
+		}
+		
+		if(activeChildArr.length>0){
+			activeChildArr.reverse();
+			for(let i=0; i<activeChildArr.length; i++){
+				document.getElementsByClassName('collection-matrix')[0].insertAdjacentElement("afterbegin", activeChildArr[i]);
+			}
+		}
+		
+	}
+    var targetElement = document.getElementById("product-append");
+    // targetElement.scrollIntoView({ behavior: "smooth" });  /* SHOP-884 || 01-02-2024 12:08*/
+    } catch (error) {
+      // Handle errors
+      console.error(error);
+    }
+  }
+  
+  // Get references to the tab buttons and tab content sections
+  const priceTabButton = document.getElementById("price-tab");
+  const featureTabButton = document.getElementById("feature-tab");
+  const priceTabContent = document.querySelector(".filter-content.price-tab");
+  const featureTabContent = document.querySelector(".filter-content.feature-tab");
+    
+  // Function to switch to the Price tab
+  function showPriceTab() {
+    priceTabContent.style.display = "block";
+    featureTabContent.style.display = "none";
+    priceTabButton.classList.toggle("active");
+    featureTabButton.classList.remove("active");
+    priceTabContent.style.display = document.getElementById("price-tab").classList.contains('active') == true ? "block" : "none";
+  }
+    
+  // Function to switch to the Features tab
+  function showFeatureTab() {
+    priceTabContent.style.display = "none";
+    featureTabContent.style.display = "block";
+    priceTabButton.classList.remove("active");
+    featureTabButton.classList.toggle("active");
+    featureTabContent.style.display = document.getElementById("feature-tab").classList.contains('active') == true ? "block" : "none";
+  }
+    
+  // Event listeners for tab buttons
+  priceTabButton.addEventListener("click", showPriceTab);
+  featureTabButton.addEventListener("click", showFeatureTab);
+
+  function hidePriceAndFeatureTab(){
+    featureTabContent.style.display = "none";
+    featureTabButton.classList.remove("active");
+
+    priceTabContent.style.display = "none";
+    priceTabButton.classList.remove("active");
+  }
+  
+  // Initially show the Features tab as active
+  //showFeatureTab();
+
+    function disabledCaratWarningPopup(prodUrl){
+    $disabledCaratWarningPopup_popup = document.getElementById("disabled-popup");
+    $disabledCaratWarningPopup_okButton = document.getElementById("okButton");
+    
+    $disabledCaratWarningPopup_okButton.setAttribute("data-prodUrl", prodUrl);
+    $disabledCaratWarningPopup_popup.style.display = "block";
+    $disabledCaratWarningPopup_popup.style.opacity = "1";
+    $disabledCaratWarningPopup_popup.style.visibility = "visible";
+    $disabledCaratWarningPopup_popup.style.zIndex = "99992";
+
+    $disabledCaratWarningPopup_okButton.addEventListener("click", function() {
+      window.location.href = $disabledCaratWarningPopup_okButton.getAttribute("data-prodUrl");
+    });
+  }
+  function thumbnailSliders() {
+    $(".product__thumbnail .thumbnail-slider .one-whole").each((_, slider) => {
+      $(slider).removeClass('is-hidden');
+    });
+    
+    $(".product__thumbnail .thumbnail-slider").each((_, slider) => {
+      const $thumbnailSlider = $(slider);
+      $thumbnailSlider.flickity({
+        lazyLoad: 2,
+        freeScroll: true,
+        imagesLoaded: true,
+        draggable: false,
+        cellAlign: "left",
+        wrapAround: false,
+        pageDots: false,
+        contain: true,
+        prevNextButtons: true,
+        initialIndex: 0,
+      });
+
+      // Resize flickity when the slider is settled
+      $thumbnailSlider.on("settle.flickity", () =>
+        $thumbnailSlider.flickity("resize")
+      );
+  
+      $(window).on("load", () => $thumbnailSlider.flickity("resize"));
+    });
+  }
+</script>          

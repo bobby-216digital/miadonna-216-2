@@ -1,0 +1,393 @@
+{
+  "sections": {
+    "8673c293-4ae9-44d3-b44b-87b3ec4043af": {
+      "type": "how-we-give_banner",
+      "settings": {
+        "banner_title": "Let your love be the solution",
+        "banner_image": "shopify:\/\/shop_images\/how-we-give-banner-img_649cc068-83cb-4569-bfb1-3a4d04384d30.jpg"
+      }
+    },
+    "870dfa45-dc48-4fdd-b4b0-ae5fa6b4fc2e": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/how-we-give-1.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "Our Vision.",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>Founded by a mother and one-time diamond consumer, MiaDonna was established with a single objective: to offer consumers a beautiful, ethical and affordable diamond alternative that would help free innocent men, women and children oppressed by the active conflict diamond mining industry.<\/p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-image-1",
+        "template--15035832991823__f8bea500-5c0d-4262-a369-703910dfb1d4-text-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space green-section",
+        "custom_css": ""
+      }
+    },
+    "5513ed86-7968-4319-beb7-789eb3205ccb": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "36cd0e1f-495e-48b7-9339-724d4dc4eced": {
+          "type": "text",
+          "settings": {
+            "title": "Making a Difference.",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>MiaDonna is working toward building a more sustainable path for the diamond industry. We don’t just write checks. We created projects from the ground up and visit the areas we work in to ensure that every dollar we give back makes an impact.<\/p><p>Together with our foundation, The Greener Diamond, we spearhead the crusade for a socially responsible diamond industry, providing solutions to stop unethical diamond mining so that communities negatively impacted by the harvesting and trading of earth-mined diamonds can heal and rebuild.<\/p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "cfbf4b71-42fe-4e4b-87c4-82a31f3a7836": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/how-we-give-2.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "36cd0e1f-495e-48b7-9339-724d4dc4eced",
+        "cfbf4b71-42fe-4e4b-87c4-82a31f3a7836"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space green-section",
+        "custom_css": ""
+      }
+    },
+    "825e6c24-e7ca-4477-86f9-8dd420874e9c": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "09970eee-5773-47e0-a556-b796ca47469c": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/how-we-give-3.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "e15c3da2-7006-41de-b389-46d54edbb6e5": {
+          "type": "text",
+          "settings": {
+            "title": "The Part You Play.",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>With each conflict-free diamond jewelry purchase, you are helping to create change that positively impacts the lives of diamond miners and their communities.<\/p><p>Since MiaDonna’s online launch in 2007, ten percent of profits from every purchase have been used to fund educational programs, urgent relief programs, and agricultural farms in diamond mining communities.<\/p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "09970eee-5773-47e0-a556-b796ca47469c",
+        "e15c3da2-7006-41de-b389-46d54edbb6e5"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space green-section",
+        "custom_css": ""
+      }
+    },
+    "3910442e-8c2b-4c49-9814-edd386033ad7": {
+      "type": "index__image-with-text",
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space green-section last-section",
+        "custom_css": ".last-section{\npadding-bottom: 50px !important;\n}"
+      }
+    },
+    "8fcee798-e0f7-44b7-a7a4-17c9052486d5": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "56059348-2cae-4713-b3dc-462dc4aedbf7": {
+          "type": "text",
+          "settings": {
+            "title": "The Reality.",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>The unfortunate truth is that native communities rich in diamonds and gold around the world have not seen the profits from the wealth of their soil. They will continue to lie on the brink of war as international corporations keep fighting over their precious commodities.<\/p><p>Through our programs, we are able to make a change by providing men, women and children in diamond mining communities the opportunity to separate themselves from the greed over their land, allowing them to thrive and live in peace.<\/p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "2ddcdb4e-b410-4c44-ae8e-f3d458c7a310": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/how-we-give-4.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "56059348-2cae-4713-b3dc-462dc4aedbf7",
+        "2ddcdb4e-b410-4c44-ae8e-f3d458c7a310"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space green-section last-section",
+        "custom_css": ".last-section{\npadding-bottom: 50px !important;\n}"
+      }
+    },
+    "cf8dd33a-6fd0-48ab-b0c6-1459ce793fb5": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "ebb56cc7-c9de-4126-a982-9de0b42025ec": {
+          "type": "counter",
+          "settings": {
+            "counter": "1750",
+            "title": "Tons",
+            "content": "Average amount of earth extracted to find a 1.0ct rough diamond.",
+            "background_color": "#c2ecd3",
+            "text_color": "#696969",
+            "heading_size": "large",
+            "alignment": "center",
+            "vertical_position": "center"
+          }
+        },
+        "b4104814-a337-4623-88dc-705399d14122": {
+          "type": "text",
+          "settings": {
+            "title": "Our Sustainable Practices.",
+            "pre-title": "",
+            "heading_size": "small",
+            "text": "<p>Mining for diamonds and gold causes extreme environmental damage, many times with irreversible consequences. By using only eco-friendly diamonds and recycled precious metals, we are relieving the pressures that these natural resources place on the Earth.<\/p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "ebb56cc7-c9de-4126-a982-9de0b42025ec",
+        "b4104814-a337-4623-88dc-705399d14122"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "section-one-half more-space green-section last-section",
+        "custom_css": ".last-section{\npadding-bottom: 50px !important;\n}"
+      }
+    },
+    "679211b7-3014-4eef-bd00-49ded28a6481": {
+      "type": "how-we-give_imagetext",
+      "blocks": {
+        "125b1804-84fd-4733-ac00-387f186b9db9": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/how-we-give-1_774aa89b-8b6c-46c1-b24e-3440b04d8313.jpg",
+            "title": "Our <em>Vision.<\/em>",
+            "description": "Founded by a mother and one-time diamond consumer, MiaDonna was established with a single objective: to offer consumers a beautiful, ethical and affordable diamond alternative that would help free innocent men, women and children oppressed by the active conflict diamond mining industry."
+          }
+        },
+        "212b0f6a-1846-4545-a364-13f6d3a2edff": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/how-we-give-2_521ec8a0-bdcd-46e8-9ce3-c661ac5e9ed0.jpg",
+            "title": "Making a <em>Difference<\/em>.",
+            "description": "<p>MiaDonna is working toward building a more sustainable path for the diamond industry. We don’t just write checks. We created projects from the ground up and visit the areas we work in to ensure that every dollar we give back makes an impact. <\/p>\n\t\t\t\t<p>Together with our foundation, The Greener Diamond, we spearhead the crusade for a socially responsible diamond industry, providing solutions to stop unethical diamond mining so that communities negatively impacted by the harvesting and trading of earth-mined diamonds can heal and rebuild. <\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "125b1804-84fd-4733-ac00-387f186b9db9",
+        "212b0f6a-1846-4545-a364-13f6d3a2edff"
+      ],
+      "disabled": true,
+      "settings": {
+      }
+    },
+    "e208a66c-ff45-4d03-a0e0-9699b5c535b5": {
+      "type": "how-we-give_sustainable",
+      "disabled": true,
+      "settings": {
+        "count": "1750",
+        "left_heading": "Tons",
+        "left_text": "Average amount of earth extracted to find a 1.0ct rough diamond.",
+        "right_heading": "Our Sustainable Practices.",
+        "right_text": "Mining for diamonds and gold causes extreme environmental damage, many times with irreversible consequences. By using only eco-friendly diamonds and recycled precious metals, we are relieving the pressures that these natural resources place on the Earth."
+      }
+    },
+    "8a0c7605-3945-4809-9c46-97686b7a2b1f": {
+      "type": "how-we-give_result-block",
+      "blocks": {
+        "fba93247-f37c-40ab-ab51-eced932518da": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/survive-and-thrive.webp",
+            "title": "The Ebola Survive & Thrive Initiative",
+            "description": "In the wake of Ebola, many have been left without family or aid, forced to turn to orphanages for shelter, food and care. But the reality is most orphanages are full and lack the funding and supplies to support additional children. The Ebola Survive & Thrive Initiative is aimed at providing food , clothing and education for Ebola orphans and their families."
+          }
+        },
+        "49d168bf-3f73-4e9f-bfe5-8213b40de357": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/pay-it-forward.webp",
+            "title": "Pay it Forward Project",
+            "description": "At this community farm we provide a select group of people (mostly women), with the training, tools, and seedlings to farm their own land, allowing them to sustainably support their family and local community. In return, each farmer will pay it forward by training another 10 locals to farm their own land, and those people will train another 10 and so on."
+          }
+        },
+        "295a72b5-c57c-4ea4-893a-6b9f5b208642": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/elwou-orphanage-farm_43bb7f3a-6e71-4afc-8e4f-b4a5b8cf0204.jpg",
+            "title": "Elwou Orphanage Farm",
+            "description": "Elwou Orphanage, located on the outskirts of Central Monrovia, currently hosts 80 children and six primary caregivers. Sadly, this orphanage has been relying on aid to survive. With the assistance of Youth Action International (YAI), we will be empowering this orphanage to grow food and raise livestock, for both self-consumption as resale."
+          }
+        },
+        "48280c16-8803-4e94-9527-1a18ded16250": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/sierra-leone-farm.webp",
+            "title": "Sierra Leone Farm",
+            "description": "The mining of gold and diamond The Greener Diamond Farm is located in the Kono District of Sierra Leone. It is a little over 100 acres and employs and trains over 500 local, reformed child soldiers and street kids. The Kono District was chosen for the location of The Greener Diamond Farm as it is considered to be one of the world’s largest fought over areas due to its abundance of natural resources."
+          }
+        }
+      },
+      "block_order": [
+        "fba93247-f37c-40ab-ab51-eced932518da",
+        "49d168bf-3f73-4e9f-bfe5-8213b40de357",
+        "295a72b5-c57c-4ea4-893a-6b9f5b208642",
+        "48280c16-8803-4e94-9527-1a18ded16250"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "background": "#c1edd5",
+        "text_color": "#000000",
+        "heading": "The result"
+      }
+    },
+    "ee5b1dc2-b290-490e-814f-d23b27c25d13": {
+      "type": "how-we-give_bottom-text",
+      "disabled": true,
+      "settings": {
+        "title": "What's next?",
+        "description": "<p>Every purchase decision you make supports something or someone. You can either choose to support a corporation that exploits people, wildlife and the environment, or you can choose to support socially conscious companies that make it their business to better the world.<\/p><p>You have the power to make your love part of the solution.<\/p>",
+        "btn_text": "Start Shopping",
+        "btn_link": "\/pages\/ethical-conflict-free-engagement-rings"
+      }
+    },
+    "bd110b6f-6de6-46df-adf5-383b613da3cf": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "What's next?",
+        "heading_font": "playfair_display_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<p>Every purchase decision you make supports something or someone. You can either choose to support a corporation that exploits people, wildlife and the environment, or you can choose to support socially conscious companies that make it their business to better the world.<\/p><p>You have the power to make your love part of the solution.<\/p>",
+        "text_font": "playfair_display_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "START SHOPPING",
+        "button_link": "\/pages\/conflict-free-engagement-rings",
+        "button_alignment": "center",
+        "button_background": "#859f90",
+        "button_text": "#ffffff",
+        "button_style": "button--primary",
+        "background": "#ffffff",
+        "gradient": "#ffffff",
+        "gradient_rotation": 0,
+        "width": "wide",
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ".rich-text__content {\nmax-width: 750px;\nmargin-left: auto;\nmargin-right: auto;\n}"
+      }
+    }
+  },
+  "order": [
+    "8673c293-4ae9-44d3-b44b-87b3ec4043af",
+    "870dfa45-dc48-4fdd-b4b0-ae5fa6b4fc2e",
+    "5513ed86-7968-4319-beb7-789eb3205ccb",
+    "825e6c24-e7ca-4477-86f9-8dd420874e9c",
+    "3910442e-8c2b-4c49-9814-edd386033ad7",
+    "8fcee798-e0f7-44b7-a7a4-17c9052486d5",
+    "cf8dd33a-6fd0-48ab-b0c6-1459ce793fb5",
+    "679211b7-3014-4eef-bd00-49ded28a6481",
+    "e208a66c-ff45-4d03-a0e0-9699b5c535b5",
+    "8a0c7605-3945-4809-9c46-97686b7a2b1f",
+    "ee5b1dc2-b290-490e-814f-d23b27c25d13",
+    "bd110b6f-6de6-46df-adf5-383b613da3cf"
+  ]
+}

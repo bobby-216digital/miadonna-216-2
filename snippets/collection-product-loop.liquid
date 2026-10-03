@@ -1,0 +1,223 @@
+ {%- capture productHandleContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign productHandlePageUrl = productHandleContentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | split: '.myshopify.com'
+  | last
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+
+{%- assign productHandlePageQueryStringReplace = productHandlePageUrl
+  | replace: request.path, ''
+  | replace: request.host, ''
+-%} 
+    {% comment %} {%- capture productHandleContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+{%- assign productHandlePageUrl = productHandleContentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+
+{%- assign productHandlePageQueryStringReplace = productHandlePageUrl
+  | split: request.path
+  | last
+-%} {% endcomment %}
+{%- assign productHandlePageQueryString = productHandlePageQueryStringReplace | split: '?' | last -%}
+{%- assign productHandlePageQueryArray = productHandlePageQueryString | split: '&' -%}
+
+{% assign collection_group = products | map: 'id' %}
+{% assign collection_group_thumb = collection_group | append: 'thumb' %}
+{% assign collection_group_mobile = collection_group | append: 'mobile' %}
+
+{% assign productHandleParams = '' %}
+{% assign shapeValue = '' %}
+{% for param in productHandlePageQueryArray %}
+  {% assign parts = param | split: '=' %}
+  {% assign key = parts[0] %}
+  {% assign value = parts[1] %}
+  {% if key == 'stone-handle' %}
+        {% assign has_valid_handle = true %}
+
+    {% assign productHandleParams = value %}
+  {% endif %}
+  {% if key == 'handle' %}
+        {% assign has_valid_handle = true %}
+
+    {% assign productHandleParams = value %}
+  {% endif %}
+    {% if key == 'shape' %}
+    {% assign shapeValue = value %}
+  {% endif %}
+   {% if key == 'progresssetup' %}
+        {% assign has_valid_handle = true %}
+
+         {%  if productHandleParams == blank  %}
+       {% assign productHandleParams = product.handle %}
+        {% endif %}  
+    {% assign progresssetup = value %}
+  {% endif %}
+{% endfor %}
+
+{% if related_products == true %}
+  {% assign hover_enabled = block.settings.show_related_products_title_on_hover %}
+{% else %}
+  {% assign hover_enabled = settings.thumbnail_hover_enabled %}
+{% endif %}
+
+{% if related_products == true %}
+  {% assign related_items = true %}
+{% else %}
+  {% assign related_items = false %}
+{% endif %}
+
+{% assign for_limit = limit %}
+{% if has_valid_handle %}
+  {% assign template = 'collection.filter-tab' %}
+{% endif %}
+{% assign flag_zero_count1 = 0 %}
+{% assign flag_zero_count2 = 0 %}
+{% comment %} loop through product list {% endcomment %}
+{% comment %} loop through product list {% endcomment %}
+{% for product in products limit: limit %}
+  {% comment %} if product display is in the loop of products increase limit by one {% endcomment %}
+  {% if product.id == skip_product.id %}
+    {% assign for_limit = limit | plus: 1 %}
+  {% endif %}
+{% endfor %}
+{% assign marketing_banner_video_1 = collection.metafields.collection.marketing_banner_video_1.value %}
+{% assign marketing_banner_video_1_mobile = collection.metafields.collection.marketing_banner_video_1_mobile.value %}
+{% assign marketing_banner_video_2 = collection.metafields.collection.marketing_banner_video_2.value %}
+{% assign marketing_banner_video_2_mobile = collection.metafields.custom.marketing_banner_video_2_mobile.value %}
+{% assign firstbannerimage = true %}
+{% if marketing_banner_video_1 or marketing_banner_video_1_mobile %}
+  {% assign firstbannerimage = false %}
+ {% endif %} 
+{% if marketing_banner_video_2 or marketing_banner_video_2_mobile  %}
+    {%  assign assignindex = 11%}
+ {% if  firstbannerimage %}
+  {%  assign assignindex = 13 %}
+ {% endif %}
+   {% endif %}
+   {% if marketing_banner_video_1 or marketing_banner_video_1_mobile %}
+   {%  assign assignindex1 = 3%}
+{% endif %}
+
+{% for product in products limit: for_limit %}
+  {% comment %} Skip product if we're on its product page {% endcomment %}
+  {% if product.id != skip_product.id %}
+    {% if product.metafields.custom.badge == 'Bestseller' and collection.handle != 'best-sellers' %}
+      {{ product.metafields.custom.badge }}
+    {% endif %}
+
+    {% if product.tags contains 'Bundle-Parent' %}
+      {% assign flag = 1 %}
+      {% if template == 'collection.filter-tab' or progresssetup !=blank  %}
+   {% assign selected_product_handles = all_products[productHandleParams] %}
+  {% assign caret_tag = selected_product_handles.tags | where: 'carat_' %}
+  {% assign carat_first = caret_tag | split: 'carat_' | last | remove: '[' %}
+  {% assign carat_first = carat_first | remove: '"]' | plus: 0 %}
+   {% assign flag = 0 %}
+  {% assign max_carat_weight = product.metafields.attributes.max_carat_weight | divided_by: 100.0 %}
+  {% assign min_carat_weight = product.metafields.attributes.min_carat_weight | divided_by: 100.0 %}
+ 
+  {% if max_carat_weight != blank and min_carat_weight != blank %}
+    {% if carat_first >= min_carat_weight and carat_first <= max_carat_weight %}
+      {% assign flag = 1 %}
+    {% else %}
+      {% assign flag = 0 %}
+    {% endif %}
+  {% else %}
+    {% assign flag = 0 %}
+  {% endif %}
+  {% if shapeValue != blank %}
+    {% assign selectedShapeFromDiamondWithoutCut = shapeValue | remove: ' Cut' %}
+    {% assign selectedShapeFromDiamondWithoutCut = selectedShapeFromDiamondWithoutCut | remove: '+Cut' %}
+      {% if flag == 1 %}
+            
+          {% if product.metafields.attributes.shapes %}
+            {% assign match = 0 %}
+            {% assign shape_value  = product.metafields.attributes.shapes.value  %} 
+            {% if shape_value  contains '|' %}
+                {% assign shape_array  = shape_value | split: '|' %} 
+                {% for shapesss in shape_array %}
+                    {% assign shape_without_cut = shapesss | remove: ' Cut' %}
+                    {% if shape_without_cut == selectedShapeFromDiamondWithoutCut %}
+                        {% assign match = match | plus: 1 %}
+                    {% endif %}
+                  {% endfor %}
+            {% else %}
+              {% assign shape_without_cut = shape_value | remove: ' Cut' %}
+              {% if shape_without_cut == selectedShapeFromDiamondWithoutCut %}
+                {% assign match = match | plus: 1 %}
+                {% endif %}
+            {% endif %}
+        {% endif %}  
+        {% if match == 0 %}
+          {% assign flag = 0 %}
+      {% endif %}
+      {% endif %}  
+{% endif %}  
+  {% comment %} {% if forloop.index < assignindex1  %}
+    {%  if flag == 0 %}
+              {% assign flag_zero_count1 = flag_zero_count1 | plus: 1 %}
+
+    {% endif %}     
+  {% endif %} 
+  {% if forloop.index < assignindex  %}
+    {%  if flag == 0 %}
+              {% assign flag_zero_count2 = flag_zero_count2 | plus: 1 %}
+    {% endif %}     
+  {% endif %}  {% endcomment %}
+{%  endif %}
+
+      {% render 'collection-product-thumbnail',
+        current_page: current_page,
+        product: product,
+        limit: limit,
+        flag_zero_count2:flag_zero_count2,
+        flag_zero_count1:flag_zero_count1,
+        index: forloop.index,
+        products_per_row: products_per_row,
+        mobile_products_per_row: mobile_products_per_row,
+        align_height: align_height,
+        height: height,
+        collection_group_thumb: collection_group_thumb,
+        collection_group_mobile: collection_group_mobile,
+        related_products: related_items
+      %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<script>
+  function mageWishlistVariantIdInit(){
+    if(window.itemHandleVarData){
+      window.itemHandleVarData.forEach(element => {
+        var wishlistElement = document.querySelector(`#wishlist-plp-${element.handle}`);
+        if(wishlistElement){
+          wishlistElement.setAttribute('variant-id', element.variantId);
+        }
+      });
+    }
+  }
+  mageWishlistVariantIdInit();
+
+  const setting_no_result_html = document.getElementById('setting-content-no-result');
+  if(window.is_disabled_items == true && setting_no_result_html){
+    //document.querySelector('.filters-section--content').classList.add('hide');
+    var countElement = document.querySelector('#pdp-setting-item-count');
+    if(countElement){
+      countElement.innerHTML = '0 Item';
+    }
+    setting_no_result_html.classList.remove('hide');
+  }
+</script>

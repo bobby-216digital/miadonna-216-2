@@ -1,0 +1,272 @@
+{% style %} 
+
+  #shopify-section-{{ section.id }} .rich-text__text h3 {
+    font-family: "Playfair Display", serif;
+    display: inline-block;
+    background-color: #fff;
+    padding: 0 20px;
+  }
+  #shopify-section-{{ section.id }}{
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    z-index: 9;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if section.settings.hide_mobile %}
+      @media screen and (max-width: 798px) {
+        display: none;
+      }
+    {% endif %}
+  }
+  {%- if section.settings.title != '' -%}
+  #shopify-section-{{ section.id }} .section-icon-with-text {
+    position: relative;
+    padding-bottom: 50px;
+  }
+    {% endif %} 
+  #shopify-section-{{ section.id }} .column{
+    text-align: center;
+    padding: 10px 0;
+  }
+  #shopify-section-{{ section.id }} .image-element__wrap img{
+    width: 130px;
+    object-fit: none;
+  }
+  {%- if section.settings.title != '' -%}
+ #shopify-section-{{ section.id }} .section-icon-with-text::before {
+    position: absolute;
+    height: calc(100% - 50px);
+    width: 100%;
+    border: 3px solid #f5f5f5;
+    top: 50px;
+    content: '';
+  }
+  {% endif %}
+ 
+  #shopify-section-{{ section.id }} .description > * {
+    color: #3c3737;
+    font-size: 52.58px;
+    font-weight: 400;
+    line-height: 48.75px;
+    margin-top: 0;
+    font-style: italic;
+    letter-spacing: 0.35px;
+    font-family: 'Playfair Display';
+  }
+  @media screen and (min-width: 798px) {
+    #shopify-section-{{ section.id }} .container {
+      align-items: center;
+    }
+     #shopify-section-{{ section.id }} .column{
+      padding: 20px;
+    }
+    #shopify-section-{{ section.id }} .image-element__wrap {
+      height: auto;
+    }
+    #shopify-section-{{ section.id }} .rich-text__text h3 {
+      font-size: 40px;
+    }
+  }
+  @media screen and (max-width: 798px) {
+    #shopify-section-{{ section.id }} .image-element__wrap img{
+      max-width: 80px;
+    }
+    #shopify-section-{{ section.id }}.container {
+      gap: 2rem;
+    }
+    #shopify-section-{{ section.id }}.image-element__wrap {
+      max-width: 60% !important;
+    }
+    #shopify-section-{{ section.id }} h3 {
+      font-size: 20px;
+      line-height: 1;
+      max-width: 180px;
+      padding: 0 10px;
+    }
+  }
+.card-title {
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.card-subTitle {
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 16px;
+    max-width: 140px;
+    margin: 0 auto 15px;
+}
+.card-info {
+    max-width: 300px;
+    font-size: 12px;
+    margin: auto;
+}
+  .card-learn-more-btn{
+    font-weight: 600;
+      text-decoration: underline;
+  }
+  {% render 'css-loop',
+      css: section.settings.custom_css,
+      id: section.id %}
+  {% endstyle %}
+
+<section id="shopify-section-{{ section.id }}" class="section section-icon-with-text {{ section.settings.css_class }} is-width-{{ section.settings.width }}{% if section.settings.show_gutter == false %} has-no-side-gutter{% else %} has-gutter-enabled {% endif %}{% if section.settings.width == 'wide' %}equal-columns--outside-trim{% endif %}">{% assign value = section.settings.card_per_row %}
+
+  <div class="container">
+    {%- if section.settings.title != '' -%}
+      <div class="columns one-whole">
+        <div class="rich-text__content card-content">
+          <div class="rich-text__text has-columns--1 text-align-center content">
+            <h3 class="">{{ section.settings.title }}</h3>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'card' -%}
+        <div class="column
+          {% liquid if value == '2' or value == 2 
+            echo 'one-half'
+            elsif value == '3' or value == 3
+            echo 'one-third'
+            elsif value == '4' or value == 4
+            echo 'one-fourth'
+            elsif value == '5' or value == 5
+            echo 'one-fifth'
+            elsif value == '6' or value == 6 
+            echo 'one-sixth' 
+            endif %} medium-down--one-half small-down--one-whole">
+          {%- if block.settings.icon != '' -%}
+            <div class="card-icon">
+              {%- render 'image-element',
+                image: block.settings.icon,
+                alt: block.settings.title,
+                stretch_width: true, -%}
+            </div>
+          {%- endif -%}
+          {%- if block.settings.title -%}
+            <div class="card-title">
+              {{ block.settings.title }}
+            </div>
+          {%- endif -%}
+          {%- if block.settings.sub_title -%}
+            <div class="card-subTitle">
+              {{ block.settings.sub_title }}
+            </div>
+          {%- endif -%}
+          {%- if block.settings.card_info -%}
+            <div class="card-info">
+              {{ block.settings.card_info }}
+            </div>
+          {%- endif -%}
+          {% if block.settings.learn_more_link != blank %}
+            <div class="card-learn-more-btn">
+              <a href="{{block.settings.learn_more_link}}">{{ block.settinghs.link_title | default: 'Learn more' }}</a>
+            </div>
+          {% endif %}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Icon Cards",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Label"
+      },
+      {
+        "type": "range",
+        "id": "card_per_row",
+        "label": "Card Per Row",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "id": "show_gutter",
+        "label": "Show gutter",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background",
+        "default": "#FFFFFF"
+      }, {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Top spacing",
+        "min": 0,
+        "max": 80,
+        "default": 0,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Bottom spacing",
+        "default": 0,
+        "min": 0,
+        "max": 80,
+        "unit": "px"
+      }, {
+        "type": "text",
+        "id": "css_class",
+        "label": "CSS Class"
+      }, {
+        "type": "textarea",
+        "id": "custom_css",
+        "label": "Custom CSS"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Card",
+        "type": "card",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type": "textarea",
+            "id": "card_info",
+            "label": "Card Info"
+          }, {
+            "type": "text",
+            "id": "link_title",
+            "label": "Link Title"
+          }, {
+            "type": "url",
+            "id": "learn_more_link",
+            "label": "Learn More Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Icon Cards"
+      }
+    ]
+  }
+{% endschema %}

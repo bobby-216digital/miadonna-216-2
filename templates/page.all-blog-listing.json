@@ -1,0 +1,136 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "20bce16b-4ddd-4466-a94b-0b2fb833d087": {
+      "type": "blog-menu-section",
+      "blocks": {
+        "52b1ea1c-2da7-41f5-8f56-874c61e3adca": {
+          "type": "search",
+          "settings": {
+            "search_results": "article"
+          }
+        }
+      },
+      "block_order": [
+        "52b1ea1c-2da7-41f5-8f56-874c61e3adca"
+      ],
+      "settings": {
+        "blog_menu_title": "Blog:",
+        "blog_menu": "blog-menu"
+      }
+    },
+    "aa1bcc7f-1241-48b5-97fc-72b19cf2532f": {
+      "type": "index__image-with-text-overlay",
+      "settings": {
+        "link": "",
+        "image": "shopify:\/\/shop_images\/lilac-stackable-engagemen.png",
+        "pretext": "",
+        "title": "THE <span>Blog<\/span>",
+        "subtitle": "<p>YOUR SOURCE FOR ETHICAL INSPIRATION<\/p>",
+        "pretext_color": "#000000",
+        "heading_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "left",
+        "text_horizontal_position": "left",
+        "text_vertical_position": "middle",
+        "background_color": "#FFFFFF",
+        "background_opacity": 0,
+        "border_color": "#FFFFFF",
+        "border_width": 0,
+        "text_width": 40,
+        "button_1": "",
+        "button_1_link": "",
+        "button_1_style": "button--secondary",
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "91a18c04-a92a-4dc5-a4ce-26c3ac70abfd": {
+      "type": "popular-blog",
+      "blocks": {
+        "ee124e59-be3e-49f8-b221-c5763d482401": {
+          "type": "section-group",
+          "settings": {
+            "blogpost": "engagement-wedding\/the-enchanting-world-of-sapphire-colors-a-comprehensive-guide-1"
+          }
+        },
+        "6b1f13aa-9e93-4b3b-b6b3-c73c91cc4806": {
+          "type": "section-group",
+          "settings": {
+            "blogpost": "engagement-wedding\/the-enchanting-world-of-sapphire-colors-a-comprehensive-guide-1"
+          }
+        },
+        "750d09b5-0823-46fa-a331-2d2d57486f07": {
+          "type": "section-group",
+          "settings": {
+            "blogpost": "engagement-wedding\/the-enchanting-world-of-sapphire-colors-a-comprehensive-guide-1"
+          }
+        }
+      },
+      "block_order": [
+        "ee124e59-be3e-49f8-b221-c5763d482401",
+        "6b1f13aa-9e93-4b3b-b6b3-c73c91cc4806",
+        "750d09b5-0823-46fa-a331-2d2d57486f07"
+      ],
+      "settings": {
+        "title": "More Popular"
+      }
+    },
+    "abf38602-609c-43cb-97fa-b380ba173e5e": {
+      "type": "blog-cta",
+      "settings": {
+      }
+    },
+    "75759e1d-bfd9-4fac-ad2b-8da4fb7fe77f": {
+      "type": "all-blog-list",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "20bce16b-4ddd-4466-a94b-0b2fb833d087",
+    "aa1bcc7f-1241-48b5-97fc-72b19cf2532f",
+    "91a18c04-a92a-4dc5-a4ce-26c3ac70abfd",
+    "abf38602-609c-43cb-97fa-b380ba173e5e",
+    "75759e1d-bfd9-4fac-ad2b-8da4fb7fe77f"
+  ]
+}

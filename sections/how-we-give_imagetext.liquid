@@ -1,0 +1,59 @@
+<div class="how-we-give-container media-grid-layout cell-style-A body-cell">
+  {% for block in section.blocks  %}
+	<section>
+		<section class="_body content-cell offset-group left-align typeset-cell">
+			<div class="how-we-give-content typeset-cell">
+			
+				<i class="ornamental-break ornamental-break-green ornamental-break-left"></i>
+				<h2 class="text-style-title content-subtitle">{{ block.settings.title }}</h2>
+				<p>{{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+			</div>
+		</section>
+		<figure class="_image formatted-image" style="background-size: contain; background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | img_url:'original' }}');"></figure>
+	</section>
+  {% endfor %}
+	
+</div>
+
+{% schema %}
+  {
+    "name": "Image Text",
+    "max_blocks": 2,
+    "settings": [],
+     "blocks": [
+      {
+        "type": "Image",
+        "name": "Image Text",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description"
+          }
+        ]
+      }
+     ],
+        "presets": [
+    {
+      "name": "How we give - Image Text",
+      "category": "ImageText"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

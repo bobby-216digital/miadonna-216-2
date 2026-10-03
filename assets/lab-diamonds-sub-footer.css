@@ -1,0 +1,113 @@
+.sub_footer-wrapper {
+  padding: 5rem 0;
+  background: #fdf0e7;
+}
+
+.sub_footer-slider {
+  display: flex;
+  width: 100%;
+}
+
+.sub_footer-wrapper .sub_footer-content {
+  padding: 0 1rem;
+}
+
+.sub_footer-wrapper .sub_footer-content h6 {
+  font-size: 21px;
+  font-weight: bold;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.sub_footer-wrapper .sub_footer-content p {
+  margin: 1.8rem 0 2.2rem;
+}
+
+.sub_footer-wrapper .sub_footer-content .sub_footer-item-button {
+  font-size: 12px;
+  max-width: 160px;
+  font-weight: 600;
+  border: 2px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 2rem;
+  text-transform: uppercase;
+}
+
+.sub_footer-wrapper .flickity-button:disabled {
+  display: none;
+}
+
+@media screen and (min-width: 1025px) {
+  .sub_footer-slider {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1400px) and (min-width: 1280px) {
+  .sub_footer-wrapper .sub_footer-content p {
+    height: 90px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .sub_footer-wrapper .container {
+    display: none;
+  }
+  .sub_footer-wrapper {
+    padding: 2rem 0 3rem;
+    background: #ebebeb;
+  }
+  .sub_footer-wrapper .flickity-viewport {
+    transition: height 0.2s;
+  }
+  .sub_footer-wrapper .sub_footer-content {
+    max-width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+  .sub_footer-wrapper .sub_footer-content p {
+    margin: 1rem 0 0;
+  }
+  .sub_footer-wrapper .sub_footer-content .sub_footer-item-button {
+    margin: auto;
+    border: 0;
+    line-height: normal;
+    font-weight: normal;
+    text-decoration: underline;
+  }
+  .sub_footer-wrapper .flickity-button {
+    top: 55%;
+    background: transparent;
+  }
+  .sub_footer-wrapper .flickity-prev-next-button.previous {
+    left: 20px;
+  }
+  .sub_footer-wrapper .flickity-prev-next-button.next {
+    right: 20px;
+  }
+  .sub_footer-wrapper .flickity-page-dots {
+    bottom: -35px;
+  }
+  .sub_footer-wrapper .flickity-page-dots .dot {
+    display: inline-block;
+    width: 25px;
+    height: 4px;
+    margin: 0 5px;
+    border-radius: 0;
+    background: #b3b2b2;
+  }
+  .sub_footer-wrapper .flickity-page-dots .dot.is-selected {
+    background: #7c7979;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .sub_footer-wrapper .flickity-prev-next-button.previous {
+    left: 10px;
+  }
+  .sub_footer-wrapper .flickity-prev-next-button.next {
+    right: 10px;
+  }
+}

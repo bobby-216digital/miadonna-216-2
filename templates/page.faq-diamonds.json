@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "c37e27aa-e677-4b22-9af3-bd2fa93a3c3e": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "diamond-hybrids-faqs"
+          }
+        },
+        "custom_html_c9U4RQ": {
+          "type": "custom_html",
+          "settings": {
+            "html": "<script type=\"application\/ld+json\">\n{\n  \"@context\": \"https:\/\/schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [{\n    \"@type\": \"Question\",\n    \"name\": \"What are the 4 C's of diamonds?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"The 4 C's of diamonds refer to their cut, color, clarity, and carat weight. These characteristics determine a diamond's overall quality and value.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How are diamonds formed?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Diamonds are formed deep within the Earth's mantle under high pressure and temperature conditions. They are brought to the surface through volcanic eruptions. However, they can now be created in a controlled lab-environment without disrupting the earth.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is a diamond's cut?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"A diamond's cut refers to its proportions, symmetry, and polish. It greatly impacts the diamond's brilliance, fire, and overall beauty. Well-cut diamonds reflect light effectively, resulting in exceptional sparkle.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is diamond color grading?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Diamond color grading refers to the assessment of a diamond's color on a scale from D (colorless) to Z (light yellow or brown). The less color a diamond has, the more valuable and rare it is.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is diamond clarity?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Diamond clarity measures the presence of internal or external flaws, known as inclusions and blemishes, respectively. Clarity is graded on a scale ranging from Flawless (no imperfections visible under 10x magnification) to Included (inclusions visible to the naked eye).\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How is diamond carat weight determined?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Diamond carat weight is a measure of a diamond's size. One carat equals 200 milligrams. The weight is determined by precision scales during the diamond grading process.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is a diamond certificate?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"A diamond certificate, also known as a diamond grading report, is a document issued by an independent gemological laboratory. It provides an assessment of a diamond's 4 C's and other characteristics, ensuring transparency and aiding in value determination.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What should I look for when choosing a diamond?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"When choosing a diamond, consider the 4 C's: cut, color, clarity, and carat weight. These factors determine a diamond's quality and overall appearance. Additionally, consider your budget and personal preferences.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Which is more important, diamond cut or diamond carat?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Both diamond cut and carat weight are important factors to consider. However, diamond cut has a significant impact on a diamond's brilliance and sparkle. It is recommended to prioritize cut quality over carat weight for a visually stunning diamond.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How do I determine the right diamond color for me?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Diamond color is a personal preference. The Gemological Institute of America (GIA) grades diamond color on a scale from D (colorless) to Z (light yellow or brown). Choose a color grade that appears colorless to the naked eye within your desired budget.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is more important, diamond clarity or diamond color?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"The importance of diamond clarity and color depends on personal preference. If you prioritize a diamond that appears flawless to the naked eye, focus on higher clarity grades. If colorlessness is more important, choose a higher color grade.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Should I prioritize diamond size (carat weight) or diamond quality?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"The choice between diamond size and quality depends on personal preference and budget. If a larger diamond is your priority, you may need to compromise on other factors such as color or clarity. It is essential to strike a balance between size and quality based on your preferences and budget.\"\n    }\n  }]\n}\n<\/script>"
+          }
+        }
+      },
+      "block_order": [
+        "c37e27aa-e677-4b22-9af3-bd2fa93a3c3e",
+        "custom_html_c9U4RQ"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

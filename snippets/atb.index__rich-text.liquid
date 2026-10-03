@@ -1,0 +1,650 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Rich text",
+  "class": "rich-text",
+  "id": "index__rich-text",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Heading",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Heading",
+      "default": "Rich text",
+      "info": ""
+    },
+    {
+      "type": "font_picker",
+      "id": "atb_heading_font",
+      "label": "Font",
+      "default": "open_sans_n4",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_heading_color",
+      "label": "Heading",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_heading_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "justify",
+          "label": "Justify"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_heading_size",
+      "label": "Base size",
+      "min": 20,
+      "max": 120,
+      "default": 30,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Text",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_text",
+      "label": "Text",
+      "default": "<p>Use this section to create some callout text on your page, or add more details about your shop, services, promotions, etc. If you have a large amount&nbsp;of text, you can opt to have it display in <strong>two columns</strong> instead so that it's much easier to read.</p>\n<p></p>\n<p>This section also includes&nbsp;the option to add a button&nbsp;in primary or secondary style, and also control the colors, including the option for a gradient background. Since this is rich text, you can also <em>format it as you wish</em> and&nbsp;<a href=\"/collections/all\" title=\"All Products\">include links</a>.</p>",
+      "info": ""
+    },
+    {
+      "type": "font_picker",
+      "id": "atb_text_font",
+      "label": "Font",
+      "default": "open_sans_n4",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_text_color",
+      "label": "Text",
+      "default": "rgba(0,0,0,0)",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "justify",
+          "label": "Justify"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_text_size",
+      "label": "Base size",
+      "min": 8,
+      "max": 40,
+      "default": 14,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_columns",
+      "label": "Columns",
+      "min": 1,
+      "max": 3,
+      "default": 2,
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Button",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_label",
+      "label": "Button label",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_link",
+      "label": "Button link",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_button_background",
+      "label": "Button background",
+      "default": "#EEEEEE",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_button_text",
+      "label": "Button text",
+      "default": "#000000",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "button--primary",
+          "label": "Primary"
+        },
+        {
+          "value": "button--secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "button--link-style",
+          "label": "Link style"
+        }
+      ],
+      "default": "button--primary",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Background",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background",
+      "label": "Background",
+      "default": "#EEEEEE",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_gradient",
+      "label": "Gradient",
+      "default": "#C0C0C0",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_gradient_rotation",
+      "label": "Gradient rotation",
+      "min": 0,
+      "max": 180,
+      "step": 10,
+      "default": 180,
+      "unit": "deg",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "wide",
+      "options": [
+        {
+          "value": "half",
+          "label": "Half"
+        },
+        {
+          "value": "one-third",
+          "label": "One Third"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_left",
+      "label": "Left spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_right",
+      "label": "Right spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": ""
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_id_sec",
+      "label": "Section Id",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_heading_font' -%}
+{%- assign atb_heading_font = val -%}
+{%- include 'atb-render' field:'atb_heading_color' -%}
+{%- assign atb_heading_color = val -%}
+{%- include 'atb-render' field:'atb_heading_alignment' -%}
+{%- assign atb_heading_alignment = val -%}
+{%- include 'atb-render' field:'atb_heading_size' -%}
+{%- assign atb_heading_size = val -%}
+{%- include 'atb-render' field:'atb_text' -%}
+{%- assign atb_text = val -%}
+{%- include 'atb-render' field:'atb_text_font' -%}
+{%- assign atb_text_font = val -%}
+{%- include 'atb-render' field:'atb_text_color' -%}
+{%- assign atb_text_color = val -%}
+{%- include 'atb-render' field:'atb_text_alignment' -%}
+{%- assign atb_text_alignment = val -%}
+{%- include 'atb-render' field:'atb_text_size' -%}
+{%- assign atb_text_size = val -%}
+{%- include 'atb-render' field:'atb_columns' -%}
+{%- assign atb_columns = val -%}
+{%- include 'atb-render' field:'atb_button_label' -%}
+{%- assign atb_button_label = val -%}
+{%- include 'atb-render' field:'atb_button_link' -%}
+{%- assign atb_button_link = val -%}
+{%- include 'atb-render' field:'atb_button_alignment' -%}
+{%- assign atb_button_alignment = val -%}
+{%- include 'atb-render' field:'atb_button_background' -%}
+{%- assign atb_button_background = val -%}
+{%- include 'atb-render' field:'atb_button_text' -%}
+{%- assign atb_button_text = val -%}
+{%- include 'atb-render' field:'atb_button_style' -%}
+{%- assign atb_button_style = val -%}
+{%- include 'atb-render' field:'atb_background' -%}
+{%- assign atb_background = val -%}
+{%- include 'atb-render' field:'atb_gradient' -%}
+{%- assign atb_gradient = val -%}
+{%- include 'atb-render' field:'atb_gradient_rotation' -%}
+{%- assign atb_gradient_rotation = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_padding_left' -%}
+{%- assign atb_padding_left = val -%}
+{%- include 'atb-render' field:'atb_padding_right' -%}
+{%- assign atb_padding_right = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'undefined' -%}
+{%- assign undefined = val -%}
+{%- include 'atb-render' field:'atb_id_sec' -%}
+{%- assign atb_id_sec = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- assign atb_heading_size = atb_heading_size | plus: 0 -%}
+{%- assign atb_text_size = atb_text_size | plus: 0 -%}
+{%- assign atb_columns = atb_columns | plus: 0 -%}
+{%- assign atb_gradient_rotation = atb_gradient_rotation | plus: 0 -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign atb_padding_left = atb_padding_left | plus: 0 -%}
+{%- assign atb_padding_right = atb_padding_right | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section rich-text">
+{% comment %}
+  ** Rich text **
+{% endcomment %}
+
+{%- assign title = atb_title -%}
+{%- assign heading_font = atb_heading_font -%}
+{%- assign heading_color = atb_heading_color -%}
+{%- assign heading_alignment = atb_heading_alignment -%}
+{%- assign heading_size = atb_heading_size -%}
+{%- assign text = atb_text -%}
+{%- assign text_font = atb_text_font -%}
+{%- assign text_color = atb_text_color -%}
+{%- assign text_alignment = atb_text_alignment -%}
+{%- assign text_size = atb_text_size -%}
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{%- assign heading_alpha = heading_color | color_extract: 'alpha' -%}
+{%- assign text_alpha = text_color | color_extract: 'alpha' -%}
+{%- assign background_alpha = atb_background | color_extract: 'alpha' -%}
+{%- assign gradient_alpha = atb_gradient | color_extract: 'alpha' -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% capture section_css -%}
+  .section {
+    background-image: linear-gradient({{ atb_gradient_rotation }}deg, rgba(255,255,255,0), {{ atb_gradient }});
+    background-color: {%- if background_alpha != 0 -%}{{ atb_background }}{%- endif -%};
+  }
+  .rich-text__heading {
+    font-size: {{ heading_size }}px;
+    color: {%- if heading_alpha != 0 -%}{{ heading_color }}{%- else -%}{{ settings.heading_color }}{%- endif -%};
+    font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    font-weight: {{ heading_font.weight }};
+    font-style: {{ heading_font.style }};
+    text-transform: uppercase;
+    word-break:break-word;
+  }
+  .rich-text__text {
+    font-size: {{ text_size }}px;
+    color: {%- if text_alpha != 0 -%}{{ text_color }}{%- else -%}{{ settings.regular_color }}{%- endif -%};
+    font-family: {{ text_font.family }}, {{ text_font.fallback_families }};
+    font-weight: {{ text_font.weight }};
+    font-style: {{ text_font.style }};
+    margin-bottom: 0;
+    text-align:center;
+  }
+  .rich-text__text.content > * {
+    font-size: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+  .rich-text__text.content > h1 {
+    line-height: 50px;
+  }
+  .rich-text__content .button {
+    width: 500px;
+    font-weight: 600;
+    min-height: 67px;
+    margin-top: 45px;
+  }
+  .rich-text__content .button:hover {
+    border-width: 3px;
+    color: {{ atb_button_background }} !important;
+    background-color: transparent !important;
+    border-color: {{ atb_button_background }} !important;
+  }
+{%- endcapture -%}
+
+{% style %}
+  {{ heading_font | font_face }}
+  {{ text_font | font_face }}
+
+  #shopify-section-{{ section_id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    padding-left: {{ atb_padding_left }}px;
+    padding-right: {{ atb_padding_right }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+
+     {% elsif atb_width == 'one-third' %}
+      width: 70%;
+    {% elsif atb_width == 'half' %}
+      width: 50%;
+    {% endif %}
+  }
+  {% render 'css-loop',
+          css: section_css,
+          id: section_id
+  %}
+  @media screen and (max-width: 1200px){
+    #shopify-section-{{ section_id }} .rich-text__text {
+      /* font-size: 28px; */
+    }
+  }
+  @media screen and (max-width: 767px){
+     #shopify-section-{{ section_id }} .rich-text__heading {
+       font-size: 22px;
+     }
+    #shopify-section-{{ section_id }} .your-ring .rich-text__heading {
+       font-size: 24px;
+     }
+    #shopify-section-{{ section_id }} .rich-text__text {
+      font-size: 14px;
+    }
+    #shopify-section-{{ section_id }} .rich-text__content .rich-text__text > h1 {
+      line-height: 30px;
+    }
+     #shopify-section-{{ section_id }} {
+        padding-top: 30px;
+        padding-bottom:30px;
+     }
+    #shopify-section-{{ section_id }} .rich-text__content {
+      padding-top: 0;
+    }
+    #shopify-section-{{ section_id }} .rich-text__content .button {
+      width: 100%;
+      min-height: 57px;
+      margin-top: 25px;
+      font-size: 13px !important;
+    }
+  }
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  id="{{ atb_id_sec }}"
+  class="
+    section
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    {% if background_alpha != 0 or gradient_alpha != 0  %}
+      has-background
+    {% endif %}
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  <div
+    class="
+      container
+      has-limit
+    "
+  >
+    <div class="columns one-whole">
+      <div class="rich-text__content card-content">
+        {% if title != blank %}
+          <h2 class="rich-text__heading title text-align-{{ heading_alignment }} {% if heading_size > 50 %}mobile-shrink-text{% endif %}">
+            {{ title }}
+          </h2>
+        {% endif %}
+
+        {% if text != blank %}
+          <div class="rich-text__text has-columns--{{ atb_columns }} text-align-{{ text_alignment }} content {% if text_size > 35 %}mobile-shrink-text{% endif %}">
+            {{ text | replace: 'href="#lets-chat"', "href=javascript:void(0); onclick=Chatra('openChat',true)" }}
+          </div>
+        {% endif %}
+
+        {% if atb_button_label != blank %}
+          <div class="buttons is-{{ atb_button_alignment }}">
+            {% render 'button',
+              label: atb_button_label,
+              href: atb_button_link,
+              style: atb_button_style,
+              text_color: atb_button_text,
+              background_color: atb_button_background,
+              type: 'link'
+            %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</section>

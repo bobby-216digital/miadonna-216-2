@@ -1,0 +1,144 @@
+<section class="shape-section common-spacing" role="region" aria-labelledby="shape-slider-title">
+  <div class="contanier-nw">
+    <div class="slider-wrapper">
+      <div class="title-header title-header-link">
+        <!-- Linking aria-labelledby with this heading -->
+        <h2 id="shape-slider-title" class="common-hd" tabindex="0">{{ section.settings.section_title }}</h2>
+        <a href="{{ section.settings.cta_link }}" class="arrow-link" aria-label="{{ section.settings.cta_text }}">
+          {{ section.settings.cta_text }}
+          {% render 'icon-rightarrow' %}
+        </a>
+      </div>
+
+      <!-- Desktop Slider -->
+      <div class="shape-slider sl-space shape-hide-mob slick-cls">
+        {% for block in section.blocks %}
+          <div class="slide">
+            <div class="shape-slide-text slide-cls sl-spacebox">
+              <a href="{{ block.settings.shape_link }}" class="radius-2" tabindex="0">
+                <span class="shap-svg" aria-hidden="true">
+                  {% render 'shape-icon-render', snippet_name: block.settings.icon_snippet %}
+                </span>
+                {% if block.settings.hover_image %}
+                  <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.hover_image | image_url }}" class="shape-h-show" width="555" height="822" alt="{{ block.settings.shape_name }}">
+                {% endif %}
+                <!-- Description for screen readers -->
+                <span class="sr-only">{{ block.settings.shape_name }}</span>
+                <span class="line-hover black-link" aria-hidden="true">{{ block.settings.shape_name }}</span>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Mobile Slider (2 shapes per slide) -->
+      <div class="shape-slider shape-mob slick-cls">
+        {% for block in section.blocks %}
+          {% assign even = forloop.index0 | modulo: 2 %}
+          {% if even == 0 %}
+            <div class="slide" aria-label="Shapes group {{ forloop.index | divided_by: 2 | ceil }}">
+          {% endif %}
+
+          <div class="shape-slide-text">
+            <a href="{{ block.settings.shape_link }}" class="radius-2" tabindex="0">
+              <span class="shap-svg" aria-hidden="true">
+                {% render 'shape-icon-render', snippet_name: block.settings.icon_snippet %}
+              </span>
+              <span class="sr-only">{{ block.settings.shape_name }}</span>
+              <span class="line-hover black-link" aria-hidden="true">{{ block.settings.shape_name }}</span>
+            </a>
+          </div>
+
+          {% assign odd = forloop.index0 | modulo: 2 %}
+          {% if odd == 1 or forloop.last %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Slider progress">
+        <div class="progress-bar progress-bar-shape" style="width: 10%;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home Shape Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Engagement Rings by Shape"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Find your diamond"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link",
+      "default": "/"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "shape_slide",
+      "name": "Shape Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "shape_name",
+          "label": "Shape Name",
+          "default": "Oval"
+        },
+        {
+          "type": "text",
+          "id": "icon_snippet",
+          "label": "Icon Snippet (e.g. icon-shape-oval-cut)",
+          "default": "icon-shape-oval-cut"
+        },
+        {
+          "type": "image_picker",
+          "id": "hover_image",
+          "label": "Hover Image"
+        },
+        {
+          "type": "url",
+          "id": "shape_link",
+          "label": "Shape Link",
+          "default": "/"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Home Shape Slider",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "shape_slide",
+          "settings": {
+            "shape_name": "Oval",
+            "icon_snippet": "icon-shape-oval-cut"
+          }
+        },
+        {
+          "type": "shape_slide",
+          "settings": {
+            "shape_name": "Round",
+            "icon_snippet": "icon-shape-round-cut"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

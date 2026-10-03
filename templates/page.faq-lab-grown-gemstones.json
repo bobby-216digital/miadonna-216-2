@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "62d75e3a-b61c-4f8b-8c84-3679d9e91e1a": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "gemstone-faqs"
+          }
+        },
+        "custom_html_pmwtJP": {
+          "type": "custom_html",
+          "settings": {
+            "html": "<script type=\"application\/ld+json\">\n{\n  \"@context\": \"https:\/\/schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [{\n    \"@type\": \"Question\",\n    \"name\": \"What are lab-created gemstones, and how are they made?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Just like lab-grown diamonds, lab created gemstones are real gems that possess the same chemical and physical properties as their natural counterparts. They are created in a laboratory using advanced techniques that mimic the natural gem formation process, resulting in gemstones with exceptional clarity and color.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Are lab-created gemstones real?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Yes, lab-created gemstones are real gemstones. While they are not mined from the Earth, they have the same chemical composition and optical characteristics as natural gemstones. Lab-created gemstones offer an ethical and sustainable alternative to mined gemstones.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What are the benefits of lab created gemstones?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Lab-created gemstones have several advantages. They are environmentally friendly, as their production doesn't require mining. They also offer greater affordability compared to natural gemstones of similar quality. Additionally, lab-created gemstones are often free from the ethical concerns associated with the mining industry.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How do lab created gemstones compare to natural gemstones in terms of quality?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"There are many cheap lab created gemstones on the market that do not compare in quality to MiaDonna's, as they lack the internal crystal structure of a gemstone. However, MiaDonna's lab created gemstones are created using a Flux Fusion method that grows gemstones to the exceptional quality and visual appeal of natural gemstones.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Can lab created gemstones be distinguished from natural gemstones?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"With Flux Fusion grown lab created gemstones, it is nearly impossible to distinguish the difference between lab-created gemstones from natural ones. They possess the same physical and chemical properties, making them visually identical to natural gemstones. However, gemological laboratories can often identify lab-created gemstones through specific tests.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Are lab created gemstones less valuable than natural gemstones?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Lab created gemstones are generally more affordable than their natural counterparts of similar quality. However, their value is subjective and can vary depending on factors such as rarity, demand, and market trends. Lab created gemstones can offer excellent value for those seeking beautiful gemstones at a more accessible price point.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Can lab created gemstones be used in engagement rings and other fine jewelry?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Absolutely! Lab grown gemstones are popular choices for engagement rings and other fine jewelry pieces. They offer a stunning and affordable alternative to natural gemstones, allowing individuals to create personalized and ethically sourced jewelry.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is the difference between lab-created gemstones and simulants?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Lab grown gemstones are chemically identical to their natural counterparts, whereas simulants are gemstone imitations that may have a different chemical composition. Simulants, such as cubic zirconia or moissanite, mimic the appearance of specific gemstones but have different properties.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is the Flux Fusion method to grow gemstones?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"MiaDonna exclusively sells Chatham gemstones because of their exceptional beauty and quality. Using advanced Flux Fusion technology, these gemstones are grown with optimal brilliance, light return, and identical internal structure compared to earth-mined gemstones. Only an expert gemologist can distinguish a Flux Fusion grown lab-created gemstone from an earth-mined counterpart.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is a Diamond Hybrid®?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"The Diamond Hybrid® is a simulant consisting of a non-precious crystal core with an infusion of Lab-Created Diamond on the outer layer. That is why we call it a \\\"Hybrid.\\\" Since the Diamond Hybrid® is not 100% pure carbon, it does not share the same properties as a mined or lab grown Diamond and is only 8.2 on the Mohs Hardness scale, while lab grown and Earth-Mined Diamonds score a 10.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Why do you sell a simulant?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"In 2005, when our founder was developing the technology for our pure carbon lab grown Diamonds we could only grow diamonds to a 0.25ct in size and they were yellow in color. So we developed a \\\"hybrid\\\" diamond as a placeholder until our technology for lab grown Diamonds was perfected. We can now grow pure carbon diamonds that are better than anything we will get out of the earth.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is the quality of the Diamond Hybrid® simulant?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Every Diamond Hybrid® is guaranteed to be D to F in color, VVS1 to VS2 in clarity, and rate a 1 to 2 on the AGS cutting scale, otherwise described as an “excellent” to “very good” cut. Only 1 in 1,000 Earth-Mined Diamonds will ever achieve the same high-quality cut grade as our Diamond Hybrids®. The Diamond Hybrid® is a stunning diamond simulate and a great placeholder to get the ring you want now, and can upgrade later through our buy-back program.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Does the Diamond Hybrid® test positive on a diamond tester?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"No, it will not. Traditional diamond testers only measure \\\"heat conductivity\\\". Since the Diamond Hybrid® has a core that is not diamond, the heat dispersion is not the same, so it will test negative.\"\n    }\n  }]\n}\n<\/script>"
+          }
+        }
+      },
+      "block_order": [
+        "62d75e3a-b61c-4f8b-8c84-3679d9e91e1a",
+        "custom_html_pmwtJP"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

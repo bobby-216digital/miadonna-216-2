@@ -1,0 +1,122 @@
+{% capture faceted_active_filters %}
+  {%- for filter in collection.filters -%}
+    {% if filter.type == "price_range"  %}
+      {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+        {% assign has_active_filters = true %}
+        <a class="faceted-active-filters__remove-filter button button--primary" href="{{ filter.url_to_remove }}">
+          {%- assign min_value = filter.min_value.value | default: 0 -%}
+          {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+          <span>{{ min_value | money }} - {{ max_value | money }}</span>
+          <span class="icon clear-filter">
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.108 4.728L0.552 0.599999H1.752L3.456 3.444L3.756 4.128L4.044 3.444L5.844 0.599999H6.948L4.308 4.644L7.068 9H5.904L4.008 5.988L3.684 5.268L3.372 5.988L1.428 9H0.312L3.108 4.728Z" fill="#1C1B19"></path>
+            </svg>
+          </span>
+        </a>
+      {%- endif -%}
+    {%- else -%}
+      {%- for filter_value in filter.active_values -%}
+        {% assign has_active_filters = true %}
+        <a class="faceted-active-filters__remove-filter button button--primary" href="{{ filter_value.url_to_remove }}">
+          <span>{{ filter_value.label }}</span>
+          <span class="icon clear-filter">
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.108 4.728L0.552 0.599999H1.752L3.456 3.444L3.756 4.128L4.044 3.444L5.844 0.599999H6.948L4.308 4.644L7.068 9H5.904L4.008 5.988L3.684 5.268L3.372 5.988L1.428 9H0.312L3.108 4.728Z" fill="#1C1B19"></path>
+            </svg>
+          </span>
+        </a>
+      {%- endfor -%}
+    {% endif %}
+  {%- endfor -%}
+  {%- if collection.tags contains 'Ready To Ship' -%}
+    {% if current_tags contains 'Ready To Ship' %}
+      {% assign has_active_filters = true %}
+      <a class="faceted-active-filters__remove-filter button button--primary" href="{{ collection.url }}">
+        <span>Ready To Ship</span>
+        <span class="icon clear-filter">
+          <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.108 4.728L0.552 0.599999H1.752L3.456 3.444L3.756 4.128L4.044 3.444L5.844 0.599999H6.948L4.308 4.644L7.068 9H5.904L4.008 5.988L3.684 5.268L3.372 5.988L1.428 9H0.312L3.108 4.728Z" fill="#1C1B19"></path>
+          </svg>
+        </span>
+      </a>
+    {% endif %}
+  {%- endif -%}
+{% endcapture %}
+{% if collection.handle != blank and collection.products_count > 0 %}
+  <div class="field is-grouped is-grouped-space-between is-flex-wrap collection-filters-bar">
+    <div class="filter-values-section filter-values-bar is-flex is-flex-wrap is-align-center">
+      {% if has_active_filters %}
+        <div class="faceted-filter-form">
+          <div class="faceted-active-filters">
+            {{ faceted_active_filters }}
+            <a class="faceted-active-filters__remove-filter button button--primary" href="{{ collection.url }}">
+              <span>Reset All</span>
+              <span class="icon clear-filter">
+                <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.108 4.728L0.552 0.599999H1.752L3.456 3.444L3.756 4.128L4.044 3.444L5.844 0.599999H6.948L4.308 4.644L7.068 9H5.904L4.008 5.988L3.684 5.268L3.372 5.988L1.428 9H0.312L3.108 4.728Z" fill="#1C1B19"></path>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    {% if collection.tags.size > 0 %}
+      <div class="collection__tag-filter select">
+        {% for tag in collection.all_tags %}
+          {% if forloop.first %}
+            <select
+              name="tag_filter"
+              id="tag_filter"
+              class="tag_filter"
+              data-default-collection="{% if collection.handle == 'all' %}{{ routes.all_products_collection_url }}{% else %}{{ collection.url }}{% endif %}"
+            >
+              <option
+                {% unless current_tags %}
+                  selected="selected"
+                {% endunless %}
+                value="{% if collection.handle == "all" %}{{ routes.all_products_collection_url }}{% else %}{{ collection.url }}{% endif %}"
+              >
+                {{ 'collections.general.all_collection_title' | t: title: collection.title }}
+              </option>
+            </select>
+          {% endif %}
+
+          {% unless tag contains 'meta-' %}
+            <option
+              {% if current_tags contains tag %}
+                selected="selected"
+              {% endif %}
+              value="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}"
+            >
+              {{ tag }}
+            </option>
+          {% endunless %}
+
+          {% if forloop.last %}
+            </select>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% comment %}
+    <div class="collection__sort-by-filter select">
+      <label for="sort-by">Sort By: </label>
+      <select
+        class="sort_by"
+        id="sort-by"
+        data-default-sort="{{ collection.sort_by | default: collection.default_sort_by  }}"
+      >
+        <option value="manual">Highest Rated</option>
+        <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+        <option value="title-ascending">Named: A - Z</option>
+        <option value="title-descending">Named: Z- A</option>
+        <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+        <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+        <option value="created-descending">Newest</option>
+      </select>
+    </div>
+    {% endcomment %}
+  </div>
+{% endif %}

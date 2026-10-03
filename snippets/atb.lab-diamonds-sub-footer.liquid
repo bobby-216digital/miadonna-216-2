@@ -1,0 +1,204 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Sub Footer",
+  "class": "sub-footer lab-diamonds-sub-footer",
+  "id": "lab-diamonds-sub-footer",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background_color",
+      "label": "Background color",
+      "default": "#fdf0e7",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_text_color",
+      "label": "Text color",
+      "default": "#000",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Column"
+    },
+    {
+      "type": "text",
+      "id": "block_title",
+      "label": "Heading",
+      "default": "You're shopping the best",
+      "repeatable": "Column",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_description",
+      "label": "description",
+      "default": "MiaDonna diamonds are the highest quality, most ethical, American-grown diamonds in the industry.",
+      "repeatable": "Column",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_button_text",
+      "label": "Button Text",
+      "default": "Learn More",
+      "repeatable": "Column",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_button_link",
+      "label": "Button Link",
+      "repeatable": "Column",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_background_color' -%}
+{%- assign atb_background_color = val -%}
+{%- include 'atb-render' field:'atb_text_color' -%}
+{%- assign atb_text_color = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_description' -%}
+{%- assign block_description = val -%}
+{%- include 'atb-render' field:'block_button_text' -%}
+{%- assign block_button_text = val -%}
+{%- include 'atb-render' field:'block_button_link' -%}
+{%- assign block_button_link = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section sub-footer lab-diamonds-sub-footer">
+{{ 'lab-diamonds-sub-footer.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .sub_footer-wrapper {
+    background: {{ atb_background_color }}
+  }
+  .sub_footer-wrapper h6,
+  .sub_footer-wrapper p,
+  .sub_footer-wrapper a{
+    color: {{ atb_text_color }}
+  }
+  .sub_footer-wrapper .sub_footer-content .sub_footer-item-button{
+    border-color: {{ atb_text_color }}
+  }
+  .sub_footer-wrapper .sub_footer-slider .flickity-button-icon {
+    fill: {{ atb_text_color }};
+  }
+  .sub_footer-wrapper .sub_footer-slider .flickity-page-dots .dot {
+    opacity: .5;
+    background: {{ atb_text_color }};
+  }
+  .sub_footer-wrapper .sub_footer-slider .flickity-page-dots .dot.is-selected{
+    opacity: 1;
+  }
+{% endstyle %}
+
+{% assign width = atb_width %}
+
+<div class="sub_footer-wrapper">
+  <div class="section is-width-{{ width }}">
+    <div class="container">
+      {% for block0 in blocks %}
+        <div
+          class="
+            sub_footer-item {%
+              render 'column-width',
+              value: blocks.size
+            %} medium-down--one-whole column
+          "
+        >
+          <div class="sub_footer-content">
+            <h6>{{ block_title[forloop.index0] }}</h6>
+            <p>{{ block_description[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+            <div class="button-wrapper">
+            {%- if block_button_text[forloop.index0] != blank -%}
+              <a class="sub_footer-item-button" href="{{ block_button_link[forloop.index0] }}">
+                {{- block_button_text[forloop.index0] -}}
+              </a>
+            {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="sub_footer-slider">
+      {% for block0 in blocks %}
+        <div class="sub_footer-item one-whole column">
+          <div class="sub_footer-content">
+            <h6>{{ block_title[forloop.index0] }}</h6>
+            <p>{{ block_description[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+            {%- if block_button_text[forloop.index0] != blank -%}
+            <a class="sub_footer-item-button" href="{{ block_button_link[forloop.index0] }}">
+              {{- block_button_text[forloop.index0] -}}
+            </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

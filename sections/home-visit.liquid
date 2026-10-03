@@ -1,0 +1,114 @@
+<section class="visit-section common-spacing" role="region" aria-labelledby="visit-heading">
+  <div class="contanier-nw">
+    <div class="visit-row flex">
+      <div class="radius-2 visit-box">
+        <div class="visit-text">
+          <h2 id="visit-heading" class="common-hd" tabindex="0">
+            <span class="subtext">{{ section.settings.city }}</span>{{ section.settings.heading }}
+          </h2>
+          <p tabindex="0">{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+          <div class="visit-link" role="navigation" aria-label="Visit Us Links">
+            <a href="{{ section.settings.link_1_url }}" class="line-hover black-link" aria-label="{{ section.settings.link_1_label }}">{{ section.settings.link_1_text }}</a>
+            <span class="divider" aria-hidden="true"></span>
+            <a href="{{ section.settings.link_2_url }}" class="line-hover black-link" aria-label="{{ section.settings.link_2_label }}">{{ section.settings.link_2_text }}</a>
+          </div>
+        </div>
+      </div>
+      <div class="visit-imgbox" role="list" aria-label="Boutique Images">
+        <div class="visit-image" role="listitem" >
+          <img tabindex="0" src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image_1 | image_url: width: 370, height: 690 }}" class="radius-2 image-full" width="370" height="690" alt="{{ section.settings.image_1_alt | escape  }}" />
+        </div>
+        <div class="visit-image" role="listitem">
+          <img tabindex="0" src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image_2 | image_url: width: 680, height: 690 }}" class="radius-2 image-full" width="680" height="690" alt="{{ section.settings.image_2_alt | escape  }}" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Visit Us Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "city",
+      "label": "City Name",
+      "default": "Portland, Or"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Visit Us"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Experience fine jewelry shopping at its finest in our flagship Portland, Oregon boutique."
+    },
+    {
+      "type": "url",
+      "id": "link_1_url",
+      "label": "First Link URL"
+    },
+    {
+      "type": "text",
+      "id": "link_1_text",
+      "label": "First Link Text",
+      "default": "virtual appointment"
+    },
+    {
+      "type": "text",
+      "id": "link_1_label",
+      "label": "First Link ARIA Label",
+      "default": "Book a virtual appointment"
+    },
+    {
+      "type": "url",
+      "id": "link_2_url",
+      "label": "Second Link URL"
+    },
+    {
+      "type": "text",
+      "id": "link_2_text",
+      "label": "Second Link Text",
+      "default": "Visit US"
+    },
+    {
+      "type": "text",
+      "id": "link_2_label",
+      "label": "Second Link ARIA Label",
+      "default": "Visit our Portland boutique"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "First Image"
+    },
+    {
+      "type": "text",
+      "id": "image_1_alt",
+      "label": "First Image Alt Text",
+      "default": "Interior of Portland jewelry boutique"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Second Image"
+    },
+    {
+      "type": "text",
+      "id": "image_2_alt",
+      "label": "Second Image Alt Text",
+      "default": "Jewelry display at Portland boutique"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Visit Us Section"
+    }
+  ]
+}
+{% endschema %}

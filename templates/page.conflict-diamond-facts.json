@@ -1,0 +1,371 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "32de001e-e016-4d8a-9d26-5493887661b4": {
+      "type": "index__image-with-text-2",
+      "blocks": {
+        "template--15038970069071__32de001e-e016-4d8a-9d26-5493887661b4-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "Conflict Diamond Facts",
+            "title2": "",
+            "text": "<p>We love the beauty of diamonds. <br/>We love their dazzling sparkle and <br/>the romantic dreams they represent. <br/>But at what cost?</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "template--15038970069071__32de001e-e016-4d8a-9d26-5493887661b4-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Conflict_Diamond_Facts_Banner.png",
+            "mobile_image": "shopify://shop_images/Conflict_Diamond_Facts_Banner_Mobile.png",
+            "image_link": "",
+            "iframe_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15038970069071__32de001e-e016-4d8a-9d26-5493887661b4-text-1",
+        "template--15038970069071__32de001e-e016-4d8a-9d26-5493887661b4-image-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "60003af5-c31a-48e1-b6c6-b6a20389e827": {
+      "type": "buttons-list",
+      "blocks": {
+        "acf786be-907f-4f69-b01a-d86d83af1b77": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our STORY",
+            "button_link": "/pages/about-us",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "9ed46ac7-1331-4318-8fc8-3b60d5e23562": {
+          "type": "button",
+          "settings": {
+            "button_label": "THE FOUNDER",
+            "button_link": "/pages/the-founder",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "4d22f1b4-683e-4e6e-bc32-031d47771319": {
+          "type": "button",
+          "settings": {
+            "button_label": "OUR PLEDGE",
+            "button_link": "/pages/our-pledge",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "71f7bb97-f058-471b-91ad-1f5349238256": {
+          "type": "button",
+          "settings": {
+            "button_label": "OUR CAUSE",
+            "button_link": "/pages/the-greener-diamond",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "7cd147fe-3ddd-44ae-8fc2-04e80bc7c1b6": {
+          "type": "button",
+          "settings": {
+            "button_label": "THE ISSUE",
+            "button_link": "/pages/conflict-diamonds",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        }
+      },
+      "block_order": [
+        "acf786be-907f-4f69-b01a-d86d83af1b77",
+        "9ed46ac7-1331-4318-8fc8-3b60d5e23562",
+        "4d22f1b4-683e-4e6e-bc32-031d47771319",
+        "71f7bb97-f058-471b-91ad-1f5349238256",
+        "7cd147fe-3ddd-44ae-8fc2-04e80bc7c1b6"
+      ],
+      "settings": {
+        "background": "#e7edf5",
+        "width": "standard",
+        "padding_top": 15,
+        "padding_bottom": 15,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "b6a68ec5-efa1-4f18-bfd8-d998cf68a282": {
+      "type": "founder-text-section",
+      "settings": {
+        "background": "#ffffff",
+        "subtitle": "WHAT IS A CONFLICT DIAMOND?",
+        "title": "The conflict diamond definition, as per the Kimberley Process Certification Scheme (KPCS), is a “Rough diamond mined in an area controlled by insurgent forces whose sale is used to finance anti- government military action.”",
+        "text": "<p>The main problem is, this current definition of a “conflict diamond” does not include the humanitarian impact or the negative environmental consequences of traditional diamond mining. This means that the diamonds mined, for example, in Zimbabwe – a country notorious for killing, raping and maiming hundreds of artisanal miners, are considered “conflict-free” under the KPCS. This is because, despite being mined under horrific conditions, they did not fund armed forces. These “dirty diamonds” are being certified by the Kimberley Process, making them “clean” and then sold to unassuming diamond consumers who think they are purchasing a truly “conflict-free” diamond.</p>\n<p>It’s easy for a mined diamond to be certified as conflict-free by the KPCS, however, at MiaDonna we have much higher standards. We feel it is important to define a conflict diamond in a much broader scope, incorporating the protection of the environment as well as the native communities who live in these areas and are often forced to mine for diamonds.</p>\n<p>MiaDonna was created by a mother and consumer who was fed up with children being hurt by our love affair with diamonds. Her solution was to create America’s first and truly conflict-free diamond store, to be an advocate for you, diamond communities and the earth.</p>\n<p>Unfortunately, there is a lot of misleading information out there which is mostly set forth by companies that want to maximize their profits with little or no respect of how they get there. We are here to make a difference by changing the way things are being done.</p>"
+      }
+    },
+    "1c18b5d4-4de7-47f9-ac3a-ff41539bfe40": {
+      "type": "founder-text-section",
+      "settings": {
+        "background": "#f5f5f5",
+        "subtitle": "THE MIADONNA DEFINITION",
+        "title": "A conflict diamond is any diamond that is unsustainable, thereby contributing to a negative impact on the environment, society and/or economy.",
+        "text": ""
+      }
+    },
+    "76a4c200-354b-4781-aeb3-5f4daea0fc1b": {
+      "type": "index__rich-text",
+      "disabled": true,
+      "settings": {
+        "title": "THE MIADONNA DEFINITION",
+        "heading_font": "montserrat_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 20,
+        "text": "<h2>A <em>conflict diamond</em> is any diamond that is unsustainable, thereby contributing to a negative impact on the environment, society and/or economy.</h2>",
+        "text_font": "playfair_display_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 40,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#eeeeee",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "#c2ecd3",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 0,
+        "width": "wide",
+        "padding_top": 32,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "dc718f59-7cbb-4286-9d44-21fd2a9abc15": {
+      "type": "index__image-with-text-overlay",
+      "settings": {
+        "section_background_color": "",
+        "tilt_background": false,
+        "link": "",
+        "image": "shopify://shop_images/conflict-diamonds_958f0aac-f671-4cdb-87ca-6ce5724e8839.png",
+        "pretext": "",
+        "title": "",
+        "subtitle": "",
+        "pretext_color": "#000000",
+        "heading_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "center",
+        "text_horizontal_position": "center",
+        "text_vertical_position": "middle",
+        "background_color": "#ffffff",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 32,
+        "button_1": "",
+        "button_1_link": "",
+        "button_1_style": "button--secondary",
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "eb0e1be4-9f91-47d3-b3fc-69ec8fd52b0c": {
+      "type": "conflict-diamond_section-text3",
+      "blocks": {
+        "eb9e40a1-0155-408a-ba9d-8edcbedbfeaf": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify://shop_images/50-percent.webp",
+            "description": "The USA accounts for approximately 50% of global diamond jewelry sales."
+          }
+        },
+        "a328cf39-e7f3-44c0-ba29-e11c1df5057e": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify://shop_images/70-percent.webp",
+            "description": "Approximately 70% of women in the USA own an earth-mined diamond."
+          }
+        },
+        "1d76edc8-7071-4479-a8fe-beb693c88d3d": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify://shop_images/1-5-million_5dd8fb9e-027e-4060-b534-80c09eeb8e91.webp",
+            "description": "Nearly 100 million people in the USA own at least one earth-mined diamond."
+          }
+        }
+      },
+      "block_order": [
+        "eb9e40a1-0155-408a-ba9d-8edcbedbfeaf",
+        "a328cf39-e7f3-44c0-ba29-e11c1df5057e",
+        "1d76edc8-7071-4479-a8fe-beb693c88d3d"
+      ],
+      "settings": {
+        "subtitle": "You Hold the Power to End Conflict Diamonds",
+        "title": "At MiaDonna, we love the beauty of diamonds. We love their sparkle and the dreams they represent, but at what cost? Unfortunately, newly mined diamonds don’t just come with a high price tag, they also come with a high price to earth and humanity. And that’s not a price most of us are willing to pay.",
+        "text": "<p>Consumer demand drives the production of products, so we are the driving force to decide what is available on the market, the price, and the chain of supply. Real change will only come through action, motivated by the sincere understanding of the impact of our decisions. It's time to make a choice. We finally hold the power.</p>"
+      }
+    },
+    "ac1f5acf-c513-4cee-bf69-f1c8e79cf3ff": {
+      "type": "conflict-diamond_section-bloctquote",
+      "settings": {
+        "image": "shopify://shop_images/Conflict-Diamonds.png",
+        "quote_text": "Over the last six years, it is estimated that 60 million carats of confirmed blood diamonds hit the international market and are now being purchased by unassuming consumers. And these are just the numbers we know about!",
+        "image_position": "right"
+      }
+    },
+    "0fe436d3-288e-4ed1-bad8-94dd7ae166b7": {
+      "type": "founder-text-section",
+      "settings": {
+        "background": "#ffffff",
+        "subtitle": "WHAT YOU NEED TO KNOW",
+        "title": "Diamond consumers need to know the unfortunate truth. Conflict diamonds are not just a problem of the past – they still have a major presence in today's society. Conflict diamonds are continuing to flood out of Africa as well as other countries rich in diamonds like Brazil, Russia and India.",
+        "text": "<p>This current definition of a “conflict diamond” does not include the humanitarian impact or the negative environmental consequences of traditional diamond mining.</p>\n    <p>Despite what the earth-mined diamond industry wants you to believe, the mining, distribution and sale of conflict diamonds is a still a major issue that needs to be addressed. TENS OF THOUSANDS of men, women, children, and infants are being tortured, raped and killed by rebels who are known to still be using conflict-diamonds as a source of funding.</p>\n    <p>Then there is the issue of the working conditions in the diamond cutting and polishing houses. India’s diamond processing industry, though the world’s largest, is facing multiple issues with labor conditions as well as blatant child labor violations.</p>\n    <p>It is important that consumers make educated purchases. We cannot stress enough how important this is. Every purchase you make supports something. You can either support a corporation that exploits people, animals and the environment, or you can buy items from philanthropic companies who help their local communities and invest in the world. The choice is yours.</p>"
+      }
+    },
+    "dd86c658-d37d-4b40-ba33-813ff2867774": {
+      "type": "conflict-diamond_section-bloctquote",
+      "settings": {
+        "image": "shopify://shop_images/diamond_mine_upsplash.png",
+        "quote_text": "Despite what the earth-mined diamond industry wants you to believe, the mining, distribution and sale of conflict diamonds is still a major problem that needs to be addressed.",
+        "image_position": "left"
+      }
+    },
+    "b4f3bada-1a58-4e6e-8fac-c343c7265cc9": {
+      "type": "founder-text-section",
+      "settings": {
+        "background": "#ffffff",
+        "subtitle": "THE KIMBERLY PROCESS - WE'VE BEEN FOOLED!",
+        "title": "What is The Kimberley Process Certification “Scam?”\nOops, we mean “Scheme.”",
+        "text": "<p>The Kimberley Process Certification Scheme (KPCS) is a rough diamond certification scheme, established in 2003, in an effort to prevent \"conflict diamonds\" from entering the rough diamond market. All rough diamonds are only to be traded between member countries and be accompanied by a government issued Kimberley Process certificate.</p>\n    <p>The KPCS was taken mainstream by the earth-mined diamond industry after the movie “Blood Diamond” was released in 2006, giving consumers their first glimpse into the dark side of the diamond trade. However, the KPCS has worked far better as a marketing scheme to relieve consumer concerns when purchasing diamonds, rather than preventing diamonds mined under horrific conditions from entering the global diamond market.</p>\n    <p>International policies CANNOT GUARANTEE a conflict-free diamond trade.</p>\n    <p>The KPCS has been marketed to diamond consumers, so they would believe, any diamond that is certified by the Kimberley Process, is free of any conflict. This is NOT true and has been proven time and time again - the Kimberley Process has failed.</p>\n    <p>The effectiveness of the KPCS has been questioned by many organizations, claiming it has failed in its purpose and does not provide markets with assurance that the diamonds are not mined in conflict areas. Now, over a decade later, we can clearly see that these measures were just ‘bandages’ put in place by the earth-mined diamond industry so they could continue to sell diamonds while turning a blind eye to the horrific conditions and rebel wars they are contributing to.</p>\n    <p>It’s unfortunate that retailers selling earth-mined diamonds still use the Kimberley Process to comfort consumers who have concerns about conflict diamonds and it’s even more unfortunate that consumers are still falling for it.</p>"
+      }
+    },
+    "820ac7b1-9d5c-4ca1-bf08-856a4c8803d4": {
+      "type": "conflict-diamond_section-text6",
+      "settings": {
+        "left-text": "100% of the diamonds sold by “Company Name” are certified by The Kimberly Process to have come from conflict-free sources.",
+        "right-subheading": "DON'T BE FOOLED!",
+        "right-text": "You might have seen a message like this when purchasing an earth-mined diamond, but please do not be fooled. The Kimberley Process has failed us and there is no such thing as a “conflict free” earth-mined diamond source."
+      }
+    },
+    "8d0ffa23-4cad-4cf7-afc1-55257ab65ccf": {
+      "type": "founder-text-section",
+      "settings": {
+        "background": "#ffffff",
+        "subtitle": "",
+        "title": "",
+        "text": "<p>There are many “loop holes” and reasons why the KPCS has failed, but the main problem is that the definition of a ‘conflict-diamond’ is too narrow. The conflict diamond definition, as per the KPCS, is as follows:</p>\n<p>“A rough diamond mined in an area controlled by insurgent forces whose sale is used to finance anti-government military action.”</p>\n<p>This means that the diamonds mined, for example, in Zimbabwe which is notorious for killing, raping and maiming hundreds of artisanal miners are considered “conflict-free” under the KPCS. This is because, despite being mined under horrific conditions, they did not fund armed forces. These “dirty diamonds” are being certified by the Kimberley Process, making them “clean” and then sold to unassuming diamond consumers who think they are purchasing “conflict-free” stones.</p>"
+      }
+    },
+    "d66ddd7f-2349-48ae-8ac5-fa9e555d3544": {
+      "type": "conflict-diamond_section-bloctquote",
+      "settings": {
+        "image": "shopify://shop_images/kimberly-process-certificate.webp",
+        "quote_text": "Diamonds mined, for example, in Zimbabwe which is notorious for killing, raping and maiming hundreds of artisinal miners are considered “conflict-free” under the KPCS.",
+        "image_position": "right"
+      }
+    },
+    "c7fd393e-4be5-4f3a-8eb5-894b483a7c4b": {
+      "type": "founder-text-section",
+      "settings": {
+        "background": "#ffffff",
+        "subtitle": "CANADIAN DIAMONDS",
+        "title": "At MiaDonna we believe Polar Ice Diamonds and/or Canadian Diamonds are NOT conflict-free diamonds.",
+        "text": "<p>Although some retailers claim that diamonds from Canada are a conflict-free choice, we know this is not the case, especially if you consider how the environment suffers when extracting diamonds from the earth.</p>\n<p>Canadian diamonds, as well as diamonds certified by the Kimberley Process, are often mined in environmentally fragile eco-systems, have significant ecological footprints and greatly impact local wildlife – a vital source of food for native communities. In Canada, the federal, provincial and territorial regulatory frameworks are inadequate to protect the environment from long term and cumulative environmental effects. This is far from conflict-free and doesn’t match our core values or standards at MiaDonna.</p>\n<p>Most consumers who purchase diamonds haven’t considered how these precious stones are actually mined, what a diamond mine looks like or even how many types of diamond mines there are. And since the Kimberley Process hasn’t put any environmental mining regulations in place, the diamond industry has had no problem taking advantage of this loophole.</p>\n<p>Consumers deserve to know about the environmental and aboriginal conflicts associated with purchasing mined diamonds.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "32de001e-e016-4d8a-9d26-5493887661b4",
+    "60003af5-c31a-48e1-b6c6-b6a20389e827",
+    "b6a68ec5-efa1-4f18-bfd8-d998cf68a282",
+    "1c18b5d4-4de7-47f9-ac3a-ff41539bfe40",
+    "76a4c200-354b-4781-aeb3-5f4daea0fc1b",
+    "dc718f59-7cbb-4286-9d44-21fd2a9abc15",
+    "eb0e1be4-9f91-47d3-b3fc-69ec8fd52b0c",
+    "ac1f5acf-c513-4cee-bf69-f1c8e79cf3ff",
+    "0fe436d3-288e-4ed1-bad8-94dd7ae166b7",
+    "dd86c658-d37d-4b40-ba33-813ff2867774",
+    "b4f3bada-1a58-4e6e-8fac-c343c7265cc9",
+    "820ac7b1-9d5c-4ca1-bf08-856a4c8803d4",
+    "8d0ffa23-4cad-4cf7-afc1-55257ab65ccf",
+    "d66ddd7f-2349-48ae-8ac5-fa9e555d3544",
+    "c7fd393e-4be5-4f3a-8eb5-894b483a7c4b"
+  ]
+}

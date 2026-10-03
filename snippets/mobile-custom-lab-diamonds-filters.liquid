@@ -1,0 +1,2468 @@
+
+<script src="https://cdn.shopify.com/s/javascripts/currencies.js"></script>
+<script src="https://connect.breadpayments.com/sdk.js"></script>
+<div class="filter__sidebar-container  vdb-lb-main-advance-filter-mobile" style="top: 0px;">
+  <div class="filter__sidebar-content">
+    <header class="dmd-filterhd">
+      <h2>Filter</h2>
+      <button type="button"  class="icon-close vdb-lb-advanced-filter-mobile-view-close filter-mobile-view-close" aria-label="Close Filter">
+        {% render 'icon-nwclose' %}
+      </button>
+    </header>
+    <section>
+      <ul class="filter__list">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'Shape' %}
+                {% assign shapeString = '' %}
+                      {% for i in (1..14) %}
+                        {% assign shape_label_id = 'main_title_shape_' | append: i %}
+                        {% assign shape_display_id = 'main_title_shape_checkbox_' | append: i %}
+                        {% if block.settings[shape_label_id] != blank and block.settings[shape_display_id] == true %}
+                          {% assign shapeString = shapeString | append: ',' | append: i %}
+                        {% endif %}
+                      {% endfor %}
+
+                      {% assign shapeArray = shapeString | remove_first: ',' | split: ',' %}
+                          {% assign shapeIndex = 0 %}
+                          {% assign shapeParams = '' %}
+                          {% if labGrownPageQueryArray != blank %}
+                            {% for param in labGrownPageQueryArray %}
+                              {%- if param contains "shape" -%}
+                              
+                                {% assign shapeKey = param | split: '=' | first | strip %}
+                                {% if shapeKey != "supported_shapes" %}
+                                  {% assign shapeParams = param | split: '=' | last | url_decode|strip %}
+                                  {% assign shapeParams = shapeParams | replace: "Cut", "" | strip %}
+                                {% endif %}
+                              {%- endif -%}
+                            {% endfor %}
+                          {% else %}
+                          {% endif %}
+                      {% assign defaultShapeIndex = -1 %}
+                      {% assign shapeIndex = '' %}
+              <li class="filter__list-item filter__list-shapes">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h3>Shape</h3>
+                  </div>
+
+                        <div class="filter-selected shape-filter-selected hide" id="filter-shape" role="group">
+                      <span class="filter-name shape-filter-name"></span>
+                      
+                    </div>
+                    <button class="filter__list-icon" 
+                      data-li="shapes"
+                      aria-label="Toggle shapes filter options"
+                      aria-controls="filter-shapes"
+                      type="button"
+                    >
+                    {% render 'icon-down-arrow' %}
+                  </button>
+                </div>
+                <div class="filter__list-content" id="filter-shapes">
+                   <div class="filter-info">
+                    <div class="tooltip mobile-tooltip">
+                      <button type="button" data-mb-tooltip="shape"  aria-controls="tooltip-shape" class="dmd-toltiptext"  data-mb-tooltip="shape">Shape Guide</button>
+                      <div class="tooltiptext" id="tooltip-shape"  role="dialog"  aria-labelledby="tooltip-shape-title">
+                        <div class="tooltip-title" id="tooltip-shape-title">
+                          Shape 
+                          <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close Shape tooltip">
+                            {% render 'icon-close' %}
+                          </button>
+                        </div>
+                        {% if block.settings.description_richtext_shape != blank %}
+                          <p class="tooltip-content">{{ block.settings.description_richtext_shape | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="options vdb-lb-slider-shape">
+                  
+
+                      {% for j in shapeArray %}
+                        {% assign selected_shape_label_id = 'main_title_shape_' | append: j %}
+                        {% assign selected_shape_display_id = 'main_title_shape_checkbox_' | append: j %}
+                        {% assign selected_shape_icon_id = 'main_title_shape_icon_' | append: j %}
+                        {% if block.settings[selected_shape_label_id] != blank and block.settings[selected_shape_display_id] == true %}
+                          {% assign selected_shape_handle = block.settings[shape_label_id] | handle | downcase %}
+                          {% assign selected_class_name_shape = 'vdb-list-item-shape-style-' | append: selected_shape_handle %}
+                             {% if shapeParams contains block.settings[selected_shape_label_id] %}     {% assign shapeIndex = shapeIndex | append: ',' | append: j %}{% endif %}
+                        {% endif %}                          
+                      {% endfor %}  
+                      
+                      {% assign shapeIndex = shapeIndex | remove_first: ','  | split: ','  %}
+                       {% for i in shapeArray %}
+                        {% assign shape_label_id = 'main_title_shape_' | append: i %}
+                        {% assign shape_display_id = 'main_title_shape_checkbox_' | append: i %}
+                        {% assign shape_icon_id = 'main_title_shape_icon_' | append: i %}
+
+                        {% if block.settings[shape_label_id] != blank and block.settings[shape_display_id] == true %}
+                        
+                        {% assign shape_handle = block.settings[shape_label_id] | handle | downcase %}
+                        {% assign class_name_shape = 'vdb-list-item-shape-style-' | append: shape_handle %}
+                        {% unless i != defaultShapeIndex %} {% assign defaultShape = block.settings[shape_label_id] %}{% endunless %}
+                          <div class="option {{ class_name_shape }} {% if shapeIndex contains i %}active-state{% endif %}">
+                            <button
+                              class="vdb-list-item-a-shape-style {% if shapeIndex contains i %}active{% endif %}"
+                              data-module="{{ class_name_shape }}"
+                            data-shape-value="{{ block.settings[shape_label_id] }}">
+                              {% if block.settings[shape_icon_id] != blank %}
+                                {{ block.settings[shape_icon_id] | image_url: width: 300 | image_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                              {% else %}
+                                {% if shape_handle == 'round' %}
+                                  {% render 'icon-shape-round-cut' %}
+                                {% elsif shape_handle == 'princess' %}
+                                  {% render 'icon-shape-princess-cut' %}
+                                {% elsif shape_handle == 'cushion' %}
+                                  {% render 'icon-shape-cushion-cut' %}
+                                {% elsif shape_handle == 'elongated-cushion' %}
+                                  {% render 'icon-shape-elongated-cushion' %}
+                                {% elsif shape_handle == 'oval' %}
+                                  {% render 'icon-shape-oval-cut' %}
+                                {% elsif shape_handle == 'emerald' %}
+                                  {% render 'icon-shape-emerald-cut' %}
+                                {% elsif shape_handle == 'asscher' %}
+                                  {% render 'icon-shape-asscher-cut' %}
+                                {% elsif shape_handle == 'radiant' %}
+                                  {% render 'icon-shape-radiant-cut' %}
+                                {% elsif shape_handle == 'pear' %}
+                                  {% render 'icon-shape-pear-cut' %}
+                                {% elsif shape_handle == 'heart' %}
+                                  {% render 'icon-shape-heart-cut' %}
+                                {% elsif shape_handle == 'marquise' %}
+                                  {% render 'icon-shape-marquise-cut' %}
+                                {% elsif shape_handle == 'oval-rose' %}
+                                  {% render 'icon-shape-oval-rose-cut' %}
+                                {% elsif shape_handle == 'trillion' or shape_handle == 'trilliant' %}
+                                  {% render 'icon-shape-trillion-cut' %}
+                                {% elsif shape_handle == 'half-moon' %}
+                                  {% render 'icon-shape-half-moon-cut' %}
+                                {% elsif shape_handle == 'baguette' %}
+                                  {% render 'icon-shape-baguette-cut' %}
+                                {% elsif shape_handle == 'rose-brilliant' %}
+                                  {% render 'icon-shape-rose-brilliant-cut' %}
+                                {% elsif shape_handle == 'rose' %}
+                                  {% render 'icon-shape-rose-cut' %}
+                                {% endif %}
+                              {% endif %}
+                              <span>{{ block.settings[shape_label_id] }}</span>
+                            </button>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                  </div>
+                </div>
+              </li>
+            {% when 'Color' %}
+                {% assign color_values = block.settings['main_value_color_1'] %}
+                      {% assign colorParams = 'F,D' %}
+                      {% if labGrownPageQueryArray != blank %}
+                        {% for param in labGrownPageQueryArray %}
+                          {%- if param contains "color" -%}
+                            {% assign colorFirstParams = param | split: '=' | first | url_decode | strip %}
+                            {%- if colorFirstParams == "color" -%}
+                              {% assign colorParams = param | split: '=' | last | url_decode | strip %}
+                            {%- endif -%}
+                          {%- endif -%}
+                        {% endfor %}
+                      {% endif %}
+                      {% assign color_value_array = color_values | split: ',' %}
+                       {% assign colorParamsArray = '' %}
+                      {% if colorParams != blank %}
+                        {% assign colorParamsArray = colorParams | split: ',' %}
+                      {% else %}
+                        {% assign colorParamsArray = color_values | split: ',' %}  
+                        {% assign colorParamsArray = colorParamsArray %}
+                     
+                      {% endif %}
+                          {% assign color_selected_min = colorParamsArray | first %}
+                          {% assign color_selected_max = colorParamsArray | last %}
+                          {% for c in color_value_array %}
+                          {% if c == color_selected_min %}
+                            {% assign min_index = forloop.index0 %}
+                          {% endif %}
+                          {% if c == color_selected_max %}
+                            {% assign max_index = forloop.index0 %}
+                          {% endif %}
+                          {% endfor %}
+                          {% if min_index == blank %}
+                            {% assign min_index = max_index %}
+                          {% endif %}  
+                          {% if max_index == blank %}
+                            {% assign max_index = min_index %}
+                          {% endif %}  
+              <li class="filter__list-item filter__list-color">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h3>Color</h3>
+                  </div>
+                    <div class="filter-selected color-filter-selected " id="filter-color" role="group">
+                      <span class="filter-name color-filter-name">{{ colorParamsArray | first }} - {{ colorParamsArray | last }}</span>
+                     
+                    </div>
+
+
+                    <button class="filter__list-icon" 
+                      data-li="color"
+                      aria-label="Toggle color filter options"
+                      aria-controls="filter-color"
+                      type="button"
+                    >
+                    {% render 'icon-down-arrow' %}
+                  </button>
+                </div>
+                <div class="filter__list-content">
+                  <div class="filter-info">
+                        <div class="tooltip mobile-tooltip">
+                            <button type="button" data-mb-tooltip="color"  aria-controls="tooltip-color" class="dmd-toltiptext"  data-mb-tooltip="color">Color Guide</button>
+                            <div class="tooltiptext" id="tooltip-color"  role="dialog"  aria-labelledby="tooltip-color-title">
+                              <div class="tooltip-title" id="tooltip-color-title">
+                                Color 
+                                <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close color tooltip">
+                                  {% render 'icon-close' %}
+                                </button>
+                              </div>
+                              {% if block.settings.description_textarea_color != blank %}
+                                <p class="tooltip-content">{{ block.settings.description_textarea_color | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                              {% endif %}
+                             
+                            </div>
+                        </div>
+                    </div>
+                     
+                          <div
+                          class="dmdfilter-swatches dmdfilter-swatche-color"
+                          role="radiogroup"
+                          aria-label="Slider Color"
+                          data-option-name="Color"
+                            data-multiple="true"
+                          >
+                          {% for color in color_value_array %}
+                              {% assign colorclassactive = '' %}
+                              {% assign current_index = forloop.index0 %}
+
+                              {% if current_index >= min_index and current_index <= max_index %}
+                              {% assign colorclassactive = 'active' %}
+                            {% endif %}
+                            <button
+                              type="button"
+                              class="swatches-tab {{ colorclassactive }}"
+                              role="radio"
+                              aria-checked="{% if forloop.first %}true{% else %}false{% endif %}"
+                              tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+                              data-value="{{ color }}"
+                            >
+                              {{ color }}
+                            </button>
+                          {% endfor %}
+                          </div>
+                  <div class="range-slider range-target hide">
+                    <div class="range-base">
+                   
+                     
+                      {% assign colorValues = color_values |  split: ',' %}
+                      {% assign defaultColor = color_values %}
+                      {% assign colorData = color_values %}
+                      <tc-range-slider id="slider_color_mia_mobile"
+                        min="{{ color_value_array | first }}"
+                        max="{{ color_value_array | last }}"
+                        value1="{{ colorParamsArray | first }}"
+                        value2="{{ colorParamsArray | last }}"
+                        aria-label1="Minimum color"
+                        aria-label2="Maximum color"
+                        data="{{ color_values }}"
+                        marks="true"
+                        marks-count="{{ color_value_array | size }}"
+                        marks-values-count="{{ color_value_array | size }}"
+                        marks="true"
+                        marks-count="8"
+                        marks-values-count="8"
+                        mousewheel-disabled="true"
+                        pointer-bg="#000000"
+                        pointer-bg-hover="#000000"
+                        pointer-bg-focus="#000000"
+                        pointer-border="1px solid #000000"
+                        pointer-border-hover="1px solid #000000"
+                        pointer-border-focus="1px solid #000000"
+                        slider-bg="#D8D5DC"
+                        slider-bg-fill="#000000"
+                        slider-width="100%"
+                        slider-height="8px"
+                        generate-labels="false"
+                        pointer1-width="20px"
+                        pointer1-height="20px"
+                        pointer2-width="20px"
+                        pointer2-height="20px"
+                        slider-bg-hover="#D8D5DC"
+                        css-links="{{ 'tc-range-box-shadow.css' | asset_url }};"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'Carat' %}
+              {% assign caratMinParams = '2' %}
+              {% assign caratMaxParams = '' %}
+              {% assign ringHandle = 'No' %}
+              {% if labGrownPageQueryArray != blank %}
+                {% for param in labGrownPageQueryArray %}
+                  {%- if param contains "ring-handle" -%}
+                    {% assign ringHandle = 'Yes' %}
+                  {%- endif -%}
+                {% endfor %}
+
+                {% for param in labGrownPageQueryArray %}
+                  {%- if param contains "min_carat" -%}
+                    {% assign caratMinParams = param | split: '=' | last | strip | to_i %}
+                  {%- endif -%}
+                {% endfor %}
+                  
+                {% for param in labGrownPageQueryArray %}
+                  {%- if param contains "max_carat" -%}
+                    {% assign caratMaxParams = param | split: '=' | last | strip | to_i %}
+                 
+                  {%- endif -%}
+                {% endfor %}
+              {% else %}
+                
+              {% endif %}
+              {%- assign defaultCaratMin = caratMinParams -%}
+              {%- assign defaultCaratMax = caratMaxParams -%}
+                {%if caratMinParams == blank %}
+                {% endif %}  
+              {% if carat_metafields != blank %}
+                {% assign caratMetafields = carat_metafields |  split: '-' %}
+                {% assign minCaratValue = caratMetafields | first %}
+                {% assign maxCaratValue = caratMetafields | last %}
+              {% else %}
+                {% assign minCaratValue = block.settings.main_title_carat_min %}
+                {% assign maxCaratValue = block.settings.main_title_carat_max %}
+              {% endif %}
+              {%- assign defaultCaratMin = minCaratValue -%}
+              {%- assign defaultCaratMax = maxCaratValue -%}
+
+              {% if ringHandle == 'Yes' %}
+                {% assign minCaratValue = caratMinParams %}
+                {% assign caratMinParams = minCaratValue %}
+                {% assign maxCaratValue = caratMaxParams %}
+              {% endif %}
+              {% if caratMaxParams == blank %}
+                {% assign caratMaxParams = maxCaratValue %}
+              {% endif %}
+               {% if caratMinParams == blank %}
+                {% assign caratMinParams = minCaratValue %}
+              {% endif %}
+              <li class="filter__list-item filter__list-carat">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h3>Carat</h3>
+                  </div>
+                   <div class="filter-selected carat-filter-selected " id="filter-carat" role="group">
+                      <span class="filter-name carat-filter-name">{{caratMinParams }} ct - {{ caratMaxParams }} ct</span>
+                      
+                    </div>
+                    <button class="filter__list-icon" 
+                      data-li="carat"
+                      aria-label="Toggle carat filter options"
+                      aria-controls="filter-carat"
+                      type="button"
+                    >
+                    {% render 'icon-down-arrow' %}
+                    </button>
+                </div>
+                 
+                <div class="filter__list-content">
+                  <div class="filter-info">
+                        <div class="tooltip mobile-tooltip">
+                            <button type="button" data-mb-tooltip="Carat"  aria-controls="tooltip-Carat" class="dmd-toltiptext"  data-mb-tooltip="Carat">Carat Guide</button>
+                            <div class="tooltiptext" id="tooltip-Carat"  role="dialog"  aria-labelledby="tooltip-Carat-title">
+                              <div class="tooltip-title" id="tooltip-Carat-title">
+                                Carat Size  
+                                <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close Carat tooltip">
+                                  {% render 'icon-close' %}
+                                </button>
+                              </div>
+                               {% if block.settings.description_textarea_carat != blank %}
+                                <p class="tooltip-content">{{ block.settings.description_textarea_carat | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                              {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                  <div class="range-slider range-target">
+                    
+                    <div class="range-base">
+                      <tc-range-slider
+                        id="slider_carat_mia_mobile"
+                        min="{{ minCaratValue }}"
+                        max="{{ maxCaratValue }}"
+                        value1="{{ caratMinParams }}"
+                        value2="{{ caratMaxParams }}"
+                        aria-label1="Minimum carat weight"
+                        aria-label2="Maximum carat weight"
+                        moving-tooltip="false"
+                        moving-tooltip-distance-to-pointer="-30"
+                        moving-tooltip-bg="transparent"
+                        moving-tooltip-text-color="#3c3737"
+                        moving-tooltip-width="70"
+                        moving-tooltip-height="20"
+                        mousewheel-disabled="true"
+                        pointer1-width="20px"
+                        pointer1-height="20px"
+                        pointer2-width="20px"
+                        pointer2-height="20px"
+                        pointer-bg="#000000"
+                        pointer-bg-hover="#000000"
+                        pointer-bg-focus="#000000"
+                        pointer-border="1px solid #000000"
+                        pointer-border-hover="1px solid #000000"
+                        pointer-border-focus="1px solid #000000"
+                        slider-bg="#D8D5DC"
+                        slider-bg-hover="#D8D5DC" 
+                        slider-bg-fill="#000000"
+                        moving-tooltip-units=" CT"
+                        slider-width="100%"
+                        slider-height="8px"
+                        generate-labels="false"
+                        css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+
+
+                    </div>
+                    
+                    <div class="range-values range-values-new">
+                      <input 
+                        type="text" 
+                        id="minValue" 
+                        class="range-box"
+                        aria-label="Minimum value"
+                        placeholder="1.00 ct"
+                      >
+
+                      <input 
+                        type="text" 
+                        id="maxValue" 
+                        class="range-box"
+                        aria-label="Maximum value"
+                        placeholder="1.99 ct"
+                      >
+                         
+                    </div>
+                    <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                const slider = document.getElementById('slider_carat_mia_mobile');
+                                const minBox = document.getElementById('minValue');
+                                const maxBox = document.getElementById('maxValue');
+
+                                // Define your min/max allowed values
+                                const minCaratValue = parseFloat(slider.min); // minimum allowed
+                                const maxCaratValue = parseFloat(slider.max); // maximum allowed
+
+                                // Format number + " ct"
+                                function formatCT(num) {
+                                    return parseFloat(num).toFixed(2) + ' ct';
+                                }
+
+                                // Update textboxes from slider values
+                                function updateValues() {
+                                    minBox.value = formatCT(slider.value1);
+                                    maxBox.value = formatCT(slider.value2);
+                                }
+
+                                // Initial load
+                                updateValues();
+
+                                // Slider → textbox
+                                slider.addEventListener('change', updateValues);
+
+                                // Validate input
+                                function handleInput() {
+                                    let minVal = parseFloat(minBox.value.replace(/[^0-9.]/g, ''));
+                                    let maxVal = parseFloat(maxBox.value.replace(/[^0-9.]/g, ''));
+
+                                    // Fallback to min/max if invalid
+                                    if (isNaN(minVal)) minVal = minCaratValue;
+                                    if (isNaN(maxVal)) maxVal = maxCaratValue;
+
+                                    // Clamp to allowed range
+                                    minVal = Math.max(minCaratValue, Math.min(minVal, maxCaratValue));
+                                    maxVal = Math.max(minCaratValue, Math.min(maxVal, maxCaratValue));
+
+                                    // Ensure minBox ≤ maxBox
+                                    if (minVal > maxVal) minVal = maxVal;
+                                    if (maxVal < minVal) maxVal = minVal;
+
+                                    // Update slider values
+                                    slider.value1 = minVal;
+                                    slider.value2 = maxVal;
+
+                                    // Update textboxes with ct
+                                    minBox.value = formatCT(minVal);
+                                    maxBox.value = formatCT(maxVal);
+                                }
+
+                                // Event listeners for minBox and maxBox
+                                [minBox, maxBox].forEach(box => {
+                                    // Only allow numbers while typing
+                                    box.addEventListener('input', function() {
+                                        this.value = this.value.replace(/[^0-9.]/g, '');
+                                    });
+                                    box.addEventListener('change', handleInput);
+                                    box.addEventListener('blur', handleInput);
+                                });
+
+                            });
+                    </script>  
+                  </div>
+                  {% assign result = maxCaratValue | divided_by: 8.0 | ceil %}
+                    {% if result < 1 %}
+                      {% assign result = 1 %}
+                    {% endif %}
+                   {% assign step = result | plus: 0 %}
+                  {% assign max_limit = maxCaratValue | plus: 0 %}
+                  <div class="quick-filterlable">Quick Filter:</div>
+                  <div
+                    class="dmdfilter-swatches dmdfilter-swatche-carat"
+                    role="radiogroup"
+                    aria-label="Slider Carat"
+                    data-option-name="Carat"
+                     data-multiple="false"
+                  >
+                   
+                        <button type="button"
+                            class="swatches-tab"
+                            role="radio"
+                            aria-checked="true"
+                            tabindex="-1"
+                            data-value="1-1.99">
+                          1.00 - 1.99 ct
+                          </button>
+                           <button type="button"
+                            class="swatches-tab"
+                            role="radio"
+                            aria-checked="true"
+                            tabindex="-1"
+                            data-value="2-2.99">
+                          2.00 - 2.99 ct
+                          </button>
+                           <button type="button"
+                            class="swatches-tab"
+                            role="radio"
+                            aria-checked="true"
+                            tabindex="-1"
+                            data-value="3-3.99">
+                          3.00 - 3.99 ct
+                          </button>
+                           <button type="button"
+                            class="swatches-tab"
+                            role="radio"
+                            aria-checked="true"
+                            tabindex="-1"
+                            data-value="4-4.99">
+                          4.00 - 4.99 ct
+                          </button>
+                           <button type="button"
+                            class="swatches-tab"
+                            role="radio"
+                            aria-checked="true"
+                            tabindex="-1"
+                            data-value="5-5.99">
+                          5.00 - 5.99 ct
+                          </button>
+                           <button type="button"
+                            class="swatches-tab"
+                            role="radio"
+                            aria-checked="true"
+                            tabindex="-1"
+                            data-value="6-6.99">
+                          6.00 - 6.99 ct
+                          </button>
+                           <button type="button"
+                            class="swatches-tab"
+                            role="radio"
+                            aria-checked="true"
+                            tabindex="-1"
+                            data-value="7-7.99">
+                          7.00 - 7.99 ct
+                          </button>
+                           <button type="button"
+                            class="swatches-tab"
+                            role="radio"
+                            aria-checked="true"
+                            tabindex="-1"
+                            data-value="8-{{ maxCaratValue }}">
+                          8.00 +
+                          </button>
+
+                  </div>
+                </div>
+                 
+                  
+              </li>
+              {% when 'Price' %}
+                {% assign priceMinParams = '' %}
+                {% assign priceMaxParams = '' %}
+                {% if labGrownPageQueryArray != blank %}
+                  {% for param in labGrownPageQueryArray %}
+                    {%- if param contains "min_price" -%}
+                      {% assign priceMinParams = param | split: '=' | last | strip | to_i %}
+
+                    {%- endif -%}
+                  {% endfor %}
+
+                  {% for param in labGrownPageQueryArray %}
+                    {%- if param contains "max_price" -%}
+                      {% assign priceMaxParams = param | split: '=' | last | strip | to_i %}
+                    {%- endif -%}
+                  {% endfor %}
+                {% else %}
+                {% endif %}
+                {%- assign defaultPriceMin = priceMinParams -%}
+                {%- assign defaultPriceMax = priceMaxParams -%}
+
+                {% if price_metafields != blank %}
+                  {% assign priceMetafields = price_metafields |  split: '-' %}
+                  {% assign minPriceValue = priceMetafields | first %}
+                  {% assign maxPriceValue = priceMetafields | last %}
+                {% else %}
+                  {% assign minPriceValue = block.settings.main_title_carat_min %}
+                  {% assign maxPriceValue = block.settings.main_title_carat_max %}
+                {% endif %}
+                
+                {%- assign defaultPriceMin = minPriceValue -%}
+                {%- assign defaultPriceMax = maxPriceValue -%}
+                {% if priceMinParams == blank %}{% assign priceMinParams = minPriceValue %}{% endif %}
+                {% if priceMaxParams == blank %}{% assign priceMaxParams = maxPriceValue %}{% endif %}
+
+                <li class="filter__list-item filter__list-price">
+                  <div class="filter__list-label">
+                    <div class="filter__list-title">
+                      <h3>Price</h3>
+                    </div>
+                       <div class="filter-selected price-filter-selected " id="filter-price" role="group">
+                        <span class="filter-name price-filter-name">{{priceMinParams }}  - {{ priceMaxParams }} </span>
+                      </div> 
+                      <button class="filter__list-icon" 
+                        data-li="price"
+                        aria-label="Toggle price filter options"
+                        aria-controls="filter-price"
+                        type="button"
+                      >
+                      {% render 'icon-down-arrow' %}
+                      </button>
+                    
+                  </div>
+                  
+                  <div class="filter__list-content">
+                    <div class="filter-info">
+                          <div class="tooltip mobile-tooltip">
+                              <button type="button" data-mb-tooltip="price"  aria-controls="tooltip-price" class="dmd-toltiptext"  data-mb-tooltip="price">Price Guide</button>
+                              <div class="tooltiptext" id="tooltip-price"  role="dialog"  aria-labelledby="tooltip-price-title">
+                                <div class="tooltip-title" id="tooltip-price-title">
+                                  Price  
+                                  <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close price tooltip">
+                                    {% render 'icon-close' %}
+                                  </button>
+                                </div>
+                                {% if block.settings.description_textarea_price != blank %}
+                                  <p class="tooltip-content">{{ block.settings.description_textarea_price | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                                  
+                                {% endif %}
+                              </div>
+                          </div>
+                      </div>
+                    <div class="range-slider range-target">
+                      <div class="range-base">
+                        <tc-range-slider
+                          id="slider_price_mia_mobile"
+                          min="{{ minPriceValue }}"
+                          max="{{ maxPriceValue }}"
+                          value1="{{ priceMinParams }}"
+                          value2="{{ priceMaxParams }}"
+                          aria-label1="Minimum price"
+                          aria-label2="Maximum price"
+                          step="0.01"
+                          pointers-min-distance="999"
+                          moving-tooltip="false"
+                          moving-tooltip-distance-to-pointer="-30"
+                          moving-tooltip-bg="transparent"
+                          moving-tooltip-text-color="#3c3737"
+                          moving-tooltip-width="70"
+                          moving-tooltip-height="20"
+                          mousewheel-disabled="true"
+                          pointer-bg="#000000"
+                          pointer-bg-hover="#000000"
+                          pointer-bg-focus="#000000"
+                          pointer-border="1px solid #000000"
+                          pointer-border-hover="1px solid #000000"
+                          pointer-border-focus="1px solid #000000"
+                          slider-bg="#D8D5DC"
+                          slider-bg-fill="#000000"
+                          moving-tooltip-units="$"
+                          moving-tooltip-units-type="prefix"
+                          slider-width="100%"
+                          slider-height="8px"
+                          generate-labels="false"
+                          pointer1-width="20px"
+                          pointer1-height="20px"
+                          pointer2-width="20px"
+                          pointer2-height="20px"
+                          slider-bg-hover="#D8D5DC" 
+
+                        css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                      </div>
+                      <div class="range-values range-values-new">
+                            <input 
+                                type="text" 
+                                id="minPrice" 
+                                class="range-box"
+                                aria-label="Minimum price"
+                                placeholder="$1,000"
+                            >
+                            <input 
+                                type="text" 
+                                id="maxPrice" 
+                                class="range-box"
+                                aria-label="Maximum price"
+                                placeholder="$1,999"
+                            >
+                        </div>
+                        <script>
+                          document.addEventListener('DOMContentLoaded', function() {
+
+                          const priceSlider = document.getElementById('slider_price_mia_mobile');
+                          const minPriceBox = document.getElementById('minPrice');
+                          const maxPriceBox = document.getElementById('maxPrice');
+
+                          // Price min/max
+                          const minPriceAllowed = Math.round(priceSlider.min);
+                          const maxPriceAllowed = Math.round(priceSlider.max);
+
+                          // Format price with $
+                          function formatPrice(num) {
+                              return '$'+Math.round(num).toLocaleString('en-US');
+                          }
+
+                          // Update textboxes from slider
+                          function updatePriceBoxes() {
+                              minPriceBox.value = formatPrice(priceSlider.value1 || minPriceAllowed);
+                              maxPriceBox.value = formatPrice(priceSlider.value2 || maxPriceAllowed);
+                          }
+
+                          // Initial load
+                          updatePriceBoxes();
+
+                          // Slider → textbox
+                          priceSlider.addEventListener('change', updatePriceBoxes);
+
+                          // Validate input
+                          function handlePriceInput() {
+                              let minVal = Math.round(minPriceBox.value.replace(/[^0-9]/g, ''));
+                              let maxVal = Math.round(maxPriceBox.value.replace(/[^0-9]/g, ''));
+
+                              if (isNaN(minVal)) minVal = minPriceAllowed;
+                              if (isNaN(maxVal)) maxVal = maxPriceAllowed;
+
+                              // Clamp to allowed range
+                              minVal = Math.max(minPriceAllowed, Math.min(minVal, maxPriceAllowed));
+                              maxVal = Math.max(minPriceAllowed, Math.min(maxVal, maxPriceAllowed));
+
+                              // Ensure min ≤ max
+                              if (minVal > maxVal) minVal = maxVal;
+                              if (maxVal < minVal) maxVal = minVal;
+
+                              // Update slider values (example: dual handle)
+                              priceSlider.value1 = minVal;
+                              priceSlider.value2 = maxVal;
+
+                              // Update textboxes with $
+                              minPriceBox.value = formatPrice(minVal);
+                              maxPriceBox.value = formatPrice(maxVal);
+                          }
+
+                          // Event listeners for textbox
+                          [minPriceBox, maxPriceBox].forEach(box => {
+                              // Only allow numbers while typing
+                              box.addEventListener('input', function() {
+                                  this.value = this.value.replace(/[^0-9]/g, '');
+                              });
+                              box.addEventListener('change', handlePriceInput);
+                              box.addEventListener('blur', handlePriceInput);
+                          });
+
+                      });
+                                            </script>  
+                    </div>
+                    <div class="quick-filterlable">Quick Filter:</div>
+                    {% assign maxPrice = maxPriceValue | plus: 0 %}
+                      {% assign steps = 6 %}
+                      {% assign raw_increment = maxPrice | divided_by: steps %}
+                      {% assign increment = raw_increment | divided_by: 5000 | round | times: 5000 %}
+                      {% if increment == 0 %}{% assign increment = 5000 %}{% endif %}
+                      {% assign start_base = 1000 %}
+                      {% assign bucket = 0 %}
+                      {% assign priceMinInt = priceMinParams | plus: 0 %}
+                      {% assign priceMaxInt = priceMaxParams | plus: 0 %}
+                    <div class="dmdfilter-swatches dmdfilter-swatche-price" role="radiogroup" aria-label="Price" data-option-name="Price" data-multiple="false">
+                    <button type="button" class="swatches-tab" role="radio" aria-checked="true" tabindex="-1" data-value="1000-1999"> $1,000 – $1,999 </button>
+                    <button type="button" class="swatches-tab" role="radio" aria-checked="true" tabindex="-1" data-value="2000-2999">$2,000 – $2,999 </button>
+                    <button type="button" class="swatches-tab" role="radio" aria-checked="true" tabindex="-1" data-value="3000-3999"> $3,000 – $3,999 </button>
+                    <button type="button" class="swatches-tab" role="radio" aria-checked="true" tabindex="-1" data-value="4000-4999"> $4,000 – $4,999 </button>
+                    <button type="button" class="swatches-tab" role="radio" aria-checked="true" tabindex="-1" data-value="5000-5999"> $5,000 – $5,999 </button>
+                    <button type="button" class="swatches-tab" role="radio" aria-checked="true" tabindex="-1" data-value="6000-{{ maxPriceValue }}"> $6,0000 + </button>
+                  </div>
+                      
+                  </div>
+                </li>
+            {% when 'Clarity' %}
+                {% assign clarity_values = '' %}
+                  {% for i in (1..9) %}
+                  {% assign clarity_label_id = 'main_title_clarity_' | append: i %}
+                  {% assign clarity_display_id = 'main_title_clarity_checkbox_' | append: i %}
+                  {% if block.settings[clarity_label_id] != blank and block.settings[clarity_display_id] == true %}
+                    {% assign clarity_values = clarity_values | append: block.settings[clarity_label_id] | append: ',' %}
+                  {% endif %}
+                  {% endfor %}
+                  {% assign clarity_value_array = clarity_values | replace_last: ',', '' | split: ',' %}
+                  {% assign clarity_value_array = clarity_value_array %} 
+                      {% assign clarityParams = 'VS1,IF' %}
+                  {% if labGrownPageQueryArray != blank %}
+                  {% for param in labGrownPageQueryArray %}
+                    {%- if param contains "clarity" -%}
+                        {% assign clarityParams = param | split: '=' | last | url_decode | strip %}
+                    {%- endif -%}
+                  {% endfor %}
+                  {% endif %}
+
+                  {% assign clarityParamsArray = '' %}
+                  {% if clarityParams != blank %}
+                  {% assign clarityParamsArray = clarityParams | split: ',' %}
+                  {% else %}
+                  {% assign clarityParamsArray = clarity_values | replace_last: ',', '' | split: ',' %}  
+                  {% assign clarityParamsArray = clarityParamsArray %} 
+                  {% endif %}
+                  {% assign clarityValues = clarity_values | replace_last: ', ', '' |  split: ',' %}
+
+                    {% assign clarity_selected_min = clarityParamsArray | first %}
+                  {% assign clarity_selected_max = clarityParamsArray | last %}
+
+                  {% for clarity_val in clarity_value_array %}
+                    {% if clarity_val == clarity_selected_min %}
+                      {% assign min_index = forloop.index0 %}
+                    {% endif %}
+
+                    {% if clarity_val == clarity_selected_max %}
+                      {% assign max_index = forloop.index0 %}
+                    {% endif %}
+                  {% endfor %}
+              <li class="filter__list-item filter__list-clarity">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h3>Clarity</h3>
+                  </div>
+                    <div class="filter-selected clarity-filter-selected " id="filter-clarity" role="group">
+                      <span class="filter-name clarity-filter-name">{{ clarityParamsArray | first }} - {{ clarityParamsArray | last }}</span>
+                     
+                    </div>
+
+                    <button class="filter__list-icon" 
+                      data-li="clarity"
+                      aria-label="Toggle clarity filter options"
+                      aria-controls="filter-clarity"
+                      type="button"
+                    >
+                    {% render 'icon-down-arrow' %}
+                    </button>
+                </div>
+                <div class="filter__list-content">
+                   <div class="filter-info">
+                      <div class="tooltip mobile-tooltip">
+                          <button type="button" data-mb-tooltip="clarity"  aria-controls="tooltip-clarity" class="dmd-toltiptext"  data-mb-tooltip="clarity">Clarity Guide</button>
+                          <div class="tooltiptext" id="tooltip-clarity"  role="dialog"  aria-labelledby="tooltip-clarity-title">
+                            <div class="tooltip-title" id="tooltip-clarity-title">
+                              Clarity  
+                              <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close clarity tooltip">
+                                {% render 'icon-close' %}
+                              </button>
+                            </div>
+                            {% if block.settings.description_textarea_clarity != blank %}
+                              <p class="tooltip-content">{{ block.settings.description_textarea_clarity | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                              
+                                  <div class="inner-tolcontent js-tolcontent" data-type="clarity">
+
+    <img id="clarity-image"
+        src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/www.miadonna.com/cdn/shop/t/495/assets/VS2.jpg"
+        width="581" height="414" alt="clarity">
+
+    <p id="clarity-text">
+        VS stands for Very Slightly Included. While some diamonds among this clarity grade do not have inclusions visible to the naked eye, some may have a few visible inclusions. The larger the carat weight, the more visible inclusions will be. There are two sub-categories of VS diamonds: VS1 and VS2.
+    </p>
+
+    <div class="dmdfilter-swatches" role="radiogroup">
+
+        <button class="swatches-tab active"
+            data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/VS2.jpg"
+            data-text="VS stands for Very Slightly Included. While some diamonds among this clarity grade do not have inclusions visible to the naked eye, some may have a few visible inclusions. The larger the carat weight, the more visible inclusions will be. There are two sub-categories of VS diamonds: VS1 and VS2.">
+            VS2
+        </button>
+
+        <button class="swatches-tab"
+            data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/VS1.jpg"
+            data-text="VS stands for Very Slightly Included. While some diamonds among this clarity grade do not have inclusions visible to the naked eye, some may have a few visible inclusions. The larger the carat weight, the more visible inclusions will be. There are two sub-categories of VS diamonds: VS1 and VS2.">
+            VS1
+        </button>
+
+        <button class="swatches-tab"
+            data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/VVS2.jpg"
+            data-text="VVS stands for Very Very Slightly Included. Just one step below internally flawless, you are unable to see any inclusions with the naked eye, but the slighest inclusions may be visible under magnification. There are two sub-categories of VVS diamonds: VVS1 and VVS2.">
+            VVS2
+        </button>
+
+        <button class="swatches-tab"
+            data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/VVS1.jpg"
+            data-text="VVS stands for Very Very Slightly Included. Just one step below internally flawless, you are unable to see any inclusions with the naked eye, but the slighest inclusions may be visible under magnification. There are two sub-categories of VVS diamonds: VVS1 and VVS2.">
+            VVS1
+        </button>
+
+        <button class="swatches-tab"
+            data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/IF2.jpg"
+            data-text="The highest clarity grade for a diamond. Inclusions are not visible to the naked eye or underneath 10x magnification.">
+            IF
+        </button>
+
+        {% comment %} <button class="swatches-tab"
+            data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/SI1.jpg"
+            data-text="SI stands for Slightly Included. SI diamonds will have a few more flaws and imperfections in comparison to any higher clarity grade. These inclusions may be more or less visible depending on the shape you choose. For example, inclusions will be much more prominent in an Emerald Cut diamond, whereas they are less prominent in a Round Cut diamond.">
+            SI1
+        </button>
+
+        <button class="swatches-tab"
+            data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/SI1-1.jpg"
+            data-text="SI stands for Slightly Included. SI diamonds will have a few more flaws and imperfections in comparison to any higher clarity grade. These inclusions may be more or less visible depending on the shape you choose. For example, inclusions will be much more prominent in an Emerald Cut diamond, whereas they are less prominent in a Round Cut diamond.">
+            SI2
+        </button> {% endcomment %}
+
+        <!-- Default reset -->
+        <div class="reset-content"
+            data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/VS2.jpg"
+            data-text="VS stands for Very Slightly Included. While some diamonds among this clarity grade do not have inclusions visible to the naked eye, some may have a few visible inclusions. The larger the carat weight, the more visible inclusions will be. There are two sub-categories of VS diamonds: VS1 and VS2.">
+        </div>
+
+    </div>
+</div>            
+{% endif %}
+                          </div>
+                      </div>
+                  </div>
+                
+
+                  <div
+                    class="dmdfilter-swatches dmdfilter-swatche-clarity"
+                    role="radiogroup"
+                    aria-label="Slider Clarity"
+                    data-option-name="Clarity"
+                     data-multiple="true"
+                  >
+                    {% for clarity in clarity_value_array %}
+                      {% assign clarity_class_active = '' %}
+                      {% assign current_index = forloop.index0 %}
+
+                      {% if current_index >= min_index and current_index <= max_index %}
+                        {% assign clarity_class_active = 'active' %}
+                      {% endif %}
+
+                      <button
+                        type="button"
+                        class="swatches-tab {{ clarity_class_active }}"
+                        role="radio"
+                        aria-checked="{% if forloop.first %}true{% else %}false{% endif %}"
+                        tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+                        data-value="{{ clarity }}"
+                      >
+                        {{ clarity }}
+                      </button>
+                    {% endfor %}
+                  </div>
+               <div class="range-slider range-target hide">
+                    <div class="range-base">
+                      
+
+                      <tc-range-slider
+                        id="slider_clarity_mia_mobile"
+                        min="{{ clarity_value_array | first }}"
+                        max="{{ clarity_value_array | last }}"
+                        value1="{{ clarityParamsArray | first }}"
+                        value2="{{ clarityParamsArray | last }}"
+                        aria-label1="Minimum clarity"
+                        aria-label2="Maximum clarity"
+                        data="{{ clarityValues | join: ',' }}"
+                        marks="true"
+                        marks-count="{{ clarity_value_array | size }}"
+                        marks-values-count="{{ clarity_value_array | size }}"
+                        mousewheel-disabled="true"
+                        pointer-bg="#000000"
+                        pointer-bg-hover="#000000"
+                        pointer-bg-focus="#000000"
+                        pointer-border="1px solid #000000"
+                        pointer-border-hover="1px solid #000000"
+                        pointer-border-focus="1px solid #000000"
+                        slider-bg="#D8D5DC"
+                        slider-bg-fill="#000000"
+                        slider-width="100%"
+                        slider-height="8px"
+                        generate-labels="false"
+                        pointer1-width="20px"
+                        pointer1-height="20px"
+                        pointer2-width="20px"
+                        pointer2-height="20px"
+                        slider-bg-hover="#D8D5DC"
+                      css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'Cut' %}
+                {% assign cut_values = '' %}
+                  {% for i in (1..6) %}
+                    {% assign cut_label_id = 'main_title_cut_' | append: i %}
+                    {% assign cut_display_id = 'main_title_cut_checkbox_' | append: i %}
+                    {% if block.settings[cut_label_id] != blank and block.settings[cut_display_id] == true %}
+                      {% assign cut_values = cut_values | append: block.settings[cut_label_id] | append: ',' %}
+                    {% endif %}
+                  {% endfor %}
+                  {% assign cut_value_array = cut_values | replace_last: ',', '' | split: ',' %}
+
+                  
+                      {% assign cutParams = 'Excellent,Ideal' %}
+                  {% if labGrownPageQueryArray != blank %}
+                    {% for param in labGrownPageQueryArray %}
+                      {%- if param contains "cut" -%}
+                        {% assign cutParams = param | split: '=' | last | url_decode | strip %}
+                      {%- endif -%}
+                    {% endfor %}
+                  {% endif %}
+
+                  {% assign cutParamsArray = '' %}
+                  {% if cutParams != blank %}
+                    {% assign cutParamsArray = cutParams | split: ',' %}
+                  {% else %}
+                    {% assign cutParamsArray = cut_values | replace_last: ',', '' | split: ',' %}  
+                  {% endif %}
+                {% assign cutParamsArrayFirst = cutParamsArray | first| replace: "+", " "  %}
+                {% assign cutParamsArrayLast = cutParamsArray | last| replace: "+", " "  %}
+
+                {% assign caratParamsArray = '' %} 
+                {% if cutParamsArray != blank %} 
+                  {% assign caratParamsArray = cutParamsArray %} 
+                {% else %} 
+                  {% assign caratParamsArray = cut_values | replace_last: ',', '' | split: ',' %} 
+                {% endif %} 
+
+                {% assign carat_selected_min = caratParamsArray | first %} 
+                {% assign carat_selected_max = caratParamsArray | last %} 
+
+                {% for carat_val in cut_value_array %} 
+                  {% if carat_val == carat_selected_min %} 
+                    {% assign min_index = forloop.index0 %} 
+                  {% endif %} 
+                  {% if carat_val == carat_selected_max %} 
+                    {% assign max_index = forloop.index0 %} 
+                  {% endif %} 
+                {% endfor %} 
+
+              <li class="filter__list-item filter__list-cut">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h3>Cut</h3>
+                  </div>
+                    <div class="filter-selected cut-filter-selected " id="filter-cut" role="group">
+                      <span class="filter-name cut-filter-name">{{cutParamsArrayFirst }} - {{ cutParamsArray | last }}</span>
+                      
+                    </div>
+
+                    <button class="filter__list-icon" 
+                      data-li="cut"
+                      aria-label="Toggle cut filter options"
+                      aria-controls="filter-cut"
+                      type="button"
+                    >
+                    {% render 'icon-down-arrow' %}
+                    </button>
+                </div>
+                <div class="filter__list-content">
+                  <div class="filter-info">
+                      <div class="tooltip mobile-tooltip">
+                          <button type="button" data-mb-tooltip="cut"  aria-controls="tooltip-cut" class="dmd-toltiptext"  data-mb-tooltip="cut">Cut Guide</button>
+                          <div class="tooltiptext" id="tooltip-cut"  role="dialog"  aria-labelledby="tooltip-cut-title">
+                            <div class="tooltip-title" id="tooltip-cut-title">
+                              cut  
+                              <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close cut tooltip">
+                                {% render 'icon-close' %}
+                              </button>
+                            </div>
+                            {% if block.settings.description_textarea_cut != blank %}
+                              <p class="tooltip-content">{{ block.settings.description_textarea_cut | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                              
+                              <div class="inner-tolcontent js-tolcontent" data-type="cut">
+                            <img id="cut-image"
+                                src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/good-cut.jpg"
+                                width="581" height="414" alt="cut">
+
+                            <p id="cut-text">
+                                A Good Cut diamond has acceptable proportions and reflects a fair amount of light, offering noticeable sparkle.
+                            </p>
+
+                            <div class="dmdfilter-swatches" role="radiogroup">
+                                <button class="swatches-tab active"
+                                    data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/good-cut.jpg"
+                                    data-text="A Good Cut diamond has acceptable proportions and reflects a fair amount of light, offering noticeable sparkle, though less brilliance and fire than higher cut grades.">
+                                    GOOD
+                                </button>
+
+                                <button class="swatches-tab"
+                                    data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/very_-good-cut.jpg"
+                                    data-text="A Very Good Cut (VG) is slightly less optimal than 'excellent' but still has decent proportions and sparkle.">
+                                    VERY GOOD
+                                </button>
+
+                                <button class="swatches-tab"
+                                    data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/excellent-cut.jpg"
+                                    data-text="An Excellent Cut diamond has ideal proportions and precise faceting, reflecting nearly all the light that enters it for maximum brilliance, fire, and sparkle.">
+                                    EXCELLENT
+                                </button>
+
+                                <button class="swatches-tab"
+                                    data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/ideal-cut.jpg"
+                                    data-text="An Ideal Cut (ID) diamond has the most precise proportions and symmetry, reflecting virtually all light that enters it for exceptional brilliance, fire, and scintillation — the highest level of cut quality available.">
+                                    IDEAL
+                                </button>
+                                <div class="reset-content"  data-img="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/good-cut.jpg" data-text="A Good Cut diamond has acceptable proportions and reflects a fair amount of light, offering noticeable sparkle, though less brilliance and fire than higher cut grades.">
+
+                            </div>
+                        </div>
+                            {% endif %}
+                          </div>
+                      </div>
+                  </div>
+                  </div>
+                
+                <div class="dmdfilter-swatches dmdfilter-swatches-cut" role="radiogroup" aria-label="Slider Cut" data-option-name="Cut"  data-multiple="true"> 
+                  {% for carat in cut_value_array %} 
+                    {% assign carat_class_active = '' %} 
+                    {% assign current_index = forloop.index0 %} 
+                    
+                    {% if current_index >= min_index and current_index <= max_index %} 
+                      {% assign carat_class_active = 'active' %} 
+                    {% endif %} 
+                    
+                    <button type="button" 
+                            class="swatches-tab {{ carat_class_active }}" 
+                            role="radio" 
+                            aria-checked="{% if carat_class_active == 'active' %}true{% else %}false{% endif %}" 
+                            tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" 
+                            data-value="{{ carat }}"> 
+                      {{ carat }} 
+                    </button> 
+                  {% endfor %} 
+                    </div>
+                  <div class="range-slider range-target hide">
+                    <div class="range-base">
+                      
+                      <tc-range-slider
+                        id="slider_cut_mia_mobile"
+                        min="{{ cut_value_array | first }}"
+                        max="{{ cut_value_array | last }}"
+                        value1="{{ cutParamsArrayFirst }}"
+                        value2="{{ cutParamsArray | last }}"
+                        aria-label1="Minimum cut"
+                        aria-label2="Maximum cut"
+                        data="{{ cut_values | replace_last: ',', '' }}"
+                        marks="true"
+                        marks-count="{{ cut_value_array | size }}"
+                        marks-values-count="{{ cut_value_array | size }}"
+                        mousewheel-disabled="true"
+                        pointer-bg="#000000"
+                        pointer-bg-hover="#000000"
+                        pointer-bg-focus="#000000"
+                        pointer-border="1px solid #000000"
+                        pointer-border-hover="1px solid #000000"
+                        pointer-border-focus="1px solid #000000"
+                        slider-bg="#D8D5DC"
+                        slider-bg-fill="#000000"
+                        slider-width="100%"
+                        slider-height="8px"
+                        generate-labels="false"
+                        pointer1-width="20px"
+                        pointer1-height="20px"
+                        pointer2-width="20px"
+                        pointer2-height="20px"
+                        slider-bg-hover="#D8D5DC" 
+                      css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'Sustainable' %}
+              <li class="filter__list-item filter__list-sustainability">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                     <h3>Sustainable</h3>
+                  </div>
+                    <button class="filter__list-icon" 
+                      data-li="sustainability"
+                      aria-label="Toggle sustainability filter options"
+                      aria-controls="filter-sustainability"
+                      type="button"
+                    >
+                    {% render 'icon-down-arrow' %}
+                    </button>
+                </div>
+                <div class="filter__list-content">
+                   <div class="filter-info">
+                      <div class="tooltip mobile-tooltip">
+                          <button type="button" data-mb-tooltip="sustainable"  aria-controls="tooltip-sustainable" class="dmd-toltiptext"  data-mb-tooltip="sustainable">Diamond sustainable Guide</button>
+                          <div class="tooltiptext" id="tooltip-sustainable"  role="dialog"  aria-labelledby="tooltip-sustainable-title">
+                            <div class="tooltip-title" id="tooltip-sustainable-title">
+                              sustainable  
+                              <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close sustainable tooltip">
+                                {% render 'icon-close' %}
+                              </button>
+                            </div>
+                            {% if block.settings.description_textarea_sustainability != blank %}
+                              <p class="tooltip-content">{{ block.settings.description_textarea_sustainability | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                            {% endif %}
+                          </div>
+                      </div>
+                  </div>
+                  <div class="select-wrapper">
+                    {% assign sustainability_values = '' %}
+                    {% for i in (1..6) %}
+                      {% assign sustainability_label_id = 'main_title_sustainability_' | append: i %}
+                      {% assign sustainability_display_id = 'main_title_sustainability_checkbox_' | append: i %}
+                      {% if block.settings[sustainability_label_id] != blank and block.settings[sustainability_display_id] == true %}
+                        {% assign sustainability_values = sustainability_values | append: block.settings[sustainability_label_id] | append: ', ' %}
+                      {% endif %}
+                    {% endfor %}
+                  {% assign sustainabilityValues = sustainability_values | prepend: 'All MiaDonna Lab Diamonds, ' %}
+                  {% assign sustainability_value_array = sustainabilityValues | replace_last: ', ', '' | split: ', ' %}
+
+                    {% assign sustainabilityParams = '' %}
+                    {% if labGrownPageQueryArray != blank %}
+                      {% for param in labGrownPageQueryArray %}
+                        {%- if param contains "sustainability" -%}
+                          {% assign sustainabilityParams = param | split: '=' | last | url_decode | strip %}
+                        {%- endif -%}
+                      {% endfor %}
+                    {% endif %}
+                    <select class="sustainability-select" id="sustainability-select-mobile">
+                      {% assign defaultSustainability = sustainability_value_array.first %}
+                      {% assign sustainabilityIndex = 0 %}
+                      {% for item in sustainability_value_array %}
+                        {% if item == sustainabilityParams %}
+                          {% assign sustainabilityIndex = forloop.index0 %}
+                          {% endif %}
+                        <option value="{{ item }}" {% if forloop.index0 == sustainabilityIndex %}selected{% endif %}>{{ item }}</option>
+                      {% endfor %}
+                    </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                </div>
+              </li>
+         
+          {% endcase %}
+        {% endfor %}
+         
+           
+            <li class="filter__list-item filter__list-advancedfilters">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h3>Advanced Filters</h3>
+                  </div>
+                    <button class="filter__list-icon" 
+                      data-li="advancedfilters"
+                      aria-label="Toggle advancedfilters filter options"
+                      aria-controls="filter-advancedfilters"
+                      type="button"
+                    >
+                    {% render 'icon-down-arrow' %}
+                    </button>
+                </div>
+                <div class="filter__list-content" id="filter-advancedfilters">
+                          <ul class="filter__list">
+ {% for block in section.blocks %}
+                      {% case block.type %}
+                        {% when 'Fancy' %}
+
+
+                          <li class="filter__list-item filter__list-fancy">
+                            <div class="filter__list-label">
+                                <div class="filter__list-title">
+                                  <h3>Fancy Color</h3>
+                                </div>
+                                 <div class="filter-selected fancy-filter-selected hide" id="filter-fancy" role="group">
+                                  <span class="filter-name fancy-filter-name"></span>
+                                  
+                                </div>
+                                <button class="filter__list-icon" 
+                                    data-li="fancy"
+                                    aria-label="Toggle fancy filter options"
+                                    aria-controls="filter-fancy"
+                                    type="button"
+                                  >
+                                  {% render 'icon-down-arrow' %}
+                                </button>
+                            </div>
+                            <div class="filter__list-content">
+                              <div class="filter-info">
+                                    <div class="tooltip mobile-tooltip">
+                                      <button type="button" data-mb-tooltip="fancy"  aria-controls="tooltip-fancy" class="dmd-toltiptext"  data-mb-tooltip="fancy">Fancy Color Guide</button>
+                                      <div class="tooltiptext" id="tooltip-fancy"  role="dialog"  aria-labelledby="tooltip-fancy-title">
+                                        <div class="tooltip-title" id="tooltip-fancy-title">
+                                          Fancy Color  
+                                          <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close fancy tooltip">
+                                              {% render 'icon-close' %}
+                                          </button>
+                                        </div>
+                                        {% if block.settings.description_textarea_fancy != blank %}
+                                            <p class="tooltip-content">{{ block.settings.description_textarea_fancy | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                                        {% endif %}
+                                      </div>
+                                  </div>
+                              </div>
+                          
+                              <div class="options vdb-lb-slider-fancy filter__list-fancy">
+                                  <div class="dmdfancy-filter">
+                                    {% assign fancyString = '' %}
+                                      {% for i in (1..6) %}
+                                        {% assign fancy_label_id = 'main_title_fancy_' | append: i %}
+                                        {% assign fancy_display_id = 'main_title_fancy_checkbox_' | append: i %}
+                                        {% if block.settings[fancy_label_id] != blank and block.settings[fancy_display_id] == true %}
+                                          {% assign fancyString = fancyString | append: ',' | append: i %}
+                                        {% endif %}
+                                      {% endfor %}
+                                      {% assign fancyArray = fancyString | remove_first: ',' | split: ',' %}
+                                      {% assign fancyIndex = 0 %}
+                                      {% assign fancyParams = '' %}
+                                      {% if labGrownPageQueryArray != blank %}
+                                        {% for param in labGrownPageQueryArray %}
+                                          {% assign fancy_first = param | split: '=' | first | strip %}
+                                          {%- if fancy_first == "fancy_color" -%}
+                                            {% assign fancyParams = param | split: '=' | last | url_decode | strip %}
+                                          {%- endif -%}
+                                        {% endfor %}
+                                      {% else %}
+                                        
+                                      {% endif %}
+                                        {% assign fancyIndex = 0 %}
+                                      {% assign defaultFancyIndex = 0 %}
+                                      {% for i in fancyArray %}
+                                        {% assign fancy_label_id = 'main_title_fancy_' | append: i %}
+                                        {% assign color_value_id = 'main_value_fancy_' | append: i %}
+                                        {% assign fancy_display_id = 'main_title_fancy_checkbox_' | append: i %}
+                                        {% assign fancy_icon_id = 'main_title_fancy_icon_' | append: i %}
+                                        {% if block.settings[fancy_label_id] != blank and block.settings[fancy_display_id] == true %}
+                                          {% assign fancy_handle = block.settings[fancy_label_id] | handle | downcase %}
+                                            {% assign class_name_fancy = 'vdb-list-item-fancy-style-' | append: fancy_handle %}
+                                            {% if fancyParams == block.settings[color_value_id] %} {% assign fancyIndex = i %} {% endif %}
+                                                {% unless i != defaultFancyIndex %} {% assign defaultFancy = block.settings[color_value_id] %}{% endunless %}
+                                                  <div class="option {{ fancy_handle }} {{ class_name_fancy  }} {% unless i != fancyIndex %}active-state{% endunless %}">
+                                                    
+                                                      <button
+                                                      class="vdb-list-item-a-fancy-style"
+                                                      data-module="{{ class_name_fancy }}"
+                                                      
+                                                    data-fancy-value="{{ block.settings[color_value_id] }}">
+                                                        {% if block.settings[fancy_icon_id] != blank %}
+                                                            {{ block.settings[fancy_icon_id] | image_url: width: 300 | image_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                                        {% else %}
+                                                              {% if block.settings[color_value_id] == 'Other' %}
+                                                                  
+                                                                  {% render 'icon-fancy-color-cut', fancy_color_title: block.settings[fancy_label_id] %}
+                                                              {% elsif block.settings[color_value_id]=="White" %}
+                                                                  {% render 'icon-color-white-cut' %}
+                                                              {% else %}
+                                                                  {% render 'icon-fancy-color-cut', fancy_color_title: block.settings[fancy_label_id] %}
+                                                              {% endif %}
+                                                        {% endif %}
+                                                          <span>{{ block.settings[fancy_label_id] }}</span>
+                                                        </button>
+                                                  </div>
+                                            {% endif %}
+                                      {% endfor %}
+                                  </div>
+                                    
+                                    </div>
+                              </div>
+                             </li>
+                            {% when 'Ratio' %}
+                              <li class="filter__list-item filter__list-ratio">
+                              {% assign ratioMinParams = '' %}
+                              {% assign ratioMaxParams = '' %}
+                              {% if labGrownPageQueryArray != blank %}
+                                {% for param in labGrownPageQueryArray %}
+                                  {%- if param contains "min_l_w_ratio" -%}
+                                    {% assign ratioMinParams = param | split: '=' | last | strip | to_i %}
+                                  {% else %}
+                                    {%- assign ratioMinParams = block.settings.main_title_ratio_min -%}
+                                  {%- endif -%}
+
+                                  {%- if param contains "max_l_w_ratio" -%}
+                                    {% assign ratioMaxParams = param | split: '=' | last | strip | to_i %}
+                                  {% else %}
+                                    {%- assign ratioMaxParams = block.settings.main_title_ratio_max -%}
+                                  {%- endif -%}
+                                {% endfor %}
+                              {% else %}
+                                {%- assign ratioMinParams = block.settings.main_title_ratio_min -%}
+                                {%- assign ratioMaxParams = block.settings.main_title_ratio_max -%}
+                            {% endif %}
+                            <div class="filter__list-label">
+                              <div class="filter__list-title">
+                                <h3>L:W RATIO</h3>
+                              </div>
+                                <div class="filter-selected ratio-filter-selected " id="filter-ratio" role="group">
+                      <span class="filter-name ratio-filter-name">{{ratioMinParams }} - {{ ratioMaxParams }}</span>
+                      
+                    </div>
+
+                                <button class="filter__list-icon" 
+                                    data-li="ratio"
+                                    aria-label="Toggle ratio filter options"
+                                    aria-controls="filter-ratio"
+                                    type="button"
+                                  >
+                                {% render 'icon-down-arrow' %}
+                                </button>
+                            </div>
+                            <div class="filter__list-content">
+                              <div class="filter-info">
+                      <div class="tooltip mobile-tooltip">
+                          <button type="button" data-mb-tooltip="ratio"  aria-controls="tooltip-ratio" class="dmd-toltiptext"  data-mb-tooltip="ratio">L:W Ratio Guide</button>
+                          <div class="tooltiptext" id="tooltip-ratio"  role="dialog"  aria-labelledby="tooltip-ratio-title">
+                            <div class="tooltip-title" id="tooltip-ratio-title">
+                              L:W Ratio  
+                              <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close L:W Ratio Guide tooltip">
+                                {% render 'icon-close' %}
+                              </button>
+                            </div>
+                            {% if block.settings.description_textarea_ratio != blank %}
+                              <p class="tooltip-content">{{ block.settings.description_textarea_ratio | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                            {% endif %}
+                          </div>
+                      </div>
+                  </div>
+                            <div class="range-slider range-target">
+                              <div class="range-base">
+                                <tc-range-slider
+                                  id="slider_ratio_mia_mobile"
+                                  min="{{ block.settings.main_title_ratio_min }}"
+                                  max="{{ block.settings.main_title_ratio_max }}"
+                                  value1="{{ ratioMinParams }}"
+                                  value2="{{ ratioMaxParams }}"
+                                  aria-label1="Minimum length to width ratio"
+                                  aria-label2="Maximum length to width ratio"
+                                  step="0.01"
+                                  moving-tooltip="false"
+                                  moving-tooltip-distance-to-pointer="-30"
+                                  moving-tooltip-bg="transparent"
+                                  moving-tooltip-text-color="#3c3737"
+                                  moving-tooltip-width="70"
+                                  moving-tooltip-height="20"
+                                  mousewheel-disabled="true"
+                                  pointer-bg="#000000"
+                                  pointer-bg-hover="#000000"
+                                  pointer-bg-focus="#000000"
+                                  pointer-border="1px solid #000000"
+                                  pointer-border-hover="1px solid #000000"
+                                  pointer-border-focus="1px solid #000000"
+                                  slider-bg="#D8D5DC"
+                                  slider-bg-fill="#000000"
+                                  slider-width="100%"
+                                  slider-height="8px"
+                                  generate-labels="false"
+                                  pointer1-width="20px"
+                                  pointer1-height="20px"
+                                  pointer2-width="20px"
+                                  pointer2-height="20px"
+                                  slider-bg-hover="#D8D5DC"
+                                css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                              </div>
+                             <div class="range-values range-values-new">
+
+                                        <input 
+                                            type="text" 
+                                            id="minratioValue" 
+                                            class="range-box"
+                                            aria-label="Minimum ratio"
+                                            placeholder="1"
+                                        >
+
+                                        <input 
+                                            type="text" 
+                                            id="maxratioValue" 
+                                            class="range-box"
+                                            aria-label="Maximum ratio"
+                                            placeholder="3"
+                                        >
+
+                                    </div>
+
+
+                                    <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+
+                                        const sliderRatio = document.getElementById('slider_ratio_mia_mobile');
+                                        const minRatioBox = document.getElementById('minratioValue');
+                                        const maxRatioBox = document.getElementById('maxratioValue');
+
+                                        // Minimum and maximum ratio allowed
+                                        const minRatioValue = parseFloat(sliderRatio.min);
+                                        const maxRatioValue = parseFloat(sliderRatio.max);
+
+                                        // Format number
+                                        function formatRatio(num) {
+                                            return parseFloat(num);
+                                        }
+
+                                        // Update textbox values from slider
+                                        function updateRatioValues() {
+                                            minRatioBox.value = formatRatio(sliderRatio.value1 || minRatioValue);
+                                            maxRatioBox.value = formatRatio(sliderRatio.value2 || maxRatioValue);
+                                        }
+
+                                        // Initial load
+                                        updateRatioValues();
+
+                                        // Slider → textbox
+                                        sliderRatio.addEventListener('change', updateRatioValues);
+
+                                        // Validate textbox input
+                                        function handleRatioInput() {
+
+                                            let minVal = parseFloat(minRatioBox.value.replace(/[^0-9.]/g, ''));
+                                            let maxVal = parseFloat(maxRatioBox.value.replace(/[^0-9.]/g, ''));
+
+                                            // If invalid
+                                            if (isNaN(minVal)) minVal = minRatioValue;
+                                            if (isNaN(maxVal)) maxVal = maxRatioValue;
+
+                                            // Clamp values
+                                            minVal = Math.max(minRatioValue, Math.min(minVal, maxRatioValue));
+                                            maxVal = Math.max(minRatioValue, Math.min(maxVal, maxRatioValue));
+
+                                            // Ensure min ≤ max
+                                            if (minVal > maxVal) minVal = maxVal;
+                                            if (maxVal < minVal) maxVal = minVal;
+
+                                            // Update slider
+                                            sliderRatio.value1 = minVal;
+                                            sliderRatio.value2 = maxVal;
+
+                                            // Update textboxes
+                                            minRatioBox.value = formatRatio(minVal);
+                                            maxRatioBox.value = formatRatio(maxVal);
+                                        }
+
+                                        // Events for textboxes
+                                        [minRatioBox, maxRatioBox].forEach(box => {
+
+                                            // Allow numbers only
+                                            box.addEventListener('input', function() {
+                                                this.value = this.value.replace(/[^0-9.]/g, '');
+                                            });
+
+                                            box.addEventListener('change', handleRatioInput);
+                                            box.addEventListener('blur', handleRatioInput);
+
+                                        });
+
+                                    });
+                                    </script>
+                            </div>
+                            </div>
+                            </li> 
+                          {% when 'Table' %}
+                        <li class="filter__list-item filter__list-table">
+                          {% assign tableMinParams = '' %}
+                          {% assign tableMaxParams = '' %}
+                          {% if labGrownPageQueryArray != blank %}
+                            {% for param in labGrownPageQueryArray %}
+                              {%- if param contains "min_table" -%}
+                                {% assign tableMinParams = param | split: '=' | last | strip | to_i %}
+                              {% else %}
+                                {%- assign tableMinParams = block.settings.main_title_table_min -%}
+                              {%- endif -%}
+
+                              {%- if param contains "max_table" -%}
+                                {% assign tableMaxParams = param | split: '=' | last | strip | to_i %}
+                              {% else %}
+                                {%- assign tableMaxParams = block.settings.main_title_table_max -%}
+                              {%- endif -%}
+                            {% endfor %}
+                          {% else %}
+                            {%- assign tableMinParams = block.settings.main_title_table_min -%}
+                            {%- assign tableMaxParams = block.settings.main_title_table_max -%}
+                          {% endif %}
+                          <div class="filter__list-label">
+                              <div class="filter__list-title">
+                                <h3>Table%</h3>
+                              </div>
+                                <div class="filter-selected table-filter-selected " id="filter-table" role="group">
+                      <span class="filter-name table-filter-name">{{tableMinParams }}% - {{ tableMaxParams }}%</span>
+                      
+                    </div>
+                                  <button class="filter__list-icon" 
+                                    data-li="table"
+                                    aria-label="Toggle table filter options"
+                                    aria-controls="filter-table"
+                                    type="button"
+                                  >
+                                  {% render 'icon-down-arrow' %}
+                                  </button>
+                           </div>
+                            <div class="filter__list-content">
+                          <div class="filter-info">
+                              <div class="tooltip mobile-tooltip">
+                                  <button type="button" data-mb-tooltip="table"  aria-controls="tooltip-table" class="dmd-toltiptext"  data-mb-tooltip="table">Table % Guide</button>
+                                  <div class="tooltiptext" id="tooltip-table"  role="dialog"  aria-labelledby="tooltip-table-title">
+                                    <div class="tooltip-title" id="tooltip-table-title">
+                                      Table %
+                                      <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close Table % Guide tooltip">
+                                        {% render 'icon-close' %}
+                                      </button>
+                                    </div>
+                                    {% if block.settings.description_textarea_table != blank %}
+                                      <p class="tooltip-content">{{ block.settings.description_textarea_table | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                                    {% endif %}
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="range-slider range-target">
+                            <div class="range-base">
+                              <tc-range-slider
+                                id="slider_table_mia_mobile"
+                                min="{{ block.settings.main_title_table_min }}"
+                                max="{{ block.settings.main_title_table_max }}"
+                                value1="{{ tableMinParams }}"
+                                value2="{{ tableMaxParams }}"
+                                aria-label1="Minimum table percentage"
+                                aria-label2="Maximum table percentage"
+                                step="0.01"
+                                moving-tooltip="false"
+                                moving-tooltip-distance-to-pointer="-30"
+                                moving-tooltip-bg="transparent"
+                                moving-tooltip-text-color="#3c3737"
+                                moving-tooltip-width="70"
+                                moving-tooltip-height="20"
+                                mousewheel-disabled="true"
+                                pointer-bg="#000000"
+                                pointer-bg-hover="#000000"
+                                pointer-bg-focus="#000000"
+                                pointer-border="1px solid #000000"
+                                pointer-border-hover="1px solid #000000"
+                                pointer-border-focus="1px solid #000000"
+                                slider-bg="#D8D5DC"
+                                slider-bg-fill="#000000"
+                                slider-width="100%"
+                                slider-height="8px"
+                                moving-tooltip-units="%"
+                                generate-labels="false"
+                                pointer1-width="20px"
+                                pointer1-height="20px"
+                                pointer2-width="20px"
+                                pointer2-height="20px"
+                                slider-bg-hover="#D8D5DC"
+                              css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                            </div>
+                            <div class="range-values range-values-new">
+                          <input 
+                            type="text" 
+                            id="mintableValue" 
+                            class="range-box"
+                            aria-label="Minimum table value"
+                            placeholder="0%"
+                          >
+
+                          <input 
+                            type="text" 
+                            id="maxtableValue" 
+                            class="range-box"
+                            aria-label="Maximum table value"
+                            placeholder="100%"
+                          >
+                        </div>
+
+                        <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+
+                            const tableSlider = document.getElementById('slider_table_mia_mobile');
+                            const minTableBox = document.getElementById('mintableValue');
+                            const maxTableBox = document.getElementById('maxtableValue');
+
+                            // Define min/max allowed values
+                            const minTableValue = parseFloat(tableSlider.min);
+                            const maxTableValue = parseFloat(tableSlider.max);
+
+                            // Format number + "%"
+                            function formatPercent(num) {
+                                return parseFloat(num) + '%';
+                            }
+
+                            // Update textboxes from slider values
+                            function updateTableValues() {
+                                minTableBox.value = formatPercent(tableSlider.value1);
+                                maxTableBox.value = formatPercent(tableSlider.value2);
+                            }
+
+                            // Initial load
+                            updateTableValues();
+
+                            // Slider → textbox
+                            tableSlider.addEventListener('change', updateTableValues);
+
+                            // Validate input
+                            function handleTableInput() {
+
+                                let minVal = parseFloat(minTableBox.value.replace(/[^0-9.]/g, ''));
+                                let maxVal = parseFloat(maxTableBox.value.replace(/[^0-9.]/g, ''));
+
+                                if (isNaN(minVal)) minVal = minTableValue;
+                                if (isNaN(maxVal)) maxVal = maxTableValue;
+
+                                // Clamp to allowed range
+                                minVal = Math.max(minTableValue, Math.min(minVal, maxTableValue));
+                                maxVal = Math.max(minTableValue, Math.min(maxVal, maxTableValue));
+
+                                // Ensure min ≤ max
+                                if (minVal > maxVal) minVal = maxVal;
+                                if (maxVal < minVal) maxVal = minVal;
+
+                                // Update slider values
+                                tableSlider.value1 = minVal;
+                                tableSlider.value2 = maxVal;
+
+                                // Update textbox values
+                                minTableBox.value = formatPercent(minVal);
+                                maxTableBox.value = formatPercent(maxVal);
+                            }
+
+                            // Event listeners
+                            [minTableBox, maxTableBox].forEach(box => {
+
+                                // Allow numbers only while typing
+                                box.addEventListener('input', function() {
+                                    this.value = this.value.replace(/[^0-9.]/g, '');
+                                });
+
+                                box.addEventListener('change', handleTableInput);
+                                box.addEventListener('blur', handleTableInput);
+
+                            });
+
+                        });
+                        </script>
+                          </div>
+                          </div>
+                            </li> 
+                          {% when 'Depth' %}
+                          <li class="filter__list-item filter__list-depth">
+                            {% assign depthMinParams = '' %}
+                            {% assign depthMaxParams = '' %}
+                            {% if labGrownPageQueryArray != blank %}
+                              {% for param in labGrownPageQueryArray %}
+                                {%- if param contains "min_depth" -%}
+                                  {% assign depthMinParams = param | split: '=' | last | strip | to_i %}
+                                {% else %}
+                                  {%- assign depthMinParams = block.settings.main_title_depth_min -%}
+                                {%- endif -%}
+                                {%- if param contains "max_depth" -%}
+                                  {% assign depthMaxParams = param | split: '=' | last | strip | to_i %}
+                                {% else %}
+                                {%- assign depthMaxParams = block.settings.main_title_depth_max -%}
+                                {%- endif -%}
+                              {% endfor %}
+                            {% else %}
+                              {%- assign depthMinParams = block.settings.main_title_depth_min -%}
+                              {%- assign depthMaxParams = block.settings.main_title_depth_max -%}
+                            {% endif %}
+                            <div class="filter__list-label">
+                              <div class="filter__list-title">
+                                <h3>Depth%</h3>
+                              </div>
+                              <div class="filter-selected depth-filter-selected " id="filter-depth" role="group">
+                      <span class="filter-name depth-filter-name">{{depthMinParams }} % - {{ depthMaxParams }} %</span>
+                     
+                    </div>
+                                <button class="filter__list-icon" 
+                                    data-li="depth"
+                                    aria-label="Toggle depth filter options"
+                                    aria-controls="filter-depth"
+                                    type="button"
+                                  >
+                                  {% render 'icon-down-arrow' %}
+                                </button>
+                            </div>
+                             <div class="filter__list-content">
+                            <div class="filter-info">
+                              <div class="tooltip mobile-tooltip">
+                                <button type="button" data-mb-tooltip="depth"  aria-controls="tooltip-depth" class="dmd-toltiptext"  data-mb-tooltip="depth">Depth % Guide</button>
+                                <div class="tooltiptext" id="tooltip-depth"  role="dialog"  aria-labelledby="tooltip-depth-title">
+                                  <div class="tooltip-title" id="tooltip-depth-title">
+                                    Depth% 
+                                    <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close Fluor. Guide tooltip">
+                                      {% render 'icon-close' %}
+                                    </button>
+                                  </div>
+                                  {% if block.settings.description_textarea_depth != blank %}
+                                    <p class="tooltip-content">{{ block.settings.description_textarea_depth | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="range-slider range-target">
+                              <div class="range-base">
+                                <tc-range-slider
+                                  id="slider_depth_mia_mobile"
+                                  min="{{ block.settings.main_title_depth_min }}"
+                                  max="{{ block.settings.main_title_depth_max }}"
+                                  value1="{{ depthMinParams }}"
+                                  value2="{{ depthMaxParams }}"
+                                  aria-label1="Minimum depth percentage"
+                                  aria-label2="Maximum depth percentage"
+                                  step="0.01"
+                                  moving-tooltip="false"
+                                  moving-tooltip-distance-to-pointer="-30"
+                                  moving-tooltip-bg="transparent"
+                                  moving-tooltip-text-color="#3c3737"
+                                  moving-tooltip-width="70"
+                                  moving-tooltip-height="20"
+                                  mousewheel-disabled="true"
+                                  pointer-bg="#000000"
+                                  pointer-bg-hover="#000000"
+                                  pointer-bg-focus="#000000"
+                                  pointer-border="1px solid #000000"
+                                  pointer-border-hover="1px solid #000000"
+                                  pointer-border-focus="1px solid #000000"
+                                  slider-bg="#D8D5DC"
+                                  slider-bg-fill="#000000"
+                                  slider-width="100%"
+                                  slider-height="8px"
+                                  moving-tooltip-units="%"
+                                  generate-labels="false"
+                                  pointer1-width="20px"
+                                  pointer1-height="20px"
+                                  pointer2-width="20px"
+                                  pointer2-height="20px"
+                                  slider-bg-hover="#D8D5DC"
+                                css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                                </div>
+                                <div class="range-values range-values-new">
+                                  <input 
+                                    type="text" 
+                                    id="mindepthValue" 
+                                    class="range-box"
+                                    aria-label="Minimum depth"
+                                    placeholder="0%"
+                                  >
+
+                                  <input 
+                                    type="text" 
+                                    id="maxdepthValue" 
+                                    class="range-box"
+                                    aria-label="Maximum depth"
+                                    placeholder="100%"
+                                  >
+                                </div>
+
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+
+                                    const depthSlider = document.getElementById('slider_depth_mia_mobile');
+                                    const minDepthBox = document.getElementById('mindepthValue');
+                                    const maxDepthBox = document.getElementById('maxdepthValue');
+
+                                    // Define min/max allowed values
+                                    const minDepthValue = parseFloat(depthSlider.min);
+                                    const maxDepthValue = parseFloat(depthSlider.max);
+
+                                    // Format number + "%"
+                                    function formatDepth(num) {
+                                        return parseFloat(num) + '%';
+                                    }
+
+                                    // Update textboxes from slider values
+                                    function updateDepthValues() {
+                                        minDepthBox.value = formatDepth(depthSlider.value1);
+                                        maxDepthBox.value = formatDepth(depthSlider.value2);
+                                    }
+
+                                    // Initial load
+                                    updateDepthValues();
+
+                                    // Slider → textbox
+                                    depthSlider.addEventListener('change', updateDepthValues);
+
+                                    // Validate input
+                                    function handleDepthInput() {
+
+                                        let minVal = parseFloat(minDepthBox.value.replace(/[^0-9.]/g, ''));
+                                        let maxVal = parseFloat(maxDepthBox.value.replace(/[^0-9.]/g, ''));
+
+                                        if (isNaN(minVal)) minVal = minDepthValue;
+                                        if (isNaN(maxVal)) maxVal = maxDepthValue;
+
+                                        // Clamp values
+                                        minVal = Math.max(minDepthValue, Math.min(minVal, maxDepthValue));
+                                        maxVal = Math.max(minDepthValue, Math.min(maxVal, maxDepthValue));
+
+                                        // Ensure min ≤ max
+                                        if (minVal > maxVal) minVal = maxVal;
+                                        if (maxVal < minVal) maxVal = minVal;
+
+                                        // Update slider values
+                                        depthSlider.value1 = minVal;
+                                        depthSlider.value2 = maxVal;
+
+                                        // Update textboxes
+                                        minDepthBox.value = formatDepth(minVal);
+                                        maxDepthBox.value = formatDepth(maxVal);
+                                    }
+
+                                    // Event listeners
+                                    [minDepthBox, maxDepthBox].forEach(box => {
+
+                                        box.addEventListener('input', function() {
+                                            this.value = this.value.replace(/[^0-9.]/g, '');
+                                        });
+
+                                        box.addEventListener('change', handleDepthInput);
+                                        box.addEventListener('blur', handleDepthInput);
+
+                                    });
+
+                                });
+                                </script>
+                                                            </div>
+                               </div>
+                            </li> 
+                          {% when 'Symmetry' %}
+                          <li class="filter__list-item filter__list-symmetry">
+                            {% assign symmetry_values = '' %}
+                              {% for i in (1..6) %}
+                                {% assign symmetry_label_id = 'main_title_symmetry_' | append: i %}
+                                {% assign symmetry_display_id = 'main_title_symmetry_checkbox_' | append: i %}
+                                {% if block.settings[symmetry_label_id] != blank and block.settings[symmetry_display_id] == true %}
+                                  {% assign symmetry_values = symmetry_values | append: block.settings[symmetry_label_id] | append: ', ' %}
+                                {% endif %}
+                              {% endfor %}
+                              {% assign symmetryValues = symmetry_values | prepend: 'All, ' %}
+                              {% assign symmetry_value_array = symmetryValues | replace_last: ', ', '' | split: ', ' %}
+                              {% assign symmetryParams = '' %}
+                              {% if labGrownPageQueryArray != blank %}
+                                {% for param in labGrownPageQueryArray %}
+                                  {%- if param contains "symmetry" -%}
+                                     {% assign symmetryParams = param | split: '=' | last | url_decode | strip | replace: '+', ' '|replace: ', ', ',' |  split: ',' %}
+                                  {%- endif -%}
+                                {% endfor %}
+                              {% endif %}
+                               {% assign symmetryData = symmetry_values | replace_last: ', ', '' %}
+                            
+  {% assign symmetryParamsArr = symmetryParams %}
+                                    {% assign symmetryParamsCountWithPlus  = '' %}
+                                    {% if symmetryParamsArr.size > 1  %}
+                                   {% assign symmetryParamsCount = symmetryParamsArr.size | minus: 1 %}
+                                {% assign symmetryParamsCountWithPlus = '+ ' | append: symmetryParamsCount %}
+                                    {% endif  %}  
+                              <div class="filter__list-label">
+                                <div class="filter__list-title">
+                                  <h3>Symmetry</h3>
+                                </div>
+                                  <div class="filter-selected symmetry-filter-selected {% if symmetryParams contains 'All' %} hide{% endif %} " id="filter-symmetry" role="group">
+                                        <span class="filter-name symmetry-filter-name">{{symmetryParamsArr|first }} {{symmetryParamsCountWithPlus }}   </span>
+                                      </div>
+                                   <button class="filter__list-icon" 
+                                    data-li="symmetry"
+                                    aria-label="Toggle symmetry filter options"
+                                    aria-controls="filter-symmetry"
+                                    type="button"
+                                  >
+                                  {% render 'icon-down-arrow' %}
+                                   </button>
+                              </div>
+                               <div class="filter__list-content">
+                              <div class="filter-info">
+                                  <div class="tooltip mobile-tooltip">
+                                      <button type="button" data-mb-tooltip="symmetry"  aria-controls="tooltip-symmetry" class="dmd-toltiptext"  data-mb-tooltip="symmetry">Symmetry Guide</button>
+                                      <div class="tooltiptext" id="tooltip-symmetry"  role="dialog"  aria-labelledby="tooltip-symmetry-title">
+                                        <div class="tooltip-title" id="tooltip-symmetry-title">
+                                          Symmetry
+                                          <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close Fluor. Guide tooltip">
+                                            {% render 'icon-close' %}
+                                          </button>
+                                        </div>
+                                        {% if block.settings.description_textarea_symmetry != blank %}
+                                          <p class="tooltip-content">{{ block.settings.description_textarea_symmetry | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                                        {% endif %}
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="select-wrapper">
+                                <select class="sustainability-select hide" id="symmetry-select-mobile" multiple>
+                                  {% assign defaultSymmetry = symmetry_value_array.first %}
+                                    {% if symmetryParams == blank %}
+                                          {% assign symmetryParams = defaultSymmetry %}
+                                     {% endif %} 
+                                  {% assign symmetryIndex = 0 %}
+                                  {% for item in symmetry_value_array %}
+                                      {% assign symmetry_current_item = item | strip %}
+                                    {% if symmetryParams contains symmetry_current_item %}
+                                      <option value="{{ item }}" selected>{{ item }}</option>
+                                      {% else %} 
+                                        <option value="{{ item }}" >{{ item }}</option>
+                                      {% endif %} 
+                                      
+                                  {% endfor %}
+                                </select>
+                              </div>
+                                <div
+                                class="dmdfilter-swatches dmdfilter-swatches-symmetry"
+                                role="radiogroup"
+                                aria-label="Select Symmetry"
+                                data-option-name="Symmetry"
+                                    data-multiple="true"
+                              >
+                                 {% assign defaultSymmetry = symmetry_value_array.first %}
+                                  {% assign symmetryIndex = 0 %}
+                                  {% for item in symmetry_value_array %}
+                                        {% assign active_class = '' %}
+                                        {% assign all_hide_class = '' %}
+                                        {% assign symmetry_current_item = item | strip %}
+                                        {% if symmetryParams contains symmetry_current_item %}
+                                          {% assign active_class = 'active' %}
+                                        {% endif %}
+                                        {% if symmetry_current_item == 'All' %}
+                                       {% assign all_hide_class = 'hide' %}
+                                       {% endif %}
+                                <button
+                                  type="button"
+                                  class="swatches-tab {{active_class }} {{ all_hide_class }}"
+                                  role="radio"
+                                  aria-checked="true"
+                                  tabindex="0"
+                                  data-value="{{ item }}"
+                                >
+                                 {{ item }}
+                                </button>
+                                 {% endfor %}
+                              </div>
+                              </div>
+                            </li> 
+                            {% when 'Fluorescence' %}
+                                {% assign fluorescence_values = '' %}
+                                  {% for i in (1..5) %}
+                                    {% assign fluorescence_label_id = 'main_title_fluorescence_' | append: i %}
+                                    {% assign fluorescence_display_id = 'main_title_fluorescence_checkbox_' | append: i %}
+                                    {% if block.settings[fluorescence_label_id] != blank and block.settings[fluorescence_display_id] == true %}
+                                      {% assign fluorescence_values = fluorescence_values | append: block.settings[fluorescence_label_id] | append: ', ' %}
+                                    {% endif %}
+                                  {% endfor %}
+
+                                {% assign fluorescenceValues = fluorescence_values | prepend: 'All, ' %} 
+                                {% assign fluorescence_value_array = fluorescenceValues | replace_last: ', ', '' | split: ', ' %}
+                                  {% assign symmetryParams = '' %}
+                                  {% assign fluorParams = '' %}
+                                  {% if labGrownPageQueryArray != blank %}
+                                    {% for param in labGrownPageQueryArray %}
+                                      {%- if param contains "fluor" -%}
+                                          {% assign fluorParams = param | split: '=' | last | url_decode | strip | replace: '+', ' '|replace: ', ', ',' |  split: ','  %}
+                                      {%- endif -%}
+                                    {% endfor %}
+                                  {% endif %}
+                                   {% assign fluorescenceData = fluorescence_values | replace_last: ', ', '' %}
+                                     {% assign fluorParamsArr = fluorParams %}
+                                    {% assign fluorParamsCountWithPlus  = '' %}
+                                    {% if fluorParamsArr.size > 1  %}
+                                   {% assign fluorParamsCount = fluorParamsArr.size | minus: 1 %}
+                                {% assign fluorParamsCountWithPlus = '+ ' | append: fluorParamsCount %}
+                                    {% endif  %}  
+                                    
+                             <li class="filter__list-item filter__list-fluorescence">
+                              <div class="filter__list-label">
+                                <div class="filter__list-title">
+                                  <h3>Fluorescence</h3>
+                                </div>
+                                  <div class="filter-selected fluorescence-filter-selected {% if fluorParams contains 'All' %} hide{% endif %} " id="filter-fluorescence" role="group">
+                                  <span class="filter-name fluorescence-filter-name">{{fluorParamsArr|first }} {{fluorParamsCountWithPlus }}   </span>
+                                </div>
+                                    <button class="filter__list-icon" 
+                                    data-li="fluorescence"
+                                    aria-label="Toggle fluorescence filter options"
+                                    aria-controls="filter-fluorescence"
+                                    type="button"
+                                  >
+                                    {% render 'icon-down-arrow' %}
+                                 </button>
+                              </div>
+                              <div class="filter__list-content">
+                              <div class="filter-info">
+                                <div class="tooltip mobile-tooltip">
+                                    <button type="button" data-mb-tooltip="fluorescence"  aria-controls="tooltip-fluorescence" class="dmd-toltiptext"  data-mb-tooltip="fluorescence">Fluor. Guide</button>
+                                    <div class="tooltiptext" id="tooltip-fluorescence"  role="dialog"  aria-labelledby="tooltip-fluorescence-title">
+                                      <div class="tooltip-title" id="tooltip-fluorescence-title">
+                                        Fluorescence
+                                          <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close Fluor. Guide tooltip">
+                                {% render 'icon-close' %}
+                              </button>
+                                      </div>
+                                      {% if block.settings.description_textarea_fluorescence != blank %}
+                                        <p class="tooltip-content">{{ block.settings.description_textarea_fluorescence | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="select-wrapper">
+                                
+                                  
+                                  <select class="sustainability-select hide" id="fluorescence-select-mobile" multiple>
+                                    {% assign defaultFluorescence = fluorescence_value_array.first %}
+                                      {% if fluorParams == blank %}
+                                    {% assign fluorParams = defaultFluorescence %}
+                                   {% endif %} 
+                                    {% for item in fluorescence_value_array %}
+                                       {% assign fluor_current_item = item | strip %}
+                                       {% if fluorParams contains fluor_current_item %}
+                                        <option value="{{ item }}" selected>{{ item }}</option>
+                                       {% else %} 
+                                        <option value="{{ item }}" >{{ item }}</option>
+                                      {% endif %} 
+                                      
+                                    {% endfor %}
+                                  </select>
+                              </div>
+                               <div
+                                class="dmdfilter-swatches dmdfilter-swatches-fluorescence"
+                                role="radiogroup"
+                                aria-label="Select Fluorescence"
+                                data-option-name="Fluorescence"
+                                  data-multiple="true"
+                              >
+                                  {% assign defaultFluorescence = fluorescence_value_array.first %} 
+                                    {% assign fluorIndex = 0 %}
+                                    {% for item in fluorescence_value_array %}
+                                         {% assign active_class = '' %}
+                                          {% assign all_hide_class = '' %}
+                                         {% assign fluor_current_item = item | strip %}
+                                       {% if fluorParams contains fluor_current_item %}
+                                        {% assign active_class = 'active' %}
+                                        {% endif %}
+                                          {% if fluor_current_item == 'All' %}
+                                       {% assign all_hide_class = 'hide' %}
+                                       {% endif %}
+                                <button
+                                  type="button"
+                                  class="swatches-tab {{active_class }} {{all_hide_class }}"
+                                  role="radio"
+                                  aria-checked="true"
+                                  tabindex="0"
+                                  data-value="{{ item }}"
+                                >
+                                 {{ item }}
+                                </button>
+                                 {% endfor %}
+                              </div>
+                                 </div>
+                            </li> 
+                            {% when 'Polish' %}
+                              {% assign polish_values = '' %}
+                                    {% for i in (1..6) %}
+                                      {% assign polish_label_id = 'main_title_polish_' | append: i %}
+                                      {% assign polish_display_id = 'main_title_polish_checkbox_' | append: i %}
+                                      {% if block.settings[polish_label_id] != blank and block.settings[polish_display_id] == true %}
+                                        {% assign polish_values = polish_values | append: block.settings[polish_label_id] | append: ', ' %}
+                                      {% endif %}
+                                    {% endfor %}
+                                 {% assign polishValues = polish_values | prepend: 'All, ' %}
+                                  {% assign polish_value_array = polishValues | replace_last: ', ', '' | split: ', ' %}
+                                    {% assign polishParams = '' %}
+                                    {% if labGrownPageQueryArray != blank %}
+                                      {% for param in labGrownPageQueryArray %}
+                                        {%- if param contains "polish" -%}
+                                          {% assign polishParams = param | split: '=' | last | url_decode | strip | replace: '+', ' '|replace: ', ', ',' |  split: ',' %}
+                                        {%- endif -%}
+                                      {% endfor %}
+                                    {% endif %}
+                                     {% assign polishData = polish_values | replace_last: ', ', '' %}
+                                     
+                                       {% assign polishParamsArr =polishParams %}
+                                    {% assign polishParamsCountWithPlus  = '' %}
+                                    {% if polishParamsArr.size > 1  %}
+                                   {% assign polishParamsCount =polishParamsArr.size | minus: 1 %}
+                                {% assign polishParamsCountWithPlus = '+ ' | append:polishParamsCount %}
+                                    {% endif  %}  
+                                    
+
+                            <li class="filter__list-item filter__list-polish">
+                              <div class="filter__list-label">
+                                <div class="filter__list-title">
+                                  <h3>Polish</h3>
+                                </div>
+                               <div class="filter-selected polish-filter-selected {% if polishParams contains 'All' %} hide{% endif %} " id="filter-polish" role="group">
+                                  <span class="filter-name polish-filter-name">{{polishParamsArr|first }} {{polishParamsCountWithPlus }}   </span>
+                                </div>
+                                   <button class="filter__list-icon" 
+                                    data-li="polish"
+                                    aria-label="Toggle polish filter options"
+                                    aria-controls="filter-polish"
+                                    type="button"
+                                  >
+                                          
+                                  {% render 'icon-down-arrow' %}
+                                   </button>
+                              </div>
+                              <div class="filter__list-content">
+                                <div class="filter-info">
+                                  <div class="tooltip mobile-tooltip">
+                                      <button type="button" data-mb-tooltip="polish"  aria-controls="tooltip-polish" class="dmd-toltiptext"  data-mb-tooltip="polish">Polish Guide</button>
+                                      <div class="tooltiptext" id="tooltip-polish"  role="dialog"  aria-labelledby="tooltip-polish-title">
+                                        <div class="tooltip-title" id="tooltip-polish-title">
+                                          Polish
+                                          <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close Fluor. Guide tooltip">
+                                            {% render 'icon-close' %}
+                                          </button>
+                                        </div>
+                                        {% if block.settings.description_textarea_polish != blank %}
+                                          <p class="tooltip-content">{{ block.settings.description_textarea_polish | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                                        {% endif %}
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="select-wrapper">
+                                    
+                                   
+
+                                    <select class="sustainability-select hide" id="polish-select-mobile" multiple>
+                                     {% assign defaultPolish = polish_value_array.first %}
+                                        {% if polishParams == blank %}
+                                            {% assign polishParams = defaultPolish %}
+                                        {% endif %} 
+                                      {% assign polishIndex = 0 %}
+                                      {% for item in polish_value_array %}
+                                        {% assign polish_current_item = item | strip %}
+                                            {% if polishParams contains polish_current_item %}
+                                              <option value="{{ item }}" selected>{{ item }}</option>
+                                            {% else %}
+                                              <option value="{{ item }}">{{ item }}</option>
+                                          {% endif %}
+                                        
+                                      {% endfor %}
+                                    </select>
+                                </div>
+                                <div
+                              class="dmdfilter-swatches dmdfilter-swatches-polish"
+                              role="radiogroup"
+                              aria-label="Select Polish"
+                              data-option-name="Polish"
+                                  data-multiple="true"
+                            >
+                                {% assign defaultPolish = polish_value_array.first %}
+                                  {% assign polishIndex = 0 %}
+                                  {% for item in polish_value_array %}
+                                       {% assign active_class = '' %}
+                                        {% assign all_hide_class = '' %}
+                                         {% assign polish_current_item = item | strip %}
+                                         {% if polishParams contains polish_current_item %}
+                                        {% assign active_class = 'active' %}
+                                        {% endif %}
+                                        {% if polish_current_item == 'All' %}
+                                       {% assign all_hide_class = 'hide' %}
+                                       {% endif %}
+                              <button
+                                type="button"
+                                class="swatches-tab {{active_class }} {{ all_hide_class }}"
+                                role="radio"
+                                aria-checked="true"
+                                tabindex="0"
+                                data-value="{{ item }}"
+                                    data-multiple="true"
+                              >
+                                {{ item }}
+                              </button>
+                                {% endfor %}
+                                </div>
+                              </div>
+                            </li> 
+                           {% when 'CertifiedBy' %}   
+                             {% assign certified_by_values = '' %}
+                                  {% for i in (1..5) %}
+                                    {% assign certified_by_label_id = 'main_title_certified_by_' | append: i %}
+                                    {% assign certified_by_display_id = 'main_title_certified_by_checkbox_' | append: i %}
+                                    {% if block.settings[certified_by_label_id] != blank and block.settings[certified_by_display_id] == true %}
+                                      {% assign certified_by_values = certified_by_values | append: block.settings[certified_by_label_id] | append: ', ' %}
+                                    {% endif %}
+                                  {% endfor %}
+                                 {% assign certified_byValues = certified_by_values | prepend: 'All, ' %}
+                                {% assign certified_by_value_array = certified_byValues | replace_last: ', ', '' | split: ', ' %}
+                                  {% assign labParams = '' %}
+                                  {% if labGrownPageQueryArray != blank %}
+                                    {% for param in labGrownPageQueryArray %}
+                                      {%- if param contains "lab" -%}
+                                         {% assign labParams = param | split: '=' | last | url_decode | strip | replace: '+', '' | remove: ' '| split: ',' %}
+                                      {%- endif -%}
+                                    {% endfor %}
+                                  {% endif %}
+                                  {% assign certifiedByData = certified_by_values | replace_last: ', ', '' %}
+                                    {% assign labparamsArr = labParams %}
+                                    {% assign labparamsCountWithPlus  = '' %}
+                                    {% if labparamsArr.size > 1  %}
+                                   {% assign labparamsCount = labparamsArr.size | minus: 1 %}
+                                {% assign labparamsCountWithPlus = '+ ' | append: labparamsCount %}
+                                    {% endif  %}  
+                          
+                            <li class="filter__list-item filter__list-certified">
+                              <div class="filter__list-label">
+                                <div class="filter__list-title">
+                                  <h3>Certified</h3>
+                                </div>
+                                 
+
+                                 <div class="filter-selected certified-filter-selected {% if labParams contains 'All' %} hide{% endif %} " id="filter-certified" role="group">
+                                  <span class="filter-name certified-filter-name">{{labparamsArr|first }} {{labparamsCountWithPlus }}   </span>
+                                </div>
+                                  <button class="filter__list-icon" 
+                                    data-li="certified"
+                                    aria-label="Toggle certified filter options"
+                                    aria-controls="filter-certified"
+                                    type="button"
+                                  >
+                                  {% render 'icon-down-arrow' %}
+                                  </button>
+                              </div>
+                               <div class="filter__list-content">
+                              <div class="filter-info">
+                                <div class="tooltip mobile-tooltip">
+                                  <button type="button" data-mb-tooltip="certified"  aria-controls="tooltip-certified" class="dmd-toltiptext"  data-mb-tooltip="certified">Certified Guide</button>
+                                  <div class="tooltiptext" id="tooltip-certified"  role="dialog"  aria-labelledby="tooltip-certified-title">
+                                    <div class="tooltip-title" id="tooltip-certified-title">
+                                      Certified  
+                                      <button class="icon-close vdb-lb-close-tooltip filter-mobile-view-close" aria-label="close Fluor. Guide tooltip">
+                                        {% render 'icon-close' %}
+                                      </button>
+                                    </div>
+                                    {% if block.settings.description_textarea_certified_by != blank %}
+                                      <p class="tooltip-content">{{ block.settings.description_textarea_certified_by | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="select-wrapper">
+                                 
+                                  <select class="sustainability-select hide" id="certified-by-select-mobile" multiple>
+                                       {% assign defaultCertifiedBy = certified_by_value_array.first %}
+                                        {% if labParams == blank %}
+                                    {% assign labParams = defaultCertifiedBy %}
+                                   {% endif %}  
+                                    {% assign labIndex = 0 %}
+
+                                    {% for item in certified_by_value_array %}
+                                        {% assign current_item = item | strip %}
+
+                                      {% if labParams contains current_item %}
+                                         <option value="{{ item }}" selected>{{ item }}</option>
+                                      {% else %}  
+                                        <option value="{{ item }}">{{ item }}</option>
+                                        {% endif %}
+                                     
+                                    {% endfor %}
+                                  </select>
+                                  {% render 'icon', name: 'down-caret', icon_class: 'select-caret hide' %}
+                              </div>
+                              <div
+                                class="dmdfilter-swatches certified-swatches"
+                                role="radiogroup"
+                                aria-label="Select Certified"
+                                data-option-name="Certified"
+                                 data-multiple="true"
+                              >
+                                  {% assign defaultCertifiedBy = certified_by_value_array| join: ',' | remove: ' ' %}
+                                    
+                                    {% for item in certified_by_value_array %}
+                                      {% assign active_class = '' %}
+                                      {% assign all_hide_class = '' %}
+                                      {% assign current_item = item | strip %}
+                                        {% if current_item == 'All' %}
+                                       {% assign all_hide_class = 'hide' %}
+                                       {% endif %}
+                                       {% if labParams contains current_item %}
+                                        {% assign active_class = 'active' %}
+                                        {% endif %}
+
+                                <button
+                                  type="button"
+                                  class="swatches-tab {{active_class }} {{all_hide_class }}"
+                                  role="radio"
+                                  aria-checked="true"
+                                  tabindex="0"
+                                  data-value="{{ item }}"
+                                >
+                                 {{ item }}
+                                </button>
+                                 {% endfor %}
+                              </div>
+                               </div>
+                            </li> 
+                    {% endcase %}
+                  {% endfor %}
+                </ul>
+                </div> 
+              </li>           
+                
+      </ul>
+      <div class="filters-toggle-container">
+        <div class="filter-buttons">
+           <button class="button button--secondary reset-button vdb-lb-clear-all-filters1">RESET FILTERS</button>
+          <button class="button button--primary results-button vdb-lb-apply-all-filters vdb-lb-advanced-filter-mobile-view-close">Apply Filters</button>
+        </div>
+        <a  href="jascript:;" class="viewdetail vdb-lb-clear-all-filters vdb-lb-advanced-filter-mobile-view-close" aria-label="Clear All Filters">Clear All Filters</a>
+      </div>
+    </section>
+    <footer></footer>
+  </div>
+</div>
+<div class="filter__sidebar-overlay" style="top: 0px;"></div>
+<div id="diamond-filter" class="filter__sidebar-container dmd-detail-filter" role="dialog" aria-modal="true"
+  aria-labelledby="filter-title" tabindex="-1">
+</div>
+<div class="filter__sidebar-overlay dmd-detail-filter-close" style="top: 0px;"></div> 
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var overlay = document.querySelector(".filter__sidebar-overlay");
+    var htmlTag = document.documentElement; // <html>
+
+    if (overlay) {
+      overlay.addEventListener("click", function () {
+        // sidebar classes remove
+        document.querySelectorAll(".sidebar-active").forEach(function (el) {
+          el.classList.remove("sidebar-active");
+        });
+        let filterListOpenElements = document.getElementsByClassName('filter__list-open');
+                filterListOpenElements = Array.prototype.slice.call(filterListOpenElements);
+                filterListOpenElements.forEach(e => e.classList.remove('filter__list-open'));
+
+                let mobileTooltipActiveElements = document.getElementsByClassName('mobile-tooltip-active');
+                mobileTooltipActiveElements = Array.prototype.slice.call(mobileTooltipActiveElements);
+                mobileTooltipActiveElements.map(e => e.classList.remove('mobile-tooltip-active'));
+
+        // html class remove
+        htmlTag.classList.remove("open-dmdfilter");
+      });
+    } 
+});
+</script>
+
+
+
+
+
+

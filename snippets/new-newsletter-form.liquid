@@ -1,0 +1,196 @@
+{% comment %}
+  Optional values
+  newsletter_class: <string>
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{% if settings.form_button_style contains 'primary' %}
+  {%- assign field_input_size = settings.button_primary_padding -%}
+  {%- assign field_input_style = 'primary-btn-style' -%}
+{% elsif settings.form_button_style contains 'secondary' %}
+  {%- assign field_input_size = settings.button_secondary_padding -%}
+  {%- assign field_input_style = 'secondary-btn-style' -%}
+{% else %}
+  {%- assign field_input_size = settings.button_link_padding -%}
+{% endif %}
+
+{% style %}
+  #shopify-section-{{ object.id }} .newsletter-form__wrapper {
+    {% if width == 'half' %}
+      max-width: 100%;
+    {% endif %}
+  }
+
+  {% render 'css-loop',
+          css: custom_css,
+          id: object.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<div class="newsletter-form__wrapper {{ newsletter_class }}">
+  <div class="form__success-message text-align-{{ text_alignment }}"></div>
+  <form
+    class="contact-form newsletter-form--newsletter-section pure-form email-signup-form"
+    action="//manage.kmail-lists.com/subscriptions/subscribe"
+    data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe"
+    method="GET"
+    id="email_signup"
+  >
+    <input type="hidden" name="g" value="P7rHVQ">
+    <label class="hidden" for="k_id_email">Email</label>
+    {% comment %}
+      {% if form.posted_successfully? %}
+        <p class="quote">{{ 'general.newsletter_form.success_text' | t }}</p>
+      {% elsif form.errors %}
+        <div class="one-whole column contact-form__form-errors">
+          {% for field in form.error%}
+            <p class="form__error">{{ field | capitalize }} - {{ form.errors.messages[field] }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endcomment %}
+    {% comment %}   Hidden fields {% endcomment %}
+    {% comment %}
+      <input type="hidden" name="contact[tags]" value="prospect,newsletter">
+      <input type="hidden" name="challenge" value="false">
+    {% endcomment %}
+    <div class="newsletter-form form is-responsive">
+      {% if display_first_name %}
+        {% comment %} First name {% endcomment %}
+        <div class="field is-stretched-width {% if display_last_name != true %} is-full-width {% endif %}">
+          <label class="label newsletter__text {% if settings.use_placeholders %}is-sr-only{% endif %}">
+            {{ 'general.newsletter_form.subscriber_first_name' | t }}
+          </label>
+          <div class="control">
+            <input
+              aria-label="Enter your email address"
+              id="k_id_name"
+              class="email-input input is-{{ field_input_style }} is-{{ field_input_size }}"
+              type="text"
+              name="name"
+              placeholder="{% if settings.use_placeholders %}{{ 'general.newsletter_form.subscriber_first_name' | t }}{% endif %}"
+              required
+            >
+          </div>
+        </div>
+      {% endif %}
+
+      {% if display_last_name %}
+        {% comment %} Last name {% endcomment %}
+        <div class="field is-stretched-width {% if display_first_name != true %} is-full-width {% endif %}">
+          <label class="label newsletter__text {% if settings.use_placeholders %}is-sr-only{% endif %}">
+            {{ 'general.newsletter_form.subscriber_last_name' | t }}
+          </label>
+          <div class="control">
+            <input
+              class="input is-{{ field_input_style }} is-{{ field_input_size }}"
+              type="text"
+              name="contact[last_name]"
+              placeholder="{% if settings.use_placeholders %}{{ 'general.newsletter_form.subscriber_last_name' | t }}{% endif%}"
+            >
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Email {% endcomment %}
+      <div class="field is-stretched-width">
+        <label class="label newsletter__text {% if settings.use_placeholders %}is-sr-only{% endif %}">
+          {{ 'general.newsletter_form.email' | t -}}
+          <span class="required">*</span>
+        </label>
+        <div class="control {% if settings.show_form_icons %} has-icons-left has-icons-left--responsive-form{% endif %}">
+          <input
+            aria-label="Enter your email address"
+            id="k_id_email"
+            class="email-input input is-{{ field_input_style }} is-{{ field_input_size }}"
+            type="email"
+            name="email"
+            placeholder="YOUR EMAIL ADDRESS"
+            required
+          >
+          {% if settings.show_form_icons %}
+            {% render 'icon', name: 'email' %}
+          {% endif %}
+        </div>
+      </div>
+
+      {% comment %} Submit button {% endcomment %}
+      <div class="field is-default-width is-align-self-end">
+        <div class="control">
+          {%- assign button_label = 'SIGN UP' -%}
+          {% render 'button',
+            label: button_label,
+            type: 'submit',
+            style: settings.form_button_style,
+            class: 'Sign-up is-within-form'
+          %}
+        </div>
+      </div>
+      <div class="email-alert email-alert-success">Success! Thank you for signing up.</div>
+      <div class="email-alert email-alert-error">
+        The email address you entered doesn't appear to be valid. Please check it and try again, or give us a call at
+        <a href="tel:503-336-1581">(503) 336-1581</a>
+        for assistance.
+      </div>
+    </div>
+  </form>
+</div>
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+
+  _learnq.push(['account', 's48Rp2']);
+
+  (function () {
+  var b = document.createElement('script'); b.type = 'text/javascript'; b.async = true;
+  b.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'a.klaviyo.com/media/js/analytics/analytics.js';
+  var a = document.getElementsByTagName('script')[0]; a.parentNode.insertBefore(b, a);
+  })();
+</script>
+<script defer type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+
+<script type="text/javascript">
+  
+  
+  
+  
+  
+  
+  
+        window.__domReady__ = function(callback) {
+      if (document.readyState === 'loading') {
+        document.addEventListener("DOMContentLoaded", callback);
+      } else {
+        // `DOMContentLoaded` already fired
+        callback();
+      }
+    }
+    __domReady__(function() {
+      KlaviyoSubscribe.attachToForms("#email_signup", {
+        success: function(form) {
+          var successMessageHeight = form.find('.email-alert.email-alert-success').outerHeight();
+          $('.footer__store-info').css('bottom', successMessageHeight);
+          form.find('.email-alert.email-alert-success').finish().show().delay(4000).fadeOut("fast", function() {
+            $('.footer__store-info').css('bottom', '0');
+          });
+          $('.email-input').val('').blur();
+          $('.sign-up').blur();
+          ga('send', 'event', 'Funnel Tracking', 'Click', 'Email Sign-up');
+        }
+      });
+    });
+
+
+
+
+
+
+
+</script>

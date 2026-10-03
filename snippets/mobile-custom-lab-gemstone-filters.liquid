@@ -1,0 +1,1988 @@
+<div class="filter__sidebar-container is-hidden-desktop-only vdb-lb-main-advance-filter-mobile" style="top: 48px;">
+  <div class="filter__sidebar-content">
+    <header>
+      <h6>Filter</h6>
+      {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-advanced-filter-mobile-view-close' %}
+    </header>
+    <section>
+      <ul class="filter__list">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'Shape' %}
+              {% comment %}filter__list-open{% endcomment %}
+                <li class="filter__list-item filter__list-shapes">
+                  <div class="filter__list-label">
+                    <div class="filter__list-title">
+                      <h6>Shape</h6>
+                      <div class="filter-info">
+                        <div class="tooltip mobile-tooltip" data-mb-tooltip="shape">
+                          <img
+                            src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                            width="18px"
+                            height="18px"
+                        class="icon-info" alt="">
+                          <span class="tooltiptext">
+                            <p class="tooltip-title">
+                              Shape {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                            </p>
+                            {% if block.settings.description_textarea_shape != blank %}
+                              <p class="tooltip-content">{{ block.settings.description_textarea_shape | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                            {% endif %}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="filter__list-icon" data-li="shapes">
+                      <i class="icon-solid-caret"></i>
+                    </div>
+                  </div>
+                  <div class="filter__list-content">
+                    <div class="options swiper vdb-gm-slider-shape">
+                      <div class="swiper-wrapper">
+                    {% assign shapeString = '' %}
+                        {% for i in (1..14) %}
+                          {% assign shape_label_id = 'main_title_shape_' | append: i %}
+                          {% assign shape_display_id = 'main_title_shape_checkbox_' | append: i %}
+                      {% if block.settings[shape_label_id] != blank and block.settings[shape_display_id] == true %}
+                        {% assign shapeString = shapeString | append: ',' | append: i %}
+                      {% endif %}
+                    {% endfor %}
+
+                    {% assign shapeArray = shapeString | remove_first: ',' | split: ',' %}
+                            {% assign shapeIndex = 0 %}
+                            {% assign shapeParams = '' %}
+                            {% if gemstonePageQueryArray != blank %}
+                              {% for param in gemstonePageQueryArray %}
+                                {%- if param contains "shape" -%}
+                                  {% assign shapeKey = param | split: '=' | first | strip %}
+                                  {% if shapeKey != "supported_shapes" %}
+                                    {% assign shapeParams = param | split: '=' | last | strip %}
+                                    {% assign shapeParams = shapeParams | replace: "Cut", "" | replace: "+", " " | strip %}
+                                  {% endif %}
+                                {%- endif -%}
+                              {% endfor %}
+                            {% else %}
+                      {% assign shapeIndex = shapeArray | first %}
+                            {% endif %}
+
+                    {% assign defaultShapeIndex = shapeArray | first %}
+                    {% for i in shapeArray %}
+                      {% assign shape_label_id = 'main_title_shape_' | append: i %}
+                      {% assign shape_display_id = 'main_title_shape_checkbox_' | append: i %}
+                      {% assign shape_icon_id = 'main_title_shape_icon_' | append: i %}
+
+                      {% if block.settings[shape_label_id] != blank and block.settings[shape_display_id] == true %}
+                        {% comment %}
+                        {% assign shape_default_icon_file = 'icon-shape-' | append: block.settings[shape_label_id] | handle | append: '-cut'  | downcase  %}
+                        {% assign shape_default_icon_file_string = shape_default_icon_file_string | append: "" %}
+                        {% endcomment %}
+                        {% assign shape_handle = block.settings[shape_label_id] | handle | downcase %}
+                        {% assign class_name_shape = 'vdb-list-item-shape-style-' | append: shape_handle %}
+
+                            {% if shapeParams == block.settings[shape_label_id] %} {% assign shapeIndex = i %} {% endif %}
+                        {% unless i != defaultShapeIndex %} {% assign defaultShape = block.settings[shape_label_id] %}{% endunless %}
+                            <div class="option swiper-slide {{ class_name_shape }} {% unless i != shapeIndex %}active-state{% endunless %}">
+                              <button
+                                class="vdb-list-item-a-shape-style"
+                                data-module="{{ class_name_shape }}"
+                            data-shape-value="{{ block.settings[shape_label_id] }}">
+                                {% if block.settings[shape_icon_id] != blank %}
+                                  {{ block.settings[shape_icon_id] | image_url: width: 300 | image_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                {% else %}
+                                  {% if shape_handle == 'round' %}
+                                    {% render 'icon-shape-round-cut' %}
+                                  {% elsif shape_handle == 'princess' %}
+                                    {% render 'icon-shape-princess-cut' %}
+                                  {% elsif shape_handle == 'cushion' %}
+                                    {% render 'icon-shape-cushion-cut' %}
+                                  {% elsif shape_handle == 'elongated-cushion' %}
+                                    {% render 'icon-shape-cushion-cut' %}
+                                  {% elsif shape_handle == 'oval' %}
+                                    {% render 'icon-shape-oval-cut' %}
+                                  {% elsif shape_handle == 'emerald' %}
+                                    {% render 'icon-shape-emerald-cut' %}
+                                  {% elsif shape_handle == 'asscher' %}
+                                    {% render 'icon-shape-asscher-cut' %}
+                                  {% elsif shape_handle == 'radiant' %}
+                                    {% render 'icon-shape-radiant-cut' %}
+                                  {% elsif shape_handle == 'pear' %}
+                                    {% render 'icon-shape-pear-cut' %}
+                                  {% elsif shape_handle == 'heart' %}
+                                    {% render 'icon-shape-heart-cut' %}
+                                  {% elsif shape_handle == 'marquise' %}
+                                    {% render 'icon-shape-marquise-cut' %}
+                                  {% elsif shape_handle == 'oval-rose' %}
+                                    {% render 'icon-shape-oval-rose-cut' %}
+                                  {% elsif shape_handle == 'trillion' or shape_handle == 'trilliant' %}
+                                    {% render 'icon-shape-trillion-cut' %}
+                                  {% elsif shape_handle == 'half-moon' %}
+                                    {% render 'icon-shape-half-moon-cut' %}
+                                  {% elsif shape_handle == 'baguette' %}
+                                    {% render 'icon-shape-baguette-cut' %}
+                                  {% elsif shape_handle == 'rose-brilliant' %}
+                                    {% render 'icon-shape-rose-brilliant-cut' %}
+                                  {% elsif shape_handle == 'rose' %}
+                                    {% render 'icon-shape-rose-cut' %}
+                                  {% endif %}
+                                {% endif %}
+                                <div>{{ block.settings[shape_label_id] }}</div>
+                              </button>
+                            </div>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                      {% comment %}
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                      {% endcomment %}
+                  <div class="swiper-scrollbar swiper-scrollbar-shape"></div>
+                    </div>
+                  </div>
+                </li>
+              {% when 'Color' %}
+                <li class="filter__list-item filter__list-color">
+                  <div class="filter__list-label">
+                    <div class="filter__list-title">
+                      <h6>Color</h6>
+                      <div class="filter-info">
+                        <div class="tooltip mobile-tooltip" data-mb-tooltip="color">
+                          <img
+                            src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                            width="18px"
+                            height="18px"
+                        class="icon-info" alt="">
+                          <span class="tooltiptext">
+                            <p class="tooltip-title">
+                              Color {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                            </p>
+                            {% if block.settings.description_textarea_color != blank %}
+                              <p class="tooltip-content">{{ block.settings.description_textarea_color | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                            {% endif %}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="filter__list-icon" data-li="color">
+                      <i class="icon-solid-caret"></i>
+                    </div>
+                  </div>
+                  <div class="filter__list-content">
+                <div class="options swiper vdb-gm-slider-color">
+                      <div class="swiper-wrapper">
+                    {% assign colorString = '' %}
+                    {%- assign color_value = '' -%}
+                    {%- if pageUrl contains 'color=' -%}
+                      {%- assign color_value = pageUrl | split:'color=' | last | split:'&' | first | handleize -%}
+                    {%- endif -%}
+                    {% for i in (1..8) %}
+                          {% assign color_label_id = 'main_title_color_' | append: i %}
+                          {% assign color_display_id = 'main_title_color_checkbox_' | append: i %}
+                      {% if block.settings[color_label_id] != blank and block.settings[color_display_id] == true %}
+                        {% assign colorString = colorString | append: ',' | append: i %}
+                      {% endif %}
+                    {% endfor %}
+
+                    {% assign colorArray = colorString | remove_first: ',' | split: ',' %}
+                            {% assign colorIndex = 0 %}
+                            {% assign colorParams = '' %}
+                            {% if gemstonePageQueryArray != blank %}
+                              {% for param in gemstonePageQueryArray %}
+                                {%- if param contains "color" -%}
+                                  {% assign colorParams = param | split: '=' | last | strip %}
+                                {%- endif -%}
+                              {% endfor %}
+                            {% else %}
+                      {% comment %} {% assign colorIndex = colorArray | first %} {% endcomment %}
+                            {% endif %}
+
+                    {% comment %} {% assign defaultColorIndex = colorArray | first %} {% endcomment %}
+                    {% for i in colorArray %}
+                      {% assign color_label_id = 'main_title_color_' | append: i %}
+                      {% assign color_display_id = 'main_title_color_checkbox_' | append: i %}
+                      {% assign color_icon_id = 'main_title_color_icon_' | append: i %}
+
+                        {% if block.settings[color_label_id] != blank and block.settings[color_display_id] == true %}
+                        {% comment %}
+                        {% assign color_default_icon_file = 'icon-color-' | append: block.settings[color_label_id] | handle | append: '-cut'  | downcase  %}
+                        {% assign color_default_icon_file_string = color_default_icon_file_string | append: "" %}
+                        {% endcomment %}
+                        {% assign color_handle = block.settings[color_label_id] | handle | downcase %}
+                        {% assign class_name_color = 'vdb-list-item-color-style-' | append: color_handle %}
+                        
+                            {% if colorParams == block.settings[color_label_id] %} {% assign colorIndex = i %} {% endif %}
+                        {% comment %} {% unless i != defaultColorIndex %} {% assign defaultColor = block.settings[color_label_id] %} {% endunless %} {% endcomment %}
+                            <div id="color-opt-mob-{{color_handle }}" class="option comoon-color-opt-mob swiper-slide {{ class_name_color }} {% unless color_value == '' %}{% if color_value == color_handle %} active-state{% endif %}{% else %}{% unless i != colorIndex %}active-state{% endunless %}{% endunless %}">
+                          <button
+                            class="vdb-list-item-a-color-style"
+                            data-module="{{ class_name_color }}"
+                            data-color-value="{{ block.settings[color_label_id] }}">
+                                {% if block.settings[color_icon_id] != blank %}
+                                  {{ block.settings[color_icon_id] | image_url: width: 28 | image_tag: alt: block.settings[color_label_id] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                {% else %}
+                                  {% assign defualt_image_url = 'icon-gem-' | append: block.settings[color_label_id] | handle | append: '.png' %}
+                              <img
+                                src="{{ settings.speedsize_url_pfx_https -}}{{ defualt_image_url | asset_url  }}"
+                                width="28"
+                                height="28"
+                                alt="{{ block.settings[color_label_id] }} image">
+                                {% endif %}
+                                <div>{{ block.settings[color_label_id] }}</div>
+                              </button>
+                            </div>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                      {% comment %}
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                      {% endcomment %}
+                  <div class="swiper-scrollbar swiper-scrollbar-color"></div>
+                    </div>
+                  </div>
+                </li>
+            {% when 'Carat' %}
+              {% assign caratMinParams = '1' %}
+              {% assign caratMaxParams = '' %}
+              {% assign ringHandle = 'No' %}
+              {% if gemstonePageQueryArray != blank %}
+                {% for param in gemstonePageQueryArray %}
+                  {%- if param contains "ring-handle" -%}
+                    {% assign ringHandle = 'Yes' %}
+                  {%- endif -%}
+                {% endfor %}
+
+                {% for param in gemstonePageQueryArray %}
+                  {%- if param contains "min_carat" -%}
+                    {% assign caratMinParams = param | split: '=' | last | strip | to_i %}
+                  {% comment %} {% else %}
+                    {%- assign caratMinParams = block.settings.main_title_carat_min -%} {% endcomment %}
+                  {%- endif -%}
+                {% endfor %}
+
+                {% for param in gemstonePageQueryArray %}
+                  {%- if param contains "max_carat" -%}
+                    {% assign caratMaxParams = param | split: '=' | last | strip | to_i %}
+                  {% comment %} {% else %}
+                    {%- assign caratMaxParams = block.settings.main_title_carat_max -%} {% endcomment %}
+                  {%- endif -%}
+                {% endfor %}
+              {% else %}
+                {% comment %} {%- assign caratMinParams = block.settings.main_title_carat_min -%} {% endcomment %}
+                {% comment %} {%- assign caratMaxParams = block.settings.main_title_carat_max -%} {% endcomment %}
+              {% endif %}
+              {%- assign defaultCaratMin = caratMinParams -%}
+              {%- assign defaultCaratMax = caratMaxParams -%}
+              
+              {% if carat_metafields != blank %}
+                {% assign caratMetafields = carat_metafields |  split: '-' %}
+                {% assign minCaratValue = caratMetafields | first %}
+                {% assign maxCaratValue = caratMetafields | last %}
+              {% else %}
+                {% assign minCaratValue = block.settings.main_title_carat_min %}
+                {% assign maxCaratValue = block.settings.main_title_carat_max %}
+              {% endif %}
+              {%- assign defaultCaratMin = minCaratValue -%}
+              {%- assign defaultCaratMax = maxCaratValue -%}
+
+              {% if ringHandle == 'Yes' %}
+                {% assign minCaratValue = caratMinParams %}
+                {% assign caratMinParams = minCaratValue %} {% comment %}  '1' {% endcomment %}
+                {% assign maxCaratValue = caratMaxParams %}
+              {% endif %}
+              {% if caratMaxParams == blank %}{% assign caratMaxParams = maxCaratValue %}{% endif %}
+
+              <li class="filter__list-item filter__list-carat">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Carat</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="carat">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Carat Size {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_carat != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_carat | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="carat">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="range-slider range-target">
+                    <div class="range-base">
+                      <tc-range-slider
+                        id="slider_carat_mia_mobile"
+                        min="{{ minCaratValue }}"
+                        max="{{ maxCaratValue }}"
+                        value1="{{ caratMinParams }}"
+                        value2="{{ caratMaxParams }}"
+                        aria-label1="Minimum carat weight"
+                        aria-label2="Maximum carat weight"
+                        moving-tooltip="true"
+                        moving-tooltip-distance-to-pointer="-30"
+                        moving-tooltip-bg="transparent"
+                        moving-tooltip-text-color="#3c3737"
+                        moving-tooltip-width="70"
+                        moving-tooltip-height="20"
+                        mousewheel-disabled="true"
+                        pointer-bg="#fca999"
+                        pointer-bg-hover="#fca999"
+                        pointer-bg-focus="#fca999"
+                        pointer-border="1px solid #fca999"
+                        pointer-border-hover="1px solid #fca999"
+                        pointer-border-focus="1px solid #fca999"
+                        slider-bg="#ebebeb"
+                        slider-bg-fill="#fca999"
+                        moving-tooltip-units=" CT"
+                        slider-width="400px"
+                        slider-height="5px"
+                        generate-labels="false"
+                      css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'Price' %}
+              {% assign priceMinParams = '' %}
+              {% assign priceMaxParams = '' %}
+              {% if gemstonePageQueryArray != blank %}
+                {% for param in gemstonePageQueryArray %}
+                  {%- if param contains "min_price" -%}
+                    {% assign priceMinParams = param | split: '=' | last | strip | to_i %}
+                  {% comment %} {% else %}
+                    {%- assign priceMinParams = block.settings.main_title_price_min -%} {% endcomment %}
+                  {%- endif -%}
+                {% endfor %}
+
+                {% for param in gemstonePageQueryArray %}
+                  {%- if param contains "max_price" -%}
+                    {% assign priceMaxParams = param | split: '=' | last | strip | to_i %}
+                  {% comment %} {% else %}
+                    {%- assign priceMaxParams = block.settings.main_title_price_max -%} {% endcomment %}
+                  {%- endif -%}
+                {% endfor %}
+              {% else %}
+                {% comment %} {%- assign priceMinParams = block.settings.main_title_price_min -%}
+                {%- assign priceMaxParams = block.settings.main_title_price_max -%} {% endcomment %}
+              {% endif %}
+              {%- assign defaultPriceMin = priceMinParams -%}
+              {%- assign defaultPriceMax = priceMaxParams -%}
+
+              {% if price_metafields != blank %}
+                {% assign priceMetafields = price_metafields |  split: '-' %}
+                {% assign minPriceValue = priceMetafields | first %}
+                {% assign maxPriceValue = priceMetafields | last %}
+              {% else %}
+                {% assign minPriceValue = block.settings.main_title_carat_min %}
+                {% assign maxPriceValue = block.settings.main_title_carat_max %}
+              {% endif %}
+              
+              {%- assign defaultPriceMin = minPriceValue -%}
+              {%- assign defaultPriceMax = maxPriceValue -%}
+              {% if priceMinParams == blank %}{% assign priceMinParams = minPriceValue %}{% endif %}
+              {% if priceMaxParams == blank %}{% assign priceMaxParams = maxPriceValue %}{% endif %}
+              <li class="filter__list-item filter__list-price">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Price</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="price">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Price {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_price != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_price | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="price">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="range-slider range-target">
+                    <div class="range-base">
+                      <tc-range-slider
+                        id="slider_price_mia_mobile"
+                        min="{{ minPriceValue }}"
+                        max="{{ maxPriceValue }}"
+                        value1="{{ priceMinParams }}"
+                        value2="{{ priceMaxParams }}"
+                        aria-label1="Minimum price"
+                        aria-label2="Maximum price"
+                        step="0.01"
+                        moving-tooltip="true"
+                        moving-tooltip-distance-to-pointer="-30"
+                        moving-tooltip-bg="transparent"
+                        moving-tooltip-text-color="#3c3737"
+                        moving-tooltip-width="70"
+                        moving-tooltip-height="20"
+                        mousewheel-disabled="true"
+                        pointer-bg="#fca999"
+                        pointer-bg-hover="#fca999"
+                        pointer-bg-focus="#fca999"
+                        pointer-border="1px solid #fca999"
+                        pointer-border-hover="1px solid #fca999"
+                        pointer-border-focus="1px solid #fca999"
+                        slider-bg="#ebebeb"
+                        slider-bg-fill="#fca999"
+                        moving-tooltip-units="$"
+                        moving-tooltip-units-type="prefix"
+                        slider-width="400px"
+                        slider-height="5px"
+                        generate-labels="false"
+                      css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'Clarity' %}
+              <li class="filter__list-item filter__list-clarity">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Clarity</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="clarity">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Clarity {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_clarity != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_clarity | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="clarity">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="range-slider range-target">
+                    <div class="range-base">
+                      {% assign clarity_values = '' %}
+                      {% for i in (1..9) %}
+                        {% assign clarity_label_id = 'main_title_clarity_' | append: i %}
+                        {% assign clarity_display_id = 'main_title_clarity_checkbox_' | append: i %}
+                        {% if block.settings[clarity_label_id] != blank
+                          and block.settings[clarity_display_id] == true
+                        %}
+                          {% assign clarity_values = clarity_values
+                            | append: block.settings[clarity_label_id]
+                         | append: ',' %}
+                        {% endif %}
+                      {% endfor %}
+                      {% assign clarity_value_array = clarity_values | replace_last: ',', '' | split: ',' %}
+                      <tc-range-slider
+                        id="slider_clarity_mia_mobile"
+                        min="{{ clarity_value_array | first }}"
+                        max="{{ clarity_value_array | last }}"
+                        value1="{{ clarity_value_array | first }}"
+                        value2="{{ clarity_value_array | last }}"
+                        aria-label1="Minimum clarity"
+                        aria-label2="Maximum clarity"
+                        data="{{ clarity_values | replace_last: ', ', '' }}"
+                        marks="true"
+                        marks-count="{{ clarity_value_array | size }}"
+                        marks-values-count="{{ clarity_value_array | size }}"
+                        mousewheel-disabled="true"
+                        pointer-bg="#fca999"
+                        pointer-bg-hover="#fca999"
+                        pointer-bg-focus="#fca999"
+                        pointer-border="1px solid #fca999"
+                        pointer-border-hover="1px solid #fca999"
+                        pointer-border-focus="1px solid #fca999"
+                        slider-bg="#ebebeb"
+                        slider-bg-fill="#fca999"
+                        slider-width="400px"
+                        slider-height="5px"
+                        generate-labels="false"
+                      css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'Cut' %}
+              <li class="filter__list-item filter__list-cut">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Cut</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="cut">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Cut {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_cut != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_cut | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="cut">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="range-slider range-target">
+                    <div class="range-base">
+                      {% assign cut_values = '' %}
+                      {% for i in (1..6) %}
+                        {% assign cut_label_id = 'main_title_cut_' | append: i %}
+                        {% assign cut_display_id = 'main_title_cut_checkbox_' | append: i %}
+                        {% if block.settings[cut_label_id] != blank and block.settings[cut_display_id] == true %}
+                          {% assign cut_values = cut_values | append: block.settings[cut_label_id] | append: ',' %}
+                        {% endif %}
+                      {% endfor %}
+                      {% assign cut_value_array = cut_values | replace_last: ',', '' | split: ',' %}
+                      <tc-range-slider
+                        id="slider_cut_mia_mobile"
+                        min="{{ cut_value_array | first }}"
+                        max="{{ cut_value_array | last }}"
+                        value1="{{ cut_value_array | first }}"
+                        value2="{{ cut_value_array | last }}"
+                        aria-label1="Minimum cut"
+                        aria-label2="Maximum cut"
+                        data="{{ cut_values | replace_last: ',', '' }}"
+                        marks="true"
+                        marks-count="{{ cut_value_array | size }}"
+                        marks-values-count="{{ cut_value_array | size }}"
+                        mousewheel-disabled="true"
+                        pointer-bg="#fca999"
+                        pointer-bg-hover="#fca999"
+                        pointer-bg-focus="#fca999"
+                        pointer-border="1px solid #fca999"
+                        pointer-border-hover="1px solid #fca999"
+                        pointer-border-focus="1px solid #fca999"
+                        slider-bg="#ebebeb"
+                        slider-bg-fill="#fca999"
+                        slider-width="400px"
+                        slider-height="5px"
+                        generate-labels="false"
+                      css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'Sustainability' %}
+              <li class="filter__list-item filter__list-sustainability">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Sustainability</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="sustainability">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Sustainability {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_sustainability != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_sustainability | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="sustainability">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="select-wrapper">
+                    {% assign sustainability_values = '' %}
+                    {% for i in (1..6) %}
+                      {% assign sustainability_label_id = 'main_title_sustainability_' | append: i %}
+                      {% assign sustainability_display_id = 'main_title_sustainability_checkbox_' | append: i %}
+                      {% if block.settings[sustainability_label_id] != blank
+                        and block.settings[sustainability_display_id] == true
+                      %}
+                        {% assign sustainability_values = sustainability_values
+                          | append: block.settings[sustainability_label_id]
+                       | append: ', ' %}
+                      {% endif %}
+                    {% endfor %}
+                    {% assign sustainability_value_array = sustainability_values
+                      | replace_last: ', ', ''
+                   | split: ', ' %}
+                    <select class="sustainability-select" id="sustainability-select-mobile">
+                      {% assign defaultSustainability = sustainability_value_array.first %}
+                      {% for item in sustainability_value_array %}
+                        <option
+                          value="{{ item }}"
+                          {% if forloop.index0 == 0 %}
+                            selected
+                        {% endif %}>
+                          {{ item }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                </div>
+              </li>
+            {% when 'Ratio' %}
+              <li class="filter__list-item filter__list-ratio">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>L:W RATIO</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="ratio">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            L:W RATIO {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_ratio != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_ratio | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="ratio">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="range-slider range-target">
+                    <div class="range-base">
+                      <tc-range-slider
+                        id="slider_ratio_mia_mobile"
+                        min="{{ block.settings.main_title_ratio_min }}"
+                        max="{{ block.settings.main_title_ratio_max }}"
+                        value1="{{ block.settings.main_title_ratio_min }}"
+                        value2="{{ block.settings.main_title_ratio_max }}"
+                        aria-label1="Minimum length to width ratio"
+                        aria-label2="Maximum length to width ratio"
+                        step="0.01"
+                        moving-tooltip="true"
+                        moving-tooltip-distance-to-pointer="-30"
+                        moving-tooltip-bg="transparent"
+                        moving-tooltip-text-color="#3c3737"
+                        moving-tooltip-width="70"
+                        moving-tooltip-height="20"
+                        mousewheel-disabled="true"
+                        pointer-bg="#fca999"
+                        pointer-bg-hover="#fca999"
+                        pointer-bg-focus="#fca999"
+                        pointer-border="1px solid #fca999"
+                        pointer-border-hover="1px solid #fca999"
+                        pointer-border-focus="1px solid #fca999"
+                        slider-bg="#ebebeb"
+                        slider-bg-fill="#fca999"
+                        slider-width="400px"
+                        slider-height="5px"
+                        generate-labels="false"
+                      css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'Table' %}
+              <li class="filter__list-item filter__list-table">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Table%</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="table">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Table% {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_table != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_table | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="table">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="range-slider range-target">
+                    <div class="range-base">
+                      <tc-range-slider
+                        id="slider_table_mia_mobile"
+                        min="{{ block.settings.main_title_table_min }}"
+                        max="{{ block.settings.main_title_table_max }}"
+                        value1="{{ block.settings.main_title_table_min }}"
+                        value2="{{ block.settings.main_title_table_max }}"
+                        aria-label1="Minimum table percentage"
+                        aria-label2="Maximum table percentage"
+                        step="0.01"
+                        moving-tooltip="true"
+                        moving-tooltip-distance-to-pointer="-30"
+                        moving-tooltip-bg="transparent"
+                        moving-tooltip-text-color="#3c3737"
+                        moving-tooltip-width="70"
+                        moving-tooltip-height="20"
+                        mousewheel-disabled="true"
+                        pointer-bg="#fca999"
+                        pointer-bg-hover="#fca999"
+                        pointer-bg-focus="#fca999"
+                        pointer-border="1px solid #fca999"
+                        pointer-border-hover="1px solid #fca999"
+                        pointer-border-focus="1px solid #fca999"
+                        slider-bg="#ebebeb"
+                        slider-bg-fill="#fca999"
+                        slider-width="400px"
+                        slider-height="5px"
+                        moving-tooltip-units="%"
+                        generate-labels="false"
+                      css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'Fluorescence' %}
+              <li class="filter__list-item filter__list-fluorescence">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Fluorescence</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="fluorescence">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Fluorescence {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_fluorescence != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_fluorescence | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="fluorescence">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="select-wrapper">
+                    {% assign fluorescence_values = '' %}
+                    {% for i in (1..5) %}
+                      {% assign fluorescence_label_id = 'main_title_fluorescence_' | append: i %}
+                      {% assign fluorescence_display_id = 'main_title_fluorescence_checkbox_' | append: i %}
+                      {% if block.settings[fluorescence_label_id] != blank
+                        and block.settings[fluorescence_display_id] == true
+                      %}
+                        {% assign fluorescence_values = fluorescence_values
+                          | append: block.settings[fluorescence_label_id]
+                       | append: ', ' %}
+                      {% endif %}
+                    {% endfor %}
+                    {% assign fluorescence_value_array = fluorescence_values | replace_last: ', ', '' | split: ', ' %}
+                    <select class="sustainability-select" id="fluorescence-select-mobile">
+                      {% assign defaultFluorescence = fluorescence_value_array.first %}
+                      {% for item in fluorescence_value_array %}
+                        <option
+                          value="{{ item }}"
+                          {% if forloop.index0 == 0 %}
+                            selected
+                        {% endif %}>
+                          {{ item }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                </div>
+              </li>
+            {% when 'Polish' %}
+              <li class="filter__list-item filter__list-polish">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Polish</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="polish">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Polish {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_polish != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_polish | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="polish">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="select-wrapper">
+                    {% assign polish_values = '' %}
+                    {% for i in (1..6) %}
+                      {% assign polish_label_id = 'main_title_polish_' | append: i %}
+                      {% assign polish_display_id = 'main_title_polish_checkbox_' | append: i %}
+                      {% if block.settings[polish_label_id] != blank and block.settings[polish_display_id] == true %}
+                        {% assign polish_values = polish_values
+                          | append: block.settings[polish_label_id]
+                       | append: ', ' %}
+                      {% endif %}
+                    {% endfor %}
+                    {% assign polish_value_array = polish_values | replace_last: ', ', '' | split: ', ' %}
+                    <select class="sustainability-select" id="polish-select-mobile">
+                      {% assign defaultPolish = polish_value_array.first %}
+                      {% for item in polish_value_array %}
+                        <option
+                          value="{{ item }}"
+                          {% if forloop.index0 == 0 %}
+                            selected
+                        {% endif %}>
+                          {{ item }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                </div>
+              </li>
+            {% when 'Symmetry' %}
+              <li class="filter__list-item filter__list-symmetry">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Symmetry</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="symmetry">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Symmetry {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_symmetry != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_symmetry | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="symmetry">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="select-wrapper">
+                    {% assign symmetry_values = '' %}
+                    {% for i in (1..6) %}
+                      {% assign symmetry_label_id = 'main_title_symmetry_' | append: i %}
+                      {% assign symmetry_display_id = 'main_title_symmetry_checkbox_' | append: i %}
+                      {% if block.settings[symmetry_label_id] != blank
+                        and block.settings[symmetry_display_id] == true
+                      %}
+                        {% assign symmetry_values = symmetry_values
+                          | append: block.settings[symmetry_label_id]
+                       | append: ', ' %}
+                      {% endif %}
+                    {% endfor %}
+                    {% assign symmetry_value_array = symmetry_values | replace_last: ', ', '' | split: ', ' %}
+                    <select class="sustainability-select" id="symmetry-select-mobile">
+                      {% assign defaultSymmetry = symmetry_value_array.first %}
+                      {% for item in symmetry_value_array %}
+                        <option
+                          value="{{ item }}"
+                          {% if forloop.index0 == 0 %}
+                            selected
+                        {% endif %}>
+                          {{ item }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                </div>
+              </li>
+            {% when 'Depth' %}
+              <li class="filter__list-item filter__list-depth">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Depth%</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="depth">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Depth% {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_depth != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_depth | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="depth">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="range-slider range-target">
+                    <div class="range-base">
+                      <tc-range-slider
+                        id="slider_depth_mia_mobile"
+                        min="{{ block.settings.main_title_depth_min }}"
+                        max="{{ block.settings.main_title_depth_max }}"
+                        value1="{{ block.settings.main_title_depth_min }}"
+                        value2="{{ block.settings.main_title_depth_max }}"
+                        aria-label1="Minimum depth percentage"
+                        aria-label2="Maximum depth percentage"
+                        step="0.01"
+                        moving-tooltip="true"
+                        moving-tooltip-distance-to-pointer="-30"
+                        moving-tooltip-bg="transparent"
+                        moving-tooltip-text-color="#3c3737"
+                        moving-tooltip-width="70"
+                        moving-tooltip-height="20"
+                        mousewheel-disabled="true"
+                        pointer-bg="#fca999"
+                        pointer-bg-hover="#fca999"
+                        pointer-bg-focus="#fca999"
+                        pointer-border="1px solid #fca999"
+                        pointer-border-hover="1px solid #fca999"
+                        pointer-border-focus="1px solid #fca999"
+                        slider-bg="#ebebeb"
+                        slider-bg-fill="#fca999"
+                        slider-width="400px"
+                        slider-height="5px"
+                        moving-tooltip-units="%"
+                        generate-labels="false"
+                      css-links="{{ 'tc-range-box-shadow.css' | asset_url }};" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% when 'CertifiedBy' %}
+              <li class="filter__list-item filter__list-certified">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Certified</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="certified">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Certified {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_certified_by != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_certified_by | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="certified">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="select-wrapper">
+                    {% assign certified_by_values = '' %}
+                    {% for i in (1..5) %}
+                      {% assign certified_by_label_id = 'main_title_certified_by_' | append: i %}
+                      {% assign certified_by_display_id = 'main_title_certified_by_checkbox_' | append: i %}
+                      {% if block.settings[certified_by_label_id] != blank
+                        and block.settings[certified_by_display_id] == true
+                      %}
+                        {% assign certified_by_values = certified_by_values
+                          | append: block.settings[certified_by_label_id]
+                       | append: ', ' %}
+                      {% endif %}
+                    {% endfor %}
+                    {% assign certified_by_value_array = certified_by_values | replace_last: ', ', '' | split: ', ' %}
+                    <select class="sustainability-select" id="certified-by-select-mobile">
+                      {% assign defaultCertifiedBy = certified_by_value_array.first %}
+                      {% for item in certified_by_value_array %}
+                        <option
+                          value="{{ item }}"
+                          {% if forloop.index0 == 0 %}
+                            selected
+                        {% endif %}>
+                          {{ item }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                  </div>
+                </div>
+              </li>
+            {% when 'Fancy' %}
+              <li class="filter__list-item filter__list-fancy">
+                <div class="filter__list-label">
+                  <div class="filter__list-title">
+                    <h6>Fancy</h6>
+                    <div class="filter-info">
+                      <div class="tooltip mobile-tooltip" data-mb-tooltip="fancy">
+                        <img
+                          src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                          width="18px"
+                          height="18px"
+                        class="icon-info" alt="">
+                        <span class="tooltiptext">
+                          <p class="tooltip-title">
+                            Color {% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-close-tooltip' %}
+                          </p>
+                          {% if block.settings.description_textarea_fancy != blank %}
+                            <p class="tooltip-content">{{ block.settings.description_textarea_fancy | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                          {% endif %}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filter__list-icon" data-li="fancy">
+                    <i class="icon-solid-caret"></i>
+                  </div>
+                </div>
+                <div class="filter__list-content">
+                  <div class="options swiper vdb-lb-slider-fancy">
+                    <div class="swiper-wrapper">
+                      {% for i in (1..6) %}
+                        {% assign fancy_label_id = 'main_title_fancy_' | append: i %}
+                        {% assign color_value_id = 'main_value_fancy_' | append: i %}
+                        {% assign fancy_display_id = 'main_title_fancy_checkbox_' | append: i %}
+                        {% assign fancy_icon_id = 'main_title_fancy_icon_' | append: i %}
+
+                        {% if block.settings[fancy_label_id] != blank and block.settings[fancy_display_id] == true %}
+                          {% assign fancy_handle = block.settings[fancy_label_id] | handle | downcase %}
+                          {% assign class_name_fancy = 'vdb-list-item-fancy-style-' | append: fancy_handle %}
+                          <div class="option {{ fancy_handle }} swiper-slide {{ class_name_fancy  }} {% unless i != 1 %}active-state{% endunless %}">
+                            {% unless i != 1 %}
+                              {% assign defaultFancy = block.settings[color_value_id] %}
+                            {% endunless %}
+                            <button
+                              class="vdb-list-item-a-fancy-style"
+                              data-module="{{ class_name_fancy }}"
+                            data-fancy-value="{{ block.settings[color_value_id] }}">
+                              {% if block.settings[fancy_icon_id] != blank %}
+                                {{ block.settings[fancy_icon_id] | image_url: width: 300 | image_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                              {% else %}
+                                {% render 'icon-shape-round-cut' %}
+                              {% endif %}
+                              <div>{{ block.settings[fancy_label_id] }}</div>
+                            </button>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    {% comment %}
+                      <div class="swiper-button-next"></div>
+                      <div class="swiper-button-prev"></div>
+                    {% endcomment %}
+                  </div>
+                </div>
+              </li>
+          {% endcase %}
+        {% endfor %}
+      </ul>
+      <div class="filters-toggle-container">
+        <div class="filter-buttons">
+          <button class="button button--primary toggle-button vdb-lb-advanced-filter-mobile-view-close">
+            View Basic Filters
+          </button>
+          <button class="button button--primary results-button vdb-lb-advanced-filter-mobile-view-close">
+            Show Results
+          </button>
+          <button class="button reset-button vdb-lb-clear-all-filters">CLEAR ALL</button>
+        </div>
+      </div>
+    </section>
+    <footer></footer>
+  </div>
+</div>
+<div class="filter__sidebar-overlay is-hidden-desktop-only" style="top: 48px;"></div>
+
+{% comment %}
+<div class="filter__sidebar-container is-hidden-desktop-only vdb-lb-main-advance-filter-mobile" style="top: 48px; display: none">
+<div class="filter__sidebar-content">
+<header>
+<h6>Filter</h6>
+{% render 'icon', name: 'x', icon_class: 'icon-close vdb-lb-advanced-filter-mobile-view-close' %}
+</header>
+<section>
+<ul class="filter__list">
+<li class="filter__list-item filter__list-shapes filter__list-open">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Shape</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Shape {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+<p class="tooltip-content">
+Shape refers to the appearance of the center stone. Most diamond shapes are Round, Square
+(Princess, Asscher, Cushion, Radiant), Rectangular ( Emerald, Elongated Radiant, Elongated
+Cushion), Heart-shaped, Pear-shaped (also known as tear-drop), Oval, or Marquise (like an Oval but
+pointed on both ends).
+</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="options">
+<div class="option active-state">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Round</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-princess-cut' %}
+<div>Princess</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-cushion-cut' %}
+<div>Cushion</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-oval-cut' %}
+<div>Oval</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-emerald-cut' %}
+<div>Emerald</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-asscher-cut' %}
+<div>Asscher</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-radiant-cut' %}
+<div>Radiant</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-pear-cut' %}
+<div>Pear</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-heart-cut' %}
+<div>Heart</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-marquise-cut' %}
+<div>Marquise</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-oval-rose-cut' %}
+<div>Oval Rose</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Trillion</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-half-moon-cut' %}
+<div>Half Moon</div>
+</button>
+</div>
+<div class="option">
+<button>
+{% render 'icon-shape-baguette-cut' %}
+<div>Baguette</div>
+</button>
+</div>
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-carat">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Carat</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Carat Size {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+<p class="tooltip-content">
+Carat weight refers not to the size of the stone, but the weight of it; two stones may have
+identical carat weights but have different length x width measurements depending on the cut. If
+you want to choose a smaller carat weight stone, opt for a higher cut grade, as this will make the
+stone appear larger. When selecting a stone for a specific budget, try to go slightly under a full
+or half carat weight, because prices jump at those sizes. For example, a 1.9ct stone will cost
+less than a 2.0ct, and because carat weight is distributed across the entirety of the diamond,
+that size difference would be nearly impossible to detect.
+</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="range-slider range-target">
+<div class="range-base">
+<div class="range-connects">
+<div class="range-connect"></div>
+</div>
+<div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+<div class="range-handle range-handle-lower">
+<div class="range-tooltip">0.23 CT</div>
+</div>
+</div>
+<div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+<div class="range-handle range-handle-upper">
+<div class="range-tooltip">7.72 CT</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-color">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Color</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Color {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+<p class="tooltip-content">
+White diamonds range from D–F (colorless), G–I (near colorless and very difficult to detect), J–L
+(near colorless with slightly detectable warmth), K–Z (noticeable color). Color presents itself as
+a pale yellow.
+</p>
+<div class="color-desc">
+<div class="color--item color--item-colorless">
+{% render 'icon-shape-round-cut' %}
+<div class="btn-text">
+<p>D E F</p>
+<p>Colorless</p>
+</div>
+</div>
+<div class="color--item color--item-near-colorless">
+{% render 'icon-shape-round-cut' %}
+<div class="btn-text">
+<p>G H I</p>
+<p>Near Colorless</p>
+</div>
+</div>
+<div class="color--item color--item-slight-color">
+{% render 'icon-shape-round-cut' %}
+<div class="btn-text">
+<p>J K L</p>
+<p>Slight Color</p>
+</div>
+</div>
+</div>
+<p class="tooltip-content">
+Diamonds are valued for their lack of color, so the price increases the closer it gets to
+colorless.
+</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="options">
+<div class="option active-state">
+<button>
+<div>D E F</div>
+<div>Colorless</div>
+</button>
+</div>
+<div class="option">
+<button>
+<div>G H I</div>
+<div>Near Colorless</div>
+</button>
+</div>
+<div class="option">
+<button>
+<div>J K L</div>
+<div>Slight Color</div>
+</button>
+</div>
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-price">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Price</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Price {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+<p class="tooltip-content">
+Price range for ring and accessory items are without stones set. Price range for loose stones
+reflect just the stone, not the ring or accessory added.
+</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="range-slider range-target">
+<div class="range-base">
+<div class="range-connects">
+<div class="range-connect"></div>
+</div>
+<div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+<div class="range-handle range-handle-lower">
+<div class="range-tooltip">$185.00</div>
+</div>
+</div>
+<div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+<div class="range-handle range-handle-upper">
+<div class="range-tooltip">$88,180.00</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-clarity">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Clarity</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Clarity {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+<p class="tooltip-content">
+Clarity refers to the tiny inclusions (blemishes) in a stone, and whether or not they are visible
+to the naked eye. Eye-clean diamonds, which are those without visible inclusions, will fall into
+the range of VVS1-SI1. As long as you choose a stone within that range, you will not need to worry
+about seeing inclusions, especially if you are selecting a stone with a higher cut grade.
+</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="range-slider range-target">
+<div class="range-base">
+<div class="range-connects">
+<div class="range-connect" style="transform: translate(34%, 0px) scale(0.821488, 1);"></div>
+</div>
+<div class="range-origin" style="transform: translate(-66%, 0px);z-index: 5;">
+<div class="range-handle range-handle-lower"></div>
+</div>
+<div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+<div class="range-handle range-handle-upper"></div>
+</div>
+</div>
+<div class="range-pips">
+<div class="range-pipe--marker" style="left: 0%;"></div>
+<div class="range-pipe--value" style="left: 0%;">SI2</div>
+<div class="range-pipe--marker" style="left: 16.7%;"></div>
+<div class="range-pipe--value" style="left: 16.7%;">SI1</div>
+<div class="range-pipe--marker" style="left: 33.4%;"></div>
+<div class="range-pipe--value" style="left: 33.4%;">VS2</div>
+<div class="range-pipe--marker" style="left: 50.1%;"></div>
+<div class="range-pipe--value" style="left: 50.1%;">VS1</div>
+<div class="range-pipe--marker" style="left: 66.8%;"></div>
+<div class="range-pipe--value" style="left: 66.8%;">VVS2</div>
+<div class="range-pipe--marker" style="left: 83.5%;"></div>
+<div class="range-pipe--value" style="left: 83.5%;">VVS1</div>
+<div class="range-pipe--marker" style="left: 100%;"></div>
+<div class="range-pipe--value" style="left: 100%;">IF</div>
+</div>
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-cut">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Cut</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Cut {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+<p class="tooltip-content">
+The Cut of a diamond is the greatest influencer on the sparkle and brilliance of the stone, which
+is the first thing we see when looking at a diamond. A poorly cut diamond will appear dull and
+lifeless even if it is at the upper end of the color and clarity scales. As a general rule of
+thumb, stick with cut grades of Very Good or higher; the higher the Cut grade you choose, the
+lower you can go in the other C's without it significantly affecting the beauty of the stone.
+</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="range-slider range-target">
+<div class="range-base">
+<div class="range-connects">
+<div class="range-connect" style="transform: translate(0%, 0px) scale(1, 1);"></div>
+</div>
+<div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+<div class="range-handle range-handle-lower"></div>
+</div>
+<div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+<div class="range-handle range-handle-upper"></div>
+</div>
+</div>
+<div class="range-pips">
+<div class="range-pipe--marker" style="left: 0%;"></div>
+<div class="range-pipe--value" style="left: 0%;">GOOD</div>
+<div class="range-pipe--marker" style="left: 25%;"></div>
+<div class="range-pipe--value" style="left: 25%;">VERY GOOD</div>
+<div class="range-pipe--marker" style="left: 50%;"></div>
+<div class="range-pipe--value" style="left: 50%;">EXCELLENT</div>
+<div class="range-pipe--marker" style="left: 75%;"></div>
+<div class="range-pipe--value" style="left: 75%;">IDEAL</div>
+<div class="range-pipe--marker" style="left: 100%;"></div>
+<div class="range-pipe--value" style="left: 100%;">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/8X.png?v=1685949932"
+width="auto"
+height="auto"
+style="max-width: 35px;vertical-align: top;"
+>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-sustainability">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Sustainability</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Sustainability {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="select-wrapper">
+<select class="sustainability-select">
+<option selected>Carbon Negative</option>
+</select>
+{% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-quality">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Quality</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Quality {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="select-wrapper">
+<select class="sustainability-select">
+<option selected>Type IIA</option>
+</select>
+{% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-certified">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Certified</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Certified {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="select-wrapper">
+<select class="sustainability-select">
+<option selected="">IGI</option>
+</select>
+{% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-fancy">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Fancy</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Color {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+<p class="tooltip-content">
+White diamonds range from D-F (colorless), G-H (near colorless & very difficult to detect), I-J
+(near colorless with slightly detectable warmth), K-Z (noticeable color). Color presents itself as
+a pale yellow. With Fancy Color diamonds, the intense grades will be the most color saturated.
+</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="options">
+<div class="option pink">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Pink</div>
+</button>
+</div>
+<div class="option orange">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Orange</div>
+</button>
+</div>
+<div class="option yellow">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Yellow</div>
+</button>
+</div>
+<div class="option blue">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Blue</div>
+</button>
+</div>
+<div class="option green">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Green</div>
+</button>
+</div>
+<div class="option purple">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Purple</div>
+</button>
+</div>
+<div class="option pink">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Pink</div>
+</button>
+</div>
+<div class="option orange">
+<button>
+{% render 'icon-shape-round-cut' %}
+<div>Orange</div>
+</button>
+</div>
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-ratio">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>L:W RATIO</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">L:W RATIO {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="range-slider range-target">
+<div class="range-base">
+<div class="range-connects">
+<div class="range-connect"></div>
+</div>
+<div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+<div class="range-handle range-handle-lower">
+<div class="range-tooltip">0.53</div>
+</div>
+</div>
+<div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+<div class="range-handle range-handle-upper">
+<div class="range-tooltip">2.27</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-table">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Table%</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Table% {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="range-slider range-target">
+<div class="range-base">
+<div class="range-connects">
+<div class="range-connect"></div>
+</div>
+<div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+<div class="range-handle range-handle-lower">
+<div class="range-tooltip">0.00%</div>
+</div>
+</div>
+<div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+<div class="range-handle range-handle-upper">
+<div class="range-tooltip">90.30%</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-fluorescence">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Fluorescence</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Fluorescence {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="select-wrapper">
+<select class="sustainability-select">
+<option selected="">None</option>
+</select>
+{% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-polish">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Polish</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Polish {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="select-wrapper">
+<select class="sustainability-select">
+<option selected="">Excellent</option>
+</select>
+{% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-symmetry">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Symmetry</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Symmetry {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="select-wrapper">
+<select class="sustainability-select">
+<option selected="">Excellent</option>
+</select>
+{% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+</div>
+</div>
+</li>
+<li class="filter__list-item filter__list-depth">
+<div class="filter__list-label">
+<div class="filter__list-title">
+<h6>Depth%</h6>
+<div class="filter-info">
+<div class="tooltip mobile-tooltip">
+<img
+src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+width="18px"
+height="18px"
+class="icon-info" alt=""
+>
+<span class="tooltiptext">
+<p class="tooltip-title">Depth% {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+</span>
+</div>
+</div>
+</div>
+<div class="filter__list-icon">
+<i class="icon-solid-caret"></i>
+</div>
+</div>
+<div class="filter__list-content">
+<div class="range-slider range-target">
+<div class="range-base">
+<div class="range-connects">
+<div class="range-connect"></div>
+</div>
+<div class="range-origin" style="transform: translate(-100%, 0px);z-index: 5;">
+<div class="range-handle range-handle-lower">
+<div class="range-tooltip">0.00%</div>
+</div>
+</div>
+<div class="range-origin" style="transform: translate(0%, 0px); z-index: 4;">
+<div class="range-handle range-handle-upper">
+<div class="range-tooltip">84.70%</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+<div class="filters-toggle-container">
+<div class="filter-buttons">
+<button class="button button--primary toggle-button">View Basic Filters</button>
+<button class="button button--primary results-button">Show Results</button>
+<button class="button reset-button">CLEAR ALL</button>
+</div>
+</div>
+</section>
+<footer></footer>
+</div>
+</div>
+{% endcomment %}

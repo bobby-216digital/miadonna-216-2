@@ -1,0 +1,2487 @@
+{%- capture ContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+{%- assign currentPageUrl = ContentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&' -%} 
+ {% comment %} {%- capture ContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+{%- assign currentPageUrl = ContentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+{%- assign currentPageUrl = currentPageUrl
+  | split: request.path
+  | last
+-%} {% endcomment %}
+{%- assign stone_handle = '' %}
+{%- if currentPageUrl contains '#' -%}
+    {%- assign stone_handle = currentPageUrl | split:'stone-handle=' | last | split:'#' | first -%}
+{%- else -%}
+    {%- assign stone_handle = currentPageUrl | split:'stone-handle=' | last | split:'&' | first -%}
+{%- endif -%}
+
+{%- assign clarityVal = '' -%}{%- assign colorVal = '' -%}{%- assign shapeVal = '' -%}{%- assign cutVal = '' -%}{%- assign caratVal = '' -%}
+{% if stone_handle !=blank %}
+  {%- assign stone_item = all_products[stone_handle] -%}
+  {%- for tag in stone_item.tags -%}
+    {%- assign tagDn = tag | downcase -%}
+    {%- if tagDn contains 'carat_' -%}
+      {%- assign caratVal = ' ' | append: tag  | remove:'carat_' | remove:'Carat_' -%}
+    {%  endif %}    
+    {%- if tagDn contains 'cut_' -%}
+      {%- assign cutVal = ' ' | append: tag  | remove:'cut_' | remove:'Cut_' | replace:'_', ' ' -%}
+    {%- endif -%}
+    {%- if tagDn contains 'shape_' -%}
+      {%- assign shapeVal = ' ' | append: tag | remove:'shape_' | remove:'Shape_' | replace:'_', ' ' -%}
+    {%- endif -%}
+    {%- if tagDn contains 'color_' -%}
+      {%- assign colorVal = ' ' | append: tag   | remove:'color_' | remove:'Color_' | replace:'_', ' '  -%}
+    {%- endif -%}
+    {%- if tagDn contains 'clarity_' -%}
+      {%- assign clarityVal = ' ' | append: tag | remove:'clarity_' | remove:'Clarity_' | replace:'_', ' ' -%}
+    {%- endif -%}
+  {%- endfor -%}
+{% endif %}
+{%- assign is_diamond_exist = false -%}
+{%- if currentPageUrl contains 'stone-handle=' and currentPageUrl contains 'ring-handle=' -%}
+  {%- assign is_diamond_exist = true -%}
+{%- endif -%}
+  {% assign diamond_image_url ='' %}
+{% if stone_handle !=blank and is_diamond_exist %}
+   {% assign diamond_image_url = stone_item.media.first | image_url: width: 1200 %}
+                {% if diamond_image_url==blank %}
+	                  {% assign diamond_image_url = 'https://www.miadonna.com/apps/vdb-maidonna-inventory-app/images/no-image.png?width=1200' %}
+              {% endif %}	
+{% endif %}  
+{% comment %}
+  Product snippet
+
+  @param product
+  @param selected_variant
+  @param width
+  @param css_class
+  @param display_social_buttons
+  @param display_thumbnails
+  @param enable_product_lightbox
+  @param enable_thumbnail_slider
+  @param enable_zoom
+  @param gallery_arrows
+  @param product_description_position
+  @param product_height
+  @param set_product_height
+  @param slideshow_transition
+  @param stickers_enabled
+  @param tag_style
+  @param thumbnail_position
+  @param video_looping
+  @param section_onboarding
+{% endcomment %}
+
+{% comment %} HTML markup {% endcomment %}
+
+{%- style -%}
+    .product-details-loader {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        top: 50%;
+        right: 0;
+        opacity: 0.5;
+        display: flex;
+        z-index: 100;
+        background: #fff;
+        justify-content: center;
+        transform: translateY(-50%);
+        transform: none;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .product-details-loader div {
+        box-sizing: border-box;
+        display: block;
+        position: fixed;
+        width: 44px;
+        height: 44px;
+        margin: 4px;
+        border: 4px solid #7c7979;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        animation: product-settings-loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #7c7979 transparent transparent transparent;
+    }
+    @media screen and (max-width: 575px) {
+        .product-details-loader {
+        padding-top: 0rem;
+        }
+    }
+    .product-details-loader div:nth-child(1) {
+        animation-delay: -0.45s;
+    }
+    .product-details-loader div:nth-child(2) {
+        animation-delay: -0.3s;
+    }
+    .product-details-loader div:nth-child(3) {
+        animation-delay: -0.15s;
+    }
+    @keyframes product-details-loader {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    .product-details-loader#product-details-loader-el {
+        align-items: center;
+        background: #f8f8f894;
+        left: 0%;
+        opacity:1;
+    }
+
+    /* Price Skeleton - Start || 01-04-2026 & SHOP-2887 */
+    .price-ui.show_setting_only {
+        position: relative;
+        display: inline-block;
+        transition: opacity 0.2s ease;
+    }
+
+    /* Lock width to prevent layout shift */
+    .price-ui.show_setting_only.is-loading {
+        color: transparent;
+    }
+
+    /* Skeleton layer */
+    .price-ui.show_setting_only.is-loading::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 4px;
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 37%, #f0f0f0 63%);
+        background-size: 400% 100%;
+        animation: shimmer 1.2s infinite;
+    }
+
+    /* Smooth fade-in */
+    .price-ui.show_setting_only:not(.is-loading) {
+        opacity: 1;
+    }
+
+    .price-ui.show_setting_only.is-loading {
+        opacity: 0.7;
+    }
+
+    @keyframes shimmer {
+        100% {
+            background-position: -100% 0;
+        }
+    }
+    /* END */
+.pg-row-single {
+    grid-column: 1 / -1;
+    position: relative;
+}
+{%- endstyle -%}
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring
+    | split: '"pageurl":"'
+    | last
+    | split: '"'
+    | first
+    | split: '.myshopify.com'
+    | last
+    | replace: '\/', '/'
+    | replace: '%20', ' '
+    | replace: '\u0026', '&'
+-%}
+{%- assign pageUrlArr = pageUrl | split:'?' | last | split:'&' -%}
+
+<div
+  class="
+    product_section
+    js-product_section
+    container
+    is-justify-space-between
+    has-padding-bottom
+    has-no-side-gutter
+    {% if product_images_position == 'right' %}
+      is-flex-row-reverse
+    {% endif %}
+  "
+>
+  {%- comment -%}
+  <div class="mobile-only-section">
+    <div
+      class="
+        product__information
+        has-product-sticker
+        two-fifths
+        column
+        large-down--one-whole
+      "
+    >
+      {%- for block in section.blocks -%}
+        {% unless block.type == 'media-buttons'
+          or block.type == 'tgd'
+          or block.type == 'additional-product-tabs'
+          or block.type == 'setting-tabs'
+          or block.type == 'additional-links'
+          or block.type == 'promotion-banner'
+        %}
+          <div
+            class="
+              product-block
+              product-block--{{ block.type | downcase | replace: '_', '-' | replace: '@', '-' }}
+              {% if forloop.first == true %}
+                product-block--first
+              {% endif %}
+            "
+            {{ block.shopify_attributes }}
+          >
+        {% endunless %}
+
+        {%- if block.type == 'title' -%}
+          <h1 class="product_name title">
+            {% if is_product_modal %}
+              <a href="{{ product.url  }}">{{ product.title }}</a>
+            {% elsif section_onboarding %}
+              {{ 'homepage.onboarding.product_title' | t }}
+            {% else %}
+              {{ product.title }}
+            {% endif %}
+          </h1>
+          {% assign is_show_setting_only = 'yes' %}
+          {%- for tag in product.tags -%}
+            {% if tag == 'Is Not Setting Only' %}
+              {% assign is_show_setting_only = 'no' %}
+            {% endif %}
+          {% endfor %}
+          <div class="product_form">
+            <div class="modal_price subtitle" data-display-savings="true">
+              <div class="price-ui{% if is_show_setting_only == 'yes' and product.metafields.attributes.customizable == "1" %} show_setting_only{% endif %}">
+                {% assign is_compare_at_price_and_sale = 'none' %}
+                {% if product.selected_or_first_available_variant.compare_at_price and product.selected_or_first_available_variant.compare_at_price != product.selected_or_first_available_variant.price %}
+                  {% assign is_compare_at_price_and_sale = '' %}
+                {% endif %}
+                
+                <span class="compare-at-price" data-compare-at-price="" style="display: {{ is_compare_at_price_and_sale }}">
+                  {{- cart.currency.symbol }}
+                  <span class="money final_compare_at_price" data-final-compare-at-price="{{ product.selected_or_first_available_variant.compare_at_price }}" data-price="">
+                    {{ product.selected_or_first_available_variant.compare_at_price | divided_by: 100.0 -}}
+                  </span>
+                </span>
+                <span
+                  class="price {% if product.selected_or_first_available_variant.compare_at_price and product.selected_or_first_available_variant.compare_at_price != product.selected_or_first_available_variant.price %}price--sale{% endif %}"
+                  data-price=""
+                >
+                  {{- cart.currency.symbol }}
+                  <span
+                    class="money final_price"
+                    data-final-price="{{ product.selected_or_first_available_variant.price }}"
+                  >
+                    {{- product.selected_or_first_available_variant.price | divided_by: 100.0 -}}
+                    {{ cart.currency.iso_code }}
+                  </span>
+                </span>
+                {% if is_show_setting_only == 'yes' and product.metafields.attributes.customizable == '1' %}
+                  <span class="center_text">(Setting Only)</span>
+                {% endif %}
+                <span class="sale-badge-wrapper" style="display: {{ is_compare_at_price_and_sale }}">
+                  <span class="sale-badge">Sale</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          {% render 'okendo-custom-star-rating', product: product %}
+        {%- elsif block.type == 'description' -%}
+          {% if block.settings.custom_description != blank %}
+            <div class="description content has-padding-top">
+              {{ block.settings.custom_description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+            </div>
+          {% elsif section_onboarding %}
+            <div class="description content has-padding-top">
+              <p>
+                {{ 'homepage.onboarding.product_description' | t }}
+              </p>
+            </div>
+          {% else %}
+            {% if product.description != blank %}
+              <div
+                class="
+                  description
+                  description-content
+                  content
+                  has-padding-bottom
+                "
+              >
+                {% if is_product_modal %}
+                  {% if block.settings.truncate_words %}
+                    {{
+                      product.description
+                      | strip_html
+                      | truncatewords: block.settings.truncate_words_limit
+                      | replace: 'Description', ''
+                      | replace: 'Dimensions', ''
+                      | replace: 'Details', ''
+                      | replace: 'Specs', ''
+                      | replace: 'Shipping', ''
+                      | replace: 'Size', ''
+                      | escape
+                      | split: '<!-- split -->'
+                      | first | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                    }}
+                  {% else %}
+                    {{
+                      product.description
+                      | strip_html
+                      | replace: 'Description', ''
+                      | replace: 'Dimensions', ''
+                      | replace: 'Details', ''
+                      | replace: 'Specs', ''
+                      | replace: 'Shipping', ''
+                      | replace: 'Size', ''
+                      | escape
+                      | split: '<!-- split -->'
+                      | first | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                    }}
+                  {% endif %}
+                {% else %}
+                  {%- assign product_description = product.description -%}
+                  {%- assign paragraphs = product_description | split: '</p>' -%}
+                  {%- assign description_size = paragraphs.size -%}
+                  {%- assign first_paragraph = '' -%}
+
+                  {%- for paragraph in paragraphs -%}
+                    {%- if paragraph contains '<p>' -%}
+                      {%- assign p_start = paragraph | split: '<p>' | last -%}
+                      {%- assign p_content = p_start | split: '|' | first -%}
+                      {%- assign first_paragraph = p_content | strip -%}
+                      {% break %}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <div class="metal-properties">
+                    {{
+                      first_paragraph
+                      | truncatewords: 10
+                      | replace: '<br>', ''
+                      | append: '<a href="#product-tgd-wrapper-mobile" style="font-weight:600;text-decoration:underline;margin-left:.5rem;">More Details</a>'
+                    }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% elsif block.type == '@app' %}
+          <div class="product-app cell-style-blacktext">
+            {% render block %}
+          </div>
+        {% endif %}
+        {% unless block.type == 'media-buttons'
+          or block.type == 'tgd'
+          or block.type == 'additional-product-tabs'
+          or block.type == 'setting-tabs'
+          or block.type == 'additional-links'
+          or block.type == 'promotion-banner'
+        %}
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+  {%- endcomment -%}
+
+  <div class="product-details-loader hide" id="product-details-loader-el">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+{%- capture image_badge -%}
+    {% if product.metafields.custom.badge == 'Best Seller' and collection.handle != 'best-seller' %}
+      <span class="collection-badge best-seller">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'New Arrival' and collection.handle != 'new-arrivals' %}
+      <span class="collection-badge new-arrival">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Ready to Ship' and collection.handle != 'ready-to-ship' %}
+      <span class="collection-badge ready-to-ship">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Mother&apos;s Day Special'
+      and collection.handle != 'mother&apos;s-day-special'
+    %}
+      <span class="collection-badge mother&apos;s-day-special">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'More Shapes' and collection.handle != 'more-shapes' %}
+      <span class="collection-badge more-shapes">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Staff Favorite' and collection.handle != 'staff-favorite' %}
+      <span class="collection-badge staff-favorite">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Hidden Halo' and collection.handle != 'hidden-halo' %}
+      <span class="collection-badge hidden-halo">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Special Price' and collection.handle != 'special-price' %}
+      <span class="collection-badge special-price">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Only a Few Left' and collection.handle != 'only-a-few-left' %}
+      <span class="collection-badge only-a-few-left">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Mixed Shape' and collection.handle != 'mixed-shape' %}
+      <span class="collection-badge mixed-shape">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Ready to Wear' and collection.handle != 'ready-to-wear' %}
+      <span class="collection-badge ready-to-wear">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Statement Style' and collection.handle != 'statement-style' %}
+      <span class="collection-badge statement-style">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Online Exclusive' and collection.handle != 'online-exclusive' %}
+      <span class="collection-badge online-exclusive">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'New Design' and collection.handle != 'new-design' %}
+      <span class="collection-badge new-design">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Trending Style' and collection.handle != 'trending-style' %}
+      <span class="collection-badge trending-style">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'MiaDonna Exclusive' and collection.handle != 'miadonna-exclusive' %}
+      <span class="collection-badge miadonna-exclusive">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Matching Band' and collection.handle != 'matching-band' %}
+      <span class="collection-badge matching-band">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Bundle and Save' and collection.handle != 'bundle-and-save' %}
+      <span class="collection-badge bundle-and-save">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Customizable' and collection.handle != 'customizable' %}
+      <span class="collection-badge customizable">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Gift Set' and collection.handle != 'gift-set' %}
+      <span class="collection-badge gift-set">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Bundle and Save' and collection.handle != 'bundle-and-save' %}
+      <span class="collection-badge bundle-and-save">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Statement Style' and collection.handle != 'statement-style' %}
+      <span class="collection-badge statement-style">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Exceptional Value' and collection.handle != 'exceptional-value' %}
+      <span class="collection-badge exceptional-value">{{ product.metafields.custom.badge }}</span>
+    {% elsif product.metafields.custom.badge == 'Signature Collection' and collection.handle != 'signature-collection' %}
+    <span class="collection-badge signature-collection">{{ product.metafields.custom.badge }}</span>
+    {% else %}
+      {% comment %}
+        {% if product.compare_at_price_max > product.price %}
+          {% assign price = product.price %}
+          {% assign compare_at_price = product.compare_at_price_max %}
+          {% assign discount_percentage = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price %}
+          <span class="collection-badge percent-count"> REDUCED BY {{ discount_percentage | round: 0 }}% </span>
+        {% endif %}
+      {% endcomment %}
+    {% endif %}
+  {%- endcapture -%}
+  {% assign allow_video_convention = product.metafields.attributes.allow_video_convention | plus: 0 %}
+  {% assign allow_image_convention = product.metafields.attributes.allow_image_convention | plus: 0 %}
+  {%- if allow_image_convention != blank and allow_image_convention > 0 -%}
+
+    <div
+    class="
+    product__images
+    three-fifths
+    column
+    large-down--one-whole
+    "
+    >
+    {%- comment -%}<mage-wishlist-heart product-id="{{ product.id }}"></mage-wishlist-heart>{%- endcomment -%}
+    <div class="pg-container my-slider" id="custom-product-image--section" data-pg-gallery data-product-id="{{ product.id }}">
+
+      <!-- First row -->
+
+      {% if allow_video_convention > 0 %}
+
+        <div class="pg-row-two slide" data-product-id="{{ product.id }}">
+          {% comment %}
+          <div class="product-image-badge">
+            <span class="collection-badge exceptional-value">Your Diamond</span>
+
+          </div>
+          {% endcomment %}
+
+
+
+
+          <div class="pg-cell is-video product-gallery__image first-video" data-media-id="vid_1" data-media-type="video" data-product-id="{{ product.id }}">
+            <a
+            id="videoFancyboxTrigger"
+            href=""
+            aria-label="Open product video"
+            data-fancybox="product-gallery"
+            data-type="html"
+            data-width="1200"
+            data-height="513"
+            role="button"
+            data-src=""
+            data-thumb="https://cdn.shopify.com/s/files/1/1164/4258/files/Image_20260612_193111.jpg?v=1781274483"
+            class="gallery-video-thumb custom-class-fancybox custom-video-slides"
+            aria-label="Play product video"
+            >
+            <video id="customVideoConvention" class="video" width="1200" height="513" loop playsinline muted autoplay src=""></video>
+            </a>
+
+            <div class="video-button-wrapper video-played">
+
+              <div class="video-buttons">
+                <!-- Play icon -->
+                <svg id="icon-play-btn" class="icon icon-play" width="15" height="19" viewBox="0 0 15 19" fill="#ACADAB">
+                <path d="M14.1016 7.89844C14.6484 8.25 15 8.875 15 9.5C15 10.1641 14.6484 10.7891 14.1016 11.1016L2.85156 17.9766C2.26562 18.3281 1.52344 18.3672 0.9375 18.0156C0.351562 17.7031 0 17.0781 0 16.375V2.625C0 1.96094 0.351562 1.33594 0.9375 1.02344C1.52344 0.671875 2.26562 0.671875 2.85156 1.0625L14.1016 7.89844Z"></path>
+                </svg>
+                <!-- Pause icon -->
+                <svg id="icon-pause-btn" class="icon icon-pause" width="19" height="19" viewBox="0 0 277.338 277.338">
+                <g>
+                <path d="M14.22,45.665v186.013c0,25.223,16.711,45.66,37.327,45.66c20.618,0,37.339-20.438,37.339-45.66V45.665c0-25.211-16.721-45.657-37.339-45.657C30.931,0,14.22,20.454,14.22,45.665z"></path>
+                <path d="M225.78,0c-20.614,0-37.325,20.446-37.325,45.657V231.67c0,25.223,16.711,45.652,37.325,45.652s37.338-20.43,37.338-45.652V45.665C263.109,20.454,246.394,0,225.78,0z"></path>
+                </g>
+                </svg>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      {% endif %}
+      <!-- Dynamic Image Grid -->
+      {% assign new_class = ''  %}
+
+      {% for i in (1..allow_image_convention) %}
+
+
+        {% if forloop.first %}
+           {% if allow_video_convention > 0 %}
+          {% assign image_class = 'pg-row-two' %}
+           {% else %}
+{% assign image_class = 'pg-row-two pg-row-single' %}
+           
+           {% endif %}
+        {% else %}
+          {% assign mod = forloop.index | minus: 2 | modulo: 3 %}
+
+          {% if mod == 0 %}
+
+            {% if allow_video_convention > 0 %}
+              {% assign image_class = 'pg-row-two pg-row-single' %}
+
+
+            {% else %}
+
+              {% assign image_class = 'pg-row-two' %}
+
+            {% endif %}
+
+          {% else %}
+
+            {% assign image_class = 'pg-row-two' %}
+
+          {% endif %}
+
+        {% endif %}
+        {% assign mod = forloop.index | modulo: 3 | minus:1 %}
+
+        {% if mod == 0 %}
+
+          {% assign new_class = 'pg-row-two pg-row-single'  %}
+
+        {% else %}
+          {% assign new_class = 'pg-row-two'  %}
+
+        {%endif %}
+
+        {%- comment -%}
+        Pattern:
+        0 = Full-width single image
+        1 = Start two-column row
+        2 = End two-column row
+        {%- endcomment -%}
+
+        {% if allow_image_convention != blank %}
+
+          <div class="{{image_class}} slide product-gallery__image first-image" data-product-id="{{ product.id }}">
+
+            {% if forloop.index == 1 %}
+
+              {%- if image_badge != blank -%}
+
+                <div class="product-image-badge">
+
+                  {%- if is_diamond_exist -%}
+                    {%- if currentPageUrl contains 'stone-handle='
+                      and currentPageUrl contains 'ring-handle=' -%}
+                      <span class="collection-badge matching-band">Your Diamond</span>
+
+                    {% endif %}
+
+                  {% else %}
+                    {{ image_badge | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+
+                  {% endif %}
+
+
+
+                </div>
+
+              {% else %}
+
+                <div class="product-image-badge">
+
+                  {%- if currentPageUrl contains 'stone-handle='
+                    and currentPageUrl contains 'ring-handle=' -%}
+                    <span class="collection-badge matching-band">Your Diamond</span>
+
+                  {% endif %}
+
+                </div>
+
+              {%- endif-%}
+
+            {% endif %}
+            <a href="" class="custom-class-fancybox" data-fancybox="product-gallery">
+
+            <div class="pg-cell">
+
+
+              <img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/spacer.png?v=1779962180" alt="Jewelry Lifestyle">
+
+            </div>
+            </a>
+
+          </div>
+
+        {% endif %}
+
+      {% endfor %}
+      {% comment %}
+      {% if allow_video_convention > 0 %}
+
+        <div class="product-gallery__image last-video" data-product-id="{{ product.id }}">
+
+          <div class="image__container image__video-container" style="max-width: 1000px;position:relative;">
+
+            <div class="product-settings-loader product-settings-loader-video second-video-loader" style="display: none;">
+
+              <div>
+              </div>
+
+              <div>
+              </div>
+
+              <div>
+              </div>
+
+              <div>
+              </div>
+
+            </div>
+            <video id="customVideoLast" width="1200" height="1200" loop playsinline muted autoplay></video>
+
+          </div>
+
+        </div>
+
+      {% endif %}
+      {% endcomment %}
+
+
+      {%- if allow_video_convention > 0 -%}
+        <div class="{{ new_class }} slide product-gallery__image last-video">
+
+          <div class="pg-cell is-video product-gallery__image" data-media-id="vid_1" data-media-type="video" data-product-id="{{ product.id }}">
+            <a
+            id="lastvideoTrigger"
+            href=""
+            data-fancybox="product-gallery"
+            data-type="html"
+            data-width="1200"
+            data-height="513"
+            data-src=""
+            data-thumb="https://cdn.shopify.com/s/files/1/1164/4258/files/Image_20260612_193111.jpg?v=1781274483"
+            class="gallery-video-thumb custom-class-fancybox custom-video-slides"
+            >
+            <video id="customVideoLast" class="video" width="1200" height="513" loop playsinline muted autoplay src=""></video>
+            </a>
+
+            <div class="video-button-wrapper video-played">
+
+              <div class="video-buttons">
+                <!-- Play icon -->
+                <svg id="icon-play-btn" class="icon icon-play" width="15" height="19" viewBox="0 0 15 19" fill="#ACADAB">
+                <path d="M14.1016 7.89844C14.6484 8.25 15 8.875 15 9.5C15 10.1641 14.6484 10.7891 14.1016 11.1016L2.85156 17.9766C2.26562 18.3281 1.52344 18.3672 0.9375 18.0156C0.351562 17.7031 0 17.0781 0 16.375V2.625C0 1.96094 0.351562 1.33594 0.9375 1.02344C1.52344 0.671875 2.26562 0.671875 2.85156 1.0625L14.1016 7.89844Z"></path>
+                </svg>
+                <!-- Pause icon -->
+                <svg id="icon-pause-btn" class="icon icon-pause" width="19" height="19" viewBox="0 0 277.338 277.338">
+                <g>
+                <path d="M14.22,45.665v186.013c0,25.223,16.711,45.66,37.327,45.66c20.618,0,37.339-20.438,37.339-45.66V45.665c0-25.211-16.721-45.657-37.339-45.657C30.931,0,14.22,20.454,14.22,45.665z"></path>
+                <path d="M225.78,0c-20.614,0-37.325,20.446-37.325,45.657V231.67c0,25.223,16.711,45.652,37.325,45.652s37.338-20.43,37.338-45.652V45.665C263.109,20.454,246.394,0,225.78,0z"></path>
+                </g>
+                </svg>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+
+      {%- endif -%}
+
+    </div>
+  {% endif %}
+
+  {%- if allow_image_convention == 0 -%}
+    <div
+      class="
+      product__images
+      three-fifths
+      column
+      large-down--one-whole
+      "
+    >
+      <div class="pg-container my-slider" id="custom-product-image--section" data-pg-gallery data-product-id="{{ product.id }}">
+        {%- assign new_class = ''  -%}
+        {%- assign loopIndex = 0 -%}
+        {% for media in product.media limit: 6 %}
+          {% if media.src contains 'webwhite'
+            or media.src contains 'WebWhite'
+            or media.src contains 'white'
+            or media.src contains 'White'
+            or media.src contains 'home_try-on'
+            or media.src contains 'hero'
+            or media.src contains 'Hero'
+          %}
+            {% if loopIndex == 0 %}
+              {% assign image_class = 'pg-row-two' %}
+            {% else %}
+              {% assign mod = loopIndex | minus: 2 | modulo: 3 %}
+              {% if mod == 0 %}
+                {% assign image_class = 'pg-row-two' %}
+              {% else %}
+                {% assign image_class = 'pg-row-two' %}
+              {% endif %}
+            {% endif %}
+            {% assign mod = loopIndex | modulo: 3 | minus:1 %}
+            {% if mod == 0 %}
+              {% assign new_class = 'pg-row-two'  %}
+            {% else %}
+              {% comment %} {% assign new_class = 'pg-row-two pg-row-single'  %} {% endcomment %}
+                {% if product.media.size == 1 %}
+                 {%- if is_diamond_exist -%}
+                  {% assign new_class = 'pg-row-two'  %}
+                 {% else %} 
+                  {% assign new_class = 'pg-row-two pg-row-single'  %}
+                  {% endif %}  
+              {% else %}  
+                  {% assign new_class = 'pg-row-two pg-row-single'  %}
+              {% endif %}  
+              
+            {% endif %}
+
+            {% if allow_image_convention != blank %}
+              <div class="{{new_class}} slide product-gallery__image first-image" data-product-id="{{ product.id }}">
+                {% if loopIndex == 1 %}
+                  {%- if image_badge != blank -%}
+                    <div class="product-image-badge">
+                      {%- if is_diamond_exist -%}
+                        {%- if currentPageUrl contains 'stone-handle='
+                          and currentPageUrl contains 'ring-handle=' -%}
+                          <span class="collection-badge matching-band">Your Diamond</span>
+                        {% endif %}
+                      {% else %}
+                        {{ image_badge | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <div class="product-image-badge">
+                      {%- if currentPageUrl contains 'stone-handle='
+                        and currentPageUrl contains 'ring-handle=' -%}
+                        <span class="collection-badge matching-band">Your Diamond</span>
+                      {% endif %}
+                    </div>
+                  {%- endif-%}
+                {% endif %}
+                <a href="" class="custom-class-fancybox" data-fancybox="product-gallery">
+                  <div class="pg-cell">
+                    <!--speedsizeIgnore-->
+                    {{
+                      media
+                      | image_url: width: 1200
+                      | image_tag: alt: media.alt, preload: true, fetchpriority: 'high'
+                    }}
+                    <!--endSpeedsizeIgnore-->
+                    {%- comment -%}<img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/spacer.png?v=1779962180" alt="Jewelry Lifestyle">{%- endcomment -%}
+                  </div>
+                </a>
+              </div>
+            {% endif %}
+          {% else %}
+           {% if forloop.index == 1 %}
+              {% assign image_class = 'pg-row-two' %}
+            {% else %}
+              {% assign mod = loopIndex | minus: 2 | modulo: 3 %}
+              {% if mod == 0 %}
+                {% assign image_class = 'pg-row-two' %}
+              {% else %}
+                {% assign image_class = 'pg-row-two' %}
+              {% endif %}
+            {% endif %}
+            {% assign mod = loopIndex | modulo: 3 | minus:1 %}
+            {% if mod == 0 %}
+              {% assign new_class = 'pg-row-two'  %}
+            {% else %}
+              {% if product.media.size == 1 %}
+                 {%- if is_diamond_exist -%}
+                  {% assign new_class = 'pg-row-two'  %}
+                 {% else %} 
+                  {% assign new_class = 'pg-row-two pg-row-single'  %}
+                  {% endif %}  
+              {% else %}  
+                  {% assign new_class = 'pg-row-two pg-row-single'  %}
+              {% endif %}  
+              
+            {% endif %}
+
+            {% if allow_image_convention != blank %}
+              <div class="{{new_class}} slide product-gallery__image first-image" data-product-id="{{ product.id }}">
+                {% if forloop.index == 2 %}
+                  {%- if image_badge != blank -%}
+                    <div class="product-image-badge">
+                      {%- if is_diamond_exist -%}
+                        {%- if currentPageUrl contains 'stone-handle='
+                          and currentPageUrl contains 'ring-handle=' -%}
+                          <span class="collection-badge matching-band">Your Diamond</span>
+                        {% endif %}
+                      {% else %}
+                        {{ image_badge | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <div class="product-image-badge">
+                      {%- if currentPageUrl contains 'stone-handle='
+                        and currentPageUrl contains 'ring-handle=' -%}
+                        <span class="collection-badge matching-band">Your Diamond</span>
+                      {% endif %}
+                    </div>
+                  {%- endif-%}
+                {% endif %}
+                {% if product.media.size > 1 and is_diamond_exist %}
+                  {% if forloop.index == 2 %}
+                    <a href="{{ diamond_image_url }}" class="custom-class-fancybox" data-fancybox="product-gallery">
+                      <div class="pg-cell">
+                        <!--speedsizeIgnore-->
+                        <img src="{{ diamond_image_url }}"  width="1200" height="1200"  fetchpriority="high">
+                        <!--endSpeedsizeIgnore-->
+                      </div> 
+                    </a> 
+                  {% else %}
+                    <a href="{{ media | img_url: '2048x' }}" class="custom-class-fancybox" data-fancybox="product-gallery">
+                      <div class="pg-cell">
+                        {{
+                          media
+                          | image_url: width: 1200
+                          | image_tag: alt: media.alt, preload: true, fetchpriority: 'high' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                        }}
+                        {%- comment -%}<img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/spacer.png?v=1779962180" alt="Jewelry Lifestyle">{%- endcomment -%}
+                      </div>
+                    </a>
+                  {% endif %}
+                {% else %}
+                  <a href="{{ media | img_url: '2048x' }}" class="custom-class-fancybox" data-fancybox="product-gallery">
+                    <div class="pg-cell">
+                      {{
+                        media
+                        | image_url: width: 1200
+                        | image_tag: alt: media.alt, preload: true, fetchpriority: 'high' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                      }}
+                      {%- comment -%}<img src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/spacer.png?v=1779962180" alt="Jewelry Lifestyle">{%- endcomment -%}
+                    </div>
+                  </a>
+                {% endif %}
+               
+              </div>
+              {% if diamond_image_url !=blank and product.media.size==1 and is_diamond_exist %}
+              <div class="{{new_class}} slide product-gallery__image first-image" data-product-id="{{ product.id }}">
+                  {%- if image_badge != blank -%}
+                    <div class="product-image-badge">
+                      {%- if is_diamond_exist -%}
+                        {%- if currentPageUrl contains 'stone-handle='
+                          and currentPageUrl contains 'ring-handle=' -%}
+                          <span class="collection-badge matching-band">Your Diamond</span>
+                        {% endif %}
+                      {% else %}
+                        {{ image_badge | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <div class="product-image-badge">
+                      {%- if currentPageUrl contains 'stone-handle='
+                        and currentPageUrl contains 'ring-handle=' -%}
+                        <span class="collection-badge matching-band">Your Diamond</span>
+                      {% endif %}
+                    </div>
+                  {%- endif-%}
+                <a href="{{ diamond_image_url }}" class="custom-class-fancybox" data-fancybox="product-gallery">
+                  <div class="pg-cell">
+                    <!--speedsizeIgnore-->
+                    <img src="{{ diamond_image_url }}"  width="1200" height="1200"  fetchpriority="high">
+                    <!--endSpeedsizeIgnore-->
+                   </div> 
+                  </a> 
+              </div>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+  {%- endif -%}
+    {% comment %} {% if section_onboarding %}
+      <div class="featured-product__images">
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg placeholder-svg--product' }}
+      </div>
+    {% else %}
+      {% render 'product__images',
+        product: product,
+        display_thumbnails: display_thumbnails,
+        thumbnail_position: thumbnail_position,
+        enable_thumbnail_slider: enable_thumbnail_slider,
+        product_height: product_height,
+        set_product_height: set_product_height,
+        video_looping: video_looping,
+        gallery_arrows: gallery_arrows,
+        slideshow_transition: slideshow_transition,
+        enable_product_lightbox: enable_product_lightbox,
+        enable_zoom: enable_zoom
+      %}
+    {% endif %} {% endcomment %}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'media-buttons' -%}
+        <ul class="buttons-wrapper">
+          {% if block.settings.button_1 != blank %}
+            <li class="button-item button-item-1">
+              <button class="media-button">{{ block.settings.button_1 }}</button>
+            </li>
+          {% endif %}
+          {% if block.settings.button_2 != blank %}
+            <li class="button-item button-item-2">
+              <button onClick="productImages('images')" class="product-image--button media-button block-button-active">
+                {{ block.settings.button_2 }}
+              </button>
+            </li>
+          {% endif %}
+          {% if block.settings.button_3 != blank %}
+            {% assign shopify_video_button = false %}
+            {% for media in product.media %}
+              {% if media.media_type == 'video' %}
+                {% assign shopify_video_button = true %}
+              {% endif %}
+            {% endfor %}
+            {%- if product.metafields.attributes.vimeo_id
+              and product.metafields.attributes.vimeo_id != '-'
+              and product.metafields.attributes.vimeo_id != '_'
+            -%}
+              {%- assign vimeo_video = product.metafields.attributes.vimeo_id -%}
+            {%- endif -%}
+            {% if shopify_video_button or vimeo_video %}
+              <li
+                class="button-item button-item-3"
+                vimeo-id="{{ vimeo_video  }}"
+              >
+                <button onClick="productImages('video')" class="product-video--button media-button">
+                  {{ block.settings.button_3 }}
+                </button>
+              </li>
+            {% endif %}
+          {% endif %}
+
+          {% comment %}
+            {% assign allow_image_convention = product.metafields.attributes.allow_image_convention | plus: 0 %}
+            {% if allow_image_convention == 0 %}
+          {% endcomment %}
+          {% if block.settings.button_4 != blank %}
+            {% if product.media.size > 0 %}
+              <li class="button-item">
+                <button onClick="productImagesPopup('all')" class="media-button">{{ block.settings.button_4 }}</button>
+              </li>
+            {% endif %}
+          {% endif %}
+          {% comment %}{% endif %}{% endcomment %}
+        </ul>
+      {%- elsif block.type == 'tgd' -%}
+        <div id="product-tgd-wrapper-desktop" class="product-tgd-wrapper product-tgd-wrapper-desktop">
+          <div class="product-tgd">
+            <div class="one-third column medium-down--one-whole">
+              <img
+                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image1 | img_url: 'master' }}"
+                width="100%"
+                height="100%"
+                loading="eager"
+                alt="Power"
+              >
+              <div class="content">
+                <h6>{{ block.settings.title1 }}</h6>
+                {{ block.settings.content1 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              </div>
+            </div>
+            <div class="one-third column medium-down--one-whole">
+              <img
+                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image2 | img_url: 'master' }}"
+                width="100%"
+                height="100%"
+                loading="eager"
+                alt="Sustainable"
+              >
+              <div class="content">
+                <h6>{{ block.settings.title2 }}</h6>
+                {{ block.settings.content2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              </div>
+            </div>
+            <div class="one-third column medium-down--one-whole">
+              <img
+                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image3 | img_url: 'master' }}"
+                width="100%"
+                height="100%"
+                loading="eager"
+                alt="Tree"
+              >
+              <div class="content">
+                <h6>{{ block.settings.title3 }}</h6>
+                {{ block.settings.content3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- elsif block.type == 'additional-product-tabs' -%}
+        <div class="product-additional-information">
+          <setting-tabs class="setting-tabs-wrapper">
+            <div class="setting-tabs-buttons">
+              {% if product.description != blank %}
+                <button id="product-details" class="setting-tab-button product-details button-active">
+                  Product Details
+                </button>
+              {% endif %}
+              <button
+                id="product-shipping"
+                class="setting-tab-button product-shipping {% if product.description == blank %}button-active{% endif %}"
+              >
+                Shipping & Returns
+              </button>
+              <button id="product-included" class="setting-tab-button product-included">Material and Quality</button>
+            </div>
+            {% if product.description != blank %}
+              <div id="product-details-content" class="setting-tab-content product-details-content tab-active">
+                {%- assign product_description = product.description | split: '<p>|</p>' -%}
+                {%- assign description_size = product_description | size -%}
+                {%- if description_size > 1 -%}
+                  {%- for segment in product_description -%}
+                    {%- if forloop.last -%}
+                      <div class="metal-properties">{{ segment | replace: '<br>', '' }}</div>
+                    {%- else -%}
+                      {{ segment -}}
+                      <br>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- else -%}
+                  {{
+                    product.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                  }}
+                {%- endif -%}
+              </div>
+            {% endif %}
+            <div
+              id="product-shipping-content"
+              class="setting-tab-content product-shipping-content {% if product.description == blank %}tab-active{% endif %}"
+            >
+              {%- assign shippingReturnsText = '' -%}
+              {%- for productCollection in product.collections -%}
+                {%- if productCollection.metafields.product.shipping_text -%}
+                  {%- assign shippingReturnsText = productCollection.metafields.product.shipping_text -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if shippingReturnsText != '' -%}
+                {{ shippingReturnsText }}
+              {%- else -%}
+                <div class="static-shipping-content">
+                  {{ settings.product_shipping_content | replace: '<p></p>', '<br>' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+                {% comment %}
+                  <p>
+                    60-DAY RETURN POLICY: We are confident that you will love your MiaDonna jewelry, however, if it is not
+                    exactly as you imagined, you can return or exchange it with no restocking fees within 60 days of the
+                    delivery date. Only one item returned or exchanged per customer.
+                  </p>
+                  <br>
+                  <p>
+                    SHIPPING: After we handcraft your jewelry (10-15 business days), you will receive an email with
+                    shipping tracking details. Someone over the age of 21 will have to be present to sign for the package
+                    and all orders are shipped in a discrete 8 x 10 cardboard shipping box. Orders shipped within the
+                    continental United States receive free, highly insured, UPS 2-day shipping. International orders are
+                    shipped with highly insured FedEx International Priority shipping. International shipping timelines
+                    vary on location and local customs.
+                  </p>
+                {% endcomment %}
+              {%- endif -%}
+            </div>
+            <div id="product-included-content" class="setting-tab-content product-included-content">
+              <div class="static-material-content">
+                {{ settings.material_quality_content | replace: '<p></p>', '<br>' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              </div>
+              {% comment %}
+                We founded the lab-grown diamond industry in 2005 out of axctivism, making MiaDonna the world's first lab
+                grown diamond and lab grown gemstone company. We are the experts in diamonds and gems created in a lab, so
+                you don’t have to be!
+                <br>
+                <br>
+                <b> Sustainability: </b>
+                MiaDonna metals and lab grown diamond are certified sustainable by SCS Global and Carbon Neutral. Our
+                company is also certified by B Corporation, so you can trust that we not only meet but exceed the highest
+                social and environmental standards.
+                <br>
+                <br>
+                <b> Diamonds: </b>
+                We only offer Premium lab grown diamonds -- As Grown, Type IIa diamonds created using renewable energy and
+                carbon capturing technology graded by GCal, IGI or GIA. This means our lab grown diamonds are harder and
+                brighter than other diamonds (earth mind or lab grown) on the market. You will only find this at MiaDonna.
+                <br>
+                <br>
+                <b> Jewelry: </b>
+                MiaDonna jewelry is handcrafted just for you when you order it, unless noted otherwise. You build it
+                online or with a MiaDonna jewelry specialist and our master jewelers will create it for you in 10 to 15
+                business days. Our jewelry is created in recycled 14k, 18k and Platinum solid precious metals and we use a
+                higher gram weight of metal. Most other jewelry companies prestock their jewelry, limited sizes and lower
+                gram weights.
+              {% endcomment %}
+            </div>
+          </setting-tabs>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <div
+    class="
+      product__information
+      has-product-sticker
+      two-fifths
+      column
+      large-down--one-whole
+    "
+  >
+    <div class="info-panel">
+      <div class="sku-review">
+        <div class="block--sku">
+            <div class="order-ship-date">
+                <p class="order-ship-text">SKU:</p>
+                <p class="order-ship-date order-ship-sku">
+                    {{ product.selected_or_first_available_variant.sku }}
+                </p>
+            </div>          
+        </div>
+        <div class="star-wish">
+          {% render 'okendo-custom-star-rating', product: product %}
+          <div class="header__icon" data-icon="heart"> 
+            <span>|</span> 
+            <mage-wishlist-heart product-id="{{ product.id }}"></mage-wishlist-heart>
+          </div>
+        </div>
+      </div>
+      {% comment %} Sale sticker {% endcomment %}
+      {% if stickers_enabled %}
+        {% assign collection_handles = product.collections | map: 'handle' %}
+        {% render 'product-thumbnail__sticker',
+          product: product,
+          context: 'product',
+          collection_handles: collection_handles
+        %}
+      {% endif %}
+
+      {%- for block in section.blocks -%}
+        {% unless block.type == 'media-buttons' or block.type == 'tgd' or block.type == 'additional-product-tabs' %}
+          <div
+            class="
+              product-block product-block--{{ block.type | downcase | replace: '_', '-' | replace: '@', '-' }}
+              {% if forloop.first == true %}
+                product-block--first
+              {% endif %}
+            "
+            {{ block.shopify_attributes }}
+          >
+        {% endunless %}
+        {%- if block.type == 'vendor' -%}
+          {% comment %} Vendor {% endcomment %}
+          <p class="vendor">
+            <span class="vendor">
+              {% if section_onboarding %}
+                Vendor name
+              {% else %}
+                {{ product.vendor | link_to_vendor }}
+              {% endif %}
+            </span>
+          </p>
+
+        {%- elsif block.type == 'sku' -%}
+          {% comment %} Sku {% endcomment %}
+          <p class="sku">
+            {% if section_onboarding %}
+              1234567890
+            {% else %}
+              {{ selected_variant.sku }}
+            {% endif %}
+          </p>
+
+        {%- elsif block.type == 'title' -%}
+          {% comment %} Name {% endcomment %}
+          <h1 class="product_name title">
+            {% if is_product_modal %}
+              <a href="{{ product.url  }}">{{ product.title }}</a>
+            {% elsif section_onboarding %}
+              {{ 'homepage.onboarding.product_title' | t }}
+            {% else %}
+              {{ product.title }}
+            {% endif %}
+          </h1>
+          {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+          {%- assign pageUrl = contentForQuerystring
+              | split: '"pageurl":"'
+              | last
+              | split: '"'
+              | first
+              | split: '.myshopify.com'
+              | last
+              | replace: '\/', '/'
+              | replace: '%20', ' '
+              | replace: '\u0026', '&'
+          -%}
+          {%- assign pageUrlArr = pageUrl | split:'?' | last | split:'&' -%}
+          {% assign stone_specs_detail = '' %}
+          {% for variant in product.variants -%}
+            {%- assign variant_value1 = variant.options | first | downcase -%}
+            {%- assign variant_value2 = variant.options | last | downcase -%}
+            {%- for parameter in pageUrlArr -%}
+              {% assign parameter_dn = parameter | downcase %}
+              {%- if parameter_dn contains variant_value1 -%}
+                {% assign option1_match = parameter | split:'=' | last %}
+              {% endif %}
+              {%- if parameter_dn contains variant_value2 -%}
+                {% assign option2_match = parameter | split:'=' | last %}
+              {% endif %}
+            {% endfor %}
+            {% if option1_match and option2_match %}
+              {%- capture stone_specs_detail -%}
+                {%- if variant.metafields.specs.primary_stone_color != blank -%}
+                  {{ variant.metafields.specs.primary_stone_color }} &#8226;&nbsp;
+                {%- endif -%}
+                {%- if variant.metafields.specs.primary_stone_clarity != blank -%}
+                  {{ variant.metafields.specs.primary_stone_clarity }} &#8226;&nbsp;
+                {%- endif -%}
+                {%- if variant.metafields.specs.primary_stone_certification != blank -%}
+                  {{ variant.metafields.specs.primary_stone_certification }} &#8226;&nbsp;
+                {%- endif -%}
+              {%- endcapture -%}
+              {%- assign stone_specs_detail = stone_specs_detail | remove_last:'&#8226;&nbsp;' -%}
+              {%- assign stone_specs_detail = stone_specs_detail | strip -%}
+            {% break %}
+            {% endif %}
+          {%- endfor %}
+          <span id="stone-specs-detail" class="stone-specs-detail{% if stone_specs_detail == '' %} hide{% endif %}">{{ stone_specs_detail }}</span>
+          {% assign is_show_setting_only = 'yes' %}
+          {%- for tag in product.tags -%}
+            {% if tag == 'Is Not Setting Only' %}
+              {% assign is_show_setting_only = 'no' %}
+            {% endif %}
+          {% endfor %}
+          <div class="product_form price-affirm">
+            <div class="modal_price subtitle" data-display-savings="true">
+              <div class="price-ui{% if is_show_setting_only == 'yes' and product.metafields.attributes.customizable == "1" %} show_setting_only{% endif %}" id="price-ui-section">
+                {% assign is_compare_at_price_and_sale = 'none' %}
+                {% if product.selected_or_first_available_variant.compare_at_price and product.selected_or_first_available_variant.compare_at_price != product.selected_or_first_available_variant.price %}
+                  {% assign is_compare_at_price_and_sale = '' %}
+                {% endif %}
+
+                <span class="compare-at-price" data-compare-at-price="" style="display: {{ is_compare_at_price_and_sale }}">
+                  {{- cart.currency.symbol }}
+                  <span class="money final_compare_at_price" data-final-compare-at-price="{{ product.selected_or_first_available_variant.compare_at_price }}" data-price="">
+                    {{ product.selected_or_first_available_variant.compare_at_price | divided_by: 100.0 -}}
+                  </span>
+                </span>
+                <span
+                  class="price {% if product.selected_or_first_available_variant.compare_at_price and product.selected_or_first_available_variant.compare_at_price != product.selected_or_first_available_variant.price %}price--sale{% endif %}"
+                  data-price=""
+                >
+                  {{- cart.currency.symbol }}
+                  <span
+                    class="money final_price"
+                    data-final-price="{{ product.selected_or_first_available_variant.price }}"
+                  >
+                    {{- product.selected_or_first_available_variant.price | divided_by: 100.0 | split:',' | first -}}
+                    {{ cart.currency.iso_code }}
+                  </span>
+                </span>
+                {% if is_show_setting_only == 'yes' and product.metafields.attributes.customizable == '1' %}
+                  <span class="center_text">(Setting Only)</span>
+                {% endif %}
+                <span class="sale-badge-wrapper" style="display: {{ is_compare_at_price_and_sale }}">
+                  <span class="sale-badge">Sale</span>
+                </span>
+              </div>
+            </div>
+            <div class="affirm-rate"><font>|</font> <p class="affirm-as-low-as" data-page-type="product" data-amount="{{product.selected_or_first_available_variant.price}}"></p></div>
+          </div>
+          {%- comment -%}{% render 'okendo-custom-star-rating', product: product %}{%- endcomment -%}
+        {%- elsif block.type == 'size-chart' -%}
+          {% comment %} Size chart {% endcomment %}
+          {% for tag in product.tags %}
+            {% if tag contains 'meta-size-chart-' %}
+              {% assign meta_size_chart = true %}
+            {% endif %}
+          {% endfor %}
+
+          {% if settings.size_chart != blank or block.settings.size_chart != blank or meta_size_chart %}
+            <a
+              class="product__size-chart"
+              href="javascript:;"
+              data-fancybox
+              data-src="#size-chart{{ product.id  }}"
+              data-type="inline"
+            >
+              {{ block.settings.title | escape }}
+            </a>
+            {% render 'popup-size-chart', block: block, product_id: product.id %}
+          {% endif %}
+
+        {%- elsif block.type == 'price' -%}
+          {% comment %} Price {% endcomment %}
+          <div class="modal_price subtitle" data-display-savings="{{ block.settings.display_savings }}">
+            {% if section_onboarding %}
+              <span class="money">$49.00</span>
+            {% else %}
+              {% comment %}Inject @pixelunion/shopify-price-ui/price-ui begin{% endcomment %}
+              <div class="price-ui price-ui--loading" data-price-ui>
+                <noscript>
+                  <style>
+                    .price-ui--loading {
+                      display: block !important;
+                      opacity: 1 !important;
+                    }
+                  </style>
+                </noscript>
+                {% assign compare_at_price = false %}
+
+                {% if product.compare_at_price and product.compare_at_price != product.price %}
+                  {% if product.compare_at_price_varies %}
+                    {%- capture price_min -%}
+                        {%-
+                          render 'price-ui-templates',
+                          template: 'price-min',
+                          value: product.compare_at_price_min,
+                        -%}
+                      {%- endcapture -%}
+
+                    {%- capture price_max -%}
+                        {%-
+                          render 'price-ui-templates',
+                          template: 'price-max',
+                          value: product.compare_at_price_max,
+                        -%}
+                      {%- endcapture -%}
+
+                    {%- assign compare_at_price = 'product.price.range_html'
+                      | t: price_min: price_min, price_max: price_max
+                    -%}
+                  {% else %}
+                    {%- capture compare_at_price -%}
+                        {%-
+                          render 'price-ui-templates',
+                          template: 'price',
+                          value: product.compare_at_price,
+                        -%}
+                      {%- endcapture -%}
+                  {% endif %}
+                {% endif %}
+
+                {% if product.price_varies %}
+                  {%- capture price_min -%}
+                      {%-
+                        render 'price-ui-templates',
+                        template: 'price-min',
+                        value: product.price_min,
+                      -%}
+                    {%- endcapture -%}
+
+                  {%- capture price_max -%}
+                      {%-
+                        render 'price-ui-templates',
+                        template: 'price-max',
+                        value: product.price_max,
+                      -%}
+                    {%- endcapture -%}
+
+                  {%- assign price = 'product.price.range_html' | t: price_min: price_min, price_max: price_max -%}
+                {% else %}
+                  {%- capture price -%}
+                      {%-
+                        render 'price-ui-templates',
+                        template: 'price',
+                        value: product.price,
+                      -%}
+                    {%- endcapture -%}
+                {% endif %}
+
+                {%- render 'price-ui-templates',
+                  template: 'price-ui',
+                  compare_at_price: compare_at_price,
+                  price: price,
+                  unit_pricing: false
+                -%}
+              </div>
+              {% comment %}Inject @pixelunion/shopify-price-ui/price-ui end{% endcomment %}
+            {% endif %}
+          </div>
+
+        {%- elsif block.type == 'complementary_products' -%}
+          {% comment %} Complementary products {% endcomment %}
+          {% render 'complementary-products', product: product, block: block %}
+
+        {%- elsif block.type == 'description' -%}
+          {% comment %} Description {% endcomment %}
+          {% if block.settings.custom_description != blank %}
+            <div class="description content has-padding-top">
+              {{ block.settings.custom_description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+            </div>
+          {% elsif section_onboarding %}
+            <div class="description content has-padding-top">
+              <p>
+                {{ 'homepage.onboarding.product_description' | t }}
+              </p>
+            </div>
+          {% else %}
+            {% if product.description != blank %}
+              <div
+                class="
+                  description
+                  description-content
+                  content
+                  has-padding-bottom
+                "
+              >
+                {% if is_product_modal %}
+                  {% if block.settings.truncate_words %}
+                    {{
+                      product.description
+                      | strip_html
+                      | truncatewords: block.settings.truncate_words_limit
+                      | replace: 'Description', ''
+                      | replace: 'Dimensions', ''
+                      | replace: 'Details', ''
+                      | replace: 'Specs', ''
+                      | replace: 'Shipping', ''
+                      | replace: 'Size', ''
+                      | escape
+                      | split: '<!-- split -->'
+                      | first | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                    }}
+                  {% else %}
+                    {{
+                      product.description
+                      | strip_html
+                      | replace: 'Description', ''
+                      | replace: 'Dimensions', ''
+                      | replace: 'Details', ''
+                      | replace: 'Specs', ''
+                      | replace: 'Shipping', ''
+                      | replace: 'Size', ''
+                      | escape
+                      | split: '<!-- split -->'
+                      | first | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                    }}
+                  {% endif %}
+                {% else %}
+                  {%- assign product_description = product.description -%}
+                  {%- assign paragraphs = product_description | split: '</p>' -%}
+                  {%- assign description_size = paragraphs.size -%}
+                  {%- assign first_paragraph = '' -%}
+
+                  {%- for paragraph in paragraphs -%}
+                    {%- if paragraph contains '<p>' -%}
+                      {%- assign p_start = paragraph | split: '<p>' | last -%}
+                      {%- assign p_content = p_start | split: '|' | first -%}
+                      {%- assign first_paragraph = p_content | strip -%}
+                      {% break %}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <div class="metal-properties">
+                    {{
+                      first_paragraph
+                      | replace: '<br>', ''
+                      | append: '<a href="#product-tgd-wrapper-desktop" style="font-weight:600;text-decoration:underline;margin-left:.5rem;">More Details</a>'
+                    }}
+                  </div>
+                {% endif %}
+                <!-- <a href="" style="font-weight:600;text-decoration:underline;">More Details</a> -->
+              </div>
+            {% endif %}
+          {% endif %}
+
+          {% if is_product_modal %}
+            <a
+              class="product__view-details"
+              href="{{ product.url | within: collection  }}"
+              title="{{ product.title | escape }}"
+            >
+              {{- 'collections.general.view_product_details' | t -}}
+            </a>
+          {% endif %}
+
+        {%- elsif block.type == 'form' -%}
+          {% comment %} Purchase form {% endcomment %}
+          {% if section_onboarding %}
+            <div class="product-form-container">
+              <div class="purchase-details">
+                <div class="purchase-details__buttons purchase-details__spb--false">
+                  <button
+                    name="add"
+                    class="action_button button button--add-to-cart add_to_cart"
+                    data-label="{{ add_to_cart_label | json }}"
+                  >
+                    <span class="text">{{ 'products.product.add_to_cart' | t }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div class="product-form-container">
+              {% comment %} Notify form {% endcomment %}
+              {% render 'product__notify-me-form', product: product %}
+
+              {% comment %} Product form {% endcomment %}
+              {% unless collection_handles contains 'coming-soon' %}
+                {% render 'product__form',
+                  context: 'product',
+                  product: product,
+                  sold_out_options: sold_out_options,
+                  selected_variant: selected_variant,
+                  show_payment_button: block.settings.show_payment_button,
+                  collection_handles: collection_handles
+                %}
+              {% endunless %}
+            </div>
+          {% endif %}
+
+        {%- elsif block.type == 'product-links' -%}
+          {% comment %} Collections, type, tags {% endcomment %}
+          {% if block.settings.show_collections or block.settings.show_tags or block.settings.show_type %}
+            <div class="product__classification-links has-padding-top">
+              {% if block.settings.show_collections %}
+                <p class="product__collections-list tags">
+                  <span class="product__classification-title">{{ 'products.product.collections' | t }}:</span>
+                  {% for col in product.collections %}
+                    <span class="tag tag--{{ tag_style }}">
+                      <a href="{{ col.url  }}" title="{{ col.title }}">{{ col.title }}</a>
+                    </span>
+                  {% endfor %}
+                </p>
+              {% endif %}
+
+              {% if block.settings.show_type %}
+                <p class="product__type-list tags">
+                  <span class="product__classification-title">{{ 'products.product.product_types' | t }}:</span>
+                  <span class="tag tag--{{ tag_style }}">{{ product.type | link_to_type }}</span>
+                </p>
+              {% endif %}
+
+              {% if block.settings.show_tags and product.tags.size > 0 %}
+                <p class="product__tags-list tags">
+                  <span class="product__classification-title">{{ 'products.product.tags' | t }}:</span>
+                  {% for tag in product.tags %}
+                    {% unless tag contains 'meta-' %}
+                      <span class="tag tag--{{ tag_style }}">
+                        <a
+                          href="{{ routes.collections_url  }}/{% if collection %}{{ collection.handle  }}{% else %}all{% endif %}/{{ tag | handle  }}"
+                          title="{{ 'products.product.products_tagged' | t: tag: tag }}"
+                        >
+                          {{- tag -}}
+                        </a>
+                      </span>
+                    {% endunless %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+            </div>
+          {% endif %}
+
+        {%- elsif block.type == 'rating' -%}
+          {% if product.metafields.reviews.rating.value != blank %}
+            <div class="product__rating rating">
+              {% render 'rating-stars',
+                value: product.metafields.reviews.rating.value.rating,
+                scale_max: product.metafields.reviews.rating.value.scale_max
+              %}
+
+              <p class="rating__text">
+                <span aria-hidden="true">
+                  {{ product.metafields.reviews.rating.value }} /
+                  {{ product.metafields.reviews.rating.value.scale_max }}
+                </span>
+              </p>
+
+              <p class="rating__count">
+                <span aria-hidden="true">
+                  {{ product.metafields.reviews.rating_count }}
+                  {% if product.metafields.reviews.rating_count > 1 %}
+                    {{ 'general.accessibility.star_reviews_text' | t }}
+                  {% else %}
+                    {{ 'general.accessibility.star_review_text' | t }}
+                  {% endif %}
+                </span>
+              </p>
+            </div>
+          {% endif %}
+
+        {%- elsif block.type == 'share' -%}
+          {% comment %} Social share icons {% endcomment %}
+          <div class="product__social-share has-padding-top">
+            {% render 'social-share-buttons' %}
+          </div>
+
+        {%- elsif block.type == 'text' -%}
+          {% comment %} Text {% endcomment %}
+          <div class="product-text">
+            {{ block.settings.text }}
+          </div>
+        {%- elsif block.type == 'setting-tabs' -%}
+          {% if product.metafields.custom.bundles != blank and product.metafields.custom.bundles.value.count > 0 %}
+            {% render 'bundle-setting-tabs', pageUrl:pageUrl, pageUrlArr:pageUrlArr %}
+          {% else %}
+            {% render 'setting-tabs', pageUrl:pageUrl, pageUrlArr:pageUrlArr %}
+          {% endif %}
+        {% elsif block.type == 'additional-links' %}
+          <div class="product-links-wrapper">
+            <ul class="product-links">
+              <li class="product-link-item">
+                <a class="product-link" href="javascript:void(0);" onClick="shippingPopup()">
+                  <div class="icon-wrapper">
+                    <img
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ 'flying-heart.png' | asset_url }}"
+                      width="60"
+                      height="60"
+                      loading="eager"
+                      alt="FREE SHIPPING RESIZING*"
+                    >
+                  </div>
+                  FREE SHIPPING & RESIZING*
+                </a>
+              </li>
+              <li class="product-link-item">
+                <a class="product-link" href="javascript:void(0);" onclick="productHintPopup()">
+                  <div class="icon-wrapper">
+                    <img
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ 'share.png' | asset_url }}"
+                      width="60"
+                      height="60"
+                      loading="eager"
+                      alt="Share"
+                    >
+                  </div>
+                  Share
+                </a>
+              </li>
+              <li class="product-link-item">
+                <a class="product-link" href="javascript:void(0);" onclick="productReturnPopup()">
+                  <div class="icon-wrapper">
+                    <img
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ 'returns.png' | asset_url }}"
+                      width="60"
+                      height="60"
+                      loading="eager"
+                      alt="Return"
+                    >
+                  </div>
+                  Easy 60-Day Returns
+                </a>
+              </li>
+              <li class="product-link-item">
+                <a class="product-link" href="#faq-section">
+                  <div class="icon-wrapper">
+                    <img
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ 'question-mark.png' | asset_url }}"
+                      width="60"
+                      height="60"
+                      loading="eager"
+                      alt="Question"
+                    >
+                  </div>
+                  Faq
+                </a>
+              </li>
+              <li class="product-link-item">
+                <a class="product-link product-tgd-wrapper" href="javascript:void(0);" onclick="productPaymentPopup()">
+                  <div class="icon-wrapper">
+                    <img
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ 'Hand.png' | asset_url }}"
+                      width="60"
+                      height="60"
+                      loading="eager"
+                      alt="Hand"
+                    >
+                  </div>
+                  Flexible Payment Options
+                </a>
+              </li>
+              <li class="product-link-item">
+                <a class="product-link" href="javascript:void(0);" onclick="productHelpPopup()">
+                  <div class="icon-wrapper">
+                    <img
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ 'chat-bubble-icon.png' | asset_url }}"
+                      width="60"
+                      height="60"
+                      loading="eager"
+                      alt="Chat"
+                    >
+                  </div>
+                  Need advice?
+                </a>
+              </li>
+            </ul>
+          </div>
+        {% elsif block.type == 'promotion-banner' %}
+          <div class="image--container">
+            {% if block.settings.url != blank %}
+              <a class="image--link" href="{{ block.settings.url  }}">
+            {% else %}
+              <div class="image--link">
+            {% endif %}
+            {% if block.settings.image != blank %}
+              <div class="image-wrapper">
+                <img
+                  src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | img_url: 'master' }}"
+                  width="100%"
+                  height="100%"
+                  loading="eager"
+                  alt="{{ block.settings.title }}"
+                >
+              </div>
+            {% endif %}
+            <div class="content">
+              {% if block.settings.title != blank %}
+                <h6>{{ block.settings.title }}</h6>
+              {% endif %}
+              {% if block.settings.content != blank %}
+                {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              {% endif %}
+            </div>
+            {% if block.settings.url != blank %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          </div>
+        {% elsif block.type == '@app' %}
+          <div class="product-app cell-style-blacktext">
+            {% render block %}
+          </div>
+        {%- endif -%}
+        {% unless block.type == 'media-buttons' or block.type == 'tgd' or block.type == 'additional-product-tabs' %}
+          </div>
+        {% endunless %}
+      {%- endfor -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tgd' -%}
+          <div id="product-tgd-wrapper-mobile" class="product-tgd-wrapper product-tgd-wrapper-mobile">
+            <div class="product-tgd mobile-tgd-slider has-no-side-gutter">
+              <div class="one-third column medium-down--one-whole">
+                <img
+                  src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image1 | img_url: 'master' }}"
+                  width="100%"
+                  height="100%"
+                  loading="eager"
+                  alt="{{ block.settings.title1 }}"
+                >
+                <div class="content">
+                  <h6>{{ block.settings.title1 }}</h6>
+                  {{ block.settings.content1 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+              </div>
+              <div class="one-third column medium-down--one-whole">
+                <img
+                  src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image2 | img_url: 'master' }}"
+                  width="100%"
+                  height="100%"
+                  loading="eager"
+                  alt="{{ block.settings.title2 }}"
+                >
+                <div class="content">
+                  <h6>{{ block.settings.title2 }}</h6>
+                  {{ block.settings.content2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+              </div>
+              <div class="one-third column medium-down--one-whole">
+                <img
+                  src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image3 | img_url: 'master' }}"
+                  width="100%"
+                  height="100%"
+                  loading="eager"
+                  alt="{{ block.settings.title3 }}"
+                >
+                <div class="content">
+                  <h6>{{ block.settings.title3 }}</h6>
+                  {{ block.settings.content3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- elsif block.type == 'additional-product-tabs' -%}
+          
+            {%- assign complete_look_products = product.metafields.shopify--discovery--product_recommendation.complementary_products.value -%}
+            {%- if complete_look_products.size > 0 -%}
+              {%- assign has_complete_items = true -%}
+            {%- else -%}
+              {%- assign has_complete_items = false -%}
+            {%- endif -%}
+            <div class="product-additional-information">
+              <setting-tabs class="setting-tabs-wrapper">
+                <div class="setting-tabs-buttons">
+                  {% if product.description != blank %}
+                    <div id="product-details-2" class="setting-tab-button product-details button-active">
+                      Description
+                    </div>
+                  {% endif %}
+                  <div id="product-shipping-2" class="setting-tab-button product-shipping">Delivery & Returns</div>
+                  {%- if has_complete_items -%}
+                  <div id="product-included-2" class="setting-tab-button product-included">Complete The Look</div>
+                  {%- endif -%}
+                </div>
+                {% if product.description != blank %}
+                  <div id="product-details-2-content" class="setting-tab-content product-details-content tab-active">
+                    {%- assign product_description = product.description | split: '<p>|</p>' -%}
+                    {%- assign description_size = product_description | size -%}
+                    {%- if description_size > 1 -%}
+                      {%- for segment in product_description -%}
+                        {%- if forloop.last -%}
+                          <div class="metal-properties">{{ segment | replace: '<br>', '' }}</div>
+                        {%- else -%}
+                          {{ segment | split: '|' | first | split: '<br>' | first }}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- else -%}
+                      {{
+                        product.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                      }}
+                    {%- endif -%}
+                  </div>
+                {% endif %}
+                <div id="product-shipping-2-content" class="setting-tab-content product-shipping-content">
+                  {%- assign shippingReturnsText = '' -%}
+                  {%- for productCollection in product.collections -%}
+                    {%- if productCollection.metafields.product.shipping_text -%}
+                      {%- assign shippingReturnsText = productCollection.metafields.product.shipping_text -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- if shippingReturnsText != '' -%}
+                    {{ shippingReturnsText }}
+                  {%- else -%}
+                    <div class="static-shipping-content">
+                      {{ settings.product_shipping_content | replace: '</p><p>', '<br><br>' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                    </div>
+                    {% comment %}
+                      <p>
+                        60-DAY RETURN POLICY: We are confident that you will love your MiaDonna jewelry, however, if it is not
+                        exactly as you imagined, you can return or exchange it with no restocking fees within 60 days of the
+                        delivery date. Only one item returned or exchanged per customer.
+                      </p>
+                      <br>
+                      <p>
+                        SHIPPING: After we handcraft your jewelry (10-15 business days), you will receive an email with
+                        shipping tracking details. Someone over the age of 21 will have to be present to sign for the package
+                        and all orders are shipped in a discrete 8 x 10 cardboard shipping box. Orders shipped within the
+                        continental United States receive free, highly insured, UPS 2-day shipping. International orders are
+                        shipped with highly insured FedEx International Priority shipping. International shipping timelines
+                        vary on location and local customs.
+                      </p>
+                    {% endcomment %}
+                  {%- endif -%}
+                </div>
+                {%- if has_complete_items -%}
+                <div id="product-included-2-content" class="setting-tab-content product-included-content">
+                  <div class="static-material-content">
+                    {% comment %} {{ settings.material_quality_content | replace: '<p></p>', '<br>' }} {% endcomment %}
+                    {{ recommendations.products.count }}
+                    {% render 'complete-the-look-grid', complete_look_products: complete_look_products, block: block %}
+                  </div>
+                  {% comment %}
+                    We founded the lab-grown diamond industry in 2005 out of axctivism, making MiaDonna the world's first lab
+                    grown diamond and lab grown gemstone company. We are the experts in diamonds and gems created in a lab, so
+                    you don’t have to be!
+                    <br>
+                    <br>
+                    <b> Sustainability: </b>
+                    MiaDonna metals and lab grown diamond are certified sustainable by SCS Global and Carbon Neutral. Our
+                    company is also certified by B Corporation, so you can trust that we not only meet but exceed the highest
+                    social and environmental standards.
+                    <br>
+                    <br>
+                    <b> Diamonds: </b>
+                    We only offer Premium lab grown diamonds -- As Grown, Type IIa diamonds created using renewable energy and
+                    carbon capturing technology graded by GCal, IGI or GIA. This means our lab grown diamonds are harder and
+                    brighter than other diamonds (earth mind or lab grown) on the market. You will only find this at MiaDonna.
+                    <br>
+                    <br>
+                    <b> Jewelry: </b>
+                    MiaDonna jewelry is handcrafted just for you when you order it, unless noted otherwise. You build it
+                    online or with a MiaDonna jewelry specialist and our master jewelers will create it for you in 10 to 15
+                    business days. Our jewelry is created in recycled 14k, 18k and Platinum solid precious metals and we use a
+                    higher gram weight of metal. Most other jewelry companies prestock their jewelry, limited sizes and lower
+                    gram weights.
+                  {% endcomment %}
+                </div>
+                {%- endif -%}
+              </setting-tabs>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+      <div class="pdp-accordion">
+        {%- unless pageUrl contains 'Metal=' -%}
+          {%- if pageUrl contains 'variant' and pageUrl contains 'utm_source' -%}
+            {%- assign selected_variant_title = product.selected_or_first_available_variant.title | downcase -%}
+          {%- endif -%}
+        {%- endunless -%}
+        {%- if pageUrlArr.size == 1 and pageUrlArr[0] contains 'variant' -%}
+          {%- assign selected_variant_title = product.selected_or_first_available_variant.title | downcase -%}
+        {%- endif %}
+        {%- assign current_variant = selected_variant_title | default:product.selected_or_first_available_variant -%}
+
+        <div class="sub_footer-faq-item one-whole" id="style_details_table_accordion">
+          <button class="sub_footer-accordion-title pdp-accordion-el">
+            <span>Style Details</span>
+            <span class="icon icon-plus" data-icon="plus">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>Plus</title>
+                <g id="plus"><path d="M95,48H52V5a2,2,0,0,0-4,0V48H5a2,2,0,0,0,0,4H48V95a2,2,0,0,0,4,0V52H95a2,2,0,0,0,0-4Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          {%- assign style_total_carat_wt = current_variant.metafields.specs.ctw_decimal -%}
+          <div class="sub_footer-accordion-content" style="display:none;">
+            <div class="style-accordion pdp-accordion-common{% if product.metafields.custom.product_group_id == blank %} hide{% endif %}" id="style_id"><span class="accordion-data-label">Style ID:</span><span class="accordion-data-value">{{ product.metafields.custom.product_group_id }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.sku == blank %} hide{% endif %}" id="item_id"><span class="accordion-data-label">Item ID:</span><span class="accordion-data-value">{{ current_variant.sku }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if product.metafields.custom.style.value == blank %} hide{% endif %}" id="metal_style"><span class="accordion-data-label">Style:</span><span class="accordion-data-value">{{ product.metafields.custom.style.value }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if product.metafields.custom.gender == blank %} hide{% endif %}" id="metal_gender"><span class="accordion-data-label">Gender:</span><span class="accordion-data-value">{{ product.metafields.custom.gender.value }}</span></div>
+            
+            <div class="style-accordion pdp-accordion-common{% if style_total_carat_wt == blank %} hide{% endif %}" id="metal_cwt"><span class="accordion-data-label">Carat Total Weight:</span><span class="accordion-data-value">{{ style_total_carat_wt }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.metafields.specs.metal_type == blank %} hide{% endif %}" id="metal_type"><span class="accordion-data-label">Metal Type:</span><span class="accordion-data-value metal_type">{{ current_variant.metafields.specs.metal_type }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.metafields.specs.metal_color == blank %} hide{% endif %}" id="metal_color"><span class="accordion-data-label">Metal Color:</span><span class="accordion-data-value metal_color">{{ current_variant.metafields.specs.metal_color.value }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.metafields.specs.metal_plating == blank %} hide{% endif %}" id="metal_plate"><span class="accordion-data-label">Metal Plating:</span><span class="accordion-data-value">{{ current_variant.metafields.specs.metal_plating.value }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.metafields.custom.metal_finish == blank %} hide{% endif %}" id="metal_finish"><span class="accordion-data-label">Metal Finish:</span><span class="accordion-data-value">{{ current_variant.metafields.custom.metal_finish.value }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.metafields.specs.chain_type == blank %} hide{% endif %}" id="metal_chain"><span class="accordion-data-label">Chain Type:</span><span class="accordion-data-value">{{ current_variant.metafields.specs.chain_type.value }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.metafields.specs.closure == blank %} hide{% endif %}" id="metal_closure"><span class="accordion-data-label">Closure Type:</span><span class="accordion-data-value">{{ current_variant.metafields.specs.closure.value }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.metafields.specs.dimension_l == blank %} hide{% endif %}" id="metal_dimension_l"><span class="accordion-data-label">Length (mm):</span><span class="accordion-data-value">{{ current_variant.metafields.specs.dimension_l.value }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.metafields.specs.dimension_h == blank %} hide{% endif %}" id="metal_dimension_h"><span class="accordion-data-label">Height/Depth (mm):</span><span class="accordion-data-value">{{ current_variant.metafields.specs.dimension_h.value }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if current_variant.metafields.specs.dimension_w == blank %} hide{% endif %}" id="metal_dimension_w"><span class="accordion-data-label">Width (mm):</span><span class="accordion-data-value">{{ current_variant.metafields.specs.dimension_w.value }}</span></div>
+            <div class="style-accordion pdp-accordion-common{% if product.metafields.custom.length_options == blank %} hide{% endif %}" id="metal_length_options"><span class="accordion-data-label">{{ product.type }} Length (inches):</span><span class="accordion-data-value">{% for length in product.metafields.custom.length_options.value %}{{ length }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span></div>
+            <div class="style-accordion pdp-accordion-common" id="metal_engrave"><span class="accordion-data-label">Engravable:</span><span class="accordion-data-value">{% if product.metafields.attributes.can_be_engraved == '1' %}Yes{% else %}No{% endif %}</span></div>
+          </div>
+        </div>
+
+        {%- assign is_show_primary_stone = false -%}
+        {%- assign is_check_hide_primary_stone = true -%}
+        <div class="sub_footer-faq-item one-whole hide" id="primary_stone_table_accordion">
+          <button class="sub_footer-accordion-title pdp-accordion-el">
+            <span>Primary Stone</span>
+            <span class="icon icon-plus" data-icon="plus">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>Plus</title>
+                <g id="plus"><path d="M95,48H52V5a2,2,0,0,0-4,0V48H5a2,2,0,0,0,0,4H48V95a2,2,0,0,0,4,0V52H95a2,2,0,0,0,0-4Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="sub_footer-accordion-content" style="display:none;">
+            {%- if is_diamond_exist -%}
+              {%- assign is_show_primary_stone = true -%}
+              {%- assign is_check_hide_primary_stone = false -%}
+              <div class="primary-accordion pdp-accordion-common" id="primary_stone_type"><span class="accordion-data-label">Stone Type:</span><span class="accordion-data-value">Diamond</span></div>
+            {% else %} 
+              <div class="primary-accordion pdp-accordion-common{% if product.metafields.custom.primary_stone_type == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{%- assign is_check_hide_primary_stone = false -%}{% endif %}" id="primary_stone_type"><span class="accordion-data-label">Stone Type:</span><span class="accordion-data-value">{{ product.metafields.custom.primary_stone_type.value }}</span></div>
+            {% endif%} 
+            {%- if is_diamond_exist -%}
+              {%- assign is_show_primary_stone = true -%}
+              {%- assign is_check_hide_primary_stone = false -%}
+              <div class="primary-accordion pdp-accordion-common" id="primary_stone_creation_method"><span class="accordion-data-label">Creation Method:</span><span class="accordion-data-value">Lab Grown</span></div>
+            {% else %}
+              <div class="primary-accordion pdp-accordion-common{% if product.metafields.custom.primary_stone_creation_method == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{%- assign is_check_hide_primary_stone = false -%}{% endif %}" id="primary_stone_creation_method"><span class="accordion-data-label">Creation Method:</span><span class="accordion-data-value">{{ product.metafields.custom.primary_stone_creation_method.value }}</span></div>
+            {% endif%}
+
+            {%- if is_diamond_exist -%}
+              <div class="primary-accordion pdp-accordion-common pdp-accordion-common {% if shapeVal == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{%- assign is_check_hide_primary_stone = false -%}{% endif %}" id="primary_diamond_shape"><span class="accordion-data-label">Diamond Shape:</span><span class="accordion-data-value">{{shapeVal }}</span></div>
+            {% else %}
+              <div class="primary-accordion pdp-accordion-common pdp-accordion-common{% if product.metafields.custom.primary_stone_shape.value == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{%- assign is_check_hide_primary_stone = false -%}{% endif %}" id="primary_stone_shape"><span class="accordion-data-label">Stone Shape:</span><span class="accordion-data-value">{{ product.metafields.custom.primary_stone_shape.value }}</span></div>
+            {% endif%}
+            
+            {%- if is_diamond_exist -%}
+              <div class="primary-accordion pdp-accordion-common{% if caratVal == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_carat"><span class="accordion-data-label">Diamond Carat:</span><span class="accordion-data-value">{{ caratVal }}</span></div>
+            {% endif%}
+
+            <div class="primary-accordion pdp-accordion-common pdp-accordion-common{% if product.metafields.custom.primary_stone_setting == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{%- assign is_check_hide_primary_stone = false -%}{% endif %}" id="primary_stone_setting"><span class="accordion-data-label">Setting Type:</span><span class="accordion-data-value">{{ product.metafields.custom.primary_stone_setting.value }}</span></div>
+            {%- if is_diamond_exist -%}
+              <div class="primary-accordion pdp-accordion-common{% if colorVal == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_colors"><span class="accordion-data-label">Diamond Color:</span><span class="accordion-data-value">{{ colorVal }}</span></div>
+            {% else %}
+              <div class="primary-accordion pdp-accordion-common{% if current_variant.metafields.specs.primary_stone_color == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_color"><span class="accordion-data-label">Diamond Color Grade:</span><span class="accordion-data-value">{{ current_variant.metafields.specs.primary_stone_color.value }}</span></div>
+            {% endif%}
+            {%- if is_diamond_exist -%}
+              <div class="primary-accordion pdp-accordion-common{% if clarityVal == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_claritys"><span class="accordion-data-label">Diamond Clarity:</span><span class="accordion-data-value">{{ clarityVal }}</span></div>
+            {% else %}
+              <div class="primary-accordion pdp-accordion-common{% if current_variant.metafields.specs.primary_stone_clarity == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_clarity"><span class="accordion-data-label">Diamond Clarity Grade:</span><span class="accordion-data-value">{{ current_variant.metafields.specs.primary_stone_clarity.value }}</span></div>
+            {% endif%}
+            {%- if is_diamond_exist -%}
+              <div class="primary-accordion pdp-accordion-common{% if cutVal == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_cuts"><span class="accordion-data-label">Diamond Cut:</span><span class="accordion-data-value">{{ cutVal }}</span></div>
+            {%- else -%}
+              <div class="primary-accordion pdp-accordion-common{% if current_variant.metafields.custom.primary_stone_cut == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_cut"><span class="accordion-data-label">Diamond Cut Grade:</span><span class="accordion-data-value">{{ current_variant.metafields.custom.primary_stone_cut.value }}</span></div>
+            {%- endif -%}
+
+            {%- assign primary_stone_count = current_variant.metafields.specs.primary_stone_count -%}
+            {%- assign primary_stone_avg_wt = current_variant.metafields.specs.primary_stone_avg_wt -%}
+            {%- assign primary_total_carat_wt = '' -%}
+            {%- if primary_stone_count != blank and primary_stone_avg_wt != blank -%}
+              {%- assign primary_total_carat_wt = primary_stone_count.value | times:primary_stone_avg_wt.value -%}
+            {%- endif -%}
+
+            <div class="primary-accordion pdp-accordion-common{% if current_variant.metafields.specs.primary_stone_certification == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_certification"><span class="accordion-data-label">Diamond Certification:</span><span class="accordion-data-value">{{ current_variant.metafields.specs.primary_stone_certification.value }}</span></div>
+            {%- comment -%}<div class="primary-accordion pdp-accordion-common{% if primary_stone_avg_wt == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_avg_wt"><span class="accordion-data-label">Avg. Carat Weight:</span><span class="accordion-data-value">{{ primary_stone_avg_wt.value }}</span></div>{%- endcomment -%}
+            <div class="primary-accordion pdp-accordion-common{% if primary_stone_count == blank %} hide{% else %}{%- assign is_show_primary_stone = true -%}{% endif %}" id="primary_stone_count"><span class="accordion-data-label">Count:</span><span class="accordion-data-value">{{ primary_stone_count.value }}</span></div>
+            <div class="primary-accordion pdp-accordion-common{% if primary_total_carat_wt == '' %} hide{% else %}{%- assign display_total_carat_wt = true -%}{% endif %}" id="primary_stone_total_ctw"><span class="accordion-data-label">Total Carat Weight:</span><span class="accordion-data-value">{% if display_total_carat_wt %}{{ primary_total_carat_wt }}{% endif %}</span></div>
+          </div>
+        </div>
+
+        {%- assign is_show_additional_stone = false -%}
+        {%- assign is_check_hide_additional_stone = true -%}
+
+        <div class="sub_footer-faq-item one-whole hide" id="additional_stone_table_accordion">
+          <button class="sub_footer-accordion-title pdp-accordion-el">
+            <span>Additional Stones</span>
+            <span class="icon icon-plus" data-icon="plus"> 
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>Plus</title>
+                <g id="plus"><path d="M95,48H52V5a2,2,0,0,0-4,0V48H5a2,2,0,0,0,0,4H48V95a2,2,0,0,0,4,0V52H95a2,2,0,0,0,0-4Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          {%- assign additional_total_carat_wt = '' -%}
+          {%- if style_total_carat_wt != blank and primary_total_carat_wt != '' -%}
+            {%- assign additional_total_carat_wt = style_total_carat_wt | minus:primary_total_carat_wt -%}
+          {%- endif -%}
+          <div class="sub_footer-accordion-content" style="display:none;">
+            <div class="additional-accordion pdp-accordion-common{% if product.metafields.custom.additional_stone_type == blank %} hide{% else %}{%- assign is_show_additional_stone = true -%}{%- assign is_check_hide_additional_stone = false -%}{% endif %}" id="additional_stone_type"><span class="accordion-data-label">Stone Type:</span><span class="accordion-data-value">{{ product.metafields.custom.additional_stone_type.value }}</span></div>
+            <div class="additional-accordion pdp-accordion-common{% if product.metafields.custom.additional_stone_creation_method == blank %} hide{% else %}{%- assign is_show_additional_stone = true -%}{%- assign is_check_hide_additional_stone = false -%}{% endif %}" id="additional_stone_creation_method"><span class="accordion-data-label">Creation Method:</span><span class="accordion-data-value">{{ product.metafields.custom.additional_stone_creation_method.value }}</span></div>
+            <div class="additional-accordion pdp-accordion-common{% if product.metafields.custom.additional_stone_shape == blank %} hide{% else %}{%- assign is_show_additional_stone = true -%}{%- assign is_check_hide_additional_stone = false -%}{% endif %}" id="additional_stone_shape"><span class="accordion-data-label">Stone Shape:</span><span class="accordion-data-value">{{ product.metafields.custom.additional_stone_shape.value }}</span></div>
+            <div class="additional-accordion pdp-accordion-common{% if product.metafields.custom.additional_stone_setting == blank %} hide{% else %}{%- assign is_show_additional_stone = true -%}{%- assign is_check_hide_additional_stone = false -%}{% endif %}" id="additional_stone_setting"><span class="accordion-data-label">Setting Type:</span><span class="accordion-data-value">{{ product.metafields.custom.additional_stone_setting.value }}</span></div>
+
+            <div class="additional-accordion pdp-accordion-common{% if current_variant.metafields.custom.additional_stone_color == blank %} hide{% else %}{%- assign is_show_additional_stone = true -%}{%- endif -%}" id="additional_stone_color"><span class="accordion-data-label">Diamond Color Grade:</span><span class="accordion-data-value">{{ current_variant.metafields.custom.additional_stone_color.value }}</span></div>
+            <div class="additional-accordion pdp-accordion-common{% if current_variant.metafields.custom.additional_stone_clarity == blank %} hide{% else %}{%- assign is_show_additional_stone = true -%}{%- endif %}" id="additional_stone_clarity"><span class="accordion-data-label">Diamond Clarity Grade:</span><span class="accordion-data-value">{{ current_variant.metafields.custom.additional_stone_clarity.value }}</span></div>
+            {%- comment -%}<div class="additional-accordion pdp-accordion-common{% if current_variant.metafields.specs.additional_stone_avg_wt == blank %} hide{% else %}{%- assign is_show_additional_stone = true -%}{%- endif %}" id="additional_stone_avg_wt"><span class="accordion-data-label">Avg. Carat Weight:</span><span class="accordion-data-value">{{ current_variant.metafields.specs.additional_stone_avg_wt }}</span></div>{%- endcomment -%}
+            <div class="additional-accordion pdp-accordion-common{% if current_variant.metafields.specs.additional_stone_count == blank %} hide{% else %}{%- assign is_show_additional_stone = true -%}{%- endif %}" id="additional_stone_count"><span class="accordion-data-label">Count:</span><span class="accordion-data-value">{{ current_variant.metafields.specs.additional_stone_count.value }}</span></div>
+            {%- comment -%}<div class="primary-accordion pdp-accordion-common{% if current_variant.metafields.specs.additional_stone_count == blank or current_variant.metafields.specs.additional_stone_avg_wt == blank %} hide{% else %}{%- assign additional_total_carat_wt = true -%}{% endif %}" id="additional_stone_total_ctw"><span class="accordion-data-label">Total Carat Weight:</span><span class="accordion-data-value">{% if additional_total_carat_wt %}{{ current_variant.metafields.specs.additional_stone_count.value | times:current_variant.metafields.specs.additional_stone_avg_wt }}{% endif %}</span></div>{%- endcomment -%}
+            <div class="primary-accordion pdp-accordion-common{% if additional_total_carat_wt == '' or additional_total_carat_wt == 0 %} hide{% else %}{%- assign display_additional_total_carat_wt = true -%}{% endif %}" id="additional_stone_total_ctw"><span class="accordion-data-label">Total Carat Weight:</span><span class="accordion-data-value">{% if display_additional_total_carat_wt %}{{ additional_total_carat_wt }}{% endif %}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+     {%- if is_show_primary_stone -%}
+      document.getElementById('primary_stone_table_accordion').classList.remove('hide');
+    {%- endif -%}
+    {%- if is_show_additional_stone -%}
+      document.getElementById('additional_stone_table_accordion').classList.remove('hide');
+    {%- endif -%}
+    const links = document.querySelectorAll('.product-link');
+
+    links.forEach(link => {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        const targetId = this.getAttribute('href');
+
+        if (targetId.includes('#')) {
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            const headerHeight = 80; // Adjust this to your fixed header's height
+            const offset = targetElement.offsetTop - headerHeight;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+          }
+        } else {
+          window.location.href = targetId;
+        }
+      });
+    });
+  });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('.is-video').forEach(function(videoWrapper) {
+        const video = videoWrapper.querySelector('.video');
+        const pauseBtn = videoWrapper.querySelector('.icon.icon-pause');
+        const playBtn = videoWrapper.querySelector('.icon.icon-play');
+
+        
+
+        pauseBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            video.pause();
+
+            pauseBtn.style.display = 'none';
+            playBtn.style.display = 'block';
+        });
+
+        playBtn.addEventListener('click', function(e) {
+          
+            e.stopPropagation();
+
+            video.play();
+
+            playBtn.style.display = 'none';
+            pauseBtn.style.display = 'block';
+        });
+
+    });
+
+});
+
+
+  document.querySelectorAll('.popup-icon').forEach(function(icon) {
+  icon.addEventListener('click', function() {
+    Fancybox.show(
+      [{
+        src: this.dataset.popup,
+        type: "inline"
+      }],
+      {
+        dragToClose: false,
+        Carousel: {
+          friction: 0,
+          Panzoom: {
+            touch: false
+          }
+        }
+      }
+    );
+  });
+});
+function fancyboxPopup(id, value=''){
+   Fancybox.show(
+  [{
+    src: id,
+    type: "inline"
+  }],
+  {
+    dragToClose: false,
+
+    Carousel: {
+      friction: 0,
+      Panzoom: {
+        touch: false
+      }
+    }
+  }
+);
+}
+function fancyboxPopupClose(id){
+ var ids =  document.querySelector(id);
+      Fancybox.close(ids);
+
+}
+document.querySelectorAll('.quality--heading button').forEach(function(button) {
+
+    button.addEventListener('click', function() {
+
+        let data_id = this.getAttribute('data-id');
+
+        // Hide all popups
+        document.querySelectorAll('.quality--popup').forEach(function(popup) {
+            popup.style.display = 'none';
+        });
+
+        // Remove active class from all buttons
+        document.querySelectorAll('.quality--heading button').forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+
+        // Show selected popup
+        let activePopup = document.querySelector('.qpop--' + data_id);
+
+        if (activePopup) {
+            activePopup.style.display = 'block';
+        }
+
+        // Add active class to clicked button
+        this.classList.add('active');
+
+    });
+
+});
+$(function () {
+
+    window.mobileSlider = function(slideIndex='') {
+
+        if (window.matchMedia("(max-width: 767px)").matches) {
+
+            if (!$('.my-slider').hasClass('slick-initialized')) {
+
+                $('.my-slider').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    dots: false,
+                    arrows: true,
+                    infinite: false,
+
+                    prevArrow: `
+                        <button class="scroll-arrow scroll-arrow-left" aria-label="Scroll Left">
+                            <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.09149 11.0341L9.85809 19.8008C10.157 20.0996 10.7049 20.0996 11.0038 19.8008C11.3027 19.5019 11.3027 18.954 11.0038 18.6551L3.582 11.2333H22.3606C22.8089 11.2333 23.1576 10.8846 23.1576 10.4363C23.1576 10.0379 22.8089 9.63936 22.3606 9.63936H3.582L11.0038 2.26738C11.3027 1.96851 11.3027 1.42059 11.0038 1.12173C10.7049 0.822867 10.157 0.822867 9.85809 1.12173L1.09149 9.88842C0.792594 10.1873 0.792594 10.7352 1.09149 11.0341Z"></path>
+                            </svg>
+                        </button>`,
+
+                    nextArrow: `
+                        <button class="scroll-arrow scroll-arrow-right" aria-label="Scroll Right">
+                            <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.9085 11.0341L14.1419 19.8008C13.843 20.0996 13.2951 20.0996 12.9962 19.8008C12.6973 19.5019 12.6973 18.954 12.9962 18.6551L20.418 11.2333H1.63937C1.19108 11.2333 0.842401 10.8846 0.842401 10.4363C0.842401 10.0379 1.19108 9.63937 1.63937 9.63937H20.418L12.9962 2.26739C12.6973 1.96852 12.6973 1.4206 12.9962 1.12174C13.2951 0.822876 13.843 0.822876 14.1419 1.12174L22.9085 9.88843C23.2074 10.1873 23.2074 10.7352 22.9085 11.0341Z"></path>
+                            </svg>
+                        </button>`
+                });
+
+            }
+            else if(slideIndex != ''){
+              $('.my-slider').slick('slickRemove', slideIndex);
+            }
+
+        } else {
+
+            if ($('.my-slider').hasClass('slick-initialized')) {
+                $('.my-slider').slick('unslick');
+            }
+
+        }
+    }
+
+    mobileSlider();
+
+    $(window).on('resize', function () {
+        mobileSlider();
+    });
+
+});
+
+window.updateMetafields = function(styleData, primaryStoneData, additionalStoneData, productMetaObj = {}) {
+  const styleDetailEl = document.getElementById('style_details_table_accordion');
+  const primaryStoneEl = document.getElementById('primary_stone_table_accordion');
+  const additionalStoneEl = document.getElementById('additional_stone_table_accordion');
+
+  if(productMetaObj['style_meta']){
+    var isHideStyleAccordion = true;
+    const style_meta = productMetaObj['style_meta'];
+    Object.keys(style_meta).forEach(function(style) {
+      const styleMetaValue = style_meta[style];
+      const styleMetaElement = document.querySelector('#' + style);
+
+      if (!styleMetaElement) return;
+
+      const styleMetaSpan = styleMetaElement.querySelector('span.accordion-data-value');
+
+      if (styleMetaValue && styleMetaValue.toString().trim() !== '') {
+        styleMetaElement.classList.remove('hide');
+        if (styleMetaSpan) {
+          isHideStyleAccordion = false;
+          styleMetaSpan.textContent = styleMetaValue;
+        }
+      } else {
+        styleMetaElement.classList.add('hide');
+        if (styleMetaSpan) {
+          styleMetaSpan.textContent = '';
+        }
+      }
+    });
+    if(isHideStyleAccordion){
+      styleDetailEl.classList.add('hide');
+    }
+    else{
+      styleDetailEl.classList.remove('hide');
+    }
+  }
+
+  if(productMetaObj['primary_meta']){
+    var isHidePrimaryStoneAccordion = true;
+    const primary_meta = productMetaObj['primary_meta'];
+    Object.keys(primary_meta).forEach(function(primary) {
+      const primaryMetaValue = primary_meta[primary];
+      const primaryMetaElement = document.querySelector('#' + primary);
+
+      if (!primaryMetaElement) return;
+
+      const primaryMetaSpan = primaryMetaElement.querySelector('span.accordion-data-value');
+
+      if (primaryMetaValue && primaryMetaValue.toString().trim() !== '') {
+        primaryMetaElement.classList.remove('hide');
+        if (primaryMetaSpan) {
+          isHidePrimaryStoneAccordion = false;
+          primaryMetaSpan.textContent = primaryMetaValue;
+        }
+      } else {
+        primaryMetaElement.classList.add('hide');
+        if (primaryMetaSpan) {
+          primaryMetaSpan.textContent = '';
+        }
+      }
+    });
+    if(isHidePrimaryStoneAccordion){
+      {%- comment %}{%- assign is_check_hide_primary_stone = true -%}{%- endcomment %}
+      primaryStoneEl.classList.add('hide');
+    }
+    else{
+      {%- comment %}{%- assign is_check_hide_primary_stone = false -%}{%- endcomment %}
+      primaryStoneEl.classList.remove('hide');
+    }
+  }
+
+  if(productMetaObj['additional_meta']){
+    var isHideAdditionalStoneAccordion = true;
+    const additional_meta = productMetaObj['additional_meta'];
+    Object.keys(additional_meta).forEach(function(additional) {
+      const additionalMetaValue = additional_meta[additional];
+      const additionalMetaElement = document.querySelector('#' + additional);
+
+      if (!additionalMetaElement) return;
+
+      const additionalMetaSpan = additionalMetaElement.querySelector('span.accordion-data-value');
+
+      if (additionalMetaValue && additionalMetaValue.toString().trim() !== '') {
+        additionalMetaElement.classList.remove('hide');
+        if (additionalMetaSpan) {
+          isHideAdditionalStoneAccordion = false;
+          additionalMetaSpan.textContent = additionalMetaValue;
+        }
+      } else {
+        additionalMetaElement.classList.add('hide');
+        if (additionalMetaSpan) {
+          additionalMetaSpan.textContent = '';
+        }
+      }
+    });
+    if(isHideAdditionalStoneAccordion){
+      {%- comment %}{%- assign is_check_hide_additional_stone = true -%}{%- endcomment %}
+      additionalStoneEl.classList.add('hide');
+    }
+    else{
+      {%- comment %}{%- assign is_check_hide_additional_stone = false -%}{%- endcomment %}
+      additionalStoneEl.classList.remove('hide');
+    }
+  }
+
+  if(productMetaObj['style_meta']){
+    const style_meta = productMetaObj['style_meta'];
+    Object.keys(style_meta).forEach(function(style) {
+      const styleMetaValue = style_meta[style];
+      const styleMetaElement = document.querySelector('#' + style);
+
+      if (!styleMetaElement) return;
+
+      const styleMetaSpan = styleMetaElement.querySelector('span.accordion-data-value');
+
+      if (styleMetaValue && styleMetaValue.toString().trim() !== '') {
+        styleMetaElement.classList.remove('hide');
+        if (styleMetaSpan) {
+          styleMetaSpan.textContent = styleMetaValue;
+        }
+      } else {
+        styleMetaElement.classList.add('hide');
+        if (styleMetaSpan) {
+          styleMetaSpan.textContent = '';
+        }
+      }
+    });
+  }
+
+  
+
+  let isHidePrimaryAccordion = true,
+      isHideAdditionalAccordion = true;
+
+  Object.keys(styleData).forEach(function(style) {
+    const value = styleData[style];
+    const element = document.querySelector('#' + style);
+
+    if (!element) return;
+
+    const span = element.querySelector('span.accordion-data-value');
+
+    if (value && value.toString().trim() !== '') {
+      element.classList.remove('hide');
+      if (span) {
+        span.textContent = value;
+      }
+    } else {
+      element.classList.add('hide');
+      if (span) {
+        span.textContent = '';
+      }
+    }
+  });
+
+  Object.keys(primaryStoneData).forEach(function(primary) {
+    const primaryValue = primaryStoneData[primary];
+    const primaryElement = document.querySelector('#' + primary);
+
+    if (!primaryElement) return;
+
+    const primarySpan = primaryElement.querySelector('span.accordion-data-value');
+
+    if (primaryValue && primaryValue.toString().trim() !== '') {
+      primaryElement.classList.remove('hide');
+      if (primarySpan) {
+        isHidePrimaryAccordion = false;
+        primarySpan.textContent = primaryValue;
+      }
+    } else {
+      primaryElement.classList.add('hide');
+      if (primarySpan) {
+        primarySpan.textContent = '';
+      }
+    }
+  });
+
+  {%- if is_check_hide_primary_stone -%}
+    if(isHidePrimaryAccordion){
+      primaryStoneEl.classList.add('hide');
+    }
+    else{
+      primaryStoneEl.classList.remove('hide');
+    }
+  {%- endif -%}
+
+  Object.keys(additionalStoneData).forEach(function(additional) {
+    const additionalValue = additionalStoneData[additional];
+    const additionalElement = document.querySelector('#' + additional);
+
+    if (!additionalElement) return;
+
+    const additionalSpan = additionalElement.querySelector('span.accordion-data-value');
+
+    if (additionalValue && additionalValue.toString().trim() !== '') {
+      additionalElement.classList.remove('hide');
+      if (additionalSpan) {
+        isHideAdditionalAccordion = false;
+        additionalSpan.textContent = additionalValue;
+      }
+    } else {
+      additionalElement.classList.add('hide');
+      if (additionalSpan) {
+        additionalSpan.textContent = '';
+      }
+    }
+  });
+
+  {%- if is_check_hide_additional_stone -%}
+    if(isHideAdditionalAccordion){
+      additionalStoneEl.classList.add('hide');
+    }
+    else{
+      additionalStoneEl.classList.remove('hide');
+    }
+  {%- endif -%}
+};
+
+</script>

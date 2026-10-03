@@ -1,0 +1,92 @@
+<div
+  class="fancybox-container popup-modal certificate-popup product-images-popup product-help-popup fancybox-is-open"
+  role="dialog"
+  tabindex="-1"
+  id="product-help-popup"
+  style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;"
+>
+  <div class="fancybox-bg" onClick="productHelpClosePopup()"></div>
+  <div class="fancybox-inner">
+    <div class="fancybox-stage">
+      <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+        <div
+          class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+          style="display: inline-block;"
+        >
+          <button onClick="productHelpClosePopup()" class="close popup__close" aria-label="close">
+            <span class="icon icon--vertical-align" data-icon="x">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>Close</title>
+                <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="popup__inner is-flex has-no-side-gutter">
+            <div class="popup__content one-half text-center">
+              <h3>Need Help?</h3>
+              <p class="subtitle">
+                We're available 8am to 3:30pm PST,<br>
+                Monday through Friday.
+              </p>
+              <div class="container">
+                <div class="one-fourth medium-down--one-whole column">
+                  <div class="help-item">
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                         <title>Help</title>
+                        <g id="chat"><path d="M85.78,29.3H69.3V43a16,16,0,0,1-16,16H36.4l-.7.58v.88a11,11,0,0,0,11,11h18.7L85.28,88.2V71.53h.5a11,11,0,0,0,11-11V40.34A11,11,0,0,0,85.78,29.3Z"/><path d="M64.3,43V22.84a11,11,0,0,0-11-11h-39a11,11,0,0,0-11,11V43a11,11,0,0,0,11,11h.5V70.7L34.57,54H53.28A11,11,0,0,0,64.3,43Zm-50-18.14h40v5h-40Zm0,17.23v-5h40v5Z"/></g>
+                      </svg>
+                    </p>
+                    <p>
+                      <a href="javascript:void(0)" onclick="Chatra('openChat', true)" title="Chat with Us"
+                        >Live chat with a Jewelry Expert</a
+                      >
+                    </p>
+                  </div>
+                </div>
+                <div class="one-fourth medium-down--one-whole column">
+                  <div class="help-item">
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                         <title>Phone</title>
+                        <g id="phone"><path d="M95,76.76A11.6,11.6,0,0,1,91.59,85l-3.87,3.87A20.79,20.79,0,0,1,73.13,95a19.81,19.81,0,0,1-2.87-.22,73.37,73.37,0,0,1-26.14-9.52A83,83,0,0,1,27.59,72.4,83.11,83.11,0,0,1,14.72,55.87a73.35,73.35,0,0,1-9.5-26.13,20.54,20.54,0,0,1,5.92-17.48L15,8.39a11.65,11.65,0,0,1,16.43,0l8.48,8.49a11.61,11.61,0,0,1,0,16.44l-3.76,3.76a5.72,5.72,0,0,0-.58,7.33,82.45,82.45,0,0,0,9.13,10.86,81.3,81.3,0,0,0,10.88,9.14,5.7,5.7,0,0,0,7.32-.6l3.76-3.76a11.66,11.66,0,0,1,16.44,0l8.48,8.5A11.57,11.57,0,0,1,95,76.76Z"/></g>
+                      </svg>
+                    </p>
+                    <p>
+                      <a href="tel:18669969642" title="Call Us">1-866-996-9642</a><br>
+                      <a href="tel:15033361581" title="Call Us">(+1) 503-336-1581</a>
+                    </p>
+                  </div>
+                </div>
+                <div class="one-fourth medium-down--one-whole column">
+                  <div class="help-item">
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                         <title>Email</title>
+                        <g id="email"><path d="M52.79,62.87a3,3,0,0,1-2.22.88,3,3,0,0,1-2.09-.89L8,22.38V81.86H92V22.53Z"/><polygon points="87.89 18.14 12.24 18.14 50.6 56.51 87.89 18.14"/></g>
+                      </svg>
+                    </p>
+                    <p><a href="mailto:help@miadonna.com" title="Email Us">help@miadonna.com</a></p>
+                  </div>
+                </div>
+                <div class="one-fourth medium-down--one-whole column">
+                  <div class="help-item">
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                         <title>Faq</title>
+                        <g fill="none" fill-rule="evenodd"><path fill="#EAE0D4" d="M26.7 0H5.3C2.3 0 0 2.4 0 5.3v16.9c0 3 2 4.8 5 4.8h6.6l4.4 5 4.4-5H27c3 0 5-1.9 5-4.8V5.3c0-3-2.4-5.3-5.3-5.3"/><text fill="#FFF" font-family="Montserrat-Medium, Montserrat" font-size="24.1" font-weight="400" letter-spacing="3" transform="translate(0 -1)"><tspan x="11.1" y="23">?</tspan></text></g>
+                      </svg>
+                    </p>
+                    <p>
+                      <a href="/pages/faqs" title="FAQs" target="_blank">View commonly asked questions</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

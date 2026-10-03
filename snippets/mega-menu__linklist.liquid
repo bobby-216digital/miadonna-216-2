@@ -1,0 +1,66 @@
+{% comment %}
+  Required values
+  menu_link: linklist
+  ______________
+  Optional values
+  linklist_class: <string>
+  link_setting: <string>
+{% endcomment %}
+
+{% assign menu = linklists[menu_link] %}
+<div class="mega-menu__linklist mega-menu--{{ section.settings.parent_link | downcase | replace: ' ', '-' }}-{{ menu.title | downcase | replace: ' ', '-' }} {{ linklist_class }}">
+  <p class="menu__heading">
+    {% if link_setting != blank %}<a href="{{ link_setting }}">{% endif %}
+    {{ menu.title }}
+    {% if link_setting != blank %}</a>{% endif %}
+  </p>
+  <ul>
+    {% assign menuTitle = menu.title | replace: ' ', '-' %}
+    {% assign menuTitle = menuTitle | downcase %}
+    {% for link in menu.links %}
+      <li class="{{ menuTitle }}">
+        <a
+          href="{% if link.url != blank %}{{ link.url }}{% else %}#{% endif %}"
+          class="mega-menu__linklist-link {% if link.active %}is-active{% endif %}"
+        >
+           {% if menuTitle == 'lab-grown-gemstones' %}
+            <span>
+                <img
+                  src="https://www.miadonna.com/cdn/shop/t/495/assets/icon-gem-{{ link.title |  replace: ' ', '-' |downcase  }}.png?v=1687113110"
+                  width="100%"
+                  height="100"
+                  loading="lazy"
+                  alt="{{ link.title }}"
+                >
+              </span>
+          {% endif %}  
+          {% unless link.title contains 'Shapes' %}
+            {% if menuTitle contains 'loose' or menuTitle contains 'by-shape' %}
+              <span>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1164/4258/files/icon-shape-{{ link.title | downcase  }}-cut.svg?v=1687113110"
+                  width="100%"
+                  height="100"
+                  loading="lazy"
+                  alt="{{ link.title }}"
+                >
+              </span>
+            {% endif %}
+          {% endunless %}
+          {% if menuTitle == 'loose-gems' or menuTitle == 'lab-gems' %}
+            <span>
+              <img
+                src="https://cdn.shopify.com/s/files/1/1164/4258/t/212/assets/icon-gem-{{- link.title | replace: ' ', '-' | downcase  -}}.png"
+                width="100%"
+                height="100%"
+                loading="lazy"
+                alt="{{ link.title }}"
+              >
+            </span>
+          {% endif %}
+          {{ link.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

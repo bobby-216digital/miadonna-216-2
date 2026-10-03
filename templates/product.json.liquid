@@ -1,0 +1,7 @@
+{% layout none %}
+{
+  "cert_num": {{product.tags | where: 'cert_num_' | last |remove: 'cert_num_' | json }},
+  "cert_url": {{  product.metafields.vdb_product.vdb_cert_url | json }},
+  "measurements": {{product.tags | where: 'measurements_' | last |remove: 'measurements_' | json }}
+}
+

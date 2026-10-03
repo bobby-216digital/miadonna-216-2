@@ -1,0 +1,154 @@
+.image-with-accordion-section .has-blocks-2 {
+  gap: 132px;
+}
+.image-with-accordion-section .images-content--wrapper {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+  align-items: flex-start;
+}
+.image-with-accordion-section .images-content--item {
+  flex-grow: 1;
+  flex-shrink: 0;
+  max-width: calc(100% / 3 - 12px);
+}
+.image-with-accordion-section .image-content--text {
+  max-width: 90%;
+  margin-top: 24px;
+}
+.image-with-accordion-section .image-content--title {
+  color: #1c1b19;
+  font-family: Cormorant Garamond,serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 25.6px;
+  letter-spacing: 0.03em;
+  margin-bottom: 13px;
+  text-transform: uppercase;
+}
+.image-with-accordion-section .image-content--content {
+  color: #1c1b19;
+  font-family: "Source Sans 3";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+}
+.image-with-accordion-section .accordion-content--accordion {
+  width: 100%;
+}
+.image-with-accordion-section .accordion-content--item {
+  border: 1px solid rgba(232, 197, 175, 1);
+  border-radius: 5px;
+}
+.image-with-accordion-section .accordion-content--item:not(:last-child) {
+  margin-bottom: 27px;
+}
+.image-with-accordion-section .accordion-content--item dt {
+  border: 0;
+}
+.image-with-accordion-section .accordion-content--button {
+  display: flex;
+  color: #1c1b19;
+  align-items: center;
+  padding: 24.5px 20px;
+  justify-content: space-between;
+  font-family: Montserrat;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: transparent !important;
+}
+.image-with-accordion-section .accordion-content--button .icon {
+  position: static;
+  transform: none;
+}
+.image-with-accordion-section .accordion-content--button .icon-minus {
+  display: none;
+}
+.image-with-accordion-section
+  .faq-accordion
+  dt
+  .accordion-style--carets[aria-expanded="true"]
+  .icon-plus {
+  display: none;
+}
+.image-with-accordion-section
+  .faq-accordion
+  dt
+  .accordion-style--carets[aria-expanded="true"]
+  .icon-minus {
+  display: flex;
+  transform: none;
+}
+.image-with-accordion-section .accordion-content--button .icon svg {
+  fill: #1c1b19;
+  stroke: #1c1b19;
+  stroke-width: 5px;
+}
+.image-with-accordion-section .accordion-content--item .panel {
+  padding: 5px 20px 32px;
+}
+.image-with-accordion-section .accordion-content--item .content {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0.03em;
+}
+.image-with-accordion-section .accordion-content--item .content > * {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+.image-with-accordion-section .accordion-content--item .content > h1,
+.image-with-accordion-section .accordion-content--item .content > h2,
+.image-with-accordion-section .accordion-content--item .content > h3,
+.image-with-accordion-section .accordion-content--item .content > h4,
+.image-with-accordion-section .accordion-content--item .content > h5,
+.image-with-accordion-section .accordion-content--item .content > h6 {
+  font-weight: 600;
+}
+@media screen and (max-width: 767px) {
+  .image-with-accordion-section .has-blocks-2 {
+    gap: 95px;
+  }
+  .image-with-accordion-section .images-content--wrapper {
+    margin: 0;
+    width: 100%;
+    position: relative;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scroll-padding-left: 40px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .image-with-accordion-section .images-content--item {
+    scroll-snap-align: start;
+    max-width: calc(100% - 80px - 7.7px);
+  }
+  .image-with-accordion-section .image-content--title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .image-with-accordion-section .accordion-content--accordion {
+    width: 95%;
+    margin: auto;
+  }
+  .image-with-accordion-section .accordion-content--item:not(:last-child) {
+    margin-bottom: 18px;
+  }
+  .image-with-accordion-section .accordion-content--button {
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: 0.03em;
+    padding: 18px 19px 17px 21px;
+  }
+  .image-with-accordion-section .accordion-content--button .icon {
+    display: none !important;
+  }
+}
+.image-with-accordion-section .image-element__wrap img{border-radius:3px;}

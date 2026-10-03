@@ -1,0 +1,1395 @@
+<script src="https://cdn.shopify.com/s/javascripts/currencies.js"></script>
+<script src="https://connect.breadpayments.com/sdk.js"></script>
+<style>
+    .font-garamond { font-family: {{settings.engr_font_garamond.family}}, serif }
+    .font-helvetica { font-family: {{settings.engr_font_helvetica.family}}, serif }
+    .font-lucida { font-family: {{settings.engr_font_lucida.family}}, serif}
+    .font-timesnewroman {font-family: {{settings.engr_font_timesnewroman.family}}, serif }
+    .font-trajanpro { font-family: {{settings.engr_font_trajanpro.family}}, serif }
+    .cursor-blocker { cursor: not-allowed; }
+    .disabled-shape {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.4
+    }
+</style>
+<style>
+    .product-settings-loader {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 50%;
+        right: 0;
+        opacity: 0.5;
+        display: flex;
+        z-index: 100;
+        background: #fff;
+        justify-content: center;
+        transform: translateY(-50%);
+    }
+    .product-settings-loader div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        margin: 4px;
+        border: 4px solid #7c7979;
+        border-radius: 50%;
+        animation: product-settings-loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #7c7979 transparent transparent transparent;
+    }
+    @media screen and (max-width: 575px) {
+        .product-settings-loader {
+            padding-top: 0rem;
+        }
+    }
+    .product-settings-loader div:nth-child(1) {
+        animation-delay: -0.45s;
+    }
+    .product-settings-loader div:nth-child(2) {
+        animation-delay: -0.3s;
+    }
+    .product-settings-loader div:nth-child(3) {
+        animation-delay: -0.15s;
+    }
+    @keyframes product-settings-loader {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .product-settings-loader.product-settings-loader-video {
+        align-items: center;
+        background: transparent;
+        left: 0%;
+    }
+</style>
+{% assign attributes_customizable = product.metafields.attributes.customizable | plus: 0 %}
+{% assign attributes_basic_builder = product.metafields.attributes.basic_builder | plus: 0 %}
+{% assign attributes_center_stone_count = product.metafields.attributes.center_stone_count | plus: 0 %}
+{% assign attributes_can_be_engraved = product.metafields.attributes.can_be_engraved | plus: 0 %}
+{% assign attributes_engraving_limit = product.metafields.attributes.engraving_limit | plus: 0 %}
+{%- comment -%}{% assign allow_image_convention = product.metafields.attributes.allow_image_convention | plus: 0 %}{%- endcomment -%}
+{%- liquid
+##speedsizeIgnore##
+assign allow_image_convention = product.metafields.attributes.allow_image_convention | plus: 0
+##endSpeedsizeIgnore##
+-%}
+{%- assign selected_variant_title = '' -%}
+{%- unless pageUrl contains 'Metal=' -%}
+  {%- if pageUrl contains 'variant' and pageUrl contains 'utm_source' -%}
+    {%- assign selected_variant_title = product.selected_or_first_available_variant.title | downcase -%}
+  {%- endif -%}
+{%- endunless -%}
+{%- if pageUrlArr.size == 1 and pageUrlArr[0] contains 'variant' -%}
+    {%- assign selected_variant_title = product.selected_or_first_available_variant.title | downcase -%}
+{%- endif %}
+
+{%- assign is_ready_ship = 'false' -%}
+{%- if product.tags contains 'Ready to Ship Wedding' or product.tags contains 'Ready To Ship' or product.tags contains 'Ready to Ship Bracelets' or product.tags contains 'Ready to Ship Earrings' or product.tags contains 'Ready to Ship Necklaces' or product.tags contains 'Ready to Ship Rings & Bands' or product.tags contains 'Ready to Ship Engagement Rings' -%}
+    {%- assign is_ready_ship = 'true' -%}
+{%- endif -%}
+
+{% assign isRTS = 'no' %}
+{%- for tag in product.tags -%}
+    {% if tag == 'Ready To Ship' %}
+        {% assign isRTS = 'yes' %}
+    {% endif %}
+{% endfor %}
+{%- assign product_collections = product.collections | map: 'title' | join: ' ' -%}
+{%- assign category_group = 'stone' -%}
+{%- assign isSaleOrRtsProduct = false -%}
+{% if product_collections contains 'Lab-Grown Diamond Tennis Necklaces' %}
+  {%- assign category_group = 'tennis necklaces' -%}
+{%- elsif product_collections contains 'Sale' or product_collections contains 'Ready To Ship' or product_collections contains 'Ready-To-Ship' -%}
+    {%- assign category_group = 'sale' -%}
+    {%- assign isSaleOrRtsProduct = true -%}
+{%- elsif product_collections contains 'Engagement' or product_collections contains 'Wedding' or product_collections contains 'Accessories' -%}
+    {%- assign category_group = 'wedding' -%}
+{%- endif -%}
+{%- assign isStoneProduct = false -%}
+{%- if 'Lab Created Diamond Lab Created Gemstone Diamond Hybrid' contains product.type -%}
+    {%- assign isStoneProduct = true -%}
+{%- endif -%}
+{%- assign added_ship_time = 0 -%}
+{%- assign week_day = 'now' | date: '%a' -%}
+{%- if week_day == 'Mon' -%}
+    {%- assign added_ship_time = 2160000 -%}
+{%- elsif week_day == 'Tue' -%}
+    {%- assign added_ship_time = 2332800 -%}
+{%- elsif week_day == 'Wed' -%}
+    {%- assign added_ship_time = 2332800 -%}
+{%- endif -%}
+
+<form name="pricecalulate" id="pricecalulate" method="POST" style="position:relative;">
+    <input type="hidden" name="vdb_engraving_variant_id" id="vdb_engraving_variant_id" value="{{ all_products['custom-engraving'].selected_or_first_available_variant.id }}">
+    <input type="hidden" name="vdb_engraving_price" id="vdb_engraving_price" value="{{ all_products['custom-engraving'].selected_or_first_available_variant.price }}">
+    <input type="hidden" name="shop_domain" id="shop_domain" value="{{shop.permanent_domain}}">
+    <input type="hidden" name="product_title" id="product_title" value="{{ product.title }}">
+    <input type="hidden" name="vdb_product_handle" id="vdb_product_handle" value="{{ product.handle }}">
+    <input type="hidden" name="vdb_stone" id="vdb_stone" value="">
+    <input type="hidden" name="vdb_selected_setting_product" id="vdb_selected_setting_product" value="{{ product.selected_or_first_available_variant.id }}">
+    <input type="hidden" name="vdb_stone_product_id" id="vdb_stone_product_id" value="">
+    <input type="hidden" name="vdb_stone_variant_id" id="vdb_stone_variant_id" value="">
+    <input type="hidden" name="vdb_stone_variant_price" id="vdb_stone_variant_price" value="">
+    <input type="hidden" name="side_stone_count" id="side_stone_count" value="{{product.metafields.attributes.side_stone_count}}">
+    <input type="hidden" name="max_carat" id="max_carat" value="{{ product.metafields.attributes.max_carat_weight }}">
+    <input type="hidden" name="min_carat" id="min_carat" value="{{ product.metafields.attributes.min_carat_weight }}">
+
+    <div class="product-settings-skelton-loader">
+        <svg role="img" width="550" height="863" aria-labelledby="loading-aria" viewBox="0 0 340 84" preserveAspectRatio="none">
+            <title id="loading-aria">Loading...</title>
+            <rect x="0" y="0" width="100%" height="100%" clip-path="url(#clip-path-ring)" style='fill: url("#fill");'></rect>
+            <defs>
+                <clipPath id="clip-path-ring">
+                    <rect x="20" y="5" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="10" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="15" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="20" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="25" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="30" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="35" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="40" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="45" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="50" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="55" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="60" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="65" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="70" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="75" rx="0" ry="0" width="265" height="3" />
+                    <rect x="20" y="79" rx="0" ry="0" width="265" height="3" />
+                    <rect x="4" y="1" rx="0" ry="0" width="3" height="510" />
+                    <rect x="158" y="596" rx="0" ry="0" width="5" height="3" />
+                    <rect x="5" y="1" rx="0" ry="0" width="294" height="3" />
+                    <rect x="296" y="1" rx="0" ry="0" width="3" height="510" />
+                    <rect x="5" y="83" rx="0" ry="0" width="294" height="1" />
+                </clipPath>
+                <linearGradient id="fill">
+                    <stop offset="0.599964" stop-color="#f3f3f3" stop-opacity="1">
+                        <animate attributeName="offset" values="-2; -2; 1" keyTimes="0; 0.25; 1" dur="2s" repeatCount="indefinite"></animate>
+                    </stop>
+                    <stop offset="1.59996" stop-color="#ecebeb" stop-opacity="1">
+                        <animate attributeName="offset" values="-1; -1; 2" keyTimes="0; 0.25; 1" dur="2s" repeatCount="indefinite"></animate>
+                    </stop>
+                    <stop offset="2.59996" stop-color="#f3f3f3" stop-opacity="1">
+                        <animate attributeName="offset" values="0; 0; 3" keyTimes="0; 0.25; 1" dur="2s" repeatCount="indefinite"></animate>
+                    </stop>
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
+    <setting-tab class="setting-tabs-wrapper">
+        {% if attributes_basic_builder == 1 or attributes_customizable == 1 %}
+            <div class="setting-tabs-buttons">
+                {% if product.metafields.attributes.materials %}
+                    {% assign meterials = product.metafields.attributes.materials | split: '|' %}
+                    {% if attributes_basic_builder == 1 and meterials.size < 2 %}
+                    {% else %}
+                        {% if meterials.size==2 %}
+                            {% if meterials contains 'Lab Created Diamond' %}
+                                <button type="button" id="lab-diamond" class="setting-tab-button setting-tab-button-materials lab-diamond button-active">
+                                    <span class="tab-desk">LAB-GROWN DIAMOND</span>
+                                    <span class="tab-mobile">LAB DIAMOND</span>
+                                </button>
+                            {% endif %}
+                            {% if meterials contains 'Lab Created Gemstone' %}
+                                <button type="button" id="lab-gemstone" class="setting-tab-button setting-tab-button-materials lab-gemstone">
+                                    <span class="tab-desk">LAB-GROWN GEMSTONE</span>
+                                    <span class="tab-mobile">LAB GEMSTONE</span>
+                                </button>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endif %}
+        <div id="lab-diamond-content" class="setting-tab-content lab-diamond-content tab-active">
+            <!-- varient block -->
+            {% assign isEngravingVarient = false %}
+            {% if attributes_basic_builder == 1 %}
+                {% if product.variants.size > 1 %}
+                    {% for option in product.options_with_values %}
+                        {% assign optionName = option.name | replace: ' ', '_' %}
+                        {% if optionName == 'Engraving' %}
+                            {% assign isEngravingVarient = true %}
+                        {% endif %}
+                        {% if optionName == "Metal" or optionName == "Metal Type" or optionName == "Material" %}
+                            <div class="setting-accordion-item">
+                                <div class="setting-accordion-button accordion-active">
+                                    <span class="caret-wrapper"><i class="icon-solid-caret"></i></span>
+                                    <span class="button_text">{{ option.name }}:</span>
+                                    <span id="{{optionName}}_selected_value" class="{{optionName}}_selected_value" data-text-name-{{ option.name | replace: ' ', '_' | downcase }}=""></span>
+                                </div>
+                                <div class="setting-accordion-content setting-accordion-content-variant">
+                                    <div class="select-wrapper">
+                                        <div class="{% if option.values.size > 7 %}swiper metal_slider{% endif %}">
+                                            <div class="{% if option.values.size > 7 %}swiper-wrapper{% else %}metal_slider metal_no_slider {% if option.values.size < 5 %}metal_less_5_slider{% endif %}{% endif %}">
+                                                {% for metals in option.values %}
+                                                    {% assign selectedMetals = metals | split: ' ' %}
+                                                    {% assign metalId = selectedMetals[0] | append: '_' | append: selectedMetals[1] | append: '_' | append: selectedMetals[2] %}
+                                                    {% assign metalLabel1 = selectedMetals[0] %}
+                                                    {% assign metalLabel2 = selectedMetals[1] | append: ' ' | append: selectedMetals[2] %}
+                                                    {% if selectedMetals[0] == 'Platinum' or selectedMetals[0] == 'palladium' %}
+                                                        {% assign metalLabel1 = 'PL' %}
+                                                        {% assign metalLabel2 = selectedMetals[0] %}
+                                                    {% endif %}
+                                                    
+                                                    {% if selectedMetals[0] == 'Two-Tone' %}
+                                                        {% assign metalLabel1 = '' %}
+                                                    {% endif %}
+                                                    
+                                                    {% if metals == 'Two-Tone 14K White Gold and 14K Rose Gold' %}
+                                                        {% assign metalLabel1 = '14K' %}
+                                                        {% assign metalLabel2 = 'White / Rose' %}
+                                                    {% endif %}
+                                                    {% if metals == 'Two-Tone 14K White Gold and 14K Yellow Gold' %}
+                                                        {% assign metalLabel1 = '14K' %}
+                                                        {% assign metalLabel2 = 'White / Yellow' %}
+                                                    {% endif %}
+                                                    
+                                                    {% assign metalColor = '' %}
+                                                    {% if metalId == '14K_White_Gold' %}
+                                                        {% assign metalColor = '#dbd9da' %}
+                                                    {% elsif metalId == '18K_White_Gold' %}
+                                                        {% assign metalColor = '#dbd9da' %}
+                                                    {% elsif metalId == '14K_Yellow_Gold' %}
+                                                        {% assign metalColor = '#e5cca3' %}
+                                                    {% elsif metalId == '18K_Yellow_Gold' %}
+                                                        {% assign metalColor = '#e5cca3' %}
+                                                    {% elsif metalId == '14K_Rose_Gold' %}
+                                                        {% assign metalColor = '#e6c2a2' %}
+                                                    {% elsif metalId == '18K_Rose_Gold' %}
+                                                        {% assign metalColor = '#e6c2a2' %}
+                                                    {% elsif metalId == 'Platinum__' %}
+                                                        {% assign metalColor = '#d8d5dc' %}
+                                                    {% elsif metalId == 'palladium__' %}
+                                                        {% assign metalColor = '#d8d5dc' %}
+                                                    {% elsif metalId == 'Two-Tone_14K_White' %}
+                                                        {% assign metalColor = '#d8d5dc' %}
+                                                    {% endif %}
+                                                    
+                                                    {% if metals == 'Two-Tone 14K White Gold and 14K Rose Gold' %}
+                                                        {% assign metalId = 'Two-Tone_14K_White_Rose' %}
+                                                    {% endif %}
+                                                    {% if metals == 'Two-Tone 14K White Gold and 14K Yellow Gold' %}
+                                                        {% assign metalId = 'Two-Tone_14K_White_Yellow' %}
+                                                    {% endif %}
+                                                    {% assign stone_color = '' %}
+                                                    {% assign stone_clarity = '' %}
+                                                    {% assign stone_certification = '' %}
+                                                    {% assign metals_dn = metals | downcase %}
+                                                    {% for variant in product.variants %}
+                                                        {% assign variant_dn = variant.title | downcase %}
+                                                        {% if variant_dn == metals_dn %}
+                                                            {% assign stone_color = variant.metafields.specs.primary_stone_color %}
+                                                            {% assign stone_clarity = variant.metafields.specs.primary_stone_clarity %}
+                                                            {% assign stone_certification = variant.metafields.specs.primary_stone_certification %}
+                                                            {% break %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    {%- assign value_dn = metals | downcase -%}
+                                                    <div class="setting-value setting-value-variant {% if option.values.size > 7 %}swiper-slide {% endif %}one-seventh">
+                                                        <div class="setting-value-inputs setting-value-inputs-variant">
+                                                            <input class="input_value visually-hidden "{% if selected_variant_title != '' and selected_variant_title contains value_dn %} checked{% endif %} type="radio" id="{{metalId}}" name="{{optionName}}" value="{{metals}}" data-stone-color="{{stone_color}}" data-stone-clarity="{{stone_clarity}}" data-stone-certification="{{stone_certification}}" data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}">
+                                                            <label title="{{- metals -}}" data-option-name="{{optionName}}" data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}" class="input_label input_label_variant {% if selected_variant_title != '' %}{% if selected_variant_title contains value_dn %} active{% endif %}{% else %}{% if forloop.first == true %} active{% endif %}{% endif %}{% if metalLabel2 == 'White / Rose' %} white-rose-gold{% endif %}{% if metalLabel2 == 'White / Yellow' %} white-yellow-gold{% endif %}" for="{{metalId}}" style="background-color: {{metalColor}} !important">{{- metalLabel1 -}}</label>
+                                                        </div>
+                                                        <p>{{ metalLabel2 }}</p>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="swiper-scrollbar swiper-scrollbar-shape"></div>
+                                        </div>
+                                        <select class="sustainability-select earing_pendant_product_class hide" name="{{optionName}}" id="{{optionName}}" data-name-{{ option.name | replace: ' ', '_' | downcase }}="" data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}">
+                                            {% for value in option.values %}
+                                                {% assign value_dn = value | downcase %}
+                                                <option value="{{ value | escape }}"{% if selected_variant_title != '' and selected_variant_title contains value_dn %} selected="selected"{% endif %}>{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="setting-accordion-item">
+                                <div class="setting-accordion-button accordion-active">
+                                    <span class="caret-wrapper">
+                                        <i class="icon-solid-caret"></i>
+                                    </span>
+                                    <span class="button_text">{{ option.name }}:</span>
+                                    <span id="{{optionName}}_selected_value" class="{{optionName}}_selected_value" data-text-name-{{ option.name | replace: ' ' , '_' | downcase }}=""></span>
+                                </div>
+                                <div class="setting-accordion-content">
+                                    <div class="select-wrapper">
+                                        <select class="sustainability-select earing_pendant_product_class" name="{{optionName}}" id="{{optionName}}" data-name-{{ option.name | replace: ' ' , '_' | downcase }}="" data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}">
+                                            {% for value in option.values %}
+                                                {% assign value_dn = value | downcase %}
+                                                <option value="{{ value | escape }}"{% if selected_variant_title != '' and option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div style="display: none;">
+                        <select class="all_varients" id="all_varients">
+                            {% for variant in product.variants %}
+                                <option value="{{ variant.id }}" data-varient_price="{{variant.price}}" data-stone_color="{{ variant.metafields.specs.primary_stone_color }}" data-stone_clarity="{{ variant.metafields.specs.primary_stone_clarity }}" data-stone_certification="{{ variant.metafields.specs.primary_stone_certification }}" data-varient_sku="{{variant.sku}}" data-product_type="{{ product.type | downcase }}" data-ready_to_ship="{{ is_ready_ship }}" data-shipping_days="{{variant.metafields.attributes.shipping_days}}" {% if product.options_with_values %} {%- for option in product.options_with_values -%} {%- assign optionIndex='option' | append: forloop.index %} data-{{ option.name | replace: ' ' , '_' | downcase }}="{{ variant[optionIndex] }}" {%- endfor -%} {% endif %}>{{ variant.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% if product.variants.size > 1 and isEngravingVarient == true %}
+                        <div id="variable_engraving_name" style="display: none;">
+                            <div class="setting-accordion-content">
+                                <div class="select-wrapper">
+                                    <label class="input_label" for="engraving_name1"> FRONT ENGRAVING </label>
+                                    <input type="text" name="engraving_name1" id="engraving_name1" placeholder="Text" maxlength="20" value="">
+                                    <b><span id="name_error" style="color: #fca999"></span></b>
+                                </div>
+                                <br>
+                                <div class="select-wrapper">
+                                    <span class="engraving-label">Preview: </span><span id="engraving_preview"></span>
+                                </div>
+                            </div>
+                            <div class="setting-accordion-content">
+                                <div class="radio-wrapper terms">
+                                    <label for="accept"><input type="checkbox" name="accept" id="accept">I accept and understand that engraved items cannot be exchanged or returned</label>
+                                    <br>
+                                    <b><span id="accept_error" style="color: #fca999"></span></b>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            <!-- varient block -->
+
+            <!-- metafield block -->
+            {% if attributes_customizable == 1 or attributes_basic_builder == 1 %}
+            <div class="settings-wrapper block--setting-tabs">
+                {% if product.metafields.attributes.show_metals == 0 or product.metafields.attributes.metals == '' %}
+                {% else %}
+                    {% if product.metafields.attributes.metals %}
+                        {% assign metalsList = product.metafields.attributes.metals | remove: '|Palladium' %}
+                        {% assign dynamicMetals = metalsList | split: '|' %}
+                        {% if dynamicMetals.size > 1 %}
+                        <div class="setting-accordion-item setting-accordion-metal">
+                            <div id="metal-class-list"
+                                class="setting-accordion-button accordion-active hide_this_after_stone not_needs_to_redirect_metal_button">
+                                <span class="caret-wrapper">
+                                    <i class="icon-solid-caret"></i>
+                                </span>
+                                <span class="button_text">Metal:</span>
+                                <span id="solid_metal_selected_value" class="solid_metal_selected_value">14K Yellow Gold</span>
+                                <span class="not_needs_to_redirect_metal" style="display:none"><u>Modify</u></span>
+                                <span>
+                                    <div class="tooltip">
+                                        <span class="tooltiptext" style="display: none">
+                                            <p class="tooltip-content">100% Recycled Solid Metal</p>
+                                        </span>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="setting-accordion-content not_needs_to_redirect_metal_content {% if dynamicMetals.size > 7 %}setting-metal-content{% endif %}"
+                                style="align-items : flex-start">
+                                <div class="{% if dynamicMetals.size > 7 %}swiper metal_slider{% endif %}">
+                                    <div
+                                        class="{% if dynamicMetals.size > 7 %}swiper-wrapper{% else %}metal_slider metal_no_slider {% if dynamicMetals.size < 5 %}metal_less_5_slider{% endif %}{% endif %}">
+                                        {% for metals in dynamicMetals %}
+                                        {% assign selectedMetals = metals | split: ' ' %}
+                                        {% assign metalId = selectedMetals[0]
+                                        | append: '_'
+                                        | append: selectedMetals[1]
+                                        | append: '_'
+                                        | append: selectedMetals[2]
+                                        %}
+                                        {% assign metalLabel1 = selectedMetals[0] %}
+                                        {% assign metalLabel2 = selectedMetals[1] | append: ' ' | append: selectedMetals[2] %}
+                                        {% if selectedMetals[0] == 'Platinum' or selectedMetals[0] == 'palladium' %}
+                                        {% assign metalLabel1 = 'PL' %}
+                                        {% assign metalLabel2 = selectedMetals[0] %}
+                                        {% endif %}
+
+                                        {% if selectedMetals[0] == 'Two-Tone' %}
+                                        {% assign metalLabel1 = '' %}
+                                        {% endif %}
+
+                                        {% if metals == 'Two-Tone 14K White Gold and 14K Rose Gold' %}
+                                        {% assign metalLabel1 = '14K' %}
+                                        {% assign metalLabel2 = 'White / Rose' %}
+                                        {% endif %}
+                                        {% if metals == 'Two-Tone 14K White Gold and 14K Yellow Gold' %}
+                                        {% assign metalLabel1 = '14K' %}
+                                        {% assign metalLabel2 = 'White / Yellow' %}
+                                        {% endif %}
+
+                                        {% assign metalColor = '' %}
+                                        {% if metalId == '14K_White_Gold' %}
+                                        {% assign metalColor = '#dbd9da' %}
+                                        {% elsif metalId == '18K_White_Gold' %}
+                                        {% assign metalColor = '#dbd9da' %}
+                                        {% elsif metalId == '14K_Yellow_Gold' %}
+                                        {% assign metalColor = '#e5cca3' %}
+                                        {% elsif metalId == '18K_Yellow_Gold' %}
+                                        {% assign metalColor = '#e5cca3' %}
+                                        {% elsif metalId == '14K_Rose_Gold' %}
+                                        {% assign metalColor = '#e6c2a2' %}
+                                        {% elsif metalId == '18K_Rose_Gold' %}
+                                        {% assign metalColor = '#e6c2a2' %}
+                                        {% elsif metalId == 'Platinum__' %}
+                                        {% assign metalColor = '#d8d5dc' %}
+                                        {% elsif metalId == 'palladium__' %}
+                                        {% assign metalColor = '#d8d5dc' %}
+                                        {% elsif metalId == 'Two-Tone_14K_White' %}
+                                        {% assign metalColor = '#d8d5dc' %}
+                                        {% endif %}
+
+                                        {% if metals == 'Two-Tone 14K White Gold and 14K Rose Gold' %}
+                                        {% assign metalId = 'Two-Tone_14K_White_Rose' %}
+                                        {% endif %}
+                                        {% if metals == 'Two-Tone 14K White Gold and 14K Yellow Gold' %}
+                                        {% assign metalId = 'Two-Tone_14K_White_Yellow' %}
+                                        {% endif %}
+
+                                        {% assign metal_variant_id = "" %}
+                                        {% assign metal_variant_price = "" %}
+                                        {% assign metal_variant_sku = "" %}
+                                        {% assign metal_variant_compare_at_price_price = "" %}
+                                        {% assign metal_variant_shipping_days = "" %}
+                                        {% assign stone_color = "" %}
+                                        {% assign stone_clarity = "" %}
+                                        {% assign stone_certification = "" %}
+                                        {% if product.variants.size > 0 %}
+                                        {% for var in product.variants %}
+                                        {% if var.title == metals %}
+                                        {% assign metal_variant_id = var.id %}
+                                        {% assign metal_variant_price = var.price %}
+                                        {% assign metal_variant_sku = var.sku %}
+                                        {% assign metal_variant_compare_at_price_price = var.compare_at_price %}
+                                        {% assign metal_variant_shipping_days = var.metafields.attributes.shipping_days %}
+                                        {% assign stone_color = var.metafields.specs.primary_stone_color %}
+                                        {% assign stone_clarity = var.metafields.specs.primary_stone_clarity %}
+                                        {% assign stone_certification = var.metafields.specs.primary_stone_certification %}
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endif %}
+                                        {%- assign value_dn = metals | downcase -%}
+
+                                        <div
+                                            class="setting-value {% if dynamicMetals.size > 7 %}swiper-slide {% endif %}one-seventh">
+                                            <div class="setting-value-inputs">
+                                                <input class="input_value visually-hidden " type="radio" id="{{metalId}}"
+                                                    name="solid_metal" value="{{metals}}" data-option-price=""
+                                                    {% if selected_variant_title != '' and selected_variant_title contains value_dn %}checked{% endif %}
+                                                    data-metal_variant_id="{{metal_variant_id}}"
+                                                    data-metal_variant_sku="{{metal_variant_sku}}"
+                                                    data-metal_variant_price="{{metal_variant_price}}"
+                                                    data-metal_variant_compare_at_price_price="{{metal_variant_compare_at_price_price}}"
+                                                    data-shipping-days="{{metal_variant_shipping_days}}"
+                                                    data-product-type="{{ product.type | downcase }}"
+                                                    data-ready-to-ship="{{ is_ready_ship }}"
+                                                    data-stone-color="{{stone_color}}"
+                                                    data-stone-clarity="{{stone_clarity}}"
+                                                    data-stone-certification="{{stone_certification}}"
+                                                    data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}">
+                                                <label title="{{- metals -}} "
+                                                    class="input_label {% if metalLabel2 == 'White / Rose' %} white-rose-gold {% endif %} {% if metalLabel2 == 'White / Yellow' %} white-yellow-gold {% endif %}"
+                                                    for="{{metalId}}" style="background-color: {{metalColor}} !important">
+                                                    {{- metalLabel1 -}}
+                                                </label>
+                                            </div>
+                                            <p>{{ metalLabel2 }}</p>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="swiper-scrollbar swiper-scrollbar-shape"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                <!-- Metal field Ends -->
+
+                <!-- center stone color field Start -->
+                {% if product.metafields.attributes.colors %}
+                {% assign dynamicColors = product.metafields.attributes.colors | replace: '| ', '|' %}
+                {% assign dynamicColors = dynamicColors | replace: ' |', '|' %}
+                {% assign dynamicColors = dynamicColors | split: '|' %}
+
+                {% assign newDynamicColors = '' %}
+                {% for item in dynamicColors %}
+                {% if item != 'White (Colorless)' and item != 'Yellow' and item != 'Pink' and item != 'Blue' %}
+                {% assign newDynamicColors = newDynamicColors | append: '|' | append: item %}
+                {% endif %}
+                {% endfor %}
+
+                {% assign newDynamicColors = newDynamicColors | slice: 1, newDynamicColors.size | join: '' %}
+                {% assign newDynamicColors = newDynamicColors | split: '|' %}
+
+                {% if newDynamicColors.size > 1 %}
+                <div class="setting-accordion-item setting-accordion-gemstone" id="setting-gemstone">
+                    <div class="setting-accordion-button accordion-active hide_this_after_stone">
+                        <span class="caret-wrapper">
+                            <i class="icon-solid-caret"></i>
+                        </span>
+                        <span class="button_text">Gemstone:</span>
+                        <span id="center_stone_color_selected_value" class="center_stone_color_selected_value">Select Gemstone</span>
+                        <span class="modify_stone_button" style="display:none"><u>Modify</u></span>
+                        <span>
+                            <div class="tooltip">
+                                <span class="tooltiptext" style="display: none;">
+                                    <p class="tooltip-content">100% Recycled Solid Metal</p>
+                                </span>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="setting-accordion-content">
+                        <div class="gemstones-select-wrapper one-half small-down--one-whole">
+                            <select-menu class="select-wrapper center-stone-select-menu">
+                                <div id="centerStoneselectBtn" class="sidebar-block__select ">
+                                    <span class="sidebar-block__links">
+                                        <span class="gem-color"></span>
+                                        <span class="center_stone_color_selected_value_2" data-gem_color="">Select Gemstone</span>
+                                    </span>
+                                    <span class="icon-caret-wrapper">
+                                        {% render 'icon', name: 'down-caret' %}
+                                    </span>
+                                </div>
+                                <ul class="sidebar-block__content hidden">
+                                    {% for gemColor in newDynamicColors %}
+                                    {% if gemColor == 'Hybrid Diamonds' %}
+                                    {% assign colorClass = 'diamond-hybrid' %}
+                                    {% elsif gemColor == 'Yellow' %}
+                                    {% assign colorClass = 'yellow' %}
+                                    {% elsif gemColor == 'Pink' %}
+                                    {% assign colorClass = 'pink' %}
+                                    {% elsif gemColor == 'Blue' %}
+                                    {% assign colorClass = 'blue' %}
+                                    {% elsif gemColor == 'Blue Sapphire' %}
+                                    {% assign colorClass = 'blue-sapphire' %}
+                                    {% elsif gemColor == 'Padparadscha' %}
+                                    {% assign colorClass = 'padparadscha' %}
+                                    {% elsif gemColor == 'Pink Sapphire' %}
+                                    {% assign colorClass = 'pink-sapphire' %}
+                                    {% elsif gemColor == 'Emerald' %}
+                                    {% assign colorClass = 'emerald' %}
+                                    {% elsif gemColor == 'Ruby' %}
+                                    {% assign colorClass = 'ruby' %}
+                                    {% elsif gemColor == 'Alexandrite' %}
+                                    {% assign colorClass = 'alexandrite' %}
+                                    {% elsif gemColor == 'Pink Champagne Sapphire' %}
+                                    {% assign colorClass = 'pink-champagne-sapphire' %}
+                                    {% elsif gemColor == 'Champagne Sapphire' %}
+                                    {% assign colorClass = 'champagne-sapphire' %}
+                                    {% elsif gemColor == 'Diamond Hybrid' %}
+                                    {% assign colorClass = 'diamond-hybrid' %}
+                                    {% endif %}
+                                    <li class="sidebar-block__item {{colorClass}} center_Stone_select_li"
+                                        data-gem-color="{{gemColor}}" data-gem-color-name="{{colorClass}}"
+                                        data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}"
+                                        id="{{gemColor}}">
+                                        <a><span class="gem-color"></span>{{ gemColor }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </select-menu>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+
+                <!-- center stone color field Ends -->
+
+                <!-- bandwidth field Starts -->
+                <!-- As per the discussion this fields needs to hide statically for all the products -->
+                {% if product.metafields.attributes.width and attributes_customizable == 1 %}
+                {% assign dynamicWidth = product.metafields.attributes.width | split: '|' %}
+                {% endif %}
+                <!-- bandwidth field Ends -->
+
+                <!-- Shape field Starts -->
+                {% assign productBundles = product.metafields.custom.bundles.value %}
+                {% if product.metafields.attributes.shapes and isRTS == 'no' %}
+                    {% assign mateShapes = '' %}
+                    {% if productBundles %}
+                        {% for product in productBundles %}
+                            {% assign mateShapes = mateShapes | append: '|' | append: product.metafields.attributes.shapes %}
+                        {% endfor %}
+                        {% assign mateShapes = mateShapes | remove_first: '|' %}
+                    {% endif %}
+                {% assign allShapes = mateShapes | split: '|' %}
+                    {% if productBundles.count > 0 %}
+                        <div class="setting-accordion-item setting-accordion-shape">
+                            <div class="setting-accordion-button accordion-active hide_this_after_stone">
+                                <span class="caret-wrapper">
+                                    <i class="icon-solid-caret"></i>
+                                </span>
+                                <span class="button_text">Stone shape:</span>
+                                <span id="shape_selected_value" class="shape_selected_value"></span>
+                                <span class="modify_stone_button" style="display:none"><u>Modify</u></span>
+                                <span>
+                                    <div class="tooltip">
+                                        <span class="tooltiptext" style="display: none">
+                                            <p class="tooltip-content">Stone shape</p>
+                                        </span>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="setting-accordion-content">
+                        <div
+                            class="shapes-slider {% if allShapes.size > 10 %}swiper shapes--slider{% else %}shape_no_slider{% endif %}">
+                                    {% if allShapes.size > 10 %}<div class="swiper-wrapper">{% endif %}
+                                {% for product_bundle in productBundles %}
+                                <div
+                                    class="setting-value-inputs shape-enable-disable{% if allShapes.size > 10 %} swiper-slide{% endif %}">
+                                    {% assign shapes = product_bundle.metafields.attributes.shapes %}
+                                                {% assign shaprId = shapes | replace: ' ', '_' %}
+                                    <input class="input_value visually-hidden" id="{{shaprId}}" type="radio" name="shape" value="{{shapes}}" data-product-handle="{{ product_bundle.handle }}" data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}" {% if product.metafields.attributes.shapes == shapes %}checked{% endif %}>
+                                                <label class="input_label" for="{{shaprId}}">
+                                                    {% if shapes == 'Round Cut' %}
+                                                        {% render 'icon-shape-round-cut' %}
+                                                    {% elsif shapes == 'Princess Cut' %}
+                                                        {% render 'icon-shape-princess-cut' %}
+                                                    {% elsif shapes == 'Cushion Cut' %}
+                                                        {% render 'icon-shape-cushion-cut' %}
+                                                    {% elsif shapes == 'Oval Cut' %}
+                                                        {% render 'icon-shape-oval-cut' %}
+                                                    {% elsif shapes == 'Emerald Cut' %}
+                                                        {% render 'icon-shape-emerald-cut' %}
+                                                    {% elsif shapes == 'Asscher Cut' %}
+                                                        {% render 'icon-shape-asscher-cut' %}
+                                                    {% elsif shapes == 'Radiant Cut' %}
+                                                        {% render 'icon-shape-radiant-cut' %}
+                                                    {% elsif shapes == 'Pear Cut' %}
+                                                        {% render 'icon-shape-pear-cut' %}
+                                                    {% elsif shapes == 'Heart Cut' %}
+                                                        {% render 'icon-shape-heart-cut' %}
+                                                    {% elsif shapes == 'Marquise Cut' %}
+                                                        {% render 'icon-shape-marquise-cut' %}
+                                                    {% elsif shapes == 'Oval Rose Cut' %}
+                                                        {% render 'icon-shape-oval-rose-cut' %}
+                                                    {% elsif shapes == 'Trillion Cut' %}
+                                                        {% render 'icon-shape-trillion-cut' %}
+                                                    {% elsif shapes == 'Half Cut' %}
+                                                        {% render 'icon-shape-half-moon-cut' %}
+                                                    {% elsif shapes == 'Baguette Cut' %}
+                                                        {% render 'icon-shape-baguette-cut' %}
+                                                    {% elsif shapes == 'Rose Brilliant Cut' %}
+                                                        {% render 'icon-shape-baguette-cut' %}
+                                                    {% elsif shapes == 'Rose Cut' %}
+                                                        {% render 'icon-shape-oval-rose-cut' %}
+                                                    {% elsif shapes == 'Trapezoid Cut' %}
+                                                        {% render 'icon-shape-trapezoid-cut' %}
+                                                    {% elsif shapes == 'Elongated Cushion Cut' %}
+                                                        {% render 'icon-shape-elongated-cushion' %}
+                                                    {% elsif shapes == 'Old Mine Cut' %}
+                                                        {% render 'icon-shape-old-mine-cut' %}
+                                                    {% endif %}
+                                                </label>
+                                            </div>
+                                        {% endfor %}
+                                        {% if allShapes.size > 10 %}
+                                    </div>{% endif %}
+                            {% if allShapes.size > 10 %}<div class="swiper-scrollbar swiper-scrollbar-shape"></div>{%
+                            endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                <!-- Shape field Ends -->
+
+                <!-- Center stone field Starts -->
+                {% assign isMaterialavailable = false %}
+                {% if product.metafields.attributes.materials %}
+                {% assign allMeterials = product.metafields.attributes.materials | split: '|' %}
+                {% if allMeterials contains 'Lab Created Diamond' or allMeterials contains 'Lab Created Gemstone' %}
+                {% assign isMaterialavailable = true %}
+                {% endif %}
+                {% endif %}
+                {% if attributes_center_stone_count > 0 and isMaterialavailable == true %}
+                <div class="setting-accordion-item setting-accordion-stone">
+                    <div
+                        class="setting-accordion-button accordion-active hide_this_after_stone not_needs_to_redirect_cs_button center_stone_accordian">
+                        <span class="caret-wrapper">
+                            <i class="icon-solid-caret"></i>
+                        </span>
+                        <span class="button_text">
+                            {%- if product.type == 'Earrings' %}stone:{% else %}Center Stone:{% endif -%}
+                        </span>
+                        <span id="stone_selected_value" class="stone_selected_value"></span>
+                        <span class="not_needs_to_redirect_cs" style="display:none"><u>Modify</u></span>
+                        <span>
+                            <div class="tooltip">
+                                <span class="tooltiptext" style="display: none">
+                                    <p class="tooltip-content">Center stone</p>
+                                </span>
+                            </div>
+                        </span>
+                    </div>
+
+                    <div class="setting-accordion-content not_needs_to_redirect_cs_content"
+                        id="center_stone_check_boxes">
+                        {% if attributes_center_stone_count != 2
+                        and product.type != 'Earrings'
+                        and product.type != 'Pendants'
+                        %}
+                        <div id="last_stone_cut" class="setting-value-inputs">
+                            <input class="input_value visually-hidden" type="radio" id="select-from-inventory"
+                                name="stone" value="" checked>
+                            <label class="input_label active" id="select-from-inventory-label"
+                                for="select-from-inventory">Or Choose From Full Inventory</label>
+                        </div>
+                        {% endif %}
+                        <div class="setting-values-container" id="first_four_stone_cut">
+                            <div class="setting-values-wrapper" id="first_four_stone_cut_wrapper">
+                              <img src="{{ 'md-pdp-sk.svg' | asset_url }}" alt="Inventory">
+                            </div>
+                            <div class="additional-info info-border-div" style="display:none">
+                                <p class="info-border"></p>
+                                <span class="info-border-text">Or chosen by our experts</span>
+                            </div>
+                        </div>
+                    </div>
+                    <b><span id="center_stone_error" style="color: #fca999"></span></b>
+                </div>
+                {% endif %}
+                <!-- Center stone field Ends -->
+
+                <!-- Three stone product starts -->
+                {% if product.metafields.attributes.side_stone_count > 1 %}
+                <div class="single-column">
+                    <div class="setting-accordion-item setting-accordion-gemstone" id="side_stones">
+                        <div class="setting-accordion-button accordion-active">
+                            <span class="caret-wrapper">
+                                <i class="icon-solid-caret"></i>
+                            </span>
+                            <span class="button_text">SIDE STONE:</span>
+                            <span id="side_stone_selected_values" class="side_stone_selected_values">Select side
+                                Stone</span>
+                            <span>
+                                <div class="tooltip">
+                                    <span class="tooltiptext" style="display: none;">
+                                        <p class="tooltip-content">100% Recycled Solid Metal</p>
+                                    </span>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="setting-accordion-content">
+                            <div class="gemstones-select-wrapper one-whole small-down--one-whole">
+                                <select-menu class="select-wrapper side-stone-select-menu">
+                                    <div id="sideStoneselectBtn" class="sidebar-block__select diamond-hybrid">
+                                        <span class="sidebar-block__links"><span id="static_side_stone_color_class"
+                                                class="gem-color" style="display: none;"></span><span
+                                                data-side_stone_color="Select side Stone"
+                                                class="side_stone_selected_values_2">Select side Stone</span></span>
+                                        <span class="icon-caret-wrapper">
+                                            {% render 'icon', name: 'down-caret' %}
+                                        </span>
+                                    </div>
+
+                                    <ul class="sidebar-block__content hidden" id="sideStoneMaterialsSelectOptions">
+                                        {% if product.metafields.attributes.materials %}
+                                        {% assign SideStoneMeterials = product.metafields.attributes.materials | split:
+                                        '|' %}
+                                        {% if SideStoneMeterials contains 'Lab Created Diamond' %}
+                                        <li class="sidebar-block__item diamond-hybrid side_Stone_select_li"
+                                            data-side-stone-color="Lab Grown Diamond"
+                                            data-side-stone-color-name="diamond-hybrid"
+                                            data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}"
+                                            id="side_stone_lab_grown_diamond">
+                                            <a><span class="gem-color"></span>Lab Grown Diamond</a>
+                                        </li>
+                                        {% endif %}
+                                        {% endif %}
+
+                                        {% assign dynamicColors = product.metafields.attributes.colors | replace: '| ',
+                                        '|' %}
+                                        {% assign dynamicColors = dynamicColors | replace: ' |', '|' %}
+                                        {% assign dynamicColors = dynamicColors | split: '|' %}
+
+                                        {% assign newDynamicColors = '' %}
+
+                                        {% for item in dynamicColors %}
+                                        {% if item != 'White (Colorless)'
+                                        and item != 'Yellow'
+                                        and item != 'Pink'
+                                        and item != 'Blue'
+                                        %}
+                                        {% assign newDynamicColors = newDynamicColors | append: '|' | append: item %}
+                                        {% endif %}
+                                        {% endfor %}
+
+                                        {% assign newDynamicColors = newDynamicColors | slice: 1, newDynamicColors.size
+                                        | join: '' %}
+                                        {% assign newDynamicColors = newDynamicColors | split: '|' %}
+
+                                        {% for gemColor in newDynamicColors %}
+                                        {% if gemColor == 'Hybrid Diamonds' %}
+                                        {% assign colorClass = 'diamond-hybrid' %}
+                                        {% elsif gemColor == 'Yellow' %}
+                                        {% assign colorClass = 'yellow' %}
+                                        {% elsif gemColor == 'Pink' %}
+                                        {% assign colorClass = 'pink' %}
+                                        {% elsif gemColor == 'Blue' %}
+                                        {% assign colorClass = 'blue' %}
+                                        {% elsif gemColor == 'Blue Sapphire' %}
+                                        {% assign colorClass = 'blue-sapphire' %}
+                                        {% elsif gemColor == 'Padparadscha' %}
+                                        {% assign colorClass = 'padparadscha' %}
+                                        {% elsif gemColor == 'Pink Sapphire' %}
+                                        {% assign colorClass = 'pink-sapphire' %}
+                                        {% elsif gemColor == 'Emerald' %}
+                                        {% assign colorClass = 'emerald' %}
+                                        {% elsif gemColor == 'Ruby' %}
+                                        {% assign colorClass = 'ruby' %}
+                                        {% elsif gemColor == 'Alexandrite' %}
+                                        {% assign colorClass = 'alexandrite' %}
+                                        {% elsif gemColor == 'Pink Champagne Sapphire' %}
+                                        {% assign colorClass = 'pink-champagne-sapphire' %}
+                                        {% elsif gemColor == 'Champagne Sapphire' %}
+                                        {% assign colorClass = 'champagne-sapphire' %}
+                                        {% elsif gemColor == 'Diamond Hybrid' %}
+                                        {% assign colorClass = 'diamond-hybrid' %}
+                                        {% endif %}
+                                        <li class="sidebar-block__item {{colorClass}} side_Stone_select_li"
+                                            data-side-stone-color="{{gemColor}}"
+                                            data-side-stone-color-name="{{colorClass}}" id="side_stone_{{gemColor}}">
+                                            <a><span class="gem-color"></span>{{ gemColor }}</a>
+                                        </li>
+                                        {% endfor %}
+                                        {% if product.metafields.attributes.materials %}
+                                        {% if SideStoneMeterials contains 'Diamond Hybrid' %}
+                                        <li class="sidebar-block__item diamond-hybrid side_Stone_select_li"
+                                            data-side-stone-color="Diamond Hybrid"
+                                            data-side-stone-color-name="diamond-hybrid" id="side_stone_diamond_hybrid">
+                                            <a><span class="gem-color"></span>Diamond Hybrid</a>
+                                        </li>
+                                        {% endif %}
+                                        {% endif %}
+                                    </ul>
+                                </select-menu>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting-accordion-item setting-accordion-gemstone" id="side_stone_sizes">
+                        <div class="setting-accordion-button accordion-active">
+                            <span class="caret-wrapper">
+                                <i class="icon-solid-caret"></i>
+                            </span>
+                            <span class="button_text">SIDE STONE SIZE:</span>
+                            <span id="side_stone_size_selected_values" class="side_stone_size_selected_values"></span>
+                            <span>
+                                <div class="tooltip">
+                                    <span class="tooltiptext" style="display: none;">
+                                        <p class="tooltip-content">100% Recycled Solid Metal</p>
+                                    </span>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="setting-accordion-content">
+                            <div class="select-wrapper">
+                                <select class="sustainability-select" name="size_stone_sizes" id="size_stone_sizes">
+                                    <option value="">Select side Stone Sizes</option>
+                                </select>
+                                {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                            </div>
+                        </div>
+                        <b><span id="side_stone_error" style="color: #fca999"></span></b>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- Three stone products ends -->
+
+                <!-- Size field Starts -->
+                <div class="single-column" id="ring_engraving_section">
+                    {% if product.type != 'Pendants' and product.type != 'Earrings' and product.type != 'Bracelets' %}
+                    <div class="setting-accordion-item setting-accordion-ring-size">
+                        {% assign cond1 = false %}
+                        {% if product.metafields.attributes.show_sizes == 0 or product.metafields.attributes.show_sizes == '' or product.metafields.attributes.show_sizes == blank %}
+                            {% assign cond1 = true %}
+                        {% endif %}
+
+                        {% assign cond2 = false %}
+                        {% if product.type == 'Earrings' or product.type == 'Bracelets' %}
+                        {% assign cond2 = true %}
+                        {% endif %}
+
+                        {% if cond1 == true and cond2 == true %}
+                        {% else %}
+                        {% if product.metafields.attributes.sizes %}
+                        {% if attributes_basic_builder == 1 %}
+                            {% if product.metafields.attributes.sizes contains ',' %}
+                                {% assign dynamicSizes = product.metafields.attributes.sizes | split: ',' %}
+                            {% else %}
+                                {% assign dynamicSizes = product.metafields.attributes.sizes | split: '|' %}
+                            {% endif %}
+                        {% else %}
+                            {% if product.metafields.attributes.sizes contains ',' %}
+                                {% assign dynamicSizes = product.metafields.attributes.sizes | split: ',' %}
+                            {% else %}
+                                {% assign dynamicSizes = product.metafields.attributes.sizes | split: '|' %}
+                            {% endif %}
+                        {% endif %}
+                        {% elsif attributes_customizable == 1 %}
+                        {% assign dynamicSizes = '3:0|3.25:0|3.50:0|3.75:0|4.00:0|4.25:0|4.50:0|4.75:0|5.00:0|5.25:0|5.50:0|5.75:0|6.00:0|6.25:0|6.50:0|6.75:0|7.00:0|7.25:0|7.50:0|7.75:0|8.00:0|8.25:0|8.50:0|8.75:0|9.00:0|9.25:0|9.50:0|9.75:0|10.00:0' | split: '|' %}
+                        {% endif %}
+                        {% if dynamicSizes.size > 1 %}
+                        {% comment %}  default_non_active_accordion {% endcomment %}
+                        <div class="setting-accordion-button accordion-active">
+                            <span class="caret-wrapper">
+                                <i class="icon-solid-caret"></i>
+                            </span>
+                            <span class="button_text">U.S. Ring Size:</span>
+                            <span id="ring_sizes_selected_value" class="ring_sizes_selected_value"></span>
+                        </div>
+                        <span class="size-guide" onclick="ringSizerPopup()"><b>Ring Size Guide </b></span>
+                        <div class="setting-accordion-content">
+                            <div class="select-wrapper">
+                                <select class="sustainability-select" name="ring_sizes" id="ring_sizes">
+                                    <option data-option-price="0" value="">Select Ring Size</option>
+                                    {% for sizes in dynamicSizes %}
+                                    {% assign size = sizes | split: ':' %}
+                                    <option value="{{ size[0] | replace : '(current size)' , '' }}">{{ size[0] }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                            </div>
+                        </div>
+                        <b><span id="ring_error" style="color: #fca999"></span></b>
+                        {% endif %}
+                        {% endif %}
+
+                        <!-- Size field Ends -->
+
+                        <!-- finishes field Starts -->
+                        {% if product.metafields.attributes.finishes and attributes_customizable == 1 %}
+                        {% assign dynamicFinishes = product.metafields.attributes.finishes | split: '|' %}
+                        <div class="setting-accordion-item accordion-active">
+                            <div class="setting-accordion-button accordion-active">
+                                <span class="caret-wrapper">
+                                    <i class="icon-solid-caret"></i>
+                                </span>
+                                <span class="button_text">Finishes:</span>
+                                <span id="ring_finish_selected_value" class="ring_finish_selected_value"></span>
+                            </div>
+                            <div class="setting-accordion-content">
+                                <div class="select-wrapper">
+                                    <select class="sustainability-select" name="ring_finish" id="ring_finish">
+                                        {% for finishes in dynamicFinishes %}
+                                        {% assign finish = finishes | split: ':' %}
+                                        <option data-size_price="{{finish[1]}}">
+                                            {{ finish[0] }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <!-- finishes field Ends -->
+                    </div>
+                    {% endif %}
+
+                    <!-- engraving field Starts -->
+                    {% if attributes_customizable == 1 %}
+                    <div class="setting-accordion-item setting-accordion-engraving">
+                        {% if attributes_can_be_engraved == 1 %}
+                        {% comment %} default_non_active_accordion {% endcomment %}
+                        <div class="setting-accordion-button accordion-active">
+                            <span class="caret-wrapper">
+                                <i class="icon-solid-caret"></i>
+                            </span>
+                            <span class="button_text">Engraving:</span>
+                            <span id="engraving_selected_value" class="engraving_selected_value"></span>
+                        </div>
+                        <!-- engraving radio field Starts -->
+                        <div class="setting-accordion-content">
+                            <div class="radio-wrapper">
+                                <div class="label-wrapper">
+                                    <input type="radio" name="engraving" id="no" value="No" checked>
+                                    <label for="no">No</label>
+                                </div>
+                                <div class="label-wrapper">
+                                    <input type="radio" name="engraving" id="yes" value="Yes"
+                                        data-option-price="{{all_products['custom-engraving'].selected_or_first_available_variant.price}}">
+                                    <label for="yes">Yes</label>
+                                    {% comment %} <label for="yes">Yes (
+                                        {{- all_products['custom-engraving'].selected_or_first_available_variant.price |
+                                        money -}}
+                                        &nbsp; {{ cart.currency.iso_code }})</label> {% endcomment %}
+                                </div>
+                            </div>
+                            <!-- engraving radio field Ends -->
+
+                            <div id="show_hide_engraving">
+                                <!-- engraving Font Field Starts -->
+                                <div class="setting-accordion-item">
+                                    <div class="setting-accordion-button accordion-active">
+                                        <span class="caret-wrapper">
+                                            <i class="icon-solid-caret"></i>
+                                        </span>
+                                        <span class="button_text">Font Type:</span>
+                                        <span id="engraving_font_selected_value"
+                                            class="engraving_font_selected_value"></span>
+                                    </div>
+                                    <div class="setting-accordion-content">
+                                        <div class="select-wrapper">
+                                            <select class="sustainability-select" name="engraving_font"
+                                                id="engraving_font">
+                                                <option data-v-6fa4a54e="" value="">Select Font Type</option>
+                                                <option data-v-6fa4a54e="" value="Garamond"
+                                                    data-family_class="font-garamond">
+                                                    Garamond
+                                                </option>
+                                                <option data-v-6fa4a54e="" value="Helvetica"
+                                                    data-family_class="font-helvetica">
+                                                    Helvetica
+                                                </option>
+                                            </select>
+                                            {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                                        </div>
+                                        <b><span id="font_error" style="color: #fca999"></span></b>
+                                        <br>
+                                        <!-- engraving Font Field Ends -->
+                                        <div class="select-wrapper">
+                                            {% assign nameLimit = 20 %}
+                                            <!-- engraving name textbox Field Starts -->
+                                            {% if product.metafields.attributes.engraving_limit %}
+                                            {% assign nameLimit = attributes_engraving_limit %}
+                                            {% endif %}
+
+                                            {% if product.metafields.attributes.names_title %}
+                                            <label class="input_label" for="engraving_name1">
+                                                {{- product.metafields.attributes.names_title -}}
+                                            </label>
+                                            {% endif %}
+
+                                            {% assign textBoxCount = 1 %}
+                                            {% if product.metafields.attributes.names_fields %}
+                                            {% assign textBoxCount = product.metafields.attributes.names_fields %}
+                                            {% endif %}
+                                            {% for i in (1..textBoxCount) %}
+                                            <input type="text" class="multiple_engraving_names"
+                                                name="engraving_name{{i}}" id="engraving_name{{i}}" placeholder="Text"
+                                                maxlength="{{nameLimit}}" value="">
+                                            <b><span id="name_error{{i}}" style="color: #fca999"></span></b>
+                                            <div class="setting-accordion-item"></div>
+                                            <br>
+                                            {% endfor %}
+                                        </div>
+
+                                        <br>
+                                        <div class="select-wrapper">
+                                            <span class="engraving-label">Preview: </span><span
+                                                id="engraving_preview"></span>
+                                        </div>
+                                    </div>
+                                    <!-- engraving name textbox Field ENds -->
+                                </div>
+                                {% comment %} <div class="radio-wrapper terms">
+                                    <label for="accept">
+                                        <input type="checkbox" name="accept" id="accept">
+                                        I accept and understand that engraved items cannot be exchanged or returned
+                                    </label>
+                                </div> {% endcomment %}
+                                <b><span id="accept_error" style="color: #fca999"></span></b>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% elsif attributes_basic_builder == 1 %}
+                    {% if product.metafields.attributes.initials_engraving == 1 %}
+                    {% assign InitialsEngraving = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z ' | split: ' ' %}
+                    <div id="no_engraving" class="setting-accordion-item">
+                        <div class="setting-accordion-item">
+                            <div class="setting-accordion-button accordion-active">
+                                <span class="caret-wrapper">
+                                    <i class="icon-solid-caret"></i>
+                                </span>
+                                {% assign engravingTitle = 'Initial Engraving' %}
+                                {% if product.metafields.attributes.engraving_title %}
+                                {% assign engravingTitle = product.metafields.attributes.engraving_title %}
+                                {% endif %}
+                                <span class="button_text">{{ engravingTitle }}:</span>
+                                <span id="initial_engraving_selected_value"
+                                    class="initial_engraving_selected_value"></span>
+                            </div>
+                            <div class="setting-accordion-content">
+                                <div class="select-box-wrapper" style="width: 100%;">
+                                    <div class="select-wrapper">
+                                        <select class="sustainability-select" name="initial_engraving"
+                                            id="initial_engraving">
+                                            <option value="">{{ 'Select Initial' }}</option>
+                                            {% for alpha in InitialsEngraving %}
+                                            <option value="{{alpha}}">{{ alpha }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+                                    </div>
+                                    <b><span id="initial_engraving_error" style="color: #fca999"></span></b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% elsif product.metafields.attributes.names_engraving == 1 %}
+                    <div id="show_hide_engraving">
+                        <div class="setting-accordion-content">
+                            <div class="select-wrapper">
+                                {% assign nameLimit = 20 %}
+                                <!-- engraving name textbox Field Starts -->
+                                {% if product.metafields.attributes.names_limit %}
+                                {% assign nameLimit = product.metafields.attributes.names_limit %}
+                                {% endif %}
+
+                                {% if product.metafields.attributes.names_title %}
+                                <label class="input_label" for="engraving_name1">
+                                    {{- product.metafields.attributes.names_title -}}
+                                </label>
+                                <br>
+                                {% endif %}
+
+                                {% assign textBoxCount = 1 %}
+                                {% if product.metafields.attributes.names_fields %}
+                                {% assign textBoxCount = product.metafields.attributes.names_fields %}
+                                {% endif %}
+                                {% for i in (1..textBoxCount) %}
+                                {% if textBoxCount > 1 %}
+                                <label for="engraving_name{{i}}">
+                                    {%- if i == 1 %} * {% endif %} Name {{ i }}
+                                    {% endif %}
+                                    <input type="text" class="multiple_engraving_names" name="engraving_name{{i}}"
+                                        id="engraving_name{{i}}" placeholder="Text" maxlength="{{nameLimit}}" value=""
+                                        style="margin-bottom : 10px">
+                                    <b><span id="name_error{{i}}" style="color: #fca999"></span></b>
+                                    <div class="setting-accordion-item"></div>
+                                    <p></p>
+                                    {% if textBoxCount > 1 %}
+                                </label>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <br>
+                            {% comment %} <div class="radio-wrapper terms">
+                                <label for="accept">
+                                    <input type="checkbox" class="static_accept" name="accept" id="accept">
+                                    I accept and understand that engraved items cannot be exchanged or returned
+                                </label>
+                            </div> {% endcomment %}
+                            <b><span id="accept_error_static" style="color: #fca999"></span></b>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+
+                        <!-- engraving field Starts -->
+                    </div>
+                </div>
+                {% endif %}
+                <!-- metafield block -->
+
+                <!-- Add to cart block -->
+                <div class="block--form" style="margin-top:0px">
+                    <div class="product-form-container">
+                        <div class="product_form">
+                            <div class="purchase-details">
+                                <div class="purchase-details__buttons purchase-details__spb--false">
+                                    <div class="button-wrapper">
+                                        <button id="vdb_add_to_cart" name="add" type="button"
+                                            class="action_button button button--add-to-cart add_to_cart"
+                                            data-label="{{ add_to_cart_label | json }}">
+                                            <span class="text">{{ 'Add To Bag' }}</span>
+                                        </button>
+
+                                        <button id="select-your-diamond" name="select_diamond" type="button"
+                                            class="action_button button button--add-to-cart" data-label=""
+                                            style="{% if attributes_center_stone_count != 2 %}display:none;{% endif %}">
+                                            <span id="inventory_button_text" class="text">Select Your Stone</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal_price subtitle" data-display-savings="true">
+                                        <div class="price-ui only-installments" id="bread-checkout-btn-1"
+                                            style="display:none;" data-price-ui="">
+                                            Flexible monthly payment plans
+                                        </div>
+
+                                        <div class="price-ui product-price__financing pure-hidden-lg pure-hidden-xl"
+                                            style="font-size:13px;">
+                                            <div role="button" class="btn-finance-info-placeholder"
+                                                data-id="{{ product.handle }}-mobile" data-name="{{ product.title }}"
+                                                data-sku="{{ product.selected_or_first_available_variant.sku }}" {% if
+                                                product.tags contains 'Home Try-On' %}
+                                                data-price="{{ product.price_max }}" {% else %}
+                                                data-price="{{ product.price }}" {% endif -%}
+                                                data-image-url="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_image | product_img_url: 'grande'  }}"
+                                                data-detail-url="{{ shop.url }}{{ product.url }}"
+                                                data-css-key="product.jewelryMobile">
+                                                <div id="bread-checkout-btn-2" style="text-decoration: underline;">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            BreadPayments.setInitMode("manual");
+                                            document.addEventListener("DOMContentLoaded", () => {
+                                                var priceAdjusted = Number(document.getElementsByClassName("final_price")[0].getAttribute("data-final-price"))
+                                                BreadPayments.setup({ integrationKey: "34f979be-388e-4ab5-82b5-1ad29e064479" });
+                                                const placement = [
+                                                    {
+                                                        domID: "bread-checkout-btn-1", allowCheckout: false,
+
+                                                    },
+                                                    {
+                                                        domID: "bread-checkout-btn-2", allowCheckout: false, order: {
+                                                            subTotal: {
+                                                                value: priceAdjusted,
+                                                                currency: "USD",
+                                                            },
+                                                            totalTax: {
+                                                                value: 0,
+                                                                currency: "USD",
+                                                            },
+                                                            totalShipping: {
+                                                                value: 0,
+                                                                currency: "USD",
+                                                            },
+                                                            totalDiscounts: {
+                                                                value: 0,
+                                                                currency: "USD",
+                                                            },
+                                                            totalPrice: {
+                                                                value: priceAdjusted,
+                                                                currency: "USD",
+                                                            },
+                                                        },
+                                                    }
+                                                ];
+                                                BreadPayments.registerPlacements(placement);
+                                                BreadPayments.on("INSTALLMENT:APPLICATION_DECISIONED", (installmentResult) => {});
+                                                BreadPayments.on("INSTALLMENT:APPLICATION_CHECKOUT", (installmentResult) => {});
+                                                BreadPayments.init();
+                                            });
+                                            BreadPayments.on("INSTALLMENT:APPLICATION_DECISIONED", (installmentResult) => {});
+                                            BreadPayments.on("INSTALLMENT:APPLICATION_CHECKOUT", (installmentResult) => {});
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% render 'shipping-setting-tabs', isStoneProduct: isStoneProduct, category_group: category_group, added_ship_time: added_ship_time %}
+                <div class="block--sku" style="padding: 10px">
+                    <div class="order-ship-date">
+                        <div style="width: 26px; height: auto"></div>
+                        <p class="order-ship-text" style="font-size: 12px">SKU:</p>
+                        <p class="order-ship-date order-ship-sku" style="font-size: 12px">
+                            {{ product.selected_or_first_available_variant.sku }}
+                        </p>
+                    </div>
+                </div>
+                <div class="block--selected-ring-values" style="display:none">
+                    <div class="selected-ring-values">
+                        <img src="{{ settings.speedsize_url_pfx_https -}}{{ 'diamond.png' | asset_url }}" width="41px"
+                            height="44px" loading="eager">
+                        <p class="selected-ring-text">
+                            YOUR BESPOKE {{ product.type }}
+                            <span class="selected-ring-value"></span>
+                        </p>
+                    </div>
+                </div>
+
+                {% if attributes_customizable == 1 and attributes_center_stone_count > 0 %}
+                <div class="block--ring-and-stone-images" id="stone_images" style="display: block;">
+                    <div class="info-title">
+                        <p>Your Jewelry</p>
+                        <p>Your Stone</p>
+                    </div>
+                    <div class="ring-and-stone-images">
+                        <span class="image-wrapper ring-image">
+                            <img src="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_image | img_url: '600x600' }}"
+                                id="your-jewelry-image" alt="{{product.featured_image.alt}}" width="100%" height="100%"
+                                loading="eager">
+                        </span>
+                        <span class="images-divider">&</span>
+                        <span class="image-wrapper stone-image">
+                            <img src="https://cdn.shopify.com/s/files/1/1164/4258/files/MD_Icon_Gray.svg?v=1699297537"
+                                width="100%" height="100%" loading="eager" id="stoneImage">
+                        </span>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- Add to cart block -->
+            </div>
+            <div id="lab-gemstone-content" class="setting-tab-content lab-gemstone-content"></div>
+    </setting-tab>
+</form>
+
+<div class="fancybox-container popup-modal certificate-popup product-images-popup product-hint-popup fancybox-is-open" role="dialog" tabindex="-1" id="product-ring-pdp-settings-popup" style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;">
+    <div class="fancybox-bg" onclick="mdClosePopup('product-ring-pdp-settings-popup')"></div>
+    <div class="fancybox-inner">
+        <div class="fancybox-stage">
+            <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+                <div class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content" style="display: inline-block;">
+                    <div class="popup__inner is-flex">
+                        <div class="popup__content one-half text-center">
+                            <p class="subtitle">The stone you selected is currently unavailable. Please feel free to choose another one from our wide range of options.</p>
+                            <form method="post" class="send-hint-form">
+                                <div>
+                                    <button type="button" id="ring-ok" class="popup_submit_button" onclick="reloadWithoutStone()">Ok</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fancybox-container popup-modal certificate-popup product-images-popup product-hint-popup fancybox-is-open" role="dialog" tabindex="-1" id="product-ring-pdp-settings-stone-shape-popup" style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;">
+    <div class="fancybox-bg" onclick="mdClosePopup('product-ring-pdp-settings-stone-shape-popup')"></div>
+    <div class="fancybox-inner">
+        <div class="fancybox-stage">
+            <div class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete" style="">
+                <div class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+                    style="display: inline-block;">
+                    <button onclick="mdClosePopup('product-ring-pdp-settings-stone-shape-popup')"
+                        class="close popup__close" aria-label="close">
+                        <span class="icon icon--vertical-align" data-icon="x">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                <title>Close</title>
+                                <g id="x">
+                                    <path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path>
+                                </g>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="popup__inner is-flex">
+                        <div class="popup__content one-half text-center">
+                            <p class="subtitle"><b>Tip:</b> Changing shape will reset your diamond selection. Do you want to continue?</p>
+                            <form method="post" class="send-hint-form">
+                                <div>
+                                    <button type="button" class="popup_submit_button" onclick="mdClosePopup('product-ring-pdp-settings-stone-shape-popup')" id="ring-shape-popup-no">No</button>
+                                    <button type="button" class="popup_submit_button" id="ring-shape-popup-yes">Yes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% render 'bundle-setting-tabs-js',
+	product:product,
+	attributes_customizable:attributes_customizable,
+	attributes_center_stone_count:attributes_center_stone_count,
+	isRTS: isRTS,
+	attributes_basic_builder: attributes_basic_builder,
+	allow_image_convention: allow_image_convention
+%}

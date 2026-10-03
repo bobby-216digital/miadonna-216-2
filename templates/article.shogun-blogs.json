@@ -1,0 +1,70 @@
+{
+  "sections": {
+    "4b25fd31-62ac-4d97-a736-3c2df591467d": {
+      "type": "blog-menu-section",
+      "blocks": {
+        "30171448-2bb5-4358-9e69-404f12457143": {
+          "type": "search",
+          "settings": {
+            "search_results": "article"
+          }
+        }
+      },
+      "block_order": [
+        "30171448-2bb5-4358-9e69-404f12457143"
+      ],
+      "settings": {
+        "blog_menu_title": "Blog",
+        "blog_menu": ""
+      }
+    },
+    "banner": {
+      "type": "fallback_image_banner",
+      "settings": {
+        "image_darken": true,
+        "width": "wide",
+        "banner_height": "medium",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "main": {
+      "type": "article__main",
+      "settings": {
+        "show_breadcrumb": true,
+        "blog_author": true,
+        "blog_date": true,
+        "read_time": true,
+        "blog_comment_count": true,
+        "show_tags": false,
+        "show_featured_image": false,
+        "show_sidebar": false,
+        "sidebar_position": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "4b25fd31-62ac-4d97-a736-3c2df591467d",
+    "banner",
+    "main",
+    "shogun-optimizer"
+  ]
+}

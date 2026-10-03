@@ -1,0 +1,400 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "FAQ",
+  "class": "FAQ jsFAQ",
+  "id": "index__faq",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Heading",
+      "default": "FAQ",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 56,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 56,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": ""
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "block_type",
+      "label": "Block Type",
+      "info": "",
+      "default": "",
+      "options": [
+        {
+          "value": "content",
+          "label": "content"
+        },
+        {
+          "value": "heading",
+          "label": "heading"
+        },
+        {
+          "value": "image",
+          "label": "image"
+        }
+      ],
+      "repeatable": "block"
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "block"
+    },
+    {
+      "type": "text",
+      "id": "block_title",
+      "label": "Question",
+      "default": "What is your question?",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:content,heading"
+    },
+    {
+      "type": "wysiwyg",
+      "id": "block_answer",
+      "label": "Answer",
+      "default": "<p>Provide the answer to the question here.</p>",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:content"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_image",
+      "label": "Image",
+      "info": "1000 x 1000px recommended",
+      "repeatable": "block",
+      "conditional": "block_type:image"
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled",
+    "some fields may be named the same"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'undefined' -%}
+{%- assign undefined = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'block_type' -%}
+{%- assign block_type = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_answer' -%}
+{%- assign block_answer = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section FAQ jsFAQ">
+{% comment %}
+  ** FAQ **
+{% endcomment %}
+
+{% assign id = section_id %}
+{% assign title = atb_title %}
+{% assign img_border_radius = atb_border_radius %}
+{% comment %} Layout {% endcomment %}
+{% assign width = atb_width %}
+{% assign animation = atb_animation | default: 'none' %}
+{% assign padding_top = atb_padding_top %}
+{% assign padding_bottom = atb_padding_bottom %}
+{% comment %} Advanced {% endcomment %}
+{% assign css_class = atb_css_class %}
+{% assign custom_css = atb_custom_css %}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+        {% unless block_type[forloop.index0] == 'heading' %}
+          {
+            "@type": "Question",
+            "name": "{{ block_title[forloop.index0] | escape }}",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "{{ block_answer[forloop.index0] | strip_html }}"
+            }
+          }{% unless forloop.last %},{% endunless %}
+        {% endunless %}
+      {% endfor %}
+    ]
+  }
+</script>
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ id }} {
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+{% endstyle %}
+
+{% capture icon_set %}
+{% if settings.toggle_icon_style == 'carets' %}
+  {% render 'icon',
+          name: 'down-caret',
+          icon_class: 'icon--rotate'
+  %}
+{% else %}
+  {% render 'icon',
+          name: 'plus',
+          icon_class: 'icon--active'
+  %}
+  {% render 'icon', name: 'minus' %}
+{% endif %}
+{% endcapture %}
+
+<section
+  class="
+    section
+    {{ css_class }}
+    is-width-{{ width }}
+    has-gutter-enabled
+    {% if width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if animation != 'none' %}
+    data-scroll-class="{{ animation }}"
+  {% endif %}
+>
+  <div class="container">
+    {%- if title != blank -%}
+      {% render 'heading', title: title, heading_tag: 'h2', context: 'faq', text_alignment: 'left' %}
+    {%- endif -%}
+
+    {% if blocks.size > 0 %}
+      {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+        {% if block_type[forloop.index0] == 'image' %}
+          {% assign image = true %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    <div class="page-faq__column-wrap container column-wrapper">
+      <div class="{% if image == true %}one-half{% else %}one-whole{% endif %} medium-down--one-whole column faq faq__column-1">
+        {% if blocks.size > 0 %}
+          <dl
+            class="
+              {{ atb_css_class }}
+              faq-accordion
+              accordion-icon--{{ settings.toggle_icon_style }}
+            "
+          >
+            {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+              {% if block_type[forloop.index0] == 'content' %}
+                <div class="faq-accordion-item">
+                  {% if block_title[forloop.index0] != blank %}
+                    <dt>
+                      <button
+                        class="accordion-style--{{ settings.toggle_icon_style }} accordion__button"
+                        type="button"
+                        aria-controls="panel-{{ blocks[forloop.index0] }}"
+                        aria-expanded="true"
+                      >
+                        {{ icon_set }}
+                        {{ block_title[forloop.index0] }}
+                      </button>
+                    </dt>
+                    <dd id="panel-{{ blocks[forloop.index0] }}" aria-hidden="false">
+                      <div class="content">
+                        {{ block_answer[forloop.index0] }}
+                      </div>
+                    </dd>
+                  {% endif %}
+                </div>
+
+              {% elsif block_type[forloop.index0] == 'heading' %}
+                {% if block_title[forloop.index0] != blank %}
+                  <h2 class="title faq-title">{{ block_title[forloop.index0] }}</h2>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </dl>
+        {% endif %}
+      </div>
+
+      {% if blocks.size > 0 %}
+        {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+          {% if block_type[forloop.index0] == 'image' %}
+            <div class="one-half medium-down--one-whole column faq faq--image faq__column-2">
+              {% if my_image0 != blank %}
+                {%
+                  render 'image-element',
+                  image: my_image0,
+                  alt: my_image0.alt,
+                  stretch_width: true,
+                  focal_point: my_image0.presentation.focal_point,
+                %}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script data-theme-editor-load-script src="{{ 'z__jsFAQ.js' | asset_url }}"></script>
+
+
+</section>

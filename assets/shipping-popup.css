@@ -1,0 +1,95 @@
+.shipping-popup.popup-modal .fancybox-slide {
+  padding: 0;
+}
+
+.shipping-popup.certificate-popup .popup__content {
+  display: block;
+  padding: 40px 10px;
+}
+
+.shipping-popup .popup__wrapper h3 {
+  color: #3c3737;
+  border-bottom: 4px solid #f7dcd0;
+  display: inline-block;
+  font-size: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 35px;
+  text-transform: uppercase;
+}
+
+.shipping-popup .popup__wrapper .subtitle {
+  color: #3c3737;
+  font-size: 19px;
+  line-height: 1.55;
+  margin-bottom: 56px;
+  font-family: Playfair Display, serif;
+}
+
+.shipping-popup .popup__wrapper table {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin: 0 auto 35px;
+}
+
+.shipping-popup .popup__wrapper table th,
+.shipping-popup .popup__wrapper table td {
+  color: #3c3737;
+  text-align: center;
+  border: 1px solid #e7e5e5;
+  padding: 13px 17px;
+  letter-spacing: 0;
+  font-size: 16px;
+}
+
+.shipping-popup .popup__wrapper table th {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.shipping-popup .popup__wrapper table td {
+  font-weight: 400;
+}
+
+.shipping-popup .popup__wrapper table thead {
+  background-color: #f6f6f6;
+  font-weight: 400;
+}
+
+.shipping-popup .popup__wrapper .small {
+  color: #646464;
+  font-family: Montserrat, sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+@media screen and (min-width: 1024px) {
+  .shipping-popup.product-images-popup .popup__wrapper {
+    box-shadow: 0 4px 16px #0003;
+  }
+  .shipping-popup.certificate-popup .popup__content {
+    padding: 0;
+  }
+  .shipping-popup .popup__wrapper {
+    display: inline-block;
+    height: auto;
+    left: 50%;
+    max-height: 82vh;
+    max-width: 920px;
+    padding: 29px 58px 35px;
+    position: absolute;
+    top: 12%;
+    transform: translate(-50%);
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .shipping-popup.certificate-popup .popup__content {
+    height: auto;
+  }
+}

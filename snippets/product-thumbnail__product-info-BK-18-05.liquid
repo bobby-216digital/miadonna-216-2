@@ -1,0 +1,633 @@
+{% assign logic_disclaimer = product.metafields.custom.hide_lifestyle_disclaimer.value  %}
+{%- capture collectionFilterContentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+  {%- assign collectionFilterPageUrl = collectionFilterContentForQuerystring | split: '"pageurl":"' | last | split: '"' | first | split: '.myshopify.com' | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' -%}
+  {%- assign collectionFilterPageQueryStringReplace = collectionFilterPageUrl | replace: request.path, '' | replace: request.host, '' -%}
+  {%- assign collectionFilterPageQueryString = collectionFilterPageQueryStringReplace | split: '?' | last -%}
+  {%- assign collectionFilterPageQueryArray = collectionFilterPageQueryString | split: '&' -%}
+  
+  {% assign metalParams = '' %}
+  {% assign productMetalParams = '' %}
+  {% assign shapeParams = '' %}
+  {% assign productShapeParams = '' %}
+  {% if collectionFilterPageQueryArray != blank %}
+    {% for param in collectionFilterPageQueryArray %}
+      {%- if param contains 'filter.p.m.custom.metal' -%}
+          {% assign metalParams = param | split: '=' | last | strip %}
+          {% assign metalParams = metalParams | replace: '+', ' ' | strip %}
+          {% assign productMetalParams = metalParams | replace: '+', '%20' | strip %}
+      {% endif %}
+      {%- if param contains 'filter.p.m.custom.shape' -%}
+          {% assign shapeParams = param | split: '=' | last | strip %}
+          {% assign shapeParams = shapeParams | replace: '+', ' ' | strip %}
+          {% assign productShapeParams = shapeParams | replace: '+', '%20' | strip %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  <div class="product-thumbnail">
+      {% if settings.display_vendor %}
+          <span class="product-thumbnail__vendor">{{ product.vendor }}</span>
+      {% endif %}
+  
+      {% if product.metafields.custom.collection_product_title != blank %}
+        {% assign product_title = product.metafields.custom.collection_product_title %}
+      {% else %}
+        {% assign product_title = product.title %}
+      {% endif %}
+  
+      {% if hover_enabled %}
+          <span class="product-thumbnail__title">{{ product_title }}</span>
+      {% else %}
+          <a id="{{ product.handle }}-product-title" href="{{ product.url }}{% if productMetalParams != blank %}&solid_metal={{ productMetalParams }}{% endif %}" class="product-thumbnail__title">{{- product_title -}}</a>
+      {% endif %}
+  
+    {% if collection_handles contains 'coming-soon' %}
+      {% if settings.stickers_enabled == false %}
+        {{ 'collections.general.coming_soon' | t }}
+      {% endif %}
+    {% elsif product.available == false %}
+            <span class="product-thumbnail__price">{{ 'collections.general.sold_out' | t }}</span>
+    {% else %}
+      <span class="product-thumbnail__price price {% if product.compare_at_price_max > product.price %}sale{% endif %}">
+        {% if product.price_varies and product.price_min > 0 %}
+          <!-- <small><em>{{ 'products.general.from' | t }}</em></small> -->
+        {% endif %}
+          {% assign productMainPrice = product.price_min %}
+          {% assign productCompareAtPrice = product.compare_at_price %}
+          {% if product.metafields.attributes.collection_product_price != blank %}
+             {% if product.compare_at_price > 0 and product.compare_at_price != blank %}
+               {% assign productCompareAtPrice = product.metafields.attributes.collection_product_price | times: 100 | plus: product.compare_at_price %}
+             {% endif %}
+             {% assign productMainPrice = product.metafields.attributes.collection_product_price | times: 100 | plus: product.price_min %}
+          {% endif %}
+  
+          {% assign is_compare_at_price_and_sale = 'none' %}
+          {% if product.compare_at_price > product.price %}
+              {% assign is_compare_at_price_and_sale = '' %}
+          {% endif %}
+        <span class="product-thumbnail__was-price compare-at-price" price="{{ product.price_min }}" style="display: {{ is_compare_at_price_and_sale }}">
+          <span class="money" id="{{ product.handle }}-compare-at-price-money" data-collection-price="{{ productCompareAtPrice }}">{% render 'price-element', compare_price: true, price: productCompareAtPrice, product: product %}</span>
+        </span>
+        {% if product.price_min > 0 %}
+            <span class="money" id="{{ product.handle }}-money" data-collection-price="{{ productMainPrice }}">{% render 'price-element', price: productMainPrice, product: product %}</span>
+        {% else %}
+          {{ settings.free_price_text }}
+        {% endif %}
+  
+        {% if product.metafields.attributes.collection_product_price == blank %}
+          {% assign is_show_setting_only = 'yes' %}
+          {%- for tag in product.tags -%}
+            {% if tag == 'Is Not Setting Only' %}
+              {% assign is_show_setting_only = 'no' %}
+            {% endif %}
+          {% endfor %}
+          {% if is_show_setting_only == 'yes' and product.metafields.attributes.customizable == '1' %}
+            <span class="center_text">(Setting Only)</span>
+          {% endif %}
+        {% endif %}
+  
+        <span class="sale-badge-wrapper" id="{{ product.handle }}-sale-badge" style="display: {{ is_compare_at_price_and_sale }}">
+          <span class="sale-badge">Sale</span>
+        </span>
+      </span>
+      {% if settings.select_first_available_variant %}
+        {%- assign variant_for_unit_price = product.variants | sort: 'price' | first -%}
+        {% render 'unit-price', item: variant_for_unit_price, class: 'product-thumbnail__unit-price' %}
+      {% endif %}
+    {% endif %}
+
+    {%- assign show_carat = product.metafields.custom.show_carat_range -%}
+    {%- assign is_carat_added = false -%}
+
+    {%- assign is_carat_found = 'no' -%}
+    {% for option in product.options_with_values %}
+        {% if option.name == "Carat Weight" %}
+            {%- assign is_carat_found = 'yes' -%}
+            {%- if show_carat == 'No' -%}{% break %}{%- endif -%}
+            {%- assign is_carat_added = true -%}
+            <div class="prd-caret-text">
+                <div class="shape-filter-label" aria-label="Carat weight filter">
+                    <span class="shape-label">{{ option.name | remove:'Weight' | escape }}:</span>
+                    {% for value in option.values %}
+                        <span class="shape-value">{% if forloop.first %}{{ value | remove:'.0' | remove:'ctw' | remove:'ct' }} - {% endif %}{% if forloop.last %}{{ value | remove:'.0' | remove:'ctw' | remove:'ct'  }}{% endif %}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {%- if is_carat_found == 'no' -%}
+        {%- if show_carat != "No" -%}
+            {%- assign is_carat_added = true -%}
+            <div class="prd-caret-text">
+                <div class="shape-filter-label" aria-label="Carat weight filter">
+                    <span class="shape-label">Carat:</span>
+                    <span class="shape-value plp-carat-value" data-handle="{{ product.handle }}">
+                        {%- assign variant_ctw_fraction = product.selected_or_first_available_variant.metafields.specs.ctw_fraction -%}
+                        {% if product.selected_or_first_available_variant.title contains 'Default Title' %}
+                            {%- assign variant_ctw_fraction = product.variants[1].metafields.specs.ctw_fraction -%}
+                        {% endif %}
+                        {% unless variant_ctw_fraction == null %}
+                            {{ variant_ctw_fraction }}
+                        {% else %}
+                            1 - 7
+                        {% endunless %}
+                    </span>
+                </div>
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+
+    {%- unless is_carat_added -%}<div class="prd-caret-text"></div>{%- endunless -%}
+  
+    <div class="ped-shapem-row">
+        {% liquid
+        ##SpeedsizeIgnore##
+        assign allowImageConventionCollection = product.metafields.attributes.allow_image_convention | plus: 0
+        ##endSpeedsizeIgnore##
+        %}
+        {% if allowImageConventionCollection > 0 %}
+            {% assign productBundles = product.metafields.custom.bundles.value %}
+            {% assign isBundleProduct = 'No' %}
+            {% if productBundles.count > 0 %}
+                {% assign isBundleProduct = 'Yes' %}
+                {% for option in product.options_with_values %}
+                    {% assign optionName = option.name | replace: ' ', '_' %}
+                    {%- assign optionNameDn = optionName | downcase -%}
+                    {% if optionName == 'Metal' or optionName == 'Metal_Type' or optionName == 'Material' %}
+                        {% assign metalsList = option.values | join: '|' | remove: '|Palladium' %}
+                    {%- elsif optionNameDn == 'quality' -%}
+                        {% assign qualityValue = option.values.first %}
+                    {%- elsif optionNameDn contains 'carat' -%}
+                        {% assign caratValue = option.values.first %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% if product.metafields.attributes.metals %}
+                    {% assign metalsList = product.metafields.attributes.metals | remove: '|Palladium' %}
+                    {% for option in product.options_with_values %}
+                        {% assign optionNameDn = option.name | replace: ' ', '_' | downcase %}
+                        {%- if optionNameDn == 'quality' -%}
+                            {% assign qualityValue = option.values.first %}
+                        {%- elsif optionNameDn contains 'carat' -%}
+                            {% assign caratValue = option.values.first %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {% assign attributes_basic_builder = product.metafields.attributes.basic_builder | plus: 0 %}
+                    {% if attributes_basic_builder == 1 and product.variants.size > 1 %}
+                        {% for option in product.options_with_values %}
+                            {% assign optionName = option.name | replace: ' ', '_' %}
+                            {% assign optionNameDn = optionName | downcase %}
+                            {% if optionName == 'Metal' or optionName == 'Metal_Type' or optionName == 'Material' %}
+                                {% assign metalsList = option.values | join: '|' | remove: '|Palladium' %}
+                            {% elsif optionNameDn == 'quality' %}
+                                {% assign qualityValue = option.values.first %}
+                            {%- elsif optionNameDn contains 'carat' -%}
+                                {% assign caratValue = option.values.first %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            {% assign dynamicMetals = metalsList | split: '|' %}
+            {% if dynamicMetals.size > 1 %}
+                {% assign activeMetalValue = '' %}
+                {% comment %}dynamicMetals[0] | replace: '14K', "" | replace: '18K', "" | rstrip{% endcomment %}
+                {% if metalParams != blank %}
+                    {% assign activeMetalValue = metalParams | replace: '14K', '' | replace: '18K', '' | rstrip %}
+                {% else %}
+                    {% assign activeMetalValue = product.metafields.attributes.collection_page_default_metal | replace: '14K', '' | replace: '18K', '' | rstrip %}
+                {% endif %}
+                <div class="color-swatches-wrapper">
+                    {% comment %} <div class="color-swatch-label"  aria-label="Metal selection">
+                        <span class="swatch-label">Metal: </span>
+                        {% comment %} <span class="swatch-value" id="metal-text-{{ product.handle }}">{{ activeMetalValue }}</span> {% endcomment %}
+                    </div> {% endcomment %}
+                    {% assign activeSwatchesSize = 0 %}
+                    {% for metal in dynamicMetals %}
+                        {% if metal == '14K White Gold' %}
+                            {% assign activeSwatchesSize = activeSwatchesSize | plus: 1 %}
+                        {% elsif metal == '14K Yellow Gold' %}
+                            {% assign activeSwatchesSize = activeSwatchesSize | plus: 1 %}
+                        {% elsif metal == '14K Rose Gold' %}
+                            {% assign activeSwatchesSize = activeSwatchesSize | plus: 1 %}
+                        {% elsif metal == 'Platinum' %}
+                            {% assign activeSwatchesSize = activeSwatchesSize | plus: 1 %}
+                        {% elsif metal == 'Two-Tone 14K White Gold and 14K Rose Gold' %}
+                            {% assign activeSwatchesSize = activeSwatchesSize | plus: 1 %}
+                        {% elsif metal == 'Two-Tone 14K White Gold and 14K Yellow Gold' %}
+                            {% assign activeSwatchesSize = activeSwatchesSize | plus: 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="color-swatches color-swatches-{{ activeSwatchesSize }}">
+                        {% assign metalWeightPrice = 0 %}
+                        {% if product.metafields.attributes.metal_weight %}
+                            {% assign metal_weight = product.metafields.attributes.metal_weight | to_i %}
+                        {% endif %}
+    
+                        {% assign attributes_basic_builder = product.metafields.attributes.basic_builder | plus: 0 %}
+                        {% assign attributes_center_stone_count = product.metafields.attributes.center_stone_count | plus: 0 %}
+                        <select class="all_varients" id="variant-{{ product.handle }}" style="display: none;">
+                            {% for variant in product.variants %}
+                                {% assign variantMainPrice = variant.price %}
+                                {% assign variantCompareAtPrice = variant.compare_at_price %}
+                                {% if product.metafields.attributes.collection_product_price != blank %}
+                                    {% if variant.compare_at_price > 0 and variant.compare_at_price != blank %}
+                                        {% assign variantCompareAtPrice = product.metafields.attributes.collection_product_price | times: 100 | plus: variant.compare_at_price %}
+                                    {% endif %}
+                                    {% assign variantMainPrice = product.metafields.attributes.collection_product_price | times: 100 | plus: variant.price %}
+                                {% endif %}
+                                <option value="{{ variant.id }}"{% unless logic_disclaimer == 'true' %} data-disclaimer="{{ variant.metafields.custom.lifestyle_image_disclaimer.value }}"{% endunless %} data-variant_price="{{variantMainPrice}}" data-variant_compare_at_price="{{variantCompareAtPrice}}" data-varient_title="{{variant.title}}">{{ variant.title }}</option>
+                            {% endfor %}
+                        </select>
+                    {% for metal in dynamicMetals %}
+                        {% assign activeMetal = metal | replace: '14K', '' | replace: '18K', '' | rstrip %}
+                        {% assign metal_dn = metal | downcase %}
+                        
+                        {% for variant in product.variants %}
+                            {% assign varian_title_dn = variant.title | downcase %}
+                            {% if varian_title_dn contains metal_dn %}
+                                {% assign ctw_fraction = variant.metafields.specs.ctw_fraction %}
+                                {% break %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% for variant in product.variants %}
+                            {% assign variant_metal = variant.option1 | downcase %}
+                            {% assign variant_dn = variant.title | downcase %}
+                            {% if metal_dn == variant_metal %}
+                                {% assign image_disclaimer = variant.metafields.custom.lifestyle_image_disclaimer.value %}
+                                {% break %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if metal == '14K White Gold' %}
+                            {% comment %}{% assign dynamicWeight = settings.metal_14k_white_gold | to_i %}
+                            {% assign metalWeightPrice = dynamicWeight | times: metal_weight %}{% endcomment %}
+                            <div class="swatch swatch-white{% if activeMetal == activeMetalValue %} active{% endif %}" data-metal-color="white" data-handle="{{ product.handle }}"{% unless logic_disclaimer == 'true' %} data-disclaimer="{{image_disclaimer}}"{% endunless %} data-ctw-fraction="{{ ctw_fraction }}" onclick="swatchCollectionSelectedFun(this, 'metal', '{{ isBundleProduct }}')" tabindex="0" role="button" aria-label="White Gold">
+                                <span class="metaltext">WG</span>
+                            </div>
+                            <textarea
+                                style="display: none;"
+                                class="swatch-collection-selected white{% if activeMetal == activeMetalValue %} active{% endif %}"
+                                data-product-handle="{{ product.handle }}"
+                                data-metal-carat="14K White Gold"
+                                data-metal="White Gold"
+                                data-default-metal="{% if activeMetal == activeMetalValue %}{{ product.metafields.attributes.collection_page_default_metal }}{% endif %}"
+                                {% if qualityValue %}data-default-quality="{{ qualityValue }}"{% endif %}
+                                {% if caratValue %}data-default-carat="{{ caratValue }}"{% endif %}
+                                data-default-shape="{% if collection.metafields.custom.collection_shape != blank %}{{ collection.metafields.custom.collection_shape }}{% else %}{{ product.metafields.attributes.collection_page_default_shape }}{% endif %}"
+                                data-default-position="{{ product.metafields.attributes.collection_page_default_position }}"
+                                data-default-hover-position="{{ product.metafields.attributes.collection_page_hover_position }}"
+                                data-default-extension="{{ product.metafields.attributes.image_convention_extension  }}"
+                                data-option-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-option-compare-at-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-basic-builder="{{attributes_basic_builder}}"
+                                data-product-variants="{{ product.variants.size }}"
+                                data-materials-count="{{product.metafields.attributes.materials.size}}"
+                                data-metals-count="{{product.metafields.attributes.metals.size}}"
+                                data-attributes-center-stone-count="{{attributes_center_stone_count}}"
+                                data-side-stone-shapes="{{product.metafields.attributes.side_stone_shapes}}"
+                                data-side-stone-count="{{product.metafields.attributes.side_stone_count}}"
+                                data-disclaimer = "{{ image_disclaimer }}"
+                            >{{ product.options_with_values | json }}</textarea>
+                        {% elsif metal == '14K Yellow Gold' %}
+                            {% comment %}{% assign dynamicWeight = settings.metal_14k_white_gold | to_i %}
+                            {% assign metalWeightPrice = dynamicWeight | times: metal_weight %}{% endcomment %}
+                            <div class="swatch swatch-yellow{% if activeMetal == activeMetalValue %} active{% endif %}"{% unless logic_disclaimer == 'true' %} data-disclaimer="{{image_disclaimer}}"{% endunless %} data-metal-color="yellow" data-handle="{{ product.handle }}" data-ctw-fraction="{{ ctw_fraction }}" onclick="swatchCollectionSelectedFun(this, 'metal', '{{ isBundleProduct }}')" tabindex="0" role="button" aria-label="Yellow Gold">
+                                <span class="metaltext">YG</span>
+                            </div>
+                            <textarea
+                                style="display: none;"
+                                class="swatch-collection-selected yellow{% if activeMetal == activeMetalValue %} active{% endif %}"
+                                data-product-handle="{{ product.handle }}"
+                                data-metal-carat="14K Yellow Gold"
+                                data-metal="Yellow Gold"
+                                data-default-metal="{% if activeMetal == activeMetalValue %}{{ product.metafields.attributes.collection_page_default_metal }}{% endif %}"
+                                {% if qualityValue %}data-default-quality="{{ qualityValue }}"{% endif %}
+                                {% if caratValue %}data-default-carat="{{ caratValue }}"{% endif %}
+                                data-default-shape="{% if collection.metafields.custom.collection_shape != blank %}{{ collection.metafields.custom.collection_shape }}{% else %}{{ product.metafields.attributes.collection_page_default_shape }}{% endif %}"
+                                data-default-position="{{ product.metafields.attributes.collection_page_default_position }}"
+                                data-default-hover-position="{{ product.metafields.attributes.collection_page_hover_position }}"
+                                data-default-extension="{{ product.metafields.attributes.image_convention_extension  }}"
+                                data-option-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-option-compare-at-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-basic-builder="{{attributes_basic_builder}}"
+                                data-product-variants="{{ product.variants.size }}"
+                                data-materials-count="{{product.metafields.attributes.materials.size}}"
+                                data-metals-count="{{product.metafields.attributes.metals.size}}"
+                                data-attributes-center-stone-count="{{attributes_center_stone_count}}"
+                                data-side-stone-shapes="{{product.metafields.attributes.side_stone_shapes}}"
+                                data-side-stone-count="{{product.metafields.attributes.side_stone_count}}"
+                                data-disclaimer = "{{ image_disclaimer }}"
+                            >{{ product.options_with_values | json }}</textarea>
+                        {% elsif metal == '14K Rose Gold' %}
+                            {% comment %}{% assign dynamicWeight = settings.metal_14k_rose_gold | to_i %}
+                            {% assign metalWeightPrice = dynamicWeight | times: metal_weight %}{% endcomment %}
+                            <div class="swatch swatch-rose{% if activeMetal == activeMetalValue %} active{% endif %}"{% unless logic_disclaimer == 'true' %} data-disclaimer="{{image_disclaimer}}"{% endunless %} data-metal-color="rose" data-handle="{{ product.handle }}" data-ctw-fraction="{{ ctw_fraction }}" onclick="swatchCollectionSelectedFun(this, 'metal', '{{ isBundleProduct }}')" tabindex="0" role="button" aria-label="Rose Gold">
+                                <span class="metaltext">RG</span>
+                            </div>
+                            <textarea
+                                style="display: none;"
+                                class="swatch-collection-selected rose{% if activeMetal == activeMetalValue %} active{% endif %}"
+                                data-product-handle="{{ product.handle }}"
+                                data-metal-carat="14K Rose Gold"
+                                data-metal="Rose Gold"
+                                data-default-metal="{% if activeMetal == activeMetalValue %}{{ product.metafields.attributes.collection_page_default_metal }}{% endif %}"
+                                {% if qualityValue %}data-default-quality="{{ qualityValue }}"{% endif %}
+                                {% if caratValue %}data-default-carat="{{ caratValue }}"{% endif %}
+                                data-default-shape="{% if collection.metafields.custom.collection_shape != blank %}{{ collection.metafields.custom.collection_shape }}{% else %}{{ product.metafields.attributes.collection_page_default_shape }}{% endif %}"
+                                data-default-position="{{ product.metafields.attributes.collection_page_default_position }}"
+                                data-default-hover-position="{{ product.metafields.attributes.collection_page_hover_position }}"
+                                data-default-extension="{{ product.metafields.attributes.image_convention_extension  }}"
+                                data-option-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-option-compare-at-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-basic-builder="{{attributes_basic_builder}}"
+                                data-product-variants="{{ product.variants.size }}"
+                                data-materials-count="{{product.metafields.attributes.materials.size}}"
+                                data-metals-count="{{product.metafields.attributes.metals.size}}"
+                                data-attributes-center-stone-count="{{attributes_center_stone_count}}"
+                                data-side-stone-shapes="{{product.metafields.attributes.side_stone_shapes}}"
+                                data-side-stone-count="{{product.metafields.attributes.side_stone_count}}"
+                                data-disclaimer = "{{ image_disclaimer }}"
+                            >{{ product.options_with_values | json }}</textarea>
+                        {% elsif metal == 'Platinum' %}
+                            {% comment %}{% assign dynamicWeight = settings.metal_platinum | to_i %}
+                            {% assign metalWeightPrice = dynamicWeight | times: metal_weight %}{% endcomment %}
+                            <div class="swatch swatch-platinum{% if activeMetal == activeMetalValue %} active{% endif %}"{% unless logic_disclaimer == 'true' %} data-disclaimer="{{image_disclaimer}}"{% endunless %} data-metal-color="platinum" data-handle="{{ product.handle }}" data-ctw-fraction="{{ ctw_fraction }}" onclick="swatchCollectionSelectedFun(this, 'metal', '{{ isBundleProduct }}')" tabindex="0" role="button" aria-label="Platinum">
+                                <span class="metaltext">PL</span>
+                            </div>
+                            <textarea
+                                style="display: none;"
+                                class="swatch-collection-selected platinum{% if activeMetal == activeMetalValue %} active{% endif %}"
+                                data-product-handle="{{ product.handle }}"
+                                data-metal-carat="Platinum"
+                                data-metal="Platinum"
+                                data-default-metal="{% if activeMetal == activeMetalValue %}{{ product.metafields.attributes.collection_page_default_metal }}{% endif %}"
+                                {% if qualityValue %}data-default-quality="{{ qualityValue }}"{% endif %}
+                                {% if caratValue %}data-default-carat="{{ caratValue }}"{% endif %}
+                                data-default-shape="{% if collection.metafields.custom.collection_shape != blank %}{{ collection.metafields.custom.collection_shape }}{% else %}{{ product.metafields.attributes.collection_page_default_shape }}{% endif %}"
+                                data-default-position="{{ product.metafields.attributes.collection_page_default_position }}"
+                                data-default-hover-position="{{ product.metafields.attributes.collection_page_hover_position }}"
+                                data-default-extension="{{ product.metafields.attributes.image_convention_extension  }}"
+                                data-option-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-option-compare-at-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-basic-builder="{{attributes_basic_builder}}"
+                                data-product-variants="{{ product.variants.size }}"
+                                data-materials-count="{{product.metafields.attributes.materials.size}}"
+                                data-metals-count="{{product.metafields.attributes.metals.size}}"
+                                data-attributes-center-stone-count="{{attributes_center_stone_count}}"
+                                data-side-stone-shapes="{{product.metafields.attributes.side_stone_shapes}}"
+                                data-side-stone-count="{{product.metafields.attributes.side_stone_count}}"
+                                data-disclaimer = "{{ image_disclaimer }}"
+                            >{{ product.options_with_values | json }}</textarea>
+                        {% elsif metal == 'Two-Tone 14K White Gold and 14K Rose Gold' %}
+                            {%- if activeMetalValue == 'Two-Toned Gold' -%}
+                                {%- assign activeMetalValue = 'Two-Tone 14K White Gold and 14K Rose Gold' | replace: '14K', '' | replace: '18K', '' | rstrip -%}
+                            {%- endif -%}
+                            {% comment %}{% assign dynamicWeight = settings.metal_14k_two_tone | to_i %}
+                            {% assign metalWeightPrice = dynamicWeight | times: metal_weight %}{% endcomment %}
+                            <div class="swatch swatch-rose swatch-rose-white{% if activeMetal == activeMetalValue %} active{% endif %}"{% unless logic_disclaimer == 'true' %} data-disclaimer="{{image_disclaimer}}"{% endunless %} data-metal-color="rose-white" data-handle="{{ product.handle }}" data-ctw-fraction="{{ ctw_fraction }}" onclick="swatchCollectionSelectedFun(this, 'metal', '{{ isBundleProduct }}')" tabindex="0" role="button" aria-label="Rose White">
+                                 <span class="metaltext">RW</span>
+                            </div>
+                            <textarea
+                                style="display: none;"
+                                class="swatch-collection-selected rose-white{% if activeMetal == activeMetalValue %} active{% endif %}"
+                                data-product-handle="{{ product.handle }}"
+                                data-metal-carat="Two-Tone 14K White Gold and 14K Rose Gold"
+                                data-metal="Two-Tone White Gold and Rose Gold"
+                                {%- comment -%}data-default-metal="{% if activeMetal == activeMetalValue %}{{ product.metafields.attributes.collection_page_default_metal }}{% endif %}"{%- endcomment -%}
+                                data-default-metal="{% if activeMetal == activeMetalValue %}Two-Tone White Gold and Rose Gold{% endif %}"
+                                {% if qualityValue %}data-default-quality="{{ qualityValue }}"{% endif %}
+                                {% if caratValue %}data-default-carat="{{ caratValue }}"{% endif %}
+                                data-default-shape="{% if collection.metafields.custom.collection_shape != blank %}{{ collection.metafields.custom.collection_shape }}{% else %}{{ product.metafields.attributes.collection_page_default_shape }}{% endif %}"
+                                data-default-position="{{ product.metafields.attributes.collection_page_default_position }}"
+                                data-default-hover-position="{{ product.metafields.attributes.collection_page_hover_position }}"
+                                data-default-extension="{{ product.metafields.attributes.image_convention_extension  }}"
+                                data-option-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-option-compare-at-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-basic-builder="{{attributes_basic_builder}}"
+                                data-product-variants="{{ product.variants.size }}"
+                                data-materials-count="{{product.metafields.attributes.materials.size}}"
+                                data-metals-count="{{product.metafields.attributes.metals.size}}"
+                                data-attributes-center-stone-count="{{attributes_center_stone_count}}"
+                                data-side-stone-shapes="{{product.metafields.attributes.side_stone_shapes}}"
+                                data-side-stone-count="{{product.metafields.attributes.side_stone_count}}"
+                                data-disclaimer = "{{ image_disclaimer }}"
+                            >{{ product.options_with_values | json }}</textarea>
+                        {% elsif metal == 'Two-Tone 14K White Gold and 14K Yellow Gold' %}
+                            {%- if activeMetalValue == 'Two-Toned Gold' -%}
+                                {%- assign activeMetalValue = 'Two-Tone 14K White Gold and 14K Yellow Gold' | replace: '14K', '' | replace: '18K', '' | rstrip -%}
+                            {%- endif -%}
+                            {% comment %}{% assign dynamicWeight = settings.metal_14k_two_tone | to_i %}
+                            {% assign metalWeightPrice = dynamicWeight | times: metal_weight %}{% endcomment %}
+                            <div class="swatch swatch-yellow swatch-yellow-white{% if activeMetal == activeMetalValue %} active{% endif %}"{% unless logic_disclaimer == 'true' %} data-disclaimer="{{image_disclaimer}}"{% endunless %} data-metal-color="yellow-white" data-handle="{{ product.handle }}" data-ctw-fraction="{{ ctw_fraction }}" onclick="swatchCollectionSelectedFun(this, 'metal', '{{ isBundleProduct }}')" tabindex="0" role="button" aria-label="Yellow White">
+                                <span class="metaltext">YW</span>
+                            </div>
+                            <textarea
+                                style="display: none;"
+                                class="swatch-collection-selected yellow-white{% if activeMetal == activeMetalValue %} active{% endif %}"
+                                data-product-handle="{{ product.handle }}"
+                                data-metal-carat="Two-Tone 14K White Gold and 14K Yellow Gold"
+                                data-metal="Two-Tone White Gold and Yellow Gold"
+                                {%- comment -%}data-default-metal="{% if activeMetal == activeMetalValue %}{{ product.metafields.attributes.collection_page_default_metal }}{% endif %}"{%- endcomment -%}
+                                data-default-metal="{% if activeMetal == activeMetalValue %}Two-Tone White Gold and Rose Gold{% endif %}"
+                                {% if qualityValue %}data-default-quality="{{ qualityValue }}"{% endif %}
+                                {% if caratValue %}data-default-carat="{{ caratValue }}"{% endif %}
+                                data-default-shape="{% if collection.metafields.custom.collection_shape != blank %}{{ collection.metafields.custom.collection_shape }}{% else %}{{ product.metafields.attributes.collection_page_default_shape }}{% endif %}"
+                                data-default-position="{{ product.metafields.attributes.collection_page_default_position }}"
+                                data-default-hover-position="{{ product.metafields.attributes.collection_page_hover_position }}"
+                                data-default-extension="{{ product.metafields.attributes.image_convention_extension  }}"
+                                data-option-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-option-compare-at-price="{% if attributes_basic_builder == 1 and product.variants.size > 1 %}0{% else %}{{metalWeightPrice | times: 100}}{% endif %}"
+                                data-basic-builder="{{attributes_basic_builder}}"
+                                data-product-variants="{{ product.variants.size }}"
+                                data-materials-count="{{product.metafields.attributes.materials.size}}"
+                                data-metals-count="{{product.metafields.attributes.metals.size}}"
+                                data-attributes-center-stone-count="{{attributes_center_stone_count}}"
+                                data-side-stone-shapes="{{product.metafields.attributes.side_stone_shapes}}"
+                                data-side-stone-count="{{product.metafields.attributes.side_stone_count}}"
+                                data-disclaimer = "{{ image_disclaimer }}"
+                            >{{ product.options_with_values | json }}</textarea>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        {%- assign is_shape_added = false -%}
+            {% if productBundles.count > 0 %}
+                {% if collection.metafields.custom.collection_shape != blank %}
+                {% assign defaultShapeSelected = collection.metafields.custom.collection_shape %}
+                {% else %}
+                {% assign defaultShapeSelected = 'Round Cut' %}
+                {% endif %}
+                
+                {% if shapeParams != blank %}
+                    {% assign defaultShapeSelected = shapeParams %}
+                {% else %}
+                {% if collection.metafields.custom.collection_shape != blank %}
+                        {% assign defaultShapeSelected = collection.metafields.custom.collection_shape %}
+                {% else %}
+                    {% if product.metafields.attributes.collection_page_default_shape != blank %}
+                        {% assign defaultShapeSelected = product.metafields.attributes.collection_page_default_shape %}
+                    {% endif %}
+                {% endif %}
+                {% endif %}
+                {%- assign is_shape_added = true -%}
+                <div class="shape-filter-wrapper">
+                    {% comment %} <div class="shape-filter-label" aria-label="Shape filter">
+                        <span class="shape-label">Shape: </span>
+                        {% comment %} <span class="shape-value" id="shape-text-{{ product.handle }}">{{- defaultShapeSelected | replace: 'Cut', '' | strip -}}</span> {% endcomment %}
+                    </div> {% endcomment %}
+                    <div class="shape-filter-list-wrapper">
+                        <div class="shape-filter-list prdshape-slider slick-cls">
+                        {% for product_bundle in productBundles %}
+                            {% assign shapes = product_bundle.metafields.attributes.shapes %}
+                                <div class="slide">
+                                    <div class="slide-cls swatch-collection-shape-item-selected shape-item-{{ shapes | replace: " ", "-" | downcase }} shape-item{% if shapes == defaultShapeSelected %} active{% endif %}" data-shape="{{ shapes }}" aria-label="{{ shapes }}" data-handle="{{ product.handle }}" data-shape-handle="{{ product_bundle.handle }}" onclick="swatchCollectionSelectedFun(this, 'shape', '{{ isBundleProduct }}')">
+                                        {% if shapes == 'Round Cut' %}
+                                            {% render 'icon-shape-round-cut' %}
+                                        {% elsif shapes == 'Princess Cut' %}
+                                            {% render 'icon-shape-princess-cut' %}
+                                        {% elsif shapes == 'Cushion Cut' %}
+                                            {% render 'icon-shape-cushion-cut' %}
+                                        {% elsif shapes == 'Oval Cut' %}
+                                            {% render 'icon-shape-oval-cut' %}
+                                        {% elsif shapes == 'Emerald Cut' %}
+                                            {% render 'icon-shape-emerald-cut' %}
+                                        {% elsif shapes == 'Asscher Cut' %}
+                                            {% render 'icon-shape-asscher-cut' %}
+                                        {% elsif shapes == 'Radiant Cut' %}
+                                            {% render 'icon-shape-radiant-cut' %}
+                                        {% elsif shapes == 'Pear Cut' %}
+                                            {% render 'icon-shape-pear-cut' %}
+                                        {% elsif shapes == 'Heart Cut' %}
+                                            {% render 'icon-shape-heart-cut' %}
+                                        {% elsif shapes == 'Marquise Cut' %}
+                                            {% render 'icon-shape-marquise-cut' %}
+                                        {% elsif shapes == 'Oval Rose Cut' %}
+                                            {% render 'icon-shape-oval-rose-cut' %}
+                                        {% elsif shapes == 'Trillion Cut' %}
+                                            {% render 'icon-shape-trillion-cut' %}
+                                        {% elsif shapes == 'Half Cut' %}
+                                            {% render 'icon-shape-half-moon-cut' %}
+                                        {% elsif shapes == 'Baguette Cut' %}
+                                            {% render 'icon-shape-baguette-cut' %}
+                                        {% elsif shapes == 'Rose Brilliant Cut' %}
+                                            {% render 'icon-shape-baguette-cut' %}
+                                        {% elsif shapes == 'Rose Cut' %}
+                                            {% render 'icon-shape-oval-rose-cut' %}
+                                        {% elsif shapes == 'Trapezoid Cut' %}
+                                            {% render 'icon-shape-trapezoid-cut' %}
+                                        {% elsif shapes == 'Elongated Cushion Cut' %}
+                                            {% render 'icon-shape-elongated-cushion' %}
+                                        {% elsif shapes == 'Old Mine Cut' %}
+                                            {% render 'icon-shape-old-mine-cut' %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                {% if product.metafields.attributes.shapes != blank %}
+                {% assign allShapes = product.metafields.attributes.shapes | split: '|' %}
+                {% if allShapes.size >= 1 %}
+                    {% if collection.metafields.custom.collection_shape != blank %}
+                        {% assign defaultShapeSelected = collection.metafields.custom.collection_shape %}
+                    {% else %}
+                        {% assign defaultShapeSelected = 'Round Cut' %}
+                    {% endif %}
+                    {% if shapeParams != blank %}
+                        {% assign defaultShapeSelected = shapeParams %}
+                    {% else %}
+                        {% if collection.metafields.custom.collection_shape != blank %}
+                            {% assign defaultShapeSelected = collection.metafields.custom.collection_shape %}
+                        {% else %}
+                            {% if product.metafields.attributes.collection_page_default_shape != blank %}
+                                {% assign defaultShapeSelected = product.metafields.attributes.collection_page_default_shape %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    {%- assign is_shape_added = true -%}
+                    <div class="shape-filter-wrapper">
+                        {% comment %} <div class="shape-filter-label" aria-label="Shape filter">
+                            <span class="shape-label">Shape: </span>
+                            {% comment %} <span class="shape-value" id="shape-text-{{ product.handle }}">{{- defaultShapeSelected | replace: 'Cut', '' | strip -}}</span> {% endcomment %}
+                        </div> {% endcomment %}
+                        <div class="shape-filter-list-wrapper">
+                            <div class="shape-filter-list prdshape-slider slick-cls">
+                                {% for shapes in allShapes %}
+                                    <div class="slide">
+                                        <div class="slide-cls swatch-collection-shape-item-selected shape-item-{{ shapes | replace: " ", "-" | downcase }} shape-item{% if shapes == defaultShapeSelected %} active{% endif %}" data-shape="{{ shapes }}" aria-label="{{ shapes }}" data-handle="{{ product.handle }}" onclick="swatchCollectionSelectedFun(this, 'shape', '{{ isBundleProduct }}')">
+                                            {% if shapes == 'Round Cut' %}
+                                                {% render 'icon-shape-round-cut' %}
+                                            {% elsif shapes == 'Princess Cut' %}
+                                                {% render 'icon-shape-princess-cut' %}
+                                            {% elsif shapes == 'Cushion Cut' %}
+                                                {% render 'icon-shape-cushion-cut' %}
+                                            {% elsif shapes == 'Oval Cut' %}
+                                                {% render 'icon-shape-oval-cut' %}
+                                            {% elsif shapes == 'Emerald Cut' %}
+                                                {% render 'icon-shape-emerald-cut' %}
+                                            {% elsif shapes == 'Asscher Cut' %}
+                                                {% render 'icon-shape-asscher-cut' %}
+                                            {% elsif shapes == 'Radiant Cut' %}
+                                                {% render 'icon-shape-radiant-cut' %}
+                                            {% elsif shapes == 'Pear Cut' %}
+                                                {% render 'icon-shape-pear-cut' %}
+                                            {% elsif shapes == 'Heart Cut' %}
+                                                {% render 'icon-shape-heart-cut' %}
+                                            {% elsif shapes == 'Marquise Cut' %}
+                                                {% render 'icon-shape-marquise-cut' %}
+                                            {% elsif shapes == 'Oval Rose Cut' %}
+                                                {% render 'icon-shape-oval-rose-cut' %}
+                                            {% elsif shapes == 'Trillion Cut' %}
+                                                {% render 'icon-shape-trillion-cut' %}
+                                            {% elsif shapes == 'Half Cut' %}
+                                                {% render 'icon-shape-half-moon-cut' %}
+                                            {% elsif shapes == 'Baguette Cut' %}
+                                                {% render 'icon-shape-baguette-cut' %}
+                                            {% elsif shapes == 'Rose Brilliant Cut' %}
+                                                {% render 'icon-shape-baguette-cut' %}
+                                            {% elsif shapes == 'Rose Cut' %}
+                                                {% render 'icon-shape-oval-rose-cut' %}
+                                            {% elsif shapes == 'Trapezoid Cut' %}
+                                                {% render 'icon-shape-trapezoid-cut' %}
+                                            {% elsif shapes == 'Elongated Cushion Cut' %}
+                                                {% render 'icon-shape-elongated-cushion' %}
+                                            {% elsif shapes == 'Old Mine Cut' %}
+                                                {% render 'icon-shape-old-mine-cut' %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+            {% comment %} {% if product.metafields.attributes.materials.value != "blank" 
+            and product.metafield.attributes.center_stone_count != "blank" 
+            and product.metafield.attributes.colors != "blank" %}
+                <div class="shape-filter-label" aria-label="Shape filter">
+                    <span class="shape-label">
+                        (multiple carat weights available)
+                    </span>
+                </div>
+            {% endif %} {% endcomment %}
+                            
+                        
+                    
+                {% endif %}
+            {% endif %}
+            
+        {% endif %}
+        {%- unless is_shape_added -%}
+                <div class="shape-filter-wrapper"></div>
+            {%- endunless -%}
+        {% endif %}
+    </div>
+
+  </div>

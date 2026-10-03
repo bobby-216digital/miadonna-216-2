@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "62c586ca-3a53-4562-9119-9d048484289f": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "origins-certifications-faqs"
+          }
+        },
+        "custom_html_a4r7gp": {
+          "type": "custom_html",
+          "settings": {
+            "html": "<script type=\"application\/ld+json\">\n{\n  \"@context\": \"https:\/\/schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [{\n    \"@type\": \"Question\",\n    \"name\": \"What is a B Corp?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"B Corp stands for Benefit Corporation. Certified B Corporations are businesses that meet and verify the highest social and environmental performance standards, public transparency, and legal accountability to balance profit and purpose.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Is MiaDonna B Corp Certifed?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Yes! We’ve been certified since 2019 and are proud to be the first B Corp Certified Lab Grown Diamond Company! Now that lab grown diamonds have become mainstream like we always knew they would, it's even harder to sift through the misleading information. However, a significant facet of our mission is to advocate for the consumer – that’s you! Becoming B Corp certified was essential for us to prove our sustainability claims through a prestigious third-party verification. We must go beyond transparency and validate that our core values align with you, our socially and environmentally conscious consumers. Since 2005 we have walked the walk, talked the talk, and are still eager to prove and earn your trust.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Who grades your Lab Grown Diamonds?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"All MiaDonna Lab-Grown Diamonds will automatically come with a complimentary diamond grading report from the IGI, GIA or GCal. Every Lab-Grown Diamond will be graded on its 4 C's (color, cut, clarity, and color). The report will identify your Lab-Grown Diamond as 'laboratory grown' and show all the graded diamond's measurements, proportions, finish, and identifications. *These Lab Created Diamond grading reports are not appraisals.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What are diamond grading reports?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"IGI and EGLUSA MiaDonna Lab-Created Diamond grading reports: All MiaDonna lab-created diamonds will automatically come with a complimentary diamond grading report from either the IGI or GCal. Every lab-created diamond will be graded on its 4 C's (color, cut, clarity, and color). The report will identify your lab-created diamond as laboratory grown and will show all measurements, proportions, finish and identifications of the diamond graded. *These lab-created diamond grading reports are not appraisals. Global Gemological Laboratory Diamond Hybrid® grading reports: The Diamond Hybrid will automatically come with an official report card from the Global Gemological Lab. This report card is simply a third party report that verifies the technology used to create the Diamond Hybrid and comes with every Diamond Hybrid order. It is not a grading report of your individual jewelry purchase. However, you can upgrade and have your finished jewelry sent to the lab for independent testing. This grading report will individually grade all the Diamond Hybrid stones, accenting diamonds, and metal types used in your personal piece of jewelry. Both the Diamond Hybrid and the accenting side diamonds will be graded based upon the traditional 4 C's (color, clarity, carat, and cut).\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Will my diamond grading report show a value that I can use for insurance purposes?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"No, the grading reports are for your peace of mind. They independently verify the technologies being used, as well as the quality of the Lab-Grown Diamond you are receiving. Please use your purchase receipt from MiaDonna for insurance purposes.\"\n    }\n  }]\n}\n<\/script>"
+          }
+        }
+      },
+      "block_order": [
+        "62c586ca-3a53-4562-9119-9d048484289f",
+        "custom_html_a4r7gp"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

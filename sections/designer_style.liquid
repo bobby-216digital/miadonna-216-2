@@ -1,0 +1,154 @@
+{{ 'prime.scss.css' | asset_url | stylesheet_tag }}
+{{ 'page-custom.css' | asset_url | stylesheet_tag }}
+<div class="diamond-landing-template-content">
+  <section
+  class="
+    section
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+      has-background
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' and section.settings.show_gutter == false %}
+      equal-columns--outside-trim
+    {% endif %}
+    lgd-trending-styles
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+    <header>
+      <div class="_inner">
+        <h4>
+          <span class="block-pre-header">{{ section.settings.preheading }}</span>
+          <span class="block-header">{{ section.settings.heading }}</span>
+        </h4>
+        <i class="ornamental-break -dark"></i>
+      </div>
+    </header>
+
+    <div class="pure-g body-cell trending-collections">
+    {% for block in section.blocks %}   
+      <div class="pure-u-1 pure-u-sm-1-4" style="" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide00">
+        <a href="{{ block.settings.link }}" class="collection collection-solitaire" tabindex="-1">
+          <span>{{ block.settings.title }}</span>
+           {%- render 'image-element',
+                image: block.settings.image,
+                alt: block.settings.title,
+                stretch_width: true, -%}
+        </a>
+      </div>
+    {% endfor %}
+    </div>
+  </section>
+</div>
+{% schema %}
+  {
+    "name": "Trending Style",
+    "settings": [
+      {
+        "type": "text",
+        "id": "preheading",
+        "label": "Pre Heading"
+      },
+        {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },      
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px"
+    },{
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+    ],  
+    "blocks": [
+    {
+      "type": "text",
+      "name": "Style",
+      "settings": [
+        {
+          "type": "image_picker",
+           "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+         {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+      ],
+   
+      "presets": [
+    {
+      "name": "Trending Style",
+      "category": "Text"
+    }
+      ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

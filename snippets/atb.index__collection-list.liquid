@@ -1,0 +1,565 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Collection list",
+  "class": "collection-list",
+  "max_blocks": 8,
+  "id": "index__collection-list",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_collections_per_row",
+      "label": "Collections per row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_align_height",
+      "label": "Align to height",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_collection_height",
+      "label": "Collection image height",
+      "min": 200,
+      "max": 400,
+      "step": 10,
+      "default": 400,
+      "unit": "px",
+      "info": "Applied when 'Align to height' is also enabled. [Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360024344614)"
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_enable_zoom",
+      "label": "Magnify image on hover",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_style",
+      "label": "Button style",
+      "default": "button--secondary",
+      "options": [
+        {
+          "value": "button--primary",
+          "label": "Primary"
+        },
+        {
+          "value": "button--secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "button--link-style",
+          "label": "Link"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Overlay",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_overlay_background",
+      "label": "Background",
+      "default": "#939393",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_overlay_background_opacity",
+      "label": "Background opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "default": 70,
+      "unit": "%",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_overlay_text",
+      "label": "Text",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_collection_title_below_image",
+      "label": "Show collection title below image",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_gutter",
+      "label": "Show gutter",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Collection"
+    },
+    {
+      "type": "collection",
+      "id": "block_feature_collection",
+      "label": "Collection",
+      "repeatable": "Collection",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "block_image",
+      "label": "Image",
+      "info": "The collection's featured image will be used as a fallback.",
+      "repeatable": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "block_title",
+      "label": "Heading",
+      "repeatable": "Collection",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_button_label",
+      "label": "Button label",
+      "default": "View products",
+      "repeatable": "Collection",
+      "info": ""
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_collections_per_row' -%}
+{%- assign atb_collections_per_row = val -%}
+{%- include 'atb-render' field:'atb_align_height' -%}
+{%- assign atb_align_height = val -%}
+{%- include 'atb-render' field:'atb_collection_height' -%}
+{%- assign atb_collection_height = val -%}
+{%- include 'atb-render' field:'atb_enable_zoom' -%}
+{%- assign atb_enable_zoom = val -%}
+{%- include 'atb-render' field:'atb_button_style' -%}
+{%- assign atb_button_style = val -%}
+{%- include 'atb-render' field:'atb_overlay_background' -%}
+{%- assign atb_overlay_background = val -%}
+{%- include 'atb-render' field:'atb_overlay_background_opacity' -%}
+{%- assign atb_overlay_background_opacity = val -%}
+{%- include 'atb-render' field:'atb_overlay_text' -%}
+{%- assign atb_overlay_text = val -%}
+{%- include 'atb-render' field:'atb_collection_title_below_image' -%}
+{%- assign atb_collection_title_below_image = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_show_gutter' -%}
+{%- assign atb_show_gutter = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_feature_collection' -%}
+{%- assign block_feature_collection = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_button_label' -%}
+{%- assign block_button_label = val -%}
+{%- if atb_align_height == blank -%}
+{%- assign atb_align_height = false -%}
+{%- else -%}
+{%- assign atb_align_height = true -%}
+{%- endif -%}
+{%- if atb_enable_zoom == blank -%}
+{%- assign atb_enable_zoom = false -%}
+{%- else -%}
+{%- assign atb_enable_zoom = true -%}
+{%- endif -%}
+{%- if atb_collection_title_below_image == blank -%}
+{%- assign atb_collection_title_below_image = false -%}
+{%- else -%}
+{%- assign atb_collection_title_below_image = true -%}
+{%- endif -%}
+{%- if atb_show_gutter == blank -%}
+{%- assign atb_show_gutter = false -%}
+{%- else -%}
+{%- assign atb_show_gutter = true -%}
+{%- endif -%}
+{%- assign atb_collections_per_row = atb_collections_per_row | plus: 0 -%}
+{%- assign atb_collection_height = atb_collection_height | plus: 0 -%}
+{%- assign atb_overlay_background_opacity = atb_overlay_background_opacity | plus: 0 -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section collection-list">
+{% comment %}
+** Collection list **
+{% endcomment %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign blocks = section.blocks -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{%- assign overlay_alpha = atb_overlay_background | color_extract: 'alpha' -%}
+{%- assign overlay_text_alpha = atb_overlay_text | color_extract: 'alpha' -%}
+{% comment %} Opacity level {% endcomment %}
+{% if overlay_alpha != 0 %}
+  {%- assign overlay_background_alpha = atb_overlay_background_opacity | divided_by: 100.00 -%}
+{% endif %}
+
+{% if atb_align_height %}
+  {%- assign collection_height = atb_collection_height -%}
+{% endif %}
+
+{%- capture section_css -%}
+  {% if atb_align_height != blank %}
+    .placeholder-svg {
+      height: {{ collection_height }}px;
+      max-height: {{ collection_height }}px;
+    }
+  {% endif %}
+
+  .collection-thumbnail-overlay {
+    background-color: {%- if overlay_alpha != 0 -%}{{ atb_overlay_background | color_modify: 'alpha', overlay_background_alpha }}{% endif %};
+  }
+
+  .collection-info__caption span {
+    color: {%- if overlay_text_alpha != 0 -%}{{ atb_overlay_text }}{% endif %}
+  }
+{%- endcapture -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section_id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+  {% render 'css-loop',
+          css: section_css,
+          id: section_id
+  %}
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+
+ .custom-collection-list .collection-info__caption-wrapper{
+    width: 100%;
+    opacity: 0;
+  }
+  /* .custom-collection-list .collection-info__caption-wrapper:before{
+    width: 100%;
+    height:100%;
+    position: absolute;
+    content: '';
+  } */
+  .custom-collection-list .collection-info__caption-wrapper .title{
+    font-family: 'Playfair Display';
+    text-align: center;
+  }
+  .custom-collection-list .product-wrap .collection-info__caption-wrapper{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translate(0%, -50%);
+  }
+  .custom-collection-list .product-wrap:hover .collection-info__caption-wrapper{
+    opacity: 1;
+  }
+  .custom-collection-list .product-wrap .collection-info__caption:after{
+   background: #eae0d4;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+    color: #212121;
+    display: block;
+    font-family: Montserrat,sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0;
+    padding: 9px 0;
+    position: absolute;
+    transition: opacity .35s ease-in-out;
+    width: 100%;
+    font-size: 13px;
+    content: "Shop Collection"!important;
+    padding: 13px 40px;
+    font-size: 14px;
+  }
+@media only screen and (max-width: 798px) {
+  .custom-collection-list .product-wrap .collection-info__caption:after{
+    opacity: 1;
+  }
+}
+  .custom-collection-list .product-wrap:hover .collection-info__caption:after{
+    opacity: 1;
+  }
+  .custom-collection-list .product-wrap:hover .has-image-crop img{
+      filter: blur(7px);
+  }
+{% endstyle %}
+
+<section class="section
+                {{ atb_css_class }}
+                is-width-{{ atb_width }}
+                {% if atb_show_gutter == false %}
+                  has-no-side-gutter
+                  has-background
+                {% else %}
+                  has-gutter-enabled
+                {% endif %}
+                {% if blocks.size > atb_collections_per_row %}
+                  has-multirow-blocks
+                {% endif %}
+                "
+                {% if atb_animation != "none" %}
+                  data-scroll-class="{{ atb_animation }}"
+                {% endif %}>
+
+  <div class="container">
+    {% if blocks.size > 0 %}
+
+      {% for block in blocks %}
+
+        {% comment %} Content settings {% endcomment %}
+        {%- assign collection = collections[block_feature_collection[forloop.index0]] -%}
+        {%- assign image = my_image0 -%}
+        {%- assign title = block_title[forloop.index0] -%}
+        {%- assign button_label = block_button_label[forloop.index0] -%}
+        {% comment %} End content settings {% endcomment %}
+
+        {% if image != blank %}
+          {%- assign collection_image = image -%}
+          {%- assign collection_image_alt = image.alt | escape -%}
+        {% elsif collection.image != blank %}
+          {%- assign collection_image = collection.image -%}
+          {%- assign collection_image_alt = collection.image.alt | escape -%}
+        {% else collection.empty? == false %}
+          {%- assign collection_image = collection.products.first.featured_image -%}
+          {%- assign collection_image_alt = collection.products.first.featured_image.alt | escape -%}
+        {% endif %}
+
+        <div class="column
+                    {% render 'column-width', value: atb_collections_per_row %}
+                    thumbnail
+                    {% if atb_align_height %}
+                      list-collection--align-height
+                    {% endif %}
+                    {% if atb_show_gutter == true %}
+                      has-gutter has-gutter--mobile
+                    {% endif %}
+                    list-collection__thumbnail medium-down--one-half small-down--one-whole">
+
+          <div class="product-wrap enable-zoom-{{ atb_enable_zoom }}">
+            <div class="collection-thumbnail-overlay"></div>
+
+            {% if collection_image != blank %}
+              <div class="thumbnail image__container has-image-crop">
+                {%
+                  render 'image-element',
+                  image: collection_image.src,
+                  alt: collection_image_alt,
+                  image_crop: true,
+                  max_height: collection_height,
+                %}
+              </div>
+            {% else %}
+              {% capture num %}{% cycle "1", "2", "3", "4", "5", "6" %}{% endcapture %}
+              {{ 'collection-' | append: num | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+
+            <a class="collection-info__caption" href="{{ collection.url }}">
+              {% if atb_collection_title_below_image == blank %}
+                <div class="collection-info__caption-wrapper">
+                  <span class="title">
+                    {% if title != blank %}
+                      {{ title }}
+                    {% elsif collection != blank %}
+                      {{ collection.title }}
+                    {% else %}
+                      {{ "homepage.onboarding.collection_title" | t }}
+                    {% endif %}
+                  </span>
+                  {% render 'button',
+                          label: button_label,
+                          href: collection.url,
+                          style: atb_button_style
+                  %}
+                </div>
+              {% endif %}
+            </a>
+          </div>
+          {% if atb_collection_title_below_image != blank %}
+            <a class="collection-info__caption-wrapper collection-info__caption--below-image" href="{{ collection.url }}">
+              <span class="title">
+                {% if title != blank %}
+                  {{ title }}
+                {% elsif collection != blank %}
+                  {{ collection.title }}
+                {% else %}
+                  {{ "homepage.onboarding.collection_title" | t }}
+                {% endif %}
+              </span>
+              {% render 'button',
+                      label: button_label,
+                      href: collection.url,
+                      style: atb_button_style
+              %}
+            </a>
+          {% endif %}
+        </div>
+
+      {% endfor %}
+
+    {% endif %}
+  </div>
+</section>
+
+
+</section>

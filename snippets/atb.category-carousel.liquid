@@ -1,0 +1,393 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Category carousel",
+  "class": "category-crousel jsCategoryCarousel",
+  "id": "category-carousel",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_gutter",
+      "label": "Show gutter",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_hide_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background_color",
+      "label": "Background",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 20,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Image"
+    },
+    {
+      "type": "select",
+      "id": "block_text_position",
+      "label": "Text position",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "repeatable": "Image",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "block_image",
+      "label": "Image",
+      "info": "1024 x 1024px recommended",
+      "repeatable": "Image"
+    },
+    {
+      "type": "text",
+      "id": "block_image_link",
+      "label": "Link",
+      "repeatable": "Image",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "block_text_alignment",
+      "label": "Text alignment",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "repeatable": "Image",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_title_1",
+      "label": "Title 1",
+      "repeatable": "Image",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_title_2",
+      "label": "Title 2",
+      "repeatable": "Image",
+      "info": ""
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_show_gutter' -%}
+{%- assign atb_show_gutter = val -%}
+{%- include 'atb-render' field:'atb_hide_mobile' -%}
+{%- assign atb_hide_mobile = val -%}
+{%- include 'atb-render' field:'atb_background_color' -%}
+{%- assign atb_background_color = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_text_position' -%}
+{%- assign block_text_position = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_image_link' -%}
+{%- assign block_image_link = val -%}
+{%- include 'atb-render' field:'block_text_alignment' -%}
+{%- assign block_text_alignment = val -%}
+{%- include 'atb-render' field:'block_title_1' -%}
+{%- assign block_title_1 = val -%}
+{%- include 'atb-render' field:'block_title_2' -%}
+{%- assign block_title_2 = val -%}
+{%- if atb_show_gutter == blank -%}
+{%- assign atb_show_gutter = false -%}
+{%- else -%}
+{%- assign atb_show_gutter = true -%}
+{%- endif -%}
+{%- if atb_hide_mobile == blank -%}
+{%- assign atb_hide_mobile = false -%}
+{%- else -%}
+{%- assign atb_hide_mobile = true -%}
+{%- endif -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section category-crousel jsCategoryCarousel">
+{% comment %}
+  ** Category carousel **
+{% endcomment %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign blocks = section.blocks -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section_id }} {
+    background-color: {{ atb_background_color }};
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if atb_hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section_id }} .category-carousel-wrapper .category-carousel-column {
+    position: relative;
+  }
+  #shopify-section-{{ section_id }} .category-carousel-wrapper .category-carousel__column {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    width: 350px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 26px;
+    padding: 0 20px;
+    letter-spacing: 1.4px;
+  }
+  #shopify-section-{{ section_id }} .category-carousel-wrapper .image-text em {
+    font-weight: 400;
+    font-family: "Playfair Display";
+  }
+  #shopify-section-{{ section_id }} .category-carousel-wrapper .flickity-button{
+    background: transparent;
+  }
+  #shopify-section-{{ section_id }} .category--carousel.no-slider:after {
+    content: "flickity";
+    display: none; /* hide :after */
+  }
+  @media screen and (min-width: 1025px) {
+    /* disable Flickity for large devices */
+    #shopify-section-{{ section_id }} .category--carousel.no-slider:after {
+      content: "";
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section_id }} .category-carousel-wrapper .image-text {
+      width: 250px;
+      font-size: 20px;
+      line-height: 26px;
+      padding: 5px 20px;
+    }
+  }
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-image-with-text
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    {% if atb_show_gutter == false %}
+      has-no-side-gutter
+      has-background
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  <div
+    class="container category-carousel-wrapper category--carousel has-no-side-gutter {% if blocks.size < 5 %}no-slider{% endif %}"
+    data-products-per-slide="4"
+    data-products-limit="{% if blocks.size > 4 %}20{% else %}4{% endif %}"
+    data-products-available="{% if blocks.size > 4 %}20{% else %}4{% endif %}"
+  >
+    {% if blocks.size > 0 %}
+      {% for block in blocks %}
+        <div
+          class="category-carousel-column one-fourth medium-down--one-third small-down--one-whole column"
+        >
+          {% if my_image0 != blank %}
+            {%
+              render 'image-element',
+              image: my_image0,
+              alt: my_image0.alt,
+              focal_point: my_image0.presentation.focal_point,
+            %}
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+          {% if block_title_1[forloop.index0] != blank or block_title_2[forloop.index0] != blank %}
+            <div class="category-carousel__column" style="{{ block_text_position[forloop.index0] }}: 0;">
+              <div class="image-text text-{{ block_text_position[forloop.index0] }}">
+                <p>
+                  <em>{{ block_title_1[forloop.index0] }}</em>
+                </p>
+                <p>{{ block_title_2[forloop.index0] }}</p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsCategoryCarousel.js' | asset_url }}"></script>
+
+
+</section>

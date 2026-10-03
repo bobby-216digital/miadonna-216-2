@@ -1,0 +1,417 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Announcement",
+  "class": "announcement-container jsAnnouncementBar",
+  "id": "announcement-bar",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_icon_label",
+      "label": "Icon",
+      "placeholder": "Enter icon name",
+      "info": "[Icon list](https://help.outofthesandbox.com/hc/en-us/articles/360021570294)",
+      "default": "tag"
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_text",
+      "label": "Text",
+      "default": "<p>Draw attention to promos + sales!</p>",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_size",
+      "label": "Base size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "regular",
+          "label": "Regular"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "regular",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Button",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_label",
+      "label": "Label",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_link",
+      "label": "Link",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_button_style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "button--primary",
+          "label": "Primary"
+        },
+        {
+          "value": "button--secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "button--link-style",
+          "label": "Link style"
+        }
+      ],
+      "default": "button--primary",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background",
+      "label": "Background",
+      "default": "#000000",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_text_color",
+      "label": "Text",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "wide",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_homepage_only",
+      "label": "Home page only",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_enable_sticky",
+      "label": "Enable sticky on scroll",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_close_icon",
+      "label": "Show close icon",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Announcement-Bar"
+    },
+    {
+      "type": "wysiwyg",
+      "id": "block_text",
+      "label": "Text",
+      "default": "<p>Draw attention to promos + sales!</p>",
+      "repeatable": "Announcement-Bar",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_link",
+      "label": "Link",
+      "repeatable": "Announcement-Bar",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_icon_label' -%}
+{%- assign atb_icon_label = val -%}
+{%- include 'atb-render' field:'atb_text' -%}
+{%- assign atb_text = val -%}
+{%- include 'atb-render' field:'atb_alignment' -%}
+{%- assign atb_alignment = val -%}
+{%- include 'atb-render' field:'atb_size' -%}
+{%- assign atb_size = val -%}
+{%- include 'atb-render' field:'atb_button_label' -%}
+{%- assign atb_button_label = val -%}
+{%- include 'atb-render' field:'atb_link' -%}
+{%- assign atb_link = val -%}
+{%- include 'atb-render' field:'atb_button_style' -%}
+{%- assign atb_button_style = val -%}
+{%- include 'atb-render' field:'atb_background' -%}
+{%- assign atb_background = val -%}
+{%- include 'atb-render' field:'atb_text_color' -%}
+{%- assign atb_text_color = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_homepage_only' -%}
+{%- assign atb_homepage_only = val -%}
+{%- include 'atb-render' field:'atb_enable_sticky' -%}
+{%- assign atb_enable_sticky = val -%}
+{%- include 'atb-render' field:'atb_show_close_icon' -%}
+{%- assign atb_show_close_icon = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_text' -%}
+{%- assign block_text = val -%}
+{%- include 'atb-render' field:'block_link' -%}
+{%- assign block_link = val -%}
+{%- if atb_homepage_only == blank -%}
+{%- assign atb_homepage_only = false -%}
+{%- else -%}
+{%- assign atb_homepage_only = true -%}
+{%- endif -%}
+{%- if atb_enable_sticky == blank -%}
+{%- assign atb_enable_sticky = false -%}
+{%- else -%}
+{%- assign atb_enable_sticky = true -%}
+{%- endif -%}
+{%- if atb_show_close_icon == blank -%}
+{%- assign atb_show_close_icon = false -%}
+{%- else -%}
+{%- assign atb_show_close_icon = true -%}
+{%- endif -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section announcement-container jsAnnouncementBar">
+{% comment %}
+  ** Announcement bar - static **
+{% endcomment %}
+
+{% assign id = section_id %}
+{% assign icon = atb_icon_label | downcase %}
+{% assign size = atb_size %}
+{% assign text_color = atb_text_color %}
+{% assign show_close_icon = atb_show_close_icon %}
+
+{% comment %} Advanced {% endcomment %}
+{% assign width = atb_width %}
+{% assign css_class = atb_css_class %}
+{% assign custom_css = atb_custom_css %}
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{% assign text_alpha = text_color | color_extract: 'alpha' %}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% capture section_css -%}
+  .announcement-bar {
+    background-color: {{ atb_background }};
+  }
+
+  .announcement-bar__icon {
+    fill: {{ text_color }};
+  }
+
+  .announcement-bar__close {
+    fill: {{ text_color }};
+    background-color: {{ text_color | color_modify: 'alpha', 0.1 }};
+  }
+
+  .announcement-bar__close:hover {
+    background-color: {{ text_color | color_modify: 'alpha', 0.2 }};
+  }
+
+  .message-header {
+    color: {% if text_alpha != 0 %}{{ text_color }}{% else %}{{ settings.regular_color }}{% endif %};
+  }
+{%- endcapture -%}
+
+{% style %}
+  #shopify-section-{{ id }} {
+    {% if width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+  {% render 'css-loop',
+          css: section_css,
+          id: id
+  %}
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+{% capture announcement %}
+<div class="announcement-bar__container {{ css_class }}">
+  <div class="announcement-bar
+              is-{{ size }}
+              "
+        id="announcement-bar">
+    <div class="section
+                is-width-{{ width }}">
+      <div class="message-header">
+        <div class="announcement-bar__content is-justify-{{ atb_alignment }} show-close-icon-{{ show_close_icon }}">
+          {% if atb_icon_label != blank %}
+            <span class="announcement-bar__icon
+                        is-{{ size }}
+                       ">
+              {% render 'icon', name: icon %}
+            </span>
+          {% endif %}
+          <div class="announcement-bar__slider one-half large-down--one-whole">
+            {% for block0 in blocks %}
+              {% if block_link[forloop.index0] != blank %}
+                <a href="{{ block_link[forloop.index0] }}">
+              {% endif %}
+              <div class="announcement-bar__text text-align-{{ atb_alignment }}">
+                {{ block_text[forloop.index0] }}
+                <p class="buttons">
+                  {% if atb_button_label != blank %}
+                    {% render 'button',
+                            label: atb_button_label,
+                            href: atb_link,
+                            type: "link",
+                            style: atb_button_style
+                    %}
+                  {% endif %}
+                </p>
+              </div>
+              {% if block_link[forloop.index0] != blank %}
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        {% if show_close_icon %}
+          <button class="close announcement-bar__close js-close-announcement" aria-label="close">
+            {% render 'icon', name: 'x' %}
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="announcement-bar__shadow" id="announcement-bar__shadow" aria-hidden="true"></div>
+</div>
+{% endcapture %}
+
+{% if atb_homepage_only %}
+  {% if template.name == 'index' %}
+    {{ announcement }}
+  {% endif %}
+{% else %}
+  {{ announcement }}
+{% endif %}
+
+{% comment %}Javascript{% endcomment %}
+<script
+  type="application/json"
+  data-section-id="{{ section_id }}"
+  data-section-data
+>
+  {
+    "homepage_only": {{ atb_homepage_only | json }},
+    "enable_sticky": {{ atb_enable_sticky | json }},
+    "show_close_icon": {{ atb_show_close_icon | json }},
+    "alignment": {{ atb_alignment | json }},
+    "width": {{ atb_width | json }}
+  }
+</script>
+<script src="{{ 'z__jsAnnouncementBar.js' | asset_url }}"></script>
+
+{% comment %}Schema{% endcomment %}
+
+</section>

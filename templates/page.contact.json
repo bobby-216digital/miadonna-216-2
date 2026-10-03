@@ -1,0 +1,128 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "9d3b94de-5535-4db8-aa79-8e9a7200f940": {
+          "type": "richtext",
+          "settings": {
+            "richtext_alignment": "center",
+            "richtext_font": "Playfair Display,serif",
+            "richtext": "<h2>Have a question? Need a little style advice?<br/>Our personal shoppers are here to help.</h2><h2></h2>"
+          }
+        },
+        "dca43942-26a1-40c0-a38d-7099616defcb": {
+          "type": "richtext_2",
+          "settings": {
+            "richtext_2_alignment": "center",
+            "richtext_2_font": "Montserrat,sans-serif",
+            "richtext_column_1": "<h4>CONTACT US</h4><p>Toll Free: <a href=\"tel:1-866-996-9642\" title=\"tel:1-866-996-9642\">1-866-996-9642</a><br/>International: <a href=\"tel:1-503-336-1581\" target=\"_blank\" title=\"tel:1-503-336-1581\">(+1) 503-336-1581</a><br/><br/><a href=\"/\" title=\"/\"><strong>Launch Live Chat</strong></a><strong><br/></strong><a href=\"#contact-form-container\" title=\"#contact-form-container\"><strong>Email Us</strong></a><strong><br/></strong><a href=\"/pages/appointments\" title=\"Appointments\"><strong>Book An Appointment</strong></a><strong><br/></strong><a href=\"/pages/visit-us\" title=\"Portland Showroom\"><strong>Visit Us</strong></a></p><p></p>",
+            "content_html": "",
+            "richtext_column_2": "<h4>HOURS</h4>",
+            "content_html_2": "<p><b> Monday to Saturday:</b>  <br>10:00 am - 7:00 pm\n<br>\n<br>\n<b>Sunday:</b> <br>11:00 am - 6:00 pm</p>\n<p class=\"pink-text has-margin-top\">Current Time <span class=\"current-time\"></span></p>\n<div id=\"map\" style=\"display: none;\"></div>"
+          }
+        },
+        "d25b6e82-da3c-4734-9cb6-fcb0f65c03c4": {
+          "type": "image_with_text",
+          "settings": {
+            "alignment": "center",
+            "richtext_font": "Playfair Display,serif",
+            "title": "<h4>Our goal is to make your jewelry shopping experience fun, informative, and affordable.</h4><h4></h4>",
+            "description": "<h6>Our non-commission lab-grown diamond experts are standing by to be your advocate in finding you the best quality & most ethical fine jewelry. <br/><br/><a href=\"#contact-form-container\" title=\"#contact-form-container\">Contact us</a> now or book a <br/><a href=\"/pages/appointments\" title=\"Appointments\">virtual</a> or <a href=\"/pages/appointments\" title=\"Appointments\">in-person appoinment</a>.</h6>",
+            "position": "right",
+            "image": "shopify://shop_images/MiaDonna_Bridgeport_VIllage.png",
+            "image_title": "<p><em>MiaDonna Showroom, Portland, OR </em></p>",
+            "aspect_ratio": "16:9",
+            "autoplay": false,
+            "autoloop": true,
+            "mute_video": false,
+            "controls": true,
+            "iframe_video": ""
+          }
+        },
+        "9f8e69ac-aec6-4952-b04d-78520d9a24c3": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "richtext_font": "Montserrat,sans-serif",
+            "title": "Popular FAQ"
+          }
+        },
+        "f5d450c6-24b0-4456-87c0-28ba80f94339": {
+          "type": "content",
+          "disabled": true,
+          "settings": {
+            "column": "half",
+            "faqs_menu": "popular-faqs"
+          }
+        },
+        "1d505def-e247-476c-8507-7c7e8e4f6b01": {
+          "type": "contact_form",
+          "settings": {
+            "title": "Submit An Email",
+            "description": "<p>Send us an email using the form below and one of our jewelry and lab grown diamond experts will be in touch within 24 hours. Alternatively, email us directly at <a href=\"mailto:help@miadonna.com\" title=\"mailto:help@miadonna.com\">help@miadonna.com</a>.</p>",
+            "option1": "Select A Subject *",
+            "option2": "General Inquiries",
+            "option3": "Custom Design",
+            "option4": "Returns & Exchanges",
+            "option5": "Other",
+            "name": "Name *",
+            "email": "E-mail Address *",
+            "message": "Message *",
+            "required_text": "Required Fields *"
+          }
+        },
+        "custom_html_nyhzJn": {
+          "type": "custom_html",
+          "settings": {
+            "html": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [{\n    \"@type\": \"Question\",\n    \"name\": \"How long will it take to get my order?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"To ensure the highest quality, all of our jewelry is handcrafted and made to order to your specifications, aside from ready-to-ship items. Once your order is received and processed, it will take 10-15 business days to craft the jewelry. Once completed, your order ships domestically via UPS 2-Day Air or internationally in approximately 5 to 7 days, depending on the destination country. Ready-to-Ship items are pre-crafted and will ship the same business day with free 2-day shipping (domestic) if ordered before 11:00 am PST, Monday through Friday. Rings needing to be resized will require two days of additional processing time. Next-day shipping is available upon request for an additional charge. Loose Stones ship in approximately 5 business days from order. Learn more about our metal options to determine which choice is right for you.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Where do you ship?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"We ship domestically to all 50 States in the U.S. and Internationally to over 30 countries around the world. We commonly ship to Canada, UK, France, Germany, Switzerland, Italy, Australia, New Zealand and many others. Click here for a full list of shipping destinations.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What are your shipping rates and options?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Every order shipping within the USA automatically qualifies for free highly-insured, signature-required UPS 2-Day Air shipping. International orders are shipped via highly-insured, signature-required via FedEx International Priority shipping. International recipients are responsible for paying the Duty and Customs charges that may be applied at entry into your country. Please contact your local Customs Department with questions about additional fees and processes regarding your order from MiaDonna. Below is a breakdown of the shipping options and rates you'll be provided upon checkout. Shipping Rates : - United States: Free* - Hawaii, Alaska & Puerto Rico: $40.00USD - APO/FPO: $50.00USD - Canada: $100.00USD - International & Guam: $150.00USD - Overnight Shipping Upgrade (USA): $40.00USD - Overnight Shipping, Saturday Delivery: $70.00USD. ** Delivery Signature Required for all deliveries except APO/FPO\n** Domestic USA shipping is included unless stated ** We only ship Monday through Thursday for Priority Overnight shipping. However, Saturday delivery is available upon request for $70.00USD when shipping out on a Friday.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What will come with my order?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"At MiaDonna, we pride ourselves on providing a unique shopping experience, from the moment you're introduced to our brand to the first time you put on your jewelry. Your jewelry will be delivered to you with the following items included: - Gift Bag, - Vegan leather jewelry box, - Non-toxic jewelry cleaner (Polishing cloths for international guests), - Certified grading certificate *if applicable - Copy of your order receipt and welcome information\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What are my payment options?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Credit Cards: Visa, Master Card, American Express, Discover. Accounts: Amazon, PayPal, Apple Pay. We also offer financing options, which you can learn about here.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What is your return policy?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Customer satisfaction is a core value at MiaDonna, which is why we offer an easy 60-day return policy. If you are not 100% satisfied with your order, you can return or exchange it in its original condition within 30 days of the date of delivery refund or exchange. Please note the following items cannot be returned:\n1. Custom Jewelry\n2. Sale items\n3. Any item(s) with custom engraving\nYou must request your return authorization AND ship your jewelry back to us within this 60-DAY return period in NEW, UNWORN condition with:\n1. The return policy tag still attached & untampered with\n2. Original invoice and packaging\nWe do not refund shipping, appraisal costs, or grading cards, and the customer is responsible for the shipping cost to return the product. However, we will refund you the purchase amount minus the original shipping fee. Only one return/exchange is allowed per customer as we must limit overhead costs to protect our foundation's funding. View return policy here.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Is my personal information secure?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"All online credit card transactions with MiaDonna.com are secure. We do not store credit card numbers.\nWe use a 128-bit encryption Secure Socket Layering (SSL), industry-standard encryption technology that ensures safe Internet transmission of your personal information. You may also purchase online merchandise by calling us at 503-739-9323 during store hours.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How do I change my order after it is placed?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"If you realize you made a mistake on your order, please contact us as soon as possible at 503-739-9323 or email info@miadonna.com to discuss your options. Please have your order number ready.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Do you offer online financing?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"We offer a variety of excellent online financing services through our partners: 1) BreadPay allows you to finance your purchase over 3, 12 or 24 months. Bread does not require a hard credit check for approval and will not impact your credit score. Click here to see your rate and learn more about our financing option. 2) ShopPay Installments lets you split your purchase into four equal installments for purchases between $50 - $3,000 USD. 3) If your credit history has a few blemishes, Acima Leasing offers financing options worth looking into. All available at checkout.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Is there a MiaDonna Retail Store?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"Yes! We have a retail store located opposite Washington Square Mall in Portland, Oregon. Stop in and enjoy a glass of wine or a beer while shopping. Our non-commissioned lab-grown diamond and fine jewelry experts will help you find the best quality diamond at the best price. We encourage you to make an appointment (but appointments are not required) so we can make sure we have what you are looking for in stock and ready to show you. Click here to schedule your private appointment.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"Where is the Portland Store located?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"We are located in 7279 SW Bridgeport Rd. Portland, OR 97224.\"\n    }\n  }]\n}\n</script>"
+          }
+        }
+      },
+      "block_order": [
+        "9d3b94de-5535-4db8-aa79-8e9a7200f940",
+        "dca43942-26a1-40c0-a38d-7099616defcb",
+        "d25b6e82-da3c-4734-9cb6-fcb0f65c03c4",
+        "9f8e69ac-aec6-4952-b04d-78520d9a24c3",
+        "f5d450c6-24b0-4456-87c0-28ba80f94339",
+        "1d505def-e247-476c-8507-7c7e8e4f6b01",
+        "custom_html_nyhzJn"
+      ],
+      "settings": {
+        "show_breadcrumb": true,
+        "show_sidebar": true,
+        "menu": "customer-care-navigation",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify://shop_images/contact-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "main",
+    "shogun-optimizer"
+  ]
+}

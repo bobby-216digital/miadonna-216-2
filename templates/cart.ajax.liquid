@@ -1,0 +1,738 @@
+{% layout none %}
+
+<template data-options>
+  { "item_count": {{ cart.item_count | json }}
+  }
+</template>
+
+<template data-html="content">
+  {% comment %} No items in the cart message {% endcomment %}
+  <div class="ajax-cart__empty-cart-message text-align-center {% if cart.item_count > 0 %}is-hidden {% endif %}">
+    <div class="ajax-cart__cart-title has-margin-bottom">
+      {{ 'cart.general.title' | t }}
+      <!-- <span class="cart__count--text" data-bind="itemCount" >{{ cart.item_count }}</span> -->
+    </div>
+    <div class="ajax-cart__empty-cart-message-content">
+        {% render 'icon', name: settings.cart_icon %}
+      <p class="ajax-cart__empty-text">{{ 'layout.general.empty_cart' | t }}</p>
+      <a href="{% comment %}{{ routes.all_products_collection_url }}{% endcomment %}/collections/lab-grown-diamond-engagement-rings" class="button button--primary">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
+    </div>
+  </div>
+
+  <div class="ajax-cart__cart-count">
+    <h2 class="ajax-cart__cart-title">
+      {{ 'cart.general.title' | t }}
+      <!--
+        <span
+          class="ajax-cart__cart-item-count"
+          data-bind="itemCount"
+        >
+          {{- cart.item_count -}}
+        </span>
+      -->
+    </h2>
+
+    {% comment %}
+      <div
+        class="ajax-cart__close-icon"
+        data-ajax-cart-close
+      >
+        {%
+          render 'icon',
+          name: 'x',
+        %}
+      </div>
+    {% endcomment %}
+  </div>
+
+  {% if settings.display_free_product %}
+    {%- assign free_product = settings.free_product -%}
+    {%- assign product = all_products[free_product] -%}
+    <div id="free-product-id" class="free-product-id is-hidden" data-variant-id="{{ product.variants[0].id }}"></div>
+  {% endif %}
+
+  {% if settings.display_free_product_two %}
+    {%- assign free_product_two = settings.free_product_two -%}
+    {%- assign product = all_products[free_product_two] -%}
+    <div
+      id="free-product-id-two"
+      class="free-product-id-two is-hidden"
+      data-variant-id="{{ product.variants[0].id }}"
+    ></div>
+  {% endif %}
+
+  <form
+    action="{{ routes.cart_url }}"
+    method="post"
+    class="ajax-cart__form {% if cart.item_count == 0 %}is-hidden{% endif %}"
+  >
+    <div id="ajax-cart__items" class="ajax-cart__list" aria-label="Cart Items">
+      {% assign total_saving = 0 %}
+      {% comment %} Loop through cart products {% endcomment %}
+      {% for item in cart.items %}
+        {% if item.variant.compare_at_price > item.variant.price %}
+          {% assign saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
+          {% assign total_saving = saving | plus: total_saving %}
+        {% endif %}
+
+        {% if settings.display_free_product %}
+          {%- assign free_product = settings.free_product -%}
+          {%- assign product = all_products[free_product] -%}
+          {% assign freeProduct = false %}
+          {% if item.url contains product.url %}
+            {% assign freeProduct = true %}
+          {% endif %}
+        {% endif %}
+
+        <div
+          class="ajax-cart__product media {% if freeProduct == true %}free-product{% endif %}"
+          data-variant-id="{{ item.variant.id }}"
+          data-cart-item="{{ item.key }}"
+          data-line-item="{{ forloop.index }}"
+          aria-label="Cart Item: {{ item.product.title }}"
+        >
+           <div class="cartprd-topbar">
+            <div class="ajax-cart__product-title">
+                <h3 class="ajax-cart__product-title-content">
+                   
+                    <a href="{{ item.url }}">
+                 
+                  {{ item.product.title }}
+                  {% unless item.product.has_only_default_variant or item.variant.title contains 'Title' %}
+                    -
+                    {% for option in item.product.options %}
+                      {{ item.variant.options[forloop.index0] }}
+                      {% unless forloop.last %}/{% endunless %}
+                    {% endfor %}
+                  {% endunless %}
+                 
+                    </a>
+               
+                </h3>
+                <div class="ajax-cart__price-wrapper">
+                    <div class="ajax-cart__line-items-discount">
+              {% if item.line_level_discount_allocations.size > 0 %}
+                <div class="ajax-cart__price-comparison">
+                  <p class="sale">
+                    <span class="money">
+                      {% render 'price-element', price: item.final_price , is_cart:'yes' %}
+                    </span>
+                  </p>
+                  {% if item.original_line_price > item.final_line_price %}
+                    <s class="original-price">
+                      <span class="money">
+                        {% render 'price-element', price: item.original_price , is_cart:'yes'%}
+                      </span>
+                    </s>
+                  {% endif %}
+                </div>
+                {% for discount_allocation in item.line_level_discount_allocations %}
+                  <div class="line-item-discount__container">
+                    <p>{{ discount_allocation.discount_application.title }}</p>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            {% if item.line_level_discount_allocations.size < 1 %}
+              <div class="ajax-cart__price price">
+                <span class="money {% if item.original_price < item.variant.compare_at_price %}sale{% endif %}">
+                  {% render 'price-element', price: item.original_line_price, is_cart:'yes'   %}
+                </span>
+                {% if item.original_price < item.variant.compare_at_price %}
+                  {%- assign total_line_saving = 0 -%}
+                  {%- assign line_saving = item.variant.compare_at_price | times: item.quantity -%}
+                  {%- assign total_line_saving = line_saving | plus: total_line_saving -%}
+                  <span class="money compare-at-price">
+                    {% render 'price-element', price: total_line_saving, is_cart:'yes' %}
+                  </span>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% render 'unit-price', item: item, class: 'ajax-cart__unit-price' %}
+                </div>
+            </div>
+            <div class="carttopbar-right">
+              
+                <button type="button"  onclick="tpc_cart_item_remove('cart_drawer','{{ item.key }}')" class="remove-prd" aria-label="Remove item from cart">
+                    <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.25 0.65625C4.40625 0.25 4.78125 0 5.1875 0H8.8125C9.21875 0 9.59375 0.25 9.75 0.65625L10.25 2H13.25C13.6562 2 14 2.34375 14 2.75C14 3.15625 13.6562 3.5 13.25 3.5H0.75C0.34375 3.5 0 3.15625 0 2.75C0 2.34375 0.34375 2 0.75 2H3.75L4.25 0.65625ZM1.625 14.6562L0.90625 5H2.40625L3.125 14.5312C3.125 14.8125 3.34375 15 3.625 15H10.4062C10.6562 15 10.875 14.8125 10.9062 14.5312L11.5938 5H13.0938L12.375 14.6562C12.3125 15.6875 11.4375 16.5 10.4062 16.5H3.625C2.5625 16.5 1.6875 15.6875 1.625 14.6562Z" fill="black"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+          <div class="is-flex is-align-flex-start">
+            {% comment %} Image {% endcomment %}
+            <figure class="ajax-cart__product-image media-left">
+              {% if item.product.media %}
+                {% if item.product.featured_media.preview_image %}
+                  {% unless freeProduct == true %}
+                    <a href="{{ item.url }}">
+                  {% endunless %}
+                  <img
+                    src="{% unless item.properties._main_product == blank %}{{ item.properties._main_product | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}{% else %}{% unless item.product.type == 'Lab Created Diamond' %}{% endunless %}{{ settings.speedsize_url_pfx_https -}}{{ item.image | img_url: '320x' }}{% endunless %}"
+                    alt="{{ item.title | escape }}"
+                    loading="lazy"
+                    width="100%"
+                    height="100%"
+                  >
+                  {% unless freeProduct == true %}
+                    </a>
+                  {% endunless %}
+                {% endif %}
+              {% else %}
+                {% if item.image %}
+                  {% unless freeProduct == true %}
+                    <a href="{{ item.url }}">
+                  {% endunless %}
+                  <img
+                    src="{% unless item.properties._main_product == blank %}{{ item.properties._main_product | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}{% else %}{% unless item.product.type == 'Lab Created Diamond' %}{% endunless %}{{ settings.speedsize_url_pfx_https -}}{{ item | img_url: '320x' }}{% endunless %}"
+                    alt="{{ item.title | escape }}"
+                    loading="lazy"
+                    width="100%"
+                    height="100%"
+                  >
+                  {% unless freeProduct == true %}
+                    </a>
+                  {% endunless %}
+                {% endif %}
+              {% endif %}
+              {% unless freeProduct == true %}
+                <div class="ajax-cart__right-content media-right">
+                  <a
+                    class="ajax-cart__delete"
+                    data-ajax-cart-delete
+                    data-cart-item-key="{{ item.key }}"
+                    href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0"
+                    title="{{ 'cart.general.remove' | t }}"
+                  >
+                    Remove
+                    {% comment %}
+                      <button class="close text-center" aria-label="close">
+                        {% render 'icon', name: 'x' %}
+                      </button>
+                    {% endcomment %}
+                  </a>
+                </div>
+              {% endunless %}
+            </figure>
+
+            <div class="ajax-cart__product-content media-content">
+              {% comment %} <div class="ajax-cart__product-title">
+                <h3 class="ajax-cart__product-title-content">
+                  {% unless freeProduct == true %}
+                    <a href="{{ item.url }}">
+                  {% endunless %}
+                  {{ item.product.title }}
+                  {% unless item.product.has_only_default_variant or item.variant.title contains 'Title' %}
+                    -
+                    {% for option in item.product.options %}
+                      {{ item.variant.options[forloop.index0] }}
+                      {% unless forloop.last %}/{% endunless %}
+                    {% endfor %}
+                  {% endunless %}
+                  {% unless freeProduct == true %}
+                    </a>
+                  {% endunless %}
+                </h3>
+              </div> {% endcomment %}
+
+              {% comment %}
+                {% if item.item_components %}
+                    <ul style="list-style: circle">
+                    {% for ic in item.item_components %}
+                      <li>{{ ic.title }}
+                      {% if ic.properties %}
+                        <ul style="list-style: disc; padding-left: 15px;">
+                          {% for p in ic.properties %}
+                            {% assign p_first_char = p.first | slice: 0 %}
+                            {% unless p.last == blank %}
+                              {% if p_first_char != "_" %}
+                                {% if p.last contains '/uploads/' %}
+                                  <li>
+                                    {{ p.first }}: <a class="lightbox" href="{{ p.last }}">{{ 'cart.general.uploaded_file' | t }}</a>
+                                  </li>
+                                {% else %}
+                                  <li>
+                                    {{ p.first }}: {{ p.last }}
+                                  </li>
+                                {% endif %}
+                              {% endif %}
+                            {% endunless %}
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                      </li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+              {% endcomment %}
+                {% if item.properties %}
+                    {% if item.vendor contains 'TCC' %}
+                    <div class="designstudio-Properties designstudio-Properties1">
+                  <button
+                    type="button"
+                    class="ajax-cart__line-item-main_title"
+                    aria-expanded="false"
+                    aria-controls="settings-details">
+                    Settings Details
+                  </button> 
+                {%  endif %}    
+                {%  endif %}  
+              <div class="ajax-cart__line-items">
+                {% if item.properties %}
+                  {% for p in item.properties %}
+                    {% if p.last != blank %}
+                        {% assign first_char =  p.first | slice: 0, 1 %}
+                      {% if first_char == '_' %}
+
+                       {% continue %}
+                      {% endif %} 
+                      <div class="ajax-cart__line-item">
+                        <span class="option-label">{{ p.first }}:</span><span class="option-title"> {{ p.last }}</span>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+                {% if item.vendor contains 'TCC' %}
+              </div>
+              {%  endif %}  
+               {% if item.vendor contains 'TCC' %}
+                    {% if item.properties %}
+                      
+                  <div class="ajax-cart__line-items-designstudio ajax-cart__line-items-js">
+                    {% for p in item.properties %}
+                    {% if p.last != blank %}
+                        {% assign first_char =  p.first | slice: 0, 1 %}
+                      {% if first_char == '_' %}
+                       {% continue %}
+                      {% endif %} 
+                      {% if p.first == 'Estimated Ship Date' or p.first == 'Estimate Ship Date' %}
+                          <div class="ajax-cart__line-item ajax-cart__line-item-designstudio">
+                            <span class="option-label">{{ p.first }}:</span><span class="option-title"> {{ p.last }}</span>
+                          </div>
+                       {% endif %}  
+                       {% endif %}
+                      {% endfor %}
+                  </div>  
+                  {% endif %}
+              {% endif %}
+
+              {% if item.selling_plan_allocation.selling_plan %}
+                <p class="ajax-cart__selling-plan-name">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+              {% endif %}
+
+              {% comment %}
+                <div class="ajax-cart__line-items-discount">
+                  {% if item.line_level_discount_allocations.size > 0 %}
+                    <div class="ajax-cart__price-comparison">
+                      <p class="sale">
+                        <span class="money">
+                          {% render 'price-element', price: item.final_price %}
+                        </span>
+                      </p>
+                      {% if item.original_line_price > item.final_line_price %}
+                        <s class="original-price">
+                          <span class="money">
+                            {% render 'price-element', price: item.original_price %}
+                          </span>
+                        </s>
+                      {% endif %}
+                    </div>
+                    {% for discount_allocation in item.line_level_discount_allocations %}
+                      <div class="line-item-discount__container">
+                        <p>{{ discount_allocation.discount_application.title }}</p>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+
+                {% if item.line_level_discount_allocations.size < 1 %}
+                  <div class="ajax-cart__price price">
+                    <span class="money {% if item.original_price < item.variant.compare_at_price %}sale{% endif %}">
+                      {% render 'price-element', price: item.original_line_price %}
+                    </span>
+                    {% if item.original_price < item.variant.compare_at_price %}
+                      {%- assign total_line_saving = 0 -%}
+                      {%- assign line_saving = item.variant.compare_at_price | times: item.quantity -%}
+                      {%- assign total_line_saving = line_saving | plus: total_line_saving -%}
+                      <span class="money compare-at-price">
+                        {% render 'price-element', price: total_line_saving %}
+                      </span>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {% render 'unit-price', item: item, class: 'ajax-cart__unit-price' %}
+              {% endcomment %}
+
+              {% if settings.display_ajax_quantity_box %}
+                <div class="ajax-cart__quantity-box product-quantity-box" data-line-item-key="{{ forloop.index }}">
+                  {% render 'quantity-box', item: item, size: 'is-medium', variant: item.variant %}
+                </div>
+                <p class="ajax-cart__quantity-warning quantity-warning"></p>
+              {% endif %}
+            </div>
+          </div>
+
+          {% comment %} <div class="ajax-cart__price-wrapper text-right">
+            <div class="ajax-cart__line-items-discount">
+              {% if item.line_level_discount_allocations.size > 0 %}
+                <div class="ajax-cart__price-comparison">
+                  <p class="sale">
+                    <span class="money">
+                      {% render 'price-element', price: item.final_price %}
+                    </span>
+                  </p>
+                  {% if item.original_line_price > item.final_line_price %}
+                    <s class="original-price">
+                      <span class="money">
+                        {% render 'price-element', price: item.original_price %}
+                      </span>
+                    </s>
+                  {% endif %}
+                </div>
+                {% for discount_allocation in item.line_level_discount_allocations %}
+                  <div class="line-item-discount__container">
+                    <p>{{ discount_allocation.discount_application.title }}</p>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            {% if item.line_level_discount_allocations.size < 1 %}
+              <div class="ajax-cart__price price">
+                <span class="money {% if item.original_price < item.variant.compare_at_price %}sale{% endif %}">
+                  {% render 'price-element', price: item.original_line_price %}
+                </span>
+                {% if item.original_price < item.variant.compare_at_price %}
+                  {%- assign total_line_saving = 0 -%}
+                  {%- assign line_saving = item.variant.compare_at_price | times: item.quantity -%}
+                  {%- assign total_line_saving = line_saving | plus: total_line_saving -%}
+                  <span class="money compare-at-price">
+                    {% render 'price-element', price: total_line_saving %}
+                  </span>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% render 'unit-price', item: item, class: 'ajax-cart__unit-price' %}
+          </div> {% endcomment %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="ajax-cart__details-wrapper">
+      {% comment %} <div class="cart__discounts ajax-cart__details-row is-flex is-justify-space-between sale">
+        {%- if cart.cart_level_discount_applications != blank -%}
+          {%- for discount_application in cart.cart_level_discount_applications -%}
+            <div class="ajax-cart__row-description">
+              <p>
+                (<strong>Discount:&nbsp;</strong>
+                {{- discount_application.title -}}
+                )
+              </p>
+            </div>
+            {% comment %}
+              <p class="ajax-cart__discount">
+                <span class="money">
+                  -
+                  {% render 'price-element', price: discount_application.total_allocated_amount %}
+                </span>
+              </p>
+            {% endcomment %}
+          {%- endfor -%}
+        {%- else -%}
+          <div class="ajax-cart__row-description"></div>
+        {%- endif -%}
+      </div> {% endcomment %}
+
+      {% if settings.display_upsell %}
+        {% assign allHandles = '' | split: ',' %}
+        {% for item in cart.items %}
+          {% assign upsell_products = item.product.metafields.attributes.upsell_products | split: '|' %}
+          {% assign allHandles = allHandles | concat: upsell_products %}
+        {% endfor %}
+
+        {% assign uniqueHandles = allHandles | uniq %}
+        <div
+          class="container product-content-wrapper related-products--slider"
+          style="flex-wrap: nowrap;margin-bottom: 40px;"
+        >
+          {% for handle in uniqueHandles %}
+            {% assign product = all_products[handle] %}
+            {% if product %}
+              <div class="product-item related-product one-half column">
+                <a href="{{ product.url }}">
+                  <img
+                    src="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_image.src | img_url: 'large' }}"
+                    alt="{{ product.title | remove: 'Special w/Purchase' }}"
+                  >
+                  <h3>{{ product.title | remove: 'Special w/Purchase' }}</h3>
+                  <p class="price">
+                    {%- if product.compare_at_price -%}
+                      <span class="price--sale" style="margin-right: 5px;font-weight: 500;">
+                        {{ product.price | money }}
+                      </span>
+                    {%- endif -%}
+                    <span>
+                      {%- if product.compare_at_price -%}
+                        <s>{{- product.compare_at_price | money -}}</s>
+                      {%- else -%}
+                        {{- product.price | money -}}
+                      {%- endif -%}
+                    </span>
+                  </p>
+                </a>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% comment %} Special instructions {% endcomment %}
+      {% if settings.display_special_instructions and settings.go_to_checkout %}
+        <textarea
+          id="note"
+          name="note"
+          rows="2"
+          placeholder="{{ 'layout.general.cart_note' | t }}"
+          class="ajax-cart__note"
+        >{{ cart.note }}</textarea>
+      {% endif %}
+
+
+      {% comment %} Subtotal {% endcomment %}
+       <div class="ajax-cart__subtotal ajax-cart__details-row is-flex is-justify-space-between has-no-side-gutter">
+        <div class="two-thirds">
+          <div class="ajax-cart__row-description">
+            <p class="subtotal-text">{{ 'layout.general.subtotal' | t }}</p>
+            <p>Excluding tax & shipping</p>
+          </div>
+        </div>
+        <div class="one-third text-right 123">
+          <span class="money vdb_cart_drawer_subtotal">
+            {% render 'price-element', price: cart.total_price, is_cart:'yes' %}
+          </span>
+        </div>
+      </div> 
+      {% comment %} Total savings {% endcomment %}
+       
+      {% if settings.display_savings and total_saving > 0 %}
+        <div class="ajax-cart__savings ajax-cart__details-row is-flex is-justify-space-between sale">
+          <div class="ajax-cart__row-description">
+            <span>{{ 'layout.general.savings' | t }}:</span>
+          </div>
+          <span class="money">
+       {% assign total_savings = total_saving | plus: cart.total_discount %}     
+            {% render 'price-element', price: total_savings, is_cart:'yes' %}
+          </span>
+        </div>
+      {% endif %}
+
+      {%- comment -%} Taxes and shipping notice {%- endcomment -%}
+      <div class="is-align-center text-align-center ajax-cart__taxes-shipping is-hidden">
+        {%- capture taxes_shipping_checkout -%}
+          {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+            {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+          {%- elsif cart.taxes_included -%}
+            {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+          {%- elsif shop.shipping_policy.body != blank -%}
+            {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+          {%- else -%}
+            {{ 'cart.general.tax_and_shipping' | t }}
+          {%- endif -%}
+        {%- endcapture -%}
+
+        <p class="ajax-cart__taxes-shipping-message has-padding-top">{{ taxes_shipping_checkout }}</p>
+      </div>
+
+      {% comment %} Terms of service checkbox {% endcomment %}
+      {% if settings.display_tos_checkbox and settings.go_to_checkout %}
+        <div class="ajax-cart__tos-checkbox text-align-center">
+          <p class="tos">
+            <input type="checkbox" class="tos_agree" id="sliding_agree" required>
+            <label for="sliding_agree" class="tos_label">
+              {{ 'cart.general.agree_to_terms_html' | t }}
+            </label>
+            {% if settings.tos_page != blank %}
+              <a href="{{ pages[settings.tos_page].url }}" target="_blank" class="tos_icon">
+                {{- 'cart.general.view_terms' | t -}}
+              </a>
+            {% endif %}
+          </p>
+        </div>
+      {% endif %}
+
+      {% comment %} Cart message {% endcomment %}
+      {% if settings.cart_message != blank %}
+        <div class="ajax-cart__cart-message text-align-center">
+          {{ settings.cart_message }}
+        </div>
+      {% endif %}
+
+      {% comment %} Checkout {% endcomment %}
+       
+      <div class="ajax-cart__button-wrapper text-align-center  ">
+         <div class="ajax-cart__button-wrapper text-align-center  ">
+      <div class="mage-cart-rewards-pill mage-rewards-pill" style="display: none;">
+  <span class="mega-rewards-lable mage-rewards-text">Earn <strong>0 Points</strong></span>
+</div>
+         {%- if cart.cart_level_discount_applications != blank -%}
+         <div class="cart__discounts ajax-cart__details-row is-flex is-justify-space-between sale">
+        {%- if cart.cart_level_discount_applications != blank -%}
+          {%- for discount_application in cart.cart_level_discount_applications -%}
+            <div class="ajax-cart__row-description">
+                (<strong>Discount:&nbsp;</strong>
+                {{- discount_application.title -}}
+                )
+            </div>
+            {% comment %}
+              <p class="ajax-cart__discount">
+                <span class="money">
+                  -
+                  {% render 'price-element', price: discount_application.total_allocated_amount %}
+                </span>
+              </p>
+            {% endcomment %}
+          {%- endfor -%}
+        {%- else -%}
+          <div class="ajax-cart__row-description"></div>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+        {% if settings.go_to_checkout %}
+          <button type="submit" name="checkout" class="ajax-cart__button button--add-to-cart button">
+            {% comment %} {% if settings.show_lock_icon %}
+              {% render 'icon', name: 'lock' %}
+            {% endif %} {% endcomment %}
+            {{ 'layout.general.checkout' | t }} -   <span class="money vdb_cart_drawer_subtotal">
+            {% render 'price-element', price: cart.total_price, is_cart:'yes' %}
+          </span>
+            
+          </button>
+          <p>Excluding tax & shipping</p>
+          <!--
+            <a class="ajax-cart__cart-link" href="{{ routes.cart_url }}">{{ 'layout.general.go_to_cart' | t }}</a>
+          -->
+        {% else %}
+          <a href="{{ routes.cart_url }}" class="ajax-cart__button button--add-to-cart button">
+            {% if settings.show_lock_icon %}
+              {% render 'icon', name: 'lock' %}  -111   <span class="money vdb_cart_drawer_subtotal">
+            {% render 'price-element', price: cart.total_price, is_cart:'yes' %}
+          </span>
+            {% endif %}
+            {{ 'layout.general.go_to_cart' | t }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+    {% comment %}
+    {% render 'ecodrive-banner' %}
+    {% endcomment %}
+    {% if settings.display_order_timeline %}
+      <section class="additional-info">
+        <div class="cart-order-timelines">
+          <p class="main-title">{{ settings.order_timeline_heading }}</p>
+
+          <p class="subtitle">{{ settings.finished_jewelry_timeline_heading }}</p>
+          <p>{{ settings.finished_jewelry_timeline_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+
+          <p class="subtitle">{{ settings.loose_stones_timeline_heading }}</p>
+          <p>{{ settings.loose_stones_timeline_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+
+          <p class="subtitle">{{ settings.home_try_on_timeline_heading }}</p>
+          <p>{{ settings.home_try_on_timeline_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+
+          <br>
+
+          <p class="cbb-ignored-price">
+            {{ settings.credit_application_information }}
+          </p>
+        </div>
+      </section>
+    {% endif %}
+  </form>
+  {% comment %}
+    {% if settings.display_free_product %}
+      {%- assign free_product = settings.free_product -%}
+      {%- assign product = all_products[free_product] -%}
+      <div id="ajax-cart__item-tree-template" class="ajax-cart__item-tree-template is-hidden">
+        <div
+          class="ajax-cart__product media minicart-item__tree"
+          data-cart-item="one-tree"
+          data-line-item="{{ forloop.index }}"
+        >
+          <div class="is-flex is-align-flex-start">
+
+            <figure class="ajax-cart__product-image media-left">
+
+              {% if product.media %}
+                {% for media in product.media %}
+
+                  {% if product.featured_media %}
+                    <img
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_media | img_url: '320x' }}"
+                      alt="{{ product.title | escape }}"
+                      loading="lazy"
+                      width="100%"
+                      height="100%"
+                    >
+                  {% endif %}
+                {% else %}
+                  {% if media %}
+                    <img
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ media | img_url: '320x' }}"
+                      alt="{{ product.title | escape }}"
+                      loading="lazy"
+                      width="100%"
+                      height="100%"
+                    >
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            </figure>
+
+            <div class="ajax-cart__product-content media-content">
+              <div class="ajax-cart__product-title">
+                <h3 class="ajax-cart__product-title-content">{{ product.title }}</h3>
+              </div>
+
+              <div class="ajax-cart__line-items">
+                <div class="ajax-cart__line-item">
+                  <span class="option-title">{{ product.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ajax-cart__price-wrapper text-right">
+            <div class="ajax-cart__price price">
+              <span class="money">{{ product.price | money_with_currency }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endcomment %}
+   
+</template>
+
+<script>
+  $(document).on("click", ".ajax-cart__line-item-main_title", function () {
+       var $el =  $(this);
+
+if ($el.length) {
+    var $nextDiv = $el.parent().next('div');
+
+    if ($nextDiv.length) {
+       $nextDiv.toggleClass("hidden");
+    }
+}
+      $(this).toggleClass("active");
+      $(this).next(".ajax-cart__line-items-js").stop(true, true).slideToggle(300);
+      retrn false;
+  });
+</script>

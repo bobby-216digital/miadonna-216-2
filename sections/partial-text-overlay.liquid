@@ -1,0 +1,675 @@
+{% comment %} Section specific CSS {% endcomment %}
+{{ 'video-section.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if section.settings.hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .container{
+    align-items: flex-end;
+  }
+  #shopify-section-{{ section.id }} .content-wrapper{
+    padding: 100px 80px;
+    margin-right: -45%;
+    z-index: 1;
+    position: relative;
+    max-width: 662px;
+    margin-bottom: 80px;
+  }
+  #shopify-section-{{ section.id }} .image-element__wrap{
+    height: auto;
+  }
+  #shopify-section-{{ section.id }} .section-title{
+    font-weight: 600;
+    /* line-height: 38.4px; */
+    margin-bottom: 30px;
+    /* letter-spacing: 1.4px; */
+  }
+  #shopify-section-{{ section.id }} .description{
+    margin-bottom: 45px;
+  }
+  #shopify-section-{{ section.id }} .description > *{
+    font-weight: 500;
+    line-height: 24px;
+    margin-top: 0;
+    letter-spacing: 0.35px;
+  }
+  #shopify-section-{{ section.id }} .buttons{
+    display: block;
+  }
+  #shopify-section-{{ section.id }} .button{
+    width: 300px;
+    color: #000;
+    margin: auto;
+    min-height: 54px;
+    font-weight: 600;
+    font-size: {{ settings.regular_font_size | append: 'px' }};
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .button.button--primary{
+    color: #fff;
+    background-color: #3b3737;
+  }
+  #shopify-section-{{ section.id }} .button.button--primary:hover{
+    color: #000;
+    border-width: 3px;
+    border-color: #3b3737;
+    background-color: transparent;
+  }
+  #shopify-section-{{ section.id }} .button.button--secondary{
+    border-width: 3px;
+    border-color: #3b3737;
+  }
+  #shopify-section-{{ section.id }} .button.button--secondary:hover{
+    color: #fff;
+  }
+  #shopify-section-{{ section.id }} .button.button--link-style{
+    width: auto;
+    border: none;
+    position: relative;
+    min-height: inherit;
+    padding-bottom: 4px;
+    display: inline-block;
+  }
+  #shopify-section-{{ section.id }} .button.button--link-style::before{
+    background-color: #d4a696;
+    bottom: 0;
+    content: '';
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    transition: width .8s;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 0;
+  }
+  #shopify-section-{{ section.id }} .button.button--link-style:hover::before {
+    width: 0;
+  }
+  #shopify-section-{{ section.id }} .deferred-media__poster {
+    cursor: default;
+  }
+  #shopify-section-{{ section.id }} .video-section__control img {
+    bottom: 5%;
+    right: 5%;
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    position: absolute;
+  }
+  @media screen and (max-width: 1200px){
+    #shopify-section-{{ section.id }} .content-wrapper{
+      padding: 40px;
+    }
+  }
+  @media screen and (max-width: 1024px){
+    #shopify-section-{{ section.id }} .container {
+      align-items: center;
+    }
+    #shopify-section-{{ section.id }} .content-wrapper{
+      margin-bottom: 0;
+    }
+  }
+  @media screen and (max-width: 991px){
+    #shopify-section-{{ section.id }} .content-wrapper{
+      padding: 20px;
+    }
+    #shopify-section-{{ section.id }} .section-title {
+      line-height: 32px;
+      margin-bottom: 15px;
+    }
+    #shopify-section-{{ section.id }} .description {
+      margin-bottom: 18px;
+    }
+    #shopify-section-{{ section.id }} .button {
+      min-height: 50px;
+    }
+  }
+  @media screen and (max-width: 767px){
+    #shopify-section-{{ section.id }} .content-wrapper{
+      margin: -100px 2rem 0;
+      text-align: center !important;
+    }
+    #shopify-section-{{ section.id }} .has-video .content-wrapper{
+      margin: 0;
+      text-align: center !important;
+    }
+    #shopify-section-{{ section.id }} .button {
+      width: 100%;
+      font-size: {{ settings.regular_font_size | times: 0.95 | floor | append: 'px' }} !important;
+    }
+    #shopify-section-{{ section.id }} .container .two-thirds{
+      order: -1;
+    }
+    #shopify-section-{{ section.id }} .description > *{
+      font-size: {{ settings.regular_font_size | times: 0.95 | floor | append: 'px' }};
+    }
+  }
+  @media screen and (min-width: 768px){
+    #shopify-section-{{ section.id }} .content-right {
+      margin-left: -45%;
+      margin-right: 0;
+    }
+  }
+
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+<script>
+  $(document).ready(function() {
+    $('.video-section__control-play-{{section.id}}').click(function () {
+      var video = $('#video-section__video-{{section.id}}').get(0);
+      video.play();
+      $(this).fadeOut();
+      $('.video-section__control-pause-{{section.id}}').fadeIn();
+    });
+
+    $('.video-section__control-pause-{{section.id}}').click(function() {
+      var video = $('#video-section__video-{{section.id}}').get(0);
+      video.pause();
+      $(this).fadeOut();
+      $('.video-section__control-play-{{section.id}}').fadeIn();
+    });
+  });
+</script>
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-image-with-text
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  {% assign has_video_block = false %}
+  {% assign contentPosition = false %}
+  {%- for block in section.blocks %}
+    {% if block.type == 'image' or block.type == 'video' -%}
+      {%- if block.settings.image_position == 'left' -%}
+        {% assign contentPosition = true %}
+      {% endif %}
+    {% endif %}
+    {% if block.type == 'video' -%}
+      {% assign has_video_block = true %}
+    {% endif %}
+  {%- endfor -%}
+  <div class="container has-no-side-gutter">
+    {% for block in section.blocks %}
+      {% if block.type == 'content' %}
+        <div class="one-third column small-down--one-whole{% if has_video_block %} has-video{% endif %}">
+          <div
+            class="content-wrapper text-left {% if contentPosition %}content-right{% endif %}"
+            style="background-color: {{ block.settings.background_color }};"
+          >
+            <h3 class="section-title">{{ block.settings.title }}</h3>
+            <div class="description">
+              {{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+            </div>
+            {% if block.settings.button_text != blank %}
+              <div class="buttons">
+                {% render 'button',
+                  label: block.settings.button_text,
+                  href: block.settings.button_link,
+                  style: block.settings.button_style,
+                  type: 'link'
+                %}
+              </div>
+            {% endif %}
+            {% if block.settings.button_text_2 != blank %}
+              <div class="buttons" style="margin-top:10px;">
+                {% render 'button',
+                  label: block.settings.button_text_2,
+                  href: block.settings.button_link_2,
+                  style: block.settings.button_style,
+                  type: 'link'
+                %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+      {% if block.type == 'image' %}
+        <div
+          class="two-thirds column small-down--one-whole"
+          {% if block.settings.image_position == 'left' %}
+            style="order: -1;"
+          {% endif %}
+        >
+          {% if block.settings.image != blank %}
+            {% render 'image-element', image: block.settings.image, alt: block.settings.image_alt %}
+          {% else %}
+            <div class="image-element__wrap">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      {%- if block.type == 'video' -%}
+        {%- liquid
+          assign video_id = block.settings.video.id | default: block.settings.video_url.id
+          assign video_alt = block.settings.video.alt | default: block.settings.description
+          assign alt = 'sections.video.load_video' | t: description: video_alt | escape
+          assign poster = block.settings.cover_image | default: block.settings.video.preview_image
+        -%}
+
+        <div
+          class="two-thirds column small-down--one-whole"
+          {% if block.settings.image_position == 'left' %}
+            style="order: -1;"
+          {% endif %}
+        >
+          <deferred-media
+            class="video-section__media deferred-media gradient global-media-settings media-fit-cover"
+            data-media-id="{{ video_id  }}"
+            {% if poster != null %}
+              style="--ratio-percent: {{ 1 | divided_by: poster.aspect_ratio | times: 100 }}%;"
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            <button
+              id="Deferred-Poster-Modal-{{ video_id  }}"
+              class="video-section__poster media deferred-media__poster media--landscape"
+              type="button"
+              aria-label="{{ alt }}"
+            >
+              {%- if poster != null -%}
+                {{
+                  poster
+                  | image_url: width: 3840
+                  | image_tag: sizes: '100vw', widths: '375, 750, 1100, 1500, 1780, 2000, 3000, 3840', alt: alt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                }}
+              {%- else -%}
+                {{ 'hero-apparel-3' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+              {%- endif -%}
+              <div class="video-section__control">
+                <img
+                  class="video-section__control-play"
+                  loading="lazy"
+                  src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/Play-White.png?v=1727598442&width=60"
+                  width="60"
+                  height="60"
+                  alt="MiaDonna"
+                >
+              </div>
+            </button>
+            <div id="video-section__controls" class="video-section__control hidden">
+              <img
+                class="video-section__control-play-{{section.id}}"
+                loading="lazy"
+                src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/Play-White.png?v=1727598442&width=60"
+                width="60"
+                height="60"
+                alt="MiaDonna"
+                style="display: none;"
+              >
+              <img
+                class="video-section__control-pause-{{section.id}}"
+                loading="lazy"
+                src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/Pause-White.png?v=1727598442&width=60"
+                width="60"
+                height="60"
+                alt="MiaDonna"
+              >
+            </div>
+            <template>
+              {%- if block.settings.video == null and block.settings.video_url != null -%}
+                {%- liquid
+                  assign loop = ''
+                  if block.settings.enable_video_looping
+                    assign loop = '&loop=1&playlist=' | append: video_id
+                  endif
+                -%}
+                {%- if block.settings.video_url.type == 'youtube' -%}
+                  <iframe
+                    src="https://www.youtube.com/embed/{{ video_id  }}?enablejsapi=1&autoplay=1{{ loop  }}"
+                    class="js-youtube"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                    title="{{ block.settings.description | escape }}"
+                  ></iframe>
+                {%- else -%}
+                  <iframe
+                    src="https://player.vimeo.com/video/{{ video_id  }}?autoplay=1{{ loop  }}"
+                    class="js-vimeo"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                    title="{{ block.settings.description | escape }}"
+                  ></iframe>
+                {%- endif -%}
+              {%- else -%}
+                {% assign video_tag_id = 'video-section__video-' | append: section.id %}
+                {{
+                  block.settings.video
+                  | video_tag:
+                    id: video_tag_id,
+                    image_size: '1100x',
+                    autoplay: true,
+                    loop: block.settings.enable_video_looping,
+                    controls: false,
+                    muted: false | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
+                }}
+              {%- endif -%}
+            </template>
+          </deferred-media>
+        </div>
+      {%- endif -%}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Partial text overlay",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "text",
+          "label": "Image Alt Text",
+          "id": "image_alt"
+        },
+        {
+          "type": "select",
+          "label": "Image Position",
+          "id": "image_position",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "label": "Video Position",
+          "id": "image_position",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_video_looping",
+          "label": "Play video on loop",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Shopify-hosted video"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "header",
+          "content": "Or embed video from URL"
+        },
+        {
+          "type": "paragraph",
+          "content": "Shows when no Shopify-hosted video is selected."
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "accept": ["youtube", "vimeo"],
+          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+          "label": "URL",
+          "info": "Share your brand story by adding a video to your store"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Cover image"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Video alt text"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "Content",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "rgba(251,240,232,1)"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title",
+          "default": "Content Title"
+        },
+        {
+          "type": "richtext",
+          "label": "Description",
+          "id": "description"
+        },
+        {
+          "type": "text",
+          "label": "Button text",
+          "id": "button_text"
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "button_link"
+        },
+        {
+          "type": "text",
+          "label": "Button text 2",
+          "id": "button_text_2"
+        },
+        {
+          "type": "url",
+          "label": "Link 2",
+          "id": "button_link_2"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Style",
+          "options": [
+            {
+              "value": "button--primary",
+              "label": "Primary"
+            },
+            {
+              "value": "button--secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "button--link-style",
+              "label": "Link style"
+            }
+          ],
+          "default": "button--primary"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Partial text overlay",
+      "blocks": [
+        {
+          "type": "content"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

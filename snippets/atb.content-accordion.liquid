@@ -1,0 +1,265 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Accordion",
+  "class": "Accordion jsFAQ",
+  "id": "content-accordion",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Heading",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 56,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 56,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": ""
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Product-bottom-text"
+    },
+    {
+      "type": "liquid",
+      "id": "block_content",
+      "label": "Content",
+      "repeatable": "Product-bottom-text",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'undefined' -%}
+{%- assign undefined = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_content' -%}
+{%- assign block_content = val -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section Accordion jsFAQ">
+{% comment %}
+  ** FAQ **
+{% endcomment %}
+
+{{ 'content-accordion.css' | asset_url | stylesheet_tag }}
+
+{% assign id = section_id %}
+{% assign title = atb_title %}
+{% assign img_border_radius = atb_border_radius %}
+{% comment %} Layout {% endcomment %}
+{% assign width = atb_width %}
+{% assign animation = atb_animation | default: 'none' %}
+{% assign padding_top = atb_padding_top %}
+{% assign padding_bottom = atb_padding_bottom %}
+{% comment %} Advanced {% endcomment %}
+{% assign css_class = atb_css_class %}
+{% assign custom_css = atb_custom_css %}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ id }} {
+    display: none;
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+{% endstyle %}
+
+{% for block0 in blocks %}
+  {% if block_content[forloop.index0] != blank %}
+    {% style %}
+      #shopify-section-{{ id }} {
+        display: block;
+      }
+    {% endstyle %}
+  {% endif %}
+{% endfor %}
+
+{% capture icon_set %}
+{% if settings.toggle_icon_style == 'carets' %}
+  {% render 'icon',
+          name: 'down-caret',
+          icon_class: 'icon--rotate'
+  %}
+{% else %}
+  {% render 'icon',
+          name: 'plus',
+          icon_class: 'icon--active'
+  %}
+  {% render 'icon', name: 'minus' %}
+{% endif %}
+{% endcapture %}
+
+<section
+  class="
+    section
+    {{ css_class }}
+    is-width-{{ width }}
+    has-gutter-enabled
+  "
+>
+  <div class="container text-center">
+    <div class="product-page-bottom-text">
+      {% for block0 in blocks %}
+        {% assign content = block_content[forloop.index0] | split: '|' %}
+        {% assign content1 = content[0] %}
+        {% assign content2 = content[1] %}
+        {% assign content1_title = content1 | split: '<br>' | first %}
+        {% assign content2_title = content2 | split: '<br>' | first %}
+        {% assign content1_content = content1 | split: '<br>' | last %}
+        {% assign content2_content = content2 | split: '<br>' | last %}
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header">
+              {{ content1_title }}
+              <span class="accordion-arrow icon-active">
+                <span class="icon-solid-caret"></span>
+              </span>
+            </div>
+            <div class="accordion-content" style="display: block;">
+              {{ content1_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              {{ content2_title }}
+              <span class="accordion-arrow">
+                <span class="icon-solid-caret"></span>
+              </span>
+            </div>
+            <div class="accordion-content">
+              {{ content2_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+            </div>
+          </div>
+          <!-- Add more sections as needed -->
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const accordionHeaders = document.querySelectorAll(".accordion-header");
+    const accordionContents = document.querySelectorAll(".accordion-content");
+
+    accordionHeaders.forEach(function (header) {
+      header.addEventListener("click", function () {
+        const accordionItem = this.closest(".accordion-item");
+        const content = accordionItem.querySelector(".accordion-content");
+        const arrow = accordionItem.querySelector(".accordion-arrow");
+        if (content.style.display === "block") {
+          content.style.display = "none";
+          arrow.classList.remove('icon-active');
+        } else {
+          content.style.display = "block";
+          arrow.classList.add('icon-active');
+        }
+      });
+    });
+  });
+</script>
+
+
+</section>

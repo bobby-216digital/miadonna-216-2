@@ -1,0 +1,94 @@
+<div class="ring-categories common-spacing" role="region" aria-labelledby="ring-categories-heading">
+  <div class="contanier-nw">
+    
+    <div class="section-heading text-center">
+      <h2 id="ring-categories-heading" class="common-hd">
+        {{ section.settings.section_aria_label | default: 'Shop Our Ring Collections' | escape }}
+      </h2>
+    </div>
+
+    <ul class="ring-categories__grid">
+      {% for block in section.blocks %}
+      {% assign link_url = block.settings.button_url | default: '#' %}
+
+      <li class="ring-categories__item" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+          <div class="ring-categories__image-wrapper">
+            <a href="{{ link_url }}" class="ring-categories__card-link" aria-label="{{ block.settings.heading }}">
+                {{
+                  block.settings.image
+                  | image_url: width: 900
+                  | image_tag:
+                    class: 'ring-categories__image',
+                    loading: 'lazy',
+                    width: block.settings.image.width,
+                    height: block.settings.image.height,
+                    alt: block.settings.image.alt | default: block.settings.heading | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+                }}
+              </a>
+          </div>
+          {% endif %}
+
+          {% if block.settings.heading != blank %}
+          <h3 class="ring-categories__heading">
+            <a href="{{ link_url }}" class="ring-categories__card-link">
+              {{ block.settings.heading | escape }}
+            </a>
+          </h3>
+          {% endif %}
+
+          {% if block.settings.description != blank %}
+          <p class="ring-categories__description">
+            {{ block.settings.description | escape | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+          </p>
+          {% endif %}
+
+          {% if block.settings.button_label != blank %}
+            <a href="{{ link_url }}" class="button button--secondary" aria-label="{{ block.settings.button_label }} – {{ block.settings.heading }}" > {{ block.settings.button_label | escape }} </a>
+          {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Ring Categories",
+  "tag": "section",
+  "class": "ring-categories-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_aria_label",
+      "label": "Screen Reader Section Title",
+      "default": "Shop Our Ring Collections"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ring_category",
+      "name": "Ring Category",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Product Image" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Engagement Rings" },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "text", "id": "button_label", "label": "Button Label", "default": "Shop Now" },
+        { "type": "url", "id": "button_url", "label": "Button URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ring Categories",
+      "blocks": [
+        { "type": "ring_category" },
+        { "type": "ring_category" },
+        { "type": "ring_category" }
+      ]
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}

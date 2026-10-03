@@ -1,0 +1,405 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Collection Slider",
+  "class": "featured-collection-section jsFeaturedCollection",
+  "id": "collection-slider",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Heading",
+      "default": "Featured collection",
+      "info": ""
+    },
+    {
+      "type": "collection",
+      "id": "atb_collection",
+      "label": "Collection",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Product",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_products_per",
+      "label": "Products per row",
+      "min": 2,
+      "max": 7,
+      "default": 5,
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_mobile_products_per_row",
+      "label": "Products per row on mobile",
+      "info": "Applied only when 'Collection layout' is set to 'Grid'.",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "atb_products_limit",
+      "label": "Limit products",
+      "min": 3,
+      "max": 50,
+      "default": 10,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_align_height",
+      "label": "Align to height",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_collection_height",
+      "label": "Product image height",
+      "min": 150,
+      "max": 400,
+      "step": 10,
+      "default": 200,
+      "unit": "px",
+      "info": "Applied when 'Align to height' is enabled. [Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022543913)"
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_collection_style",
+      "label": "Collection layout",
+      "default": "grid",
+      "options": [
+        {
+          "value": "slider",
+          "label": "Slider"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "wide",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_gutter",
+      "label": "Show gutter",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_collection' -%}
+{%- assign atb_collection = val -%}
+{%- include 'atb-render' field:'atb_products_per' -%}
+{%- assign atb_products_per = val -%}
+{%- include 'atb-render' field:'atb_mobile_products_per_row' -%}
+{%- assign atb_mobile_products_per_row = val -%}
+{%- include 'atb-render' field:'atb_products_limit' -%}
+{%- assign atb_products_limit = val -%}
+{%- include 'atb-render' field:'atb_align_height' -%}
+{%- assign atb_align_height = val -%}
+{%- include 'atb-render' field:'atb_collection_height' -%}
+{%- assign atb_collection_height = val -%}
+{%- include 'atb-render' field:'atb_collection_style' -%}
+{%- assign atb_collection_style = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_show_gutter' -%}
+{%- assign atb_show_gutter = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- if atb_align_height == blank -%}
+{%- assign atb_align_height = false -%}
+{%- else -%}
+{%- assign atb_align_height = true -%}
+{%- endif -%}
+{%- if atb_show_gutter == blank -%}
+{%- assign atb_show_gutter = false -%}
+{%- else -%}
+{%- assign atb_show_gutter = true -%}
+{%- endif -%}
+{%- assign atb_products_per = atb_products_per | plus: 0 -%}
+{%- assign atb_products_limit = atb_products_limit | plus: 0 -%}
+{%- assign atb_collection_height = atb_collection_height | plus: 0 -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section featured-collection-section jsFeaturedCollection">
+{% comment %}
+** Single featured collection **
+{% endcomment %}
+
+{%- assign title = atb_title -%}
+{%- assign collection = collections[atb_collection] -%}
+
+{% comment %} Assign product length to be selected limit for onboarding {% endcomment %}
+{% if collection != blank and collection.products != blank %}
+  {%- assign section_onboarding = false -%}
+{% else %}
+  {%- assign section_onboarding = true -%}
+{% endif %}
+
+{% comment %} Check to see if enough products available to create slide {% endcomment %}
+{% if atb_collection_style == 'slider' %}
+  {% if atb_products_limit > atb_products_per and collection.all_products_count > atb_products_per %}
+    {%- assign layout = 'slider' -%}
+  {% else %}
+    {%- assign layout = 'grid' -%}
+  {% endif %}
+{% else %}
+  {%- assign layout = 'grid' -%}
+{% endif %}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section_id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+  {%
+    render 'css-loop',
+    css: atb_custom_css,
+    id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section class="section
+                {{ atb_css_class }}
+                is-width-{{ atb_width }}
+                {% if atb_show_gutter == false %}
+                  has-no-side-gutter
+                  has-background
+                {% else %}
+                  has-gutter-enabled
+                {% endif %}
+                "
+                {% if atb_animation != "none" %}
+                  data-scroll-class="{{ atb_animation }}"
+                {% endif %}>
+  {% if title != blank %}
+    <div class="container">
+      {%
+        render 'heading',
+        title: title,
+        heading_tag: 'h2',
+        context: 'featured-collection',
+        text_alignment: 'center',
+        url: collection.url
+      %}
+    </div>
+  {% endif %}
+  <div class="container has-column-padding-bottom featured-collection layout--{{ layout }} is-justify-center">
+    {% if section_onboarding == false %}
+      {% comment %} Loop through products {% endcomment %}
+      {% if layout == 'slider' %}
+        {% if collection.all_products_count > 0 %}
+          {%
+            render 'product-slider',
+            limit: atb_products_limit,
+            products: collection.products,
+            skip_product: product,
+            per_slide: atb_products_per,
+            mobile_products_per_row: atb_mobile_products_per_row,
+            align_height: atb_align_height,
+            height: atb_collection_height,
+            show_gutter: atb_show_gutter,
+            featured_collection: atb_collection
+          %}
+        {% endif %}
+      {% else %}
+        {% if collection.all_products_count > 0 %}
+           {% for product in atb_collection.products %}
+              <div class="product-item one-fifth column medium-down--one-half">
+                <a href="{{ product.url | within: collection }}">
+                  {%
+                    render 'image-element',
+                    image: product.featured_media.preview_image,
+                    alt: product.featured_media.preview_image.alt,
+                  %}
+                  <h3>
+                    {{ product.title }}
+                  </h3>
+                  <p>{{ product.price_max | money }}</p>
+                </a>
+              </div>
+            {% endfor %}
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% comment %} Placeholder images {% endcomment %}
+      {% for i in (1..10) %}
+        <div class="collection__item
+            one-fifth
+            {% if atb_mobile_products_per_row == '1' %}
+              small-down--one-whole
+            {% else %}
+              small-down--one-half
+            {% endif %}
+            thumbnail column">
+          {% capture num %}{% cycle "1", "2", "3", "4", "5", "6" %}{% endcapture %}
+          {{ 'product-' | append: num | placeholder_svg_tag: 'placeholder-svg placeholder-svg--product' }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% comment %} JavaScript {% endcomment %}
+<script
+  type="application/json"
+  data-section-id="{{ section_id }}"
+  data-section-data
+>
+  {
+    "collection_style": {{ layout | json }},
+    "products_per": {{ atb_products_per | json}},
+    "products_available": {{ collection.all_products_count | json }},
+    "products_limit": {{ atb_products_limit | json }},
+    "align_height": {{ atb_align_height | json }}
+  }
+</script>
+<script data-theme-editor-load-script src="{{ 'z__jsFeaturedCollection.js' | asset_url }}"></script>
+
+
+
+</section>

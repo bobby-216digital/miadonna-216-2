@@ -1,0 +1,20 @@
+<script>
+$(document).ready(function() {
+$('.item--EUR').find('p').text('Europe');
+ 
+var cs_listItems = $(".country-list-cs li");
+var currentCountry = '{{localization.country.iso_code }}';
+cs_listItems.each(function(idx, li) {
+var cs_country = $(li);
+var selected_value = cs_country.children('button').attr('value');
+   // console.log(selected_value);
+var requiredCountries = ["GB","US","AU","AX","CA","NZ"];
+if(!requiredCountries.includes(selected_value))  {
+    cs_country.remove();
+}
+if(!requiredCountries.includes(currentCountry)){
+$(".countryName").text("United States");
+}
+});
+});
+</script>

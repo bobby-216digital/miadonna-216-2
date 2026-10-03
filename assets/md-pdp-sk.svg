@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg role="img" aria-labelledby="loading-aria" viewBox="0 0 200 100" preserveAspectRatio="none" version="1.1" id="svg35" sodipodi:docname="5fb188ba94940c3cb176ea38c5754a0b.svg" width="300" height="40" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+    <sodipodi:namedview id="namedview37" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" />
+    <title id="loading-aria">Loading...</title>
+    <rect x="0" y="0" width="100%" height="100%" clip-path="url(#clip-path)" style="fill:url(#fill)" id="rect3" />
+    <defs id="defs33">
+        <clipPath id="clip-path">
+            <rect x="0" y="5" rx="6" ry="6" width="200" height="40" id="rect5" />
+            <rect x="0" y="50" rx="6" ry="6" width="200" height="40" id="rect7" />
+        </clipPath>
+        <linearGradient id="fill" gradientTransform="scale(1.4142136,0.70710678)" x1="0" y1="0" x2="141.42136" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0.599964" stop-color="#f3f3f3" stop-opacity="1" id="stop26">
+                <animate attributeName="offset" values="-2; -2; 1" keyTimes="0; 0.25; 1" dur="2s" repeatCount="indefinite" />
+            </stop>
+            <stop offset="1.59996" stop-color="#ecebeb" stop-opacity="1" id="stop28">
+                <animate attributeName="offset" values="-1; -1; 2" keyTimes="0; 0.25; 1" dur="2s" repeatCount="indefinite" />
+            </stop>
+            <stop offset="2.59996" stop-color="#f3f3f3" stop-opacity="1" id="stop30">
+                <animate attributeName="offset" values="0; 0; 3" keyTimes="0; 0.25; 1" dur="2s" repeatCount="indefinite" />
+            </stop>
+        </linearGradient>
+    </defs>
+</svg>

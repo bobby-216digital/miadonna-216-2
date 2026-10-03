@@ -1,0 +1,389 @@
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    margin-bottom:40px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if section.settings.hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .slide-text{
+    padding: 40px;
+  }
+ #shopify-section-{{ section.id }} p{
+    
+    font-family: 'Playfair Display';
+    font-style: italic;
+  }
+  #shopify-section-{{ section.id }} .slide-text h3 {
+    font-size: 17px;
+    margin-bottom: 25px;
+    padding-top: 50px;
+    position: relative;
+    font-weight: 600;
+    line-height: 1.333;
+    quotes: "\201c" "\201d" "\201c" "\201d";
+  }
+  #shopify-section-{{ section.id }} .slide-text h3:before {
+    content: open-quote;
+    display: block;
+    font-size: 70px;
+    font-style: italic;
+    left: -6px;
+    line-height: 1;
+    position: absolute;
+    top: 0;
+  }
+  #shopify-section-{{ section.id }} .slide-text span {
+    color: #e6c799 !important;
+    font-family: Montserrat,sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  #shopify-section-{{ section.id }} .slide-image {
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .image-element__wrap img {
+    height: auto;
+    margin: 30px auto;
+    max-width: 100px;
+  }
+  #shopify-section-{{ section.id }} .flickity-page-dots {
+    bottom: -20px;
+  }
+  #shopify-section-{{ section.id }} .quotes-slider .dot{
+    background:#7777;
+    height: 4px;
+    width: 60px;
+    border-radius: 0;
+  }
+  #shopify-section-{{ section.id }} .dot.is-selected {
+    
+    background: #fff;
+  }
+  .quotes-slider .column {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section.id }} .slide-text h3 {
+      padding-top: 45px;
+    }
+    #shopify-section-{{ section.id }} .slide-text span {
+      font-size: 19px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section.id }} .slide-text h3 {
+      font-size: 30px;
+      padding-top: 70px;
+    }
+    #shopify-section-{{ section.id }} .slide-text h3:before {
+      font-size: 108px;
+      left: 0;
+    }
+    #shopify-section-{{ section.id }} .image-element__wrap img {
+      left: 50%;
+      margin: 0 auto;
+      max-width: 55%;
+      position: absolute;
+      top: 50%;
+      transform: translate3d(-50%,-50%,0);
+    }
+    #shopify-section-{{ section.id }} .flickity-page-dots {
+      bottom: -35px;
+    }
+  }
+  @media only screen and (min-width: 1400px){
+    #shopify-section-{{ section.id }} .slide-text{
+      padding: 40px 40px 40px 0;
+    }
+  }
+  @media only screen and (max-width: 1024px){
+    #shopify-section-{{ section.id }} {
+      padding: 0 0 40px;
+    }
+  }
+
+  {% render 'css-loop',
+    css: section.settings.custom_css,
+    id: section.id
+  %}
+  
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-collection-blocks
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if section.settings.width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div class="quotes-slide-wrapper">
+    {% if section.settings.main_title != blank %}
+      <h3 style="color: {{ section.settings.text_color }};">{{ section.settings.main_title }}</h3>
+    {% endif %}
+    <div
+      class="container quotes-slider {% if section.blocks.size <= 1 %}no-slider{% endif %}"
+      style="flex-wrap: nowrap;"
+      data-products-per-slide="1"
+      data-products-limit="{% if section.blocks.size > 1 %}15{% else %}1{% endif %}"
+      data-products-available="{% if section.blocks.size > 1 %}15{% else %}1{% endif %}"
+    >
+      {% for block in section.blocks %}
+        <div class="container quotes-slide one-whole column">
+          <div class="four-sixths column medium-down--one-whole slide-text text-align-{{ block.settings.text_alignment }}">
+            {% if block.settings.title != blank %}
+              <h3 style="color: {{ section.settings.text_color }};">{{ block.settings.title }}</h3>
+            {% endif %}
+            {% if block.settings.subtitle != blank %}
+              <span style="color: {{ section.settings.text_color }};">{{ block.settings.subtitle }}</span>
+            {% endif %}
+          </div>
+          <div
+            class="two-sixths column medium-down--one-whole slide-image"
+            {% if block.settings.image_alignment == 'left' %}
+              style="order: -1;"
+            {% endif %}
+          >
+            {% if block.settings.image != blank %}
+              <div class="image-element__wrap" style="height: auto;">
+                <img
+                  src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | img_url: 'master' }}"
+                  alt="{{ block.settings.image_alt  }}"
+                  width="100%"
+                  height="100%"
+                  loading="eager"
+                >
+              </div>
+              {%
+                render 'image-element',
+                image: block.settings.image,
+                alt: block.settings.image_alt,
+              %}
+            {% else %}
+              <div class="image-element__wrap" style="height: auto;">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsQuotesSlider.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Quotes slider",
+  "class": "quotes-slider jsQuotesSlider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_block",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "text",
+          "label": "Image Alt Text",
+          "id": "image_alt"
+        },
+        {
+          "type": "select",
+          "id": "image_alignment",
+          "label": "Image alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "text",
+          "label": "Subtitle",
+          "id": "subtitle"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quotes slider"
+    }
+  ]
+}
+{% endschema %}

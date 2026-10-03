@@ -1,0 +1,315 @@
+{% comment %}
+  ** Category carousel **
+{% endcomment %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign blocks = section.blocks -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if section.settings.hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .category-carousel-wrapper .category-carousel-column {
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .category-carousel-wrapper .category-carousel__column {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    width: 350px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 26px;
+    padding: 0 20px;
+    letter-spacing: 1.4px;
+  }
+  #shopify-section-{{ section.id }} .category-carousel-wrapper .image-text em {
+    font-weight: 400;
+    font-family: "Playfair Display";
+  }
+  #shopify-section-{{ section.id }} .category-carousel-wrapper .flickity-button{
+    background: transparent;
+  }
+  #shopify-section-{{ section.id }} .category--carousel.no-slider:after {
+    content: "flickity";
+    display: none; /* hide :after */
+  }
+  @media screen and (min-width: 1025px) {
+    /* disable Flickity for large devices */
+    #shopify-section-{{ section.id }} .category--carousel.no-slider:after {
+      content: "";
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .category-carousel-wrapper .image-text {
+      width: 250px;
+      font-size: 20px;
+      line-height: 26px;
+      padding: 5px 20px;
+    }
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-image-with-text
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    {% if section.settings.show_gutter == false %}
+      has-no-side-gutter
+      has-background
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div
+    class="container category-carousel-wrapper category--carousel has-no-side-gutter {% if section.blocks.size < 5 %}no-slider{% endif %}"
+    data-products-per-slide="4"
+    data-products-limit="{% if section.blocks.size > 4 %}20{% else %}4{% endif %}"
+    data-products-available="{% if section.blocks.size > 4 %}20{% else %}4{% endif %}"
+  >
+    {% if blocks.size > 0 %}
+      {% for block in blocks %}
+        <div
+          class="category-carousel-column one-fourth medium-down--one-third small-down--one-whole column"
+        >
+          {% if block.settings.image != blank %}
+            {%
+              render 'image-element',
+              image: block.settings.image,
+              alt: block.settings.image.alt,
+              focal_point: block.settings.image.presentation.focal_point,
+            %}
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+          {% if block.settings.title_1 != blank or block.settings.title_2 != blank %}
+            <div class="category-carousel__column" style="{{ block.settings.text_position }}: 0;">
+              <div class="image-text text-{{ block.settings.text_position }}">
+                <p>
+                  <em>{{ block.settings.title_1 }}</em>
+                </p>
+                <p>{{ block.settings.title_2 }}</p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsCategoryCarousel.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Category carousel",
+  "class": "category-crousel jsCategoryCarousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gutter",
+      "label": "Show gutter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "default": 20,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Text position",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1024 x 1024px recommended"
+        },
+        {
+          "type": "url",
+          "id": "image_link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Title 1"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Title 2"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category carousel",
+      "category": "Category carousel",
+      "blocks": [
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

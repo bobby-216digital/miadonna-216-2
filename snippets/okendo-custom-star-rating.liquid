@@ -1,0 +1,51 @@
+{% if shop.metafields.okendo.settings.isWidgetPlusEnabled == true %}
+  {% assign renderWidgetPlusContent = true %}
+{% elsif shop.metafields.okendo.settings.isWidgetPlusAdminEnabled == true and theme.role == 'unpublished' %}
+  {% if request.design_mode or theme.role == 'unpublished' %}
+    {% assign renderWidgetPlusContent = true %}
+  {% endif %}
+{% endif %}
+
+{% if product != blank %}
+  {% capture product_data_attribute %}data-oke-reviews-product-id="shopify-{{ product.id }}"{% endcapture %}
+{% endif %}
+
+{% if renderWidgetPlusContent == true %}
+  {% if product.metafields.okendo.ReviewCount > 0 %}
+    <a class="okendo-custom-star-rating" href="#okendo-product-reviews">
+      <span class="okendo-custom-count"
+        >See {{ product.metafields.okendo.ReviewCount }} Review
+        {%- if product.metafields.okendo.ReviewCount > 1 %}s{% endif -%}
+      </span>
+      <div data-oke-star-rating {{ product_data_attribute }}>
+        {{ product.metafields.okendo.StarRatingSnippet }}
+      </div>
+    </a>
+  {% else %}
+    <style>
+      .okendo-custom-star-rating {
+        align-items: center;
+      }
+      :root {
+        --oke-stars-backgroundColor: #edebeb;
+        --oke-stars-borderColor: #edebeb;
+      }
+      @media screen and (max-width: 1025px) {
+        .okendo-custom-star-rating {
+          margin-bottom: 1rem;
+        }
+      }
+    </style>
+    <a class="okendo-custom-star-rating" href="#okendo-product-reviews">
+      <span class="okendo-custom-count">Leave a Review</span>
+      <svg height="12" viewBox="0 0 96.33333333333331 14" aria-hidden="true" role="none">
+        <title>Review</title>
+        <use x="0" href="#oke-star-empty"></use><use x="20.433333333333334" href="#oke-star-empty"></use><use x="40.86666666666667" href="#oke-star-empty"></use><use x="61.3" href="#oke-star-empty"></use><use x="81.73333333333333" href="#oke-star-empty"></use>
+      </svg>
+    </a>
+  {% endif %}
+{% else %}
+  <div data-oke-reviews-product-listing-rating>
+    {{ product.metafields.okendo.ProductListingSnippet }}
+  </div>
+{% endif %}

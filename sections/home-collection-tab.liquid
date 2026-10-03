@@ -1,0 +1,523 @@
+{% comment %} Section specific CSS {% endcomment %}
+
+{{ 'setting-tabs.css' | asset_url | stylesheet_tag }}
+
+<noscript>{{ 'setting-tabs.css' | asset_url | stylesheet_tag }}</noscript>
+
+<style>
+  #shopify-section-{{ section.id }} .section-heading{
+    margin-bottom: 30px;
+  }
+  #shopify-section-{{ section.id }} .product-item h4 span{
+    display:block;
+  }
+  #shopify-section-{{ section.id }} .section-heading h3{
+    margin-top: 0;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: normal;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+
+
+  }
+  #shopify-section-{{ section.id }} .section-heading .main-subheading{
+    font-size: 22px;
+    font-style: italic;
+    line-height: 28.71px;
+    letter-spacing: 0.35px;
+    font-family: 'Playfair Display';
+  }
+
+    {% comment %} .home-collection-tabs .product-item .hover-image{
+    display:none;
+  }
+  .home-collection-tabs .product-item:hover .before-image{
+    display:none;
+  }
+  .home-collection-tabs .product-item:hover .hover-image{
+    display:block;
+  } {% endcomment %}
+   .home-collection-tabs .product-item h4{
+     position:relative;
+     padding-bottom:10px;
+     padding-left:0;
+     font-family: Montserrat,sans-serif;
+     font-style: normal;
+   }
+  .home-collection-tabs .product-item h4:after{
+    background-color: #dea595;
+    bottom: 0px;
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    transition: width .8s;
+    width: 80px;
+    z-index: 0;
+  }
+  .home-collection-tabs .product-item:hover h4::after{
+    width:0;
+  }
+  #shopify-section-{{ section.id }} .product-item h4{
+    font-size:16px ;
+    margin-top:10px;
+    font-weight:500;
+    font-family: Montserrat,sans-serif;
+    font-style: normal;
+  }
+  #shopify-section-{{ section.id }} .setting-tabs-wrapper {
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 767px){
+    #shopify-section-{{ section.id }} .section-heading h3,#shopify-section-{{ section.id }} .product-item h4{
+      font-size: 14px;
+    }
+    #shopify-section-{{ section.id }} .section-heading .main-subheading{
+      font-size: 16px;
+    }
+  }
+  @media screen and (max-width: 575px){
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper {
+      overflow: hidden;
+    }
+  }
+</style>
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-left: {{ section.settings.padding_left }}px;
+    padding-right: {{ section.settings.padding_right }}px;
+    {% if section.settings.width == 'wide' -%}
+      width: 100%;
+    {%- elsif section.settings.width == 'half' -%}
+      width: 50%;
+    {%- endif %}
+  }
+  #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons{
+    gap: 0;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tab-button{
+    border: 3px solid #f5f5f5;
+    font-size: 16px;
+    padding: 0.5rem 2rem;
+    outline: none;
+    box-shadodow: none;
+    letter-spacing: 0;
+    background: transparent;
+    text-align:center;
+    margin-right:5px;
+    line-height: normal;
+  }
+
+
+
+
+  #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tab-button.button-active {
+    background:#f5f5f5 !important;
+  }
+  #shopify-section-{{ section.id }} .product-content-wrapper{
+    justify-content: flex-start;
+  }
+  #shopify-section-{{ section.id }} .product-content-wrapper .product-item{
+    margin-right: 5px !important;
+  }
+  #shopify-section-{{ section.id }} .product-content-wrapper .image-element__wrap{
+    max-width: 100% !important;
+  }
+  #shopify-section-{{ section.id }} .flickity-prev-next-button{
+    background-color: transparent;
+  }
+  #shopify-section-{{ section.id }} .collection-badge-wrapper {
+    text-align: right;
+    /* min-height: 51px; */
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+  }
+  #shopify-section-{{ section.id }} .collection-badge-wrapper .collection-badge {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    margin: 0.7rem 0.6rem;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    text-transform: uppercase;
+    background-color: #f0f0f0;
+    background-color: #ffffff;
+  }
+  @media screen and (max-width: 1300px){
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons{
+      flex-wrap: nowrap;
+      overflow: auto;
+      padding: 0 1rem 1rem;
+      justify-content: flex-start;
+    }
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tab-button{
+      white-space: nowrap;
+    }
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-1,
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-2,
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-3{
+      justify-content: center;
+    }
+  }
+  @media screen and (max-width: 991px){
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-1,
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-2,
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tabs-buttons.tab-buttons-3{
+      justify-content: flex-start;
+    }
+  }
+
+  @media screen and (max-width: 798px){
+    #shopify-section-{{ section.id }} .is-mobile-hidden {
+      display:none;
+    }
+  }
+  @media screen and (max-width: 767px){
+    #shopify-section-{{ section.id }} .collection-badge-wrapper .collection-badge {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
+    #shopify-section-{{ section.id }} .setting-tabs-wrapper .setting-tab-button{
+      font-size: 14px;
+    }
+    .home-collection-tabs .has-no-side-gutter .medium-down--one-half {
+        width: 60% !important;
+      }
+
+
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-setting-tabs
+    {{ section.settings.css_class }}
+    is-width-{{ section.settings.width }}
+    has-no-side-gutter
+  "
+  {% if section.settings.animation != 'none' %}
+    data-scroll-class="{{ section.settings.animation }}"
+  {% endif %}
+>
+  <div class="section-heading text-center">
+    <h3>{{ section.settings.main_heading }}</h3>
+    <div class="main-subheading">
+      {{ section.settings.main_subheading }}
+    </div>
+  </div>
+  <div class="container">
+    {% assign buttonTextEmpty = false %}
+    {% assign buttonCount = 0 %}
+    {%- for block in section.blocks -%}
+      {% if block.settings.button_text == blank %}
+        {% assign buttonTextEmpty = true %}
+      {% endif %}
+      {% if block.settings.button_text != blank %}
+        {% assign buttonCount = buttonCount | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+    {% assign btn_handles = section.settings.buttons_order
+      | split: ','
+    %}
+    <setting-tabs class="setting-tabs-wrapper one-whole">
+      <div class="setting-tabs-buttons tab-buttons-{{ buttonCount }}">
+        {%- for btn in btn_handles -%}
+          {% assign buttonID = btn | replace: ' ', '-' | downcase %}
+          <h3
+            id="{{ buttonID }}"
+            class="setting-tab-button {{ buttonID }}{% if forloop.first %} button-active{% endif %}"
+          >
+            {{ btn }}
+          </h3>
+        {% endfor %}
+      </div>
+
+      {%- for btn in btn_handles -%}
+        {% assign buttonID = btn | replace: ' ', '-' | downcase %}
+        <div
+          id="{{ buttonID }}-content"
+          class="setting-tab-content {{ buttonID }}-content js-related-products-slider{% if forloop.first %} tab-active{% endif %}"
+        >
+          <div
+            class="product-content-wrapper products-slider"
+            data-products-per-slide="5"
+            data-products-limit="20"
+            data-products-available="20"
+          >
+            {% for block in section.blocks %}
+              {% if buttonID == block.settings.button %}
+                <div class="product-item one-fifth column medium-down--one-half{% if forloop.index > 2 %} is-mobile-hidden{% endif %}{% if forloop.index > 5 %} is-hidden{% endif %}">
+                  {% if block.settings.url != blank %}
+                    <a
+                      href="{{ block.settings.url }}"
+                      class="collection-link"
+                      style="color: {{ section.settings.text_color }};"
+                    >
+                  {% endif %}
+                  {% if block.settings.badge_text != blank %}
+                    <div class="collection-badge-wrapper">
+                      <span class="collection-badge best-seller">{{ block.settings.badge_text }}</span>
+                    </div>
+                  {% endif %}
+                  {% if block.settings.image != blank %}
+                    {% assign image_alt = block.settings.image_alt | append: ' | Miadonna' %}
+                    {% render 'image-element',
+                      image: block.settings.image,
+                      alt: image_alt,
+                      additional_classes: 'before-image'
+                    %}
+                  {% else %}
+                    <div class="image-element__wrap" style="height: auto;">
+                      {{ 'image' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  {% comment %}
+                    {% if block.settings.image-2 != blank %}
+                        {%
+                          render 'image-element',
+                          image: block.settings.image-2,
+                          alt: block.settings.image_alt,
+                          additional_classes:'hover-image',
+                        %}
+                    {% endif %}
+                  {% endcomment %}
+                  {% if block.settings.title != blank %}
+                    <h4 style="color: {{ section.settings.text_color }};">{{ block.settings.title }}</h4>
+                  {% endif %}
+                  {% if block.settings.url != blank %}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </setting-tabs>
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsCollectionTabs.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Home Collection tabs",
+  "class": "collection-tabs home-collection-tabs jsCollectionTabs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "buttons_order",
+      "label": "Buttons order"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+         {
+      "type": "text",
+      "label": "Main Heading",
+      "id": "main_heading"
+    },
+    {
+      "type": "richtext",
+      "label": "Main Subheading",
+      "id": "main_subheading"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "half",
+          "label": "Half"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+       "settings": [
+        {
+          "type": "select",
+          "id": "button",
+          "label": "Button Tab",
+          "default": "engagement",
+          "options": [
+            {
+              "value": "best-sellers",
+              "label": "Best Sellers"
+            },
+            {
+              "value": "engagement",
+              "label": "Engagement"
+            },
+            {
+              "value": "wedding",
+              "label": "Wedding"
+            },
+            {
+              "value": "tennis",
+              "label": "Tennis"
+            },
+            {
+              "value": "jewelry",
+              "label": "Jewelry"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text"
+        },
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "image_picker",
+          "label": "Hover Image",
+          "id": "image-2"
+        },
+        {
+          "type": "text",
+          "label": "Image Alt Text",
+          "id": "image_alt"
+        },
+        {
+          "type": "html",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "url",
+          "label": "Collection Link",
+          "id": "url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Collection tabs"
+    }
+  ]
+}
+{% endschema %}

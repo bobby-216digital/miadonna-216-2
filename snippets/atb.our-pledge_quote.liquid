@@ -1,0 +1,143 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Our Pledge Quote",
+  "id": "our-pledge_quote",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Title",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_text",
+      "label": "Quote",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_text' -%}
+{%- assign atb_text = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<style>
+  .pink-text {
+  color: #ffa998 !important;
+}
+  #shopify-section-{{ section_id }} {
+    background: #212121;
+    color: #ffffffbf;
+  }
+  #shopify-section-{{ section_id }} .typeset-cell>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .content-cell {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section_id }} .readability-insets>* {
+    max-width: 76rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section_id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .text-style-chapter-title {
+    color: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .quote-layout {
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section_id }} .quote-layout blockquote {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  #shopify-section-{{ section_id }} .quote-layout blockquote:before,
+  #shopify-section-{{ section_id }} .quote-layout blockquote:after {
+    content: "\201c";
+    display: block;
+    font-size: 110px;
+    font-style: normal;
+    line-height: 1;
+    height: 65px;
+    margin: 26px 0;
+    color: #777;
+    opacity: 1;
+  }
+  #shopify-section-{{ section_id }} .quote-layout blockquote:after {
+    content: "\201d";
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 50px;
+    }
+    #shopify-section-{{ section_id }} .quote-layout blockquote {
+      font-size: 36px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section_id }} .quote-layout blockquote {
+      font-size: 40px;
+    }
+    #shopify-section-{{ section_id }} .quote-layout blockquote:before,
+    #shopify-section-{{ section_id }} .quote-layout blockquote:after {
+      font-size: 164px;
+      height: 110px;
+    }
+  }
+</style>
+
+<div class="content-cell text-center">
+  <div class="body-cell typeset-cell">
+    <header class="text-style-chapter-title">{{ atb_title }}</header>
+    <figure class="quote-layout business-ethics-quote">
+      <blockquote>{{ atb_text }}</blockquote>
+    </figure>
+  </div>
+</div>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

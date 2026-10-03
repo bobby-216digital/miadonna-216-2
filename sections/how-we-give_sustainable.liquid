@@ -1,0 +1,59 @@
+<section class="_body content-cell offset-group body-cell typeset-cell">
+	<div class="pure-g">
+		<div class="cell-style-E pure-u-1 pure-u-md-1-2 sustainable-practices _left">
+			<h1 class="count">{{ section.settings.count }}</h1>
+			<h2>{{ section.settings.left_heading }}</h2>
+			<p>{{ section.settings.left_text }}</p>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-2 left-align sustainable-practices _right">
+			<i class="ornamental-break ornamental-break-green ornamental-break-left"></i>
+			<h2 class="black-text text-style-title content-subtitle">{{ section.settings.right_heading }}</h2>
+			<p>{{ section.settings.right_text }}</p>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Sustainable Practice",
+    "settings": [
+        {
+            "type": "text",
+            "id": "count",
+            "label": "Count"
+          },
+          {
+            "type": "textarea",
+            "id": "left_heading",
+            "label": "Left Heading"
+          },
+       {
+            "type": "textarea",
+            "id": "left_text",
+            "label": "Left Text"
+          },
+          {
+            "type": "text",
+            "id": "right_heading",
+            "label": "Right Heading"
+          },
+       {
+            "type": "textarea",
+            "id": "right_text",
+            "label": "Right Text"
+          }
+    ],
+    "presets": [
+    {
+      "name": "Sustainable Practice",
+      "category": "Text"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "fd5a1ac7-10c2-49fc-915e-6f59554d85cb": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "fd5a1ac7-10c2-49fc-915e-6f59554d85cb"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "customer-care-navigation",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

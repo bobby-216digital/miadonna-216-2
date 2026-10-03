@@ -1,0 +1,94 @@
+<section class="custom-section-design {{ section.settings.class }} {{ section.settings.sectionid }} section-scroll" role="region" aria-labelledby="recent-custom-designs-title">
+  <div class="slider-wrapper">
+    <div class="contanier-nw">
+      {%- unless section.settings.title == blank -%}
+        <h2 id="recent-custom-designs-title" class="common-hd" tabindex="0">
+          {{ section.settings.title }}
+        </h2>
+      {%- endunless -%}
+
+      {% if section.blocks.size > 0 %}
+      <div class="custom-slider sl-space slick-cls progress-sl" aria-label="{{ section.settings.title | strip_html }}">
+        {%- for block in section.blocks -%}
+          {%- assign collection = block.settings.collection -%}
+          {%- assign collection_image = block.settings.image -%}
+          {%- if collection -%}
+            <div class="slide" aria-label="Recent Custom Design Item">
+              <div class="custom-slide-text slide-cls sl-spacebox">
+                {% unless collection == blank %}<a href="{{ collection.url }}" class="img-hover-effect radius-2" aria-label="Shop {{ collection.title |default: block.settings.title }}" tabindex="0">{% endunless %}
+                  <img src="{{ settings.speedsize_url_pfx_https -}}{{ collection_image | img_url:'master' }}" class="image-full" width="278" height="412" alt="{{ collection.title |default: block.settings.title }}" loading="lazy">
+                  {% assign title_text = block.settings.title | default: collection.title %}
+                  {% if title_text != blank %}
+                    <span class="line-hover">{{ title_text }}</span>
+                  {% endif %}
+                {% unless collection == blank %}</a>{% endunless %} 
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="progress-container progress-center-mob" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Slider progress">
+        <div class="progress-bar progress-bar-customlider" style="width: 10%;"></div>
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Custom Slider",
+    "settings": [
+      {
+        "type": "text",
+        "id": "sectionid",
+        "label": "scroll id class"
+      },
+       {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "textarea",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "content",
+        "label": "Content"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "category",
+        "name": "Category",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Select Collection"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Collection Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+    {
+      "name": "Custom Slider",
+      "category": "Content"
+    }
+  ]
+  }
+{% endschema %}

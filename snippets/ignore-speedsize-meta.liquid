@@ -1,0 +1,12 @@
+<!--speedsizeIgnore-->
+{%- comment -%}
+<meta
+  name="twitter:image"
+  content="{{ settings.speedsize_url_pfx -}}https:{{ product.featured_image.src | img_url: '240x' }}"
+>
+{%- endcomment -%}
+<meta
+  name="twitter:image"
+  content="https:{{ product.featured_image.src | img_url: '240x' }}"
+>
+<!--endSpeedsizeIgnore-->

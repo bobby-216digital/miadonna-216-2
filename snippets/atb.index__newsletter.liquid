@@ -1,0 +1,456 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Newsletter",
+  "class": "newsletter",
+  "id": "index__newsletter",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_display_first_name",
+      "label": "Show first name",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_display_last_name",
+      "label": "Show last name",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_newsletter_title",
+      "label": "Heading",
+      "default": "Subscribe",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_newsletter_richtext",
+      "label": "Subheading",
+      "default": "<p>Sign up to get the latest on sales, new releases and more …</p>",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_newsletter_section_text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background_color",
+      "label": "Background",
+      "default": "#E5E5E5",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_text_color",
+      "label": "Text",
+      "default": "#000000",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Background image",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_background_image",
+      "label": "Background image",
+      "info": "1600 x 300px recommended"
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_image_darken",
+      "label": "Darken image",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Feature image",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_image",
+      "label": "Image",
+      "info": "1024 x 1024px recommended"
+    },
+    {
+      "type": "select",
+      "id": "atb_image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "wide",
+      "options": [
+        {
+          "value": "half",
+          "label": "Half"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_left",
+      "label": "Left spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_right",
+      "label": "Right spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_display_first_name' -%}
+{%- assign atb_display_first_name = val -%}
+{%- include 'atb-render' field:'atb_display_last_name' -%}
+{%- assign atb_display_last_name = val -%}
+{%- include 'atb-render' field:'atb_newsletter_title' -%}
+{%- assign atb_newsletter_title = val -%}
+{%- include 'atb-render' field:'atb_newsletter_richtext' -%}
+{%- assign atb_newsletter_richtext = val -%}
+{%- include 'atb-render' field:'atb_newsletter_section_text_align' -%}
+{%- assign atb_newsletter_section_text_align = val -%}
+{%- include 'atb-render' field:'atb_background_color' -%}
+{%- assign atb_background_color = val -%}
+{%- include 'atb-render' field:'atb_text_color' -%}
+{%- assign atb_text_color = val -%}
+{%- include 'atb-render' field:'atb_background_image' -%}
+{%- assign atb_background_image = val -%}
+{%- include 'atb-render' field:'atb_image_darken' -%}
+{%- assign atb_image_darken = val -%}
+{%- include 'atb-render' field:'atb_image' -%}
+{%- assign atb_image = val -%}
+{%- include 'atb-render' field:'atb_image_position' -%}
+{%- assign atb_image_position = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_padding_left' -%}
+{%- assign atb_padding_left = val -%}
+{%- include 'atb-render' field:'atb_padding_right' -%}
+{%- assign atb_padding_right = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- if atb_display_first_name == blank -%}
+{%- assign atb_display_first_name = false -%}
+{%- else -%}
+{%- assign atb_display_first_name = true -%}
+{%- endif -%}
+{%- if atb_display_last_name == blank -%}
+{%- assign atb_display_last_name = false -%}
+{%- else -%}
+{%- assign atb_display_last_name = true -%}
+{%- endif -%}
+{%- if atb_image_darken == blank -%}
+{%- assign atb_image_darken = false -%}
+{%- else -%}
+{%- assign atb_image_darken = true -%}
+{%- endif -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign atb_padding_left = atb_padding_left | plus: 0 -%}
+{%- assign atb_padding_right = atb_padding_right | plus: 0 -%}
+{%- assign atb_background_image_key = atb_background_image| split: '/files/' | last -%}{%- assign atb_background_image = images[atb_background_image_key] -%}{%- assign atb_image_key = atb_image| split: '/files/' | last -%}{%- assign atb_image = images[atb_image_key] -%}{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section newsletter">
+{% comment %}
+** Newsletter **
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{% comment %} Content Settings {% endcomment %}
+{%- assign heading = atb_newsletter_title -%}
+{%- assign subheading = atb_newsletter_richtext -%}
+{%- assign background_image = atb_background_image -%}
+{%- assign image_darken = atb_image_darken -%}
+{%- assign image = atb_image -%}
+{%- assign image_position = atb_image_position -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{%- assign text_alpha = atb_text_color | color_extract: 'alpha' -%}
+
+{%- capture section_css -%}
+
+  {% if background_image != blank %}
+    .has-background .newsletter__wrapper {
+      background-image: url({{ settings.speedsize_url_pfx_https -}}{{ background_image | img_url: '2000x' }});
+      background-position: {{ background_image.presentation.focal_point }};
+    }
+  {% endif %}
+
+  .section {
+    background-color: {{ atb_background_color }};
+  }
+
+  .newsletter-container {
+    {% if atb_width == 'wide' %}
+    width: 100%;
+    {% endif %}
+  }
+
+  .newsletter__text {
+    color: {% if text_alpha != 0 %}{{ atb_text_color }}{% else %}{{ settings.regular_color }}{% endif %}
+  }
+
+{%- endcapture -%}
+
+{% style %}
+  #shopify-section-{{ object.id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    padding-left: {{ atb_padding_left }}px;
+    padding-right: {{ atb_padding_right }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% elsif atb_width == 'half' %}
+      width: 50%;
+    {% endif %}
+  }
+
+  #shopify-section-{{ object.id }} .newsletter__wrapper {
+    {% if atb_width == 'half' %}
+      max-width: 100%;
+    {% endif %}
+  }
+
+  {% render 'css-loop',
+          css: section_css,
+          id: object.id
+  %}
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: object.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+{% if image != blank %}
+  <div class="newsletter__image--mobile-wrapper has-image-crop">
+    {%
+      render 'image-element',
+      image: image,
+      alt: image.alt,
+      stretch_width: true,
+      focal_point: image.presentation.focal_point,
+    %}
+  </div>
+{% endif %}
+<section class="section newsletter-section newsletter-section--is-width-{{ atb_width }}
+                {{ atb_css_class }}
+                {{ newsletter_class }}
+                is-width-{{ atb_width }}
+                {% if image != blank %}
+                  has-full-width-crop
+                {% endif %}
+                {% if background_alpha != 0 or gradient_alpha != 0 or background_image != blank %}
+                  has-background
+                {% endif %}
+                {% if background_image != blank %}
+                  dark-overlay-{{ image_darken  }}
+                {% endif %}"
+                {% if atb_animation != "none" %}
+                  data-scroll-class="{{ atb_animation }}"
+                {% endif %} >
+  <div class="newsletter-container is-flex
+              {% if image_position == 'right' %}is-flex-row-reverse{% endif %}">
+    {% if image != blank %}
+      <div class="newsletter__image one-half column has-image-crop">
+        {%
+          render 'image-element',
+          image: image,
+          alt: image.alt,
+          stretch_width: true,
+          calculate_wrap: true,
+          focal_point: image.presentation.focal_point,
+        %}
+      </div>
+    {% endif %}
+
+    <div class="newsletter__wrapper column {% if image != blank %} is-active-image one-half medium-down--one-whole{% else %} one-whole {% endif %}">
+      <div class="newsletter__text-wrapper text-align-{{ atb_newsletter_section_text_align }}">
+        <h2 class="newsletter__heading newsletter__text title">{{ heading }}</h2>
+        <div class="newsletter__subheading newsletter__text">{{ subheading }}</div>
+      </div>
+
+      {% render 'newsletter-form',
+              type: 'section',
+              display_first_name: atb_display_first_name,
+              display_last_name: atb_display_last_name
+      %}
+    </div>
+  </div>
+</section>
+
+
+</section>

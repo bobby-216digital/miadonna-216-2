@@ -1,0 +1,1008 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Hero Banner",
+  "id": "page-hero-banner",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "General Banner Settings",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_banner_activate",
+      "label": "Activate Banner",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_slider_style",
+      "label": "Slider Style",
+      "info": "Note: Selecting 'video' will disable all text within slides",
+      "options": [
+        {
+          "value": "slideshow",
+          "label": "Slideshow"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "atb_cta_color",
+      "label": "General CTA Background Color",
+      "info": "This controls styles for both video and slideshow banners",
+      "options": [
+        {
+          "value": "rgba(0,0,0,0)",
+          "label": "Transparent"
+        },
+        {
+          "value": "rgba(0,0,0,1)",
+          "label": "Black"
+        }
+      ],
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Slideshow Settings",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_slider_home_auto",
+      "label": "Auto-rotate slides",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_slider_home_show_dots",
+      "label": "Show dot indicators",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_slider_home_rate",
+      "label": "Rotation interval",
+      "options": [
+        {
+          "value": "1000",
+          "label": "1 second"
+        },
+        {
+          "value": "2000",
+          "label": "2 seconds"
+        },
+        {
+          "value": "3000",
+          "label": "3 seconds"
+        },
+        {
+          "value": "4000",
+          "label": "4 seconds"
+        },
+        {
+          "value": "5000",
+          "label": "5 seconds"
+        },
+        {
+          "value": "7000",
+          "label": "7 seconds"
+        },
+        {
+          "value": "10000",
+          "label": "10 seconds"
+        },
+        {
+          "value": "15000",
+          "label": "15 seconds"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_slider_home_transition",
+      "label": "Transition effect",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "slide",
+          "label": "Slide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_slider_text_position",
+      "label": "Banner Text Position",
+      "options": [
+        {
+          "value": "within",
+          "label": "Within Slides"
+        },
+        {
+          "value": "above",
+          "label": "Above Slideshow"
+        }
+      ],
+      "default": "within",
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Video Banner Settings",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_title",
+      "label": "Video Text Title",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_hero_body",
+      "label": "Video Text Body",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_hero_image",
+      "label": "Hero Image, Poster and Backup",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_cta_url",
+      "label": "CTA Link (leave blank if none)",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_cta_label",
+      "label": "CTA Label",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_video_link",
+      "label": "Video Asset Link",
+      "info": "Link to the shopify (or any other) CDN resource."
+    },
+    {
+      "type": "text",
+      "id": "atb_mobile_video_link",
+      "label": "Mobile Video Asset Link",
+      "info": "Link to the shopify (or any other) CDN resource."
+    },
+    {
+      "type": "range",
+      "id": "atb_video_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 10,
+      "label": "Video Background Opacity",
+      "default": 0,
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Hero-Slide"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_slide_image",
+      "label": "Desktop Image",
+      "info": "minimum 2400x1400",
+      "repeatable": "Hero-Slide"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_slide_image_mobile",
+      "label": "Mobile Image",
+      "info": "minimum 1500x1200",
+      "repeatable": "Hero-Slide"
+    },
+    {
+      "type": "select",
+      "id": "block_slide_text_align",
+      "label": "Slide Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left Aligned"
+        },
+        {
+          "value": "center",
+          "label": "Center Aligned"
+        },
+        {
+          "value": "right",
+          "label": "Right Aligned"
+        }
+      ],
+      "default": "left",
+      "repeatable": "Hero-Slide",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_title",
+      "label": "Hero Title",
+      "repeatable": "Hero-Slide",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "block_hero_body",
+      "label": "Hero Text Body",
+      "repeatable": "Hero-Slide",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_cta_url",
+      "label": "CTA Link (leave blank if none)",
+      "repeatable": "Hero-Slide",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_cta_label",
+      "label": "CTA Label",
+      "repeatable": "Hero-Slide",
+      "info": ""
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_banner_activate' -%}
+{%- assign atb_banner_activate = val -%}
+{%- include 'atb-render' field:'atb_slider_style' -%}
+{%- assign atb_slider_style = val -%}
+{%- include 'atb-render' field:'atb_cta_color' -%}
+{%- assign atb_cta_color = val -%}
+{%- include 'atb-render' field:'atb_slider_home_auto' -%}
+{%- assign atb_slider_home_auto = val -%}
+{%- include 'atb-render' field:'atb_slider_home_show_dots' -%}
+{%- assign atb_slider_home_show_dots = val -%}
+{%- include 'atb-render' field:'atb_slider_home_rate' -%}
+{%- assign atb_slider_home_rate = val -%}
+{%- include 'atb-render' field:'atb_slider_home_transition' -%}
+{%- assign atb_slider_home_transition = val -%}
+{%- include 'atb-render' field:'atb_slider_text_position' -%}
+{%- assign atb_slider_text_position = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'atb_hero_body' -%}
+{%- assign atb_hero_body = val -%}
+{%- include 'atb-render' field:'atb_hero_image' -%}
+{%- assign atb_hero_image = val -%}
+{%- include 'atb-render' field:'atb_cta_url' -%}
+{%- assign atb_cta_url = val -%}
+{%- include 'atb-render' field:'atb_cta_label' -%}
+{%- assign atb_cta_label = val -%}
+{%- include 'atb-render' field:'atb_video_link' -%}
+{%- assign atb_video_link = val -%}
+{%- include 'atb-render' field:'atb_mobile_video_link' -%}
+{%- assign atb_mobile_video_link = val -%}
+{%- include 'atb-render' field:'atb_video_opacity' -%}
+{%- assign atb_video_opacity = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_slide_image' -%}
+{%- assign block_slide_image = val -%}
+{%- include 'atb-render' field:'block_slide_image_mobile' -%}
+{%- assign block_slide_image_mobile = val -%}
+{%- include 'atb-render' field:'block_slide_text_align' -%}
+{%- assign block_slide_text_align = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_hero_body' -%}
+{%- assign block_hero_body = val -%}
+{%- include 'atb-render' field:'block_cta_url' -%}
+{%- assign block_cta_url = val -%}
+{%- include 'atb-render' field:'block_cta_label' -%}
+{%- assign block_cta_label = val -%}
+{%- if atb_banner_activate == blank -%}
+{%- assign atb_banner_activate = false -%}
+{%- else -%}
+{%- assign atb_banner_activate = true -%}
+{%- endif -%}
+{%- if atb_slider_home_auto == blank -%}
+{%- assign atb_slider_home_auto = false -%}
+{%- else -%}
+{%- assign atb_slider_home_auto = true -%}
+{%- endif -%}
+{%- if atb_slider_home_show_dots == blank -%}
+{%- assign atb_slider_home_show_dots = false -%}
+{%- else -%}
+{%- assign atb_slider_home_show_dots = true -%}
+{%- endif -%}
+{%- assign atb_video_opacity = atb_video_opacity | plus: 0 -%}
+{%- assign atb_hero_image_key = atb_hero_image| split: '/files/' | last -%}{%- assign atb_hero_image = images[atb_hero_image_key] -%}{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+{% comment %}
+Re-usable hero banner section can be added to the top of any page. Full list of pages where it's active can be seen below.
+
+When adding to a new page template, make sure that new page has access to the stylesheet (see theme.liquid).
+
+List of included pages:
+- Our Story
+{% endcomment %}
+
+<style>
+  /* Responsive style section */
+  /* Base + mobile style */
+  .lv-hero-video-inner-container {
+    position: relative;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lv-hero-video-overlay {
+    display: flex;
+    position: absolute;
+
+    z-index: 9;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  .lv-hero-overlay-content {
+    display: block;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    transition: 0.5s;
+    will-change: transform;
+
+    padding: 0 10% 3.125em;
+  }
+
+  .lv-hero-overlay-content h1 {
+    margin-top: 20px;
+
+    text-align: center;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25.3333px;
+    line-height: 33px;
+
+    color: #212121;
+  }
+
+  .lv-hero-overlay-content-body {
+    padding: 20px 0 20px;
+
+    text-align: center;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 20px;
+
+    color: #212121;
+  }
+
+  .lv-hero-btn {
+    background: {{ atb_cta_color }} !important;
+    display: block;
+
+    margin: 0 auto 0;
+
+    width: 200px;
+    max-width: 270px;
+
+    padding: 1em 0;
+    border: 1px solid #4a4a4a;
+
+    color: {% if atb_cta_color == 'rgba(0,0,0,1)' %} #ffffff {% else %} #000000 {% endif %} !important;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+
+    transition: all 0.3s ease-in-out;
+  }
+
+  .lv-hero-btn:hover {
+    background: {% if atb_cta_color == 'rgba(0,0,0,1)' %} #ffffff {% else %} #000000 {% endif %} !important;
+    border: 1px solid #000000;
+    color: {% if atb_cta_color == 'rgba(0,0,0,1)' %} #000000 {% else %} #ffffff {% endif %} !important;
+
+    text-decoration: none !important;
+  }
+
+  .lv-hero-video-main-holder {
+    display: flex;
+    justify-content: center;
+
+    height: 100%;
+
+    overflow: hidden;
+  }
+
+  .lv-hero-video-main-holder video {
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    object-fit: cover;
+    transition: 0.5s;
+  }
+
+  /* Above med breakpoint */
+  @media (min-width: 768px) {
+    .lv-hero-video-overlay {
+      align-items: center;
+    }
+
+    .lv-hero-overlay-content {
+      display: block;
+
+      width: 60%;
+
+      {% if atb_content_align == 'left' %}
+        text-align: left;
+      {% elsif atb_content_align == 'center' %}
+        left: 50%;
+        transform: translate(-50%, 0);
+      {% else %}
+        text-align: right;
+        right: 0;
+        left: auto;
+      {% endif %}
+    }
+
+    .lv-hero-video-play {
+      position: absolute;
+      top: 0;
+      {% if atb_content_align == 'left' %}
+        left: 0;
+      {% elsif atb_content_align == 'center' %}
+        left: 50%;
+        transform: translate(-50%, 0);
+      {% else %}
+        right: 0;
+      {% endif %}
+    }
+
+    .lv-hero-overlay-content h1 {
+      font-size: 35px;
+      line-height: 48px;
+
+      letter-spacing: 0.5px;
+
+      {% if atb_content_align == 'left' %}
+        text-align: left;
+      {% elsif atb_content_align == 'center' %}
+        text-align: center;
+      {% else %}
+        text-align: right;
+      {% endif %}
+    }
+
+    .lv-hero-overlay-content-body {
+      {% if atb_content_align == 'left' %}
+        text-align: left;
+      {% elsif atb_content_align == 'center' %}
+        text-align: center;
+      {% else %}
+        text-align: right;
+      {% endif %}
+
+      font-size: 15px;
+      line-height: 26px;
+    }
+
+    .lv-hero-btn {
+      margin: 0;
+
+      font-size: 12px;
+      line-height: 15px;
+
+      {% if atb_content_align == 'left' %}
+        margin-right: auto;
+      {% elsif atb_content_align == 'center' %}
+        margin-left: auto;
+        margin-right: auto;
+      {% else %}
+        margin-left: auto;
+      {% endif %}
+    }
+
+    .lv-hero-video-main-holder {
+      width: 100%;
+    }
+
+    .lv-hero-video-main-holder video {
+      width: 100%;
+    }
+  }
+  /* Above large breakpoint */
+  @media (min-width: 1024px) {
+    .lv-hero-overlay-content h1 {
+
+      font-size: 45px;
+      line-height: 56px;
+
+      letter-spacing: 0.5px;
+    }
+  }
+  /* End responsive style section */
+
+  #lv-hero-video-close-{{section_id}} {
+    cursor: pointer;
+
+    position: absolute;
+    display: flex;
+
+    top: 5%;
+    right: 5%;
+    z-index: 9999;
+
+    width: 50px;
+    height: 50px;
+  }
+
+  #lv-hero-video-pause-{{section_id}} {
+    z-index: 999999;
+
+    width: 60px;
+    height: 60px;
+
+    position: absolute;
+    top: 0;
+
+    {% if atb_content_align == 'left' %}
+      left: 0;
+    {% elsif atb_content_align == 'center' %}
+      left: 50%;
+      transform: translate(-50%, 0);
+    {% else %}
+      right: 0;
+    {% endif %}
+  }
+
+  .lv-hero-opaque {
+    filter:opacity(90%);
+  }
+
+  .lv-video-full-view-height {
+    z-index: 999;
+    filter: none;
+
+    width: 100%;
+    height: calc(100vh - 110px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    object-fit: cover;
+    transition: 0.5s;
+  }
+
+  #lv-hero-fullscreen {
+    position:fixed;
+    display: flex;
+
+    justify-content: center;
+    padding:0;
+    margin:0;
+
+    top:0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 999;
+    background: #FFFFFF;
+
+    overflow: hidden;
+
+    transition: 0.5s;
+  }
+
+  .lv-hero-fullscreen-playing {
+    height: 100vh;
+    transform: translate(-50%, -50%) scale(1);
+
+    transition: 0.5s;
+  }
+
+  #lv-hero-background::after {
+    background: #fff;
+    content: '';
+    height: 100%;
+    opacity: 0.{{ atb_video_opacity }};
+    width: 100%;
+    z-index: 1;
+  }
+
+  .lv-hero-slide-out {
+    opacity: 0;
+    transition: 0.5s;
+  }
+
+  .lv-hero-slide-down {
+    transform: translateY(100%) scale(1);
+    transition: 0.5s;
+  }
+
+  #lv-hero-video-close-{{section_id}}.lv-hero-rotate-in {
+    opacity: 1;
+    transform: rotate(90deg);
+  }
+
+  .lv-hero-rotate-out {
+    opacity: 0;
+    transform: translate(1.25em, -1.25em) rotate(30deg);
+    transition: 0.8s;
+
+    z-index: 999999;
+  }
+
+  .lv-hero-bring-to-front {
+    z-index: 99999;
+  }
+
+  .lv-hero-play-controls {
+    position: relative;
+    height: 50px;
+  }
+
+  .hero .hero-slider .slide .content-wrap {
+    font-family: Montserrat;
+    color: #212121;
+  }
+
+  .hero .hero-slider .slide .content-wrap h2 {
+    font-weight: bold;
+  }
+
+  .hero .hero-slider .slide .content-wrap ._content .tap-button {
+    color: #4a4a4a;
+
+    background: #FFFFFF;
+    border: 1px solid #4a4a4a;
+  }
+
+  .hero .hero-slider .slide .content-wrap ._content .tap-button:hover {
+    background: #000000;
+    color: #FFFFFF;
+  }
+
+  /* CSS overrides for image slider snippet */
+  @media  (min-width: 768px) {
+    .hero .container {
+      max-width: none;
+    }
+
+    .hero .hero-slider .slide .content-wrap {
+      font-family: Montserrat;
+      color: #212121;
+      top: 50%;
+
+      {% if atb_content_align == 'left' %}
+        text-align: left;
+        left: 7%;
+      {% elsif atb_content_align == 'center' %}
+        text-align: center;
+        right: auto;
+        margin-left: auto;
+        margin-right: auto;
+        left: 50%;
+        transform: translate(-53%, -50%);
+      {% else %}
+        text-align: right;
+        right: 7%;
+        left: auto;
+      {% endif %}
+
+      margin: 20px;
+
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .hero .hero-slider .slide .content-wrap h2 {
+      font-weight: bold;
+    }
+
+    .hero .hero-slider .slide .content-wrap ._content .grid-item {
+      padding-left: 20px;
+      padding-right: 20px;
+      {% if atb_content_align == 'left' %}
+        padding-left: 0;
+      {% elsif atb_content_align == 'center' %}
+      {% else %}
+        padding-right: 0;
+      {% endif %}
+    }
+
+    .hero .hero-slider .slide .content-wrap ._content .tap-button {
+      padding: 10px 25px;
+      margin: 0px 20px;
+
+      color: #4a4a4a;
+
+      background: #FFFFFF;
+      border: 1px solid #4a4a4a;
+
+      max-width: 250px;
+
+      {% if atb_content_align == 'left' %}
+        margin-left: 0;
+        margin-right: auto;
+      {% elsif atb_content_align == 'center' %}
+        margin-left: auto;
+        margin-right: auto;
+      {% else %}
+        margin-left: auto;
+        margin-right: 0;
+      {% endif %}
+    }
+
+    .hero .hero-slider .slide .content-wrap ._content .tap-button:hover {
+      background: #000000;
+      color: #FFFFFF;
+    }
+
+    .hero .hero-slider .slide ._content .pure-g {
+      max-width: 400px;
+
+      {% if atb_content_align == 'left' %}
+        margin-left: 0;
+        margin-right: auto;
+      {% elsif atb_content_align == 'center' %}
+        margin-left: auto;
+        margin-right: auto;
+      {% else %}
+        margin-left: auto;
+        margin-right: 0;
+      {% endif %}
+
+      align-content: flex-end;
+    }
+
+    .hero .hero-slider.slick-slider .slick-dots {
+      margin-right: 30px;
+      margin-left: 30px;
+
+      {% if atb_content_align == 'left' %}
+        text-align: left;
+        right: auto;
+        left: 7%;
+      {% elsif atb_content_align == 'center' %}
+        left: auto;
+        right: auto;
+        width: 100%;
+        max-width: none;
+        text-align: center;
+        margin-right: auto;
+        margin-left: auto;
+
+      {% else %}
+        text-align: right;
+        right: 7%;
+        left: auto;
+      {% endif %}
+    }
+  }
+</style>
+
+{% if atb_slider_style == 'slideshow' and atb_banner_activate %}
+<section class="hero page-slideshow-banner">
+  <div class="container-fluid">
+    <div class="hero-slider {% if atb_slider_text_position == 'above' %}hero-slider--text-above{% else %}hero-slider--text-within{% endif %}">
+      {%- for block0 in blocks -%}
+{%- assign my_image_key1 = block_slide_image_mobile[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image1 = images[my_image_key1] -%}
+{%- assign my_image_key0 = block_slide_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+
+        <div class="slide{% if block_slide_text_align[forloop.index0] == 'right' %} content-right{% elsif block_slide_text_align[forloop.index0] == 'center' %} content-center{% endif %}">
+
+         <div class="content-wrap">
+            <header class="_header animated{% if forloop.first %} fadeInUp {% else %} fadeOutUp {% endif %}">
+              <h1>{{ block_title[forloop.index0] }}</h1>
+              <div class="lv-hero-overlay-content-body">{{ block_hero_body[forloop.index0] }}</div>
+            </header>
+
+            <section class="_content presented animated{% if forloop.first %} fadeInUp {% else %} fadeOutUp {% endif %}">
+              {%- if block_cta_url[forloop.index0] %}
+              <div>
+                <a class="lv-hero-btn" href="{{ block_cta_url[forloop.index0] }}">{{ block_cta_label[forloop.index0] }}</a>
+              </div>
+              {%- endif %}
+            </section>
+         </div>
+
+          {%- if my_image0 and my_image1 %}
+          <div class="slide-background slide-background--desktop" style="background-image:url('{{ settings.speedsize_url_pfx_https -}}{{ my_image0 | img_url: 'master' }}');background-position:center;background-size:cover;width:100vw;"></div>
+          <div class="slide-background slide-background--mobile" style="background-image:url('{{ settings.speedsize_url_pfx_https -}}{{ my_image1 | img_url: 'master' }}');background-position:center;background-size:cover;width:100vw;"></div>
+          {%- else %}
+          <div class="slide-background slide-background--universal" style="background-image:url('{{ settings.speedsize_url_pfx_https -}}{{ my_image0 | img_url: 'master' }}');background-position:center;background-size:cover;width:100vw;"></div>
+          {%- endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% elsif atb_slider_style == 'video' and atb_banner_activate %}
+<section data-section-id="{{ section_id }}">
+  <div class="pure-g">
+    <div class="pure-u-1" style="height: 500px;">
+      <div class="lv-hero-video-inner-container" style="height: 100%;">
+        <div class="lv-hero-video-overlay" style="height: 100%;">
+          <div class="lv-hero-overlay-content">
+            <div class="lv-hero-overlay-text-content">
+                {% if atb_title %}
+                <h1>{{ atb_title }}</h1>
+                {% endif %}
+
+                {% if atb_hero_body %}
+                <div class="lv-hero-overlay-content-body">{{ atb_hero_body }}</div>
+                {% endif %}
+
+                {% if atb_cta_url %}
+                <div>
+                    <a class="lv-hero-btn" href="{{atb_cta_url}}">{{ atb_cta_label }}</a>
+                </div>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+        <div id="lv-hero-background" class="lv-hero-video-main-holder">
+          <video
+            id="lv-hero-video-{{section_id}}"
+            class="lv-hero-video lv-hero-opaque"
+            preload="metadata"
+            muted
+            loop
+          >
+            <source src={{atb_video_link | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }} media="all and (min-width:768px)" type="video/mp4">
+            <source src={{atb_mobile_video_link | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }} media="all and (max-width:767px)" type="video/mp4">
+            <img src="{{ settings.speedsize_url_pfx_https -}}{{atb_hero_image | img_url:'master'}}">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<script>
+   var home_hero_slider_options = {
+      autoplay  : {{ atb_slider_home_auto }},
+      dots      : {{ atb_slider_home_show_dots }},
+      speed     : {{ atb_slider_home_rate }},
+      fade      : {% if atb_slider_home_transition == 'fade' %}true{% else %}false{% endif %}
+   };
+
+  // left: 37, up: 38, right: 39, down: 40,
+  // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+  var keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+  function preventDefault(e) {
+    e.preventDefault();
+  }
+
+  function preventDefaultForScrollKeys(e) {
+    if (keys[e.keyCode]) {
+      preventDefault(e);
+      return false;
+    }
+  }
+
+  // modern Chrome requires { passive: false } when adding event
+  var supportsPassive = false;
+  try {
+    window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
+      get: function () { supportsPassive = true; }
+    }));
+  } catch(e) {}
+
+  var wheelOpt = supportsPassive ? { passive: false } : false;
+  var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+  $(window).resize(function() {
+    // mobile
+    if ($(window).width() <= 768) {
+
+      {% if atb_slider_text_position == 'within' %}
+
+      $('.hero-slider').addClass('hero-slider--text-above');
+      $('.hero-slider').removeClass('hero-slider--text-within');
+
+      {% endif %}
+    }
+
+    // desktop
+    if ($(window).width() > 768) {
+      {% if atb_slider_text_position == 'within' %}
+
+      $('.hero-slider').removeClass('hero-slider--text-above');
+      $('.hero-slider').addClass('hero-slider--text-within');
+
+      {% endif %}
+    }
+  });
+
+  $(document).ready(function() {
+    // Autoplay if in desktop (yes, can also be done via attribute)
+    if ($(window).width() > 768) {
+      try {
+        $('#lv-hero-video-{{section_id}}').get(0).play();
+      } catch(err) {
+        // Do nothing
+      }
+    }
+    if ($(window).width() < 768) {
+      $('.hero-slider').addClass('hero-slider--text-above');
+
+      {% if atb_slider_text_position == 'within' %}
+      $('.hero-slider').removeClass('hero-slider--text-within');
+      {% endif %}
+    }
+  });
+</script>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script></section>

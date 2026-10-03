@@ -1,0 +1,122 @@
+<style>
+  .pink-text {
+  color: #ffa998 !important;
+}
+  #shopify-section-{{ section.id }} {
+    background: #212121;
+    color: #ffffffbf;
+  }
+  #shopify-section-{{ section.id }} .typeset-cell>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .content-cell {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section.id }} .readability-insets>* {
+    max-width: 76rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section.id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .text-style-chapter-title {
+    color: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .quote-layout {
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section.id }} .quote-layout blockquote {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  #shopify-section-{{ section.id }} .quote-layout blockquote:before,
+  #shopify-section-{{ section.id }} .quote-layout blockquote:after {
+    content: "\201c";
+    display: block;
+    font-size: 110px;
+    font-style: normal;
+    line-height: 1;
+    height: 65px;
+    margin: 26px 0;
+    color: #777;
+    opacity: 1;
+  }
+  #shopify-section-{{ section.id }} .quote-layout blockquote:after {
+    content: "\201d";
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section.id }} .content-cell {
+      padding: 50px;
+    }
+    #shopify-section-{{ section.id }} .quote-layout blockquote {
+      font-size: 36px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section.id }} .content-cell {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section.id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section.id }} .quote-layout blockquote {
+      font-size: 40px;
+    }
+    #shopify-section-{{ section.id }} .quote-layout blockquote:before,
+    #shopify-section-{{ section.id }} .quote-layout blockquote:after {
+      font-size: 164px;
+      height: 110px;
+    }
+  }
+</style>
+
+<div class="content-cell text-center">
+  <div class="body-cell typeset-cell">
+    <header class="text-style-chapter-title">{{ section.settings.title }}</header>
+    <figure class="quote-layout business-ethics-quote">
+      <blockquote>{{ section.settings.text }}</blockquote>
+    </figure>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Our Pledge Quote",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+
+    },
+     {
+      "type": "textarea",
+      "id": "text",
+      "label": "Quote"
+
+    }
+  ],
+   "presets": [
+  {
+    "name": "Our Pledge Quote",
+    "category": "Text"
+  }
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,62 @@
+{% liquid
+  if settings.currency_format == 'money_with_currency_format'
+    assign format_currency = true
+  endif
+%}
+
+{% liquid
+  assign products_per_slide = products_per_slide | default: 2
+  assign format_currency = format_currency | default: false
+  assign crop_thumbnails = crop_thumbnails | default: false
+%}
+
+<div class="{% comment %}complementary-products{% endcomment %}complete-look-products {{ wrapper_class }}">
+    {% assign slider = false %}
+
+    {%- comment -%}
+    {% if complete_look_products.size > products_per_slide %}
+      {% assign slider = true %}
+    {% endif %}
+    {%- endcomment -%}
+
+    <div
+      class="
+        {% comment %}complementary-products__container{% endcomment %}
+         complete-look__container
+        {% if slider %}
+          {% comment %}
+          complementary-products__container--slider
+          {% endcomment %}
+          complete-look__container--slider
+        {% else %}
+          {% comment %}
+          complementary-products__container--grid
+          {% endcomment %}
+          complete-look__container--grid
+        {% endif %}
+      "
+      data-slider-wrapper
+    >
+        <div class="complementary-products__slider" data-slider>
+            {%- for product in complete_look_products limit:3 -%}
+                <div class="product-item one-fifth column medium-down--one-third small-down--one-half">
+                    <a target="_blank" href="{{ product.url | within: collection }}">
+                        {% render 'image-element',
+                            image: product.featured_media.preview_image,
+                            alt: product.featured_media.preview_image.alt,
+                            max_height: '260'
+                        %}
+                        <div class="h3">
+                            <a target="_blank" href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                        </div>
+                        {% if product.tags contains 'Home Try-On' %}
+                            <p>{{ product.price_max | money_with_currency }}</p>
+                        {% else %}
+                            <p>{{ product.price_min | money_with_currency }}</p>
+                        {% endif %}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

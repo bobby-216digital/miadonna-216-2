@@ -1,0 +1,171 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "How we give - Main Banner",
+  "id": "how-we-give_banner",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_banner_title",
+      "label": "Banner Title",
+      "default": "Let your <em>love</em> be<br />the <em>solution</em>",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_banner_image",
+      "label": "Banner Image",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_banner_title' -%}
+{%- assign atb_banner_title = val -%}
+{%- include 'atb-render' field:'atb_banner_image' -%}
+{%- assign atb_banner_image = val -%}
+{%- assign atb_banner_image_key = atb_banner_image| split: '/files/' | last -%}{%- assign atb_banner_image = images[atb_banner_image_key] -%}{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+
+<style>
+  h1.custom-green-heading{
+        color: #c2edd5 !important;
+
+  }
+  h2.text-style-title.content-subtitle {
+    font-family: Playfair Display,serif;
+}
+  section.section.static_page-section.is-width-standard {
+    margin-top: 10px;
+}
+  .sustainable-practices {
+    padding: 3em;
+}
+  .cell-style-E.pure-u-1.pure-u-md-1-2.sustainable-practices._left {
+    font-weight: 300;
+    font-size: 18px;
+    font-family: Playfair Display,serif;
+    letter-spacing: .02em;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    color: #505050;
+}
+  .body-cell {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+  .sustainable-practices._left h1 {
+    font-size: 140px;
+    line-height: 1.5;
+    color: #696969;
+      font-family: Playfair Display,serif;
+}
+  .sustainable-practices._left h2 {
+    font-size: 80px;
+    padding-bottom: 1em;
+    color: #696969;
+    font-family: Playfair Display,serif;
+}
+  .how-we-give-container > section {
+    margin: 7rem 0 0 !important;
+}
+
+  @media only screen and (min-width: 1024px){
+.content-cell, .review-list-layout>._header {
+    padding: 100px 50px;
+}
+  }
+  h1.custom-green-heading {
+    font-family: Playfair Display,serif;
+}
+  .cell-style-dark {
+    background: #212121;
+    color: #ffffffbf;
+}
+  .display-layout {
+    min-height: 400px;
+    min-height: 50vh;
+    padding: 50px;
+    text-align: center;
+    min-height: 85vh;
+}
+.how-we-give-banner {
+    position: relative;
+}
+  .display-layout.-header {
+    min-height: 547px;
+    height: 547px;
+}
+  .how-we-give-banner ._header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: initial;
+    bottom: initial;
+    transform: translate3d(-50%,-50%,0);
+}
+  .typeset-cell>:first-child {
+    margin-top: 0;
+}
+
+.display-layout>*>* {
+    margin-left: auto;
+    margin-right: auto;
+}
+  .display-layout>._artwork.scrimmed {
+    opacity: .33;
+}
+.display-layout>._artwork {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.formatted-image {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+@media only screen and (min-width: 750px){
+.page-banner-layout {
+    min-height: calc(100vh - 110px);
+}
+}
+</style>
+
+<div class="page-banner-layout how-we-give-banner display-layout -header cell-style-dark">
+	<header class="_header typeset-cell">
+		<h1 class="custom-green-heading">{{ atb_banner_title }}</h1>
+	</header>
+	<figure class="_artwork formatted-image scrimmed" style="background-position:100% 0%; background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ atb_banner_image | img_url:"original" }}');"></figure>
+</div>
+<section class="section static_page-section is-width-standard  ">
+{% include 'atb-breadcrumb'   %}
+</section>
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script></section>

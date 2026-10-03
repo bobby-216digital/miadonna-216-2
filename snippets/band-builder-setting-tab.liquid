@@ -1,0 +1,715 @@
+{%- assign product_collections = product.collections | map: 'title' | join: ' ' -%}
+{%- assign category_group = 'stone' -%}
+{%- assign isSaleOrRtsProduct = false -%}
+{%- if product_collections contains 'Sale'
+  or product_collections contains 'Ready To Ship'
+  or product_collections contains 'Ready-To-Ship'
+-%}
+  {%- assign category_group = 'sale' -%}
+  {%- assign isSaleOrRtsProduct = true -%}
+{%- elsif product_collections contains 'Engagement'
+  or product_collections contains 'Wedding'
+  or product_collections contains 'Accessories'
+-%}
+  {%- assign category_group = 'wedding' -%}
+{%- endif -%}
+{%- assign isStoneProduct = false -%}
+{%- if 'Lab Created Diamond Lab Created Gemstone Diamond Hybrid' contains product.type -%}
+  {%- assign isStoneProduct = true -%}
+{%- endif -%}
+{%- assign added_ship_time = 0 -%}
+{%- assign week_day = 'now' | date: '%a' -%}
+{%- if week_day == 'Mon' -%}
+  {%- assign added_ship_time = 2160000 -%}
+{%- elsif week_day == 'Tue' -%}
+  {%- assign added_ship_time = 2332800 -%}
+{%- elsif week_day == 'Wed' -%}
+  {%- assign added_ship_time = 2332800 -%}
+{%- endif -%}
+
+<setting-tabs class="setting-tabs-wrapper">
+  <div id="lab-diamond-content" class="setting-tab-content lab-diamond-content tab-active">
+    <div class="settings-wrapper block--setting-tabs">
+      <div class="setting-accordion-item setting-accordion-metal">
+        <div class="setting-accordion-button accordion-active">
+          <span class="caret-wrapper">
+            <i class="icon-solid-caret"></i>
+          </span>
+          <span class="button_text">Metal:</span>
+          <span id="variant_value" class="selected_value">14K Yellow Gold</span>
+          <span>
+            <div class="tooltip">
+              <img
+                src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                width="18px"
+                height="18px"
+                alt="miadonna"
+                class="icon-info"
+                loading="lazy"
+              >
+              <span class="tooltiptext" style="display: none;">
+                {% comment %}
+                  <p class="tooltip-title">Shape {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+                {% endcomment %}
+                <p class="tooltip-content">100% Recycled Solid Metal</p>
+              </span>
+            </div>
+          </span>
+        </div>
+        <div class="setting-accordion-content mobile-metal-slider">
+          <div class="setting-value">
+            <div class="setting-value-inputs">
+              <input
+                class="input_value visually-hidden"
+                type="radio"
+                id="solid_metal_14k_white_gold"
+                name="solid_metal"
+                value="14K White Gold"
+                checked
+              >
+              <label class="input_label" for="solid_metal_14k_white_gold">14K</label>
+              <input
+                class="input_value visually-hidden"
+                type="radio"
+                id="solid_metal_18k_white_gold"
+                name="solid_metal"
+                value="18K White Gold"
+              >
+              <label class="input_label" for="solid_metal_18k_white_gold">18K</label>
+            </div>
+            <p>White Gold</p>
+          </div>
+          <div class="setting-value">
+            <div class="setting-value-inputs">
+              <input
+                class="input_value visually-hidden"
+                type="radio"
+                id="solid_metal_14k_yellow_gold"
+                name="solid_metal"
+                value="14K Yellow Gold"
+              >
+              <label class="input_label" for="solid_metal_14k_yellow_gold">14K</label>
+              <input
+                class="input_value visually-hidden"
+                type="radio"
+                id="solid_metal_18k_yellow_gold"
+                name="solid_metal"
+                value="18K Yellow Gold"
+              >
+              <label class="input_label" for="solid_metal_18k_yellow_gold">18K</label>
+            </div>
+            <p>Yellow Gold</p>
+          </div>
+          <div class="setting-value">
+            <div class="setting-value-inputs">
+              <input
+                class="input_value visually-hidden"
+                type="radio"
+                id="solid_metal_14k_rose_gold"
+                name="solid_metal"
+                value="14K Rose Gold"
+              >
+              <label class="input_label" for="solid_metal_14k_rose_gold">14K</label>
+              <input
+                class="input_value visually-hidden"
+                type="radio"
+                id="solid_metal_18k_rose_gold"
+                name="solid_metal"
+                value="18K Rose Gold"
+              >
+              <label class="input_label" for="solid_metal_18k_rose_gold">18K</label>
+            </div>
+            <p>Rose Gold</p>
+          </div>
+          <div class="setting-value">
+            <div class="setting-value-inputs">
+              <input
+                class="input_value visually-hidden"
+                type="radio"
+                id="platinum"
+                name="solid_metal"
+                value="Platinum"
+              >
+              <label class="input_label" for="platinum"> </label>
+            </div>
+            <p>Platinum</p>
+          </div>
+          <div class="setting-value">
+            <div class="setting-value-inputs">
+              <input
+                class="input_value visually-hidden"
+                type="radio"
+                id="solid_metal_14k_white_rose_gold"
+                name="solid_metal"
+                value="14K White/Rose Gold"
+              >
+              <label class="input_label" for="solid_metal_14k_white_rose_gold">14K</label>
+            </div>
+            <p>White & Rose Gold</p>
+          </div>
+          <div class="setting-value">
+            <div class="setting-value-inputs">
+              <input
+                class="input_value visually-hidden"
+                type="radio"
+                id="solid_metal_14k_white_yellow_gold"
+                name="solid_metal"
+                value="14K White/Yellow Gold"
+              >
+              <label class="input_label" for="solid_metal_14k_white_yellow_gold">14K</label>
+            </div>
+            <p>White & Yellow Gold</p>
+          </div>
+        </div>
+      </div>
+      <div class="single-column">
+        <div class="setting-accordion-item setting-accordion-profile one-half">
+          <div class="setting-accordion-button accordion-active">
+            <span class="caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+            <span class="button_text">Profile:</span>
+            <span id="variant_value" class="selected_value">Half Round</span>
+            <span>
+              <div class="tooltip">
+                <img
+                  src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                  width="18px"
+                  height="18px"
+                  alt="miadonna"
+                  class="icon-info"
+                  loading="lazy"
+                >
+                <span class="tooltiptext" style="display: none;">
+                  {% comment %}
+                    <p class="tooltip-title">Shape {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+                  {% endcomment %}
+                  <p class="tooltip-content">100% Recycled Solid Metal</p>
+                </span>
+              </div>
+            </span>
+          </div>
+          <div class="setting-accordion-content">
+            <div class="select-wrapper">
+              <select class="sustainability-select">
+                <option selected>Half Round</option>
+                <option>Round</option>
+              </select>
+              {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+            </div>
+          </div>
+        </div>
+        <div class="setting-accordion-item setting-accordion-engraving setting-accordion-fit one-half">
+          <div class="setting-accordion-button accordion-active">
+            <span class="caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+            <span class="button_text">Fit:</span>
+            <span id="variant_value" class="selected_value">Comfort-Fit</span>
+            <span>
+              <div class="tooltip">
+                <img
+                  src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                  width="18px"
+                  height="18px"
+                  alt="miadonna"
+                  class="icon-info"
+                  loading="lazy"
+                >
+                <span class="tooltiptext" style="display: none;">
+                  {% comment %}
+                    <p class="tooltip-title">Shape {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+                  {% endcomment %}
+                  <p class="tooltip-content">100% Recycled Solid Metal</p>
+                </span>
+              </div>
+            </span>
+          </div>
+          <div class="setting-accordion-content">
+            <fieldset class="radio-wrapper" style="border: none; margin: 0; padding: 0;">
+              <legend class="visually-hidden">Fit</legend>
+              <div class="label-wrapper">
+                <input type="radio" name="fit" id="comfort-fit" value="Comfort-Fit" checked>
+                <label for="comfort-fit">Comfort-Fit</label>
+              </div>
+              <div class="label-wrapper">
+                <input type="radio" name="fit" id="standard" value="Standard">
+                <label for="standard">Standard</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="single-column">
+        <div class="setting-accordion-item setting-accordion-design-detail one-half">
+          <div class="setting-accordion-button accordion-active">
+            <span class="caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+            <span class="button_text">Details:</span>
+            <span id="variant_value" class="selected_value">Bead</span>
+            <span>
+              <div class="tooltip">
+                <img
+                  src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                  width="18px"
+                  height="18px"
+                  alt="miadonna"
+                  class="icon-info"
+                  loading="lazy"
+                >
+                <span class="tooltiptext" style="display: none;">
+                  {% comment %}
+                    <p class="tooltip-title">Shape {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+                  {% endcomment %}
+                  <p class="tooltip-content">100% Recycled Solid Metal</p>
+                </span>
+              </div>
+            </span>
+          </div>
+          <div class="setting-accordion-content">
+            <div class="select-wrapper">
+              <select class="sustainability-select">
+                <option selected>Bead</option>
+                <option>Bead</option>
+              </select>
+              {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+            </div>
+          </div>
+        </div>
+        <div class="setting-accordion-item setting-accordion-width one-half">
+          <div class="setting-accordion-button accordion-active">
+            <span class="caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+            <span class="button_text">Width:</span>
+            <span id="variant_value" class="selected_value">5mm</span>
+            <span>
+              <div class="tooltip">
+                <img
+                  src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                  width="18px"
+                  height="18px"
+                  alt="miadonna"
+                  class="icon-info"
+                  loading="lazy"
+                >
+                <span class="tooltiptext" style="display: none;">
+                  {% comment %}
+                    <p class="tooltip-title">Shape {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+                  {% endcomment %}
+                  <p class="tooltip-content">100% Recycled Solid Metal</p>
+                </span>
+              </div>
+            </span>
+          </div>
+          <div class="setting-accordion-content">
+            <div class="select-wrapper">
+              <select class="sustainability-select">
+                <option selected>5mm</option>
+                <option>6mm</option>
+              </select>
+              {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="single-column">
+        <div class="setting-accordion-item setting-accordion-finish one-half">
+          <div class="setting-accordion-button accordion-active">
+            <span class="caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+            <span class="button_text">Finish:</span>
+            <span id="variant_value" class="selected_value">Satin</span>
+            <span>
+              <div class="tooltip">
+                <img
+                  src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                  width="18px"
+                  height="18px"
+                  alt="miadonna"
+                  class="icon-info"
+                  loading="lazy"
+                >
+                <span class="tooltiptext" style="display: none;">
+                  {% comment %}
+                    <p class="tooltip-title">Shape {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+                  {% endcomment %}
+                  <p class="tooltip-content">100% Recycled Solid Metal</p>
+                </span>
+              </div>
+            </span>
+          </div>
+          <div class="setting-accordion-content">
+            <div class="select-wrapper">
+              <select class="sustainability-select">
+                <option selected>Satin</option>
+                <option>Satin</option>
+              </select>
+              {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+            </div>
+          </div>
+        </div>
+        <div class="setting-accordion-item setting-accordion-engraving setting-accordion-weight one-half">
+          <div class="setting-accordion-button accordion-active">
+            <span class="caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+            <span class="button_text">Weight:</span>
+            <span id="variant_value" class="selected_value">Premium</span>
+            <span>
+              <div class="tooltip">
+                <img
+                  src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/info.png?v=1685953801"
+                  width="18px"
+                  height="18px"
+                  alt="miadonna"
+                  class="icon-info"
+                  loading="lazy"
+                >
+                <span class="tooltiptext" style="display: none;">
+                  {% comment %}
+                    <p class="tooltip-title">Shape {% render 'icon', name: 'x', icon_class: 'icon-close' %}</p>
+                  {% endcomment %}
+                  <p class="tooltip-content">100% Recycled Solid Metal</p>
+                </span>
+              </div>
+            </span>
+          </div>
+          <div class="setting-accordion-content">
+            <fieldset class="radio-wrapper" style="border: none; margin: 0; padding: 0;">
+              <legend class="visually-hidden">Weight</legend>
+              <div class="label-wrapper">
+                <input type="radio" name="weight" id="premium" value="Premium" checked>
+                <label for="premium">Premium</label>
+              </div>
+              <div class="label-wrapper">
+                <input type="radio" name="weight" id="light" value="Light">
+                <label for="light">Light</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="single-column">
+        <div class="setting-accordion-item setting-accordion-ring-size">
+          <div class="setting-accordion-button accordion-active">
+            <span class="caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+            <span class="button_text">Ring size:</span>
+            <span id="variant_value" class="selected_value">6.25</span>
+            <span class="selected_value size-guide">Ring Size Guide</span>
+          </div>
+          <div class="setting-accordion-content">
+            <div class="select-wrapper">
+              <select class="sustainability-select">
+                <option selected>U.S. Ring Size: 6.25</option>
+                <option>U.S. Ring Size: 7.25</option>
+                <option>U.S. Ring Size: 8.25</option>
+                <option>U.S. Ring Size: 9.25</option>
+              </select>
+              {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+            </div>
+          </div>
+        </div>
+        <div class="setting-accordion-item setting-accordion-engraving">
+          <div class="setting-accordion-button accordion-active">
+            <span class="caret-wrapper">
+              <i class="icon-solid-caret"></i>
+            </span>
+            <span class="button_text">Engraving:</span>
+            <span id="variant_value" class="selected_value">Yes</span>
+          </div>
+          <div class="setting-accordion-content">
+            <fieldset class="radio-wrapper" style="border: none; margin: 0; padding: 0;">
+              <legend class="visually-hidden">Engraving</legend>
+              <div class="label-wrapper">
+                <input type="radio" name="engraving" id="no" value="No" checked>
+                <label for="no">No</label>
+              </div>
+              <div class="label-wrapper">
+                <input type="radio" name="engraving" id="yes" value="Yes">
+                <label for="yes">Yes ($50.00 USD)</label>
+              </div>
+            </fieldset>
+            <div class="select-wrapper">
+              <label for="font-style" class="visually-hidden">Engraving font</label>
+              <select name="font-style" id="font-style">
+                <option value="garamond" selected>Garamond</option>
+                <option value="helvetica">Helvetica</option>
+                <option value="lucida">Lucida</option>
+                <option value="times-new">Times New</option>
+                <option value="trajan-pro">Trajan Pro</option>
+              </select>
+              {% render 'icon', name: 'down-caret', icon_class: 'select-caret' %}
+            </div>
+            <div class="select-wrapper">
+              <input type="text" name="engraving-text" placeholder="Text" value="Love you forever">
+            </div>
+            <div class="select-wrapper">
+              <span class="engraving-label">Preview: </span><span class="engraving-value">Love you forever</span>
+            </div>
+            <div class="radio-wrapper terms">
+              <label for="accept">
+                <input type="checkbox" name="accept" id="accept" value="Accept">
+                I accept and understand that engraved items cannot be exchanged or returned
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="block--form">
+      <div class="product-form-container">
+        <div class="product_form">
+          <div class="purchase-details">
+            <div class="purchase-details__buttons purchase-details__spb--false">
+              <div class="button-wrapper">
+                <button
+                  name="add"
+                  class="action_button button button--add-to-cart add_to_cart"
+                  data-label="{{ add_to_cart_label | json }}"
+                >
+                  <span class="text">{{ 'products.product.add_to_cart' | t }}</span>
+                </button>
+              </div>
+              <div class="modal_price subtitle" data-display-savings="true">
+                <div class="price-ui">
+                  <span class="price price--sale" data-price="">
+                    <span class="money" data-price="">$ 2,000.00</span>
+                  </span>
+                  <span class="compare-at-price" data-compare-at-price="">
+                    <span class="money" data-price="">$ 2,539.00</span>
+                  </span>
+                </div>
+                <div class="price-ui only-installments" data-price-ui="">$27.46/mo with financing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block--order-ship-date">
+      <div class="order-ship-date">
+        <img
+          src="{{ settings.speedsize_url_pfx_https -}}{{ 'calendar.png' | asset_url }}"
+          width="41px"
+          alt="order ship"
+          height="44px"
+          loading="eager"
+        >
+        {%- comment -%}
+        {% if isStoneProduct == true %}
+          {%- assign delivery_date = 'now' | date: '%s' -%}
+          {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+
+          {%- if delivery_week_day == 'Mon' -%}
+            {%- assign delivery_date = delivery_date | plus: 604800 -%}
+          {%- elsif delivery_week_day == 'Tue' -%}
+            {%- assign delivery_date = delivery_date | plus: 604800 -%}
+          {%- elsif delivery_week_day == 'Wed' -%}
+            {%- assign delivery_date = delivery_date | plus: 604800 -%}
+          {%- elsif delivery_week_day == 'Thu' -%}
+            {%- assign delivery_date = delivery_date | plus: 604800 -%}
+          {%- elsif delivery_week_day == 'Fri' -%}
+            {%- assign delivery_date = delivery_date | plus: 604800 -%}
+          {%- elsif delivery_week_day == 'Sat' -%}
+            {%- assign delivery_date = delivery_date | plus: 604800 -%}
+          {%- elsif delivery_week_day == 'Sun' -%}
+            {%- assign delivery_date = delivery_date | plus: 518400 -%}
+          {%- endif -%}
+
+        {% elsif category_group == 'wedding' %}
+          {%- assign delivery_date = 'now' | date: '%s' -%}
+          {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+          {%- if delivery_week_day == 'Mon' -%}
+            {%- assign delivery_date = delivery_date | plus: 2160000 -%}
+          {%- elsif delivery_week_day == 'Tue' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Wed' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Thu' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Fri' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Sat' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Sun' -%}
+            {%- assign delivery_date = delivery_date | plus: 2419200 -%}
+          {%- endif -%}
+        {% elsif category_group == 'sale' %}
+          {%- assign current_hour = 'now' | date: '%k' -%}
+          {%- if current_hour >= 12 -%}
+            {%- assign delivery_date = 'now' | date: '%s' -%}
+            {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+            {%- if delivery_week_day == 'Tue' -%}
+              {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+            {%- elsif delivery_week_day == 'Wed' -%}
+              {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+            {%- endif -%}
+          {%- else -%}
+            {%- if week_day == 'Fri' -%}
+              {%- assign added_ship_time = 0 -%}
+            {%- endif -%}
+            {%- assign delivery_date = 'now' | date: '%s' -%}
+            {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+            {%- if delivery_week_day == 'Tue' -%}
+              {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+            {%- elsif delivery_week_day == 'Wed' -%}
+              {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+            {%- endif -%}
+          {%- endif -%}
+        {% else %}
+          {%- assign delivery_date = 'now' | date: '%s' -%}
+          {%- assign delivery_week_day = delivery_date | date: '%a' -%}
+          {%- if delivery_week_day == 'Tue' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Wed' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Thu' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Fri' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Sat' -%}
+            {%- assign delivery_date = delivery_date | plus: 2332800 -%}
+          {%- elsif delivery_week_day == 'Sun' -%}
+            {%- assign delivery_date = delivery_date | plus: 2419200 -%}
+          {%- endif -%}
+        {% endif %}
+        {%- endcomment -%}
+        {%- assign holidayDates = settings.holiday_days -%}
+        {%- assign estDate = "now" | date: "%s" -%}
+        {%- assign newestDate = estDate -%}
+        {%- if product.vendor == 'Elysium' -%}
+          {%- assign estimateDays = settings.elysium_ship_days -%}
+        {%- elsif product.type contains 'Bracelets' -%}
+          {%- assign estimateDays = settings.bracelet_ship_days -%}
+        {%- elsif category_group == 'tennis necklaces' -%}
+          {%- assign estimateDays = settings.tennis_necklace_ship_days -%}
+        {% elsif isStoneProduct == true %}
+          {%- assign estimateDays = settings.loose_stone_ship_days -%}
+        {% else %}
+          {%- assign estimateDays = settings.other_jewelry_ship_days -%}
+        {%- endif -%}
+        {%- assign current_date = "now" | date: "%d" -%}
+        {%- for i in (1..estimateDays) -%}
+          {%- assign newestDate = newestDate | plus: 86400 -%}
+          {%- assign estDay = newestDate | date:'%a' -%}
+          {%- if estDay == 'Sat' -%}
+            {%- assign newestDate = newestDate | plus : 172800 -%}
+          {%- endif -%}
+          {%- if estDay == 'Sun' -%}
+            {%- assign newestDate = newestDate | plus : 86400 -%}
+          {%- endif -%}
+          {%- assign estDateMonth = newestDate | date:'%d/%m' -%}
+          {%- if holidayDates contains estDateMonth -%}
+            {%- assign newestDate = newestDate | plus : 86400 -%}
+          {%- endif -%}
+          {%- if estDateMonth == '29/12' -%}
+            {%- assign newestDate = newestDate | plus : 345600 -%}
+          {%- endif -%}
+          {%- if estDateMonth == '30/12' -%}
+            {%- assign newestDate = newestDate | plus : 259200 -%}
+          {%- endif -%}
+          {%- if estDateMonth == '31/12' -%}
+            {%- assign newestDate = newestDate | plus : 172800 -%}
+          {%- endif -%}
+          {%- assign updated_estDay = newestDate | date:'%a' -%}
+          {%- if updated_estDay == 'Sat' -%}
+            {%- assign newestDate = newestDate | plus : 172800 -%}
+          {%- endif -%}
+          {%- if updated_estDay == 'Sun' -%}
+            {%- assign newestDate = newestDate | plus : 86400 -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- assign estDay = newestDate | date:'%a' -%}
+        {%- if estDay == 'Sat' -%}
+          {%- assign newestDate = newestDate | date: "%s" | plus : 172800 -%}
+        {%- endif -%}
+        {%- if estDay == 'Sun' -%}
+          {%- assign newestDate = newestDate | date: "%s" | plus : 86400 -%}
+        {%- endif -%}
+        {%- assign estDateMonth = newestDate | date:'%d/%m' -%}
+        {%- if holidayDates contains estDateMonth -%}
+          {%- assign newestDate = newestDate | date: "%s" | plus : 86400 | date: "%a, %b %d, %Y" -%}
+          {%- assign estDay = newestDate | date:'%a' -%}
+          {%- if estDay == 'Sat' -%}
+            {%- assign newestDate = newestDate | date: "%s" | plus : 86400 | date: "%a, %b %d, %Y" -%}
+          {%- endif -%}
+          {%- if estDay == 'Sun' -%}
+            {%- assign newestDate = newestDate | date: "%s" | plus : 172800 | date: "%a, %b %d, %Y" -%}
+          {%- endif -%}
+        {%- endif -%}
+        {%- assign delivery_date = newestDate -%}
+        <p class="order-ship-text">Order now to ship by:</p>
+        <p class="order-ship-date">{{ delivery_date | date: '%a, %b %e' }}</p>
+      </div>
+    </div>
+
+    <div class="block--sku" style="padding: 0;">
+      <div class="order-ship-date">
+        <div style="width:26px;height:auto;"></div>
+        <p class="order-ship-text" style="font-size: 12px;">SKU:</p>
+        <p class="order-ship-date" style="font-size: 12px;">{{ product.selected_or_first_available_variant.sku }}</p>
+      </div>
+    </div>
+
+    <div class="block--selected-ring-values">
+      <div class="selected-ring-values">
+        <img
+          src="{{ settings.speedsize_url_pfx_https -}}{{ 'diamond.png' | asset_url }}"
+          width="41px"
+          alt="miadonna"
+          height="44px"
+          loading="eager"
+        >
+        <p class="selected-ring-text">
+          YOUR BESPOKE RING:
+          <span class="selected-ring-value"
+            >14K Yellow Standard Weight Bead Comfort Fit Half Round Band with Satin Finish | Width: 5mm | Ring Size:
+            6.25mm | Thickness 1.9mm | Approx. Weight: 6.22g</span
+          >
+        </p>
+      </div>
+    </div>
+
+    <div class="block--ring-and-stone-images">
+      <div class="ring-and-stone-images">
+        <span class="image-wrapper ring-image">
+          <div class="snapshot">
+            <img
+              src="{{ settings.speedsize_url_pfx_https -}}{{ 'band-image-1.jpg' | asset_url }}"
+              width="100%"
+              alt="snapshot"
+              height="100%"
+              loading="eager"
+            >
+            <p>Snapshot 1</p>
+          </div>
+          <button class="snapshot-button">Save Snapshot</button>
+        </span>
+        <span class="images-divider">vs.</span>
+        <span class="image-wrapper stone-image">
+          <div class="snapshot">
+            <img
+              src="{{ settings.speedsize_url_pfx_https -}}{{ 'band-image-2.jpg' | asset_url }}"
+              width="100%"
+              alt="miadonna"
+              height="100%"
+              loading="eager"
+            >
+            <p>Snapshot 2</p>
+          </div>
+          <button class="snapshot-button">Save Snapshot</button>
+        </span>
+      </div>
+      <div class="snapshot-info">
+        <p>Save snapshots and compare designs</p>
+        <p>Leaving this page or closing your browser will delete snapshots</p>
+      </div>
+    </div>
+  </div>
+</setting-tabs>

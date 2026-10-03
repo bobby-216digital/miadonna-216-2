@@ -1,0 +1,77 @@
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  text-align: center;
+  position: absolute;
+  z-index: 9999;
+  top: 50%;
+  left: 100%;
+  /* background: #3c3737;
+  color: #fff;
+  box-shadow: 0 2px 4px #9e9e9e; */
+  /* padding: 33px 28px 28px;
+  width: 450px; */
+  background: #fff;
+  color: #383838;
+  box-shadow: 0 3px 6px #9e9e9e;
+  /* padding: 15px; */
+  padding: 1rem 1.5rem;
+  width: 370px;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+  border-radius: 3px;
+  font-size: 13px;
+  transform: translateY(-50%);
+  margin-left: 10px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  filter: drop-shadow(-2px 0px 2px #9e9e9e);
+  /* border-color: transparent black transparent transparent; */
+  border-color: transparent white transparent transparent;
+}
+
+.tooltip:not(.mobile-tooltip):hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltiptext .tooltip-title {
+  font-size: 14px;
+  /* font-weight: 400; */
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  /* margin-bottom: 13px; */
+  /* margin-bottom: 5px; */
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 0.5rem;
+}
+
+.tooltiptext .tooltip-title + .tooltip-content {
+  margin-top: 5px;
+}
+
+.tooltiptext .tooltip-content {
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  text-transform: initial;
+  text-align: left;
+  /* text-align: justify; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+}

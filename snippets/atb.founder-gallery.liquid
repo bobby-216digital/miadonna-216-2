@@ -1,0 +1,118 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Founder - Gallery",
+  "id": "founder-gallery",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_image1",
+      "label": "Image1",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_image2",
+      "label": "Image2",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_image3",
+      "label": "Image3",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_image4",
+      "label": "Image4",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_image1' -%}
+{%- assign atb_image1 = val -%}
+{%- include 'atb-render' field:'atb_image2' -%}
+{%- assign atb_image2 = val -%}
+{%- include 'atb-render' field:'atb_image3' -%}
+{%- assign atb_image3 = val -%}
+{%- include 'atb-render' field:'atb_image4' -%}
+{%- assign atb_image4 = val -%}
+{%- assign atb_image1_key = atb_image1| split: '/files/' | last -%}{%- assign atb_image1 = images[atb_image1_key] -%}{%- assign atb_image2_key = atb_image2| split: '/files/' | last -%}{%- assign atb_image2 = images[atb_image2_key] -%}{%- assign atb_image3_key = atb_image3| split: '/files/' | last -%}{%- assign atb_image3 = images[atb_image3_key] -%}{%- assign atb_image4_key = atb_image4| split: '/files/' | last -%}{%- assign atb_image4 = images[atb_image4_key] -%}{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<style>
+  #shopify-section-{{ section_id }} {
+
+  }
+  .masonry-grid img{
+    height: 100%;
+    object-fit: cover;
+  }
+  .pure-g {
+
+    text-rendering: optimizespeed;
+
+    display: -webkit-flex;
+    -webkit-flex-flow: row wrap;
+    display: -ms-flexbox;
+    -ms-flex-flow: row wrap;
+    -ms-align-content: flex-start;
+    -webkit-align-content: flex-start;
+    align-content: flex-start
+}
+
+  .pure-u-5-12,.pure-u-10-24 {
+    width: 41.6667%;
+    *width: 41.6357%
+}
+  .pure-u-7-12,.pure-u-14-24 {
+    width: 58.3333%;
+    *width: 58.3023%
+}
+  .masonry-grid {
+  margin: auto;
+  width: 80%; }
+  .masonry-grid > div {
+    margin: 0.75rem 0; }
+    .masonry-grid > div:nth-child(odd) {
+      padding-right: 0.75rem; }
+    .masonry-grid > div:nth-child(even) {
+      padding-left: 0.75rem; }
+
+</style>
+
+<section class="section is-standard content-cell -bottom-padding-only">
+  <div class="pure-g masonry-grid -the-founder body-cell">
+    <div class="pure-u-10-24"><img src="{{ settings.speedsize_url_pfx_https -}}{{ atb_image1 | img_url : 'original' }}" loading="lazy"></div>
+    <div class="pure-u-14-24"><img src="{{ settings.speedsize_url_pfx_https -}}{{ atb_image2 | img_url : 'original' }}" loading="lazy"></div>
+    <div class="pure-u-14-24"><img src="{{ settings.speedsize_url_pfx_https -}}{{ atb_image3 | img_url : 'original' }}" loading="lazy"></div>
+    <div class="pure-u-10-24"><img src="{{ settings.speedsize_url_pfx_https -}}{{ atb_image4 | img_url : 'original' }}" loading="lazy"></div>
+  </div>
+</section>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

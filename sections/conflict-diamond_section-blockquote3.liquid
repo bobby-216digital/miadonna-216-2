@@ -1,0 +1,35 @@
+<section class="body-cell">
+<div class="media-grid-layout -reversed cell-style-A">
+<section class="shaded">
+<figure alt="what is a conflict diamond" style="background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | img_url:'original' }}');" class="_image formatted-image"></figure>
+<section class="_body content-cell offset-group">
+<figure class="quote-layout">
+<blockquote>{{ section.settings.quote_text }}</blockquote>
+</figure>
+</section>
+</section>
+</div>
+</section>
+{% schema %}
+  {
+    "name": "CD- Blockquote with Image",
+    "settings": [ {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+           
+      },
+      {
+        "type": "textarea",
+        "id": "quote_text",
+        "label": "Quote Text"
+        }
+      ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

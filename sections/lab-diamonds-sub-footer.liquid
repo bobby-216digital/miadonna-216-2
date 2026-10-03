@@ -1,0 +1,165 @@
+{{ 'lab-diamonds-sub-footer.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .sub_footer-wrapper {
+    background: {{ section.settings.background_color }}
+  }
+  .sub_footer-wrapper h6,
+  .sub_footer-wrapper p,
+  .sub_footer-wrapper a{
+    color: {{ section.settings.text_color }}
+  }
+  .sub_footer-wrapper .sub_footer-content .sub_footer-item-button{
+    border-color: {{ section.settings.text_color }}
+  }
+  .sub_footer-wrapper .sub_footer-slider .flickity-button-icon {
+    fill: {{ section.settings.text_color }};
+  }
+  .sub_footer-wrapper .sub_footer-slider .flickity-page-dots .dot {
+    opacity: .5;
+    background: {{ section.settings.text_color }};
+  }
+  .sub_footer-wrapper .sub_footer-slider .flickity-page-dots .dot.is-selected{
+    opacity: 1;
+  }
+{% endstyle %}
+
+{% assign width = section.settings.width %}
+
+<div class="sub_footer-wrapper">
+  <div class="section is-width-{{ width }}">
+    <div class="container">
+      {% for block in section.blocks %}
+        <div
+          class="
+            sub_footer-item {%
+              render 'column-width',
+              value: section.blocks.size
+            %} medium-down--one-whole column
+          "
+        >
+          <div class="sub_footer-content">
+            <h6>{{ block.settings.title }}</h6>
+            <p>{{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+            <div class="button-wrapper">
+            {%- if block.settings.button_text != blank -%}
+              <a class="sub_footer-item-button" href="{{ block.settings.button_link }}">
+                {{- block.settings.button_text -}}
+              </a>
+            {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="sub_footer-slider">
+      {% for block in section.blocks %}
+        <div class="sub_footer-item one-whole column">
+          <div class="sub_footer-content">
+            <h6>{{ block.settings.title }}</h6>
+            <p>{{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+            {%- if block.settings.button_text != blank -%}
+            <a class="sub_footer-item-button" href="{{ block.settings.button_link }}">
+              {{- block.settings.button_text -}}
+            </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Sub Footer",
+  "class": "sub-footer lab-diamonds-sub-footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#fdf0e7"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "You're shopping the best"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "description",
+          "default": "MiaDonna diamonds are the highest quality, most ethical, American-grown diamonds in the industry."
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sub Footer",
+      "category": "Sub Footer",
+      "blocks": [
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

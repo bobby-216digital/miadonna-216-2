@@ -1,0 +1,327 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "d603f19c-1927-49ef-bdda-3e483b8f9e9d": {
+      "type": "index__image-with-text-2",
+      "blocks": {
+        "template--15038976688207__d603f19c-1927-49ef-bdda-3e483b8f9e9d-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "Our Pledge",
+            "title2": "",
+            "text": "<p>Bettering the world one engagement ring at a time.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "template--15038976688207__d603f19c-1927-49ef-bdda-3e483b8f9e9d-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Our_Pledge.png",
+            "mobile_image": "shopify://shop_images/Our_Pledge_20fc26d2-a67d-48c1-996c-c2853253478f.png",
+            "image_link": "",
+            "iframe_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15038976688207__d603f19c-1927-49ef-bdda-3e483b8f9e9d-text-1",
+        "template--15038976688207__d603f19c-1927-49ef-bdda-3e483b8f9e9d-image-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "1bfb3a31-c707-4a2e-8338-79ab5dd420e6": {
+      "type": "buttons-list",
+      "blocks": {
+        "acf786be-907f-4f69-b01a-d86d83af1b77": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our STORY",
+            "button_link": "/pages/about-us",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "9ed46ac7-1331-4318-8fc8-3b60d5e23562": {
+          "type": "button",
+          "settings": {
+            "button_label": "THE FOUNDER",
+            "button_link": "/pages/the-founder",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "4d22f1b4-683e-4e6e-bc32-031d47771319": {
+          "type": "button",
+          "settings": {
+            "button_label": "OUR PLEDGE",
+            "button_link": "/pages/our-pledge",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "71f7bb97-f058-471b-91ad-1f5349238256": {
+          "type": "button",
+          "settings": {
+            "button_label": "OUR CAUSE",
+            "button_link": "/pages/the-greener-diamond",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        },
+        "7cd147fe-3ddd-44ae-8fc2-04e80bc7c1b6": {
+          "type": "button",
+          "settings": {
+            "button_label": "THE ISSUE",
+            "button_link": "/pages/conflict-diamonds",
+            "button_background": "#ffffff",
+            "button_text": "#000000",
+            "button_style": "button--primary"
+          }
+        }
+      },
+      "block_order": [
+        "acf786be-907f-4f69-b01a-d86d83af1b77",
+        "9ed46ac7-1331-4318-8fc8-3b60d5e23562",
+        "4d22f1b4-683e-4e6e-bc32-031d47771319",
+        "71f7bb97-f058-471b-91ad-1f5349238256",
+        "7cd147fe-3ddd-44ae-8fc2-04e80bc7c1b6"
+      ],
+      "settings": {
+        "background": "#e7edf5",
+        "width": "standard",
+        "padding_top": 15,
+        "padding_bottom": 15,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "addd98d5-c1fe-4903-a0c7-b3c15e10268d": {
+      "type": "founder-text-section",
+      "settings": {
+        "background": "#ffffff",
+        "subtitle": "OUR PLEDGE",
+        "title": "We believe in transparency. As an advocate for diamond mining communities, global societies and the Earth, we are putting a modern twist on an outdated industry.",
+        "text": "<p>We pledge to only use ethically-sourced materials to craft your conflict-free jewelry. By using sustainable practices, we are able to push for a more socially responsible diamond industry.</p>"
+      }
+    },
+    "6a5434af-a74b-4e22-8558-5e51c45b2cae": {
+      "type": "our-pledge_image-with-text",
+      "blocks": {
+        "22108ee1-df25-46dd-9de8-c7fe0fce108a": {
+          "type": "Image",
+          "settings": {
+            "image_position": "left",
+            "image": "shopify://shop_images/diamond-mining-communities_e5013fe3-4ddd-4066-80bc-5a83b9a982ac.jpg",
+            "title": "DIAMOND MINING COMMUNITIES",
+            "description": "<p>Traditional earth-mined diamonds fund wars, damage economies and contribute to the killing, maiming and displacing of innocent people. As a MiaDonna consumer, you directly contribute to the funding of\n <a class=\"pink-text\" href=\"http://thegreenerdiamond.org/\" target=\"_blank\" title=\"The Greener Diamond\" rel=\"noopener noreferrer\">Greener Diamond</a> projects that empower and restore these diamond mining communities.</p>"
+          }
+        },
+        "efd4da50-ea5e-492a-bde5-1a89ca1fbecd": {
+          "type": "Image",
+          "settings": {
+            "image_position": "right",
+            "image": "shopify://shop_images/global-societies.webp",
+            "title": "GLOBAL SOCIETIES",
+            "description": "<p>We don't answer to shareholders, board members, mining companies, or corporations. As a social enterprise, our goal is to improve the quality of living for global societies.</p>\n<p>As a shopper, you have the choice to buy ethically. We make it easy for you to find a product you not only love but one with a mission you can stand by. With your purchase, not only will you feel good but you’ll do good too.</p>"
+          }
+        },
+        "847fbb92-131b-4098-a28f-c964b9bbf164": {
+          "type": "Image",
+          "settings": {
+            "image_position": "left",
+            "image": "shopify://shop_images/the-earth_72d54c2e-9551-4972-98dc-17962dd002c0.jpg",
+            "title": "THE EARTH",
+            "description": "<p>Mining is both catastrophic for local community members and the environment. Each year, more than 150 million carats of diamonds are extracted from the Earth resulting in the removal and displacement of enormous amounts of soil. Additionally, these mining efforts create irreversible damage to ecosystems.</p>\n<p>In this day and age, there is no longer a need to mine for precious gemstones or metals. Our products are crafted only from conflict-free diamonds and gemstones and recycled precious metals.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "22108ee1-df25-46dd-9de8-c7fe0fce108a",
+        "efd4da50-ea5e-492a-bde5-1a89ca1fbecd",
+        "847fbb92-131b-4098-a28f-c964b9bbf164"
+      ],
+      "settings": {}
+    },
+    "d0309422-47b0-47b3-9d4d-11519f84b107": {
+      "type": "our-pledge_accordion_text",
+      "blocks": {
+        "ef5f114f-33d2-499a-9b89-d4074654b360": {
+          "type": "Text",
+          "settings": {
+            "title": "CHOICE",
+            "content": "We believe in giving you the choice to support a product and cause that supports global societies and the planet."
+          }
+        },
+        "38df2b45-4e93-4dd4-9fa3-6b9c536e198b": {
+          "type": "Text",
+          "settings": {
+            "title": "SUSTAINABILITY",
+            "content": "We strive to continually achieve the highest standards in environmental sustainability."
+          }
+        },
+        "ade3b6da-3d46-430a-9962-a0d5cb1ab310": {
+          "type": "Text",
+          "settings": {
+            "title": "Innovation",
+            "content": "Innovation fuels our ability to push boundaries to provide the most beautiful, ethical and scientifically-advanced diamond alternatives available. "
+          }
+        },
+        "909a249c-fd6a-42ab-8f19-ae41428e8152": {
+          "type": "Text",
+          "settings": {
+            "title": "Knowledge",
+            "content": "Through education and transparency, we seek to empower your buying decision."
+          }
+        }
+      },
+      "block_order": [
+        "ef5f114f-33d2-499a-9b89-d4074654b360",
+        "38df2b45-4e93-4dd4-9fa3-6b9c536e198b",
+        "ade3b6da-3d46-430a-9962-a0d5cb1ab310",
+        "909a249c-fd6a-42ab-8f19-ae41428e8152"
+      ],
+      "settings": {
+        "banner_title": "MIADONNA CORE VALUES",
+        "banner_text": "At MiaDonna, our core values are ingrained in our DNA. They guide our attitude, behavior, and business to work towards a conflict-free diamond industry."
+      }
+    },
+    "6e7fd43e-27fa-4da3-977f-bd5269591ec3": {
+      "type": "our-pledge_quote",
+      "settings": {
+        "title": "OUR MISSION & VISION",
+        "text": "Our\n <em><span class=\"pink-text\">vision</span></em> is to create a Greener Diamond culture by being the leader in affordable, ethically produced fine jewelry.<br><br>Our\n <em><span class=\"pink-text\">mission</span></em> is to help repair and restore the land and lives damaged by the unethical conflict-diamond trade by offering consumers ethical fine jewelry that alleviates the need to mine for new diamonds. "
+      }
+    },
+    "c808dd2e-57b5-477f-9b48-edeff9009ef7": {
+      "type": "our-pledge_icon-with-text",
+      "blocks": {
+        "49d59928-0043-42c0-9998-76a31fecdcfb": {
+          "type": "Text",
+          "settings": {
+            "image": "shopify://shop_images/b-corp-logo-pledge.svg",
+            "title": "CERTIFIED B CORPORATION",
+            "content": "As a certified B Corporation, we're committed to meeting the highest standards  for social and environmental performance,  transparency, and accountability."
+          }
+        },
+        "aab29ea6-a96a-48fe-9fc0-2ba3c74b3cb7": {
+          "type": "Text",
+          "settings": {
+            "image": "shopify://shop_images/green-america-icon.png",
+            "title": "GREEN AMERICA",
+            "content": "We have been awarded the Green America Seal of Approval for going above and beyond product and service quality to set the highest standards in environmental sustainability and social justice, to solve rather than create, environmental and social problems."
+          }
+        },
+        "3a3a3c1a-164c-4cce-b843-218a649cb707": {
+          "type": "Text",
+          "settings": {
+            "image": "shopify://shop_images/carbon-neutral-icon.png",
+            "title": "CARBON NEUTRAL SHIPMENTS",
+            "content": "We offset the CO2 created when shipping our products to your door by investing in reforestation projects. 1,400 trees each year absorb those emissions, so for every shipment we make, we plant one tree on your behalf through our partnership with ecodrive."
+          }
+        },
+        "42f62625-2517-4e07-a5ec-107f4b1809b7": {
+          "type": "Text",
+          "settings": {
+            "image": "shopify://shop_images/eco-friendly-icon.png",
+            "title": "ECO-FRIENDLY JEWELRY CLEANER",
+            "content": "We have our own unique blend of jewelry cleaner utilizing a non-toxic formula that is both environmentally safe and packaged within a fully recyclable, grade 1 container. This eco-friendly jewelry cleaner is included free of charge with all domestic orders."
+          }
+        },
+        "12af6d6f-c3fd-4d70-9737-2b186b9c068d": {
+          "type": "Text",
+          "settings": {
+            "image": "shopify://shop_images/recycled-metals-icon.png",
+            "title": "RECYCLED METALS",
+            "content": "Each and every setting is handcrafted using only the finest recycled solid Gold or 950 Pure Platinum from refineries that represent our commitment to the earth. Metals you’ll love for their beauty and be proud to wear for the positive impact they have on our planet."
+          }
+        },
+        "ef9b5165-6a17-4955-8d6f-7fa491805b74": {
+          "type": "Text",
+          "settings": {
+            "image": "shopify://shop_images/water-recycling-icon.png",
+            "title": "WATER RECYCLING",
+            "content": "When we create your jewelry, we use a lot of water. However, thanks to a very efficient water filtration system, we’re now able to recycle the water we use in the production of your jewelry, eliminating the need for us to use large amounts of fresh drinking water."
+          }
+        }
+      },
+      "block_order": [
+        "49d59928-0043-42c0-9998-76a31fecdcfb",
+        "aab29ea6-a96a-48fe-9fc0-2ba3c74b3cb7",
+        "3a3a3c1a-164c-4cce-b843-218a649cb707",
+        "42f62625-2517-4e07-a5ec-107f4b1809b7",
+        "12af6d6f-c3fd-4d70-9737-2b186b9c068d",
+        "ef9b5165-6a17-4955-8d6f-7fa491805b74"
+      ],
+      "settings": {
+        "banner_title": "THE MIADONNA DIFFERENCE ",
+        "banner_text": "We've created the world's greenest jewelry company."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "d603f19c-1927-49ef-bdda-3e483b8f9e9d",
+    "1bfb3a31-c707-4a2e-8338-79ab5dd420e6",
+    "addd98d5-c1fe-4903-a0c7-b3c15e10268d",
+    "6a5434af-a74b-4e22-8558-5e51c45b2cae",
+    "d0309422-47b0-47b3-9d4d-11519f84b107",
+    "6e7fd43e-27fa-4da3-977f-bd5269591ec3",
+    "c808dd2e-57b5-477f-9b48-edeff9009ef7"
+  ]
+}

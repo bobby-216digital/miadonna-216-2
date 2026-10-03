@@ -1,0 +1,129 @@
+{% assign id = section.id %}
+{% comment %}Layout{% endcomment %}
+{% assign width = section.settings.width %}
+{% assign padding_top = section.settings.padding_top %}
+{% assign padding_bottom = section.settings.padding_bottom %}
+{% assign animation = section.settings.animation | default: 'none' %}
+{% comment %} Advanced {% endcomment %}
+{% assign css_class = section.settings.css_class %}
+{% assign custom_css = section.settings.custom_css %}
+
+{% comment %} CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ id }} {
+    display:none;
+  }
+  #shopify-section-{{ id }} {
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+    {% if width == 'wide' %}
+      width: 100%;
+    {% endif %}
+  }
+
+  .sidebar-section {
+    {% if section.settings.sidebar_position == 'right' %}
+      order: 1;
+    {% endif %}
+  }
+
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<div class="hide-mobile section-blog-menu">
+  <div
+    class="
+      section is-width-standard
+      {{ css_class }}
+      is-width-{{ width }}
+    "
+    {% if animation != 'none' %}
+      data-scroll-class="{{ animation }}"
+    {% endif %}
+  >
+    <div class="container top-blog-section">
+      {% if section.settings.blog_menu_title %}
+        <!--
+          <div class="menu-title column one-nine medium-down--one-whole ">
+            <h3>{{ section.settings.blog_menu_title }}</h3>
+          </div>
+        -->
+      {% endif %}
+      {% if section.settings.blog_menu %}
+        <div class="blog-menu column medium-down--one-whole">
+          {% render 'sidebar__menu', menu: section.settings.blog_menu %}
+        </div>
+      {% endif %}
+      {% for block in section.blocks %}
+        <!--
+          <div class="blog-search-bar column one-fifth medium-down--one-whole">
+            {% if block.type == 'search' %}
+                {%
+                  render 'sidebar__search',
+                  block: block,
+                  context: 'sidebar'
+                %}
+            {% endif %}
+          </div>
+        -->
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blog Menu",
+  "settings": [
+    {
+      "type": "text",
+      "id": "blog_menu_title",
+      "label": "Blog Menu Title"
+    },
+    {
+      "type": "link_list",
+      "id": "blog_menu",
+      "label": "Select Menu"
+    }
+
+  ],
+  "blocks":[
+    {
+    "type": "search",
+    "name": "Search form",
+    "limit": 1,
+    "settings": [
+
+      {
+        "type": "select",
+        "id": "search_results",
+        "label": "Search results",
+        "options": [
+          {
+            "value": "article",
+            "label": "Blog posts"
+          }
+        ],
+        "default": "article"
+      }
+    ]
+  }
+  ],
+  "presets": [
+  {
+    "category": "blogs",
+    "name": "Blog Menu"
+  }
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

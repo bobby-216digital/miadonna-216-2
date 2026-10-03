@@ -1,0 +1,115 @@
+<style>
+  #shopify-section-{{ section.id }} .warning-row {
+    border-top: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d2d2d2;
+    padding: 4em 0;
+  }
+  #shopify-section-{{ section.id }} .content-cell {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section.id }} .warning {
+    padding: 1em;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.8;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .cell-style-tout {
+    background: #e5f6ed;
+    border: 14px solid #c2edd5;
+  }
+  #shopify-section-{{ section.id }} .text-style-title-2 {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  #shopify-section-{{ section.id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .text-style-chapter-title {
+    color: #777777;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section.id }} .content-cell {
+      padding: 50px;
+    }
+    #shopify-section-{{ section.id }} .text-style-title-2 {
+      font-size: 30px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section.id }} .content-cell {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section.id }} .warning {
+      font-size: 18px;
+      line-height: 1.55;
+    }
+    #shopify-section-{{ section.id }} .text-style-title-2 {
+      font-size: 36px;
+    }
+    #shopify-section-{{ section.id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<section class="section is-standard">
+  <div class="container warning-row">
+    <div class="two-thirds small-down--one-whole column warning">
+      <div class="content-cell cell-style-tout">
+        <p class="text-style-title-2 text-center">
+          <em>{{ section.settings['left-text'] }}</em>
+        </p>
+      </div>
+    </div>
+    <div class="one-third small-down--one-whole column warning offset-group">
+      <h2 class="text-style-chapter-title">{{ section.settings['right-subheading'] }}</h2>
+      <p>{{ section.settings['right-text'] }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CD- Text with Quote",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "left-text",
+      "label": "Left Text"
+
+    },
+    {
+      "type": "text",
+      "id": "right-subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "textarea",
+      "id": "right-text",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CD- Text with Quote",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

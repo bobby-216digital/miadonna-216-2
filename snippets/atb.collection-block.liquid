@@ -1,0 +1,440 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Collection Block",
+  "class": "collection-blocks jsCollectionBlocks",
+  "id": "collection-block",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Main Title",
+      "id": "atb_main_title",
+      "default": "Find your perfect Wedding Ring",
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_gutter",
+      "label": "Show gutter",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_hide_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_background_color",
+      "label": "Background",
+      "default": "transparent",
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_text_color",
+      "label": "Text Color",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "block_image",
+      "repeatable": "Collection",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Image Alt Text",
+      "id": "block_image_alt",
+      "repeatable": "Collection",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "block_title",
+      "repeatable": "Collection",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "label": "Collection Link",
+      "id": "block_url",
+      "repeatable": "Collection",
+      "info": ""
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_main_title' -%}
+{%- assign atb_main_title = val -%}
+{%- include 'atb-render' field:'atb_show_gutter' -%}
+{%- assign atb_show_gutter = val -%}
+{%- include 'atb-render' field:'atb_hide_mobile' -%}
+{%- assign atb_hide_mobile = val -%}
+{%- include 'atb-render' field:'atb_background_color' -%}
+{%- assign atb_background_color = val -%}
+{%- include 'atb-render' field:'atb_text_color' -%}
+{%- assign atb_text_color = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_image_alt' -%}
+{%- assign block_image_alt = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_url' -%}
+{%- assign block_url = val -%}
+{%- if atb_show_gutter == blank -%}
+{%- assign atb_show_gutter = false -%}
+{%- else -%}
+{%- assign atb_show_gutter = true -%}
+{%- endif -%}
+{%- if atb_hide_mobile == blank -%}
+{%- assign atb_hide_mobile = false -%}
+{%- else -%}
+{%- assign atb_hide_mobile = true -%}
+{%- endif -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section collection-blocks jsCollectionBlocks">
+<style>
+  #shopify-section-{{ section_id }} .collection-block--slider{
+    width: 85%;
+  }
+  {% comment %} #shopify-section-{{ section_id }} .flickity-viewport{
+    margin-left: -5px;
+  } {% endcomment %}
+  #shopify-section-{{ section_id }} .flickity-button{
+    top: 45%;
+    padding: 0;
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+  #shopify-section-{{ section_id }} .flickity-prev-next-button .flickity-button-icon{
+    margin: 0;
+    fill: {{ atb_text_color }};
+  }
+  #shopify-section-{{ section_id }} .flickity-prev-next-button.previous{
+    left: -20px;
+  }
+  #shopify-section-{{ section_id }} .flickity-prev-next-button.next{
+    right: -30px;
+  }
+  #shopify-section-{{ section_id }} .column{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  #shopify-section-{{ section_id }} .collection-block-wrapper h2,
+  #shopify-section-{{ section_id }} .collection-block-wrapper h3{
+    width: 100%;
+    font-weight: 600;
+    /* line-height: 29px; */
+    text-align: center;
+    margin-bottom: 32px;
+    /* letter-spacing: 1.4px; */
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .collection-block .image-element__wrap{
+    border-radius: 50%;
+  }
+  #shopify-section-{{ section_id }} .collection-block--slider.no-slider .image-element__wrap{
+    margin: 0;
+  }
+  #shopify-section-{{ section_id }} .collection-block .image-element__wrap {
+    height: auto;
+    /* max-width: 100% !important; */
+  }
+  #shopify-section-{{ section_id }} .collection-block img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0;
+  }
+  #shopify-section-{{ section_id }} .collection-block .block--title{
+    text-align: center;
+    margin-top: 15px;
+    /* font-style: italic;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; */
+  }
+  @media screen and (min-width: 768px){
+    #shopify-section-{{ section_id }} .flickity-prev-next-button.previous{
+      left: -50px;
+    }
+    #shopify-section-{{ section_id }} .flickity-prev-next-button.next{
+      right: -50px;
+    }
+  }
+  @media screen and (max-width: 767px){
+    /* #shopify-section-{{ section_id }} .collection-block-wrapper h2{
+      font-size: 20px;
+    }
+    #shopify-section-{{ section_id }} .collection-block h3{
+      font-size: 16px;
+    } */
+    #shopify-section-{{ section_id }} .flickity-prev-next-button .flickity-button-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section_id }} {
+    background-color: {{ atb_background_color }};
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' %}
+      width: 100%;
+    {% endif %}
+    {% if atb_hide_mobile %}
+      @media screen and (max-width: 798px){
+        display: none;
+      }
+    {% endif %}
+  }
+  #shopify-section-{{ section_id }} .collection-block--slider.no-slider:after {
+    content: "flickity";
+    display: none; /* hide :after */
+  }
+  @media screen and (min-width: 1025px) {
+    /* disable Flickity for large devices */
+    #shopify-section-{{ section_id }} .collection-block--slider.no-slider:after {
+      content: "";
+    }
+  }
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-collection-blocks
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    {% if atb_show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if atb_width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  <div class="collection-block-wrapper">
+    {% if atb_main_title != blank %}
+      {% if atb_background_color == 'transparent' or atb_background_color == '#ffffff' %}
+        <h2 class="section--title" style="color: {{ atb_text_color }};">
+          {{ atb_main_title }}
+        </h2>
+      {% else %}
+        <style>
+          #shopify-section-{{ section_id }} .collection-block-wrapper h3 {
+            max-width: 65%;
+            margin: 0 auto 32px;
+          }
+        </style>
+        <h3 class="section--title" style="color: {{ atb_text_color }};">
+          {{ atb_main_title }}
+        </h3>
+      {% endif %}
+    {% endif %}
+    <div
+      class="container collection-block--slider {% if blocks.size <= 5 %}no-slider{% endif %}"
+      style="flex-wrap: nowrap;"
+      data-products-per-slide="5"
+      data-products-limit="{% if blocks.size > 5 %}15{% else %}5{% endif %}"
+      data-products-available="{% if blocks.size > 5 %}15{% else %}5{% endif %}"
+    >
+      {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+        <div class="collection-block one-fifth column large-down--one-fourth medium-down--one-third small-down--one-half">
+          {% if block_url[forloop.index0] != blank %}
+            <a
+              href="{{ block_url[forloop.index0] }}"
+              class="collection-link"
+              style="color: {{ atb_text_color }};"
+              tabindex="-1"
+            >
+          {% endif %}
+          {% if my_image0 != blank %}
+            {%
+              render 'image-element',
+              image: my_image0,
+              alt: block_image_alt[forloop.index0],
+            %}
+          {% else %}
+            <div class="image-element__wrap" style="height: auto;">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+          {% if block_title[forloop.index0] != blank %}
+            <h4 class="block--title" style="color: {{ atb_text_color }};">{{ block_title[forloop.index0] }}</h4>
+          {% endif %}
+          {% if block_url[forloop.index0] != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script data-theme-editor-load-script src="{{ 'z__jsCollectionBlocks.js' | asset_url }}"></script>
+
+
+</section>

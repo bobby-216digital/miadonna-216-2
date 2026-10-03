@@ -1,0 +1,259 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "settings": {
+            "content": false
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_sidebar": false,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ec2d08b3-b641-426b-be6a-3cbcac20a006": {
+      "type": "index__image-with-text-2",
+      "blocks": {
+        "template--15034167951439__ec2d08b3-b641-426b-be6a-3cbcac20a006-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "The MiaDonna Home Try-On",
+            "title2": "",
+            "text": "<p>Try on engagement rings from the comfort of your own home. Totally free! Finding your perfect match has never been easier.<\/p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "template--15034167951439__ec2d08b3-b641-426b-be6a-3cbcac20a006-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/MiaDonna_Home-Try-On-Program_Engagement-Rings-Test-Sample-Mail-Ship-Free_desktop.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/MiaDonna_Home-Try-On-Program_Engagement-Rings-Test-Sample-Mail-Ship-Free_mobile.jpg",
+            "image_link": "",
+            "iframe_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15034167951439__ec2d08b3-b641-426b-be6a-3cbcac20a006-text-1",
+        "template--15034167951439__ec2d08b3-b641-426b-be6a-3cbcac20a006-image-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "3d58deef-d7a8-4d80-a277-eb3705f7bbc0": {
+      "type": "rectangle-grid",
+      "blocks": {
+        "template--15034167951439__3d58deef-d7a8-4d80-a277-eb3705f7bbc0-column-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Select-block.jpg",
+            "image_alt": "SELECT",
+            "text_alignment": "center",
+            "title": "SELECT",
+            "description": "<p>Choose four replica rings from our Home Try-On collection. Your package— with sample rings and helpful information— will ship via USPS First Class Mail and arrive within 1–3 business days.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "button--primary"
+          }
+        },
+        "template--15034167951439__3d58deef-d7a8-4d80-a277-eb3705f7bbc0-column-2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Try-block.jpg",
+            "image_alt": "TRY",
+            "text_alignment": "center",
+            "title": "TRY",
+            "description": "<p>Try on the rings, take photos, and show them off to your friends and family. Get to know the styles you love! Whether or not you find a ring you love, there is no obligation to purchase.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "button--primary"
+          }
+        },
+        "ce3ed91b-804a-4b98-815e-a4fbc38b438f": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Return-block.jpg",
+            "image_alt": "RETURN",
+            "text_alignment": "center",
+            "title": "RETURN",
+            "description": "<p>Using the return label provided, package all four rings and drop off at your nearest USPS office by the Day 7 of your trial. Now, you can shop and build your dream ring with online Ring Builder. We will craft it for you in 10–15 business days and ship it.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "button--primary"
+          }
+        }
+      },
+      "block_order": [
+        "template--15034167951439__3d58deef-d7a8-4d80-a277-eb3705f7bbc0-column-1",
+        "template--15034167951439__3d58deef-d7a8-4d80-a277-eb3705f7bbc0-column-2",
+        "ce3ed91b-804a-4b98-815e-a4fbc38b438f"
+      ],
+      "settings": {
+        "show_slider": false,
+        "title": "<h2>HOW IT WORKS<\/h2>",
+        "heading_font": "montserrat_n5",
+        "sub_title": "",
+        "sub_title_font": "open_sans_n4",
+        "width": "standard",
+        "show_gutter": true,
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ad687324-e084-4892-8701-703b5dbb86c9": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "",
+        "text_font": "open_sans_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "left",
+        "text_size": 14,
+        "columns": 1,
+        "button_label": "REQUEST YOUR HOME TRY ON",
+        "button_link": "#home-try-contact-form",
+        "button_alignment": "center",
+        "button_background": "#58717a",
+        "button_text": "#ffffff",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "wide",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "0d2dade4-7bff-462d-914f-83d3c0c2de38": {
+      "type": "index__image-with-text",
+      "blocks": {
+        "template--15034167951439__0d2dade4-7bff-462d-914f-83d3c0c2de38-image-2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Left-block_30b231b7-9435-4f7b-92e0-f9beb8fdc009.jpg",
+            "image_link": "",
+            "image_text": ""
+          }
+        },
+        "template--15034167951439__0d2dade4-7bff-462d-914f-83d3c0c2de38-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "More Information",
+            "pre-title": "",
+            "heading_size": "regular",
+            "text": "<p><\/p><p><strong>COST<\/strong><br\/>Our home try-on program is 100% FREE. We charge a $100 security fee that is refunded in full once your returned package is returned and received. Please note, we allow one (1) complimentary home try-on order per customer\/address. Additional home try-on orders (without a regular purchase) will incur a non-refundable $50 fee.<\/p><p><strong>QUALITY & SIZE<\/strong><br\/>Sample rings are crafted with alloy metal with cubic zirconia. The average ring size is 7 and center stone size varies from style-to-style. These samples represent the style, not quality, of our finished jewelry. These samples come as they are and cannot be customized for ring size, metal type, center stone shape or size.<\/p><p><strong>SHIPPING<\/strong><br\/>All packages are sent via USPS First Class Mail and arrive within 1–3 business days. At this time, we only ship home try-on orders within the United States, including Alaska and Hawaii. Only one (1) home try-on package allotted per customer at a single time. Packages need to be put in the mail no later than 7 days from when they are received. <\/p><p><\/p><p><a href=\"\/pages\/terms-conditions\" title=\"Terms & Conditions\">Click here for full terms and conditions.<\/a><\/p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--15034167951439__0d2dade4-7bff-462d-914f-83d3c0c2de38-image-2",
+        "template--15034167951439__0d2dade4-7bff-462d-914f-83d3c0c2de38-text-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 80,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "04d66c19-7d0c-49cf-af7f-c5de9cbc8f32": {
+      "type": "content-with-image",
+      "settings": {
+        "title": "Free Ring Sizer",
+        "description": "<p>Every home try-on package includes a complimentary ring sizer. Though being sized by a professional jeweler is the most accurate measurement, this tool will assist you in determining the correct size ring to order. It’s yours to keep!<\/p>",
+        "image": "shopify:\/\/shop_images\/icon-htop-sizer.png",
+        "width": "wide",
+        "show_gutter": false,
+        "hide_mobile": false,
+        "background_color": "#353535",
+        "text_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "84f41e17-33a8-4508-a384-5e4780551c34": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div id=\"home-try-contact-form\"><\/div>"
+      }
+    },
+    "5ef5de5f-9f8c-4c28-aef5-0fd5d837fd20": {
+      "type": "contact-form",
+      "settings": {
+        "title": "REQUEST YOUR HOME TRY-ON KIT",
+        "description": "<p>Our jewelry experts are here to help you! Send us a request using the form below, include the specific rings you'd like to try, and we'll be in touch soon.<\/p><p><\/p><p><strong>*Please note that our samples cannot be customized to accommodate personal preference in shape, center stone size, material, or metal.<\/strong><\/p>",
+        "name": "Name *",
+        "email": "E-mail Address *",
+        "message": "Message *",
+        "required_text": "Required Fields *"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ec2d08b3-b641-426b-be6a-3cbcac20a006",
+    "3d58deef-d7a8-4d80-a277-eb3705f7bbc0",
+    "ad687324-e084-4892-8701-703b5dbb86c9",
+    "0d2dade4-7bff-462d-914f-83d3c0c2de38",
+    "04d66c19-7d0c-49cf-af7f-c5de9cbc8f32",
+    "84f41e17-33a8-4508-a384-5e4780551c34",
+    "5ef5de5f-9f8c-4c28-aef5-0fd5d837fd20"
+  ]
+}

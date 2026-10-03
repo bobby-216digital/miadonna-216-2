@@ -1,0 +1,29 @@
+{%- assign sort_filter_value_with_space = filter_colection | prepend: ' ' -%}
+{%- assign sort_filter_value = filter_value.label | append: sort_filter_value_with_space -%}
+{% paginate shop.metaobjects.collection_features_filter.values by 1000 %}
+{%- assign feature_value = shop.metaobjects.collection_features_filter.values | where: 'display_name', sort_filter_value -%}
+{% endpaginate %}
+
+{% if feature_value[0].display_name contains filter_value.label %}
+  {% paginate shop.metaobjects.collection_features_filter.values by 1000 %}
+    {% for metaobject in shop.metaobjects.collection_features_filter.values %}
+      {%- if metaobject.display_name == sort_filter_value -%}
+        {%- if metaobject.image -%}
+          {{ metaobject.image | image_url: width: 300 | image_tag: class: 'facets__image', alt: filter_value.label | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+          {% break %}
+        {%- endif -%}
+      {%- endif -%}
+    {% endfor %}
+  {% endpaginate %}
+{% else %}
+  {% paginate shop.metaobjects.collection_features_filter.values by 1000 %}
+    {% for metaobject in shop.metaobjects.collection_features_filter.values %}
+      {%- if metaobject.display_name == filter_value.label -%}
+        {%- if metaobject.image -%}
+          {{ metaobject.image | image_url: width: 300 | image_tag: class: 'facets__image', alt: filter_value.label | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+          {% break %}
+        {%- endif -%}
+      {%- endif -%}
+    {% endfor %}
+  {% endpaginate %}
+{%- endif -%}

@@ -1,0 +1,144 @@
+
+{%- assign title = section.settings.title -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.width == 'wide' -%}
+      width: 100%;
+    {%- endif %}
+  }
+  {% render 'css-loop',
+          css: section.settings.custom_css,
+          id: section.id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section class="section section-popular-blog
+                {{ section.settings.css_class }}
+                is-width-{{ section.settings.width }}"
+                {% if section.settings.animation != "none" %}
+                  
+                {% endif %}>
+
+  {% if title != blank %}
+    <div class="container">
+      {% render 'heading',
+              title: title,
+              heading_tag: 'h2',
+              context: 'featured-blog',
+              text_alignment: 'center'
+      %}
+    </div>
+  {% endif %}
+
+  <div class="">
+{% if section.blocks.size > 0 %}
+  <div class="container blog-slider">
+	{% for _block in section.blocks %}
+		{% assign article = articles[_block.settings.blogpost] %}
+       {% if article.metafields.custom.external_blog_url  %}
+            {% assign url =  article.metafields.custom.external_blog_url.value%}
+          {% else %}
+            {% assign url = article.url %}
+          {% endif %}
+      {% if article.title != "" %}
+        <div class="featured-article blog-card   one-third {% render 'column-width', value: section.settings.blog_posts_per_row %} columns article card show-border-{{ section.settings.show_border }} medium-down--one-half small-down--one-whole has-margin-bottom {% if section.settings.blog_posts_per_row == 1 %}is-horizontal{% endif %}" {% if section.settings.pagination_type != 'basic_pagination' %}data-load-more--grid-item{% endif %}>
+            {% if article.image %}
+              <div class="card-image blog-card__image">
+                <figure class="image">
+                  <a href="{{ url }}" title="{{ article.title | escape }}">
+                    {%
+                      render 'image-element',
+                      image: article.image,
+                      alt: article.image.alt,
+                      stretch_width: true,
+                    %}
+                  </a>
+                </figure>
+                <div class="card-tags">
+               
+                  {% if article.tags.size > 0 %}
+                    <ul class="meta-tag-list tags">
+                    {% for tag in article.tags %}
+                      <li class="tag tag--{{ settings.tag_style }}">
+                        <a href="{{ shop.url}}/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" title="{{ blog.title | escape }} {{ 'blogs.general.tagged' | t }} {{ tag | escape }}">{{ tag }}</a>
+                      </li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+              
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="card-content blog-card__content same-height bg-white">
+              <div class="media">
+                <div class="media-content">
+                  <h4 class="title">
+                    <a class="featured-article--link" href="{{ url }}">{{ article.title | truncate: 55 }}</a>
+                  </h4>
+                </div>
+              </div>
+
+              <div class="meta-info is-small">
+                  <span> {{ article.published_at | time_tag: format: 'month_day_year' }}    </span> | <span>  By {{ article.author }}</span> | <span> {% render 'blog__read-time', article: article %} </span>
+
+            
+              </div>
+              {% if article.excerpt != blank %}
+                {% assign postexcerpt = article.excerpt | size %}
+                {% if postexcerpt > 150 %}
+                    {% assign excerptlength = 'lg' %}
+                {% elsif postexcerpt <= 150 %}
+                    {% assign excerptlength = 'sm' %}
+                {% endif %}
+                <div class="excerpt-new excerpt-length-{{ excerptlength }} has-margin-bottom">
+                  <span>{{ article.excerpt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</span> <a href="{{ url }}"> Read More </a>
+                </div>
+                
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+	{% endfor %}
+  </div>
+{% endif %}
+  </div>
+  </section>
+
+{% schema %}
+{
+    "name": "Popular Blog",
+     "settings": [
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Heading",
+      "default": "More Popular"
+    }
+  ],
+    "blocks": [
+        {
+            "type": "section-group",
+            "name": "Blog Posts",
+            "settings": [
+                {
+                   "type": "article",
+                   "id": "blogpost",
+                   "label": "Blog Posts to Show"
+                }
+            ]
+        }
+    ],
+   "presets": [
+    {
+      "category": "blogs",
+      "name": "Popular Blog"
+    }
+  ]
+}
+{% endschema %}

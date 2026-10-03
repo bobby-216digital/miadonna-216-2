@@ -1,0 +1,807 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Home Ring Slider ",
+  "class": "jsRingSlider",
+  "id": "home-ring-slider",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "atb_show_gutter",
+      "label": "Show gutter",
+      "default": true,
+      "info": ""
+    },
+    {
+      "type": "color",
+      "id": "atb_sec_background_color",
+      "label": "Background",
+      "default": "#FFFFFF",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "default": 0,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "range",
+      "id": "atb_padding_bottom",
+      "label": "Bottom spacing",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "unit": "px",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_animation",
+      "label": "Animation",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade in down"
+        },
+        {
+          "value": "fadeInLeft",
+          "label": "Fade in left"
+        },
+        {
+          "value": "fadeInRight",
+          "label": "Fade in right"
+        },
+        {
+          "value": "slideInLeft",
+          "label": "Slide in left"
+        },
+        {
+          "value": "slideInRight",
+          "label": "Slide in right"
+        },
+        {
+          "value": "zoomIn",
+          "label": "Zoom in"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "atb_css_class",
+      "label": "CSS Class",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_custom_css",
+      "label": "Custom CSS",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "block_type",
+      "label": "Block Type",
+      "info": "",
+      "default": "",
+      "options": [
+        {
+          "value": "collection_block",
+          "label": "collection_block"
+        }
+      ],
+      "repeatable": "block"
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "block"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "block_image",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    },
+    {
+      "type": "text",
+      "label": "Image Alt Text",
+      "id": "block_image_alt",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "block_title",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    },
+    {
+      "type": "wysiwyg",
+      "label": "Content",
+      "id": "block_content",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    },
+    {
+      "type": "text",
+      "label": "Button Text",
+      "id": "block_button_text",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    },
+    {
+      "type": "text",
+      "label": "Button Link",
+      "id": "block_url",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    },
+    {
+      "type": "text",
+      "label": "Button Text 2",
+      "id": "block_button_text_2",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    },
+    {
+      "type": "text",
+      "label": "Button Link 2",
+      "id": "block_url_2",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    },
+    {
+      "type": "color",
+      "id": "block_background_color",
+      "label": "Button Background color",
+      "default": "rgba(119,119,119,1)",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    },
+    {
+      "type": "color",
+      "id": "block_text_color",
+      "label": "Button Text color",
+      "default": "rgba(255,255,255,1)",
+      "repeatable": "block",
+      "info": "",
+      "conditional": "block_type:collection_block"
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'atb_show_gutter' -%}
+{%- assign atb_show_gutter = val -%}
+{%- include 'atb-render' field:'atb_sec_background_color' -%}
+{%- assign atb_sec_background_color = val -%}
+{%- include 'atb-render' field:'atb_padding_top' -%}
+{%- assign atb_padding_top = val -%}
+{%- include 'atb-render' field:'atb_padding_bottom' -%}
+{%- assign atb_padding_bottom = val -%}
+{%- include 'atb-render' field:'atb_animation' -%}
+{%- assign atb_animation = val -%}
+{%- include 'atb-render' field:'atb_css_class' -%}
+{%- assign atb_css_class = val -%}
+{%- include 'atb-render' field:'atb_custom_css' -%}
+{%- assign atb_custom_css = val -%}
+{%- include 'atb-render' field:'block_type' -%}
+{%- assign block_type = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_image_alt' -%}
+{%- assign block_image_alt = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_content' -%}
+{%- assign block_content = val -%}
+{%- include 'atb-render' field:'block_button_text' -%}
+{%- assign block_button_text = val -%}
+{%- include 'atb-render' field:'block_url' -%}
+{%- assign block_url = val -%}
+{%- include 'atb-render' field:'block_button_text_2' -%}
+{%- assign block_button_text_2 = val -%}
+{%- include 'atb-render' field:'block_url_2' -%}
+{%- assign block_url_2 = val -%}
+{%- include 'atb-render' field:'block_background_color' -%}
+{%- assign block_background_color = val -%}
+{%- include 'atb-render' field:'block_text_color' -%}
+{%- assign block_text_color = val -%}
+{%- if atb_show_gutter == blank -%}
+{%- assign atb_show_gutter = false -%}
+{%- else -%}
+{%- assign atb_show_gutter = true -%}
+{%- endif -%}
+{%- assign atb_padding_top = atb_padding_top | plus: 0 -%}
+{%- assign atb_padding_bottom = atb_padding_bottom | plus: 0 -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section jsRingSlider">
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+    #shopify-section-{{ section_id }} {
+      background-color: {{ atb_sec_background_color }};
+      padding-top: {{ atb_padding_top }}px;
+      padding-bottom: {{ atb_padding_bottom }}px;
+      {% if atb_width == 'wide' %}
+        width: 100%;
+      {% endif %}
+      {% if atb_hide_mobile %}
+        @media screen and (max-width: 798px){
+          display: none;
+        }
+      {% endif %}
+    }
+    #shopify-section-{{ section_id }} .container{
+      align-items: flex-end;
+    }
+    #shopify-section-{{ section_id }} .content-wrapper{
+      padding: 100px 80px;
+      margin-right: -45%;
+      z-index: 1;
+      position: relative;
+      max-width: 662px;
+      margin-bottom: 80px;
+    }
+    #shopify-section-{{ section_id }} .image-element__wrap{
+      height: auto;
+    }
+    #shopify-section-{{ section_id }} h3{
+      font-weight: 600;
+      line-height: 38.4px;
+      margin-bottom: 30px;
+      letter-spacing: 1.4px;
+    }
+    #shopify-section-{{ section_id }} .description{
+      margin-bottom: 5px;
+    }
+    #shopify-section-{{ section_id }} .description > *{
+
+      margin-top: 0;
+      letter-spacing: 0.35px;
+    }
+    #shopify-section-{{ section_id }} .buttons{
+      display: inline-flex;
+    }
+    #shopify-section-{{ section_id }} .button{
+      width: auto;
+      color: #000;
+      margin: auto;
+      min-height: auto;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      border: 0;
+      margin-right: 20px;
+    }
+    #shopify-section-{{ section_id }} .button.button--primary{
+      color: #fff;
+      background-color: #3b3737;
+    }
+    #shopify-section-{{ section_id }} .button.button--primary:hover{
+      color: #000;
+      border-width: 3px;
+      border-color: #3b3737;
+      background-color: transparent;
+    }
+    #shopify-section-{{ section_id }} .button.button--secondary{
+      border-width: 3px;
+      border-color: #3b3737;
+    }
+    #shopify-section-{{ section_id }} .button.button--secondary:hover{
+      color: #fff;
+    }
+    #shopify-section-{{ section_id }} .button.button--link-style{
+      width: auto;
+      border: none;
+      position: relative;
+      min-height: inherit;
+      padding-bottom: 4px;
+      display: inline-block;
+    }
+    #shopify-section-{{ section_id }} .button.button--link-style::before{
+      background-color: #d4a696;
+      bottom: 0;
+      content: '';
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      transition: width .8s;
+      transform: translateX(-50%);
+      width: 80%;
+      z-index: 0;
+    }
+    #shopify-section-{{ section_id }} .button.button--link-style:hover::before {
+      width: 0;
+    }
+    .box-slider .flickity-page-dots .dot {
+      display: inline-block;
+      width: 60px;
+      height: 4px;
+      margin: 0px 4px;
+      background: #333;
+      border-radius: 0;
+      cursor: pointer;
+      opacity:1;
+  }
+  .box-slider  li.dot.is-selected {
+      background: #fff;
+  }
+  .box-slider    ol.flickity-page-dots {
+      bottom: 0;
+  }
+    .swiper-nav-div .swiper-slide{
+      height:25px !important;
+    }
+    .ring-nav {
+      font-size: 21px !important;
+      font-weight: 500 !important;
+      color: #c2c2c3;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .ring-nav span{
+      margin-right:5px;
+    }
+    .mySwiper .swiper-slide-thumb-active .ring-nav {
+      color: #3c3737;
+      font-weight: bold;
+    }
+    .mySwiper .swiper-wrapper{
+      margin-left:40px !important;
+    }
+  @-webkit-keyframes fillProgressBarVert{0%{height:0%}100%{height:100%}}
+  @keyframes fillProgressBarVert{0%{height:0%}100%{height:100%}}
+    .autoplay-progress,autoplay-progress-new {
+        position: absolute;
+        top:40px;
+        right: 0px;
+        bottom: 0px;
+        left:15px;
+        z-index: 10;
+        width: 2.5px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: rgba(65,57,57,.4);
+        background: rgba(0,0,0,.31);
+      }
+
+
+      .autoplay-progress svg,.autoplay-progress-new svg {
+        --progress: 0;
+        position: absolute;
+        left: 0;
+        top: 0px;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        stroke-width: 4px;
+        stroke:  #413939;
+        fill: none;
+        stroke-dashoffset: calc(200 * (1 - var(--progress)));
+        stroke-dasharray: 200;
+
+      }
+
+   .progress-bar-track {
+      height: 100%;
+      width: 2px;
+      background-color: rgba(65,57,57,.4);
+  }
+     .progress-bar-track .progress-bar-progress {
+      height: 0%;
+      width: 100%;
+      background-color: #413939;
+  }
+    .progress-bar-track .progress-bar-progress {
+      height: 100%;
+      -webkit-animation-name: fillProgressBarVert;
+      animation-name: fillProgressBarVert;
+      -webkit-animation-duration: 5100ms;
+      animation-duration: 5100ms;
+      -webkit-animation-timing-function: linear;
+      animation-timing-function: linear;
+      -webkit-animation-play-state: revert;
+      animation-play-state: revert;
+  }
+    .slider-flex {
+      display: flex;
+      gap: 20px;
+    }
+
+    .mySwiper3 .swiper-slide{
+      width:100% !important;
+    }
+    .mySwiper3 .description p{
+      font-size:12.8px;
+      font-weight:300;
+      line-height:22px;
+      margin-bottom:0.5rem;
+    }
+    .mySwiper3 .description p strong{
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+    .mySwiper3 .swiper-slide-prev, .mySwiper3 .swiper-slide-next{
+      opacity:0;
+      z-index:-1;
+    }
+  .progress-bar-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 95%;
+    margin: 44px auto 0;
+  }
+  .progress-bar-wrapper .swiper-button-prev,
+  .progress-bar-wrapper .swiper-button-next {
+    border: none;
+    background: none;
+    line-height: 0;
+    margin: 0;
+    color: #3c3737;
+    position: static;
+    --swiper-navigation-size: 15px;
+  }
+  .progress-bar-wrapper .swiper-pagination {
+    position: relative;
+    background-color: rgba(0,0,0,.31);
+    width: 85%;
+    height: 10px;
+    max-width: 100%;
+    height: 2px;
+    bottom: 0;
+    top: auto;
+    left: 0%;
+    -webkit-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    transform: translateX(0%);
+    border-top: 0;
+  }
+  .progress-bar-wrapper .swiper-pagination .swiper-pagination-progressbar-fill {
+    border-radius: 7px;
+    top: 0;
+    background-color: #000;
+  }
+     @media screen and (min-width: 991px){
+        .swiper-nav-div {
+        width: 20%;
+        padding: 30px 0;
+        display: flex;
+        gap: 20px;
+      }
+      .mySwiper3 {
+        width: 80%;
+        display: block;
+        padding: 30px 0;
+      }
+     }
+    @media screen and (max-width: 1200px){
+      #shopify-section-{{ section_id }} .content-wrapper{
+        padding: 40px;
+      }
+    }
+    @media screen and (max-width: 1024px){
+      #shopify-section-{{ section_id }} .container {
+        align-items: center;
+      }
+      #shopify-section-{{ section_id }} .content-wrapper{
+        margin-bottom: 0;
+      }
+    }
+    @media screen and (max-width: 991px){
+      #shopify-section-{{ section_id }} .content-wrapper{
+        padding: 20px;
+      }
+      #shopify-section-{{ section_id }} h3 {
+        line-height: 32px;
+        margin-bottom: 15px;
+      }
+      #shopify-section-{{ section_id }} .description {
+        margin-bottom: 18px;
+      }
+      #shopify-section-{{ section_id }} .button {
+        min-height: 50px;
+      }
+
+    }
+    @media screen and (max-width: 767px){
+      #shopify-section-{{ section_id }} .content-wrapper{
+        margin: -100px 2rem 0;
+        text-align: center !important;
+      }
+      .ring-nav {
+        font-size: 20px !important;
+        margin:15px 0;
+      }
+      #shopify-section-{{ section_id }} .description > *{
+        font-size: 12.8px;
+      }
+       #shopify-section-{{ section_id }} .description p{
+         margin-top:1rem;
+       }
+      .mySwiper2 .description p strong,.mySwiper2 .description p a{
+        font-size: 18px;
+      }
+      #shopify-section-{{ section_id }} .button {
+        width: 100%;
+        font-size: 12px !important;
+      }
+      #shopify-section-{{ section_id }} .container .two-thirds{
+        order: -1;
+      }
+      .ring-mobile{
+        position:relative;
+        margin-bottom:30px;
+        height:30px;
+      }
+      .autoplay-progress-new{
+        width: 400px;
+        height: 2px;
+        top: auto;
+        bottom: 5px;
+        left: 10%;
+        position: absolute;
+      }
+    }
+
+    {% render 'css-loop',
+            css: atb_custom_css,
+            id: section_id
+    %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    section
+    section-image-with-text
+
+    {{ atb_css_class }}
+    is-width-{{ atb_width }}
+    {% if atb_show_gutter == false %}
+      has-no-side-gutter
+    {% else %}
+      has-gutter-enabled
+    {% endif %}
+    {% if atb_width == 'wide' %}
+      equal-columns--outside-trim
+    {% endif %}
+  "
+  {% if atb_animation != 'none' %}
+    data-scroll-class="{{ atb_animation }}"
+  {% endif %}
+>
+  {%- capture contentCSS -%}
+    {%- for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+      {% if block_type[forloop.index0] == 'image' -%}
+        {%- if block_image_position[forloop.index0] == 'right' -%}margin-left: -45%;margin-right: 0;{%- endif -%}
+      {% endif %}
+    {%- endfor -%}
+  {%- endcapture -%}
+  <div class="container ring-slider">
+    <div class="swiper">
+      <div class="swiper mySwiper2">
+        <div class="swiper-wrapper">
+          {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+            <div class="swiper-slide slide_{{ forloop.index }}">
+              {% if my_image0 != blank %}
+                {% render 'image-element', image: my_image0, alt: block_image_alt[forloop.index0] %}
+              {% else %}
+                <div class="image-element__wrap">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+              <div class="is-hidden-desktop-only section ">
+                <h2 class="ring-nav">
+                  <span>0{{ forloop.index }}.</span>{{ block_title[forloop.index0] }}
+                </h2>
+                <div class="description">
+                  {{ block_content[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+                {% if block_button_text[forloop.index0] != blank %}
+                  <div class="buttons">
+                    {% render 'button',
+                      label: block_button_text[forloop.index0],
+                      href: block_url[forloop.index0],
+                      style: block_button_style[forloop.index0],
+                      text_color: block_text_color[forloop.index0],
+                      background_color: block_background_color[forloop.index0],
+                      type: 'link'
+                    %}
+                  </div>
+                {% endif %}
+                {% if block_button_text_2[forloop.index0] != blank %}
+                  <div class="buttons">
+                    {% render 'button',
+                      label: block_button_text_2[forloop.index0],
+                      href: block_url_2[forloop.index0],
+                      style: block_button_style[forloop.index0],
+                       text_color: block_text_color[forloop.index0],
+                      background_color: block_background_color[forloop.index0],
+                      type: 'link'
+                    %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="progress-bar-wrapper is-hidden-desktop-only">
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+        {% comment %}
+          <div class="ring-mobile is-hidden-desktop-only">
+            <div class="autoplay-progress-new">
+              <svg>
+                <line x1="0" y1="0" x2="200" y2="0"  />
+              </svg>
+              <span></span>
+            </div>
+          </div>
+        {% endcomment %}
+      </div>
+      <div class="slider-flex section has-no-side-gutter">
+        <div thumbsSlider="" class="is-hidden-mobile-only swiper mySwiper swiper-nav-div">
+          <!-- <div class="progress-bar-track active"><div class="progress-bar-progress">  </div></div> -->
+          <div class="autoplay-progress">
+            <svg>
+              <line x1="0" y1="0" x2="0" y2="200"  />
+            </svg>
+            <span></span>
+            <!--
+              <svg viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="20"></circle>
+              </svg>
+            -->
+          </div>
+          <div class="swiper-wrapper" style="margin-left:20px;">
+            {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+              <div class="swiper-slide slide_{{ forloop.index }}" id="slide_{{ forloop.index }}" data-id="{{ forloop.index }}">
+                <h2 class="ring-nav">
+                  <span>0{{ forloop.index }}.</span>{{ block_title[forloop.index0] }}
+                </h2>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="swiper  mySwiper3 is-hidden-mobile-only">
+          <div class="swiper-wrapper">
+            {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+              <div class="swiper-slide slide_{{ forloop.index }} one-whole column">
+                <div class="description">
+                  {{ block_content[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                </div>
+                {% if block_button_text[forloop.index0] != blank %}
+                  <div class="buttons">
+                    {% render 'button',
+                      label: block_button_text[forloop.index0],
+                      href: block_url[forloop.index0],
+                      style: block_button_style[forloop.index0],
+                      text_color: block_text_color[forloop.index0],
+                      background_color: block_background_color[forloop.index0],
+                      type: 'link'
+                    %}
+                  </div>
+                {% endif %}
+                {% if block_button_text_2[forloop.index0] != blank %}
+                  <div class="buttons">
+                    {% render 'button',
+                      label: block_button_text_2[forloop.index0],
+                      href: block_url_2[forloop.index0],
+                      style: block_button_style[forloop.index0],
+                       text_color: block_text_color[forloop.index0],
+                      background_color: block_background_color[forloop.index0],
+                      type: 'link'
+                    %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <script data-theme-editor-load-script src="{{ 'z__jsRingSlider.js' | asset_url }}"></script> -->
+
+
+</section>

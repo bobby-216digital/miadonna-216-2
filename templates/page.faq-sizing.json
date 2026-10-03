@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "a6d9b5ab-79a1-49b5-b5be-7a9ed3f4e28a": {
+          "type": "content",
+          "settings": {
+            "column": "whole",
+            "faqs_menu": "sizing-faqs"
+          }
+        },
+        "custom_html_hTjg9y": {
+          "type": "custom_html",
+          "settings": {
+            "html": "<script type=\"application\/ld+json\">\n{\n  \"@context\": \"https:\/\/schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [{\n    \"@type\": \"Question\",\n    \"name\": \"How do I find out the ring size of my loved one?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"If the ring is a surprise, we recommend borrowing one of the rings your partner wears on the correct finger and taking it to a jeweler to be sized correctly. Another great way to find out your loved one's ring size is to talk to their friends. Of course, a friend of your loved one can be of great assistance in this particular endeavor. But remember to pick the \\\"secret-keeping\\\" friend!  You can also put a ring of your loved one on your finger and push it down as far as it will go. Mark the spot with a pen and then have it sized.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What if I get the wrong size?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"We offer one complimentary resizing (excludes shipping), up to one full ring size, within the first 90 days of shipment. If the ring needs to be resized more than one size in either direction, this will incur a resize charge as the ring may need to be completely remade. It is very important that you know the exact size you would like your ring to be resized to, as sizing up or down more than half a size may compromise the integrity of the ring design. Should you need sizing that is more than half a size up or down, then we may need to evaluate your mounting first. Please note: Eternity bands can not be resized. Any engravings will need to be recreated and might incur an additional charge.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"How do I find my ring size?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"There are a few ways to find out your ring size. You can view our ring size converter to determine your ring size, or you can also order a ring sizer. Another way is to measure your finger at any local department or jewelry store.\"\n    }\n  },{\n    \"@type\": \"Question\",\n    \"name\": \"What ring sizes do you offer?\",\n    \"acceptedAnswer\": {\n      \"@type\": \"Answer\",\n      \"text\": \"We make our rings in USA 1⁄4 size increments (for example, 6, 6.25, 6.50, 6.75, etc.). Our standard women's ring sizes are 3-10, and our standard men's ring sizes are 6-13. If your ring sizes fall outside of our standard sizes, please contact us to create a ring in your size. Our rings are made in the size you order, while most companies get their rings made overseas in prestocked limited sizes and resized to order.\"\n    }\n  }]\n}\n<\/script>"
+          }
+        }
+      },
+      "block_order": [
+        "a6d9b5ab-79a1-49b5-b5be-7a9ed3f4e28a",
+        "custom_html_hTjg9y"
+      ],
+      "settings": {
+        "show_sidebar": true,
+        "menu": "faq-sidebar",
+        "show_heading": true,
+        "heading_alignment": "left",
+        "image": "shopify:\/\/shop_images\/faq-image.jpg",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

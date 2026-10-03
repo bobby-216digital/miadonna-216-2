@@ -1,0 +1,120 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Sub Footer Bar",
+  "class": "sub-footer-bar lab-diamonds-sub-footer-bar",
+  "id": "lab-diamonds-sub-footer-bar",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Layout",
+      "info": ""
+    },
+    {
+      "type": "select",
+      "id": "atb_width",
+      "label": "Width",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Column"
+    },
+    {
+      "type": "text",
+      "id": "block_title",
+      "label": "Heading",
+      "default": "EASY 60-DAY RETURNS",
+      "repeatable": "Column",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_url",
+      "label": "Link",
+      "repeatable": "Column",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_width' -%}
+{%- assign atb_width = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_url' -%}
+{%- assign block_url = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section sub-footer-bar lab-diamonds-sub-footer-bar">
+{{ 'lab-diamonds-sub-footer-bar.css' | asset_url | stylesheet_tag }}
+
+{% assign width = atb_width %}
+
+<div class="sub_footer-bar">
+  <div class="section is-width-{{ width }}">
+    <div class="container">
+      {% for block0 in blocks %}
+        <div
+          class="
+            sub_footer-bar-item {%
+              render 'column-width',
+              value: blocks.size
+            %} medium-down--one-whole column
+          "
+        >
+          <div class="sub_footer-bar-content">
+            {% if block_url[forloop.index0] != blank %}
+              <a href="{{ block_url[forloop.index0] }}">
+            {% endif %}
+            <p>{{ block_title[forloop.index0] }}</p>
+            {% if block_url[forloop.index0] != blank %}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

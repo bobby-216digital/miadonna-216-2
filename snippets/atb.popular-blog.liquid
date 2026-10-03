@@ -1,0 +1,169 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Popular Blog",
+  "id": "popular-blog",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_title",
+      "label": "Heading",
+      "default": "More Popular",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Blog-Posts"
+    },
+    {
+      "type": "article",
+      "id": "block_blogpost",
+      "label": "Blog Posts to Show",
+      "repeatable": "Blog-Posts",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_title' -%}
+{%- assign atb_title = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_blogpost' -%}
+{%- assign block_blogpost = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+
+{%- assign title = atb_title -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  #shopify-section-{{ section_id }} {
+    padding-top: {{ atb_padding_top }}px;
+    padding-bottom: {{ atb_padding_bottom }}px;
+    {% if atb_width == 'wide' -%}
+      width: 100%;
+    {%- endif %}
+  }
+  {% render 'css-loop',
+          css: atb_custom_css,
+          id: section_id
+  %}
+{% endstyle %}
+
+{% comment %} HTML markup {% endcomment %}
+<section class="section section-popular-blog
+                {{ atb_css_class }}
+                is-width-{{ atb_width }}"
+                {% if atb_animation != "none" %}
+                  
+                {% endif %}>
+
+  {% if title != blank %}
+    <div class="container">
+      {% render 'heading',
+              title: title,
+              heading_tag: 'h2',
+              context: 'featured-blog',
+              text_alignment: 'center'
+      %}
+    </div>
+  {% endif %}
+
+  <div class="">
+{% if blocks.size > 0 %}
+  <div class="container blog-slider">
+	{% for _block in section.blocks %}
+		{% assign article = articles[_block_blogpost[forloop.index0]] %}
+       {% if article.metafields.custom.external_blog_url  %}
+            {% assign url =  article.metafields.custom.external_blog_url.value%}
+          {% else %}
+            {% assign url = article.url %}
+          {% endif %}
+      {% if article.title != "" %}
+        <div class="featured-article blog-card   one-third {% render 'column-width', value: atb_blog_posts_per_row %} columns article card show-border-{{ atb_show_border }} medium-down--one-half small-down--one-whole has-margin-bottom {% if atb_blog_posts_per_row == 1 %}is-horizontal{% endif %}" {% if atb_pagination_type != 'basic_pagination' %}data-load-more--grid-item{% endif %}>
+            {% if article.image %}
+              <div class="card-image blog-card__image">
+                <figure class="image">
+                  <a href="{{ url }}" title="{{ article.title | escape }}">
+                    {%
+                      render 'image-element',
+                      image: article.image,
+                      alt: article.image.alt,
+                      stretch_width: true,
+                    %}
+                  </a>
+                </figure>
+                <div class="card-tags">
+               
+                  {% if article.tags.size > 0 %}
+                    <ul class="meta-tag-list tags">
+                    {% for tag in article.tags %}
+                      <li class="tag tag--{{ settings.tag_style }}">
+                        <a href="{{ shop.url}}/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" title="{{ blog.title | escape }} {{ 'blogs.general.tagged' | t }} {{ tag | escape }}">{{ tag }}</a>
+                      </li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+              
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="card-content blog-card__content same-height bg-white">
+              <div class="media">
+                <div class="media-content">
+                  <h4 class="title">
+                    <a class="featured-article--link" href="{{ url }}">{{ article.title | truncate: 55 }}</a>
+                  </h4>
+                </div>
+              </div>
+
+              <div class="meta-info is-small">
+                  <span> {{ article.published_at | time_tag: format: 'month_day_year' }}    </span> | <span>  By {{ article.author }}</span> | <span> {% render 'blog__read-time', article: article %} </span>
+
+            
+              </div>
+              {% if article.excerpt != blank %}
+                {% assign postexcerpt = article.excerpt | size %}
+                {% if postexcerpt > 150 %}
+                    {% assign excerptlength = 'lg' %}
+                {% elsif postexcerpt <= 150 %}
+                    {% assign excerptlength = 'sm' %}
+                {% endif %}
+                <div class="excerpt-new excerpt-length-{{ excerptlength }} has-margin-bottom">
+                  <span>{{ article.excerpt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</span> <a href="{{ url }}"> Read More </a>
+                </div>
+                
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+	{% endfor %}
+  </div>
+{% endif %}
+  </div>
+  </section>
+
+</section>

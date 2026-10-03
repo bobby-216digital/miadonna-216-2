@@ -1,0 +1,764 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-content__main",
+      "blocks": {
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09": {
+          "type": "default_content",
+          "disabled": true,
+          "settings": {
+            "content": true
+          }
+        }
+      },
+      "block_order": [
+        "0d10d5e5-ab3a-47cc-8dad-5b87b2151f09"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_sidebar": false,
+        "menu": "faq-sidebar",
+        "show_heading": false,
+        "heading_alignment": "left",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "ccc272c4-b764-4862-a10c-d61c4a47b0e1": {
+      "type": "index__image-with-text-2",
+      "blocks": {
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-text-1": {
+          "type": "text",
+          "settings": {
+            "title": "Jewelry Gifts",
+            "title2": "",
+            "text": "<p>Brighten up your holiday season with exquisite Jewelry Gifts for every name on your list. Our collection features meticulously-crafted pieces adorned with top-tier Lab-Grown Diamonds, Gemstones, and 100% recycled precious metals, ensuring an ethical and luxurious choice for your loved ones.</p>",
+            "button_label": "",
+            "link": "",
+            "button_style": "button--primary",
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "vertical_position": "center"
+          }
+        },
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-Ethical-Jewelry-Gifts-Holiday-Christmas-Anniversary-Birthday-Sustainable-Diamonds_hero_f86bc812-1275-49bd-b177-b749abdb6145.jpg",
+            "mobile_image": "shopify://shop_images/MiaDonna-Ethical-Jewelry-Gifts-Holiday-Christmas-Anniversary-Birthday-Sustainable-Diamonds_hero-mobile_99ed99b9-c637-4af8-a899-a1e243f340ea.jpg",
+            "image_link": "",
+            "iframe_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-text-1",
+        "template--15028473987151__ccc272c4-b764-4862-a10c-d61c4a47b0e1-image-1"
+      ],
+      "settings": {
+        "width": "standard",
+        "show_gutter": true,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "1a4c91f3-e2dc-4e5b-94ee-5ea0b3fc1a83": {
+      "type": "collection-block",
+      "blocks": {
+        "1d1af8c8-0844-4993-a6b4-771ffdc88466": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Gift-Guide-Edit-Best-Selling-Sustainable-Fine-Jewelry-Gifts_Most-Gifted_1.png",
+            "image_alt": "Most Gifted",
+            "title": "Most Gifted",
+            "url": "https://www.miadonna.com/collections/most-gifted"
+          }
+        },
+        "5891c61e-a2ce-420d-913a-6e92b4bfc47d": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Gift-Guide-Edit-Best-Selling-Sustainable-Fine-Jewelry-Gifts_Personalized_1.png",
+            "image_alt": "Personalized Gifts",
+            "title": "Personalized",
+            "url": "shopify://collections/personalized-jewelry"
+          }
+        },
+        "2c40dcd5-0106-4949-96a7-861918723d9a": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Gift-Guide-Edit-Best-Selling-Sustainable-Fine-Jewelry-Gifts_Under-750_1.png",
+            "image_alt": "Gifts Under $750",
+            "title": "Under $750",
+            "url": "https://www.miadonna.com/collections/gifts-under-750"
+          }
+        },
+        "db9ccd10-aa87-4262-b97d-5a2d6399caf7": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Gift-Guide-Edit-Best-Selling-Sustainable-Fine-Jewelry-Gifts_Ready-to-Ship_1.png",
+            "image_alt": "Ready To Ship Gifts",
+            "title": "Ready To Ship",
+            "url": "https://www.miadonna.com/collections/ready-to-ship"
+          }
+        },
+        "a0caed45-99e8-4755-baec-caaa8294d516": {
+          "type": "collection_block",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Gift-Guide-Edit-Best-Selling-Sustainable-Fine-Jewelry-Gifts-Luxury_Luxe-Gifts_1.png",
+            "image_alt": "Luxe Gifts",
+            "title": "Luxe Gifts",
+            "url": "https://www.miadonna.com/collections/luxe-gifts"
+          }
+        }
+      },
+      "block_order": [
+        "1d1af8c8-0844-4993-a6b4-771ffdc88466",
+        "5891c61e-a2ce-420d-913a-6e92b4bfc47d",
+        "2c40dcd5-0106-4949-96a7-861918723d9a",
+        "db9ccd10-aa87-4262-b97d-5a2d6399caf7",
+        "a0caed45-99e8-4755-baec-caaa8294d516"
+      ],
+      "settings": {
+        "width": "standard",
+        "main_title": "Explore expertly curated gifting collections",
+        "show_gutter": false,
+        "hide_mobile": false,
+        "background_color": "#ffffff",
+        "text_color": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "5a98f8e5-0876-4173-94f3-ce0e6bfcc420": {
+      "type": "index__image-with-text-overlay",
+      "settings": {
+        "section_background_color": "",
+        "tilt_background": false,
+        "link": "",
+        "image": "shopify://shop_images/Lab-Grown-Diamond-Fine-Jewelry-Professional-Elegant-1440web_2000x_b9c7443d-eea9-4ece-86bb-1175adf97496.webp",
+        "mobile_image": "shopify://shop_images/Lab-Grown-Diamond-Fine-Jewelry-Professional-Elegant-mobile_4817f9c2-44c4-4c3a-8d1a-8c504179f955.webp",
+        "pretext": "<h3><strong>CLASSIC JEWELRY MUST-HAVES</strong></h3>",
+        "title": "",
+        "subtitle": "<p>Timelessly elegant pieces, handcrafted to the highest ethical and quality standards, perfect for everyday wear and a gift sure to delight.</p>",
+        "pretext_color": "#000000",
+        "heading_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "left",
+        "text_horizontal_position": "left",
+        "text_vertical_position": "bottom",
+        "background_color": "#ffffff",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 32,
+        "button_1": "SHOP THE COLLECTION",
+        "button_1_link": "https://www.miadonna.com/collections/classic-jewelry-must-haves",
+        "button_1_style": "button--secondary",
+        "button_2": "",
+        "button_2_link": "",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "heading_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "3b325492-d28c-4935-8ce1-2a1edba12a66": {
+      "type": "collection-tabs",
+      "blocks": {
+        "9c990be7-e816-4c41-a481-175af62552d8": {
+          "type": "tab",
+          "settings": {
+            "button_text": "EARRINGS",
+            "collection": "lab-grown-diamond-earrings"
+          }
+        },
+        "8848e3be-8053-4525-af54-5c5868e17825": {
+          "type": "tab",
+          "settings": {
+            "button_text": "BRACELETS",
+            "collection": "lab-grown-diamond-bracelets"
+          }
+        },
+        "37197d09-16c8-429b-8782-fc176cefe098": {
+          "type": "tab",
+          "settings": {
+            "button_text": "PENDANTS",
+            "collection": "lab-grown-diamond-necklaces"
+          }
+        }
+      },
+      "block_order": [
+        "9c990be7-e816-4c41-a481-175af62552d8",
+        "8848e3be-8053-4525-af54-5c5868e17825",
+        "37197d09-16c8-429b-8782-fc176cefe098"
+      ],
+      "settings": {
+        "main_heading": "ALL THAT GLITTERS",
+        "main_subheading": "<p>Adorn your loved ones with iconic styles they'll never take off</p>",
+        "width": "wide",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "f4151f9c-3433-4bf3-b1e4-e281a9462c06": {
+      "type": "product-grid",
+      "blocks": {
+        "aa8420ee-15ae-43cf-a871-698df5149d4b": {
+          "type": "big_image_block",
+          "settings": {
+            "main_image": "shopify://shop_images/MiaDonna_Lab-Grown-Diamond-Jewelry-Gifts-Holiday-Gift-Ideas-Luxury-Sustainable_perfectly-curated.jpg",
+            "image_alt": "Perfectly Curated For Every Purse",
+            "main_image_position": "right",
+            "link": "https://www.miadonna.com/collections/lab-grown-diamond-jewelry",
+            "main_image_text": "<h3>Perfectly Curated </h3><h4>& Sustainably Crafted </h4>",
+            "main_image_text_position": "left"
+          }
+        },
+        "template--15028473987151__f4151f9c-3433-4bf3-b1e4-e281a9462c06-image_block-1": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-Luxury-Fine-Jewelry-Gifts-Eco-Holiday-Anniversary-Birthday_Under-750.jpg",
+            "image_alt": "Gifts Under $750",
+            "title": "Gifts Under $750",
+            "link": "https://www.miadonna.com/collections/gifts-under-750",
+            "text_position": "left"
+          }
+        },
+        "template--15028473987151__f4151f9c-3433-4bf3-b1e4-e281a9462c06-image_block-2": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-Luxury-Fine-Jewelry-Gifts-Eco-Holiday-Anniversary-Birthday_Under-1500.jpg",
+            "image_alt": "Gifts Under $1,500",
+            "title": "Gifts Under $1,500",
+            "link": "https://www.miadonna.com/collections/gifts-under-1500",
+            "text_position": "left"
+          }
+        },
+        "template--15028473987151__f4151f9c-3433-4bf3-b1e4-e281a9462c06-image_block-3": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-Luxury-Fine-Jewelry-Gifts-Eco-Holiday-Anniversary-Birthday_Under-2500.jpg",
+            "image_alt": "Gifts Under $2,500",
+            "title": "Gifts Under $2,500",
+            "link": "https://www.miadonna.com/collections/gifts-under-2500",
+            "text_position": "left"
+          }
+        },
+        "template--15028473987151__f4151f9c-3433-4bf3-b1e4-e281a9462c06-image_block-4": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna-Luxury-Fine-Jewelry-Gifts-Eco-Holiday-Anniversary-Birthday_Over-2500_1.jpg",
+            "image_alt": "Gifts Over $2,500",
+            "title": "Gifts Over $2,500",
+            "link": "https://www.miadonna.com/collections/gifts-over-2500",
+            "text_position": "left"
+          }
+        }
+      },
+      "block_order": [
+        "aa8420ee-15ae-43cf-a871-698df5149d4b",
+        "template--15028473987151__f4151f9c-3433-4bf3-b1e4-e281a9462c06-image_block-1",
+        "template--15028473987151__f4151f9c-3433-4bf3-b1e4-e281a9462c06-image_block-2",
+        "template--15028473987151__f4151f9c-3433-4bf3-b1e4-e281a9462c06-image_block-3",
+        "template--15028473987151__f4151f9c-3433-4bf3-b1e4-e281a9462c06-image_block-4"
+      ],
+      "settings": {
+        "width": "standard",
+        "main_title": "JEWELRY HANDCRAFTED JUST FOR YOU",
+        "main_subheading": "<p>Handcrafted in New York City, each piece is meticulously made to order.</p>",
+        "show_gutter": true,
+        "hide_mobile": false,
+        "background_color": "#ffffff",
+        "padding_top": 61,
+        "padding_bottom": 40,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "4750b77f-8187-487a-bee8-6eb19d3aea41": {
+      "type": "index__rich-text",
+      "settings": {
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 30,
+        "text": "<h5><em>MiaDonna's ethical jewelry is the solution as it stops forced labor, protects the environment, and gives back. </em></h5><h5><em>You can now have the jewelry of your dreams, for a price you will adore while supporting the cause you believe in.</em></h5><h3></h3>",
+        "text_font": "playfair_display_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 22,
+        "columns": 1,
+        "button_label": "YOUR PURCHASE HAS POWER",
+        "button_link": "shopify://pages/our-pledge",
+        "button_alignment": "center",
+        "button_background": "#58717a",
+        "button_text": "#ffffff",
+        "button_style": "button--primary",
+        "background": "rgba(0,0,0,0)",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "id_sec": "",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "e57144f0-d42a-413c-abfc-3c101d0fd155": {
+      "type": "help-text-overlay",
+      "settings": {
+        "link": "",
+        "image": "shopify://shop_images/Need-Advice-Help-Jewelry-Experts-web.jpg",
+        "pretext": "<h2><em>Here to Help</em></h2>",
+        "subtitle": "<p>Our in-house experts make gifting easy this season</p>",
+        "pretext_color": "#000000",
+        "subheading_color": "#000000",
+        "text_alignment": "center",
+        "text_horizontal_position": "right",
+        "text_vertical_position": "middle",
+        "background_color": "#ffffff",
+        "background_opacity": 0,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "text_width": 48,
+        "button_1": "LET'S CHAT",
+        "button_1_link": "shopify://pages/contact-us",
+        "button_1_style": "button--secondary",
+        "button_2": "BOOK AN APPOINTMENT",
+        "button_2_link": "shopify://pages/appointments",
+        "button_2_style": "button--secondary",
+        "mobile_text_below_image": true,
+        "pretext_color_mobile": "rgba(0,0,0,0)",
+        "subheading_color_mobile": "rgba(0,0,0,0)",
+        "width": "wide",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "a285b6ba-36af-4138-900d-e01875aac907": {
+      "type": "rectangle-grid",
+      "blocks": {
+        "template--15028473987151__a285b6ba-36af-4138-900d-e01875aac907-column-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Gift-Guide-Gift-Edit-Holiday-Anniversary-Birthday_lab-grown-diamond-jewelry-inside-out-hoops.jpg",
+            "image_alt": "Lab-Grown Diamond Jewelry",
+            "text_alignment": "center",
+            "title": "",
+            "description": "<h5><em>Lab-Grown Diamond Jewelry</em></h5>",
+            "button_text": "SHOP NOW",
+            "button_link": "https://www.miadonna.com/collections/lab-grown-diamond-jewelry",
+            "button_style": "button--secondary"
+          }
+        },
+        "template--15028473987151__a285b6ba-36af-4138-900d-e01875aac907-column-2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Gift-Guide-Gift-Edit-Holiday-Anniversary-Birthday_lab-grown-gemstone-jewelry-ruby-ring.jpg",
+            "image_alt": "Lab-Grown Gemstone Jewelry",
+            "text_alignment": "center",
+            "title": "",
+            "description": "<h5><em>Lab-Grown Gemstone Jewelry</em></h5>",
+            "button_text": "SHOP NOW",
+            "button_link": "https://www.miadonna.com/collections/lab-created-gemstone-jewelry",
+            "button_style": "button--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__a285b6ba-36af-4138-900d-e01875aac907-column-1",
+        "template--15028473987151__a285b6ba-36af-4138-900d-e01875aac907-column-2"
+      ],
+      "settings": {
+        "show_slider": false,
+        "title": "<h3>CUSTOMIZED JEWELRY FOR A </h3><h3>ONE-OF-A-KIND GIFT</h3>",
+        "heading_font": "montserrat_n4",
+        "sub_title": "",
+        "sub_title_font": "open_sans_n4",
+        "width": "standard",
+        "show_gutter": true,
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "c061cfb2-6c60-4b5a-bb3b-2515babce107": {
+      "type": "rectangle-grid",
+      "blocks": {
+        "template--15028473987151__c061cfb2-6c60-4b5a-bb3b-2515babce107-column-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Lab-Diamond-Wedding-Bridal-Drop-Earrings-5up-web.jpg",
+            "image_alt": "Bridal Jewelry",
+            "text_alignment": "left",
+            "title": "Bridal Jewelry",
+            "description": "<p>Perfect wedding day jewelry.</p>",
+            "button_text": "Shop Now",
+            "button_link": "shopify://collections/wedding-day-must-haves",
+            "button_style": "button--link-style"
+          }
+        },
+        "template--15028473987151__c061cfb2-6c60-4b5a-bb3b-2515babce107-column-2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Lab-Diamond-Criss-Cross-X-Ring-5up-web.jpg",
+            "image_alt": "Treat Yourself",
+            "text_alignment": "left",
+            "title": "Treat Yourself",
+            "description": "<p>You deserve something sparkling.</p>",
+            "button_text": "Shop Now",
+            "button_link": "https://www.miadonna.com/collections/lab-grown-diamond-jewelry",
+            "button_style": "button--link-style"
+          }
+        },
+        "1d8775be-52de-4218-9011-e2bfad8835c2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Lab-Diamond-Bezel-Emerald-Cut-Gold-Necklace-Pendant-5up-web.jpg",
+            "image_alt": "Anniversary",
+            "text_alignment": "left",
+            "title": "Anniversary",
+            "description": "<p>Meaningful jewelry gifts.</p>",
+            "button_text": "Shop Now",
+            "button_link": "shopify://collections/anniversary-gifts",
+            "button_style": "button--link-style"
+          }
+        },
+        "9ef48b40-d2ce-4b36-b616-7194397a73fe": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Lab-Diamond-Initial-Pendant-Necklace-5up-web.jpg",
+            "image_alt": "Graduation",
+            "text_alignment": "left",
+            "title": "Graduation",
+            "description": "<p>Honor their achievements & yours.</p>",
+            "button_text": "Shop Now",
+            "button_link": "shopify://collections/gifts-for-graduation",
+            "button_style": "button--link-style"
+          }
+        },
+        "65cf8d42-f181-4721-a6c1-6fe924d60c6d": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Lab-Diamond-Gold-Curb-Chain-Bracelet-5up-web.jpg",
+            "image_alt": "Birthday",
+            "text_alignment": "left",
+            "title": "Birthday",
+            "description": "<p>Make it a year to remember.</p>",
+            "button_text": "Shop Now",
+            "button_link": "https://www.miadonna.com/collections/all-gifts",
+            "button_style": "button--link-style"
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__c061cfb2-6c60-4b5a-bb3b-2515babce107-column-1",
+        "template--15028473987151__c061cfb2-6c60-4b5a-bb3b-2515babce107-column-2",
+        "1d8775be-52de-4218-9011-e2bfad8835c2",
+        "9ef48b40-d2ce-4b36-b616-7194397a73fe",
+        "65cf8d42-f181-4721-a6c1-6fe924d60c6d"
+      ],
+      "settings": {
+        "show_slider": false,
+        "title": "<h2>SHOP BY OCCASION</h2>",
+        "heading_font": "montserrat_n5",
+        "sub_title": "<h6><em>Cherish any milestone with designs that sparkle</em></h6>",
+        "sub_title_font": "playfair_display_n4",
+        "width": "wide",
+        "show_gutter": true,
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "82476730-37a6-47b1-bd1a-0803a84a46ed": {
+      "type": "rectangle-grid",
+      "blocks": {
+        "template--15028473987151__82476730-37a6-47b1-bd1a-0803a84a46ed-column-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Gift-Guide-Gift-Edit-Holiday-Anniversary-Birthday_Mens-Gifts_Womens-Gifts_gifts-for-him.jpg",
+            "image_alt": "Gifts for Him",
+            "text_alignment": "center",
+            "title": "GIFTS FOR HIM",
+            "description": "",
+            "button_text": "SHOP THE COLLECTION",
+            "button_link": "https://www.miadonna.com/collections/gifts-for-him",
+            "button_style": "button--secondary"
+          }
+        },
+        "template--15028473987151__82476730-37a6-47b1-bd1a-0803a84a46ed-column-2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/MiaDonna_Gift-Guide-Gift-Edit-Holiday-Anniversary-Birthday_Mens-Gifts_Womens-Gifts_gifts-for-her.jpg",
+            "image_alt": "Gifts for Her",
+            "text_alignment": "center",
+            "title": "GIFTS FOR HER",
+            "description": "",
+            "button_text": "GIFTS FOR HER",
+            "button_link": "https://www.miadonna.com/collections/all-gifts",
+            "button_style": "button--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__82476730-37a6-47b1-bd1a-0803a84a46ed-column-1",
+        "template--15028473987151__82476730-37a6-47b1-bd1a-0803a84a46ed-column-2"
+      ],
+      "settings": {
+        "show_slider": false,
+        "title": "",
+        "heading_font": "open_sans_n4",
+        "sub_title": "",
+        "sub_title_font": "open_sans_n4",
+        "width": "standard",
+        "show_gutter": true,
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 60,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "3ea6f6c0-d479-4c90-8b78-857e60761de5": {
+      "type": "collection-tabs",
+      "blocks": {
+        "a7eb5011-7ecb-47d7-b1fb-347b844ab604": {
+          "type": "tab",
+          "settings": {
+            "button_text": "",
+            "collection": "gifts-for-brides-and-bridesmaids"
+          }
+        }
+      },
+      "block_order": [
+        "a7eb5011-7ecb-47d7-b1fb-347b844ab604"
+      ],
+      "disabled": true,
+      "settings": {
+        "main_heading": "SHOP BRIDAL GIFTS",
+        "main_subheading": "<p>Sparkling looks for your most radiant day. Shop fine jewelry for the bride and stunning gifts for the bridal party.</p>",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 60,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "b27c3ce7-f504-4b27-851c-64f1833ae081": {
+      "type": "lab-diamonds-sub-footer",
+      "blocks": {
+        "template--15028473987151__b27c3ce7-f504-4b27-851c-64f1833ae081-column-1": {
+          "type": "column",
+          "settings": {
+            "title": "You're shopping the best",
+            "description": "MiaDonna diamonds are the highest quality, most ethical, American-grown diamonds in the industry.",
+            "button_text": "",
+            "button_link": "https://www.miadonna.com/pages/lab-grown-diamonds"
+          }
+        },
+        "ba43377a-f408-4d91-98fa-973146968d47": {
+          "type": "column",
+          "settings": {
+            "title": "COMPLIMENTARY DESIGN SERVICES",
+            "description": "Every ring is handcrafted to order in America. Your ring will always be unique to you and your preferences.",
+            "button_text": "",
+            "button_link": "https://www.miadonna.com/collections/engagement-rings"
+          }
+        },
+        "51648dc9-ff9f-4774-9164-77a3c74d6cb2": {
+          "type": "column",
+          "settings": {
+            "title": "COMPLIMENTARY 2-DAY SHIPPING",
+            "description": "We insure and register every order and offer free 2-day shipping within the continental U.S.",
+            "button_text": "",
+            "button_link": "https://www.miadonna.com/pages/shipping"
+          }
+        },
+        "0f1faf8b-7f47-4430-9b89-0f1ac7ffe020": {
+          "type": "column",
+          "settings": {
+            "title": "EVERY PURCHASE GIVES BACK",
+            "description": "10% of net profits from every purchase go to our foundation to support people and the planet.",
+            "button_text": "",
+            "button_link": "https://www.miadonna.com/pages/the-greener-diamond"
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__b27c3ce7-f504-4b27-851c-64f1833ae081-column-1",
+        "ba43377a-f408-4d91-98fa-973146968d47",
+        "51648dc9-ff9f-4774-9164-77a3c74d6cb2",
+        "0f1faf8b-7f47-4430-9b89-0f1ac7ffe020"
+      ],
+      "settings": {
+        "width": "standard",
+        "background_color": "#52727b",
+        "text_color": "#ffffff"
+      }
+    },
+    "eb0998f7-4049-4b6d-ab68-f9d4640e574f": {
+      "type": "lab-diamonds-sub-footer-bar",
+      "blocks": {
+        "template--15028473987151__eb0998f7-4049-4b6d-ab68-f9d4640e574f-column-1": {
+          "type": "column",
+          "settings": {
+            "title": "EASY 60-DAY RETURNS",
+            "url": ""
+          }
+        },
+        "d27932bd-98b0-49fd-b4a7-8a91e8c29edf": {
+          "type": "column",
+          "settings": {
+            "title": "FREE* RESIZING",
+            "url": ""
+          }
+        },
+        "b641770a-880a-45a9-848f-e104b20c8cad": {
+          "type": "column",
+          "settings": {
+            "title": "TRANSPARENT FINANCING OPTIONS",
+            "url": ""
+          }
+        },
+        "9c69505f-86b7-4fa4-b1e7-675b561b9a63": {
+          "type": "column",
+          "settings": {
+            "title": "LIFETIME GUARANTEE",
+            "url": ""
+          }
+        },
+        "5a98f446-b75e-4c07-9f00-2617736dd8ad": {
+          "type": "column",
+          "settings": {
+            "title": "B CORP CERTIFIED",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__eb0998f7-4049-4b6d-ab68-f9d4640e574f-column-1",
+        "d27932bd-98b0-49fd-b4a7-8a91e8c29edf",
+        "b641770a-880a-45a9-848f-e104b20c8cad",
+        "9c69505f-86b7-4fa4-b1e7-675b561b9a63",
+        "5a98f446-b75e-4c07-9f00-2617736dd8ad"
+      ],
+      "settings": {
+        "width": "standard"
+      }
+    },
+    "c484c527-ac39-45db-8230-7bb2403148ad": {
+      "type": "lab-diamonds-sub-footer-faq",
+      "blocks": {
+        "template--15028473987151__c484c527-ac39-45db-8230-7bb2403148ad-content-1": {
+          "type": "content",
+          "settings": {
+            "faqs_menu": "popular-faqs"
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__c484c527-ac39-45db-8230-7bb2403148ad-content-1"
+      ],
+      "settings": {
+        "title": "",
+        "background": "rgba(0,0,0,0)"
+      }
+    },
+    "e10b2b87-df18-46a7-bfb1-aedf61592644": {
+      "type": "content-accordion",
+      "blocks": {
+        "template--15028473987151__e10b2b87-df18-46a7-bfb1-aedf61592644-content-1": {
+          "type": "content",
+          "settings": {
+            "content": "{{page.metafields.custom.pages_bottom_copy}}"
+          }
+        }
+      },
+      "block_order": [
+        "template--15028473987151__e10b2b87-df18-46a7-bfb1-aedf61592644-content-1"
+      ],
+      "settings": {
+        "title": "",
+        "width": "standard",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ccc272c4-b764-4862-a10c-d61c4a47b0e1",
+    "1a4c91f3-e2dc-4e5b-94ee-5ea0b3fc1a83",
+    "5a98f8e5-0876-4173-94f3-ce0e6bfcc420",
+    "3b325492-d28c-4935-8ce1-2a1edba12a66",
+    "f4151f9c-3433-4bf3-b1e4-e281a9462c06",
+    "4750b77f-8187-487a-bee8-6eb19d3aea41",
+    "e57144f0-d42a-413c-abfc-3c101d0fd155",
+    "a285b6ba-36af-4138-900d-e01875aac907",
+    "c061cfb2-6c60-4b5a-bb3b-2515babce107",
+    "82476730-37a6-47b1-bd1a-0803a84a46ed",
+    "3ea6f6c0-d479-4c90-8b78-857e60761de5",
+    "b27c3ce7-f504-4b27-851c-64f1833ae081",
+    "eb0998f7-4049-4b6d-ab68-f9d4640e574f",
+    "c484c527-ac39-45db-8230-7bb2403148ad",
+    "e10b2b87-df18-46a7-bfb1-aedf61592644"
+  ]
+}

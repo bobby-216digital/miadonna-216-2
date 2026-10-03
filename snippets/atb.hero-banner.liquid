@@ -1,0 +1,139 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Banner Image",
+  "id": "hero-banner",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "atb_main_title",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "label": "Description",
+      "id": "atb_description",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_label",
+      "label": "Button label",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_button_link",
+      "label": "Button link",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_desktop_image",
+      "label": "Desktop Image",
+      "info": ""
+    },
+    {
+      "type": "image_picker",
+      "id": "atb_mobile_image",
+      "label": "Mobile Image",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_main_title' -%}
+{%- assign atb_main_title = val -%}
+{%- include 'atb-render' field:'atb_description' -%}
+{%- assign atb_description = val -%}
+{%- include 'atb-render' field:'atb_button_label' -%}
+{%- assign atb_button_label = val -%}
+{%- include 'atb-render' field:'atb_button_link' -%}
+{%- assign atb_button_link = val -%}
+{%- include 'atb-render' field:'atb_desktop_image' -%}
+{%- assign atb_desktop_image = val -%}
+{%- include 'atb-render' field:'atb_mobile_image' -%}
+{%- assign atb_mobile_image = val -%}
+{%- assign atb_desktop_image_key = atb_desktop_image| split: '/files/' | last -%}{%- assign atb_desktop_image = images[atb_desktop_image_key] -%}{%- assign atb_mobile_image_key = atb_mobile_image| split: '/files/' | last -%}{%- assign atb_mobile_image = images[atb_mobile_image_key] -%}{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+{{ 'prime.scss.css' | asset_url | stylesheet_tag }}
+{{ 'page-custom.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .diamond-landing-template-content .hero .display-layout.-header{
+      display: flex;
+    height: unset;
+    min-height: unset;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 100px 120px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .diamond-landing-template-content .hero .display-layout .inner {
+    margin: 0;
+    width: 50%;
+    top: unset;
+    transform: unset;
+}
+  @media screen and (max-width: 750px){
+.diamond-landing-template-content .hero .display-layout.-header {
+    padding: 0 40px 30px;
+}
+    .diamond-landing-template-content .hero .display-layout .inner, .diamond-landing-template-content .hero .video-player {
+    width: 100%;
+}
+    .diamond-landing-template-content .hero .display-layout .tap-button {
+    margin: 20px auto 20px;
+}
+  }
+</style>
+<div class="diamond-landing-template-content">
+<div class="hero">
+    <div class="container">
+      <div class="page-banner-layout display-layout -header cell-style-light">
+        <div class="inner">
+          <header class="_header typeset-cell">
+            <h1>{{ atb_main_title }}</h1>
+          </header>
+
+          <section class="_content minor-cell">
+            <p>{{  atb_description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+           {% if atb_button_label != blank %} 
+            <p><a href="{{ atb_button_link }}" class="tap-button -tight button-style-dark">{{ atb_button_label }}</a></p>
+         {% endif %}
+             </section>
+        </div><!-- Desktop -->
+        <figure class="_artwork formatted-image device-targeted for-tablet for-desktop" style="background-image: url({{ settings.speedsize_url_pfx_https -}}{{ atb_desktop_image | img_url:'original' }})"></figure>
+
+        <!-- Mobile -->
+        <figure class="_artwork formatted-image device-targeted for-mobile" style="background-image: url({{ settings.speedsize_url_pfx_https -}}{{ atb_mobile_image | img_url:'original'}})"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script></section>

@@ -1,0 +1,467 @@
+{% for block in section.blocks %}
+  {% if block.settings.faqs_menu != blank and block.settings.faq_schema != blank %}
+    {{ block.settings.faq_schema }}
+  {% endif %}
+{% endfor %}
+
+{{ 'lab-diamonds-sub-footer-faq.css' | asset_url | stylesheet_tag }}
+<style>
+   div#faq-section header {
+      width: 100%;
+      padding-top: 20px;
+      padding-bottom: 15px;
+      padding-left: 10px;
+  }
+   div#faq-section {
+      background: {{ section.settings.background }};
+  }
+</style>
+<div class="about-links bgclick-sl bgselectboxmob" role="navigation" aria-label="Faq navigation">
+  <div class="faq-categorycontainer">
+    <div class="faq-categorydropdown">
+        <button class="faq-selectCategory" id="faqSelectCategory" aria-expanded="false" aria-haspopup="listbox">All FAQs <span class="faq-arrow">{% render 'icon-down-arrow' %}</span></button>
+        <ul class="faq-categorylist" id="faqCategory" role="listbox" aria-labelledby="faqSelectCategory">
+           {% for block in section.blocks %}
+          {% assign default_faq_handle = block.settings.faqs_menu__title | handle %}
+            {% unless default_faq_handle == 'popular-faqs' %}
+            <li role="option" href="#{{ block.settings.faqs_menu__title | handle }}"  class="faq-categorybox aboutnav-link {% if default_faq_handle == 'all-faqs'%} faq-selected {% endif %}">{{ block.settings.faqs_menu__title }}</li>
+               {% endunless %} 
+             {% endfor %}
+        </ul>
+    </div>
+  </div>
+  <div class="contanier-nw mob-hide">
+        <div class="scrollnav-slider slick-cls  sl-space">
+          {% for block in section.blocks %}
+            {% assign default_faq_handle = block.settings.faqs_menu__title | handle %}
+            {% unless default_faq_handle == 'popular-faqs' %}
+            <div class="slide">
+              <div class="scrollnav-slide-text slide-cls sl-spacebox">
+                  <a href="#{{ block.settings.faqs_menu__title | handle }}"  class="aboutnav-link {% if default_faq_handle == 'all-faqs'%} active {% endif %}">{{ block.settings.faqs_menu__title }}</a>
+              </div>
+            </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
+    </div>
+  </div>
+<div id="faq-section" class="sub_footer-faq section is-width-wide sub_footer-faq section-js {{ section.settings.class }}">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <header class="{% if default_faq_handle == 'popular-faqs'%}faq_main_title hide{% endif %}"">
+        <h2>
+          <span>{{ section.settings.title }}</span>
+        </h2>
+      </header>
+    {% endif %}
+    {% for block in section.blocks %}
+      {% capture lastFAQ %}
+        {% for link in block.settings.faqs_menu.links %}
+          {% if forloop.last %}
+            <div
+              class="sub_footer-faq-item one-whole"
+            >
+              <button class="sub_footer-accordion-title">
+                <span>{{- link.title | escape -}}</span>
+                {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+              </button>
+              <p class="sub_footer-accordion-content">
+                {% for childLink in link.links %}
+                  {% if childLink.links == blank %}
+                    {% if childLink.url != routes.root_url %}
+                      <a href="{{ childLink.url }}" style="text-decoration:underline;">
+                    {% endif %}
+                    {{ childLink.title | remove: '<br>' | escape -}}
+                    {%- if childLink.title == '<br>' -%}
+                      <br>
+                    {% elsif childLink.title == '<br><br>' -%}
+                      <br>
+                      <br>
+                    {% endif %}
+                    {% if childLink.url != routes.root_url %}
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endcapture %}
+      {% assign default_faq_handle1 = block.settings.faqs_menu__title | handle %}
+
+      <div
+        class="sub_footer-faq-items one-half medium-down--one-whole column faq-content-js all-faqs {{ block.settings.faqs_menu__title | handle }}"
+      >
+        {% comment %} <h2>{{ block.settings.faqs_menu__title }}</h2> {% endcomment %}
+        <header class="{% if default_faq_handle1 == 'all-faqs'%} faq_main_title hide {% endif %}">
+          <h2>
+            <span>{{ block.settings.faqs_menu__title }}</span>
+          </h2>
+          <i class="ornamental-break -dark"></i>
+          </header>
+        {% assign blockSizeLast = block.settings.faqs_menu.links.size | modulo: 2 %}
+        {% assign blockSize = block.settings.faqs_menu.links.size | divided_by: 2 %}
+
+        {% for link in block.settings.faqs_menu.links %}
+          <div
+            class="sub_footer-faq-item one-whole"
+          >
+            <button class="sub_footer-accordion-title">
+              <span>{{- link.title | escape -}}</span>
+              {% render 'icon', name: 'plus', icon_class: 'icon-plus' %}
+            </button>
+            <p class="sub_footer-accordion-content">
+              {% for childLink in link.links %}
+                {% if childLink.links == blank %}
+                  {% if childLink.url != routes.root_url %}
+                    <a href="{{ childLink.url }}" style="text-decoration:underline;">
+                  {% endif %}
+                  {{ childLink.title | remove: '<br>' | escape -}}
+                  {%- if childLink.title == '<br>' -%}
+                    <br>
+                  {% elsif childLink.title == '<br><br>' -%}
+                    <br>
+                    <br>
+                  {% endif %}
+                  {% if childLink.url != routes.root_url %}
+                    </a>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </p>
+          </div>
+        {% endfor %}
+      
+      </div>
+    
+    {% endfor %}
+  </div>
+</div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% assign first_question = true %}
+    {% for block in section.blocks %}
+      {% for link in block.settings.faqs_menu.links %}
+        {% unless first_question %},{% endunless %}
+        {% assign first_question = false %}
+        {
+          "@type": "Question",
+          "name": "{{ link.title | strip_html | escape }}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{% for childLink in link.links %}{{ childLink.title | strip_html | escape }}{% unless forloop.last %} {% endunless %}{% endfor %}"
+          }
+        }
+      {% endfor %}
+    {% endfor %}
+  ]
+}
+</script>
+ <script>
+    $(document).ready(function() {
+      // Initialize all sliders
+      $('.scrollnav-slider').each(function() {
+        const $slider = $(this);
+        
+        // Initialize Slick Slider
+        $slider.slick({
+        slidesToShow: 10, 
+      slidesToScroll: 1,
+      swipeToSlide: true,
+      touchThreshold: 50,
+      adaptiveHeight: false,
+      variableWidth: true,
+      arrows: true,
+      autoplay: false,
+      dots: false,
+      accessibility: true,
+      infinite: false,
+      prevArrow: `<button type="button" class="slick-prev custom-arrow" aria-label="Previous Slide">
+                    {% render 'icon-slick-left2' %}</button>`,
+      nextArrow: `<button type="button" class="slick-next custom-arrow" aria-label="Next Slide">
+                    {% render 'icon-slick-right2' %}</button>`,
+      responsive: [
+        { breakpoint: 1599, settings: { slidesToShow: 6, slidesToScroll: 1 } },
+        { breakpoint: 1299, settings: { slidesToShow: 4, slidesToScroll: 1 } },
+        { breakpoint: 1025, settings: { slidesToShow: 3, slidesToScroll: 1 } }
+      ]
+        });
+
+        // Function to check if all items are visible
+        function checkItemsVisibility() {
+         
+            const $slickList = $slider.find('.slick-list');
+            const $slickTrack = $slider.find('.slick-track');
+            
+            const listWidth = $slickList.width();
+            const trackWidth = $slickTrack.outerWidth(true);
+            
+            // Calculate total width of all slides including margins
+            let totalSlidesWidth = 0;
+            $slider.find('.slick-slide').each(function() {
+              if (!$(this).hasClass('slick-cloned')) {
+                totalSlidesWidth += $(this).outerWidth(true);
+              }
+            });
+            
+            // Check if scrollable (has overflow)
+            const isOverflowing = totalSlidesWidth > listWidth || trackWidth > listWidth;
+            
+            console.log('List Width:', listWidth);
+            console.log('Track Width:', trackWidth);
+            console.log('Total Slides Width:', totalSlidesWidth);
+            console.log('Is Overflowing?:', isOverflowing);
+            console.log('Should Center?:', !isOverflowing);
+            
+            // First remove all classes
+            $slider.removeClass('center-items all-visible');
+            
+            // Add classes only if NOT overflowing
+            if (!isOverflowing) {
+              console.log('Adding center classes - all items visible');
+              $slider.addClass('center-items all-visible');
+              $slider.find('.slick-cloned').each(function() {
+                 $(this).attr("style", "display: none !important");
+              });
+            } else {
+              console.log('Not centering - items are overflowing/scrollable');
+              $slider.find('.slick-cloned').each(function() {
+                 $(this).attr("style", "");
+              });
+            }
+         
+        }
+
+        // Check on load, after init, and resize
+        checkItemsVisibility();
+        
+        $slider.on('init reInit', function() {
+          checkItemsVisibility();
+        });
+         $slider.on('afterChange', function() {
+          rebindevent();
+        });
+        
+        $(window).on('resize', function() {
+          checkItemsVisibility();
+        });
+      });
+
+
+    });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    rebindevent();
+  });
+  function rebindevent(){
+
+    // ===== Smooth scroll on link click =====
+    const nav = document.querySelector('.about-links');
+    const links = document.querySelectorAll('.aboutnav-link');
+    const sections = document.querySelectorAll('.section-scroll');
+
+    const offset = 80; // Adjust for your header height
+
+    let isScrolling = false;
+    const navTop = nav.offsetTop; // where nav becomes sticky
+
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+ 
+        e.preventDefault();
+        const faqSection = document.querySelector('.sub_footer-faq.section-js');
+const allcontentmaindiv = faqSection.querySelectorAll('.faq-content-js');     
+var faqMainTitle = faqSection.querySelectorAll('.faq_main_title');     
+allcontentmaindiv.forEach(link3 => {
+      link3.classList.add('hide'); // remove class only in that section
+    });
+      
+        const targetClass = link.getAttribute('href').replace('#', '');
+ const trgetdiv = faqSection.querySelectorAll('.'+targetClass);       
+        const target = document.querySelector('.' + targetClass);
+        if (!target) return;
+        if(targetClass == 'all-faqs'){
+     faqMainTitle.forEach(link4 => {
+      link4.classList.add('hide'); // remove class only in that section
+    }); 
+  }else{
+     faqMainTitle.forEach(link4 => {
+      link4.classList.remove('hide'); // remove class only in that section
+    }); 
+  }  
+trgetdiv.forEach(link2 => {
+      link2.classList.remove('hide'); // remove class only in that section
+    });
+        isScrolling = true;
+
+        {% comment %} window.scrollTo({
+          top: target.offsetTop - offset,
+          behavior: 'smooth'
+        }); {% endcomment %}
+
+        // Activate link immediately
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        // Allow scrollspy again after scroll finishes
+        setTimeout(() => { isScrolling = false; }, 800);
+      });
+    });
+
+    // ===== Scrollspy + Sticky nav =====
+    
+  }
+ const nav = document.querySelector('.about-links');
+    const links = document.querySelectorAll('.aboutnav-link');
+    const sections = document.querySelectorAll('.section-scroll');
+    const offset = 80; // Adjust for your header height
+
+    let isScrolling = false;
+    const navTop = nav.offsetTop; // where nav becomes sticky
+  window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY;
+
+      // --- Sticky nav ---
+      if (scrollPos >= navTop) {
+        nav.classList.add('sticky');
+      } else {
+        nav.classList.remove('sticky');
+      }
+
+      if (isScrolling) return; // Don’t override active link while smooth scrolling
+
+      // --- Scrollspy active link highlight ---
+      let currentSection = '';
+      const triggerPoint = scrollPos + offset + 10;
+
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        if (triggerPoint >= top && triggerPoint < bottom) {
+          // Pick the unique class (e.g., section1, section2, etc.)
+          const uniqueClass = Array.from(section.classList).find(c => c !== 'section-scroll');
+          currentSection = uniqueClass;
+        }
+      });
+
+      links.forEach(link => {
+        const targetClass = link.getAttribute('href').replace('#', '');
+       // link.classList.toggle('active', targetClass === currentSection);
+      });
+    });
+</script>
+<script>
+    const faqSelect = document.getElementById('faqSelectCategory');
+    const faqList = document.getElementById('faqCategory');
+    const faqItems = document.querySelectorAll('.faq-categorybox');
+    const faqArrow = document.querySelector('.faq-arrow');
+
+    // Toggle dropdown on button click
+    faqSelect.addEventListener('click', () => {
+        faqList.classList.toggle('show');
+        faqArrow.classList.toggle('rotate');
+    });
+
+    // Handle category selection
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Update button text
+            faqSelect.childNodes[0].nodeValue = item.textContent;
+
+            // Remove previous selection
+            faqItems.forEach(i => i.classList.remove('faq-selected'));
+
+            // Highlight selected
+            item.classList.add('faq-selected');
+
+            // Close dropdown
+            faqList.classList.remove('show');
+            faqArrow.classList.remove('rotate');
+        });
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.faq-categorydropdown')) {
+            faqList.classList.remove('show');
+            faqArrow.classList.remove('rotate');
+        }
+    });
+</script>
+{% schema %}
+{
+  "name": "Sub Footer FAQ",
+  "class": "sub-footer-faq lab-diamonds-sub-footer-faq",
+    "max_blocks": 20,
+  "settings": [
+     {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+     {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "info": "FAQ"
+      },
+    {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "FAQs",
+      "type": "content",
+      "limit": 20,
+      "settings": [
+          {"type": "text", 
+          "id": "faqs_menu__title", 
+          "label": "FAQs menu Title", 
+          "default": "Section" 
+        },
+        {
+          "type": "link_list",
+          "id": "faqs_menu",
+          "label": "FAQs menu",
+          "info": "Select faqs navigation."
+        },
+      
+        {
+          "type": "html",
+          "id": "faq_schema",
+          "label": "FAQ Schema code"
+        }
+        
+
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQs 2",
+      "category": "FAQs 2",
+      "blocks": [
+        {
+          "type": "content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

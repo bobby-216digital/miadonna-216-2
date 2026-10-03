@@ -1,0 +1,70 @@
+{
+  "sections": {
+    "banner": {
+      "type": "banner",
+      "disabled": true,
+      "settings": {
+        "image_darken": false,
+        "subtitle": "",
+        "width": "wide",
+        "banner_height": "medium",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "main": {
+      "type": "cart__main",
+      "settings": {
+        "display_product_quantity_cart": true,
+        "display_savings": true,
+        "cart_message": "",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ""
+      }
+    },
+    "1637957392785bb2fc": {
+      "type": "index__rich-text",
+      "disabled": true,
+      "settings": {
+        "title": "Return Policy",
+        "heading_font": "monotype_bodoni_n4",
+        "heading_color": "rgba(0,0,0,0)",
+        "heading_alignment": "center",
+        "heading_size": 40,
+        "text": "<p>If for any reason you are not completely satisfied with your purchase, you return your item(s) within 30 days of purchase. There are no returns or exchanges on final sale (sample sale) merchandise. Returns will be processed within 3 to 5 business days of receipt of your item(s). You will be receive an email notification once your return is processed. Please note that payment processing is beyond our control and it may take up to 3-5 additional business days for the funds to be credited to your account.<\/p>",
+        "text_font": "optima_nova_n4",
+        "text_color": "rgba(0,0,0,0)",
+        "text_alignment": "center",
+        "text_size": 18,
+        "columns": 1,
+        "button_label": "",
+        "button_link": "",
+        "button_alignment": "center",
+        "button_background": "#EEEEEE",
+        "button_text": "#000000",
+        "button_style": "button--primary",
+        "background": "#eeeeee",
+        "gradient": "rgba(0,0,0,0)",
+        "gradient_rotation": 180,
+        "width": "standard",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "padding_left": 0,
+        "padding_right": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "main",
+    "1637957392785bb2fc"
+  ]
+}

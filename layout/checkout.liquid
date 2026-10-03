@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0"
+    >
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+
+    <!-- Global site tag (gtag.js) - Google Ads: 1054704953 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1054704953"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-1054704953');
+    </script>
+
+    <!-- Bing universal tag -->
+    <script>
+      (function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"13003095"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");
+    </script>
+
+    <!-- Conversion page tracking events -->
+    <script>
+      if (window.location.pathname.toLowerCase().indexOf('thank_you') != -1) {
+        // Google
+        gtag('event', 'conversion', {
+            'send_to': 'AW-1054704953/jE1MCMSlw3gQuYr29gM',
+            'value': {{ checkout.total_price | money_without_currency | replace: ',', '' }},
+            'currency': '{{ shop.currency }}',
+            'transaction_id': {{ checkout.order_number | replace: '#', '' }}
+        });
+
+        // Bing
+        window.uetq = window.uetq || [];
+        window.uetq.push({ 'revenue_value': {{ checkout.total_price | money_without_currency | replace: ',', '' }}, 'currency': '{{ shop.currency }}' });
+      }
+    </script>
+
+    <script
+      src="https://polyfill.io/v3/polyfill.js?flags=gated&features=es6%2Cfetch%2CPromise.prototype.finally%2CIntersectionObserver%2CIntersectionObserverEntry%2CObject.entries%2CArray.prototype.includes"
+    ></script>
+    <script>
+      window.__domReady__ = function(callback) {
+        if (document.readyState === 'loading') {
+          document.addEventListener("DOMContentLoaded", callback);
+        } else {
+          // `DOMContentLoaded` already fired
+          callback();
+        }
+      }
+    </script>
+    {{ checkout_scripts }}
+    {{ 'jquery.min.js' | asset_url | script_tag }}
+    <link rel="shortcut icon" href="{{ settings.speedsize_url_pfx_https -}}{{ 'favicon.png' | asset_url }}" type="image/x-icon">
+    <style type="text/css">
+      .content-box__row.shipment-information {display: none !important}
+    </style>
+
+    {{ tracking_code }}
+
+    {% include 'qikify-navigator' %}
+
+    {% include 'qikify-smartmenu' %}
+    {% comment %}
+      (Based On)
+      Purchase data layer v2.0 - part of "Shopify GA4 Kit" by Analyzify
+      Visit https://analyzify.app/shopify-google-analytics/ga4 for complete tutorial
+    {% endcomment %}
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({ ecommerce: null });
+      var shipping_price = '{{checkout.shipping_price | money_without_currency }}';
+      shipping_price  = shipping_price.replace(",", "");
+      var total_price = '{{checkout.total_price | money_without_currency }}';
+      total_price  = total_price.replace(",", "");
+      var tax_price = '{{checkout.tax_price | money_without_currency }}';
+      tax_price  = tax_price.replace(",", "");
+      var checkoutstep =  Shopify.Checkout.step;
+      var checkoutpage =  Shopify.Checkout.page;
+      var orderItemsName = []
+      var orderItemsPrice = []
+      var orderItemsQuantity = []
+      var orderItemsId = []
+      var totalQuantity = 0;
+
+      if (checkoutpage == 'thank_you') {
+      	var pagetype='purchase';
+      	var eventname='analyzify_purchase';
+
+      } else {
+      	var pagetype=checkoutpage;
+      	var eventname = checkoutstep;
+      }
+
+
+      {% for line_item in checkout.line_items %}
+      	orderItemsName.push( '{{ line_item.title | remove: "'" | remove: '"'}}');
+      	orderItemsPrice.push('{{ line_item.price |  remove: ',' | times: 0.01 }}');
+      	orderItemsQuantity.push('{{ line_item.quantity }}');
+      	orderItemsId.push('{{ line_item.product_id }}');
+      	totalQuantity +=  {{ line_item.quantity }};
+      {% endfor %}
+
+        	var enhanced_conversion_data = {
+      {% unless checkout.email == blank %}"email": "{{ checkout.email }}",{% endunless %}
+      {% unless checkout.billing_address.phone == blank %}"phone_number": "{{ checkout.billing_address.phone }}",{% endunless %}
+      {% unless checkout.billing_address.first_name == blank %}"first_name": "{{ checkout.billing_address.first_name }}",{% endunless %}
+      {% unless checkout.billing_address.last_name == blank %}"last_name": "{{ checkout.billing_address.last_name }}",{% endunless %}
+      "home_address": {
+      	{% unless checkout.billing_address.street == blank %}"street": "{{ checkout.billing_address.street }}",{% endunless %}
+      	{% unless checkout.billing_address.city == blank %}"city": "{{ checkout.billing_address.city }}",{% endunless %}
+      	{% unless checkout.billing_address.province_code == blank %}"region": "{{ checkout.billing_address.province_code }}",{% endunless %}
+      	{% unless checkout.billing_address.zip == blank %}"postal_code": "{{ checkout.billing_address.zip }}",{% endunless %}
+      	{% unless checkout.billing_address.country_code == blank %}"country": "{{ checkout.billing_address.country_code }}"{% endunless %}
+      }
+      };
+
+      window.dataLayer.push({
+      	'page_type': pagetype,
+      	'event': eventname,
+      	'currency': "{{ shop.currency }}",
+      	'totalValue': total_price,
+      	'shipping': shipping_price,
+      	'tax': tax_price,
+      	'payment_type': '{{order.transactions[0].gateway}}',
+      	'transaction_id': "{{order.name}}",
+        'productName': orderItemsName,
+        'productPrice': orderItemsPrice,
+        'productQuantity': orderItemsQuantity,
+      'productId': orderItemsId,
+            'email': enhanced_conversion_data.email,
+            'phone_number': enhanced_conversion_data.phone_number,
+            'first_name': enhanced_conversion_data.first_name,
+            'last_name': enhanced_conversion_data.last_name,
+            'street': enhanced_conversion_data.home_address.street,
+            'city': enhanced_conversion_data.home_address.city,
+            'region': enhanced_conversion_data.home_address.region,
+            'country': enhanced_conversion_data.home_address.country,
+            'postal_code': enhanced_conversion_data.home_address.postal_code,
+
+      	});
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TZN98J7');
+    </script>
+    <!-- End Google Tag Manager -->
+  <!-- SpeedsizeAppHeadSnippet ADDED AUTOMATICALLY - PLEASE DO NOT REMOVE OR MODIFY WHILE SPEEDSIZE'S APP IS ENABLED! -->
+  <link rel="preconnect" href="https://scdn.speedsize.com/" data-speedsize="auto">
+  <!-- endSpeedsizeAppHeadSnippet -->
+</head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TZN98J7"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {{ skip_to_content_link }}
+
+    <div class="banner" data-header>
+      <div class="wrap">
+        <a href="{{ shop.secure_url }}" title="{{ shop.name }} | Home" style="display:inline-block;">
+          <img
+            src="{{ 'logo.svg' | asset_url }}"
+            width="158"
+            height="18"
+            alt="{{ shop.name }} logo"
+            style="display:block;"
+          >
+        </a>
+      </div>
+    </div>
+
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            <div class="main__header" style="text-align: center;">
+              <a href="{{ shop.secure_url }}" title="{{ shop.name }} | Home" class="checkout-logo">
+                <img
+                  src="{{ 'logo.svg' | asset_url }}"
+                  width="158"
+                  height="18"
+                  alt="{{ shop.name }} logo"
+                  style="display:inline-block;"
+                >
+              </a>
+              {{ breadcrumb }}
+              {{ alternative_payment_methods }}
+            </div>
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>
+    {%- if requestPath contains 'thank_you' or requestPath contains '/orders/' -%}
+      <!-- BEGIN: NSG_GUARANTEE -->
+      <span id="_GUARANTEE_GuaranteeSpan"></span>
+      <script type="text/javascript" src="//nsg.symantec.com/Web/Seal/gjs.aspx?SN=945880200"></script>
+      <script type="text/javascript">
+        if (window._GUARANTEE && _GUARANTEE.Loaded) {
+          _GUARANTEE.Hash = "v91y02%2FSGDdHkdlx1cBHPRUZOQDN6wqlPMHAXi6XtGBxpffBbpqWPvrGNDRpkCTxz4Jb5lGWxiRQ72rNCDe0BA%3D%3D";
+          _GUARANTEE.Guarantee.order = "{{ checkout.order.order_number }}";
+          _GUARANTEE.Guarantee.subtotal = "{{ checkout.subtotal_price }}";
+          _GUARANTEE.Guarantee.currency = "USD";
+          _GUARANTEE.Guarantee.email = "{{ checkout.email }}";
+          _GUARANTEE.WriteGuarantee("JavaScript", "_GUARANTEE_GuaranteeSpan");
+        }
+      </script>
+      <!-- END: NSG_GUARANTEE -->
+      {% if first_time_accessed %}
+        <img src="https://foursixty.com/conversion-pixel.gif?extension=MiaDonna&value={{ checkout.subtotal_price | money_without_currency | strip_html  }}">
+      {% endif %}
+
+      <!-- BEGIN GCR Opt-in Module Code -->
+      <script src="https://apis.google.com/js/platform.js?onload=renderOptIn" async defer></script>
+
+      <script>
+        window.renderOptIn = function() {
+          window.gapi.load('surveyoptin', function() {
+            var currDate = new Date();
+            // estimate 7 days to build jewelry + 2-day delivery + 1 day of "wiggle room", i.e. 10 days
+            // May not be accurate but the alternative is to try to examine the selected shipping method
+            // and provide an estimate from that. Yuck.
+            var estimatedDeliveryDay = currDate.getDate() + 10;
+            // getMonth() is zero-based
+            var month = (currDate.getMonth() < 9 ? '0' : '') + (currDate.getMonth() + 1);
+            var day = (estimatedDeliveryDay < 10 ? '0' : '') + estimatedDeliveryDay;
+            var year = currDate.getFullYear();
+            // delivery date format must be YYYY-MM-DD
+            var deliveryDate = year + '-' + month + '-' + day;
+            window.gapi.surveyoptin.render(
+              {
+                // REQUIRED
+                merchant_id: 5505014,
+                order_id: '{{ checkout.order.order_number }}',
+                email: '{{ checkout.email }}',
+                delivery_country: '{{ checkout.shipping_address.country_code }}',
+                estimated_delivery_date: deliveryDate,
+
+                // OPTIONAL
+                // "opt_in_style": "OPT_IN_STYLE"
+              });
+          });
+        }
+      </script>
+      <!-- END GCR Opt-in Module Code -->
+    {% else %}
+      {% render 'vdb-cart-grouping', page_type_param: 'checkout' %}
+
+      <!-- BEGIN: _GUARANTEE Seal -->
+      <span id="_GUARANTEE_SealSpan"></span>
+      <img
+        style="display:none;"
+        src="//nsg.symantec.com/Web/Seal/AltSealInfo.aspx?S=Large&T=M&Elem=ImgTagSeal&HASH=v91y02%2FSGDdHkdlx1cBHPRUZOQDN6wqlPMHAXi6XtGBxpffBbpqWPvrGNDRpkCTxz4Jb5lGWxiRQ72rNCDe0BA%3D%3D&CBF=AB&AB=1&DP=fn=;src=ImgTagSeal;grt=true"
+      >
+      <script type="text/javascript" src="//nsg.symantec.com/Web/Seal/gjs.aspx?SN=945880200"></script>
+      <script type="text/javascript">
+        if (window._GUARANTEE && _GUARANTEE.Loaded) {
+          _GUARANTEE.Hash = "v91y02%2FSGDdHkdlx1cBHPRUZOQDN6wqlPMHAXi6XtGBxpffBbpqWPvrGNDRpkCTxz4Jb5lGWxiRQ72rNCDe0BA%3D%3D";
+          _GUARANTEE.WriteSeal("_GUARANTEE_SealSpan", "GuaranteedSeal");
+        }
+      </script>
+      <!-- END: _GUARANTEE Seal -->
+    {% endif %}
+    <!-- Chatra -->
+    <script>
+      window.ChatraSetup = {
+      colors: [
+      '#f0f0f0', // text color
+      '#ffa998' // background color
+      ]
+      };
+    </script>
+
+    {{ 'idme-checkout-style.css' | asset_url | stylesheet_tag }}
+    {{ 'idme-checkout-template.js' | asset_url | script_tag }}
+
+    <style>
+      /*
+        The following style is needed to make the order summary section visible on smaller screens.
+        The default Shopify CSS hides the order summary section by default.
+      */
+      /* @media (max-width: 999px) {
+        .js .order-summary--is-collapsed {
+          height: auto;
+          visibility: visible;
+        }
+      } */
+    </style>
+
+    <script>
+      /* Forbid PO Boxes in the Address field */
+
+      const regex = /(po box)|(p\.o\. box)|(p\.o box)|(po\. box)|(pobox)|(p\.o\.box)|(p\.obox)|(po\.box)|(post office box)/i;
+
+      document.getElementById("continue_button").onclick = function(event) {
+        let addressField = document.getElementById('checkout_shipping_address_address1');
+        let addressFieldContainer = addressField.parentNode.parentNode;
+        var addressValue = addressField.value;
+
+        if(regex.test(addressValue)) {
+          event.preventDefault();
+          addressFieldContainer.classList.add('field--error');
+
+          if(!document.getElementById('error-for-address1-pobox')) {
+            addressFieldContainer.innerHTML += "<p class='field__message field__message--error' id='error-for-address1-pobox'>The shipping address can't be a PO Box</p>";
+            document.getElementById('checkout_shipping_address_address1').value = addressValue;
+          }
+
+          document.getElementById('error-for-address1').remove();
+        } else {
+          addressFieldContainer.classList.remove('field--error');
+          document.getElementById('error-for-address1-pobox').remove();
+        }
+      }
+    </script>
+
+    <script>
+      /* Military discount show and hide */
+      function waitForElm(selector) {
+        const observer = new MutationObserver(mutations => {
+          if(document.getElementById('idme-checkout')){
+            if (document.querySelector(selector)) {
+              document.getElementById('idme-checkout').style.visibility = 'hidden';
+            } else {
+              document.getElementById('idme-checkout').style.visibility = 'visible';
+            }
+          }
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
+
+      waitForElm('.tags-list');
+    </script>
+  </body>
+</html>

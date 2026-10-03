@@ -1,0 +1,241 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Our Pledge Icon with text",
+  "id": "our-pledge_icon-with-text",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_banner_title",
+      "label": "Title",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_banner_text",
+      "label": "Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_image",
+      "label": "Icon Image",
+      "repeatable": "Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_title",
+      "label": "Title",
+      "repeatable": "Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_content",
+      "label": "Content",
+      "repeatable": "Text",
+      "info": ""
+    }
+  ],
+  "warnings": [
+    "repeating image fields may not be properly handled"
+  ]
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_banner_title' -%}
+{%- assign atb_banner_title = val -%}
+{%- include 'atb-render' field:'atb_banner_text' -%}
+{%- assign atb_banner_text = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_image' -%}
+{%- assign block_image = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_content' -%}
+{%- assign block_content = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<style>
+  @media screen and (max-width: 768px) {
+  .green-practices {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 0; }
+    .green-practices > div {
+      width: 100%; } }
+  .green-practices {
+  text-align: left;
+  clear: both;
+  margin: auto;
+  padding: 4rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.15); }
+  .green-practices:first-of-type {
+    margin-top: 6rem; }
+  .green-practices:last-of-type {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15); }
+  .green-practices > div {
+    display: inline-block; }
+  .green-practices ._image {
+    width: 30%;
+    vertical-align: bottom; }
+    .green-practices ._image img {
+      display: block;
+      margin: auto;
+      padding: 1rem; }
+  .green-practices ._content {
+    width: 64%;
+    margin-left: 5%; }
+    .green-practices ._content h2 {
+      margin: 20px 0px;
+      color: #333; }
+    .green-practices ._content p {
+      margin: auto; }
+
+  #shopify-section-{{ section_id }} .content-cell {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section_id }} .readability-insets>* {
+    max-width: 76rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section_id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .text-style-chapter-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .text-style-title {
+    color: #000000de;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: .02em;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .about-section-content p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  #shopify-section-{{ section_id }} .green-practices {
+    text-align: left;
+    clear: both;
+    margin: auto;
+    padding: 4rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,.15);
+  }
+  #shopify-section-{{ section_id }} .green-practices:first-of-type {
+    margin-top: 6rem;
+  }
+  #shopify-section-{{ section_id }} .green-practices ._content h2 {
+    margin: 20px 0;
+    color: #333;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-title {
+      font-size: 36px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section_id }} .text-style-title {
+      font-size: 40px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section_id }} .green-practices {
+      padding: 2rem;
+    }
+    #shopify-section-{{ section_id }} .green-practices ._image {
+      width: 35%;
+    }
+    #shopify-section-{{ section_id }} .green-practices ._content {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<section class="content-cell cell-style-A text-center">
+  <div class="offset-group readability-insets">
+    {% if atb_banner_title != blank %}
+      <h2 class="text-style-chapter-title">{{ atb_banner_title }}</h2>
+    {% endif %}
+    {% if atb_banner_text != blank %}
+      <p class="text-style-title">{{ atb_banner_text }}</p>
+    {% endif %}
+    {% for block0 in blocks %}
+{%- assign my_image_key0 = block_image[forloop.index0]| split: '/files/' | last -%}
+{%- assign my_image0 = images[my_image_key0] -%}
+      <div class="green-practices">
+        <div class="_image">
+          {% if my_image0 != blank %}
+            <img src="{{ settings.speedsize_url_pfx_https -}}{{ my_image0 | img_url: 'master' }}" alt="B-Corp" loading="lazy">
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+        <div class="_content">
+          {% if block_title[forloop.index0] != blank %}
+            <h2 class="text-style-chapter-title">{{ block_title[forloop.index0] }}</h2>
+          {% endif %}
+          {% if block_content[forloop.index0] != blank %}
+            <p>{{ block_content[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

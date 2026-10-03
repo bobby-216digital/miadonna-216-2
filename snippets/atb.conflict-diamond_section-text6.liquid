@@ -1,0 +1,140 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "CD- Text with Quote",
+  "id": "conflict-diamond_section-text6",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_left-text",
+      "label": "Left Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_right-subheading",
+      "label": "Subheading",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_right-text",
+      "label": "Text",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_left-text' -%}
+{%- assign atb_left-text = val -%}
+{%- include 'atb-render' field:'atb_right-subheading' -%}
+{%- assign atb_right-subheading = val -%}
+{%- include 'atb-render' field:'atb_right-text' -%}
+{%- assign atb_right-text = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<style>
+  #shopify-section-{{ section_id }} .warning-row {
+    border-top: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d2d2d2;
+    padding: 4em 0;
+  }
+  #shopify-section-{{ section_id }} .content-cell {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section_id }} .warning {
+    padding: 1em;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.8;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .cell-style-tout {
+    background: #e5f6ed;
+    border: 14px solid #c2edd5;
+  }
+  #shopify-section-{{ section_id }} .text-style-title-2 {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  #shopify-section-{{ section_id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .text-style-chapter-title {
+    color: #777777;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-title-2 {
+      font-size: 30px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} .content-cell {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section_id }} .warning {
+      font-size: 18px;
+      line-height: 1.55;
+    }
+    #shopify-section-{{ section_id }} .text-style-title-2 {
+      font-size: 36px;
+    }
+    #shopify-section-{{ section_id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<section class="section is-standard">
+  <div class="container warning-row">
+    <div class="two-thirds small-down--one-whole column warning">
+      <div class="content-cell cell-style-tout">
+        <p class="text-style-title-2 text-center">
+          <em>{{ section.settings['left-text'] }}</em>
+        </p>
+      </div>
+    </div>
+    <div class="one-third small-down--one-whole column warning offset-group">
+      <h2 class="text-style-chapter-title">{{ section.settings['right-subheading'] }}</h2>
+      <p>{{ section.settings['right-text'] }}</p>
+    </div>
+  </div>
+</section>
+
+
+
+<style>
+</style>
+
+<script type="application/javascript">
+</script>
+</section>

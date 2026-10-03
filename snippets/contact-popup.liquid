@@ -1,0 +1,77 @@
+{{ 'contact-popup.css' | asset_url | stylesheet_tag }}
+
+<div class="fancybox-container popup-modal contact-popup" id="ContactPopup">
+  <div class="fancybox-bg"></div>
+  <div class="fancybox-inner">
+    <div
+      class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+      style="display: inline-block;"
+    >
+      <button class="close popup__close close--contact-us-popup" aria-label="close">
+        <span class="icon icon--vertical-align" data-icon="x">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <title>Icon </title>
+            <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+          </svg>
+        </span>
+      </button>
+      <div class="popup__inner is-flex">
+        <div class="popup__content">
+          <div class="popup__header">
+            <h6 class="popup__title">Contact us</h6>
+            <h2 class="popup__main-title">HOW CAN WE HELP?</h2>
+            <p>We’re here to make diamond shopping more ethical and enjoyable. Let us help you!</p>
+          </div>
+          <div class="popup__links">
+            <ul class="popup__links-list popup__links-top">
+              <li class="popup__link-item">
+                <a href="#" onclick="Chatra('openChat', true)">
+                  <img
+                    alt="diamond"
+                    src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/icon-chat.png?v=1687107973"
+                    width="55px"
+                    height="55px"
+                    loading="lazy"
+                  >
+                </a>
+                <p>Live chat</p>
+              </li>
+              <li class="popup__link-item">
+                <a target="_blank" href="https://my.setmore.com/bookingpage/67240127-4c0d-4292-9379-3ee1b681ab2a">
+                  <img
+                    alt="diamond"
+                    src="https://scdn.speedsize.com/d9acbe11-c0cc-4d19-a1ce-748a0fd38b05/cdn.shopify.com/s/files/1/1164/4258/files/icon-calender.png?v=1687107974"
+                    width="55px"
+                    height="55px"
+                    loading="lazy"
+                  >
+                </a>
+                <p>Appointment</p>
+              </li>
+            </ul>
+            <ul class="popup__links-list popup__links-bottom">
+              <li class="popup__link-item">
+                <a href="tel:1-866-996-9642">
+                  {% render 'icon', name: 'phone', icon_class: 'icon-chat' %}
+                </a>
+                <p>Toll Free</p>
+              </li>
+              <li class="popup__link-item">
+                <a href="tel:1-866-996-9642">
+                  {% render 'icon', name: 'phone', icon_class: 'icon-chat' %}
+                </a>
+                <p>International</p>
+              </li>
+              <li class="popup__link-item">
+                <a href="mailto:help@miadonna.com">
+                  {% render 'icon', name: 'email', icon_class: 'icon-chat' %}
+                </a>
+                <p>Email</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

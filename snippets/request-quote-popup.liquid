@@ -1,0 +1,74 @@
+{% assign HawaiiUSD = 40 %}
+{% assign APOUSD = 50 %}
+{% assign GuamUSD = 150 %}
+{% assign CanadaUSD = 150 %}
+{% assign ROWUSD = 150 %}
+{% assign USAOnly = 40 %}
+{% assign selectedCurrency = cart.currency.iso_code %}
+
+{% case selectedCurrency %}
+  {% when 'USD' %}
+    {% assign conversionRate = 1 %}
+  {% when 'AUD' %}
+    {% assign conversionRate = 1.3 %}
+    <!-- Example conversion rate for AUD -->
+  {% when 'CAD' %}
+    {% assign conversionRate = 1.25 %}
+    <!-- Example conversion rate for CAD -->
+  {% when 'EUR' %}
+    {% assign conversionRate = 0.85 %}
+    <!-- Example conversion rate for EUR -->
+  {% when 'GBP' %}
+    {% assign conversionRate = 0.75 %}
+    <!-- Example conversion rate for GBP -->
+  {% when 'NZD' %}
+    {% assign conversionRate = 1.4 %}
+    <!-- Example conversion rate for NZD -->
+  {% else %}
+    {% assign conversionRate = 1 %}
+{% endcase %}
+
+{% assign convertedPriceHawaii = HawaiiUSD | times: conversionRate %}
+{% assign convertedPriceAPO = APOUSD | times: conversionRate %}
+{% assign convertedPriceGuam = GuamUSD | times: conversionRate %}
+{% assign convertedPriceCanada = CanadaUSD | times: conversionRate %}
+{% assign convertedPriceROW = ROWUSD | times: conversionRate %}
+{% assign convertedPriceUSA = USAOnly | times: conversionRate %}
+
+<div
+  class="fancybox-container popup-modal request-qoute-popup fancybox-is-open"
+  role="dialog"
+  tabindex="-1"
+  id="request-qoute-popup"
+  style="transition-duration: 366ms;opacity: 0;visibility: hidden;z-index: -99999999999;"
+>
+  <div class="fancybox-bg" onClick="requestQuoteClosePopup()"></div>
+  <div class="fancybox-inner">
+    <div class="fancybox-stage">
+      <div
+        class="fancybox-slide fancybox-slide--html fancybox-slide--current fancybox-slide--complete"
+        style="padding: 0;"
+      >
+        <div
+          class="popup__wrapper animated fadeIn has-image image-position-left fancybox-content"
+          style="display: inline-block;width: 100%;height: 100%;max-width: 100%;"
+        >
+          <button onClick="requestQuoteClosePopup()" class="close popup__close" aria-label="close">
+            <span class="icon icon--vertical-align" data-icon="x">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <title>close</title>
+                <g id="x"><path d="M52.83,50,96.41,6.41a2,2,0,0,0-2.82-2.82L50,47.17,6.41,3.59A2,2,0,0,0,3.59,6.41L47.17,50,3.59,93.59a2,2,0,1,0,2.82,2.82L50,52.83,93.59,96.41a2,2,0,0,0,2.82-2.82Z"></path></g>
+              </svg>
+            </span>
+          </button>
+          <div class="popup__inner is-flex has-no-side-gutter">
+            <iframe
+              style="width: 100%;height: 100vh;"
+              src="https://miadonnaandco.typeform.com/to/UscMUI?_gl=1*621rey*_ga*Mzg4MTIxMDU1LjE2OTUyMzkzODY.*_ga_1MLJ2NFTEL*MTY5NTIzOTM4OC4xLjAuMTY5NTIzOTM4OC42MC4wLjA."
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

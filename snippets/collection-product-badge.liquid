@@ -1,0 +1,62 @@
+<div class="collection-badge-wrapper">
+  {% if product.metafields.custom.badge == 'Best Seller' and collection.handle != 'best-seller' %}
+    <span class="collection-badge best-seller">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'New Arrival' and collection.handle != 'new-arrivals' %}
+    <span class="collection-badge new-arrival">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Ready to Ship' and collection.handle != 'ready-to-ship' %}
+    <span class="collection-badge ready-to-ship">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Mother&apos;s Day Special'
+    and collection.handle != 'mother&apos;s-day-special'
+  %}
+    <span class="collection-badge mother&apos;s-day-special">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'More Shapes' and collection.handle != 'more-shapes' %}
+    <span class="collection-badge more-shapes">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Staff Favorite' and collection.handle != 'staff-favorite' %}
+    <span class="collection-badge staff-favorite">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Hidden Halo' and collection.handle != 'hidden-halo' %}
+    <span class="collection-badge hidden-halo">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Special Price' and collection.handle != 'special-price' %}
+    <span class="collection-badge special-price">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Only a Few Left' and collection.handle != 'only-a-few-left' %}
+    <span class="collection-badge only-a-few-left">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Mixed Shape' and collection.handle != 'mixed-shape' %}
+    <span class="collection-badge mixed-shape">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Ready to Wear' and collection.handle != 'ready-to-wear' %}
+    <span class="collection-badge ready-to-wear">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Statement Style' and collection.handle != 'statement-style' %}
+    <span class="collection-badge statement-style">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Online Exclusive' and collection.handle != 'online-exclusive' %}
+    <span class="collection-badge online-exclusive">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'New Design' and collection.handle != 'new-design' %}
+    <span class="collection-badge new-design">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Trending Style' and collection.handle != 'trending-style' %}
+    <span class="collection-badge trending-style">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'MiaDonna Exclusive' and collection.handle != 'miadonna-exclusive' %}
+    <span class="collection-badge miadonna-exclusive">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Matching Band' and collection.handle != 'matching-band' %}
+    <span class="collection-badge matching-band">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Bundle and Save' and collection.handle != 'bundle-and-save' %}
+    <span class="collection-badge bundle-and-save">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Customizable' and collection.handle != 'customizable' %}
+    <span class="collection-badge customizable">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Gift Set' and collection.handle != 'gift-set' %}
+    <span class="collection-badge gift-set">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Bundle and Save' and collection.handle != 'bundle-and-save' %}
+    <span class="collection-badge bundle-and-save">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Statement Style' and collection.handle != 'statement-style' %}
+    <span class="collection-badge statement-style">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Exceptional Value' and collection.handle != 'exceptional-value' %}
+    <span class="collection-badge exceptional-value">{{ product.metafields.custom.badge }}</span>
+  {% elsif product.metafields.custom.badge == 'Signature Collection' and collection.handle != 'signature-collection' %}
+    <span class="collection-badge signature-collection">{{ product.metafields.custom.badge }}</span>
+  {% else %}
+    {% comment %}
+      {% if product.compare_at_price_max > product.price %}
+        {% assign price = product.price %}
+        {% assign compare_at_price = product.compare_at_price_max %}
+        {% assign discount_percentage = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price %}
+        <span class="collection-badge percent-count"> REDUCED BY {{ discount_percentage | round: 0 }}% </span>
+      {% endif %}
+    {% endcomment %}
+  {% endif %}
+</div>

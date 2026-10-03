@@ -1,0 +1,16 @@
+.sub_footer-bar {
+  color: #fff;
+  padding: 0.6rem 0;
+  background: #3c3737;
+}
+
+.sub_footer-bar .sub_footer-bar-item {
+  text-align: center;
+      display: flex;
+    align-items: center;
+}
+
+.sub_footer-bar .sub_footer-bar-item p {
+  font-size: 13px;
+  font-weight: 600;
+}

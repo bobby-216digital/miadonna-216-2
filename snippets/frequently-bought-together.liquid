@@ -1,0 +1,51 @@
+<div id="frequently-bought-together-container" class="product-content-wrapper has-no-side-gutter products-slider"
+  data-products-per-slide="5"
+      data-products-limit="20"
+      data-products-available="20"
+  <!-- Frequently bought together products will be displayed here -->
+</div>
+
+<script>
+  // document.addEventListener("DOMContentLoaded", function (event) {
+    // Function to format currency
+    function formatCurrency(amount, currency) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency
+      }).format(amount);
+    }
+
+    // Fetch related products and update the DOM
+    function fetchFrequentlyBoughtTogether(productId) {
+      var url = '/recommendations/products.json?product_id=' + productId + '&limit=20';
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          var recommendations = data.products;
+
+          // If there are more than 4 recommendations, get the last 4 products
+          var startIndex = Math.max(recommendations.length - 20, 0);
+          var lastFourProducts = recommendations.slice(startIndex);
+
+          var html = '';
+          lastFourProducts.forEach(product => {
+            var productPrice = parseFloat(product.price_max) / 100; // Convert to decimal
+            var formattedPrice = formatCurrency(productPrice, '{{ cart.currency.iso_code }}');
+
+            html += `<div class="product-item one-fifth column medium-down--one-half">
+                        <a href="${product.url}">
+                          <img src="${product.featured_image}" alt="${product.featured_image}">
+                        </a>
+                        <h3><a class="recently-viewed-a" href="${product.url}">${product.title}</a></h3>
+                        <p>${formattedPrice}</p>
+                     </div>`;
+          });
+
+          document.getElementById('frequently-bought-together-container').innerHTML = html;
+        });
+    }
+
+    // Call the function with the current product's ID
+    fetchFrequentlyBoughtTogether('{{ product.id }}');
+  // });
+</script>

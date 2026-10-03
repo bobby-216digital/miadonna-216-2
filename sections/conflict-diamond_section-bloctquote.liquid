@@ -1,0 +1,159 @@
+<style>
+  #shopify-section-{{ section.id }} .shaded {
+    background: rgba(0,0,0,.04);
+  }
+  #shopify-section-{{ section.id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} ._body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .content-cell {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section.id }} .text-style-subtitle {
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  #shopify-section-{{ section.id }} .quote-layout {
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .quote-layout blockquote {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  #shopify-section-{{ section.id }} .quote-layout blockquote:before,
+  #shopify-section-{{ section.id }} .quote-layout blockquote:after {
+    content: "\201c";
+    display: block;
+    font-size: 110px;
+    font-style: normal;
+    line-height: 1;
+    height: 65px;
+    margin: 26px 0;
+    color: #777;
+    opacity: 1;
+  }
+  #shopify-section-{{ section.id }} .quote-layout blockquote:after {
+    content: "\201d";
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section.id }} .content-cell {
+      padding: 50px;
+    }
+    #shopify-section-{{ section.id }} .quote-layout blockquote {
+      font-size: 36px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section.id }} .content-cell {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section.id }} .text-style-subtitle {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section.id }} .quote-layout blockquote {
+      font-size: 40px;
+    }
+    #shopify-section-{{ section.id }} .quote-layout blockquote:before,
+    #shopify-section-{{ section.id }} .quote-layout blockquote:after {
+      font-size: 164px;
+      height: 110px;
+    }
+  }
+  @media only screen and (max-width: 749px){
+    #shopify-section-{{ section.id }} ._image {
+      order: 0 !important;
+    }
+  }
+</style>
+
+<section class="body-cell section is-standard">
+  <div class="media-grid-layout cell-style-A">
+    <section class="container has-no-side-gutter shaded">
+      <figure
+        class="_image formatted-image one-half small-down--one-whole column"
+        {% if section.settings.image_position == 'right' %}
+          style="order: 2"
+        {% endif %}
+      >
+        {% if section.settings.image != blank %}
+          {%
+            render 'image-element',
+            image: section.settings.image,
+            alt: section.settings.image.alt,
+            stretch_width: true,
+            additional_classes: 'media-grid__image',
+            focal_point: section.settings.image.presentation.focal_point,
+          %}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </figure>
+      <section class="_body content-cell offset-group one-half small-down--one-whole column text-center">
+        <figure class="quote-layout">
+          <blockquote>{{ section.settings.quote_text }}</blockquote>
+        </figure>
+      </section>
+    </section>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CD- Blockquote with Image",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "textarea",
+      "id": "quote_text",
+      "label": "Quote Text"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Alignment",
+      "default": "left",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CD- Blockquote with Image",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

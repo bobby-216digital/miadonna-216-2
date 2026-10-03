@@ -1,0 +1,124 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: 50px 26px;
+    background-color: {{ section.settings.background }};
+  }
+  #shopify-section-{{ section.id }} .readability-insets>* {
+    max-width: 76rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section.id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section.id }} .content-subtitle{
+    color: #777;
+    margin-bottom: 26px;
+  }
+  #shopify-section-{{ section.id }} .text-style-chapter-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .text-style-title {
+    color: #000000de;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  #shopify-section-{{ section.id }} .about-section-content p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section.id }} {
+      padding: 50px;
+    }
+    #shopify-section-{{ section.id }} .content-subtitle {
+      margin-bottom: 35px;
+    }
+    #shopify-section-{{ section.id }} .text-style-title {
+      font-size: 36px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section.id }} {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section.id }} .content-subtitle {
+      margin-bottom: 50px;
+    }
+    #shopify-section-{{ section.id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section.id }} .text-style-title {
+      font-size: 40px;
+    }
+  }
+</style>
+
+<section class="about-section-content">
+  <div class="content-cell cell-style-A">
+    <div class="body-cell offset-group readability-insets text-center">
+      {% if section.settings.subtitle != blank %}
+        <h2 class="text-style-chapter-title content-subtitle">{{ section.settings.subtitle }}</h2>
+      {% endif %}
+      {% if section.settings.title != blank %}
+        <p class="text-style-title content-subtitle">{{ section.settings.title }}</p>
+      {% endif %}
+      {{ section.settings.text }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Founder - Text Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "SubTitle"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title"
+    },
+     {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+
+    }
+  ],
+   "presets": [
+  {
+    "name": "Founder - Text Section",
+    "category": "Image"
+  }
+]
+
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

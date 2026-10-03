@@ -1,0 +1,279 @@
+{% comment %}
+ATB-SCHEMA{
+  "name": "Our Pledge - Accordion",
+  "id": "our-pledge_accordion_text",
+  "banner": "",
+  "icon": "",
+  "tags": "",
+  "description": "",
+  "class": "",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "atb_banner_title",
+      "label": "Title",
+      "info": ""
+    },
+    {
+      "type": "wysiwyg",
+      "id": "atb_banner_text",
+      "label": "Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "blocks",
+      "label": "Block ID",
+      "info": "Enter a unique ID with only letters and numbers, no spaces",
+      "default": "",
+      "repeatable": "Text"
+    },
+    {
+      "type": "text",
+      "id": "block_title",
+      "label": "Title",
+      "repeatable": "Text",
+      "info": ""
+    },
+    {
+      "type": "text",
+      "id": "block_content",
+      "label": "Content",
+      "repeatable": "Text",
+      "info": ""
+    }
+  ],
+  "warnings": []
+}ATB-SCHEMA
+{% endcomment %}
+
+
+{%- include 'atb-render' field:'section_id' -%}
+{%- assign section_id = val -%}
+{%- include 'atb-render' field:'atb_banner_title' -%}
+{%- assign atb_banner_title = val -%}
+{%- include 'atb-render' field:'atb_banner_text' -%}
+{%- assign atb_banner_text = val -%}
+{%- include 'atb-render' field:'blocks' -%}
+{%- assign blocks = val -%}
+{%- include 'atb-render' field:'block_title' -%}
+{%- assign block_title = val -%}
+{%- include 'atb-render' field:'block_content' -%}
+{%- assign block_content = val -%}
+{%- assign no_image = images['no_image_comparison'] -%}
+
+<section id="shopify-section-{{section_id}}" class="shopify-section ">
+<style>
+  .business-ethics-quote blockquote {
+  font-style: normal;
+  color: #777777 !important; }
+
+.business-ethics-quote blockquote:before {
+  color: #777777;
+  opacity: 1; }
+
+.business-ethics-quote blockquote:after {
+  color: #777777;
+  opacity: 1; }
+
+@media screen and (min-width: 1024px) {
+  #business-ethics-expand li:before {
+    line-height: 2.3 !important; } }
+@media screen and (min-width: 980px) {
+  #business-ethics-expand li {
+    text-align: left !important; }
+    #business-ethics-expand li:before {
+      position: absolute !important; }
+  #business-ethics-expand .expander {
+    width: 50% !important; }
+    #business-ethics-expand .expander .subnav-trigger {
+      text-align: left !important;
+      margin-left: 20% !important;
+      right: 0 !important; }
+    #business-ethics-expand .expander .subnavigation {
+      margin: 0 0 1rem 20% !important;
+      text-align: left !important; } }
+#business-ethics-expand {
+  counter-reset: list; }
+  #business-ethics-expand li {
+    list-style: none;
+    position: relative;
+    text-align: center; }
+    #business-ethics-expand li:before {
+      counter-increment: list;
+      content: counter(list);
+      position: relative;
+      margin: auto auto 1rem auto;
+      display: block;
+      top: 0;
+      left: 0;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 100%;
+      width: 45px;
+      height: 45px;
+      line-height: 2.7;
+      text-align: center; }
+  #business-ethics-expand .expander {
+    color: #212121;
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+    margin: 3rem auto;
+    width: 75%; }
+    #business-ethics-expand .expander .subnav-trigger {
+      color: #212121;
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      font-weight: 400;
+      padding: 1em 0 0.5em 0;
+      text-align: center;
+      position: relative;
+      top: -10px;
+      right: -10px;
+      margin: auto;
+      letter-spacing: 2px;
+      display: block;
+      transition: all 0.2s; }
+      #business-ethics-expand .expander .subnav-trigger:after {
+        content: "+";
+        margin-left: 15px;
+        color: #bfbfbf; }
+      #business-ethics-expand .expander .subnav-trigger:hover {
+        color: #ffa998;
+        text-decoration: none;
+        cursor: pointer; }
+    #business-ethics-expand .expander.active .subnav-trigger {
+      color: #ffa998; }
+      #business-ethics-expand .expander.active .subnav-trigger:after {
+        content: "-";
+        color: rgba(0, 0, 0, 0.75);
+        font-weight: bold; }
+    #business-ethics-expand .expander.active .subnavigation {
+      max-height: 1000px; }
+    #business-ethics-expand .expander .subnavigation {
+      transition: max-height 0.5s ease-in-out;
+      color: #777777;
+      text-align: center;
+      font-family: initial;
+      text-transform: none;
+      letter-spacing: initial;
+      max-height: 0;
+      margin: auto;
+      overflow: hidden; }
+  #shopify-section-{{ section_id }} {
+    padding: 50px 26px;
+  }
+  #shopify-section-{{ section_id }} .readability-insets>* {
+    max-width: 76rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #shopify-section-{{ section_id }} .offset-group>*+* {
+    margin-top: 26px;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .text-style-chapter-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section_id }} .text-style-title {
+    color: #000000de;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: .02em;
+    font-family: Playfair Display,serif;
+  }
+  #shopify-section-{{ section_id }} .typeset-cell h2 {
+    margin: 35px auto;
+    max-width: 80rem;
+  }
+  #shopify-section-{{ section_id }} .ornamental-break {
+    display: block;
+    width: 80px;
+    height: 4px;
+    margin: 50px auto;
+    border-radius: 1px;
+    background: #777;
+  }
+  #shopify-section-{{ section_id }} .about-section-content p:not(.text-style-title):not(h1):not(.text-style-title-2):not(h2) {
+    font-size: 15px;
+  }
+  #shopify-section-{{ section_id }} #business-ethics-expand li:before,
+  #shopify-section-{{ section_id }} .subnavs-parent .subnav-trigger,
+  #shopify-section-{{ section_id }} .subnavs-parent .subnavigation {
+    font-size: 14px;
+  }
+  @media only screen and (min-width: 750px){
+    #shopify-section-{{ section_id }} {
+      padding: 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-title {
+      font-size: 36px;
+    }
+  }
+  @media only screen and (min-width: 1024px){
+    #shopify-section-{{ section_id }} {
+      padding: 100px 50px;
+    }
+    #shopify-section-{{ section_id }} .text-style-chapter-title {
+      font-size: 18px;
+    }
+    #shopify-section-{{ section_id }} .text-style-title {
+      font-size: 40px;
+    }
+    #shopify-section-{{ section_id }} #business-ethics-expand li:before,
+    #shopify-section-{{ section_id }} .subnavs-parent .subnav-trigger,
+    #shopify-section-{{ section_id }} .subnavs-parent .subnavigation {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<section class="section is-standard">
+  <div class="content-cell cell-style-A">
+    <div class="body-cell typeset-cell text-center">
+      {% if atb_banner_title != blank %}
+        <header class="text-style-chapter-title">{{ atb_banner_title }}</header>
+      {% endif %}
+      {% if atb_banner_text != blank %}
+        <h2 class="text-style-title">{{ atb_banner_text }}</h2>
+        <i class="ornamental-break"></i>
+      {% endif %}
+      <ol class="subnavs-parent" id="business-ethics-expand">
+        {% for block0 in blocks %}
+          <li class="choice-expander expander {% if forloop.first %}active{% endif %}">
+            {% if block_title[forloop.index0] != blank %}
+              <a class="subnav-trigger" for="choice">{{ block_title[forloop.index0] }}</a>
+            {% endif %}
+            {% if block_content[forloop.index0] != blank %}
+              <div class="subnavigation" id="choice">{{ block_content[forloop.index0] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+</section>
+
+
+
+<script type="application/javascript">
+  const expanderWrapper = document.getElementById('business-ethics-expand');
+  let expanderItems = expanderWrapper.querySelectorAll('.choice-expander');
+
+  expanderItems.forEach((expanderItem) => {
+    expanderItem.addEventListener('click', () => {
+      expanderItem.classList.toggle("active");
+    });
+  });
+</script>
+</section>

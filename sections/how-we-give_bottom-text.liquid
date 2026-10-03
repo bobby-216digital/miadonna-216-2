@@ -1,0 +1,47 @@
+<div class="content-cell black-text">
+	<div class="body-cell typeset-cell"><i class="ornamental-break ornamental-break-green"></i>
+		<h2>{{ section.settings.title }}</h2>
+		{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+  <a href="{{ section.settings.btn_link }}" class="green-btn">{{ section.settings.btn_text }}</a>
+	</div>
+</div>
+
+{% schema %}
+  {
+    "name": "Text With Button",
+    "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description Text"
+          },
+        {
+            "type": "text",
+            "id": "btn_text",
+            "label": "Button Text"
+          },
+        {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Button Link"
+          }
+    ],
+        "presets": [
+    {
+      "name": "Text With Button",
+      "category": "ImageText"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,130 @@
+<section class="accordion-section {{ section.settings.sectionid }} section-scroll" role="region" aria-labelledby="accordion-heading"  style="background-color: {{ section.settings.background_color }};">
+    <div class="accordion-inner">
+      <h2 class="common-hd" id="accordion-heading" tabindex="0">
+        {{ section.settings.section_heading | raw }}
+      </h2>
+  
+      <div class="accordion-grid row-col columns-{{ section.settings.columns }}">
+        {% assign left_column_items = "" %}
+        {% assign right_column_items = "" %}
+      
+        {% for block in section.blocks %}
+          {% assign is_even = forloop.index0 | modulo: 2 %}
+      
+          {% capture item_markup %}
+            <div class="accordion-item" role="listitem">
+              <div class="accordion-box" {{ block.shopify_attributes }}>
+                <button class="accordion-title"
+                  aria-expanded="false"
+                  aria-controls="accordion-content-{{ block.id }}"
+                  id="accordion-title-{{ block.id }}">
+                  {{ block.settings.title }}
+                </button>
+                <div class="accordion-content"
+                  id="accordion-content-{{ block.id }}"
+                  role="region"
+                  aria-labelledby="accordion-title-{{ block.id }}"
+                  hidden>
+                  <div class="accordion-content-inner">
+                    <p>{{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endcapture %}
+      
+          {% if is_even == 0 %}
+            {% assign left_column_items = left_column_items | append: item_markup %}
+          {% else %}
+            {% assign right_column_items = right_column_items | append: item_markup %}
+          {% endif %}
+        {% endfor %}
+      
+        <!-- Left column -->
+        <div class="col-{{ section.settings.columns }}" role="list">
+          {{ left_column_items }}
+        </div>
+      
+        <!-- Right column -->
+        <div class="col-{{ section.settings.columns }}" role="list">
+          {{ right_column_items }}
+        </div>
+      </div>
+    </div>
+</section>
+{% if section.blocks.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for block in section.blocks %}
+    {
+      "@type": "Question",
+      "name": "{{ block.settings.title | strip_html | escape }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ block.settings.content | strip_html | escape | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
+{% schema %}
+{
+  "name": "Accordion FAQ",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "text",
+      "id": "sectionid",
+      "label": "scroll id class"
+    },
+    {
+      "type": "textarea",
+      "id": "section_heading",
+      "label": "Section heading",
+      "default": "Explore the finest<br>lab-grown diamonds"
+    },
+    {
+      "type": "number",
+      "id": "columns",
+      "label": "Number of columns (1 or 2)",
+      "default": 2
+    }
+  ],
+  "blocks": [
+    { 
+      "type": "accordion_item",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Forem ipsum dolor sit adipiscing elit?"
+        },
+        {
+          "type": "textarea",
+          "id": "content",  
+          "label": "Answer",
+          "default": "Gorem ipsum dolor sit amet, consectetur adipiscing elit..."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Accordion FAQ",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}
