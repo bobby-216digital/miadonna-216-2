@@ -64,6 +64,17 @@ window.PXUTheme.jsMegaMenu = {
 
       // Add/remove classes for proper styling and append mega menu instance
       $parentElement.addClass('has-mega-menu')
+
+      // Separate submenu toggle so the parent link can stay a plain link
+      $parentElement.each(function() {
+        const $item = $(this);
+        const $link = $item.find('.navbar-link').first();
+        $item.find('.navbar-submenu-toggle').remove();
+        $link.removeAttr('aria-expanded');
+        const $toggle = $('<button type="button" class="navbar-submenu-toggle" aria-expanded="false"></button>')
+          .text($.trim($link.text()) + ' menu');
+        $toggle.insertAfter($link.closest('label').length ? $link.closest('label') : $link);
+      });
     }
 
     // Determine if header is set to hover to open or click to open

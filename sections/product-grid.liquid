@@ -152,9 +152,9 @@
   {% if section.settings.main_title != blank %}
     <div class="contanier-nw">
       <div class="section-heading text-center">
-        <h2 class="common-hd" tabindex="0" id="{{ section.settings.arialabelledby }}" tabindex="0">{{ section.settings.main_title }}</h2>
+        <h2 class="common-hd" id="{{ section.settings.arialabelledby }}">{{ section.settings.main_title }}</h2>
         {% if section.settings.main_subheading != blank %}
-          <div class="main-subheading" tabindex="0">
+          <div class="main-subheading">
             {{ section.settings.main_subheading }}
           </div>
         {% endif %}

@@ -43,7 +43,7 @@
             <p>{{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
             <div class="button-wrapper">
             {%- if block.settings.button_text != blank -%}
-              <a class="sub_footer-item-button" href="{{ block.settings.button_link }}">
+              <a class="sub_footer-item-button" href="{{ block.settings.button_link }}" aria-label="{{ block.settings.button_text | strip_html | escape }}: {{ block.settings.title | strip_html | escape }}">
                 {{- block.settings.button_text -}}
               </a>
             {%- endif -%}
@@ -59,7 +59,7 @@
             <h6>{{ block.settings.title }}</h6>
             <p>{{ block.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
             {%- if block.settings.button_text != blank -%}
-            <a class="sub_footer-item-button" href="{{ block.settings.button_link }}">
+            <a class="sub_footer-item-button" href="{{ block.settings.button_link }}" aria-label="{{ block.settings.button_text | strip_html | escape }}: {{ block.settings.title | strip_html | escape }}">
               {{- block.settings.button_text -}}
             </a>
             {%- endif -%}

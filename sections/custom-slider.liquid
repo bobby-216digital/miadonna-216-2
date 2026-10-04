@@ -8,12 +8,12 @@
       {%- endunless -%}
 
       {% if section.blocks.size > 0 %}
-      <div class="custom-slider sl-space slick-cls progress-sl" aria-label="{{ section.settings.title | strip_html }}">
+      <div class="custom-slider sl-space slick-cls progress-sl" role="group" aria-label="{{ section.settings.title | strip_html }}">
         {%- for block in section.blocks -%}
           {%- assign collection = block.settings.collection -%}
           {%- assign collection_image = block.settings.image -%}
           {%- if collection -%}
-            <div class="slide" aria-label="Recent Custom Design Item">
+            <div class="slide" role="group" aria-label="Recent Custom Design Item">
               <div class="custom-slide-text slide-cls sl-spacebox">
                 {% unless collection == blank %}<a href="{{ collection.url }}" class="img-hover-effect radius-2" aria-label="Shop {{ collection.title |default: block.settings.title }}" tabindex="0">{% endunless %}
                   <img src="{{ settings.speedsize_url_pfx_https -}}{{ collection_image | img_url:'master' }}" class="image-full" width="278" height="412" alt="{{ collection.title |default: block.settings.title }}" loading="lazy">

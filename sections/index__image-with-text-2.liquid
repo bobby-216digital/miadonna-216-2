@@ -111,7 +111,7 @@
           >
 
             {% if block.settings.custom_ifrem != blank %}
-              <div class="image-element__wrap ifrem-content radius-2" tabindex="0">
+              <div class="image-element__wrap ifrem-content radius-2">
                 {{ block.settings.custom_ifrem }}
               </div>
             {% endif %}  
@@ -124,13 +124,13 @@
             <div class="image-with-text__wrapper">
               {%- unless block.settings.title == blank -%}
                 <h2
-                    class="image-with-text__heading text-align-{{ block.settings.alignment }}" id="{{ section.settings.arialabelledby }}" tabindex="0">
+                    class="image-with-text__heading text-align-{{ block.settings.alignment }}" id="{{ section.settings.arialabelledby }}">
                     {{ block.settings.title }}
                 </h2>
               {%- endunless -%}
 
               {% if block.settings.custom_content != blank %}
-                <div class="image-with-text__text text-align-{{ block.settings.alignment }} content" tabindex="0">
+                <div class="image-with-text__text text-align-{{ block.settings.alignment }} content">
                   {{ block.settings.custom_content }}
                 </div>
               {% endif %}
@@ -193,7 +193,7 @@
             {% endunless %}
             <div class="image-with-text__wrapper">
               <{% if block.settings.heading_tag != blank %}{{ block.settings.heading_tag }}{% else %}h2{% endif %}
-                  class="image-with-text__heading text-align-{{ block.settings.alignment }}" id="{{ section.settings.arialabelledby }}" tabindex="0">
+                  class="image-with-text__heading text-align-{{ block.settings.alignment }}" id="{{ section.settings.arialabelledby }}">
                   
                   {{ block.settings.title }}
                   {{ block.settings.title2 }}
@@ -201,7 +201,7 @@
               </{% if block.settings.heading_tag != blank %}{{ block.settings.heading_tag }}{% else %}h2{% endif %}>
 
               {% if text != blank %}
-                <div class="image-with-text__text text-align-{{ block.settings.alignment }} content" tabindex="0">
+                <div class="image-with-text__text text-align-{{ block.settings.alignment }} content">
                   {%- capture replace_link -%}
                     <a href="javascript:void(0);" onclick="Chatra('openChat', true)" title="Contact Us">Connect</a>
                   {%- endcapture -%}
@@ -271,9 +271,13 @@
                          {% assign block_settings_data_class = 'bookpopup' %}
                          {% assign block_settings_data_popup = 'https://my.setmore.com/bookingpage/67240127-4c0d-4292-9379-3ee1b681ab2a' %}
                        {%  endif %}  
+                      {% assign button_aria_label = nil %}
+                      {% assign button_heading = block.settings.title | append: ' ' | append: block.settings.title2 | strip_html | strip %}
+                      {% if button_heading != blank %}{% capture button_aria_label %}{{ block.settings.button_label | strip_html | strip | escape }}: {{ button_heading | escape }}{% endcapture %}{% endif %}
                       <div class="buttons is-{{ block.settings.alignment }}">
                           {% render 'button',
                             label: block.settings.button_label,
+                            aria_label: button_aria_label,
                              open_new_tab :  block.settings.open_new_new_tab_button_1_ink,
                             href: block_settings_link,
                             title:title
@@ -302,9 +306,13 @@
                          {% assign block_settings_data_class = 'bookpopup' %}
                          {% assign block_settings_data_popup = 'https://my.setmore.com/bookingpage/67240127-4c0d-4292-9379-3ee1b681ab2a' %}
                        {%  endif %} 
+                      {% assign button_aria_label = nil %}
+                      {% assign button_heading = block.settings.title | append: ' ' | append: block.settings.title2 | strip_html | strip %}
+                      {% if button_heading != blank %}{% capture button_aria_label %}{{ block.settings.button_label2 | strip_html | strip | escape }}: {{ button_heading | escape }}{% endcapture %}{% endif %}
                       <div class="buttons is-{{ block.settings.alignment }}">
                           {% render 'button',
                             label: block.settings.button_label2,
+                            aria_label: button_aria_label,
                             href: block_settings_link2,
                             title:title
                              open_new_tab :  block.settings.open_new_new_tab_button__2_link,
@@ -327,7 +335,7 @@
           {%- assign iframe_video = block.settings.iframe_video -%}
           {% comment %} End content settings {% endcomment %}
 
-          <div tabindex="0"
+          <div
             class="
               image-with-text__image-column
               image-with-text__column

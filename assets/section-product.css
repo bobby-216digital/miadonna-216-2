@@ -2667,3 +2667,15 @@ body .product-gallery--background .mage-wishlist-heart__btn svg{width:27px; heig
   outline: 2px solid #001514;
   outline-offset: -3px;
 }
+.input_value:focus-visible + .input_label_variant {
+  outline: 2px solid #001514;
+  outline-offset: 2px;
+}
+.pdp-accordion .sub_footer-accordion-title:focus-visible {
+  outline: 2px solid #001514;
+  outline-offset: 2px;
+}
+.setting-tabs-wrapper .setting-tabs-buttons .setting-tab-button:focus-visible {
+  outline: 2px solid #001514 !important;
+  outline-offset: 2px;
+}

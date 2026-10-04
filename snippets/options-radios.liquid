@@ -255,7 +255,7 @@
 
                   <img class="swatch__image {% if swatch == empty %}swatch__image--empty{% endif %}" src="{{ settings.speedsize_url_pfx_https -}}{{ swatch | img_url: '50x' }}" alt="">
 
-                  <span class="crossed-out" aria-label="{{ 'products.product.sold_out' | t }}" alt="{{ 'products.product.sold_out' | t }}"></span>
+                  <span class="crossed-out" role="img" aria-label="{{ 'products.product.sold_out' | t }}"></span>
                 </label>
                 {%- endcomment -%}
               {% else %}
@@ -264,7 +264,7 @@
                   class="input_label"
                 >
                   {{ value }}
-                  <span class="crossed-out" aria-label="{{ 'products.product.sold_out' | t }}" alt="{{ 'products.product.sold_out' | t }}"></span>
+                  <span class="crossed-out" role="img" aria-label="{{ 'products.product.sold_out' | t }}"></span>
                 </label>
               {% endif %}
               <script class="id-script">

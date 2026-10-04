@@ -75,7 +75,7 @@
         <!--
           <a href="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}" title="{{ collection.title | escape }}">
         -->
-        <span tabindex="0">
+        <span aria-current="page">
           {%- unless collection.title %}
             {{ 'collections.general.all' | t }}
           {% else %}

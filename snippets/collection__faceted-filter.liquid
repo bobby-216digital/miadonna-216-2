@@ -230,7 +230,7 @@
                           <div class="slide-cls">
                             <a
                               href="{{ block.settings[button_link] }}{{ urlParam }}"
-                              class="button coll-filter-boxtop{% if button_link_handle == coll_handle %} active{% endif %}" aria-label="{{- block.settings[button_text] -}}"
+                              class="button coll-filter-boxtop{% if button_link_handle == coll_handle %} active{% endif %}" {% if button_link_handle == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings[button_text] -}}"
                             >
                               {%- comment -%}
                               <span class="coll-thumbh">
@@ -283,7 +283,7 @@
                         <div class="slide-cls">
                           <a
                             href="{{ block.settings.button_link  }}"
-                            class="button coll-filter-boxtop{% if link_handle == coll_handle %} active{% endif %}" aria-label="{{- block.settings.button_text -}}"
+                            class="button coll-filter-boxtop{% if link_handle == coll_handle %} active{% endif %}" {% if link_handle == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text -}}"
                           >
                             <span class="coll-thumbh">
                               {% if block.settings.image %}
@@ -305,7 +305,7 @@
                         <div class="slide-cls">
                           <a
                             href="{{block.settings.button_link_2  }}"
-                            class="button coll-filter-boxtop {% if link_handle_1 == coll_handle %} active{% else %} {% endif %}" aria-label="{{- block.settings.button_text_2 -}}" 
+                            class="button coll-filter-boxtop {% if link_handle_1 == coll_handle %} active{% else %} {% endif %}" {% if link_handle_1 == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text_2 -}}" 
                           >
                             <span class="coll-thumbh">
                               {% if block.settings.image_2 %}
@@ -327,7 +327,7 @@
                         <div class="slide-cls">
                           <a
                             href="{{block.settings.button_link_3  }}"
-                            class="button coll-filter-boxtop {% if link_handle_2 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_3 -}}"
+                            class="button coll-filter-boxtop {% if link_handle_2 == coll_handle %}active {% endif %}" {% if link_handle_2 == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text_3 -}}"
                           >
                             <span class="coll-thumbh">
                               {% if block.settings.image_3 %}
@@ -349,7 +349,7 @@
                         <div class="slide-cls">
                             <a
                               href="{{block.settings.button_link_4  }}"
-                              class="button coll-filter-boxtop {% if link_handle_3 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_4 -}}"
+                              class="button coll-filter-boxtop {% if link_handle_3 == coll_handle %}active {% endif %}" {% if link_handle_3 == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text_4 -}}"
                             >
                               <span class="coll-thumbh">
                                 {%  if block.settings.image_4 %}
@@ -371,7 +371,7 @@
                         <div class="slide-cls">
                           <a
                             href="{{block.settings.button_link_5  }}"
-                            class="button coll-filter-boxtop {% if link_handle_4 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_5 -}}"
+                            class="button coll-filter-boxtop {% if link_handle_4 == coll_handle %}active {% endif %}" {% if link_handle_4 == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text_5 -}}"
                           >
                             <span class="coll-thumbh">
                               {%  if block.settings.image_5 %}
@@ -393,7 +393,7 @@
                         <div class="slide-cls">
                           <a
                             href="{{block.settings.button_link_6  }}"
-                            class="button coll-filter-boxtop {% if link_handle_5 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_6 -}}"
+                            class="button coll-filter-boxtop {% if link_handle_5 == coll_handle %}active {% endif %}" {% if link_handle_5 == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text_6 -}}"
                           >
                             <span class="coll-thumbh">
                               {% if block.settings.image_6 %}
@@ -414,7 +414,7 @@
                         <div class="slide-cls">
                           <a
                             href="{{block.settings.button_link_7  }}"
-                            class="button coll-filter-boxtop {% if link_handle_6 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_7 -}}"
+                            class="button coll-filter-boxtop {% if link_handle_6 == coll_handle %}active {% endif %}" {% if link_handle_6 == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text_7 -}}"
                           >
                             <span class="coll-thumbh">
                               {% if block.settings.image_7 %}
@@ -435,7 +435,7 @@
                         <div class="slide-cls">
                           <a
                             href="{{block.settings.button_link_8 }}"
-                            class="button coll-filter-boxtop {% if link_handle_7 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_8 -}}"
+                            class="button coll-filter-boxtop {% if link_handle_7 == coll_handle %}active {% endif %}" {% if link_handle_7 == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text_8 -}}"
                           >
                             <span class="coll-thumbh">
                               {% if block.settings.image_8 %}
@@ -457,7 +457,7 @@
                         <div class="slide-cls">
                           <a
                             href="{{block.settings.button_link_9 }}"
-                            class="button coll-filter-boxtop {% if link_handle_8 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_9 -}}"
+                            class="button coll-filter-boxtop {% if link_handle_8 == coll_handle %}active {% endif %}" {% if link_handle_8 == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text_9 -}}"
                           >
                             <span class="coll-thumbh">
                               {% if block.settings.image_9 %}
@@ -479,7 +479,7 @@
                         <div class="slide-cls">
                             <a
                               href="{{block.settings.button_link_10 }}"
-                              class="button coll-filter-boxtop {% if link_handle_9 == coll_handle %}active {% endif %}" aria-label="{{- block.settings.button_text_10 -}}"
+                              class="button coll-filter-boxtop {% if link_handle_9 == coll_handle %}active {% endif %}" {% if link_handle_9 == coll_handle %}aria-current="page"{% endif %} aria-label="{{- block.settings.button_text_10 -}}"
                             >
                               <span class="coll-thumbh">
                                 {% if block.settings.image_10 %}
@@ -535,7 +535,7 @@
       </div>
 
       {% paginate collection.products by paginate_limit %}
-        <span id="pdp-setting-item-count" data-item-count="{{ paginate.items }}" class="filter-values-section-results" tabindex="0">{{ paginate.items }} Items</span>
+        <span id="pdp-setting-item-count" data-item-count="{{ paginate.items }}" class="filter-values-section-results">{{ paginate.items }} Items</span>
       {% endpaginate %}
       {% assign quick_ship_filter = collection.filters | where:'label', 'Quick Ship' | first %}
       {% assign quick_ship_opt = quick_ship_filter.values | where:'value', 'Quick Ship' | first %}
@@ -800,6 +800,7 @@
         <div class="custom-select">
           <select
             class="sort_by hidden"
+            aria-label="Sort"
             data-default-sort="{{ collection.sort_by | default: collection.default_sort_by  }}"
           >
             <option hidden>Sort</option>

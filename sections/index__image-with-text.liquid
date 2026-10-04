@@ -240,10 +240,13 @@
 
               {% if block.settings.button_label != blank %}
                 <div class="buttons is-{{ block.settings.alignment }}">
+                  {% assign button_aria_label = nil %}
+                  {% if block.settings.title != blank %}{% capture button_aria_label %}{{ block.settings.button_label | strip_html | strip | escape }}: {{ block.settings.title | strip_html | strip | escape }}{% endcapture %}{% endif %}
                   {% render 'button',
                     label: block.settings.button_label,
                     href: block.settings.link,
                     style: block.settings.button_style,
+                    aria_label: button_aria_label,
                     type: 'link'
                   %}
                 </div>

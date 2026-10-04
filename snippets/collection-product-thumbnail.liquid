@@ -392,7 +392,8 @@
                     href="{{ marketing_banner_1_link }}"
                     class="list-bnrimg"
                     style="background-image: url('{{ banner1_1x }}'); background-image: image-set(url('{{ banner1_1x }}') 1x, url('{{ banner1_2x }}') 2x);"
-                    {% if marketing_banner_video_1.alt != blank %}aria-label="{{ marketing_banner_video_1.alt | escape }}"{% endif %}
+                    {% assign banner1_label = marketing_banner_video_1.alt | default: marketing_banner_video_1_mobile.alt | default: marketing_banner_1_headline | default: marketing_banner_1_link_text | strip_html | strip %}
+                    {% if banner1_label != blank %}aria-label="{{ banner1_label | escape }}"{% endif %}
                   >
               {%- else -%}
                 {%- assign banner1_1x = marketing_banner_video_1 | image_url: width: 800 -%}
@@ -562,14 +563,14 @@
               {% endif %}
             {% else %}
               {% if marketing_banner_2_link != blank %}
+                {%- assign banner2_1x = marketing_banner_video_2 | image_url: width: 800 -%}
+                {%- assign banner2_2x = marketing_banner_video_2 | image_url: width: 1600 -%}
                 <a
-                  {%- assign banner2_1x = marketing_banner_video_2 | image_url: width: 800 -%}
-                  {%- assign banner2_2x = marketing_banner_video_2 | image_url: width: 1600 -%}
-
                     href="{{ marketing_banner_2_link }}"
                     class="list-bnrimg"
                     style="background-image: url('{{ banner2_1x }}'); background-image: image-set(url('{{ banner2_1x }}') 1x, url('{{ banner2_2x }}') 2x);"
-                    {% if marketing_banner_video_2.alt != blank %}aria-label="{{ marketing_banner_video_2.alt | escape }}"{% endif %}
+                    {% assign banner2_label = marketing_banner_video_2.alt | default: marketing_banner_video_2_mobile.alt | default: marketing_banner_2_headline | default: marketing_banner_2_link_text | strip_html | strip %}
+                    {% if banner2_label != blank %}aria-label="{{ banner2_label | escape }}"{% endif %}
                   >
               {% else %}
                 {%- assign banner2_1x = marketing_banner_video_2 | image_url: width: 800 -%}

@@ -387,7 +387,14 @@
             preventCaptionOverlap: false,
             toolbar: false,
           },
-          beforeClose: function () {
+          // Fancybox ignores Escape while focus is in an input, which is always the case here
+          afterShow: function (instance) {
+            instance.$refs.container.on("keydown.searchEscape", "input", function (e) {
+              if (e.key === "Escape") instance.close();
+            });
+          },
+          beforeClose: function (instance) {
+            instance.$refs.container.off("keydown.searchEscape");
             $("[data-show-search-trigger]").removeClass("is-active");
           },
         });

@@ -611,7 +611,6 @@ window.LB_GROWN_DIAMOND = function () {
                                                             class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
                                                             type="button"
                                                             data-filter="carat"
-                                                            aria-label="Filter by carat. Range ${sliderCaratValue1} ct - ${sliderCaratValue2} ct"
                                                         >
                                                             <span class="filter-label">Carat:</span>
                                                             <span class="filter-value">${sliderCaratValue1} ct - ${sliderCaratValue2} ct</span>
@@ -625,7 +624,6 @@ window.LB_GROWN_DIAMOND = function () {
                                                             class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
                                                             type="button"
                                                             data-filter="color"
-                                                            aria-label="Filter by color. Selected ${firstColor} ${colorcount}"
                                                         >
                                                                 <span class="filter-label">Color:</span>
                                                                 <span class="filter-value"> ${firstColor} ${colorcount}</span>
@@ -639,7 +637,6 @@ window.LB_GROWN_DIAMOND = function () {
                                                                 class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
                                                                 type="button"
                                                                 data-filter="price"
-                                                                aria-label="Filter by price. Range $${Math.round($slider_price?.value1)?.toLocaleString('en-US')} - $${Math.round($slider_price?.value2)?.toLocaleString('en-US') }"
                                                             >
                                                                 <span class="filter-label">Price:</span>
                                                                 <span class="filter-value">$${Math.round($slider_price?.value1)?.toLocaleString('en-US')} - $${Math.round($slider_price?.value2)?.toLocaleString('en-US') }</span>
@@ -653,7 +650,6 @@ window.LB_GROWN_DIAMOND = function () {
                                                                         class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
                                                                         type="button"
                                                                         data-filter="clarity"
-                                                                        aria-label="Filter by clarity. Selected ${firstClarity} ${claritycount} "
                                                                     >
                                                                         <span class="filter-label">Clarity:</span>
                                                                         <span class="filter-value">${firstClarity} ${claritycount} </span>
@@ -667,7 +663,6 @@ window.LB_GROWN_DIAMOND = function () {
                                                                                 class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
                                                                                 type="button"
                                                                                 data-filter="cut"
-                                                                                aria-label="Filter by cut. Selected ${firstCut} ${cutcount}"
                                                                             >
                                                                                 <span class="filter-label">Cut:</span>
                                                                                 <span class="filter-value">  ${firstCut} ${cutcount} </span>

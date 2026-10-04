@@ -204,11 +204,14 @@ function productImagesPopup(e) {
 function productImagesClosePopup() {
   document.querySelector("body").classList.remove("images-popup-open");
   var popupWrapper = document.getElementById("product-images-popup");
+  if (!popupWrapper) return;
   popupWrapper.style.display = "none";
   popupWrapper.style.opacity = "0";
   popupWrapper.style.visibility = "hidden";
   popupWrapper.style.zIndex = "-99999999999";
 }
+
+let popupReturnFocus = null;
 
 function openPopup(popupId) {
   const popupWrapper = document.getElementById(popupId);
@@ -216,15 +219,60 @@ function openPopup(popupId) {
   popupWrapper.style.opacity = "1";
   popupWrapper.style.visibility = "visible";
   popupWrapper.style.zIndex = "99992";
+
+  // Treat the popup as a modal dialog: name it, move focus in, and remember where to return
+  popupReturnFocus = document.activeElement;
+  popupWrapper.setAttribute("aria-modal", "true");
+  if (!popupWrapper.hasAttribute("aria-label") && !popupWrapper.hasAttribute("aria-labelledby")) {
+    const heading = popupWrapper.querySelector("h1, h2, h3, h4");
+    if (heading) {
+      if (!heading.id) heading.id = popupId + "-title";
+      popupWrapper.setAttribute("aria-labelledby", heading.id);
+    }
+  }
+  if (!popupWrapper.hasAttribute("tabindex")) popupWrapper.setAttribute("tabindex", "-1");
+  popupWrapper.focus();
 }
 
 function mdClosePopup(popupId) {
   const popupWrapper = document.getElementById(popupId);
+  if (!popupWrapper) return;
+  const wasOpen = popupWrapper.style.visibility === "visible";
   popupWrapper.style.display = "none";
   popupWrapper.style.opacity = "0";
   popupWrapper.style.visibility = "hidden";
   popupWrapper.style.zIndex = "-99999999999";
+  popupWrapper.removeAttribute("aria-modal");
+  if (wasOpen && popupReturnFocus) {
+    popupReturnFocus.focus();
+    popupReturnFocus = null;
+  }
 }
+
+// Keep Tab within whichever popup is open
+document.addEventListener("keydown", function (e) {
+  if (e.key !== "Tab") return;
+  const popup = Array.from(document.querySelectorAll('.popup-modal[aria-modal="true"]')).find(
+    (el) => el.style.visibility === "visible"
+  );
+  if (!popup) return;
+  const items = Array.from(
+    popup.querySelectorAll('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])')
+  ).filter((el) => !el.disabled && el.offsetParent !== null);
+  if (!items.length) return;
+  const first = items[0];
+  const last = items[items.length - 1];
+  if (!popup.contains(document.activeElement)) {
+    e.preventDefault();
+    first.focus();
+  } else if (e.shiftKey && (document.activeElement === first || document.activeElement === popup)) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+});
 
 function openPopupdis(popupId) {
   const popupWrapper = document.getElementById(popupId);

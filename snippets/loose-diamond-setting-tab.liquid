@@ -279,7 +279,7 @@
         <div class="spec-info">
           <span class="spec-label">Certificate</span>
           <strong class="spec-value">
-            <a href="https://www.gia.edu/report-check?reportno=123456789" target="_blank" rel="noopener noreferrer" aria-label="Verify GIA certificate number 123456789 (opens in new tab)" class="certificate {% if certNumTags.size > 0 %}cert-popup-pdp{% endif %} open-cert-popup-pdp" data-cert-url="{%- if product.metafields.vdb_product.vdb_cert_url.size > 0 %}{{- product.metafields.vdb_product.vdb_cert_url -}}{% endif -%}">
+            <a href="https://www.gia.edu/report-check?reportno=123456789" target="_blank" rel="noopener noreferrer" aria-label="{% if certNumTags.size > 0 %}#{{ certNumTags | remove: 'cert_num_' | escape }} certificate{% else %}Certificate{% endif %} (opens in new tab)" class="certificate {% if certNumTags.size > 0 %}cert-popup-pdp{% endif %} open-cert-popup-pdp" data-cert-url="{%- if product.metafields.vdb_product.vdb_cert_url.size > 0 %}{{- product.metafields.vdb_product.vdb_cert_url -}}{% endif -%}">
               {%- if certNumTags.size > 0 %}
                 #
                 {{- certNumTags | remove: 'cert_num_' -}}

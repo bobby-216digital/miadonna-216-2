@@ -323,7 +323,6 @@
     class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
     type="button"
     data-filter="carat"
-    aria-label="Filter by carat. Range {{ caratMinParams }} to {{ caratMaxParams }} carats"
   >
     <span class="filter-label">Carat:</span>
     <span class="filter-value">{{caratMinParams }} ct - {{caratMaxParams }} ct</span>
@@ -371,7 +370,6 @@
     class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
     type="button"
     data-filter="price"
-    aria-label="Filter by price. Range {{ priceMinParams | times: 100 | money }} to {{ priceMaxParams | times: 100 | money }}"
   >
     <span class="filter-label">Price:</span>
      {% assign min_int = priceMinParams | floor %}
@@ -439,7 +437,6 @@
     class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
     type="button"
     data-filter="cut"
-    aria-label="Filter by cut. Selected {{ cutParamsArrayFirst }}{% if cutParamsArrayFirst != cutParamsArrayLast %} plus {{ cutcount | minus: 1 }} more{% endif %}"
   >
     <span class="filter-label">Cut:</span>
     <span class="filter-value"> {{cutParamsArrayFirst }}
@@ -506,7 +503,6 @@
     class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
     type="button"
     data-filter="color"
-    aria-label="Filter by color. Selected {{ colorParamsArraylabel }}{% if colorParamsArrayFirst != colorParamsArrayLast %} {{ colorcount }} more{% endif %}"
   >
         <span class="filter-label">Color:</span>
         <span class="filter-value"> {{colorParamsArraylabel }}
@@ -572,7 +568,6 @@
     class="filter-pill vdb-lb-advanced-filter-mobile-view-open"
     type="button"
     data-filter="clarity"
-    aria-label="Filter by clarity. Selected {{ clarityParamsArray | first }}{% if clarityParamsArrayFirst != clarityParamsArrayLast %} plus {{ claritycount | minus: 1 }} more{% endif %}"
   >
     <span class="filter-label">Clarity:</span>
     <span class="filter-value">{{clarityParamsArray|first }}
