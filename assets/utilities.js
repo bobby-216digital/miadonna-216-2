@@ -293,18 +293,27 @@ window.PXUTheme.dropdownMenu = function () {
     const hasPanel = function () {
       return $navItem.find(".mega-menu__section, .navbar-dropdown").length > 0;
     };
+    const $toggle = function () {
+      return $navItem.children(".navbar-submenu-toggle");
+    };
     const closePanel = function () {
       $navItem.removeClass("show-dropdown");
       $navItem.find(".mega-menu__section").removeClass("is-active");
-      if (hasPanel()) $(item).attr("aria-expanded", "false");
+      if ($toggle().length) {
+        $toggle().attr("aria-expanded", "false");
+      } else if (hasPanel()) {
+        $(item).attr("aria-expanded", "false");
+      }
       itemVisited = false;
     };
     $(item).on("focus", function () {
-      if (hasPanel() && !this.hasAttribute("aria-expanded")) {
+      if (hasPanel() && !$toggle().length && !this.hasAttribute("aria-expanded")) {
         $(this).attr("aria-expanded", "false");
       }
     });
     $(item).on("keydown", function (e) {
+      // Items with a submenu toggle open from the toggle; the link just navigates
+      if ($toggle().length) return;
       // Check if enter key
       if (e.which === 13) {
         // Prevent it from going to the link
@@ -325,7 +334,7 @@ window.PXUTheme.dropdownMenu = function () {
     $navItem.on("keydown", function (e) {
       if (e.key === "Escape" && $navItem.hasClass("show-dropdown")) {
         closePanel();
-        $(item).trigger("focus");
+        ($toggle().length ? $toggle() : $(item)).trigger("focus");
       }
     });
     $navItem.on("focusout", function (e) {
@@ -333,6 +342,21 @@ window.PXUTheme.dropdownMenu = function () {
         closePanel();
       }
     });
+  });
+
+  // Submenu toggles added alongside mega menu parent links
+  $(document).off("click.submenuToggle").on("click.submenuToggle", ".navbar-submenu-toggle", function (e) {
+    e.preventDefault();
+    const $navItem = $(this).closest(".navbar-item");
+    const isOpen = $navItem.hasClass("show-dropdown");
+    $(".navbar-item.show-dropdown").removeClass("show-dropdown");
+    $(".mega-menu__section").removeClass("is-active");
+    $(".navbar-submenu-toggle").attr("aria-expanded", "false");
+    if (!isOpen) {
+      $navItem.addClass("show-dropdown");
+      $navItem.find(".mega-menu__section").addClass("is-active");
+      $(this).attr("aria-expanded", "true");
+    }
   });
 
   // Listen for enter key
@@ -361,6 +385,7 @@ window.PXUTheme.dropdownMenu = function () {
     $(item).on("keydown", function (e) {
       // Only the top-level link toggles the panel; keys inside it behave normally
       if ($(e.target).closest(".mega-menu__section, .mega-menu").length) return;
+      if ($(this).children(".navbar-submenu-toggle").length) return;
       // Check if enter key
       if (e.which === 13) {
         // Prevent it from going to the link

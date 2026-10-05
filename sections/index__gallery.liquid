@@ -142,12 +142,12 @@
                 {% if section.settings.enable_lightbox or block.settings[link] != blank %}
                   <div class="gallery-item__overlay is-flex is-align-center is-justify-center">
                     {% if section.settings.enable_lightbox %}
-                      <a href="{{ image |  img_url: '2000x' }}" data-fancybox="{{ section.id }}" class="gallery__link">
+                      <a href="{{ image |  img_url: '2000x' }}" data-fancybox="{{ section.id }}" class="gallery__link" aria-label="Enlarge image{% if image.alt != blank %}: {{ image.alt | escape }}{% endif %}">
                         {% render 'icon', name: 'zoom' %}
                       </a>
                     {% endif %}
                     {% if block.settings[link] != blank %}
-                      <a href="{{ block.settings[link] }}" class="gallery__link">
+                      <a href="{{ block.settings[link] }}" class="gallery__link" aria-label="{{ image.alt | default: 'View gallery item link' | escape }}">
                         {% render 'icon', name: 'link' %}
                       </a>
                     {% endif %}
@@ -162,12 +162,12 @@
                 {% if section.settings.enable_lightbox or block.settings[link] != blank %}
                   <div class="gallery-item__overlay is-flex is-align-center is-justify-center">
                     {% if section.settings.enable_lightbox %}
-                      <a href="{{ image |  img_url: '2000x' }}" data-fancybox="{{ section.id }}" class="gallery__link">
+                      <a href="{{ image |  img_url: '2000x' }}" data-fancybox="{{ section.id }}" class="gallery__link" aria-label="Enlarge image{% if image.alt != blank %}: {{ image.alt | escape }}{% endif %}">
                         {% render 'icon', name: 'zoom' %}
                       </a>
                     {% endif %}
                     {% if block.settings[link] != blank %}
-                      <a href="{{ block.settings[link] }}" class="gallery__link">
+                      <a href="{{ block.settings[link] }}" class="gallery__link" aria-label="{{ image.alt | default: 'View gallery item link' | escape }}">
                         {% render 'icon', name: 'link' %}
                       </a>
                     {% endif %}

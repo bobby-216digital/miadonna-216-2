@@ -162,7 +162,7 @@
           text_alignment: 'center'
         %}
         {%- if collection.description != blank -%}
-          <div class="collection__description content" tabindex="0">
+          <div class="collection__description content">
             {{
               collection.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx 
             }}

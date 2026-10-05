@@ -10,7 +10,7 @@ link_setting: <string>
 <div class="footer__menu is-justify-space-between {{ linklist_class }}">
 {% if menu_link != blank %}
   {% assign menu = linklists[menu_link] %}
-  <div class="footerlink__heading" tabindex="0">
+  <div class="footerlink__heading" role="heading" aria-level="2">
     {% if link_setting != blank %}<a href="{{ link_setting }}">{% endif %}
       {{ menu.title }}
     {% if link_setting != blank %}</a>{% endif %}

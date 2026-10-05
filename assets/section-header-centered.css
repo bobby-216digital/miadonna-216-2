@@ -766,3 +766,8 @@
       right: 3px;
   }
 }
+/* Submenu toggles: hidden until reached by keyboard */
+.navbar-submenu-toggle {position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; background: none;}
+.navbar-submenu-toggle:focus {position: relative; width: 10px; height: 14px; margin: 0 -11px 0 1px; outline-offset: 0; overflow: visible; clip: auto; font-size: 0; color: transparent; cursor: pointer; align-self: center;}
+.navbar-submenu-toggle:focus::before {content: ""; position: absolute; top: 3px; left: 2px; width: 5px; height: 5px; border-right: 1.5px solid #1c1b19; border-bottom: 1.5px solid #1c1b19; transform: rotate(45deg);}
+.navbar-submenu-toggle[aria-expanded="true"]:focus::before {top: 6px; transform: rotate(-135deg);}

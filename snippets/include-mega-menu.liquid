@@ -697,7 +697,7 @@
           {%- endif -%}
         {%- endfor -%}
         {%- if image_html and image_html != blank -%}
-        <div class="banner-section" aria-label="Promotional Banners">
+        <div class="banner-section" role="group" aria-label="Promotional Banners">
           {{ image_html | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
           {%- comment -%}
             <div class="banner-card">

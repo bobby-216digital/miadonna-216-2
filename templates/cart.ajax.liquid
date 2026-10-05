@@ -66,7 +66,7 @@
     method="post"
     class="ajax-cart__form {% if cart.item_count == 0 %}is-hidden{% endif %}"
   >
-    <div id="ajax-cart__items" class="ajax-cart__list" aria-label="Cart Items">
+    <div id="ajax-cart__items" class="ajax-cart__list" role="group" aria-label="Cart Items">
       {% assign total_saving = 0 %}
       {% comment %} Loop through cart products {% endcomment %}
       {% for item in cart.items %}

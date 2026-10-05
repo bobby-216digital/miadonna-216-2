@@ -68,6 +68,7 @@
             <select
               name="tag_filter"
               id="tag_filter"
+              aria-label="Filter by tag"
               class="tag_filter"
               data-default-collection="{% if collection.handle == 'all' %}{{ routes.all_products_collection_url }}{% else %}{{ collection.url }}{% endif %}"
             >

@@ -88,6 +88,21 @@ document.addEventListener("DOMContentLoaded", function () {
   flkty.on("settle", function () {
     updateAccessibility();
   });
+
+  // Keep the focused announcement in place while keyboard focus is inside
+  var pausedForFocus = false;
+  elem.addEventListener("focusin", function () {
+    if (flkty.player && flkty.player.state === "playing") {
+      flkty.stopPlayer();
+      pausedForFocus = true;
+    }
+  });
+  elem.addEventListener("focusout", function (e) {
+    if (pausedForFocus && !elem.contains(e.relatedTarget)) {
+      pausedForFocus = false;
+      flkty.playPlayer();
+    }
+  });
 });
 
 // Sub Footer Slider JS
@@ -129,6 +144,10 @@ $(document).ready(function () {
       $accordionItem.removeClass("is-open");
       $accordionContent.slideUp();
     }
+
+    $(".sub_footer-accordion-title[aria-expanded]").each(function () {
+      $(this).attr("aria-expanded", $(this).parent().hasClass("is-open"));
+    });
   });
   // $(".tag_filter--slider").flickity({
   //   prevNextButtons: false,
@@ -142,6 +161,10 @@ $(document).ready(function () {
   //   accessibility: true, //true by default
   //   autoPlay: false, // advance cells every 3 seconds
   // });
+  // Several cards are visible at once, so don't hide unselected cells
+  $(".blog-slider").on("ready.flickity select.flickity", function () {
+    $(this).find(".flickity-slider > [aria-hidden]").removeAttr("aria-hidden");
+  });
   $(".blog-slider").flickity({
     wrapAround: false,
     pageDots: false,

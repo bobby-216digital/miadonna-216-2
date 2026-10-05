@@ -122,7 +122,7 @@
 <section class="common-spacing home-collection-prd" role="region" aria-labelledby="trending-styles-heading">
  <div class="contanier-nw"> 
   <div class="slider-wrapper">
-    <h2 class="common-hd" tabindex="0" id="trending-styles-heading">{{ section.settings.main_heading }}</h2>
+    <h2 class="common-hd" id="trending-styles-heading">{{ section.settings.main_heading }}</h2>
 
     {% assign buttonTextEmpty = false %}
     {% assign buttonCount = 0 %}
@@ -196,7 +196,7 @@
                     </h3>
                   </a>
                   {%- if section.settings.show_price -%}
-                    <p tabindex="0">
+                    <p>
                       {% render 'price-element', price: product.selected_or_first_available_variant.price, product: product %}
                       {% if product.metafields.attributes.collection_product_price == blank %}
                         {% assign is_show_setting_only = 'yes' %}

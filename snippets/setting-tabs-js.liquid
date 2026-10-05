@@ -985,6 +985,14 @@
 				createPriceCalculator(true);
 				varientProductsChangeEvents();
 			});
+
+			// Arrow keys check the radio without clicking the label, so apply the selection here too
+			const radio = document.getElementById(element.htmlFor);
+			if (radio) {
+				radio.addEventListener('change', function (e) {
+					if (e.isTrusted && radio.checked && !element.classList.contains('active')) element.click();
+				});
+			}
 		});
 	}
 

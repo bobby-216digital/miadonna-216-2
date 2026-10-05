@@ -283,6 +283,7 @@
                                                 {% assign shaprId = shapes | replace: ' ', '_' %}
                                     <input class="input_value visually-hidden" id="{{shaprId}}" type="radio" name="shape" value="{{shapes}}" data-product-handle="{{ product_bundle.handle }}" data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}" {% if product.metafields.attributes.shapes == shapes %}checked{% endif %}>
                                                 <label class="input_label" for="{{shaprId}}">
+                                                  <span class="visually-hidden">{{ shapes }}</span>
                                                     {% if shapes == 'Round Cut' %}
                                                         {% render 'icon-shape-round-cut' %}
                                                     {% elsif shapes == 'Princess Cut' %}
@@ -1787,7 +1788,7 @@
                       </span>
                       <span class="button_text">U.S. Ring Size:</span>
                       <span id="ring_sizes_selected_value" class="ring_sizes_selected_value"></span>
-                      <span class="size-guide line-hover" onclick="ringSizerPopup()"><b>Size Guide </b></span>
+                      <span class="size-guide line-hover" role="button" tabindex="0" onclick="ringSizerPopup()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}"><b>Size Guide </b></span>
                     </div>
                     <div class="setting-accordion-content pdp-item-options">
                       <div class="select-wrapper">

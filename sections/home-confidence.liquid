@@ -1,9 +1,9 @@
 <section class="confidence-section {{ section.settings.class }}" role="region" aria-labelledby="made-for-your-story-heading">
     <div class="confidence-inner radius-2">
-      <h2 id="made-for-your-story-heading" class="common-hd" tabindex="0">
+      <h2 id="made-for-your-story-heading" class="common-hd">
         {{ section.settings.heading }}
       </h2>
-      <p tabindex="0">{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+      <p>{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
       <div class="confidence-row" role="list">
         {% for block in section.blocks %}
           <div class="confidence-box" role="listitem">

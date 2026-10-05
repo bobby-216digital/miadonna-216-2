@@ -5,41 +5,26 @@ window.PXUTheme.jsSidebar = {
     const facetedFilterForm = document.querySelector('[data-faceted-filter-form]');
 
     if (facetedFilterForm) {
+      // Keyboard users pick filters and then use Apply, rather than reloading on every checkbox
+      let changedByKeyboard = false;
+      facetedFilterForm.addEventListener('keydown', e => {
+        changedByKeyboard = (e.key === ' ' || e.key === 'Enter') && e.target.matches('input[type="checkbox"], input[type="radio"]');
+      });
+      facetedFilterForm.addEventListener('pointerdown', () => {
+        changedByKeyboard = false;
+      });
+      facetedFilterForm.addEventListener('submit', e => {
+        e.preventDefault();
+        window.PXUTheme.jsSidebar.applyFacetedFilters(facetedFilterForm);
+      });
+
       facetedFilterForm.addEventListener('change', e => {
         if (e.target.type === 'number') return;
-        /*
-          We need to ensure search params unrelated to the faceted filtering (eg. sorting or
-          vendors collection) remain in the URL and only the faceted filtering params get updated.
-          In order to do this, instead of submitting the `facetedFilterForm` form, we'll
-          just get the faceted filter params we need from it and add it to the URL ourselves.
-        */
-        const formData = new FormData(facetedFilterForm);
-        const facetedFilterSearchParams = new URLSearchParams(formData);
-        const existingSearchParams = new URLSearchParams(window.location.search);
-        const newSearchParams = new URLSearchParams();
-
-        /*
-          facetedFilterSearchParams.entries() and existingSearchParams.entries() return
-          an iterator, and looping over them using a for-of loop causes an ESLint warning
-          with the current config. Hence, we'll convert them into an array first.
-        */
-        Array.from(facetedFilterSearchParams.entries(), ([key, value]) => {
-          newSearchParams.append(key, value);
-          return null;
-        });
-
-        Array.from(existingSearchParams.entries(), ([key, value]) => {
-          /*
-            Do not set or update key-value pair if key is related to faceted filtering.
-            This is to help prevent unrelated params (eg. sorting) from getting removed.
-          */
-          if (!key.includes('filter.p') && !key.includes('filter.v')) {
-            newSearchParams.append(key, value);
-          }
-          return null;
-        });
-
-        window.location.search = newSearchParams.toString();
+        if (changedByKeyboard) {
+          changedByKeyboard = false;
+          return;
+        }
+        window.PXUTheme.jsSidebar.applyFacetedFilters(facetedFilterForm);
       });
     }
 
@@ -68,6 +53,41 @@ window.PXUTheme.jsSidebar = {
       $('.section--has-sidebar-option').removeClass('has-sidebar-enabled');
       $('.section--has-sidebar-option').addClass('has-sidebar-disabled');
     }
+  },
+  applyFacetedFilters(facetedFilterForm) {
+    /*
+      We need to ensure search params unrelated to the faceted filtering (eg. sorting or
+      vendors collection) remain in the URL and only the faceted filtering params get updated.
+      In order to do this, instead of submitting the `facetedFilterForm` form, we'll
+      just get the faceted filter params we need from it and add it to the URL ourselves.
+    */
+    const formData = new FormData(facetedFilterForm);
+    const facetedFilterSearchParams = new URLSearchParams(formData);
+    const existingSearchParams = new URLSearchParams(window.location.search);
+    const newSearchParams = new URLSearchParams();
+
+    /*
+      facetedFilterSearchParams.entries() and existingSearchParams.entries() return
+      an iterator, and looping over them using a for-of loop causes an ESLint warning
+      with the current config. Hence, we'll convert them into an array first.
+    */
+    Array.from(facetedFilterSearchParams.entries(), ([key, value]) => {
+      newSearchParams.append(key, value);
+      return null;
+    });
+
+    Array.from(existingSearchParams.entries(), ([key, value]) => {
+      /*
+        Do not set or update key-value pair if key is related to faceted filtering.
+        This is to help prevent unrelated params (eg. sorting) from getting removed.
+      */
+      if (!key.includes('filter.p') && !key.includes('filter.v')) {
+        newSearchParams.append(key, value);
+      }
+      return null;
+    });
+
+    window.location.search = newSearchParams.toString();
   },
   openSidebarBlock($toggleBtn) {
     const $parentBlock = $toggleBtn.closest('.sidebar__block');

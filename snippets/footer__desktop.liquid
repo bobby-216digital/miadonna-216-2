@@ -92,7 +92,6 @@
                 alt="Certified B Corporation"
                 width="auto"
                 height="auto"
-                tabindex="0"
               >          
               {% comment %} <img
                 loading="lazy"
@@ -143,13 +142,13 @@
               {% comment %} Newsletter {% endcomment %}
               <div class="newsletter-text">
               {% if block.settings.newsletter_title != blank %}
-                <p class="footer__heading" tabindex="0">
+                <p class="footer__heading">
                   {{ block.settings.newsletter_title }}
                 </p>
               {% endif %}
       
               {% if block.settings.newsletter_richtext != blank %}
-                <div class="content" tabindex="0">
+                <div class="content">
                   {{ block.settings.newsletter_richtext }}
                 </div>
               {% endif %}
@@ -298,7 +297,7 @@
         {% endif %}
         <ul class="footer__policy one-half medium-down--one-whole column">
           <li>
-            <p tabindex="0">
+            <p>
               &copy; {{ 'now' | date: '%Y' }}
               {{ shop.name | link_to: shop.url }} & Co.
             </p>

@@ -297,6 +297,7 @@
                           data-allow-image-convention="{% if allow_image_convention > 0 %}Yes{% else %}No{% endif %}"
                         >
                         <label class="input_label" for="{{shaprId}}">
+                          <span class="visually-hidden">{{ shapes }}</span>
                           {% if shapes == 'Round Cut' %}
                             {% render 'icon-shape-round-cut' %}
                           {% elsif shapes == 'Princess Cut' %}
@@ -724,7 +725,8 @@
                                 for="{{metalId}}"
                                 {% comment %} style="background-color: {{metalColor}} !important"{% endcomment %}
                               >
-                                {{- metalLabel1 -}}
+                                <span aria-hidden="true">{{- metalLabel1 -}}</span>
+                                <span class="visually-hidden">{{ metals }}</span>
                               </label>
                             </div>
                             <p>{{ metalLabel2 }}</p>
@@ -1898,7 +1900,7 @@
                         </span>
                         <span class="button_text">U.S. Ring Size:</span>
                         <span id="ring_sizes_selected_value" class="ring_sizes_selected_value"></span>
-                        <span class="size-guide line-hover" onclick="ringSizerPopup()"
+                        <span class="size-guide line-hover" role="button" tabindex="0" onclick="ringSizerPopup()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}"
                           ><b>
                             {%- if product.metafields.attributes.sizes_label != blank %}
                               {{- product.metafields.attributes.sizes_label -}}
@@ -2008,7 +2010,7 @@
                         >
                         <span id="ring_sizes2_selected_value" class="ring_sizes2_selected_value"></span>
                       </div>
-                      <span class="size-guide" onclick="ringSizerPopup()"
+                      <span class="size-guide" role="button" tabindex="0" onclick="ringSizerPopup()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}"
                         ><b>
                           {%- if product.metafields.attributes.sizes_label2 != blank %}
                             {{- product.metafields.attributes.sizes_label2 -}}
